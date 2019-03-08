@@ -278,7 +278,9 @@ class CertificateIssuer(Entity):
             unpack=self,
         )
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(
+        self, include=None, max_results=None, page_size=None, order=None, filter=None
+    ):
         """Get certificate issuers list.
 
         api documentation:
@@ -300,6 +302,9 @@ class CertificateIssuer(Entity):
             default `ASC`.
         :type order: str
         
+        :param filter: Filtering when listing entities is not supported by the API for this entity.
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateIssuer)
         """

@@ -127,7 +127,7 @@ class {{ entity._key|to_pascal }}(Entity):
     {% endif %}
     def {% if method.private_method %}_{% endif %}{{method._key|to_snake}}(
         {% if method.pagination and method.custom_method %}
-            self, include=None, max_results=None, page_size=None, order=None
+            self, include=None, max_results=None, page_size=None, order=None, filter=None
         {% else %}
             self
             {% for field in method.fields|sort_parg_kwarg %}
@@ -142,24 +142,43 @@ class {{ entity._key|to_pascal }}(Entity):
         {% endif %}
         ):
         """{{method.summary}}
-
-        {% if method.path %}api documentation:
-        https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
         {%- if method.x_filter %}
 
-        API Filters
-        ===========
+        **API Filters**
+
+        The following filters are supported by the API when listing {{ entity._key|to_pascal }} entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
         +======================+======+======+======+======+======+======+======+
-        {%- for field_name, fiter_operator in method.x_filter.items() %}
+        {%- for field_name, filter_operator in method.x_filter.items() %}
         | {{'%-20s'|format(field_name)}} |
         {%- for supported_filter in ["eq", "neq", "gte", "lte", "in", "nin", "like"] %}
-        {%- if supported_filter in fiter_operator %}  x   |{% else %}      |{% endif -%}
+        {%- if supported_filter in filter_operator %}  x   |{% else %}      |{% endif -%}
         {%- endfor %}
         +----------------------+------+------+------+------+------+------+------+
-        {%- endfor %}{%- endif %}
+        {%- endfor %}
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        {%- for field_name, filter_operator in method.x_filter.items() -%}
+        {% if loop.index == 1 %}
+        api_filter.add_filter("{{ field_name }}", "{{ filter_operator[0] }}", <filter value>){%- endif -%}
+        {%- endfor %}
+        for {{ entity._key|to_snake }} in {{ entity._key|to_pascal }}.{{method._key|to_snake}}(filter=api_filter)
+        {%- for field_name, filter_operator in method.x_filter.items() %}
+        {%- if loop.index == 1 %}
+            print {{ entity._key|to_snake }}.{{ field_name }}
+        {%- endif -%}
+        {%- endfor %}
+        ...
+        {%- else %}
+
+        {% if method.path %}api documentation:
+        https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
+        {%- endif %}
         {%- if method.pagination and method.custom_method %}
         {% for field in method.fields if field._key != "after" %}{% if field.external_param %}
         {%- if field._key == "limit" %}
@@ -172,6 +191,13 @@ class {{ entity._key|to_pascal }}(Entity):
         :param {{field_name}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
         :type {{field_name}}: {{ (field.foreign_key and 'mbed_cloud.foundation.entities.' + field.foreign_key.entity|to_pascal) or field.python_type}}
         {% endif %}{% endfor %}
+        {%- if method.x_filter %}
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
+        {%- else %}
+        :param filter: Filtering when listing entities is not supported by the API for this entity.
+        {%- endif %}
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         {%- else %}
         {% for field in method.fields %}{% if field.external_param %}

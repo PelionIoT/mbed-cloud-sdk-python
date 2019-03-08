@@ -301,20 +301,29 @@ class UserInvitation(Entity):
             unpack=self,
         )
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(
+        self, include=None, max_results=None, page_size=None, order=None, filter=None
+    ):
         """Get the details of all the user invitations.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing UserInvitation entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
         +======================+======+======+======+======+======+======+======+
         | login_profile        |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("login_profile", "eq", <filter value>)
+        for user_invitation in UserInvitation.list(filter=api_filter)
+            print user_invitation.login_profile
+        ...
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
@@ -326,6 +335,9 @@ class UserInvitation(Entity):
             default ASC
         :type order: str
         
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(UserInvitation)
         """
@@ -346,17 +358,24 @@ class UserInvitation(Entity):
     def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
         """Get the details of all the user invitations.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing UserInvitation entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
         +======================+======+======+======+======+======+======+======+
         | login_profile        |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("login_profile", "eq", <filter value>)
+        for user_invitation in UserInvitation.paginate_list(filter=api_filter)
+            print user_invitation.login_profile
+        ...
         
         :param after: The entity ID to fetch after the given one.
         :type after: str

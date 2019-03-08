@@ -229,14 +229,14 @@ class CertificateEnrollment(Entity):
 
         self._updated_at.set(value)
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(
+        self, include=None, max_results=None, page_size=None, order=None, filter=None
+    ):
         """Get certificate enrollments list.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing CertificateEnrollment entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -253,6 +253,15 @@ class CertificateEnrollment(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | updated_at           |      |      |  x   |  x   |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("certificate_name", "eq", <filter value>)
+        for certificate_enrollment in CertificateEnrollment.list(filter=api_filter)
+            print certificate_enrollment.certificate_name
+        ...
         
         :param include: a comma-separated list of data fields to return.
         :type include: str
@@ -266,6 +275,9 @@ class CertificateEnrollment(Entity):
         :param order: The order of results.
         :type order: str
         
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateEnrollment)
         """
@@ -286,11 +298,9 @@ class CertificateEnrollment(Entity):
     def _paginate_list(self, after=None, include=None, limit=None, order=None):
         """Get certificate enrollments list.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing CertificateEnrollment entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -307,6 +317,15 @@ class CertificateEnrollment(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | updated_at           |      |      |  x   |  x   |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("certificate_name", "eq", <filter value>)
+        for certificate_enrollment in CertificateEnrollment.paginate_list(filter=api_filter)
+            print certificate_enrollment.certificate_name
+        ...
         
         :param after: The ID of the item after which to retrieve the next page.
         :type after: str

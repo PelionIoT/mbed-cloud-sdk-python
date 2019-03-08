@@ -1232,14 +1232,14 @@ class Account(Entity):
             unpack=self,
         )
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(
+        self, include=None, max_results=None, page_size=None, order=None, filter=None
+    ):
         """Get all accounts.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing Account entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -1254,6 +1254,15 @@ class Account(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | tier                 |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("country", "like", <filter value>)
+        for account in Account.list(filter=api_filter)
+            print account.country
+        ...
         
         :param format: Format information for the response to the query, supported:
             format=breakdown.
@@ -1276,6 +1285,9 @@ class Account(Entity):
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
         
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(Account)
         """
@@ -1329,11 +1341,9 @@ class Account(Entity):
     ):
         """Get all accounts.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing Account entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -1348,6 +1358,15 @@ class Account(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | tier                 |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("country", "like", <filter value>)
+        for account in Account.paginate_list(filter=api_filter)
+            print account.country
+        ...
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1394,11 +1413,9 @@ class Account(Entity):
     ):
         """Get all trusted certificates.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing Account entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -1423,6 +1440,15 @@ class Account(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | valid                |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("device_execution_mode", "eq", <filter value>)
+        for account in Account.paginate_trusted_certificates(filter=api_filter)
+            print account.device_execution_mode
+        ...
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1461,17 +1487,24 @@ class Account(Entity):
     ):
         """Get the details of all the user invitations.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/user-invitations
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing Account entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
         +======================+======+======+======+======+======+======+======+
         | login_profile        |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("login_profile", "eq", <filter value>)
+        for account in Account.paginate_user_invitations(filter=api_filter)
+            print account.login_profile
+        ...
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1507,11 +1540,9 @@ class Account(Entity):
     def _paginate_users(self, after=None, include=None, limit=50, order="ASC"):
         """Get all user details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing Account entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -1522,6 +1553,15 @@ class Account(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | status               |  x   |      |      |      |  x   |  x   |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("email", "eq", <filter value>)
+        for account in Account.paginate_users(filter=api_filter)
+            print account.email
+        ...
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1583,15 +1623,13 @@ class Account(Entity):
         )
 
     def trusted_certificates(
-        self, include=None, max_results=None, page_size=None, order=None
+        self, include=None, max_results=None, page_size=None, order=None, filter=None
     ):
         """Get all trusted certificates.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing Account entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -1616,6 +1654,15 @@ class Account(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | valid                |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("device_execution_mode", "eq", <filter value>)
+        for account in Account.trusted_certificates(filter=api_filter)
+            print account.device_execution_mode
+        ...
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -1631,6 +1678,9 @@ class Account(Entity):
             default ASC
         :type order: str
         
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantTrustedCertificate)
         """
@@ -1690,21 +1740,28 @@ class Account(Entity):
         )
 
     def user_invitations(
-        self, include=None, max_results=None, page_size=None, order=None
+        self, include=None, max_results=None, page_size=None, order=None, filter=None
     ):
         """Get the details of all the user invitations.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/user-invitations
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing Account entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
         +======================+======+======+======+======+======+======+======+
         | login_profile        |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("login_profile", "eq", <filter value>)
+        for account in Account.user_invitations(filter=api_filter)
+            print account.login_profile
+        ...
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
@@ -1716,6 +1773,9 @@ class Account(Entity):
             default ASC
         :type order: str
         
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantUserInvitation)
         """
@@ -1733,14 +1793,14 @@ class Account(Entity):
             wraps=self._paginate_user_invitations,
         )
 
-    def users(self, include=None, max_results=None, page_size=None, order=None):
+    def users(
+        self, include=None, max_results=None, page_size=None, order=None, filter=None
+    ):
         """Get all user details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing Account entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -1751,6 +1811,15 @@ class Account(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | status               |  x   |      |      |      |  x   |  x   |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("email", "eq", <filter value>)
+        for account in Account.users(filter=api_filter)
+            print account.email
+        ...
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -1766,6 +1835,9 @@ class Account(Entity):
             default ASC
         :type order: str
         
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantUser)
         """

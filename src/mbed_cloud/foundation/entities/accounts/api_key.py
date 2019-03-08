@@ -347,14 +347,14 @@ class ApiKey(Entity):
             unpack=self,
         )
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(
+        self, include=None, max_results=None, page_size=None, order=None, filter=None
+    ):
         """Get all API keys
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing ApiKey entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -363,6 +363,15 @@ class ApiKey(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | owner                |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("key", "eq", <filter value>)
+        for api_key in ApiKey.list(filter=api_filter)
+            print api_key.key
+        ...
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -378,6 +387,9 @@ class ApiKey(Entity):
             default ASC
         :type order: str
         
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(ApiKey)
         """
@@ -409,11 +421,9 @@ class ApiKey(Entity):
     def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
         """Get all API keys
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing ApiKey entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -422,6 +432,15 @@ class ApiKey(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | owner                |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("key", "eq", <filter value>)
+        for api_key in ApiKey.paginate_list(filter=api_filter)
+            print api_key.key
+        ...
         
         :param after: The entity ID to fetch after the given one.
         :type after: str

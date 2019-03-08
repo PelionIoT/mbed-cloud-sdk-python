@@ -329,7 +329,9 @@ class DeviceEvents(Entity):
 
         self._state_change.set(value)
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(
+        self, include=None, max_results=None, page_size=None, order=None, filter=None
+    ):
         """List all device events.
 
         api documentation:
@@ -351,6 +353,9 @@ class DeviceEvents(Entity):
             default `ASC`.
         :type order: str
         
+        :param filter: Filtering when listing entities is not supported by the API for this entity.
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(DeviceEvents)
         """

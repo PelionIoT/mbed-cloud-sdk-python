@@ -720,14 +720,14 @@ class User(Entity):
             unpack=self,
         )
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(
+        self, include=None, max_results=None, page_size=None, order=None, filter=None
+    ):
         """Get the details of all users.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing User entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -738,6 +738,15 @@ class User(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | status               |  x   |      |      |      |  x   |  x   |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("email", "eq", <filter value>)
+        for user in User.list(filter=api_filter)
+            print user.email
+        ...
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -753,6 +762,9 @@ class User(Entity):
             default ASC
         :type order: str
         
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(User)
         """
@@ -773,11 +785,9 @@ class User(Entity):
     def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
         """Get the details of all users.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing User entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
@@ -788,6 +798,15 @@ class User(Entity):
         +----------------------+------+------+------+------+------+------+------+
         | status               |  x   |      |      |      |  x   |  x   |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("email", "eq", <filter value>)
+        for user in User.paginate_list(filter=api_filter)
+            print user.email
+        ...
         
         :param after: The entity ID to fetch after the given one.
         :type after: str

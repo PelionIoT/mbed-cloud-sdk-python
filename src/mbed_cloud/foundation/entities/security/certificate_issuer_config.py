@@ -236,20 +236,29 @@ class CertificateIssuerConfig(Entity):
             unpack=self,
         )
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(
+        self, include=None, max_results=None, page_size=None, order=None, filter=None
+    ):
         """Get certificate issuer configurations.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing CertificateIssuerConfig entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
         +======================+======+======+======+======+======+======+======+
         | certificate_reference |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("certificate_reference", "eq", <filter value>)
+        for certificate_issuer_config in CertificateIssuerConfig.list(filter=api_filter)
+            print certificate_issuer_config.certificate_reference
+        ...
         
         :param include: Comma-separated list of data fields to return. Currently supported:
             `total_count`
@@ -267,6 +276,9 @@ class CertificateIssuerConfig(Entity):
             default `ASC`.
         :type order: str
         
+        :param filter: An optional filter to apply when listing entities, please see the above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.ApiFilter
+
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateIssuerConfig)
         """
@@ -287,17 +299,24 @@ class CertificateIssuerConfig(Entity):
     def _paginate_list(self, after=None, include=None, limit=None, order=None):
         """Get certificate issuer configurations.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
+        **API Filters**
 
-        API Filters
-        ===========
+        The following filters are supported by the API when listing CertificateIssuerConfig entities:
 
         +----------------------+------+------+------+------+------+------+------+
         |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
         +======================+======+======+======+======+======+======+======+
         | certificate_reference |  x   |      |      |      |      |      |      |
         +----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+        api_filter = ApiFilter()
+        api_filter.add_filter("certificate_reference", "eq", <filter value>)
+        for certificate_issuer_config in CertificateIssuerConfig.paginate_list(filter=api_filter)
+            print certificate_issuer_config.certificate_reference
+        ...
         
         :param after: The ID of The item after which to retrieve the next page.
         :type after: str
