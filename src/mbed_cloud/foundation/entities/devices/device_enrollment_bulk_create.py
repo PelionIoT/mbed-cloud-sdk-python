@@ -333,9 +333,7 @@ class DeviceEnrollmentBulkCreate(Entity):
             method="post",
             path="/v3/device-enrollments-bulk-uploads",
             stream_params={
-                "enrollment_identities": fields.FileField(
-                    enrollment_identities
-                ).to_api()
+                "enrollment_identities": fields.FileField(enrollment_identities).to_api()
             },
             unpack=self,
         )

@@ -227,9 +227,7 @@ class Account(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         from mbed_cloud.foundation.entities.accounts.parent_account import ParentAccount
-        from mbed_cloud.foundation.entities.accounts.password_policy import (
-            PasswordPolicy,
-        )
+        from mbed_cloud.foundation.entities.accounts.password_policy import PasswordPolicy
         from mbed_cloud.foundation.entities.accounts.policy import Policy
 
         # fields
@@ -264,9 +262,7 @@ class Account(Entity):
             value=mfa_status, enum=enums.AccountMfaStatusEnum
         )
         self._notification_emails = fields.ListField(value=notification_emails)
-        self._parent_account = fields.DictField(
-            value=parent_account, entity=ParentAccount
-        )
+        self._parent_account = fields.DictField(value=parent_account, entity=ParentAccount)
         self._parent_id = fields.StringField(value=parent_id)
         self._password_policy = fields.DictField(
             value=password_policy, entity=PasswordPolicy
@@ -1232,9 +1228,7 @@ class Account(Entity):
             unpack=self,
         )
 
-    def list(
-        self, include=None, max_results=None, page_size=None, order=None, filter=None
-    ):
+    def list(self, include=None, max_results=None, page_size=None, order=None, filter=None):
         """Get all accounts.
 
         **API Filters**
@@ -1400,9 +1394,7 @@ class Account(Entity):
                 "format": fields.StringField(format).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.AccountOrderEnum
-                ).to_api(),
+                "order": fields.StringField(order, enum=enums.AccountOrderEnum).to_api(),
                 "properties": fields.StringField(properties).to_api(),
             },
             unpack=False,
@@ -1474,17 +1466,13 @@ class Account(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.AccountOrderEnum
-                ).to_api(),
+                "order": fields.StringField(order, enum=enums.AccountOrderEnum).to_api(),
             },
             path_params={"account_id": self._id.to_api()},
             unpack=False,
         )
 
-    def _paginate_user_invitations(
-        self, after=None, include=None, limit=50, order="ASC"
-    ):
+    def _paginate_user_invitations(self, after=None, include=None, limit=50, order="ASC"):
         """Get the details of all the user invitations.
 
         **API Filters**
@@ -1529,9 +1517,7 @@ class Account(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.AccountOrderEnum
-                ).to_api(),
+                "order": fields.StringField(order, enum=enums.AccountOrderEnum).to_api(),
             },
             path_params={"account_id": self._id.to_api()},
             unpack=False,
@@ -1587,9 +1573,7 @@ class Account(Entity):
                 "after": fields.StringField(after).to_api(),
                 "include": fields.StringField(include).to_api(),
                 "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.AccountOrderEnum
-                ).to_api(),
+                "order": fields.StringField(order, enum=enums.AccountOrderEnum).to_api(),
             },
             path_params={"account_id": self._id.to_api()},
             unpack=False,

@@ -917,9 +917,7 @@ class InstanceFactory:
 
         return PasswordPolicy(_client=self._client, minimum_length=minimum_length)
 
-    def policy(
-        self, action=None, allow=None, feature=None, inherited=None, resource=None
-    ):
+    def policy(self, action=None, allow=None, feature=None, inherited=None, resource=None):
         """Creates a local `Policy` instance, binding the client
 
         :param action: Comma separated list of actions, empty string represents all

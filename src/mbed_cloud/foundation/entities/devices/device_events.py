@@ -329,9 +329,7 @@ class DeviceEvents(Entity):
 
         self._state_change.set(value)
 
-    def list(
-        self, include=None, max_results=None, page_size=None, order=None, filter=None
-    ):
+    def list(self, include=None, max_results=None, page_size=None, order=None, filter=None):
         """List all device events.
 
         api documentation:

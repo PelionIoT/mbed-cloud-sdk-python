@@ -278,9 +278,7 @@ class CertificateIssuer(Entity):
             unpack=self,
         )
 
-    def list(
-        self, include=None, max_results=None, page_size=None, order=None, filter=None
-    ):
+    def list(self, include=None, max_results=None, page_size=None, order=None, filter=None):
         """Get certificate issuers list.
 
         api documentation:

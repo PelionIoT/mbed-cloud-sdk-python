@@ -231,14 +231,10 @@ class CertificateIssuerConfig(Entity):
         """
 
         return self._client.call_api(
-            method="get",
-            path="/v3/certificate-issuer-configurations/lwm2m",
-            unpack=self,
+            method="get", path="/v3/certificate-issuer-configurations/lwm2m", unpack=self
         )
 
-    def list(
-        self, include=None, max_results=None, page_size=None, order=None, filter=None
-    ):
+    def list(self, include=None, max_results=None, page_size=None, order=None, filter=None):
         """Get certificate issuer configurations.
 
         **API Filters**

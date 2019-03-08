@@ -174,16 +174,10 @@ class Device(Entity):
         # fields
         self._account_id = fields.StringField(value=account_id)
         self._auto_update = fields.BooleanField(value=auto_update)
-        self._bootstrap_expiration_date = fields.DateField(
-            value=bootstrap_expiration_date
-        )
-        self._bootstrapped_timestamp = fields.DateTimeField(
-            value=bootstrapped_timestamp
-        )
+        self._bootstrap_expiration_date = fields.DateField(value=bootstrap_expiration_date)
+        self._bootstrapped_timestamp = fields.DateTimeField(value=bootstrapped_timestamp)
         self._ca_id = fields.StringField(value=ca_id)
-        self._connector_expiration_date = fields.DateField(
-            value=connector_expiration_date
-        )
+        self._connector_expiration_date = fields.DateField(value=connector_expiration_date)
         self._created_at = fields.DateTimeField(value=created_at)
         self._custom_attributes = fields.DictField(value=custom_attributes)
         self._deployed_state = fields.StringField(
@@ -862,9 +856,7 @@ class Device(Entity):
             unpack=self,
         )
 
-    def list(
-        self, include=None, max_results=None, page_size=None, order=None, filter=None
-    ):
+    def list(self, include=None, max_results=None, page_size=None, order=None, filter=None):
         """List all devices.
 
         api documentation:

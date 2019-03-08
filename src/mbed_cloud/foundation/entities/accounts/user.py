@@ -173,9 +173,7 @@ class User(Entity):
         self._id = fields.StringField(value=id)
         self._last_login_time = fields.IntegerField(value=last_login_time)
         self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
-        self._login_profiles = fields.ListField(
-            value=login_profiles, entity=LoginProfile
-        )
+        self._login_profiles = fields.ListField(value=login_profiles, entity=LoginProfile)
         self._marketing_accepted = fields.BooleanField(value=marketing_accepted)
         self._password = fields.StringField(value=password)
         self._password_changed_time = fields.IntegerField(value=password_changed_time)
@@ -720,9 +718,7 @@ class User(Entity):
             unpack=self,
         )
 
-    def list(
-        self, include=None, max_results=None, page_size=None, order=None, filter=None
-    ):
+    def list(self, include=None, max_results=None, page_size=None, order=None, filter=None):
         """Get the details of all users.
 
         **API Filters**

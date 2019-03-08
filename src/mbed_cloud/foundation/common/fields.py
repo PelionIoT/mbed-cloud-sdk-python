@@ -177,8 +177,7 @@ class ListField(Field):
         if isinstance(value, list) and self._entity:
             # Convert a list of dictionaries into a list of entities
             self._val = [
-                self._entity(**item) if isinstance(item, dict) else item
-                for item in value
+                self._entity(**item) if isinstance(item, dict) else item for item in value
             ]
         else:
             return super().set(value)
@@ -207,9 +206,7 @@ class ListField(Field):
     def from_literal(self, value):
         if self._entity:
             return self.set(
-                [self._entity().from_literal(**item) for item in value]
-                if value
-                else None
+                [self._entity().from_literal(**item) for item in value] if value else None
             )
         else:
             return super().from_api(value)

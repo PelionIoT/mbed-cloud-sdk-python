@@ -229,9 +229,7 @@ class CertificateEnrollment(Entity):
 
         self._updated_at.set(value)
 
-    def list(
-        self, include=None, max_results=None, page_size=None, order=None, filter=None
-    ):
+    def list(self, include=None, max_results=None, page_size=None, order=None, filter=None):
         """Get certificate enrollments list.
 
         **API Filters**

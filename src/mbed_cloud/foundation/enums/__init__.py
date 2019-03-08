@@ -29,9 +29,7 @@ from mbed_cloud.foundation.entities.security.enums import (
 from mbed_cloud.foundation.entities.security.enums import (
     CertificateEnrollmentEnrollStatusEnum,
 )
-from mbed_cloud.foundation.entities.security.enums import (
-    CertificateEnrollmentIncludeEnum,
-)
+from mbed_cloud.foundation.entities.security.enums import CertificateEnrollmentIncludeEnum
 from mbed_cloud.foundation.entities.security.enums import CertificateEnrollmentOrderEnum
 from mbed_cloud.foundation.entities.security.enums import CertificateIssuerTypeEnum
 from mbed_cloud.foundation.entities.security.enums import (

@@ -116,17 +116,13 @@ class TrustedCertificate(Entity):
         # fields
         self._account_id = fields.StringField(value=account_id)
         self._certificate = fields.StringField(value=certificate)
-        self._certificate_fingerprint = fields.StringField(
-            value=certificate_fingerprint
-        )
+        self._certificate_fingerprint = fields.StringField(value=certificate_fingerprint)
         self._created_at = fields.DateTimeField(value=created_at)
         self._description = fields.StringField(value=description)
         self._device_execution_mode = fields.IntegerField(value=None)
         self._enrollment_mode = fields.BooleanField(value=enrollment_mode)
         self._id = fields.StringField(value=id)
-        self._is_developer_certificate = fields.BooleanField(
-            value=is_developer_certificate
-        )
+        self._is_developer_certificate = fields.BooleanField(value=is_developer_certificate)
         self._issuer = fields.StringField(value=issuer)
         self._name = fields.StringField(value=name)
         self._owner_id = fields.StringField(value=owner_id)
@@ -299,9 +295,7 @@ class TrustedCertificate(Entity):
         :rtype: bool
         """
 
-        from mbed_cloud.foundation._custom_methods import (
-            is_developer_certificate_getter,
-        )
+        from mbed_cloud.foundation._custom_methods import is_developer_certificate_getter
 
         return is_developer_certificate_getter(
             self=self, field=self._is_developer_certificate
@@ -315,9 +309,7 @@ class TrustedCertificate(Entity):
         :type value: bool
         """
 
-        from mbed_cloud.foundation._custom_methods import (
-            is_developer_certificate_setter,
-        )
+        from mbed_cloud.foundation._custom_methods import is_developer_certificate_setter
 
         is_developer_certificate_setter(
             self=self, field=self._is_developer_certificate, value=value
@@ -571,9 +563,7 @@ class TrustedCertificate(Entity):
             unpack=DeveloperCertificate,
         )
 
-    def list(
-        self, include=None, max_results=None, page_size=None, order=None, filter=None
-    ):
+    def list(self, include=None, max_results=None, page_size=None, order=None, filter=None):
         """Get all trusted certificates.
 
         **API Filters**

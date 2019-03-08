@@ -84,9 +84,7 @@ class UserInvitation(Entity):
         self._email = fields.StringField(value=email)
         self._expiration = fields.DateTimeField(value=expiration)
         self._id = fields.StringField(value=id)
-        self._login_profiles = fields.ListField(
-            value=login_profiles, entity=LoginProfile
-        )
+        self._login_profiles = fields.ListField(value=login_profiles, entity=LoginProfile)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._user_id = fields.StringField(value=user_id)
 
@@ -301,9 +299,7 @@ class UserInvitation(Entity):
             unpack=self,
         )
 
-    def list(
-        self, include=None, max_results=None, page_size=None, order=None, filter=None
-    ):
+    def list(self, include=None, max_results=None, page_size=None, order=None, filter=None):
         """Get the details of all the user invitations.
 
         **API Filters**

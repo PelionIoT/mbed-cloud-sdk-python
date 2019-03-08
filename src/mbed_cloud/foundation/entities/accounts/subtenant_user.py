@@ -173,16 +173,12 @@ class SubtenantUser(Entity):
         self._id = fields.StringField(value=id)
         self._last_login_time = fields.IntegerField(value=last_login_time)
         self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
-        self._login_profiles = fields.ListField(
-            value=login_profiles, entity=LoginProfile
-        )
+        self._login_profiles = fields.ListField(value=login_profiles, entity=LoginProfile)
         self._marketing_accepted = fields.BooleanField(value=marketing_accepted)
         self._password = fields.StringField(value=password)
         self._password_changed_time = fields.IntegerField(value=password_changed_time)
         self._phone_number = fields.StringField(value=phone_number)
-        self._status = fields.StringField(
-            value=status, enum=enums.SubtenantUserStatusEnum
-        )
+        self._status = fields.StringField(value=status, enum=enums.SubtenantUserStatusEnum)
         self._terms_accepted = fields.BooleanField(value=terms_accepted)
         self._totp_scratch_codes = fields.ListField(value=totp_scratch_codes)
         self._two_factor_authentication = fields.BooleanField(
