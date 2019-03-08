@@ -149,7 +149,7 @@ html_theme = 'classic'
 html_theme_options = {
     "stickysidebar": True,
     "sidebarwidth": "280px",
-    "body_max_width": 0
+    "body_max_width": "2800px"
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
