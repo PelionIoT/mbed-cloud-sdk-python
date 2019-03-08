@@ -145,6 +145,21 @@ class {{ entity._key|to_pascal }}(Entity):
 
         {% if method.path %}api documentation:
         https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
+        {%- if method.x_filter %}
+
+        API Filters
+        ===========
+
+        +----------------------+------+------+------+------+------+------+------+
+        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
+        +======================+======+======+======+======+======+======+======+
+        {%- for field_name, fiter_operator in method.x_filter.items() %}
+        | {{'%-20s'|format(field_name)}} |
+        {%- for supported_filter in ["eq", "neq", "gte", "lte", "in", "nin", "like"] %}
+        {%- if supported_filter in fiter_operator %}  x   |{% else %}      |{% endif -%}
+        {%- endfor %}
+        +----------------------+------+------+------+------+------+------+------+
+        {%- endfor %}{%- endif %}
         {%- if method.pagination and method.custom_method %}
         {% for field in method.fields if field._key != "after" %}{% if field.external_param %}
         {%- if field._key == "limit" %}

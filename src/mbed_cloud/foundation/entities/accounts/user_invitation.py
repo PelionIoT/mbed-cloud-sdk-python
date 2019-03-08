@@ -306,6 +306,15 @@ class UserInvitation(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/user-invitations
+
+        API Filters
+        ===========
+
+        +----------------------+------+------+------+------+------+------+------+
+        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
+        +======================+======+======+======+======+======+======+======+
+        | login_profile        |  x   |      |      |      |      |      |      |
+        +----------------------+------+------+------+------+------+------+------+
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
@@ -339,6 +348,15 @@ class UserInvitation(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/user-invitations
+
+        API Filters
+        ===========
+
+        +----------------------+------+------+------+------+------+------+------+
+        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
+        +======================+======+======+======+======+======+======+======+
+        | login_profile        |  x   |      |      |      |      |      |      |
+        +----------------------+------+------+------+------+------+------+------+
         
         :param after: The entity ID to fetch after the given one.
         :type after: str

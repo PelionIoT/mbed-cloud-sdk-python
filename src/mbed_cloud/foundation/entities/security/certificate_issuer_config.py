@@ -241,6 +241,15 @@ class CertificateIssuerConfig(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
+
+        API Filters
+        ===========
+
+        +----------------------+------+------+------+------+------+------+------+
+        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
+        +======================+======+======+======+======+======+======+======+
+        | certificate_reference |  x   |      |      |      |      |      |      |
+        +----------------------+------+------+------+------+------+------+------+
         
         :param include: Comma-separated list of data fields to return. Currently supported:
             `total_count`
@@ -280,6 +289,15 @@ class CertificateIssuerConfig(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuer-configurations
+
+        API Filters
+        ===========
+
+        +----------------------+------+------+------+------+------+------+------+
+        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
+        +======================+======+======+======+======+======+======+======+
+        | certificate_reference |  x   |      |      |      |      |      |      |
+        +----------------------+------+------+------+------+------+------+------+
         
         :param after: The ID of The item after which to retrieve the next page.
         :type after: str

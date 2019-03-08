@@ -352,6 +352,17 @@ class ApiKey(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/api-keys
+
+        API Filters
+        ===========
+
+        +----------------------+------+------+------+------+------+------+------+
+        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
+        +======================+======+======+======+======+======+======+======+
+        | key                  |  x   |      |      |      |      |      |      |
+        +----------------------+------+------+------+------+------+------+------+
+        | owner                |  x   |      |      |      |      |      |      |
+        +----------------------+------+------+------+------+------+------+------+
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -400,6 +411,17 @@ class ApiKey(Entity):
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/api-keys
+
+        API Filters
+        ===========
+
+        +----------------------+------+------+------+------+------+------+------+
+        |      Field           |  eq  | neq  | gte  | lte  |  in  | nin  | like |
+        +======================+======+======+======+======+======+======+======+
+        | key                  |  x   |      |      |      |      |      |      |
+        +----------------------+------+------+------+------+------+------+------+
+        | owner                |  x   |      |      |      |      |      |      |
+        +----------------------+------+------+------+------+------+------+------+
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
