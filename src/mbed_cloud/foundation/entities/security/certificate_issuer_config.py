@@ -250,11 +250,10 @@ class CertificateIssuerConfig(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("certificate_reference", "eq", <filter value>)
-        for certificate_issuer_config in CertificateIssuerConfig.list(filter=api_filter)
-            print certificate_issuer_config.certificate_reference
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("certificate_reference", "eq", <filter value>)
+            for certificate_issuer_config in CertificateIssuerConfig.list(filter=api_filter)
+                print certificate_issuer_config.certificate_reference
         
         :param include: Comma-separated list of data fields to return. Currently supported:
             `total_count`
@@ -308,11 +307,10 @@ class CertificateIssuerConfig(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("certificate_reference", "eq", <filter value>)
-        for certificate_issuer_config in CertificateIssuerConfig.paginate_list(filter=api_filter)
-            print certificate_issuer_config.certificate_reference
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("certificate_reference", "eq", <filter value>)
+            for certificate_issuer_config in CertificateIssuerConfig.paginate_list(filter=api_filter)
+                print certificate_issuer_config.certificate_reference
         
         :param after: The ID of The item after which to retrieve the next page.
         :type after: str

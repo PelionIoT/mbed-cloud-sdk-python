@@ -315,11 +315,10 @@ class UserInvitation(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("login_profile", "eq", <filter value>)
-        for user_invitation in UserInvitation.list(filter=api_filter)
-            print user_invitation.login_profile
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("login_profile", "eq", <filter value>)
+            for user_invitation in UserInvitation.list(filter=api_filter)
+                print user_invitation.login_profile
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
@@ -367,11 +366,10 @@ class UserInvitation(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("login_profile", "eq", <filter value>)
-        for user_invitation in UserInvitation.paginate_list(filter=api_filter)
-            print user_invitation.login_profile
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("login_profile", "eq", <filter value>)
+            for user_invitation in UserInvitation.paginate_list(filter=api_filter)
+                print user_invitation.login_profile
         
         :param after: The entity ID to fetch after the given one.
         :type after: str

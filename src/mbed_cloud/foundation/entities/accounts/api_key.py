@@ -365,11 +365,10 @@ class ApiKey(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("key", "eq", <filter value>)
-        for api_key in ApiKey.list(filter=api_filter)
-            print api_key.key
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("key", "eq", <filter value>)
+            for api_key in ApiKey.list(filter=api_filter)
+                print api_key.key
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -434,11 +433,10 @@ class ApiKey(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("key", "eq", <filter value>)
-        for api_key in ApiKey.paginate_list(filter=api_filter)
-            print api_key.key
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("key", "eq", <filter value>)
+            for api_key in ApiKey.paginate_list(filter=api_filter)
+                print api_key.key
         
         :param after: The entity ID to fetch after the given one.
         :type after: str

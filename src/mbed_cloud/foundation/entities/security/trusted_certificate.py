@@ -597,11 +597,10 @@ class TrustedCertificate(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("device_execution_mode", "eq", <filter value>)
-        for trusted_certificate in TrustedCertificate.list(filter=api_filter)
-            print trusted_certificate.device_execution_mode
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("device_execution_mode", "eq", <filter value>)
+            for trusted_certificate in TrustedCertificate.list(filter=api_filter)
+                print trusted_certificate.device_execution_mode
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -671,11 +670,10 @@ class TrustedCertificate(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("device_execution_mode", "eq", <filter value>)
-        for trusted_certificate in TrustedCertificate.paginate_list(filter=api_filter)
-            print trusted_certificate.device_execution_mode
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("device_execution_mode", "eq", <filter value>)
+            for trusted_certificate in TrustedCertificate.paginate_list(filter=api_filter)
+                print trusted_certificate.device_execution_mode
         
         :param after: The entity ID to fetch after the given one.
         :type after: str

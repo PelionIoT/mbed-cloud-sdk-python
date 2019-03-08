@@ -162,18 +162,17 @@ class {{ entity._key|to_pascal }}(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        {%- for field_name, filter_operator in method.x_filter.items() -%}
-        {% if loop.index == 1 %}
-        api_filter.add_filter("{{ field_name }}", "{{ filter_operator[0] }}", <filter value>){%- endif -%}
-        {%- endfor %}
-        for {{ entity._key|to_snake }} in {{ entity._key|to_pascal }}.{{method._key|to_snake}}(filter=api_filter)
-        {%- for field_name, filter_operator in method.x_filter.items() %}
-        {%- if loop.index == 1 %}
-            print {{ entity._key|to_snake }}.{{ field_name }}
-        {%- endif -%}
-        {%- endfor %}
-        ...
+            api_filter = ApiFilter()
+            {%- for field_name, filter_operator in method.x_filter.items() -%}
+            {% if loop.index == 1 %}
+            api_filter.add_filter("{{ field_name }}", "{{ filter_operator[0] }}", <filter value>){%- endif -%}
+            {%- endfor %}
+            for {{ entity._key|to_snake }} in {{ entity._key|to_pascal }}.{{method._key|to_snake}}(filter=api_filter)
+            {%- for field_name, filter_operator in method.x_filter.items() %}
+            {%- if loop.index == 1 %}
+                print {{ entity._key|to_snake }}.{{ field_name }}
+            {%- endif -%}
+            {%- endfor %}
         {%- else %}
 
         {% if method.path %}api documentation:

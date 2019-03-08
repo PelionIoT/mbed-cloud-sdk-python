@@ -255,11 +255,10 @@ class CertificateEnrollment(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("certificate_name", "eq", <filter value>)
-        for certificate_enrollment in CertificateEnrollment.list(filter=api_filter)
-            print certificate_enrollment.certificate_name
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("certificate_name", "eq", <filter value>)
+            for certificate_enrollment in CertificateEnrollment.list(filter=api_filter)
+                print certificate_enrollment.certificate_name
         
         :param include: a comma-separated list of data fields to return.
         :type include: str
@@ -319,11 +318,10 @@ class CertificateEnrollment(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("certificate_name", "eq", <filter value>)
-        for certificate_enrollment in CertificateEnrollment.paginate_list(filter=api_filter)
-            print certificate_enrollment.certificate_name
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("certificate_name", "eq", <filter value>)
+            for certificate_enrollment in CertificateEnrollment.paginate_list(filter=api_filter)
+                print certificate_enrollment.certificate_name
         
         :param after: The ID of the item after which to retrieve the next page.
         :type after: str

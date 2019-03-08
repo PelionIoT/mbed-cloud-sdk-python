@@ -738,11 +738,10 @@ class User(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("email", "eq", <filter value>)
-        for user in User.list(filter=api_filter)
-            print user.email
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("email", "eq", <filter value>)
+            for user in User.list(filter=api_filter)
+                print user.email
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -798,11 +797,10 @@ class User(Entity):
         **Example Usage**
 
         .. code-block:: python
-        api_filter = ApiFilter()
-        api_filter.add_filter("email", "eq", <filter value>)
-        for user in User.paginate_list(filter=api_filter)
-            print user.email
-        ...
+            api_filter = ApiFilter()
+            api_filter.add_filter("email", "eq", <filter value>)
+            for user in User.paginate_list(filter=api_filter)
+                print user.email
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
