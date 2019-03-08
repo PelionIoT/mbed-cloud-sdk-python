@@ -54,7 +54,7 @@ class ApiFilter(object):
 
         Alternatively a filter can be defined by providing a filter definition as a dict when the class is instantiated:
 
-       .. code-block:: python
+        .. code-block:: python
 
             from mbed_cloud import ApiFilter
 
