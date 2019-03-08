@@ -27,7 +27,7 @@ def _to_query_param(sdk_value):
     Note: This will not URL encode as this will be performed by the `requests` library
 
     :param sdk_value: filter value
-    :return Value siutable for the query string
+    :return Value suitable for the query string
     """
     for value_type in _valid_value_types:
         if isinstance(sdk_value, value_type.base_type):
@@ -40,9 +40,33 @@ class ApiFilter(object):
     """Filter Builder for listing resource from the API."""
 
     def __init__(self, filter_definition=None, field_renames=None):
-        """Create an instance of an API filter
+        """Create an instance of an API filter.
 
-        Note: Not all endpoints support filters.
+        The recommended usage is to use the `add_filter` method to create API filters:
+
+        .. code-block:: python
+
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("created_at", "gte", datetime(2019, 1, 1))
+            api_filter.add_filter("created_at", "lte", datetime(2019, 12, 31))
+
+        Alternatively a filter can be defined by providing a filter definition as a dict when the class is instantiated:
+
+       .. code-block:: python
+
+            from mbed_cloud import ApiFilter
+
+            my_filter = {
+                "created_at": {
+                    "gte": datetime(2019, 1, 1),
+                    "lte": datetime(2019, 12, 31)
+                }
+            }
+            api_filter = ApiFilter(filter_definition=my_filter)
+
+        *Note: Filters are not supported by the API for all entities and fields, please see the entity for details.*
 
         :param filter_definition: A optional definition of the fields on which to filter along with the operators and
             values. `{<Field Name>: {"<Filter Operator>": "<Compassion Value>"}`
@@ -55,9 +79,9 @@ class ApiFilter(object):
         self.field_renames = field_renames if field_renames else {}
 
     def add_filter(self, field, operator, value):
-        """Add a new API filter
+        """Add a new API filter.
 
-        Note: Not all filters are supported on all fields.
+        *Note: Filters are not supported by the API for all entities and fields, please see the entity for details.*
 
         :param field: Name of the field on which to filter
         :type field: str
