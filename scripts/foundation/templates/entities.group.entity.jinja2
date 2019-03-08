@@ -162,7 +162,7 @@ class {{ entity._key|to_pascal }}(Entity):
         **Example Usage**
 
         .. code-block:: python
-            
+
             api_filter = ApiFilter()
             {%- for field_name, filter_operator in method.x_filter.items() -%}
             {% if loop.index == 1 %}
