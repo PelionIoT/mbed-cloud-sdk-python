@@ -239,19 +239,11 @@ class {{ entity._key|to_pascal }}(Entity):
         return {{ method.custom_method }}(
             self=self,
             foreign_key={% if method.foreign_key %}{{ method.foreign_key.entity|to_pascal }}{% else %}self.__class__{% endif %}
-            {% if method.pagination %}
-            , include=include
-            , max_results=max_results
-            , page_size=page_size
-            , order=order
-            , filter=filter
-            {% else %}
-                {% for field in method.fields|pargs_kwargs %}
-                    {% if field.external_param %},
-                        {{field._key|to_snake}}={{field._key|to_snake}}
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+            {% for field in method.fields|pargs_kwargs %}
+                {% if field.external_param %},
+                    {{field._key|to_snake}}={{field._key|to_snake}}
+                {% endif %}
+            {% endfor %}
             {% if method.pagination %},wraps=self._{{ method.paginate_target }}{% endif %}
         )
     {% else %}

@@ -1321,11 +1321,13 @@ class Account(Entity):
         return paginate(
             self=self,
             foreign_key=self.__class__,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
-            filter=filter,
+            include=include,
+            format=format,
+            properties=properties,
             wraps=self._paginate_list,
         )
 
@@ -1649,11 +1651,11 @@ class Account(Entity):
         return paginate(
             self=self,
             foreign_key=SubtenantTrustedCertificate,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
-            filter=filter,
+            include=include,
             wraps=self._paginate_trusted_certificates,
         )
 
@@ -1768,11 +1770,11 @@ class Account(Entity):
         return paginate(
             self=self,
             foreign_key=SubtenantUserInvitation,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
-            filter=filter,
+            include=include,
             wraps=self._paginate_user_invitations,
         )
 
@@ -1848,10 +1850,10 @@ class Account(Entity):
         return paginate(
             self=self,
             foreign_key=SubtenantUser,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
-            filter=filter,
+            include=include,
             wraps=self._paginate_users,
         )

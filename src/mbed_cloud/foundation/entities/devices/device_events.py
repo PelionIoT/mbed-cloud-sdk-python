@@ -383,11 +383,11 @@ class DeviceEvents(Entity):
         return paginate(
             self=self,
             foreign_key=DeviceEvents,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
-            filter=filter,
+            include=include,
             wraps=self._paginate_list,
         )
 
