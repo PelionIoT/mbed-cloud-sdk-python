@@ -149,7 +149,7 @@ class {{ entity._key|to_pascal }}(Entity):
         {% endif %}
         ):
         """{{method.summary}}
-        {%- if method.x_filter and method.pagination and not method.private_method %}
+        {%- if method.x_filter and method.public_paginator_method %}
 
         **API Filters**
 
@@ -189,7 +189,7 @@ class {{ entity._key|to_pascal }}(Entity):
         {% if method.path %}api documentation:
         https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
         {%- endif %}
-        {%- if method.pagination and method.custom_method %}
+        {%- if method.public_paginator_method %}
         {% for field in method.fields if field._key != "after" %}{% if field.external_param %}
         {%- if field._key == "limit" %}
         :param max_results: Total maximum number of results to retrieve
@@ -227,6 +227,22 @@ class {{ entity._key|to_pascal }}(Entity):
     {% endfor %}
     {% if method.defer_to_foreign_key_field %}
         return {{ method.defer_to_foreign_key_field.field }}.{{ method.defer_to_foreign_key_field.method }}()
+    {% elif method.internal_paginator_method %}
+        # Filter query parameters
+        query_params=filter.to_api()
+        # Add in other query parameters
+        {%- for param_in, count in method.python_params_in.items() if param_in == "query" %}
+            {%- for field in method.fields if field['in'] == param_in %}
+        query_params['{{field.parameter_fieldname}}'] = fields.{{ field.python_field }}({{field._key|to_snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference|to_pascal }}{% endif %}).to_api()
+            {%- endfor %}
+        {%- endfor %}
+
+        return self._client.call_api(
+            method='{{method.method}}',
+            path='{{ method.path }}',
+            query_params=query_params,
+            unpack = {{ unpack_type }},
+        )
     {% elif method.custom_method %}
         from mbed_cloud.foundation._custom_methods import {{ method.custom_method }}
         {% if method.foreign_key %}from mbed_cloud.foundation import {{ method.foreign_key.entity|to_pascal }}{% endif %}
@@ -254,6 +270,7 @@ class {{ entity._key|to_pascal }}(Entity):
             , max_results=max_results
             , page_size=page_size
             , order=order
+            , filter=filter
             {% else %}
                 {% for field in method.fields|pargs_kwargs %}
                     {% if field.external_param %},

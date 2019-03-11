@@ -1316,6 +1316,7 @@ class Account(Entity):
             max_results=max_results,
             page_size=page_size,
             order=order,
+            filter=filter,
             wraps=self._paginate_list,
         )
 
@@ -1348,6 +1349,7 @@ class Account(Entity):
     def _paginate_list(
         self,
         after=None,
+        filter=None,
         format=None,
         include=None,
         limit=1000,
@@ -1358,6 +1360,9 @@ class Account(Entity):
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.ApiFilter
         
         :param format: Format information for the response to the query, supported:
             format=breakdown.
@@ -1380,27 +1385,32 @@ class Account(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
+        # Filter query parameters
+        query_params = filter.to_api()
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["format"] = fields.StringField(format).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.AccountOrderEnum
+        ).to_api()
+        query_params["properties"] = fields.StringField(properties).to_api()
+
         return self._client.call_api(
-            method="get",
-            path="/v3/accounts",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "format": fields.StringField(format).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order, enum=enums.AccountOrderEnum).to_api(),
-                "properties": fields.StringField(properties).to_api(),
-            },
-            unpack=False,
+            method="get", path="/v3/accounts", query_params=query_params, unpack=False
         )
 
     def _paginate_trusted_certificates(
-        self, after=None, include=None, limit=50, order="ASC"
+        self, after=None, filter=None, include=None, limit=50, order="ASC"
     ):
         """Get all trusted certificates.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.ApiFilter
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -1416,24 +1426,33 @@ class Account(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
+        # Filter query parameters
+        query_params = filter.to_api()
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.AccountOrderEnum
+        ).to_api()
+
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/trusted-certificates",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order, enum=enums.AccountOrderEnum).to_api(),
-            },
-            path_params={"account_id": self._id.to_api()},
+            query_params=query_params,
             unpack=False,
         )
 
-    def _paginate_user_invitations(self, after=None, include=None, limit=50, order="ASC"):
+    def _paginate_user_invitations(
+        self, after=None, filter=None, include=None, limit=50, order="ASC"
+    ):
         """Get the details of all the user invitations.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.ApiFilter
         
         :param include: Not supported by the API.
         :type include: str
@@ -1448,24 +1467,31 @@ class Account(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
+        # Filter query parameters
+        query_params = filter.to_api()
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.AccountOrderEnum
+        ).to_api()
+
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/user-invitations",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order, enum=enums.AccountOrderEnum).to_api(),
-            },
-            path_params={"account_id": self._id.to_api()},
+            query_params=query_params,
             unpack=False,
         )
 
-    def _paginate_users(self, after=None, include=None, limit=50, order="ASC"):
+    def _paginate_users(self, after=None, filter=None, include=None, limit=50, order="ASC"):
         """Get all user details.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.ApiFilter
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -1481,16 +1507,20 @@ class Account(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
+        # Filter query parameters
+        query_params = filter.to_api()
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.AccountOrderEnum
+        ).to_api()
+
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/users",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order, enum=enums.AccountOrderEnum).to_api(),
-            },
-            path_params={"account_id": self._id.to_api()},
+            query_params=query_params,
             unpack=False,
         )
 
@@ -1615,6 +1645,7 @@ class Account(Entity):
             max_results=max_results,
             page_size=page_size,
             order=order,
+            filter=filter,
             wraps=self._paginate_trusted_certificates,
         )
 
@@ -1731,6 +1762,7 @@ class Account(Entity):
             max_results=max_results,
             page_size=page_size,
             order=order,
+            filter=filter,
             wraps=self._paginate_user_invitations,
         )
 
@@ -1811,5 +1843,6 @@ class Account(Entity):
             max_results=max_results,
             page_size=page_size,
             order=order,
+            filter=filter,
             wraps=self._paginate_users,
         )

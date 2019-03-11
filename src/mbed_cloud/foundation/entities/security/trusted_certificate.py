@@ -657,14 +657,18 @@ class TrustedCertificate(Entity):
             max_results=max_results,
             page_size=page_size,
             order=order,
+            filter=filter,
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
+    def _paginate_list(self, after=None, filter=None, include=None, limit=50, order="ASC"):
         """Get all trusted certificates.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.ApiFilter
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
@@ -680,17 +684,20 @@ class TrustedCertificate(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
+        # Filter query parameters
+        query_params = filter.to_api()
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.TrustedCertificateOrderEnum
+        ).to_api()
+
         return self._client.call_api(
             method="get",
             path="/v3/trusted-certificates",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.TrustedCertificateOrderEnum
-                ).to_api(),
-            },
+            query_params=query_params,
             unpack=False,
         )
 

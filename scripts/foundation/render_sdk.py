@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 
 # The required parameters for a paginator
-PAGINATOR_PARAMETERS = {
+PRIVATE_PAGINATOR_PARAMETERS = {
     "after": {
         '_key': 'after',
         'api_fieldname': 'after',
@@ -81,6 +81,21 @@ PAGINATOR_PARAMETERS = {
         'type': 'string',
         'python_type': 'str',
         'python_field': 'StringField'
+    },
+    "filter": {
+        '_key': 'filter',
+        'api_fieldname': 'filter',
+        'default': None,
+        'description': 'Optional API filter for listing resources.',
+        'entity_fieldname': 'filter',
+        'external_param': True,
+        'in': 'special_query',
+        'name': 'filter',
+        'parameter_fieldname': 'filter',
+        'required': False,
+        'type': 'mbed_cloud.client.ApiFilter',
+        'python_type': 'mbed_cloud.client.ApiFilter',
+        'python_field': 'mbed_cloud.client.ApiFilter'
     },
 }
 
@@ -285,8 +300,15 @@ def count_param_in(fields):
     return params_in
 
 
-def paginators_as_custom_methods(entity, method):
-    """Sets up a custom method whenever we come across a paginator
+def add_required_paramters(method, required_fields):
+    pass
+
+
+def create_custom_methods(entity, method):
+    """Create paginator methods for interating over list resources
+
+    There is a public facing iterator method and a private method with makes the API inside a paginator. These both
+    need to be defined from the base resource description.
 
     The custom method is currently called 'paginate'
     :param entity:
@@ -298,18 +320,20 @@ def paginators_as_custom_methods(entity, method):
         private = copy.deepcopy(method)
         private["private_method"] = True
         private["_key"] = f"paginate_{method['_key']}"
+        private["internal_paginator_method"] = True
         method["custom_method"] = "paginate"
         method["paginate_target"] = private["_key"]
+        method["public_paginator_method"] = True
 
         # Fill in any missing list parameters so there is a consistent interface
-        required_fields = list(PAGINATOR_PARAMETERS.keys())
+        required_fields = list(PRIVATE_PAGINATOR_PARAMETERS.keys())
         for field in private["fields"]:
             # If the field is already present it can be removed from the list
             if field["_key"] in required_fields:
                 required_fields.remove(field["_key"])
-        # If there are any required fields add in a standard definition
+        # If there are any required fields which were missing, add in a standard definition
         for required_field in required_fields:
-            private["fields"].append(PAGINATOR_PARAMETERS[required_field])
+            private["fields"].append(PRIVATE_PAGINATOR_PARAMETERS[required_field])
         # Sort the list by the name of the field so the parameter order is consistent
         if required_fields:
             private["fields"].sort(key=itemgetter("_key"))
@@ -333,7 +357,7 @@ def post_process_definition_file(sdk_def_filename):
                 map_python_field_types(method["fields"])
                 method["python_params_in"] = count_param_in(method["fields"])
                 [f.setdefault("default", None) for f in method["fields"]]
-                paginators_as_custom_methods(entity, method)
+                create_custom_methods(entity, method)
                 # Convert the return type to a Python type or assume it is an entity if not known
                 return_type = method["return_type"]
                 method["python_return_type"] = SWAGGER_TYPE_MAP.get(return_type, to_pascal_case(return_type))
