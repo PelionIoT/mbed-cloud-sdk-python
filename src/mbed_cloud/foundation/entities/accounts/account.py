@@ -1275,7 +1275,7 @@ class Account(Entity):
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC. Default
             value is ASC
@@ -1373,7 +1373,7 @@ class Account(Entity):
         :type after: str
         
         :param filter: Optional API filter for listing resources.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC. Default
             value is ASC
@@ -1421,7 +1421,7 @@ class Account(Entity):
         :type after: str
         
         :param filter: Optional API filter for listing resources.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
@@ -1463,7 +1463,7 @@ class Account(Entity):
         :type after: str
         
         :param filter: Optional API filter for listing resources.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
@@ -1502,7 +1502,7 @@ class Account(Entity):
         :type after: str
         
         :param filter: Optional API filter for listing resources.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
@@ -1604,12 +1604,12 @@ class Account(Entity):
 
             api_filter = ApiFilter()
             api_filter.add_filter("device_execution_mode", "eq", <filter value>)
-            for account in Account().trusted_certificates(filter=api_filter):
-                print(account.device_execution_mode)
+            for trusted_certificate in Account().trusted_certificates(filter=api_filter):
+                print(trusted_certificate.device_execution_mode)
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
@@ -1724,12 +1724,12 @@ class Account(Entity):
 
             api_filter = ApiFilter()
             api_filter.add_filter("login_profile", "eq", <filter value>)
-            for account in Account().user_invitations(filter=api_filter):
-                print(account.login_profile)
+            for user_invitation in Account().user_invitations(filter=api_filter):
+                print(user_invitation.login_profile)
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
@@ -1804,12 +1804,12 @@ class Account(Entity):
 
             api_filter = ApiFilter()
             api_filter.add_filter("email", "eq", <filter value>)
-            for account in Account().users(filter=api_filter):
-                print(account.email)
+            for user in Account().users(filter=api_filter):
+                print(user.email)
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC

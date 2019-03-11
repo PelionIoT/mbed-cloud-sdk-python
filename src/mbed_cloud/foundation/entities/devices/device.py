@@ -867,7 +867,7 @@ class Device(Entity):
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, `ASC` or `DESC`; by
             default `ASC`.
@@ -925,7 +925,7 @@ class Device(Entity):
         :type after: str
         
         :param filter: Optional API filter for listing resources.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, `ASC` or `DESC`; by
             default `ASC`.

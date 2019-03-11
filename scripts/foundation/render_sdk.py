@@ -93,9 +93,9 @@ PRIVATE_PAGINATOR_PARAMETERS = {
         'name': 'filter',
         'parameter_fieldname': 'filter',
         'required': False,
-        'type': 'mbed_cloud.client.ApiFilter',
-        'python_type': 'mbed_cloud.client.ApiFilter',
-        'python_field': 'mbed_cloud.client.ApiFilter'
+        'type': 'mbed_cloud.client.api_filter.ApiFilter',
+        'python_type': 'mbed_cloud.client.api_filter.ApiFilter',
+        'python_field': 'mbed_cloud.client.api_filter.ApiFilter'
     },
 }
 
@@ -110,10 +110,10 @@ PUBLIC_PAGINATOR_PARAMETERS = {
         'in': 'query',
         'name': 'after',
         'parameter_fieldname': 'filter',
-        'python_field': 'mbed_cloud.client.ApiFilter',
-        'python_type': 'mbed_cloud.client.ApiFilter',
+        'python_field': 'mbed_cloud.client.api_filter.ApiFilter',
+        'python_type': 'mbed_cloud.client.api_filter.ApiFilter',
         'required': False,
-        'type': 'mbed_cloud.client.ApiFilter',
+        'type': 'mbed_cloud.client.api_filter.ApiFilter',
         '_sort_order': "e",
     },
     'include': {
@@ -272,6 +272,11 @@ def to_snake_case(name):
     return name.replace(" ", "_").lower()
 
 
+def to_singular_name(name):
+    """Convert to snake case and remove and trailing `s` if present"""
+    return to_snake_case(name).rstrip('s')
+
+
 def sort_parg_kwarg(items):
     """Very specific sort ordering for ensuring pargs, kwargs are in the correct order"""
     return sorted(items, key=lambda x: not bool(x.get('required')))
@@ -295,6 +300,7 @@ class TemplateRenderer(object):
             sort_parg_kwarg=sort_parg_kwarg,
             to_snake=to_snake_case,
             to_pascal=to_pascal_case,
+            to_singular_name=to_singular_name,
         ))
 
     def render_template(self, template_filename, group="", entity="", template_data=None):

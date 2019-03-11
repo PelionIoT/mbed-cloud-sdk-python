@@ -276,7 +276,7 @@ class DeviceEnrollment(Entity):
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: ASC or DESC
         :type order: str
@@ -333,7 +333,7 @@ class DeviceEnrollment(Entity):
         :type after: str
         
         :param filter: Optional API filter for listing resources.
-        :type filter: mbed_cloud.client.ApiFilter
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: ASC or DESC
         :type order: str

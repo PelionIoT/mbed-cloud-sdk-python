@@ -173,10 +173,10 @@ class {{ entity._key|to_pascal }}(Entity):
             {% if loop.index == 1 %}
             api_filter.add_filter("{{ field_name }}", "{{ filter_operator[0] }}", <filter value>){%- endif -%}
             {%- endfor %}
-            for {{ entity._key|to_snake }} in {{ entity._key|to_pascal }}().{{method._key|to_snake}}(filter=api_filter):
+            for {{ entity._key|to_singular_name if method._key == "list" else method._key|to_singular_name}} in {{ entity._key|to_pascal }}().{{method._key|to_snake}}(filter=api_filter):
             {%- for field_name, filter_operator in method.x_filter.items() %}
             {%- if loop.index == 1 %}
-                print({{ entity._key|to_snake }}.{{ field_name }})
+                print({{ entity._key|to_singular_name if method._key == "list" else method._key|to_singular_name}}.{{ field_name }})
             {%- endif -%}
             {%- endfor %}
         {%- elif not method.private_method %}
