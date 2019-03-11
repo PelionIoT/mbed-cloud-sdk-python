@@ -232,7 +232,7 @@ class CertificateEnrollment(Entity):
 
         self._updated_at.set(value)
 
-    def list(self, include=None, max_results=None, page_size=None, order=None, filter=None):
+    def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get certificate enrollments list.
 
         **API Filters**
@@ -267,34 +267,33 @@ class CertificateEnrollment(Entity):
             for certificate_enrollment in CertificateEnrollment().list(filter=api_filter):
                 print(certificate_enrollment.certificate_name)
         
-        :param include: a comma-separated list of data fields to return.
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to be returned. Between 2 and 1000, inclusive.
-        :type page_size: int
+        :param filter: An optional filter to apply when listing entities, please see the
+            above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.client.ApiFilter
         
         :param order: The order of results.
         :type order: str
         
-        :param filter: An optional filter to apply when listing entities, please see the above **API Filters**
-            table for supported filters.
-        :type filter: mbed_cloud.client.ApiFilter
-
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to be returned. Between 2 and 1000, inclusive.
+        :type page_size: int
+        
+        :param include: a comma-separated list of data fields to return.
+        :type include: str
+        
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateEnrollment)
         """
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import CertificateEnrollment
-
         from mbed_cloud import ApiFilter
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            ApiFilter(
+            filter = ApiFilter(
                 filter_definition=filter,
                 field_renames=CertificateEnrollment._renames_to_api,
             )
@@ -304,7 +303,7 @@ class CertificateEnrollment(Entity):
             # performed by the SDK are reversed when the query parameters are created.
             if filter.field_renames is None:
                 filter.field_renames = CertificateEnrollment._renames_to_api
-        else:
+        elif filter is not None:
             raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
@@ -318,7 +317,7 @@ class CertificateEnrollment(Entity):
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, filter=None, include=None, limit=None, order=None):
+    def _paginate_list(self, after=None, filter=None, order=None, limit=None, include=None):
         """Get certificate enrollments list.
         
         :param after: The ID of the item after which to retrieve the next page.
@@ -327,28 +326,28 @@ class CertificateEnrollment(Entity):
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.ApiFilter
         
-        :param include: a comma-separated list of data fields to return.
-        :type include: str
+        :param order: The order of results.
+        :type order: str
         
         :param limit: The number of results to be returned. Between 2 and 1000, inclusive.
         :type limit: int
         
-        :param order: The order of results.
-        :type order: str
+        :param include: a comma-separated list of data fields to return.
+        :type include: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
         # Filter query parameters
-        query_params = filter.to_api()
+        query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["include"] = fields.StringField(
-            include, enum=enums.CertificateEnrollmentIncludeEnum
-        ).to_api()
-        query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["order"] = fields.StringField(
             order, enum=enums.CertificateEnrollmentOrderEnum
+        ).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(
+            include, enum=enums.CertificateEnrollmentIncludeEnum
         ).to_api()
 
         return self._client.call_api(

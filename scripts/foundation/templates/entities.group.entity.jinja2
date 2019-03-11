@@ -130,23 +130,18 @@ class {{ entity._key|to_pascal }}(Entity):
     {% else %}
         {% set unpack_type = return_type %}
         {% set foreign_key_import = true %}
-
     {% endif %}
     def {% if method.private_method %}_{% endif %}{{method._key|to_snake}}(
-        {% if method.pagination and method.custom_method %}
-            self, include=None, max_results=None, page_size=None, order=None, filter=None
-        {% else %}
-            self
-            {% for field in method.fields|sort_parg_kwarg %}
-                {% if field.external_param %},
-                    {% if field.required %}
-                        {{field._key|to_snake}}
-                    {% else %}
-                        {{field._key|to_snake}}={{ field.default|repr }}
-                    {% endif %}
+        self
+        {% for field in method.fields|sort_parg_kwarg %}
+            {% if field.external_param %},
+                {% if field.required %}
+                    {{field._key|to_snake}}
+                {% else %}
+                    {{field._key|to_snake}}={{ field.default|repr }}
                 {% endif %}
-            {% endfor %}
-        {% endif %}
+            {% endif %}
+        {% endfor %}
         ):
         """{{method.summary}}
         {%- if method.x_filter and method.public_paginator_method %}
@@ -189,33 +184,12 @@ class {{ entity._key|to_pascal }}(Entity):
         {% if method.path %}api documentation:
         https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
         {%- endif %}
-        {%- if method.public_paginator_method %}
-        {% for field in method.fields if field._key != "after" %}{% if field.external_param %}
-        {%- if field._key == "limit" %}
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            {% set field_name = "page_size" %}
-        {%- else %}
-            {%- set field_name = field._key|to_snake %}
-        {%- endif %}
-        :param {{field_name}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
-        :type {{field_name}}: {{ (field.foreign_key and 'mbed_cloud.foundation.entities.' + field.foreign_key.entity|to_pascal) or field.python_type}}
-        {% endif %}{% endfor %}
-        {%- if method.x_filter %}
-        :param filter: An optional filter to apply when listing entities, please see the above **API Filters**
-            table for supported filters.
-        {%- else %}
-        :param filter: Filtering when listing entities is not supported by the API for this entity.
-        {%- endif %}
-        :type filter: mbed_cloud.client.ApiFilter
-
-        :return: An iterator object which yields instances of an entity.
-        {%- else %}
         {% for field in method.fields %}{% if field.external_param %}
         :param {{field._key|to_snake}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
         :type {{field._key|to_snake}}: {{ (field.foreign_key and 'mbed_cloud.foundation.entities.' + field.foreign_key.entity|to_pascal) or field.python_type}}
         {% endif %}{% endfor %}
-        {%- endif %}
+        {%- if method.public_paginator_method %}
+        :return: An iterator object which yields instances of an entity.{%- endif %}
         :rtype: {{ return_type }}
         """
     {% for field in method.fields %}
@@ -229,7 +203,7 @@ class {{ entity._key|to_pascal }}(Entity):
         return {{ method.defer_to_foreign_key_field.field }}.{{ method.defer_to_foreign_key_field.method }}()
     {% elif method.internal_paginator_method %}
         # Filter query parameters
-        query_params=filter.to_api()
+        query_params=filter.to_api() if filter else {}
         # Add in other query parameters
         {%- for param_in, count in method.python_params_in.items() if param_in == "query" %}
             {%- for field in method.fields if field['in'] == param_in %}
@@ -246,19 +220,19 @@ class {{ entity._key|to_pascal }}(Entity):
     {% elif method.custom_method %}
         from mbed_cloud.foundation._custom_methods import {{ method.custom_method }}
         {% if method.foreign_key %}from mbed_cloud.foundation import {{ method.foreign_key.entity|to_pascal }}{% endif %}
-        {% if method.pagination %}
+        {%- if method.pagination %}
         from mbed_cloud import ApiFilter
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            ApiFilter(filter_definition=filter, field_renames={% if method.foreign_key %}{{ method.foreign_key.entity|to_pascal }}{%  else %}self{% endif %}._renames_to_api)
+            filter = ApiFilter(filter_definition=filter, field_renames={% if method.foreign_key %}{{ method.foreign_key.entity|to_pascal }}{%  else %}self{% endif %}._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
             if filter.field_renames is None:
                 filter.field_renames = {% if method.foreign_key %}{{ method.foreign_key.entity|to_pascal }}{%  else %}self{% endif %}._renames_to_api
-        else:
+        elif filter is not None:
             raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
         {% endif %}
 

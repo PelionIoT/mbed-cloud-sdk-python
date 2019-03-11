@@ -99,6 +99,106 @@ PRIVATE_PAGINATOR_PARAMETERS = {
     },
 }
 
+PUBLIC_PAGINATOR_PARAMETERS = {
+    'filter': {
+        '_key': 'filter',
+        'api_fieldname': 'filter',
+        'default': None,
+        'description': 'Filtering when listing entities is not supported by the API for this entity.',
+        'entity_fieldname': 'filter',
+        'external_param': True,
+        'in': 'query',
+        'name': 'after',
+        'parameter_fieldname': 'filter',
+        'python_field': 'mbed_cloud.client.ApiFilter',
+        'python_type': 'mbed_cloud.client.ApiFilter',
+        'required': False,
+        'type': 'mbed_cloud.client.ApiFilter',
+        '_sort_order': "e",
+    },
+    'include': {
+        '_key': 'include',
+        'api_fieldname': 'include',
+        'default': None,
+        'description': 'Comma separated additional data to return.',
+        'entity_fieldname': 'include',
+        'external_param': True,
+        'in': 'query',
+        'name': 'include',
+        'parameter_fieldname': 'include',
+        'python_field': 'StringField',
+        'python_type': 'str',
+        'required': False,
+        'type': 'string',
+        '_sort_order': "a",
+    },
+    'page_size': {
+        '_key': 'page_size',
+        'api_fieldname': 'page_size',
+        'default': None,
+        'description': 'The number of results to return for each page.',
+        'entity_fieldname': 'page_size',
+        'external_param': True,
+        'format': 'int32',
+        'in': 'query',
+        'name': 'page_size',
+        'parameter_fieldname': 'page_size',
+        'python_field': 'IntegerField',
+        'python_type': 'int',
+        'required': False,
+        'type': 'integer',
+        '_sort_order': "c",
+    },
+    'order': {
+        '_key': 'order',
+        'api_fieldname': 'order',
+        'default': None,
+        'description': 'The order of the records based on creation time, ASC or DESC. Default value is ASC',
+        'entity_fieldname': 'order',
+        'enum': ['ASC', 'DESC'],
+        'external_param': True,
+        'in': 'query',
+        'name': 'order',
+        'parameter_fieldname': 'order',
+        'python_field': 'StringField',
+        'python_type': 'str',
+        'required': False,
+        'type': 'string',
+        '_sort_order': "d",
+    },
+    'max_results': {
+        '_key': 'max_results',
+        'api_fieldname': 'max_results',
+        'default': None,
+        'description': 'Total maximum number of results to retrieve',
+        'entity_fieldname': 'max_results',
+        'external_param': True,
+        'format': 'int32',
+        'in': 'query',
+        'name': 'max_results',
+        'parameter_fieldname': 'max_results',
+        'python_field': 'IntegerField',
+        'python_type': 'int',
+        'required': False,
+        'type': 'integer',
+        '_sort_order': "b",
+    },
+}
+
+# Define a sort order so that method for listing methods appear in a fixed sort order before any endpoint specific
+# parameters
+SORT_ORDER = {
+    "after": "1",
+    "filter": "2",
+    "order": "3",
+    "limit": "4",
+    "max_results": "5",
+    "page_size": "6",
+    "include": "7",
+}
+
+
+
 # Map from Swagger Types / Formats to Foundation field types
 SWAGGER_FIELD_MAP = {
     # Swagger types
@@ -300,12 +400,22 @@ def count_param_in(fields):
     return params_in
 
 
-def add_required_paramters(method, required_fields):
-    pass
+def add_required_parameters(method, required_parameters):
+    # Fill in any missing list parameters so there is a consistent interface
+    required_fields = list(required_parameters.keys())
+    for field in method["fields"]:
+        # If the field is already present it can be removed from the list
+        if field["_key"] in required_fields:
+            required_fields.remove(field["_key"])
+    # If there are any required fields which were missing, add in a standard definition
+    for required_field in required_fields:
+        method["fields"].append(required_parameters[required_field])
+    # Sort the list in a predefined sort order so common parameters come first followed by endpoint specific parameters
+    method["fields"].sort(key=lambda field: SORT_ORDER.get(field["_key"], field["_key"]))
 
 
 def create_custom_methods(entity, method):
-    """Create paginator methods for interating over list resources
+    """Create paginator methods for iterating over list resources
 
     There is a public facing iterator method and a private method with makes the API inside a paginator. These both
     need to be defined from the base resource description.
@@ -315,29 +425,42 @@ def create_custom_methods(entity, method):
     :param method:
     :return:
     """
-    paginated = method.get("pagination")
-    if paginated:
-        private = copy.deepcopy(method)
-        private["private_method"] = True
-        private["_key"] = f"paginate_{method['_key']}"
-        private["internal_paginator_method"] = True
+    if method.get("pagination"):
+        internal_paginator = copy.deepcopy(method)
+        internal_paginator["private_method"] = True
+        internal_paginator["_key"] = f"paginate_{method['_key']}"
+        internal_paginator["internal_paginator_method"] = True
         method["custom_method"] = "paginate"
-        method["paginate_target"] = private["_key"]
+        method["paginate_target"] = internal_paginator["_key"]
         method["public_paginator_method"] = True
 
-        # Fill in any missing list parameters so there is a consistent interface
-        required_fields = list(PRIVATE_PAGINATOR_PARAMETERS.keys())
-        for field in private["fields"]:
-            # If the field is already present it can be removed from the list
-            if field["_key"] in required_fields:
-                required_fields.remove(field["_key"])
-        # If there are any required fields which were missing, add in a standard definition
-        for required_field in required_fields:
-            private["fields"].append(PRIVATE_PAGINATOR_PARAMETERS[required_field])
-        # Sort the list by the name of the field so the parameter order is consistent
-        if required_fields:
-            private["fields"].sort(key=itemgetter("_key"))
-        entity["methods"].append(private)
+        add_required_parameters(internal_paginator, PRIVATE_PAGINATOR_PARAMETERS)
+
+        # Rename the API `limit` to `page_size` and drop `after`
+        adjusted_fields = []
+        for field in method["fields"]:
+            field_name = field["_key"]
+            if field_name == "after":
+                continue
+            if field_name == "limit":
+                new_field = {}
+                for key, value in field.items():
+                    if value == "limit":
+                        value = "page_size"
+                    new_field[key] = value
+                adjusted_fields.append(new_field)
+            else:
+                adjusted_fields.append(field)
+        method["fields"] = adjusted_fields
+        add_required_parameters(method, PUBLIC_PAGINATOR_PARAMETERS)
+
+        for field in method["fields"]:
+            if field["_key"] == "filter":
+                if method.get("x_filter"):
+                    field["description"] = "An optional filter to apply when listing entities, please see the above " \
+                                            "**API Filters** table for supported filters."
+
+        entity["methods"].append(internal_paginator)
 
 
 def post_process_definition_file(sdk_def_filename):
