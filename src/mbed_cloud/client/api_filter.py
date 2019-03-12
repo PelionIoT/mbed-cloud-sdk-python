@@ -117,7 +117,7 @@ class ApiFilter(object):
         :type operator: str
         :param value: The comparison value, one of the basic Python types or a Foundation Entity
             e.g. `True`, `7`, `"hello world"`, `["open", "closed"]`, `LoginProfile()`
-        :type value: str, int, float, list, bool, date, datetime
+        :type value: str, int, float, list, bool, date, datetime, Entity
         """
         self.filter_definition.setdefault(field, {}).update({operator: value})
 
