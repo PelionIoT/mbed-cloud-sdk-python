@@ -10,7 +10,6 @@ import logging
 import copy
 import functools
 import subprocess
-from operator import itemgetter
 from collections import defaultdict
 import jinja2
 
@@ -18,6 +17,8 @@ logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s')
 logger = logging.getLogger(__name__)
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
+
+SUPPORTED_FILTER_OPERATORS = ["eq", "neq", "gte", "lte", "in", "nin", "like"]
 
 # The required parameters for a paginator
 PRIVATE_PAGINATOR_PARAMETERS = {
@@ -420,6 +421,51 @@ def add_required_parameters(method, required_parameters):
     method["fields"].sort(key=lambda field: SORT_ORDER.get(field["_key"], field["_key"]))
 
 
+def create_filter_table(x_filter):
+    """Render the filter table for insertion into the documentation
+
+    It is difficult to render the table with variable field lengths as the table formatting has strict requirements.
+
+    :param x_filter: The x_filter definition from the method.
+    """
+    field_column_title = "Field"
+    # Find the maximum length of the field names in this table
+    field_name_max_length = max([len(field_name) for field_name in x_filter.keys()] + [len(field_column_title)])
+    # Find the maximum length of the filter operators in this table
+    operator_max_length = max([len(filter_operator) for filter_operator in SUPPORTED_FILTER_OPERATORS])
+    # How many columuns are there for filter operators
+    num_supported_filters = len(SUPPORTED_FILTER_OPERATORS)
+
+    row_separator = "+-%s-+" % ("-" * field_name_max_length)
+    row_separator += ("-%s-+" % ("-" * operator_max_length) * num_supported_filters)
+    row_separator += "\n"
+
+    title_separator = "+=%s=+" % ("=" * field_name_max_length)
+    title_separator += ("=%s=+" % ("=" * operator_max_length) * num_supported_filters)
+    title_separator += "\n"
+
+    title_row = "| %-*s |" % (field_name_max_length, field_column_title)
+    title_row += "".join([" %-*s |" % (operator_max_length, operator) for operator in SUPPORTED_FILTER_OPERATORS])
+    title_row += "\n"
+
+    # Table heading
+    filter_table = row_separator
+    filter_table += title_row
+    filter_table += title_separator
+
+    for field_name, field_filters in x_filter.items():
+        field_row = "| %-*s |" % (field_name_max_length, field_name)
+        for supported_filter_operator in SUPPORTED_FILTER_OPERATORS:
+            if supported_filter_operator in field_filters:
+                field_row += " %-*s |" % (operator_max_length, "x")
+            else:
+                field_row += " %-*s |" % (operator_max_length, " ")
+        filter_table += field_row + "\n"
+        filter_table += row_separator
+
+    return filter_table
+
+
 def create_custom_methods(entity, method):
     """Create paginator methods for iterating over list resources
 
@@ -427,8 +473,9 @@ def create_custom_methods(entity, method):
     need to be defined from the base resource description.
 
     The custom method is currently called 'paginate'
-    :param entity:
-    :param method:
+
+    :param entity: The entity being processed, this will be modified if a paginator is found.
+    :param method: The current method being processed.
     :return:
     """
     if method.get("pagination"):
@@ -460,9 +507,12 @@ def create_custom_methods(entity, method):
         method["fields"] = adjusted_fields
         add_required_parameters(method, PUBLIC_PAGINATOR_PARAMETERS)
 
-        for field in method["fields"]:
-            if field["_key"] == "filter":
-                if method.get("x_filter"):
+        x_filter = method.get("x_filter")
+        if x_filter:
+            method["x_filter_table"] = create_filter_table(x_filter)
+            # Replace the "not supported" description for the filter field if x_filter is defined
+            for field in method["fields"]:
+                if field["_key"] == "filter":
                     field["description"] = "An optional filter to apply when listing entities, please see the above " \
                                             "**API Filters** table for supported filters."
 

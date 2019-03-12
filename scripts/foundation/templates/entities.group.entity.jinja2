@@ -150,17 +150,7 @@ class {{ entity._key|to_pascal }}(Entity):
 
         The following filters are supported by the API when listing {{ entity._key|to_pascal }} entities:
 
-        +---------------------------+------+------+------+------+------+------+------+
-        |          Field            |  eq  | neq  | gte  | lte  |  in  | nin  | like |
-        +===========================+======+======+======+======+======+======+======+
-        {%- for field_name, filter_operator in method.x_filter.items() %}
-        | {{'%-25s'|format(field_name)}} |
-        {%- for supported_filter in ["eq", "neq", "gte", "lte", "in", "nin", "like"] %}
-        {%- if supported_filter in filter_operator %}  x   |{% else %}      |{% endif -%}
-        {%- endfor %}
-        +---------------------------+------+------+------+------+------+------+------+
-        {%- endfor %}
-
+        {{ method.x_filter_table | indent(8) }}
         **Example Usage**
 
         .. code-block:: python
