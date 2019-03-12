@@ -457,7 +457,7 @@ def create_filter_table(x_filter):
         field_row = "| %-*s |" % (field_name_max_length, field_name)
         for supported_filter_operator in SUPPORTED_FILTER_OPERATORS:
             if supported_filter_operator in field_filters:
-                field_row += " %-*s |" % (operator_max_length, "✔")
+                field_row += " %-*s |" % (operator_max_length, "x")
             else:
                 field_row += " %-*s |" % (operator_max_length, " ")
         filter_table += field_row + "\n"
