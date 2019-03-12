@@ -8,7 +8,7 @@ from mbed_cloud.foundation.common import fields
 
 
 # A list of Foundation Interface field types that could be filter values
-_valid_value_types = [
+_valid_field_types = [
     fields.StringField,
     # Must check for bool before int as `isinstance(True, int)` evaluates to true
     fields.BooleanField,
@@ -29,9 +29,18 @@ def _to_query_param(sdk_value):
     :param sdk_value: filter value
     :return Value suitable for the query string
     """
-    for value_type in _valid_value_types:
-        if isinstance(sdk_value, value_type.base_type):
-            return value_type(sdk_value).to_query_param()
+    # The values in a list need to be serialised individually to be rendered properly
+    if isinstance(sdk_value, list):
+        encoded_list = []
+        for list_value in sdk_value:
+            # Convert serialised value to string as the query parameter must be a string of comma separated values
+            encoded_list.append(str(_to_query_param(list_value)))
+        sdk_value = encoded_list
+
+    # Loop over the supported field types to find the type of the value and then serialise.
+    for field_type in _valid_field_types:
+        if isinstance(sdk_value, field_type.base_type):
+            return field_type(sdk_value).to_query_param()
     # Default to a string field - this will happen for None values
     return fields.StringField(sdk_value).to_query_param()
 

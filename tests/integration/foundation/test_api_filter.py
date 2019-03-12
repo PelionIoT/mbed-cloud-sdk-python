@@ -106,6 +106,27 @@ class TestApiFilter(BaseCase):
         }
         self.assertEqual(expected_filter, api_filter.to_api())
 
+    def test_single_list_filter(self):
+        filter_definition = {"name": {"in": ["Gopher"]}}
+        expected_filter = {"name__in": "Gopher"}
+
+        api_filter = ApiFilter(filter_definition)
+        self.assertEqual(expected_filter, api_filter.to_api())
+
+    def test_compound_list_filter(self):
+        filter_definition = {"name": {"in": ["Badger", 17, 20.5, True, date(2019, 12, 31), datetime(2019, 1, 1), None]}}
+        expected_filter = {"name__in": "Badger,17,20.5,true,2019-12-31,2019-01-01T00:00:00Z,null"}
+
+        api_filter = ApiFilter(filter_definition)
+        self.assertEqual(expected_filter, api_filter.to_api())
+
+    def test_nested_list_filter(self):
+        filter_definition = {"name": {"in": ["Badger", [17, 20.5], True, datetime(2019, 1, 1), None]}}
+        expected_filter = {"name__in": "Badger,17,20.5,true,2019-01-01T00:00:00Z,null"}
+
+        api_filter = ApiFilter(filter_definition)
+        self.assertEqual(expected_filter, api_filter.to_api())
+
     def test_compound_filter(self):
         filter_definition = {
             "created_at": {
