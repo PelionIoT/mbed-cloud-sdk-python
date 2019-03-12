@@ -3,6 +3,7 @@
 from datetime import datetime, date
 from tests.common import BaseCase
 from mbed_cloud import ApiFilter
+from mbed_cloud.foundation import User
 
 
 class TestApiFilter(BaseCase):
@@ -71,6 +72,14 @@ class TestApiFilter(BaseCase):
         api_filter = ApiFilter(filter_definition)
         self.assertEqual(expected_filter, api_filter.to_api())
 
+    def test_entity(self):
+        my_user = User(id="my_user_id")
+        filter_definition = {"sub_entity": {"eq": my_user}}
+        expected_filter = {"sub_entity__eq": "my_user_id"}
+
+        api_filter = ApiFilter(filter_definition)
+        self.assertEqual(expected_filter, api_filter.to_api())
+
     def test_missing_operator(self):
         filter_definition = {"name": date(2019, 3, 7)}
         expected_filter = {"name__eq": "2019-03-07"}
@@ -123,6 +132,15 @@ class TestApiFilter(BaseCase):
     def test_nested_list_filter(self):
         filter_definition = {"name": {"in": ["Badger", [17, 20.5], True, datetime(2019, 1, 1), None]}}
         expected_filter = {"name__in": "Badger,17,20.5,true,2019-01-01T00:00:00Z,null"}
+
+        api_filter = ApiFilter(filter_definition)
+        self.assertEqual(expected_filter, api_filter.to_api())
+
+    def test_list_of_entities_filter(self):
+        user_one = User(id="user1")
+        user_two = User(id="user2")
+        filter_definition = {"sub_entity": {"in": [user_one, user_two]}}
+        expected_filter = {"sub_entity__in": "user1,user2"}
 
         api_filter = ApiFilter(filter_definition)
         self.assertEqual(expected_filter, api_filter.to_api())

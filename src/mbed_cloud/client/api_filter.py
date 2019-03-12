@@ -4,6 +4,7 @@ The API allows the user to filter when retrieving a list of resource via query p
 the query parameters from a simple dictionary definition.
 """
 
+from mbed_cloud.foundation.common.entity_base import Entity
 from mbed_cloud.foundation.common import fields
 
 
@@ -37,6 +38,10 @@ def _to_query_param(sdk_value):
             encoded_list.append(str(_to_query_param(list_value)))
         sdk_value = encoded_list
 
+    # If an entity has been provided as a value, extract the ID from the instance
+    if isinstance(sdk_value, Entity):
+        sdk_value = sdk_value.id
+
     # Loop over the supported field types to find the type of the value and then serialise.
     for field_type in _valid_field_types:
         if isinstance(sdk_value, field_type.base_type):
@@ -52,6 +57,20 @@ class ApiFilter(object):
         """Create an instance of an API filter.
 
         The recommended usage is to use the `add_filter` method to create API filters:
+
+        .. code-block:: python
+
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("email", "eq", "a.n.other@example.com")
+
+        .. code-block:: python
+
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("status", "in", ["ACTIVE", "ENROLLING"])
 
         .. code-block:: python
 
@@ -96,7 +115,9 @@ class ApiFilter(object):
         :type field: str
         :param operator: The filter operator, one of `eq`, `neq`, `lte`, `gte`, `in`, `nin` and `like`.
         :type operator: str
-        :param value: The comparison value e.g. `True`, `7`, `"hello world"`, `["open", "closed"]`
+        :param value: The comparison value, one of the basic Python types or a Foundation Entity
+            e.g. `True`, `7`, `"hello world"`, `["open", "closed"]`, `LoginProfile()`
+        :type value: str, int, float, list, bool, date, datetime
         """
         self.filter_definition.setdefault(field, {}).update({operator: value})
 
