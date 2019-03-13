@@ -10,10 +10,12 @@ This provides direct access the Pelion Device Management API.
     (:mod:`mbed_cloud.sdk.sdk`).
 
 .. code-block:: python
+
     from mbed_cloud import SDK
     pelion_dm_sdk = SDK()
     api_client = pelion_dm_sdk.client()
 
+------------
 """
 import inspect
 import json

@@ -10,6 +10,8 @@ This is the preferred method of creating Foundation Entity instances and using t
 
 - :mod:`mbed_cloud.client.client.Client`
 - :mod:`mbed_cloud.foundation`
+
+------------
 """
 import warnings
 
