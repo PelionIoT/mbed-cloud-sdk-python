@@ -1,4 +1,6 @@
 """Client Interface
+
+Client Interface
 ================
 
 This provides direct access the Pelion Device Management API.
