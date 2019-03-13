@@ -1,7 +1,17 @@
 """
-Entity module
+Foundation Entity: ParentAccount
+==============================
 
-This file is auto-generated from API Specifications.
+
+.. warning::
+    ParentAccount should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import ParentAccount:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import ParentAccount
 """
 
 # Python 2 compatibility

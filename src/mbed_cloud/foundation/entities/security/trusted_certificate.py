@@ -1,7 +1,29 @@
 """
-Entity module
+Foundation Entity: TrustedCertificate
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.create`
+- :meth:`TrustedCertificate.create`
+- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.delete`
+- :meth:`TrustedCertificate.delete`
+- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.get_developer_certificate_info`
+- :meth:`TrustedCertificate.get_developer_certificate_info`
+- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.list`
+- :meth:`TrustedCertificate.list`
+- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.read`
+- :meth:`TrustedCertificate.read`
+- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.update`
+- :meth:`TrustedCertificate.update`
+
+.. warning::
+    TrustedCertificate should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import TrustedCertificate:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import TrustedCertificate
 """
 
 # Python 2 compatibility

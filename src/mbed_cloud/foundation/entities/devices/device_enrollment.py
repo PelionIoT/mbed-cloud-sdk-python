@@ -1,7 +1,25 @@
 """
-Entity module
+Foundation Entity: DeviceEnrollment
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment.DeviceEnrollment.create`
+- :meth:`DeviceEnrollment.create`
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment.DeviceEnrollment.delete`
+- :meth:`DeviceEnrollment.delete`
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment.DeviceEnrollment.list`
+- :meth:`DeviceEnrollment.list`
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment.DeviceEnrollment.read`
+- :meth:`DeviceEnrollment.read`
+
+.. warning::
+    DeviceEnrollment should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import DeviceEnrollment:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import DeviceEnrollment
 """
 
 # Python 2 compatibility

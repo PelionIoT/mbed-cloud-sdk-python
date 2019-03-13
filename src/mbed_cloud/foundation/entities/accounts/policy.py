@@ -1,7 +1,17 @@
 """
-Entity module
+Foundation Entity: Policy
+==============================
 
-This file is auto-generated from API Specifications.
+
+.. warning::
+    Policy should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import Policy:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import Policy
 """
 
 # Python 2 compatibility

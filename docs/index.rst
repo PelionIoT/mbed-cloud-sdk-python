@@ -11,7 +11,7 @@ Python.
 .. toctree::
     :maxdepth: 1
 
-    Foundation Interface <mbed_cloud.foundation.rst>
+    Foundation Interface <built_api/mbed_cloud.foundation.rst>
 
 .. toctree::
     :maxdepth: 1

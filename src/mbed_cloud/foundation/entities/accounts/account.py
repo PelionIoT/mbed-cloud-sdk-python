@@ -1,7 +1,33 @@
 """
-Entity module
+Foundation Entity: Account
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.accounts.account.Account.create`
+- :meth:`Account.create`
+- :meth:`mbed_cloud.foundation.entities.accounts.account.Account.list`
+- :meth:`Account.list`
+- :meth:`mbed_cloud.foundation.entities.accounts.account.Account.me`
+- :meth:`Account.me`
+- :meth:`mbed_cloud.foundation.entities.accounts.account.Account.read`
+- :meth:`Account.read`
+- :meth:`mbed_cloud.foundation.entities.accounts.account.Account.trusted_certificates`
+- :meth:`Account.trusted_certificates`
+- :meth:`mbed_cloud.foundation.entities.accounts.account.Account.update`
+- :meth:`Account.update`
+- :meth:`mbed_cloud.foundation.entities.accounts.account.Account.user_invitations`
+- :meth:`Account.user_invitations`
+- :meth:`mbed_cloud.foundation.entities.accounts.account.Account.users`
+- :meth:`Account.users`
+
+.. warning::
+    Account should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import Account:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import Account
 """
 
 # Python 2 compatibility

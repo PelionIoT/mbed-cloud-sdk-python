@@ -1,7 +1,27 @@
 """
-Entity module
+Foundation Entity: SubtenantTrustedCertificate
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.security.subtenant_trusted_certificate.SubtenantTrustedCertificate.create`
+- :meth:`SubtenantTrustedCertificate.create`
+- :meth:`mbed_cloud.foundation.entities.security.subtenant_trusted_certificate.SubtenantTrustedCertificate.delete`
+- :meth:`SubtenantTrustedCertificate.delete`
+- :meth:`mbed_cloud.foundation.entities.security.subtenant_trusted_certificate.SubtenantTrustedCertificate.get_developer_certificate_info`
+- :meth:`SubtenantTrustedCertificate.get_developer_certificate_info`
+- :meth:`mbed_cloud.foundation.entities.security.subtenant_trusted_certificate.SubtenantTrustedCertificate.read`
+- :meth:`SubtenantTrustedCertificate.read`
+- :meth:`mbed_cloud.foundation.entities.security.subtenant_trusted_certificate.SubtenantTrustedCertificate.update`
+- :meth:`SubtenantTrustedCertificate.update`
+
+.. warning::
+    SubtenantTrustedCertificate should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import SubtenantTrustedCertificate:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import SubtenantTrustedCertificate
 """
 
 # Python 2 compatibility

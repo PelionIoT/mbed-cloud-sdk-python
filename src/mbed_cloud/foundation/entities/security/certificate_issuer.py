@@ -1,7 +1,29 @@
 """
-Entity module
+Foundation Entity: CertificateIssuer
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer.CertificateIssuer.create`
+- :meth:`CertificateIssuer.create`
+- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer.CertificateIssuer.delete`
+- :meth:`CertificateIssuer.delete`
+- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer.CertificateIssuer.list`
+- :meth:`CertificateIssuer.list`
+- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer.CertificateIssuer.read`
+- :meth:`CertificateIssuer.read`
+- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer.CertificateIssuer.update`
+- :meth:`CertificateIssuer.update`
+- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer.CertificateIssuer.verify`
+- :meth:`CertificateIssuer.verify`
+
+.. warning::
+    CertificateIssuer should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import CertificateIssuer:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import CertificateIssuer
 """
 
 # Python 2 compatibility

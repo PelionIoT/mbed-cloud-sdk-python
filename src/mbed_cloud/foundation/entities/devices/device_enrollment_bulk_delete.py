@@ -1,7 +1,25 @@
 """
-Entity module
+Foundation Entity: DeviceEnrollmentBulkDelete
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete.DeviceEnrollmentBulkDelete.delete`
+- :meth:`DeviceEnrollmentBulkDelete.delete`
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete.DeviceEnrollmentBulkDelete.download_errors_report_file`
+- :meth:`DeviceEnrollmentBulkDelete.download_errors_report_file`
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete.DeviceEnrollmentBulkDelete.download_full_report_file`
+- :meth:`DeviceEnrollmentBulkDelete.download_full_report_file`
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete.DeviceEnrollmentBulkDelete.read`
+- :meth:`DeviceEnrollmentBulkDelete.read`
+
+.. warning::
+    DeviceEnrollmentBulkDelete should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import DeviceEnrollmentBulkDelete:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import DeviceEnrollmentBulkDelete
 """
 
 # Python 2 compatibility

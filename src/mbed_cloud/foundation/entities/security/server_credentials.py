@@ -1,7 +1,21 @@
 """
-Entity module
+Foundation Entity: ServerCredentials
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.security.server_credentials.ServerCredentials.get_bootstrap`
+- :meth:`ServerCredentials.get_bootstrap`
+- :meth:`mbed_cloud.foundation.entities.security.server_credentials.ServerCredentials.get_lwm2m`
+- :meth:`ServerCredentials.get_lwm2m`
+
+.. warning::
+    ServerCredentials should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import ServerCredentials:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import ServerCredentials
 """
 
 # Python 2 compatibility

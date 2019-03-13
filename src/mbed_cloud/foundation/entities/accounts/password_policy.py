@@ -1,7 +1,17 @@
 """
-Entity module
+Foundation Entity: PasswordPolicy
+==============================
 
-This file is auto-generated from API Specifications.
+
+.. warning::
+    PasswordPolicy should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import PasswordPolicy:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import PasswordPolicy
 """
 
 # Python 2 compatibility

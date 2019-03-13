@@ -1,7 +1,23 @@
 """
-Entity module
+Foundation Entity: SubtenantUserInvitation
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation.SubtenantUserInvitation.create`
+- :meth:`SubtenantUserInvitation.create`
+- :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation.SubtenantUserInvitation.delete`
+- :meth:`SubtenantUserInvitation.delete`
+- :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation.SubtenantUserInvitation.read`
+- :meth:`SubtenantUserInvitation.read`
+
+.. warning::
+    SubtenantUserInvitation should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import SubtenantUserInvitation:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import SubtenantUserInvitation
 """
 
 # Python 2 compatibility

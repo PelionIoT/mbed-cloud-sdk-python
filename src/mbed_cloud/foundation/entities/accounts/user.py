@@ -1,7 +1,27 @@
 """
-Entity module
+Foundation Entity: User
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.accounts.user.User.create`
+- :meth:`User.create`
+- :meth:`mbed_cloud.foundation.entities.accounts.user.User.delete`
+- :meth:`User.delete`
+- :meth:`mbed_cloud.foundation.entities.accounts.user.User.list`
+- :meth:`User.list`
+- :meth:`mbed_cloud.foundation.entities.accounts.user.User.read`
+- :meth:`User.read`
+- :meth:`mbed_cloud.foundation.entities.accounts.user.User.update`
+- :meth:`User.update`
+
+.. warning::
+    User should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import User:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import User
 """
 
 # Python 2 compatibility

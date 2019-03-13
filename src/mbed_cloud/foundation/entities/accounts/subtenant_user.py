@@ -1,7 +1,27 @@
 """
-Entity module
+Foundation Entity: SubtenantUser
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user.SubtenantUser.create`
+- :meth:`SubtenantUser.create`
+- :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user.SubtenantUser.delete`
+- :meth:`SubtenantUser.delete`
+- :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user.SubtenantUser.read`
+- :meth:`SubtenantUser.read`
+- :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user.SubtenantUser.update`
+- :meth:`SubtenantUser.update`
+- :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user.SubtenantUser.validate_email`
+- :meth:`SubtenantUser.validate_email`
+
+.. warning::
+    SubtenantUser should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import SubtenantUser:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import SubtenantUser
 """
 
 # Python 2 compatibility

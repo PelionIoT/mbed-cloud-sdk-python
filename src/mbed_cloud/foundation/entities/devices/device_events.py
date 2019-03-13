@@ -1,7 +1,21 @@
 """
-Entity module
+Foundation Entity: DeviceEvents
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.devices.device_events.DeviceEvents.list`
+- :meth:`DeviceEvents.list`
+- :meth:`mbed_cloud.foundation.entities.devices.device_events.DeviceEvents.read`
+- :meth:`DeviceEvents.read`
+
+.. warning::
+    DeviceEvents should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import DeviceEvents:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import DeviceEvents
 """
 
 # Python 2 compatibility

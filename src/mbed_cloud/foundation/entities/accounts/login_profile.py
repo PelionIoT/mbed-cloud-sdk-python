@@ -1,7 +1,17 @@
 """
-Entity module
+Foundation Entity: LoginProfile
+==============================
 
-This file is auto-generated from API Specifications.
+
+.. warning::
+    LoginProfile should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import LoginProfile:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import LoginProfile
 """
 
 # Python 2 compatibility

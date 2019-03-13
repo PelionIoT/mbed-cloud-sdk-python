@@ -1,7 +1,23 @@
 """
-Entity module
+Foundation Entity: {{ entities|join(", ", attribute='_key')|to_pascal }}
+==============================
+{% for entity in entities %}
+{%- for method in entity.methods|sort(attribute='_key') if not method.private_method %}
+- :meth:`mbed_cloud.foundation.entities.{{ entity.group_id|to_snake }}.{{ entity._key|to_snake }}.{{ entity._key|to_pascal }}.{{method._key|to_snake}}`
+- :meth:`{{ entity._key|to_pascal }}.{{method._key|to_snake}}`
+{%- endfor %}
+{%- endfor %}
 
-This file is auto-generated from API Specifications.
+.. warning::
+    {{ entities|join(", ", attribute='_key')|to_pascal }} should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import {{ entities|join(", ", attribute='_key')|to_pascal }}:
+
+.. code-block:: python
+    {% for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}
+    from mbed_cloud.foundation import {{ entity._key|to_pascal }}
+    {%- endfor %}
 """
 
 # Python 2 compatibility

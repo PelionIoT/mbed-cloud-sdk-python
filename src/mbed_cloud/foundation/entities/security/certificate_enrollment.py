@@ -1,7 +1,21 @@
 """
-Entity module
+Foundation Entity: CertificateEnrollment
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.security.certificate_enrollment.CertificateEnrollment.list`
+- :meth:`CertificateEnrollment.list`
+- :meth:`mbed_cloud.foundation.entities.security.certificate_enrollment.CertificateEnrollment.read`
+- :meth:`CertificateEnrollment.read`
+
+.. warning::
+    CertificateEnrollment should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import CertificateEnrollment:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import CertificateEnrollment
 """
 
 # Python 2 compatibility

@@ -9,17 +9,7 @@ Reference
 
 Reference 2
 
-- :doc:`mbed_cloud.foundation.entities.accounts.user.rst`
-
-
-Without members:
-
-.. automodule:: mbed_cloud.foundation.entities.accounts.user
-
-With members:
-
-.. automodule:: mbed_cloud.foundation.entities.accounts.user
-  :members: read, list, update, delete
+- :class:`mbed_cloud.foundation.entities.accounts.user.User`
 
 """
 

@@ -1,7 +1,29 @@
 """
-Entity module
+Foundation Entity: ApiKey
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.create`
+- :meth:`ApiKey.create`
+- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.delete`
+- :meth:`ApiKey.delete`
+- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.list`
+- :meth:`ApiKey.list`
+- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.me`
+- :meth:`ApiKey.me`
+- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.read`
+- :meth:`ApiKey.read`
+- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.update`
+- :meth:`ApiKey.update`
+
+.. warning::
+    ApiKey should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import ApiKey:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import ApiKey
 """
 
 # Python 2 compatibility

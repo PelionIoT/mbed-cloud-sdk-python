@@ -1,7 +1,25 @@
 """
-Entity module
+Foundation Entity: DeveloperCertificate
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.security.developer_certificate.DeveloperCertificate.create`
+- :meth:`DeveloperCertificate.create`
+- :meth:`mbed_cloud.foundation.entities.security.developer_certificate.DeveloperCertificate.delete`
+- :meth:`DeveloperCertificate.delete`
+- :meth:`mbed_cloud.foundation.entities.security.developer_certificate.DeveloperCertificate.get_trusted_certificate_info`
+- :meth:`DeveloperCertificate.get_trusted_certificate_info`
+- :meth:`mbed_cloud.foundation.entities.security.developer_certificate.DeveloperCertificate.read`
+- :meth:`DeveloperCertificate.read`
+
+.. warning::
+    DeveloperCertificate should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import DeveloperCertificate:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import DeveloperCertificate
 """
 
 # Python 2 compatibility

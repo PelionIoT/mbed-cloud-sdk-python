@@ -1,7 +1,25 @@
 """
-Entity module
+Foundation Entity: DeviceEnrollmentBulkCreate
+==============================
 
-This file is auto-generated from API Specifications.
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create.DeviceEnrollmentBulkCreate.create`
+- :meth:`DeviceEnrollmentBulkCreate.create`
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create.DeviceEnrollmentBulkCreate.download_errors_report_file`
+- :meth:`DeviceEnrollmentBulkCreate.download_errors_report_file`
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create.DeviceEnrollmentBulkCreate.download_full_report_file`
+- :meth:`DeviceEnrollmentBulkCreate.download_full_report_file`
+- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create.DeviceEnrollmentBulkCreate.read`
+- :meth:`DeviceEnrollmentBulkCreate.read`
+
+.. warning::
+    DeviceEnrollmentBulkCreate should not be imported directly froma this module as the
+    organisation may change in the future, please use the top level foundation module to import entities.
+
+How to import DeviceEnrollmentBulkCreate:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import DeviceEnrollmentBulkCreate
 """
 
 # Python 2 compatibility
