@@ -13,13 +13,23 @@ This entity has the following methods:
 - :meth:`CertificateIssuer.update`
 - :meth:`CertificateIssuer.verify`
 
-------------
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    certificate_issuers = pelion_dm_sdk.foundation.certificate_issuer()
 
 .. warning::
     CertificateIssuer should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
-How to import CertificateIssuer:
+How to import CertificateIssuer directly:
 
 .. code-block:: python
     

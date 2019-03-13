@@ -15,7 +15,7 @@ This module contains all Enums used by Foundation Entities in the Devices catego
 
 .. warning::
     Enums should not be imported directly from this module as the organisation of categories may change in
-    the future, please use the top level :mod:`mbed_cloud.foundation.enums` to import enums.
+    the future, please use the :mod:`mbed_cloud.foundation.enums` module to import enums.
 
 How to import Enums:
 

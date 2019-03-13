@@ -12,13 +12,23 @@ This entity has the following methods:
 - :meth:`SubtenantUser.update`
 - :meth:`SubtenantUser.validate_email`
 
-------------
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    subtenant_users = pelion_dm_sdk.foundation.subtenant_user()
 
 .. warning::
     SubtenantUser should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
-How to import SubtenantUser:
+How to import SubtenantUser directly:
 
 .. code-block:: python
     

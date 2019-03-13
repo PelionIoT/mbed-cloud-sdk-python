@@ -13,13 +13,23 @@ This entity has the following methods:
 - :meth:`TrustedCertificate.read`
 - :meth:`TrustedCertificate.update`
 
-------------
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    trusted_certificates = pelion_dm_sdk.foundation.trusted_certificate()
 
 .. warning::
     TrustedCertificate should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
-How to import TrustedCertificate:
+How to import TrustedCertificate directly:
 
 .. code-block:: python
     

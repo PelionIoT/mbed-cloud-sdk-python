@@ -46,6 +46,11 @@ Security
 - :mod:`mbed_cloud.foundation.entities.security.trusted_certificate`
 - :mod:`mbed_cloud.foundation.entities.security.verification_response`
 
+Enums
+-----
+
+Some Foundation Interface Entities have attributes which use enumerations, please see the
+:mod:`mbed_cloud.foundation.enums` for more information.
 
 ------------
 
@@ -53,7 +58,7 @@ Entity Usage and Importing
 --------------------------
 
 The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
-will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk`.
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
 
 .. code-block:: python
 

@@ -10,13 +10,23 @@ This entity has the following methods:
 - :meth:`SubtenantUserInvitation.delete`
 - :meth:`SubtenantUserInvitation.read`
 
-------------
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    subtenant_user_invitations = pelion_dm_sdk.foundation.subtenant_user_invitation()
 
 .. warning::
     SubtenantUserInvitation should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
-How to import SubtenantUserInvitation:
+How to import SubtenantUserInvitation directly:
 
 .. code-block:: python
     

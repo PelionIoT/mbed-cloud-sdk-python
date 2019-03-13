@@ -11,13 +11,23 @@ This entity has the following methods:
 - :meth:`UserInvitation.list`
 - :meth:`UserInvitation.read`
 
-------------
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    user_invitations = pelion_dm_sdk.foundation.user_invitation()
 
 .. warning::
     UserInvitation should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
-How to import UserInvitation:
+How to import UserInvitation directly:
 
 .. code-block:: python
     

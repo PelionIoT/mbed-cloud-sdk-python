@@ -45,7 +45,8 @@ class SDK(object):
     def client(self):
         """Client Interface, which can be use for direct communication with the Pelion Device Management API
 
-        :rtype: mbed_cloud.client.client.Client - Client Interface.
+        :return: Client Interface.
+        :rtype: mbed_cloud.client.client.Client
         """
         return self._client
 
@@ -53,7 +54,8 @@ class SDK(object):
     def config(self):
         """Configuration in use by SDK instance.
 
-        :rtype: mbed_cloud.sdk.config.Config - Configuration object.
+        :return: Configuration object.
+        :rtype: mbed_cloud.sdk.config.Config
         """
         return self._config
 
@@ -63,7 +65,8 @@ class SDK(object):
 
         This provides access to all Entities in the Foundation Interface via the returned factory class.
 
-        :rtype: mbed_cloud.foundation.entities.entity_factory.EntityFactory - Foundation Interface entity factory.
+        :return: Foundation Interface entity factory.
+        :rtype: mbed_cloud.foundation.entities.entity_factory.EntityFactory
         """
         return self._entities
 

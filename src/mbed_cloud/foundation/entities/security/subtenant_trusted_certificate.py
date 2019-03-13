@@ -12,13 +12,23 @@ This entity has the following methods:
 - :meth:`SubtenantTrustedCertificate.read`
 - :meth:`SubtenantTrustedCertificate.update`
 
-------------
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    subtenant_trusted_certificates = pelion_dm_sdk.foundation.subtenant_trusted_certificate()
 
 .. warning::
     SubtenantTrustedCertificate should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
-How to import SubtenantTrustedCertificate:
+How to import SubtenantTrustedCertificate directly:
 
 .. code-block:: python
     
