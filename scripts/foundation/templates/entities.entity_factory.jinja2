@@ -1,7 +1,13 @@
 """
-Factory module
+Foundation Entity Factory
+=========================
 
-This file is auto-generated from API Specifications.
+The Entity Factory returns new instance of Foundation Entities using the shared SDK context. All Entities can be created
+from :class:`EntityFactory` class using the following methods:
+{% for entity in entities %}
+- :meth:`EntityFactory.{{ entity._key|to_snake }}`
+{%- endfor %}
+
 """
 
 # Python 2 compatibility
@@ -11,7 +17,7 @@ from builtins import object
 
 
 class EntityFactory:
-    """Creates instances of Foundation Entities reusing the SDK context."""
+    """Creates instances of Foundation Entities using the shared SDK context."""
 
     def __init__(self, client):
         """EntityFactory takes a client to attach to the models it creates"""
@@ -25,12 +31,13 @@ class EntityFactory:
             {{field._key|to_snake}}=None,
         {% endfor %}
     ):
-        """Creates a local `{{entity._key|to_pascal}}` instance, binding the client
+        """Creates a local `{{entity._key|to_pascal}}` instance, using the shared SDK context.
 
         {% for field in entity.fields if not field.private_field %}:param {{field._key|to_snake}}: {{ (field.description or '')|wordwrap(width=66)|indent(width=12) }}
         :type {{field._key|to_snake}}: {{field.python_type}}
         {% endfor %}
-        :rtype: mbed_cloud.foundation.{{ entity._key|to_pascal }}
+        :return: A new instance of a {{entity._key|to_pascal}} Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.{{ entity.group_id|to_snake }}.{{ entity._key|to_snake }}.{{ entity._key|to_pascal }}
         """
         from mbed_cloud.foundation import {{ entity._key|to_pascal }}
         return {{ entity._key|to_pascal }}(

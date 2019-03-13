@@ -1,7 +1,36 @@
 """
-Factory module
+Foundation Entity Factory
+=========================
 
-This file is auto-generated from API Specifications.
+The Entity Factory returns new instance of Foundation Entities using the shared SDK context. All Entities can be created
+from :class:`EntityFactory` class using the following methods:
+
+- :meth:`EntityFactory.account`
+- :meth:`EntityFactory.active_session`
+- :meth:`EntityFactory.api_key`
+- :meth:`EntityFactory.certificate_enrollment`
+- :meth:`EntityFactory.certificate_issuer`
+- :meth:`EntityFactory.certificate_issuer_config`
+- :meth:`EntityFactory.developer_certificate`
+- :meth:`EntityFactory.device`
+- :meth:`EntityFactory.device_enrollment`
+- :meth:`EntityFactory.device_enrollment_bulk_create`
+- :meth:`EntityFactory.device_enrollment_bulk_delete`
+- :meth:`EntityFactory.device_events`
+- :meth:`EntityFactory.login_history`
+- :meth:`EntityFactory.login_profile`
+- :meth:`EntityFactory.parent_account`
+- :meth:`EntityFactory.password_policy`
+- :meth:`EntityFactory.policy`
+- :meth:`EntityFactory.server_credentials`
+- :meth:`EntityFactory.subtenant_trusted_certificate`
+- :meth:`EntityFactory.subtenant_user`
+- :meth:`EntityFactory.subtenant_user_invitation`
+- :meth:`EntityFactory.trusted_certificate`
+- :meth:`EntityFactory.user`
+- :meth:`EntityFactory.user_invitation`
+- :meth:`EntityFactory.verification_response`
+
 """
 
 # Python 2 compatibility
@@ -11,7 +40,7 @@ from builtins import object
 
 
 class EntityFactory:
-    """Creates instances of Foundation Entities reusing the SDK context."""
+    """Creates instances of Foundation Entities using the shared SDK context."""
 
     def __init__(self, client):
         """EntityFactory takes a client to attach to the models it creates"""
@@ -63,7 +92,7 @@ class EntityFactory:
         updated_at=None,
         upgraded_at=None,
     ):
-        """Creates a local `Account` instance, binding the client
+        """Creates a local `Account` instance, using the shared SDK context.
 
         :param address_line1: Postal address line 1.
         :type address_line1: str
@@ -163,7 +192,8 @@ class EntityFactory:
         :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
         :type upgraded_at: datetime
         
-        :rtype: mbed_cloud.foundation.Account
+        :return: A new instance of a Account Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.account.Account
         """
         from mbed_cloud.foundation import Account
 
@@ -222,7 +252,7 @@ class EntityFactory:
         reference_token=None,
         user_agent=None,
     ):
-        """Creates a local `ActiveSession` instance, binding the client
+        """Creates a local `ActiveSession` instance, using the shared SDK context.
 
         :param account_id: The UUID of the account.
         :type account_id: str
@@ -235,7 +265,8 @@ class EntityFactory:
         :param user_agent: User Agent header from the login request.
         :type user_agent: str
         
-        :rtype: mbed_cloud.foundation.ActiveSession
+        :return: A new instance of a ActiveSession Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.active_session.ActiveSession
         """
         from mbed_cloud.foundation import ActiveSession
 
@@ -261,7 +292,7 @@ class EntityFactory:
         status=None,
         updated_at=None,
     ):
-        """Creates a local `ApiKey` instance, binding the client
+        """Creates a local `ApiKey` instance, using the shared SDK context.
 
         :param account_id: The ID of the account.
         :type account_id: str
@@ -285,7 +316,8 @@ class EntityFactory:
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
         
-        :rtype: mbed_cloud.foundation.ApiKey
+        :return: A new instance of a ApiKey Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.api_key.ApiKey
         """
         from mbed_cloud.foundation import ApiKey
 
@@ -313,7 +345,7 @@ class EntityFactory:
         id=None,
         updated_at=None,
     ):
-        """Creates a local `CertificateEnrollment` instance, binding the client
+        """Creates a local `CertificateEnrollment` instance, using the shared SDK context.
 
         :param certificate_name: The certificate name.
         :type certificate_name: str
@@ -330,7 +362,8 @@ class EntityFactory:
         :param updated_at: Update UTC time RFC3339.
         :type updated_at: datetime
         
-        :rtype: mbed_cloud.foundation.CertificateEnrollment
+        :return: A new instance of a CertificateEnrollment Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.security.certificate_enrollment.CertificateEnrollment
         """
         from mbed_cloud.foundation import CertificateEnrollment
 
@@ -354,7 +387,7 @@ class EntityFactory:
         issuer_type=None,
         name=None,
     ):
-        """Creates a local `CertificateIssuer` instance, binding the client
+        """Creates a local `CertificateIssuer` instance, using the shared SDK context.
 
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
@@ -382,7 +415,8 @@ class EntityFactory:
         :param name: Certificate issuer name, unique per account.
         :type name: str
         
-        :rtype: mbed_cloud.foundation.CertificateIssuer
+        :return: A new instance of a CertificateIssuer Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.security.certificate_issuer.CertificateIssuer
         """
         from mbed_cloud.foundation import CertificateIssuer
 
@@ -404,7 +438,7 @@ class EntityFactory:
         id=None,
         updated_at=None,
     ):
-        """Creates a local `CertificateIssuerConfig` instance, binding the client
+        """Creates a local `CertificateIssuerConfig` instance, using the shared SDK context.
 
         :param certificate_issuer_id: The ID of the certificate issuer.
             Null if Device Management
@@ -420,7 +454,8 @@ class EntityFactory:
         :param updated_at: Updated UTC time RFC3339.
         :type updated_at: datetime
         
-        :rtype: mbed_cloud.foundation.CertificateIssuerConfig
+        :return: A new instance of a CertificateIssuerConfig Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.security.certificate_issuer_config.CertificateIssuerConfig
         """
         from mbed_cloud.foundation import CertificateIssuerConfig
 
@@ -443,7 +478,7 @@ class EntityFactory:
         name=None,
         security_file_content=None,
     ):
-        """Creates a local `DeveloperCertificate` instance, binding the client
+        """Creates a local `DeveloperCertificate` instance, using the shared SDK context.
 
         :param account_id: account to which the developer certificate belongs
         :type account_id: str
@@ -461,7 +496,8 @@ class EntityFactory:
             device to provide the security credentials
         :type security_file_content: str
         
-        :rtype: mbed_cloud.foundation.DeveloperCertificate
+        :return: A new instance of a DeveloperCertificate Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.security.developer_certificate.DeveloperCertificate
         """
         from mbed_cloud.foundation import DeveloperCertificate
 
@@ -508,7 +544,7 @@ class EntityFactory:
         updated_at=None,
         vendor_id=None,
     ):
-        """Creates a local `Device` instance, binding the client
+        """Creates a local `Device` instance, using the shared SDK context.
 
         :param account_id: The ID of the associated account.
         :type account_id: str
@@ -581,7 +617,8 @@ class EntityFactory:
         :param vendor_id: The device vendor ID.
         :type vendor_id: str
         
-        :rtype: mbed_cloud.foundation.Device
+        :return: A new instance of a Device Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.devices.device.Device
         """
         from mbed_cloud.foundation import Device
 
@@ -628,7 +665,7 @@ class EntityFactory:
         expires_at=None,
         id=None,
     ):
-        """Creates a local `DeviceEnrollment` instance, binding the client
+        """Creates a local `DeviceEnrollment` instance, using the shared SDK context.
 
         :param account_id: ID
         :type account_id: str
@@ -648,7 +685,8 @@ class EntityFactory:
         :param id: Enrollment identity.
         :type id: str
         
-        :rtype: mbed_cloud.foundation.DeviceEnrollment
+        :return: A new instance of a DeviceEnrollment Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.devices.device_enrollment.DeviceEnrollment
         """
         from mbed_cloud.foundation import DeviceEnrollment
 
@@ -676,7 +714,7 @@ class EntityFactory:
         status=None,
         total_count=None,
     ):
-        """Creates a local `DeviceEnrollmentBulkCreate` instance, binding the client
+        """Creates a local `DeviceEnrollmentBulkCreate` instance, using the shared SDK context.
 
         :param account_id: ID
         :type account_id: str
@@ -708,7 +746,8 @@ class EntityFactory:
         :param total_count: Total number of enrollment identities found in the input CSV.
         :type total_count: int
         
-        :rtype: mbed_cloud.foundation.DeviceEnrollmentBulkCreate
+        :return: A new instance of a DeviceEnrollmentBulkCreate Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create.DeviceEnrollmentBulkCreate
         """
         from mbed_cloud.foundation import DeviceEnrollmentBulkCreate
 
@@ -739,7 +778,7 @@ class EntityFactory:
         status=None,
         total_count=None,
     ):
-        """Creates a local `DeviceEnrollmentBulkDelete` instance, binding the client
+        """Creates a local `DeviceEnrollmentBulkDelete` instance, using the shared SDK context.
 
         :param account_id: ID
         :type account_id: str
@@ -771,7 +810,8 @@ class EntityFactory:
         :param total_count: Total number of enrollment identities found in the input CSV.
         :type total_count: int
         
-        :rtype: mbed_cloud.foundation.DeviceEnrollmentBulkDelete
+        :return: A new instance of a DeviceEnrollmentBulkDelete Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete.DeviceEnrollmentBulkDelete
         """
         from mbed_cloud.foundation import DeviceEnrollmentBulkDelete
 
@@ -803,7 +843,7 @@ class EntityFactory:
         id=None,
         state_change=None,
     ):
-        """Creates a local `DeviceEvents` instance, binding the client
+        """Creates a local `DeviceEvents` instance, using the shared SDK context.
 
         :param changes: 
         :type changes: dict
@@ -828,7 +868,8 @@ class EntityFactory:
         :param state_change: 
         :type state_change: bool
         
-        :rtype: mbed_cloud.foundation.DeviceEvents
+        :return: A new instance of a DeviceEvents Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.devices.device_events.DeviceEvents
         """
         from mbed_cloud.foundation import DeviceEvents
 
@@ -848,7 +889,7 @@ class EntityFactory:
         )
 
     def login_history(self, date=None, ip_address=None, success=None, user_agent=None):
-        """Creates a local `LoginHistory` instance, binding the client
+        """Creates a local `LoginHistory` instance, using the shared SDK context.
 
         :param date: UTC time RFC3339 for this login attempt.
         :type date: datetime
@@ -859,7 +900,8 @@ class EntityFactory:
         :param user_agent: User Agent header from the login request.
         :type user_agent: str
         
-        :rtype: mbed_cloud.foundation.LoginHistory
+        :return: A new instance of a LoginHistory Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.login_history.LoginHistory
         """
         from mbed_cloud.foundation import LoginHistory
 
@@ -872,21 +914,22 @@ class EntityFactory:
         )
 
     def login_profile(self, id=None, name=None):
-        """Creates a local `LoginProfile` instance, binding the client
+        """Creates a local `LoginProfile` instance, using the shared SDK context.
 
         :param id: ID of the identity provider.
         :type id: str
         :param name: Name of the identity provider.
         :type name: str
         
-        :rtype: mbed_cloud.foundation.LoginProfile
+        :return: A new instance of a LoginProfile Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.login_profile.LoginProfile
         """
         from mbed_cloud.foundation import LoginProfile
 
         return LoginProfile(_client=self._client, id=id, name=name)
 
     def parent_account(self, admin_email=None, admin_name=None, id=None):
-        """Creates a local `ParentAccount` instance, binding the client
+        """Creates a local `ParentAccount` instance, using the shared SDK context.
 
         :param admin_email: The email address of the admin user who is the contact person of
             the parent account.
@@ -897,7 +940,8 @@ class EntityFactory:
         :param id: The ID of the parent account
         :type id: str
         
-        :rtype: mbed_cloud.foundation.ParentAccount
+        :return: A new instance of a ParentAccount Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.parent_account.ParentAccount
         """
         from mbed_cloud.foundation import ParentAccount
 
@@ -906,19 +950,20 @@ class EntityFactory:
         )
 
     def password_policy(self, minimum_length=None):
-        """Creates a local `PasswordPolicy` instance, binding the client
+        """Creates a local `PasswordPolicy` instance, using the shared SDK context.
 
         :param minimum_length: Minimum length for the password. A number between 8 and 512.
         :type minimum_length: str
         
-        :rtype: mbed_cloud.foundation.PasswordPolicy
+        :return: A new instance of a PasswordPolicy Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.password_policy.PasswordPolicy
         """
         from mbed_cloud.foundation import PasswordPolicy
 
         return PasswordPolicy(_client=self._client, minimum_length=minimum_length)
 
     def policy(self, action=None, allow=None, feature=None, inherited=None, resource=None):
-        """Creates a local `Policy` instance, binding the client
+        """Creates a local `Policy` instance, using the shared SDK context.
 
         :param action: Comma separated list of actions, empty string represents all
             actions.
@@ -933,7 +978,8 @@ class EntityFactory:
         :param resource: Resource that is protected by this policy.
         :type resource: str
         
-        :rtype: mbed_cloud.foundation.Policy
+        :return: A new instance of a Policy Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.policy.Policy
         """
         from mbed_cloud.foundation import Policy
 
@@ -949,7 +995,7 @@ class EntityFactory:
     def server_credentials(
         self, created_at=None, id=None, server_certificate=None, server_uri=None
     ):
-        """Creates a local `ServerCredentials` instance, binding the client
+        """Creates a local `ServerCredentials` instance, using the shared SDK context.
 
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
@@ -962,7 +1008,8 @@ class EntityFactory:
         :param server_uri: Server URI to which the client needs to connect to.
         :type server_uri: str
         
-        :rtype: mbed_cloud.foundation.ServerCredentials
+        :return: A new instance of a ServerCredentials Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.security.server_credentials.ServerCredentials
         """
         from mbed_cloud.foundation import ServerCredentials
 
@@ -994,7 +1041,7 @@ class EntityFactory:
         valid=None,
         validity=None,
     ):
-        """Creates a local `SubtenantTrustedCertificate` instance, binding the client
+        """Creates a local `SubtenantTrustedCertificate` instance, using the shared SDK context.
 
         :param account_id: The ID of the account.
         :type account_id: str
@@ -1032,7 +1079,8 @@ class EntityFactory:
         :param validity: Expiration time in UTC formatted as RFC3339.
         :type validity: datetime
         
-        :rtype: mbed_cloud.foundation.SubtenantTrustedCertificate
+        :return: A new instance of a SubtenantTrustedCertificate Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.security.subtenant_trusted_certificate.SubtenantTrustedCertificate
         """
         from mbed_cloud.foundation import SubtenantTrustedCertificate
 
@@ -1083,7 +1131,7 @@ class EntityFactory:
         updated_at=None,
         username=None,
     ):
-        """Creates a local `SubtenantUser` instance, binding the client
+        """Creates a local `SubtenantUser` instance, using the shared SDK context.
 
         :param account_id: The ID of the account.
         :type account_id: str
@@ -1147,7 +1195,8 @@ class EntityFactory:
             characters.
         :type username: str
         
-        :rtype: mbed_cloud.foundation.SubtenantUser
+        :return: A new instance of a SubtenantUser Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.subtenant_user.SubtenantUser
         """
         from mbed_cloud.foundation import SubtenantUser
 
@@ -1189,7 +1238,7 @@ class EntityFactory:
         updated_at=None,
         user_id=None,
     ):
-        """Creates a local `SubtenantUserInvitation` instance, binding the client
+        """Creates a local `SubtenantUserInvitation` instance, using the shared SDK context.
 
         :param account_id: The ID of the account the user is invited to.
         :type account_id: str
@@ -1209,7 +1258,8 @@ class EntityFactory:
         :param user_id: The ID of the invited user.
         :type user_id: str
         
-        :rtype: mbed_cloud.foundation.SubtenantUserInvitation
+        :return: A new instance of a SubtenantUserInvitation Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.subtenant_user_invitation.SubtenantUserInvitation
         """
         from mbed_cloud.foundation import SubtenantUserInvitation
 
@@ -1245,7 +1295,7 @@ class EntityFactory:
         valid=None,
         validity=None,
     ):
-        """Creates a local `TrustedCertificate` instance, binding the client
+        """Creates a local `TrustedCertificate` instance, using the shared SDK context.
 
         :param account_id: The ID of the account.
         :type account_id: str
@@ -1283,7 +1333,8 @@ class EntityFactory:
         :param validity: Expiration time in UTC formatted as RFC3339.
         :type validity: datetime
         
-        :rtype: mbed_cloud.foundation.TrustedCertificate
+        :return: A new instance of a TrustedCertificate Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate
         """
         from mbed_cloud.foundation import TrustedCertificate
 
@@ -1334,7 +1385,7 @@ class EntityFactory:
         updated_at=None,
         username=None,
     ):
-        """Creates a local `User` instance, binding the client
+        """Creates a local `User` instance, using the shared SDK context.
 
         :param account_id: The ID of the account.
         :type account_id: str
@@ -1398,7 +1449,8 @@ class EntityFactory:
             characters.
         :type username: str
         
-        :rtype: mbed_cloud.foundation.User
+        :return: A new instance of a User Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.user.User
         """
         from mbed_cloud.foundation import User
 
@@ -1440,7 +1492,7 @@ class EntityFactory:
         updated_at=None,
         user_id=None,
     ):
-        """Creates a local `UserInvitation` instance, binding the client
+        """Creates a local `UserInvitation` instance, using the shared SDK context.
 
         :param account_id: The ID of the account the user is invited to.
         :type account_id: str
@@ -1460,7 +1512,8 @@ class EntityFactory:
         :param user_id: The ID of the invited user.
         :type user_id: str
         
-        :rtype: mbed_cloud.foundation.UserInvitation
+        :return: A new instance of a UserInvitation Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.user_invitation.UserInvitation
         """
         from mbed_cloud.foundation import UserInvitation
 
@@ -1477,7 +1530,7 @@ class EntityFactory:
         )
 
     def verification_response(self, message=None, successful=None):
-        """Creates a local `VerificationResponse` instance, binding the client
+        """Creates a local `VerificationResponse` instance, using the shared SDK context.
 
         :param message: Provides details in case of failure.
         :type message: str
@@ -1485,7 +1538,8 @@ class EntityFactory:
             successfully.
         :type successful: bool
         
-        :rtype: mbed_cloud.foundation.VerificationResponse
+        :return: A new instance of a VerificationResponse Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.security.verification_response.VerificationResponse
         """
         from mbed_cloud.foundation import VerificationResponse
 

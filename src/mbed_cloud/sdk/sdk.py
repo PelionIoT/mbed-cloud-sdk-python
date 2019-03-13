@@ -1,13 +1,14 @@
-"""SDK Interface
+"""
+SDK Interface
+=============
 
-This provides a single point of entry to use the Primary, Foundation and Client interfaces.
+This provides a single point of entry to use the Primary, Foundation and Client interfaces. It allows the configuration
+and other context information to be shared between instances.
 """
 import warnings
 
 from mbed_cloud.sdk import Config
 from mbed_cloud.client.client import Client
-
-# create a new InstanceFactory for providing access to Entities directly from this instance
 from mbed_cloud.foundation.entities.entity_factory import EntityFactory
 
 global_sdk = None

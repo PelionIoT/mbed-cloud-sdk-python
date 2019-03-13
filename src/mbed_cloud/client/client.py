@@ -1,8 +1,18 @@
-"""Client Interface
+"""
+Client Interface
+================
 
 This provides direct access the Pelion Device Management API.
 
-Note: It is not recommended that this is used directly, instead please use this class from an SDK instance.
+.. warning::
+    It is not recommended that this is used directly, instead please use this class from an SDK instance. See the
+    :mod:`mbed_cloud.sdk.sdk` module for more information.
+
+.. code-block:: python
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    api_client = pelion_dm_sdk.client()
+    
 """
 import inspect
 import json
