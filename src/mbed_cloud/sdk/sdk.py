@@ -8,7 +8,7 @@ from mbed_cloud.sdk import Config
 from mbed_cloud.client.client import Client
 
 # create a new InstanceFactory for providing access to Entities directly from this instance
-from mbed_cloud.foundation.entities._factory import InstanceFactory
+from mbed_cloud.foundation.entities.entity_factory import EntityFactory
 
 global_sdk = None
 has_warned = None
@@ -39,7 +39,7 @@ class SDK(object):
         # create a new client for making http calls
         self._client = Client(self._config)
 
-        self._entities = InstanceFactory(self.client)
+        self._entities = EntityFactory(self.client)
 
     @property
     def client(self):
@@ -63,7 +63,7 @@ class SDK(object):
 
         This provides access to all Entities in the Foundation Interface via the returned factory class.
 
-        :rtype: mbed_cloud.foundation.entities._factory.InstanceFactory - Foundation Interface entity factory.
+        :rtype: mbed_cloud.foundation.entities.entity_factory.EntityFactory - Foundation Interface entity factory.
         """
         return self._entities
 

@@ -304,7 +304,7 @@ class TemplateRenderer(object):
             to_singular_name=to_singular_name,
         ))
 
-    def render_template(self, template_filename, group="", entity="", template_data=None):
+    def render_template(self, template_filename, group="group", entity="entity", template_data=None):
         """Render one or more jinja2 templates.
 
         The output filename is relative to the `output_root_dir` defined in the class instance but is also defined by
@@ -383,7 +383,7 @@ def render_foundation_sdk(python_sdk_def_dict, output_dir):
     renderer.render_template("enums.__init__.jinja2", template_data={"enums": enum_data})
 
     # Create the factory which is used by the SDK instance to create entity instances
-    renderer.render_template("entities._factory.jinja2", template_data=python_sdk_def_dict)
+    renderer.render_template("entities.entity_factory.jinja2", template_data=python_sdk_def_dict)
 
 
 def count_param_in(fields):

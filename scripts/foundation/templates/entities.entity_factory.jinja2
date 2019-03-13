@@ -10,11 +10,11 @@ from builtins import str  # noqa
 from builtins import object
 
 
-class InstanceFactory:
-    """Creates instances of Entities with a client mixed in"""
+class EntityFactory:
+    """Creates instances of Foundation Entities reusing the SDK context."""
 
     def __init__(self, client):
-        """InstanceFactory takes a client to attach to the models it creates"""
+        """EntityFactory takes a client to attach to the models it creates"""
         self._client = client
 
     {#  this is a duplicate of the __init__ signature from the entity template  #}
