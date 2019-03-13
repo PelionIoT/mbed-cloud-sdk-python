@@ -52,8 +52,6 @@ Enums
 Some Foundation Interface Entities have attributes which use enumerations, please see the
 :mod:`mbed_cloud.foundation.enums` for more information.
 
-------------
-
 Entity Usage and Importing
 --------------------------
 

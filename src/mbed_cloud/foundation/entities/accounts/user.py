@@ -1,4 +1,8 @@
 """
+.. warning::
+    User should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
+
 Foundation Entity: User
 =======================
 
@@ -23,10 +27,6 @@ will share the same context as other Entities. There is more information in the 
     from mbed_cloud import SDK
     pelion_dm_sdk = SDK()
     users = pelion_dm_sdk.foundation.user()
-
-.. warning::
-    User should not be imported directly from this module as the
-    organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import User directly:
 

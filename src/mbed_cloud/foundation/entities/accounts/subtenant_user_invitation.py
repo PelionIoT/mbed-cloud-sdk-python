@@ -1,4 +1,8 @@
 """
+.. warning::
+    SubtenantUserInvitation should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
+
 Foundation Entity: SubtenantUserInvitation
 ==========================================
 
@@ -21,10 +25,6 @@ will share the same context as other Entities. There is more information in the 
     from mbed_cloud import SDK
     pelion_dm_sdk = SDK()
     subtenant_user_invitations = pelion_dm_sdk.foundation.subtenant_user_invitation()
-
-.. warning::
-    SubtenantUserInvitation should not be imported directly from this module as the
-    organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import SubtenantUserInvitation directly:
 

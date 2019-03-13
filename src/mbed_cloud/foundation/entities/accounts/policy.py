@@ -1,4 +1,8 @@
 """
+.. warning::
+    Policy should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
+
 Foundation Entity: Policy
 =========================
 
@@ -16,10 +20,6 @@ will share the same context as other Entities. There is more information in the 
     from mbed_cloud import SDK
     pelion_dm_sdk = SDK()
     policys = pelion_dm_sdk.foundation.policy()
-
-.. warning::
-    Policy should not be imported directly from this module as the
-    organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import Policy directly:
 

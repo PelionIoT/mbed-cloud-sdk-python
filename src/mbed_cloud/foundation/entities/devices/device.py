@@ -1,4 +1,8 @@
 """
+.. warning::
+    Device should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
+
 Foundation Entity: Device
 =========================
 
@@ -24,10 +28,6 @@ will share the same context as other Entities. There is more information in the 
     from mbed_cloud import SDK
     pelion_dm_sdk = SDK()
     devices = pelion_dm_sdk.foundation.device()
-
-.. warning::
-    Device should not be imported directly from this module as the
-    organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import Device directly:
 

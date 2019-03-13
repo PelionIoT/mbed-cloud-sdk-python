@@ -20,8 +20,8 @@ This module contains the Foundation Entities that are grouped together under the
 ------------
 
 .. warning::
-    Entities should not be imported via this module as the organisation may change in the future, please use the top
-    level foundation module to import entities.
+    Entities should not be imported via this module as the organisation may change in the future, please use the
+    :mod:`mbed_cloud.foundation` module to import entities.
 
 How to import Accounts Entities:
 
