@@ -1,4 +1,7 @@
 """
+Security Foundation Entities
+========================================
+
 This module contains the Foundation Entities that are grouped together under the Security category.
 
 .. warning::
