@@ -1,7 +1,27 @@
+{%- set catgory_name = enums[0].group_id|to_pascal -%}
 """
-Enum module
+{{ catgory_name|to_pascal }} Enums
+{% for letter in catgory_name %}={% endfor %}======
 
-This file is auto-generated from API Specifications.
+This module contains all Enums used by Foundation Entities in the {{ catgory_name }} category:
+{% for enum in enums %}
+- :class:`{{ enum.enum_name|to_pascal }}`
+{%- endfor %}
+
+------------
+
+.. warning::
+    Enums should not be imported directly from this module as the organisation of categories may change in
+    the future, please use the top level :mod:`mbed_cloud.foundation.enums` to import enums.
+
+How to import Enums:
+
+.. code-block:: python
+    {% for enum in enums %}
+    from mbed_cloud.foundation.enums import {{ enum.enum_name|to_pascal }}
+    {%- endfor %}
+
+------------
 """
 
 # Python 2 compatibility
@@ -17,11 +37,11 @@ from mbed_cloud.foundation.common.enum_base import BaseEnum
 class {{ enum.enum_name|to_pascal }}(BaseEnum):
     """Represents expected values of `{{enum.enum_name|to_pascal}}`
 
-    This is used by Mbed Cloud "{{ enum.group_id|to_snake }}" functionality
+    This is used by Entities in the "{{ enum.group_id|to_snake }}" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     {% for value in enum['values'] %}{{ value|upper }} = '{{ value }}'
