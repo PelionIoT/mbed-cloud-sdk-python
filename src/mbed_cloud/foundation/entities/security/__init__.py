@@ -1,4 +1,8 @@
 """
+.. warning::
+    Entities should not be imported via this module as the organisation may change in the future, please use the
+    :mod:`mbed_cloud.foundation` module to import entities.
+
 Security Foundation Entities
 ============================
 
@@ -14,10 +18,6 @@ This module contains the Foundation Entities that are grouped together under the
 - :mod:`mbed_cloud.foundation.entities.security.verification_response`
 
 ------------
-
-.. warning::
-    Entities should not be imported via this module as the organisation may change in the future, please use the
-    :mod:`mbed_cloud.foundation` module to import entities.
 
 How to import Security Entities:
 

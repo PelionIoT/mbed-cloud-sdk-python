@@ -3,8 +3,8 @@
     Only edit this file directly to correct typos.
     See CONTRIBUTING for instructions on adding new entries.
 
-Mbed Cloud SDK for Python
-=========================
+Pelion Device Management SDK for Python
+=======================================
 This news file contains a log of notable changes to the SDK.
 
 Please see `mbed-cloud-sdk <https://pypi.org/project/mbed-cloud-sdk/#history>`__ for

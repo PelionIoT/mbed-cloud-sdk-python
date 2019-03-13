@@ -1,4 +1,8 @@
 """
+.. warning::
+    Enums should not be imported directly from this module as the organisation of categories may change in
+    the future, please use the :mod:`mbed_cloud.foundation.enums` module to import enums.
+
 Accounts Enums
 ==============
 
@@ -15,10 +19,6 @@ This module contains all Enums used by Foundation Entities in the Accounts categ
 - :class:`UserStatusEnum`
 
 ------------
-
-.. warning::
-    Enums should not be imported directly from this module as the organisation of categories may change in
-    the future, please use the :mod:`mbed_cloud.foundation.enums` module to import enums.
 
 How to import Enums:
 

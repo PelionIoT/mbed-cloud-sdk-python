@@ -1,4 +1,8 @@
 """
+.. warning::
+    Enums should not be imported directly from this module as the organisation of categories may change in
+    the future, please use the :mod:`mbed_cloud.foundation.enums` module to import enums.
+
 Security Enums
 ==============
 
@@ -16,10 +20,6 @@ This module contains all Enums used by Foundation Entities in the Security categ
 - :class:`TrustedCertificateStatusEnum`
 
 ------------
-
-.. warning::
-    Enums should not be imported directly from this module as the organisation of categories may change in
-    the future, please use the :mod:`mbed_cloud.foundation.enums` module to import enums.
 
 How to import Enums:
 

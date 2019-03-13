@@ -1,4 +1,8 @@
 """
+.. warning::
+    Enums should not be imported directly from this module as the organisation of categories may change in
+    the future, please use the :mod:`mbed_cloud.foundation.enums` module to import enums.
+
 Devices Enums
 =============
 
@@ -12,10 +16,6 @@ This module contains all Enums used by Foundation Entities in the Devices catego
 - :class:`DeviceStateEnum`
 
 ------------
-
-.. warning::
-    Enums should not be imported directly from this module as the organisation of categories may change in
-    the future, please use the :mod:`mbed_cloud.foundation.enums` module to import enums.
 
 How to import Enums:
 

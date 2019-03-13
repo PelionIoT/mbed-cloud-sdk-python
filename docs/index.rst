@@ -11,38 +11,25 @@ Python.
 .. toctree::
     :maxdepth: 1
 
+    SDK Interface <built_api/mbed_cloud.sdk.sdk.rst>
+
+.. toctree::
+    :maxdepth: 1
+
     Foundation Interface <built_api/mbed_cloud.foundation.rst>
+
+.. toctree::
+    :maxdepth: 1
+
+    Client Interface <built_api/mbed_cloud.client.client.rst>
 
 .. toctree::
     :maxdepth: 1
 
     Legacy Interface <legacy_interface.rst>
 
-.. toctree::
-    :maxdepth: 1
-
-    All Modules <module.rst>
-
-.. toctree::
-    :maxdepth: 3
-
-    Full API Reference <built_api/mbed_cloud.rst>
-
 .. include:: ../README.rst
    :start-after: common_content_anchor
-
-.. toctree::
-  :maxdepth: 1
-  :caption: Legacy Interface
-
-  account_management
-  billing
-  bootstrap
-  certificates
-  connect
-  device_directory
-  enrollment
-  update
 
 .. toctree::
   :maxdepth: 1
@@ -52,7 +39,6 @@ Python.
   exceptions
   pagination
   subscriptions
-  metadata
 
 .. toctree::
   :maxdepth: 1

@@ -1,5 +1,9 @@
 {%- set catgory_name = enums[0].group_id|to_pascal -%}
 """
+.. warning::
+    Enums should not be imported directly from this module as the organisation of categories may change in
+    the future, please use the :mod:`mbed_cloud.foundation.enums` module to import enums.
+
 {{ catgory_name|to_pascal }} Enums
 {% for letter in catgory_name %}={% endfor %}======
 
@@ -9,10 +13,6 @@ This module contains all Enums used by Foundation Entities in the {{ catgory_nam
 {%- endfor %}
 
 ------------
-
-.. warning::
-    Enums should not be imported directly from this module as the organisation of categories may change in
-    the future, please use the :mod:`mbed_cloud.foundation.enums` module to import enums.
 
 How to import Enums:
 
