@@ -12,6 +12,8 @@ This entity has the following methods:
 - :meth:`User.read`
 - :meth:`User.update`
 
+------------
+
 .. warning::
     User should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -21,6 +23,8 @@ How to import User:
 .. code-block:: python
     
     from mbed_cloud.foundation import User
+
+------------
 """
 
 # Python 2 compatibility

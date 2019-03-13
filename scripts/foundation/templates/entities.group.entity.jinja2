@@ -16,6 +16,8 @@ the encapsulating entity.
 {%- endfor %}
 {%- endfor %}
 
+------------
+
 .. warning::
     {{ entity_names }} should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -26,6 +28,8 @@ How to import {{ entity_names }}:
     {% for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}
     from mbed_cloud.foundation import {{ entity._key|to_pascal }}
     {%- endfor %}
+
+------------
 """
 
 # Python 2 compatibility

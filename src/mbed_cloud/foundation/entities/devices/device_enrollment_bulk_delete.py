@@ -11,6 +11,8 @@ This entity has the following methods:
 - :meth:`DeviceEnrollmentBulkDelete.download_full_report_file`
 - :meth:`DeviceEnrollmentBulkDelete.read`
 
+------------
+
 .. warning::
     DeviceEnrollmentBulkDelete should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -20,6 +22,8 @@ How to import DeviceEnrollmentBulkDelete:
 .. code-block:: python
     
     from mbed_cloud.foundation import DeviceEnrollmentBulkDelete
+
+------------
 """
 
 # Python 2 compatibility

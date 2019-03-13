@@ -11,6 +11,8 @@ This entity has the following methods:
 - :meth:`DeviceEnrollment.list`
 - :meth:`DeviceEnrollment.read`
 
+------------
+
 .. warning::
     DeviceEnrollment should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -20,6 +22,8 @@ How to import DeviceEnrollment:
 .. code-block:: python
     
     from mbed_cloud.foundation import DeviceEnrollment
+
+------------
 """
 
 # Python 2 compatibility

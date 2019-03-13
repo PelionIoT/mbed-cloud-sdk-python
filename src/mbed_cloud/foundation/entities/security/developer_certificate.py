@@ -11,6 +11,8 @@ This entity has the following methods:
 - :meth:`DeveloperCertificate.get_trusted_certificate_info`
 - :meth:`DeveloperCertificate.read`
 
+------------
+
 .. warning::
     DeveloperCertificate should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -20,6 +22,8 @@ How to import DeveloperCertificate:
 .. code-block:: python
     
     from mbed_cloud.foundation import DeveloperCertificate
+
+------------
 """
 
 # Python 2 compatibility

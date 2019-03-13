@@ -380,7 +380,7 @@ def render_foundation_sdk(python_sdk_def_dict, output_dir):
         renderer.render_template("entities.group.enums.jinja2", group=group, template_data={"enums": enum_list})
 
     # Create a init file to allow an enum to be imported without defining the group
-    renderer.render_template("enums.__init__.jinja2", template_data=python_sdk_def_dict)
+    renderer.render_template("enums.__init__.jinja2", template_data={"enums": enum_data})
 
     # Create the factory which is used by the SDK instance to create entity instances
     renderer.render_template("entities._factory.jinja2", template_data=python_sdk_def_dict)

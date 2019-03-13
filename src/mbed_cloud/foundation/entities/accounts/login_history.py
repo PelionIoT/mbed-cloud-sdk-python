@@ -5,6 +5,8 @@ Foundation Entity: LoginHistory
 The LoginHistory entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
+------------
+
 .. warning::
     LoginHistory should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -14,6 +16,8 @@ How to import LoginHistory:
 .. code-block:: python
     
     from mbed_cloud.foundation import LoginHistory
+
+------------
 """
 
 # Python 2 compatibility

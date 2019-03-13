@@ -5,6 +5,8 @@ Foundation Entity: Policy
 The Policy entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
+------------
+
 .. warning::
     Policy should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -14,6 +16,8 @@ How to import Policy:
 .. code-block:: python
     
     from mbed_cloud.foundation import Policy
+
+------------
 """
 
 # Python 2 compatibility

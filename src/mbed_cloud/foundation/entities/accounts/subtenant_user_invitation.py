@@ -10,6 +10,8 @@ This entity has the following methods:
 - :meth:`SubtenantUserInvitation.delete`
 - :meth:`SubtenantUserInvitation.read`
 
+------------
+
 .. warning::
     SubtenantUserInvitation should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -19,6 +21,8 @@ How to import SubtenantUserInvitation:
 .. code-block:: python
     
     from mbed_cloud.foundation import SubtenantUserInvitation
+
+------------
 """
 
 # Python 2 compatibility

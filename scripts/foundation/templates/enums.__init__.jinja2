@@ -1,13 +1,46 @@
 """
-Enum module
+Foundation Interface: Enums
+===========================
 
-This file is auto-generated from API Specifications.
+Some attributes of Foundation Interface Entities use enumerations and the API has a restricted range of values. The
+following is a list of all enums in the Foundation Interface ordered by entity category:
+{% for group_id, enum_list in enums | dictsort() %}
+
+{{ group_id }}
+{% for letter in group_id %}-{% endfor %}
+{% for enum in enum_list %}
+- :class:`mbed_cloud.foundation.entities.{{ group_id|to_snake }}.enums.{{ enum.enum_name|to_pascal }}`
+{%- endfor %}
+{%- endfor %}
+
+------------
+
+.. note::
+    Enums should be imported via this module as the organisation of the categories in which entities are arranged
+    may change in the future.
+
+How to import Enums:
+
+.. code-block:: python
+    {% for group_id, enum_list in enums | dictsort() %}
+    {%- for enum in enum_list %}
+    from mbed_cloud.foundation.enums import {{ enum.enum_name|to_pascal }}
+    {%- endfor %}
+    {%- endfor %}
+
+------------
 """
+{% for group_id, enum_list in enums | dictsort() %}
+{%- for enum in enum_list %}
+from mbed_cloud.foundation.entities.{{ group_id|to_snake }}.enums import {{ enum.enum_name|to_pascal }}
+{%- endfor %}
+{%- endfor %}
 
-{% for enum in enums|sort(attribute='enum_name')|sort(attribute='group_id') %}from mbed_cloud.foundation.entities.{{ enum.group_id|to_snake }}.enums import {{ enum.enum_name|to_pascal }}
-{% endfor %}
 
 __all__ = [
-{% for enum in enums|sort(attribute='_key') %}'{{ enum.enum_name|to_pascal }}',
-{% endfor %}
+{% for group_id, enum_list in enums | dictsort() %}
+{% for enum in enum_list %}
+'{{ enum.enum_name|to_pascal }}',
+{%- endfor %}
+{%- endfor %}
 ]

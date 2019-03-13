@@ -13,6 +13,8 @@ This entity has the following methods:
 - :meth:`TrustedCertificate.read`
 - :meth:`TrustedCertificate.update`
 
+------------
+
 .. warning::
     TrustedCertificate should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -22,6 +24,8 @@ How to import TrustedCertificate:
 .. code-block:: python
     
     from mbed_cloud.foundation import TrustedCertificate
+
+------------
 """
 
 # Python 2 compatibility

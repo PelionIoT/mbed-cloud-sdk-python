@@ -13,6 +13,8 @@ This entity has the following methods:
 - :meth:`Device.renew_certificate`
 - :meth:`Device.update`
 
+------------
+
 .. warning::
     Device should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -22,6 +24,8 @@ How to import Device:
 .. code-block:: python
     
     from mbed_cloud.foundation import Device
+
+------------
 """
 
 # Python 2 compatibility

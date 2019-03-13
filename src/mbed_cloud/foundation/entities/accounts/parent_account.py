@@ -5,6 +5,8 @@ Foundation Entity: ParentAccount
 The ParentAccount entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
+------------
+
 .. warning::
     ParentAccount should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -14,6 +16,8 @@ How to import ParentAccount:
 .. code-block:: python
     
     from mbed_cloud.foundation import ParentAccount
+
+------------
 """
 
 # Python 2 compatibility

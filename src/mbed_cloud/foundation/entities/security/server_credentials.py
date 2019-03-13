@@ -9,6 +9,8 @@ This entity has the following methods:
 - :meth:`ServerCredentials.get_bootstrap`
 - :meth:`ServerCredentials.get_lwm2m`
 
+------------
+
 .. warning::
     ServerCredentials should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -18,6 +20,8 @@ How to import ServerCredentials:
 .. code-block:: python
     
     from mbed_cloud.foundation import ServerCredentials
+
+------------
 """
 
 # Python 2 compatibility

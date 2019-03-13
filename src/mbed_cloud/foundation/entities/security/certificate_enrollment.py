@@ -9,6 +9,8 @@ This entity has the following methods:
 - :meth:`CertificateEnrollment.list`
 - :meth:`CertificateEnrollment.read`
 
+------------
+
 .. warning::
     CertificateEnrollment should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
@@ -18,6 +20,8 @@ How to import CertificateEnrollment:
 .. code-block:: python
     
     from mbed_cloud.foundation import CertificateEnrollment
+
+------------
 """
 
 # Python 2 compatibility
