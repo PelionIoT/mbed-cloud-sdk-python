@@ -3,7 +3,7 @@ Foundation Interface: Enums
 ===========================
 
 Some attributes of Foundation Interface Entities use enumerations and the API has a restricted range of values. The
-following is a list of all enums in the Foundation Interface ordered by entity category:
+following is a list of all enums in the Foundation Interface ordered by the entity's category:
 
 
 Accounts

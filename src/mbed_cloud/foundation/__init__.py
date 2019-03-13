@@ -47,7 +47,47 @@ Security
 - :mod:`mbed_cloud.foundation.entities.security.verification_response`
 
 
-How to import Entities:
+------------
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk`.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+
+    pelion_dm_sdk = SDK()
+    
+    accounts = pelion_dm_sdk.foundation.account()
+    active_sessions = pelion_dm_sdk.foundation.active_session()
+    api_keys = pelion_dm_sdk.foundation.api_key()
+    login_historys = pelion_dm_sdk.foundation.login_history()
+    login_profiles = pelion_dm_sdk.foundation.login_profile()
+    parent_accounts = pelion_dm_sdk.foundation.parent_account()
+    password_policys = pelion_dm_sdk.foundation.password_policy()
+    policys = pelion_dm_sdk.foundation.policy()
+    subtenant_users = pelion_dm_sdk.foundation.subtenant_user()
+    subtenant_user_invitations = pelion_dm_sdk.foundation.subtenant_user_invitation()
+    users = pelion_dm_sdk.foundation.user()
+    user_invitations = pelion_dm_sdk.foundation.user_invitation()
+    devices = pelion_dm_sdk.foundation.device()
+    device_enrollments = pelion_dm_sdk.foundation.device_enrollment()
+    device_enrollment_bulk_creates = pelion_dm_sdk.foundation.device_enrollment_bulk_create()
+    device_enrollment_bulk_deletes = pelion_dm_sdk.foundation.device_enrollment_bulk_delete()
+    device_eventss = pelion_dm_sdk.foundation.device_events()
+    certificate_enrollments = pelion_dm_sdk.foundation.certificate_enrollment()
+    certificate_issuers = pelion_dm_sdk.foundation.certificate_issuer()
+    certificate_issuer_configs = pelion_dm_sdk.foundation.certificate_issuer_config()
+    developer_certificates = pelion_dm_sdk.foundation.developer_certificate()
+    server_credentialss = pelion_dm_sdk.foundation.server_credentials()
+    subtenant_trusted_certificates = pelion_dm_sdk.foundation.subtenant_trusted_certificate()
+    trusted_certificates = pelion_dm_sdk.foundation.trusted_certificate()
+    verification_responses = pelion_dm_sdk.foundation.verification_response()
+
+How to import Entities directly:
 
 .. code-block:: python
     
@@ -77,6 +117,7 @@ How to import Entities:
     from mbed_cloud.foundation import TrustedCertificate
     from mbed_cloud.foundation import VerificationResponse
 
+------------
 """
 
 from mbed_cloud.foundation.entities.accounts.account import Account

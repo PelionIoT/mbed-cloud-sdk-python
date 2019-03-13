@@ -4,18 +4,20 @@ Accounts Foundation Entities
 
 This module contains the Foundation Entities that are grouped together under the Accounts category:
 
-- :class:`mbed_cloud.foundation.entities.accounts.account.Account`
-- :class:`mbed_cloud.foundation.entities.accounts.active_session.ActiveSession`
-- :class:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey`
-- :class:`mbed_cloud.foundation.entities.accounts.login_history.LoginHistory`
-- :class:`mbed_cloud.foundation.entities.accounts.login_profile.LoginProfile`
-- :class:`mbed_cloud.foundation.entities.accounts.parent_account.ParentAccount`
-- :class:`mbed_cloud.foundation.entities.accounts.password_policy.PasswordPolicy`
-- :class:`mbed_cloud.foundation.entities.accounts.policy.Policy`
-- :class:`mbed_cloud.foundation.entities.accounts.subtenant_user.SubtenantUser`
-- :class:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation.SubtenantUserInvitation`
-- :class:`mbed_cloud.foundation.entities.accounts.user.User`
-- :class:`mbed_cloud.foundation.entities.accounts.user_invitation.UserInvitation`
+- :mod:`mbed_cloud.foundation.entities.accounts.account`
+- :mod:`mbed_cloud.foundation.entities.accounts.active_session`
+- :mod:`mbed_cloud.foundation.entities.accounts.api_key`
+- :mod:`mbed_cloud.foundation.entities.accounts.login_history`
+- :mod:`mbed_cloud.foundation.entities.accounts.login_profile`
+- :mod:`mbed_cloud.foundation.entities.accounts.parent_account`
+- :mod:`mbed_cloud.foundation.entities.accounts.password_policy`
+- :mod:`mbed_cloud.foundation.entities.accounts.policy`
+- :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user`
+- :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation`
+- :mod:`mbed_cloud.foundation.entities.accounts.user`
+- :mod:`mbed_cloud.foundation.entities.accounts.user_invitation`
+
+------------
 
 .. warning::
     Entities should not be imported via this module as the organisation may change in the future, please use the top
@@ -38,4 +40,5 @@ How to import Accounts Entities:
     from mbed_cloud.foundation import User
     from mbed_cloud.foundation import UserInvitation
 
+------------
 """

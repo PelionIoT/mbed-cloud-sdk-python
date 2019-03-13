@@ -4,8 +4,10 @@
 
 This module contains the Foundation Entities that are grouped together under the {{ _key|to_pascal }} category:
 {% for entity in entities|sort %}
-- :class:`mbed_cloud.foundation.entities.{{ _key|to_snake }}.{{ entity|to_snake }}.{{ entity|to_pascal }}`
+- :mod:`mbed_cloud.foundation.entities.{{ _key|to_snake }}.{{ entity|to_snake }}`
 {%- endfor %}
+
+------------
 
 .. warning::
     Entities should not be imported via this module as the organisation may change in the future, please use the top
@@ -18,4 +20,5 @@ How to import {{ _key|to_pascal }} Entities:
     from mbed_cloud.foundation import {{ entity|to_pascal }}
     {%- endfor %}
 
+------------
 """
