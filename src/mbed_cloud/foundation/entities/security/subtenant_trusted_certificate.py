@@ -5,6 +5,7 @@ Foundation Entity: SubtenantTrustedCertificate
 Entities normally contain methods to create, read, update, delete and list resources. Other
 actions may also be possible on the entity depending on the capabilities present in the API.
 This entity has the following methods:
+
 - :meth:`SubtenantTrustedCertificate.create`
 - :meth:`SubtenantTrustedCertificate.delete`
 - :meth:`SubtenantTrustedCertificate.get_developer_certificate_info`

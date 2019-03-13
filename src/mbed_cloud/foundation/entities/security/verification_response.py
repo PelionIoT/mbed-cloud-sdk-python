@@ -2,7 +2,7 @@
 Foundation Entity: VerificationResponse
 =======================================
 
-The VerificationResponse entity does not have any methods, reading or updating VerificationResponse must be performed via
+The VerificationResponse entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
 .. warning::

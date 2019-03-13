@@ -5,6 +5,7 @@ Foundation Entity: TrustedCertificate
 Entities normally contain methods to create, read, update, delete and list resources. Other
 actions may also be possible on the entity depending on the capabilities present in the API.
 This entity has the following methods:
+
 - :meth:`TrustedCertificate.create`
 - :meth:`TrustedCertificate.delete`
 - :meth:`TrustedCertificate.get_developer_certificate_info`

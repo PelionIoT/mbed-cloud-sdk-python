@@ -2,7 +2,7 @@
 Foundation Entity: LoginProfile
 ===============================
 
-The LoginProfile entity does not have any methods, reading or updating LoginProfile must be performed via
+The LoginProfile entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
 .. warning::

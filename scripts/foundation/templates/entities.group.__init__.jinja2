@@ -4,7 +4,7 @@
 
 This module contains the Foundation Entities that are grouped together under the {{ _key|to_pascal }} category:
 {% for entity in entities|sort %}
-- :class:`mbed_cloud.foundation.entities.{{ _key|to_pascal }}.{{ entity|to_snake }}.{{ entity|to_pascal }}`
+- :class:`mbed_cloud.foundation.entities.{{ _key|to_snake }}.{{ entity|to_snake }}.{{ entity|to_pascal }}`
 {%- endfor %}
 
 .. warning::

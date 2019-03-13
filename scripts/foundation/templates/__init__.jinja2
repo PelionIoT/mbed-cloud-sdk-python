@@ -12,7 +12,7 @@ are grouped into categories to aid discovery and indicate associated functionali
 {{ group._key }}
 {% for letter in group._key %}-{% endfor %}
 {% for entity in group.entities|sort %}
-- :class:`mbed_cloud.foundation.entities.{{ group._key|to_snake }}.{{ entity|to_snake }}.{{ entity|to_pascal }}`
+- :mod:`mbed_cloud.foundation.entities.{{ group._key|to_snake }}.{{ entity|to_snake }}`
 {%- endfor %}
 {% endfor %}
 

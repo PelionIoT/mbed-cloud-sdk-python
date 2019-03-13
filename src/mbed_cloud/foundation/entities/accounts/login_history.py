@@ -2,7 +2,7 @@
 Foundation Entity: LoginHistory
 ===============================
 
-The LoginHistory entity does not have any methods, reading or updating LoginHistory must be performed via
+The LoginHistory entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
 .. warning::

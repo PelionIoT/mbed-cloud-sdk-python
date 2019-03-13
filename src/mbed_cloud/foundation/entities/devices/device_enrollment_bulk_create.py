@@ -5,6 +5,7 @@ Foundation Entity: DeviceEnrollmentBulkCreate
 Entities normally contain methods to create, read, update, delete and list resources. Other
 actions may also be possible on the entity depending on the capabilities present in the API.
 This entity has the following methods:
+
 - :meth:`DeviceEnrollmentBulkCreate.create`
 - :meth:`DeviceEnrollmentBulkCreate.download_errors_report_file`
 - :meth:`DeviceEnrollmentBulkCreate.download_full_report_file`

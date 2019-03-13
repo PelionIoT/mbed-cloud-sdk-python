@@ -2,7 +2,7 @@
 Foundation Entity: PasswordPolicy
 =================================
 
-The PasswordPolicy entity does not have any methods, reading or updating PasswordPolicy must be performed via
+The PasswordPolicy entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
 .. warning::

@@ -2,7 +2,7 @@
 Foundation Entity: ActiveSession
 ================================
 
-The ActiveSession entity does not have any methods, reading or updating ActiveSession must be performed via
+The ActiveSession entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
 .. warning::

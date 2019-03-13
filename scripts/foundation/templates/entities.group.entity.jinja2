@@ -7,10 +7,11 @@ Foundation Entity: {{ entity_names }}
 {%- if loop.index == 1 %}
 Entities normally contain methods to create, read, update, delete and list resources. Other
 actions may also be possible on the entity depending on the capabilities present in the API.
-This entity has the following methods:{% endif %}
+This entity has the following methods:
+{% endif %}
 - :meth:`{{ entity._key|to_pascal }}.{{method._key|to_snake}}`
 {%- else %}
-The {{ entity_names }} entity does not have any methods, reading or updating {{ entity_names }} must be performed via
+The {{ entity_names }} entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 {%- endfor %}
 {%- endfor %}

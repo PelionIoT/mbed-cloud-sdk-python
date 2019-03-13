@@ -5,6 +5,7 @@ Foundation Entity: CertificateIssuer
 Entities normally contain methods to create, read, update, delete and list resources. Other
 actions may also be possible on the entity depending on the capabilities present in the API.
 This entity has the following methods:
+
 - :meth:`CertificateIssuer.create`
 - :meth:`CertificateIssuer.delete`
 - :meth:`CertificateIssuer.list`

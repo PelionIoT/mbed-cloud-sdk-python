@@ -2,7 +2,7 @@
 Foundation Entity: ParentAccount
 ================================
 
-The ParentAccount entity does not have any methods, reading or updating ParentAccount must be performed via
+The ParentAccount entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
 .. warning::

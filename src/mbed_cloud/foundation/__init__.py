@@ -12,39 +12,39 @@ are grouped into categories to aid discovery and indicate associated functionali
 Accounts
 --------
 
-- :class:`mbed_cloud.foundation.entities.accounts.account.Account`
-- :class:`mbed_cloud.foundation.entities.accounts.active_session.ActiveSession`
-- :class:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey`
-- :class:`mbed_cloud.foundation.entities.accounts.login_history.LoginHistory`
-- :class:`mbed_cloud.foundation.entities.accounts.login_profile.LoginProfile`
-- :class:`mbed_cloud.foundation.entities.accounts.parent_account.ParentAccount`
-- :class:`mbed_cloud.foundation.entities.accounts.password_policy.PasswordPolicy`
-- :class:`mbed_cloud.foundation.entities.accounts.policy.Policy`
-- :class:`mbed_cloud.foundation.entities.accounts.subtenant_user.SubtenantUser`
-- :class:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation.SubtenantUserInvitation`
-- :class:`mbed_cloud.foundation.entities.accounts.user.User`
-- :class:`mbed_cloud.foundation.entities.accounts.user_invitation.UserInvitation`
+- :mod:`mbed_cloud.foundation.entities.accounts.account`
+- :mod:`mbed_cloud.foundation.entities.accounts.active_session`
+- :mod:`mbed_cloud.foundation.entities.accounts.api_key`
+- :mod:`mbed_cloud.foundation.entities.accounts.login_history`
+- :mod:`mbed_cloud.foundation.entities.accounts.login_profile`
+- :mod:`mbed_cloud.foundation.entities.accounts.parent_account`
+- :mod:`mbed_cloud.foundation.entities.accounts.password_policy`
+- :mod:`mbed_cloud.foundation.entities.accounts.policy`
+- :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user`
+- :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation`
+- :mod:`mbed_cloud.foundation.entities.accounts.user`
+- :mod:`mbed_cloud.foundation.entities.accounts.user_invitation`
 
 Devices
 -------
 
-- :class:`mbed_cloud.foundation.entities.devices.device.Device`
-- :class:`mbed_cloud.foundation.entities.devices.device_enrollment.DeviceEnrollment`
-- :class:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create.DeviceEnrollmentBulkCreate`
-- :class:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete.DeviceEnrollmentBulkDelete`
-- :class:`mbed_cloud.foundation.entities.devices.device_events.DeviceEvents`
+- :mod:`mbed_cloud.foundation.entities.devices.device`
+- :mod:`mbed_cloud.foundation.entities.devices.device_enrollment`
+- :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create`
+- :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete`
+- :mod:`mbed_cloud.foundation.entities.devices.device_events`
 
 Security
 --------
 
-- :class:`mbed_cloud.foundation.entities.security.certificate_enrollment.CertificateEnrollment`
-- :class:`mbed_cloud.foundation.entities.security.certificate_issuer.CertificateIssuer`
-- :class:`mbed_cloud.foundation.entities.security.certificate_issuer_config.CertificateIssuerConfig`
-- :class:`mbed_cloud.foundation.entities.security.developer_certificate.DeveloperCertificate`
-- :class:`mbed_cloud.foundation.entities.security.server_credentials.ServerCredentials`
-- :class:`mbed_cloud.foundation.entities.security.subtenant_trusted_certificate.SubtenantTrustedCertificate`
-- :class:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate`
-- :class:`mbed_cloud.foundation.entities.security.verification_response.VerificationResponse`
+- :mod:`mbed_cloud.foundation.entities.security.certificate_enrollment`
+- :mod:`mbed_cloud.foundation.entities.security.certificate_issuer`
+- :mod:`mbed_cloud.foundation.entities.security.certificate_issuer_config`
+- :mod:`mbed_cloud.foundation.entities.security.developer_certificate`
+- :mod:`mbed_cloud.foundation.entities.security.server_credentials`
+- :mod:`mbed_cloud.foundation.entities.security.subtenant_trusted_certificate`
+- :mod:`mbed_cloud.foundation.entities.security.trusted_certificate`
+- :mod:`mbed_cloud.foundation.entities.security.verification_response`
 
 
 How to import Entities:
