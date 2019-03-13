@@ -1,7 +1,16 @@
 """
 Foundation Interface
+====================
 
-This file is auto-generated from API Specifications.
+Without members:
+
+.. autoclass:: mbed_cloud.foundation.entities.account.User
+
+With members:
+
+.. autoclass:: mbed_cloud.foundation.entities.account.User
+  :members: read, list, update, delete
+
 """
 
 from mbed_cloud.foundation.entities.accounts.account import Account

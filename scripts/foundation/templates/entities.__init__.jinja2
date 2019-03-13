@@ -1,8 +1,16 @@
 """
-This module contains all entities, entities are grouped together per category/tag.
+This module contains all Foundation Entities, which are grouped together per into API categories.
 
-Note: Entities should not be imported via this module as the organisation may change in the
-      future, please use the top level foundation module to import entities.
+.. warning::
+    Entities should not be imported via this module as the organisation may change in the future, please use the top
+    level foundation module to import entities.
 
-This file is auto-generated from API Specifications.
+How to import Entities:
+
+.. code-block:: python
+
+    {%- for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}
+    from mbed_cloud.foundation import {{ entity._key|to_pascal }}
+    {%- endfor %}
+
 """
