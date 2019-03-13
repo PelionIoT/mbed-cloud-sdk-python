@@ -2514,14 +2514,14 @@ definitions:
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
-      custom_attributes: &id018
+      custom_attributes: &id021
         additionalProperties:
           type: string
         example:
           key: value
         maxProperties: 10
         type: object
-      description: &id019
+      description: &id022
         description: The description of the group.
         example: Devices on the factory floor.
         maxLength: 2000
@@ -2538,7 +2538,7 @@ definitions:
         description: The group ID.
         example: 015c3029f6f7000000000001001000c3
         type: string
-      name: &id020
+      name: &id023
         description: Name of the group.
         example: My devices
         maxLength: 128
@@ -5841,7 +5841,7 @@ definitions:
         example: false
         type: boolean
       created_at: *id012
-      description: &id021
+      description: &id024
         description: Human-readable description
         example: New Linux update for my devices
         maxLength: 2000
@@ -5855,7 +5855,7 @@ definitions:
         description: The upload job ID
         example: '00000000000000000000000000000000'
         type: string
-      name: &id022
+      name: &id025
         description: Human-readable name
         example: New Linux update
         maxLength: 128
@@ -6346,6 +6346,32 @@ definitions:
         type: string
     required:
     - url
+    type: object
+  WebsocketChannel:
+    properties:
+      channelId:
+        description: Unique identifier of the channel
+        example: 9e3931e0-3549-40bd-92cc-565cad74ef31
+        type: string
+      queueSize:
+        default: 0
+        description: Number of events in the channel's event queue waiting to be delivered.
+        example: 0
+        type: integer
+      status:
+        default: disconnected
+        description: 'Channel status will be ''connected'' when the channel has an
+          active WebSocket bound to it. The state
+
+          will be ''disconnected'' when either the channel or the WebSocket bound
+          to it is closed.
+
+          '
+        enum:
+        - connected
+        - disconnected
+        example: disconnected
+        type: string
     type: object
   error-response:
     properties:
@@ -7544,14 +7570,14 @@ paths:
         \ Bearer {api-key}'\n"
       operationId: deregisterWebhook
       responses:
-        204:
+        204: &id019
           description: Successfully deleted.
-        401:
+        401: &id017
           description: Unauthorized.
-        403:
+        403: &id018
           description: Forbidden, the authorization token used is not an API key.
         404:
-          description: Callback URL does not exists.
+          description: Callback URL does not exist.
       summary: Delete callback URL
       tags:
       - Notifications
@@ -7567,10 +7593,8 @@ paths:
           description: URL found.
           schema:
             $ref: '#/definitions/Webhook'
-        401:
-          description: Unauthorized.
-        403:
-          description: Forbidden, the authorization token used is not an API key.
+        401: *id017
+        403: *id018
         404:
           description: The callback URL does not exist.
       summary: Check callback URL
@@ -7587,7 +7611,7 @@ paths:
         server message. The given URL should be accessible and respond to the PUT\
         \ request with response code of 200 or 204.\nDevice Management Connect tests\
         \ the callback URL with an empty payload when the URL is registered. For more\
-        \ information on callback\nnotification, see [NotificationMessage](/docs/current/service-api-references/mbed-cloud-connect.html#models).\n\
+        \ information on\nnotification messages, see [NotificationMessage](#NotificationMessage).\n\
         \n**Optional headers in a callback message:**\n\nYou can set optional headers\
         \ to a callback in a **Webhook** object.\nDevice Management Connect will include\
         \ the header and key pairs to the notification messages send them to callback\
@@ -7597,15 +7621,15 @@ paths:
         \ notification belongs to.\n\n**Note**: Only one callback URL per an API key\
         \ can be active. If you register a new URL while another one is already active,\n\
         it replaces the active one. There can be only one notification channel at\
-        \ a time. If the Long Poll notification is already present,\nyou need to delete\
+        \ a time. If another type of channel is already present,\nyou need to delete\
         \ it before setting the callback URL.\n\n**Expiration of a callback URL:**\n\
         \nA callback can expire when Device Management cannot deliver a notification\
         \ due to a connection timeout or an\nerror response (4xx or 5xx). After each\
         \ delivery failure, Device Management sets an exponential back off time and\
         \ makes a retry attempt\nafter that. The first retry delay is 1 second, then\
         \ 2s, 4s, 8s, ..., 2min, 2min. The maximum retry delay is 2 minutes.\nThe\
-        \ callback URL will be removed if all retries fail withing 24 hours. More\
-        \ about [notification sending logic](/docs/current/integrate-web-app/event-notification.html#notification-sending-logic).\n\
+        \ callback URL will be removed if all retries fail within 24 hours. More about\
+        \ [notification sending logic](/docs/current/integrate-web-app/event-notification.html#notification-sending-logic).\n\
         \n**Supported callback URL protocols:**\n\nCurrently, only HTTP and HTTPS\
         \ protocols are supported.\n\n**HTTPS callback URLs:**\n\nWhen delivering\
         \ a notification to an HTTPS based callback URL, Device Management Connect\
@@ -7635,12 +7659,10 @@ paths:
         204:
           description: Successfully subscribed.
         400:
-          description: Given URL is not accessible or the Long Polling channel already
+          description: Given URL is not accessible or other type of channel already
             exists.
-        401:
-          description: Unauthorized.
-        403:
-          description: Forbidden, the authorization token used is not an API key.
+        401: *id017
+        403: *id018
         415:
           description: Unsupported Media Type.
       summary: Register a callback URL
@@ -7650,8 +7672,8 @@ paths:
     delete:
       deprecated: true
       description: "To delete a notification Long Poll channel. This is required to\
-        \ change the channel from Long Poll to a callback.\nYou should not make a\
-        \ GET `/v2/notification/pull` call for 2 minutes after channel was deleted,\
+        \ change the channel from Long Poll to another type.\nYou should not make\
+        \ a GET `/v2/notification/pull` call for 2 minutes after channel was deleted,\
         \ because it can\nimplicitly recreate the pull channel. You can also have\
         \ some random responses with payload or 410 GONE with\n\"CHANNEL_DELETED\"\
         \ as a payload or 200/204 until the old channel is purged.\n\n**Example usage:**\n\
@@ -7663,11 +7685,17 @@ paths:
           description: Success. The body can contain "REMOVED" if it was deleted by
             this call or "ALREADY_DELETED" if it was deleted before and not purged
             yet.
-        401:
-          description: Unauthorized.
+        401: *id017
       summary: Delete notification Long Poll channel
       tags:
       - Notifications
+      x-deprecation:
+        comment: Long polling is deprecated and should be used for development purposes
+          only.
+        end_of_life_at: '2019-11-01T00:00:00+00:00'
+        issued_at: '2017-02-10T15:23:00+00:00'
+        links:
+        - cloud.mbed.com/docs/current/integrate-web-app/event-notification.html
     get:
       deprecated: true
       description: "In this case, notifications are delivered through HTTP long poll\
@@ -7688,11 +7716,11 @@ paths:
         \ and will likely be\nreplaced in future. It is meant only for experimentation\
         \ and not for commercial usage. The proper method\nto receive notifications\
         \ is a **notification callback**.\nThere can only be one notification channel\
-        \ per API key at a time in Device Management Connect. If a callback notification\n\
-        channel already exists, you need to delete it before creating a long poll\
-        \ notification channel, and vice-versa.\n\n**Example usage:**\n\n    curl\
-        \ -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H 'authorization:\
-        \ Bearer {api-key}'\n"
+        \ per API key at a time in Device Management Connect. If a notification channel\n\
+        of other type already exists for the API key, you need to delete it before\
+        \ creating a long poll notification channel.\n\n**Example usage:**\n\n   \
+        \ curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H\
+        \ 'authorization: Bearer {api-key}'\n"
       operationId: longPollNotifications
       produces:
       - application/json
@@ -7704,9 +7732,8 @@ paths:
         204:
           description: No new notifications.
         400:
-          description: Callback notification channel already exists.
-        401:
-          description: Unauthorized.
+          description: Other type of channel already exists.
+        401: *id017
         410:
           description: 'Pull channnel was deleted and waiting to be purged. This code
             is a result of incorrect client behavior (delete channel and then pull),
@@ -7725,6 +7752,165 @@ paths:
 
             '
       summary: Get notifications using Long Poll
+      tags:
+      - Notifications
+      x-deprecation:
+        comment: Long polling is deprecated and should be used for development purposes
+          only.
+        end_of_life_at: '2019-11-01T00:00:00+00:00'
+        issued_at: '2017-02-10T15:23:00+00:00'
+        links:
+        - cloud.mbed.com/docs/current/integrate-web-app/event-notification.html
+  /v2/notification/websocket:
+    delete:
+      description: "To delete a notification websocket channel bound to the API key.\n\
+        This is required to change the channel from websocket to another type.\n\n\
+        **Example usage:**\n\n    curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
+        \ -H 'authorization: Bearer {api-key}'\n"
+      operationId: deleteWebsocket
+      responses:
+        204: *id019
+        401: *id017
+        403: *id018
+        404:
+          description: Websocket channel doesn't exist
+      summary: Delete websocket channel.
+      tags:
+      - Notifications
+    get:
+      description: "Returns 200 with websocket connection status if websocket channel\
+        \ exists.\n\n**Example usage:**\n\n    curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
+        \ -H 'authorization: Bearer {api-key}'\n"
+      operationId: getWebsocket
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Websocket found.
+          schema:
+            $ref: '#/definitions/WebsocketChannel'
+        401: *id017
+        403: *id018
+        404:
+          description: No channel has been registered.
+      summary: Get websocket channel information.
+      tags:
+      - Notifications
+    put:
+      consumes:
+      - application/json
+      description: "Register (or update) a channel which will use websocket connection\
+        \ to deliver notifications. The websocket channel should be opened\nby client\
+        \ using `/v2/notification/websocket-connect` endpoint. To get notifications\
+        \ pushed, you also need to place\nthe subscriptions. For more information\
+        \ on notification messages, see [NotificationMessage](#NotificationMessage).\n\
+        \nA websocket channel can have only one active websocket connection at a time.\
+        \ If a websocket connection for a channel exists and a new connection\nto\
+        \ the same channel is made the connection is accepted and the older connection\
+        \ will be closed.\n\n**Expiration of a websocket:**\n\nA websocket channel\
+        \ will be expired if the channel does not have an opened websocket connection\
+        \ for 24 hour period. Channel expiration\nmeans the channel will be deleted\
+        \ and any undelivered notifications stored in its internal queue will be removed.\n\
+        As long as the channel has an opened websocket connection or time between\
+        \ successive websocket connections is less than 24 hours,\nthe channel is\
+        \ considered active, notifications are stored in its internal queue and delivered\
+        \ when a websocket connection is active.\nA channel can be also deleted explicitly\
+        \ by a DELETE call.\n\nMore about [notification sending logic](/docs/current/integrate-web-app/event-notification.html#notification-sending-logic).\n\
+        \n**Example usage:**\n\n    curl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
+        \ -H 'authorization: Bearer {api-key}'\n"
+      operationId: registerWebsocket
+      responses:
+        200:
+          description: 'Channel successfully updated. In the current v2 implementation
+            this operation has no effect, and any subsequent PUT call from a client
+
+            having a channel previously registered will result in 200 OK.
+
+            '
+          schema:
+            $ref: '#/definitions/WebsocketChannel'
+        201:
+          description: Channel succesfully registered.
+          schema:
+            $ref: '#/definitions/WebsocketChannel'
+        400:
+          description: Other type of channel already exists.
+        401: *id017
+        403: *id018
+      summary: Register a websocket channel
+      tags:
+      - Notifications
+  /v2/notification/websocket-connect:
+    get:
+      description: "\nA websocket channel can have only one active websocket connection\
+        \ at a time. If a websocket connection for a channel exists and a new connection\
+        \ to the same channel is made the connection is accepted and the older connection\
+        \ will be closed.<br/>\nOnce the socket has been opened, it may be closed\
+        \ with one of the following status codes<br/>\n| Code | Description |\n|---|---|\n\
+        |**1000**|Socket closed by the client.|\n|**1001**|Going away. Set when another\
+        \ socket was opened on the used channel, or if the channel was deleted with\
+        \ a REST call, or if the server is shutting down.|\n|**1006**|Abnormal loss\
+        \ of connection. This code is never set by the service.|\n|**1008**|Policy\
+        \ violation. Set when the API key is missing or invalid.|\n|**1011**|Unexpected\
+        \ condition. Socket will be closed with this status at an attempt to open\
+        \ a socket to an unexisting channel (without a prior REST PUT). This code\
+        \ is also used to indicate closing socket for any other unexpected condition\
+        \ in the server.|\n<br/>\n**Example usage:**\n\n    curl -X GET -N -I -H \"\
+        Authorization:Bearer {apikey}\" -H \"Connection:upgrade\" -H \"Upgrade:websocket\"\
+        \ -H \"Sec-WebSocket-Version: 13\" -H \"Sec-WebSocket-Key: {base64nonce}\"\
+        \  https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\n"
+      operationId: connectWebsocket
+      parameters:
+      - default: Upgrade
+        in: header
+        name: Connection
+        required: true
+        type: string
+      - default: websocket
+        in: header
+        name: Upgrade
+        required: true
+        type: string
+      - description: 'ApiKey or user token must be present in the `Sec-WebSocket-Protocol`
+          header **if Authorization header cannot be provided**
+
+          `Sec-WebSocket-Protocol:"wss,pelion_ak_{api_key}"`
+
+          Refer to the notification service documentation for examples of usage.
+
+          '
+        in: header
+        name: Sec-WebSocket-Protocol
+        required: false
+        type: string
+      - description: Originating host of the request
+        in: header
+        name: Origin
+        required: true
+        type: string
+      - default: 13
+        description: WebSocket version. MUST be 13.
+        in: header
+        name: Sec-WebSocket-Version
+        required: true
+        type: integer
+      - description: 'The value of this header field MUST be a nonce consisting of
+          a randomly selected 16-byte value that has
+
+          been base64-encoded (see Section 4 of [RFC4648]).  The nonce MUST be selected
+          randomly for each connection.
+
+          '
+        in: header
+        name: Sec-WebSocket-Key
+        required: true
+        type: string
+      responses:
+        101:
+          description: Switching protocols
+        426:
+          description: Upgrade required. Connect and/or Upgrade headers missing.
+      summary: Open the websocket.
       tags:
       - Notifications
   /v2/subscriptions:
@@ -7970,6 +8156,8 @@ paths:
             to reference the future asynchronous response.
           schema:
             $ref: '#/definitions/AsyncID'
+        400:
+          description: Bad request, malformed content.
         404:
           description: Endpoint or its resource not found.
         412:
@@ -13946,7 +14134,7 @@ paths:
         '
       operationId: deleteCertificateIssuerConfigByID
       parameters:
-      - &id017
+      - &id020
         description: 'The ID of the certificate issuer configuration.
 
           '
@@ -13982,7 +14170,7 @@ paths:
         '
       operationId: getCertificateIssuerConfigByID
       parameters:
-      - *id017
+      - *id020
       responses:
         '200':
           description: OK.
@@ -14019,7 +14207,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/CertificateIssuerConfigRequest'
-      - *id017
+      - *id020
       responses:
         '200':
           description: OK.
@@ -15657,9 +15845,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id018
-            description: *id019
-            name: *id020
+            custom_attributes: *id021
+            description: *id022
+            name: *id023
           type: object
       responses:
         '201':
@@ -15742,9 +15930,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id018
-            description: *id019
-            name: *id020
+            custom_attributes: *id021
+            description: *id022
+            name: *id023
           type: object
       responses:
         '200':
@@ -16700,8 +16888,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id021
-            name: *id022
+            description: *id024
+            name: *id025
           type: object
       responses:
         201:
@@ -16789,8 +16977,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id021
-            name: *id022
+            description: *id024
+            name: *id025
           type: object
       responses:
         200:
