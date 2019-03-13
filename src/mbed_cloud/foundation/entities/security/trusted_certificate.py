@@ -2,21 +2,18 @@
 Foundation Entity: TrustedCertificate
 =====================================
 
-- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.create`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`TrustedCertificate.create`
-- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.delete`
 - :meth:`TrustedCertificate.delete`
-- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.get_developer_certificate_info`
 - :meth:`TrustedCertificate.get_developer_certificate_info`
-- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.list`
 - :meth:`TrustedCertificate.list`
-- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.read`
 - :meth:`TrustedCertificate.read`
-- :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.update`
 - :meth:`TrustedCertificate.update`
 
 .. warning::
-    TrustedCertificate should not be imported directly froma this module as the
+    TrustedCertificate should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import TrustedCertificate:

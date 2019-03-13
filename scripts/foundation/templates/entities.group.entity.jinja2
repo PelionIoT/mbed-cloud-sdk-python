@@ -4,13 +4,19 @@ Foundation Entity: {{ entity_names }}
 ==================={% for letter in entity_names %}={% endfor %}
 {% for entity in entities %}
 {%- for method in entity.methods|sort(attribute='_key') if not method.private_method %}
-- :meth:`mbed_cloud.foundation.entities.{{ entity.group_id|to_snake }}.{{ entity._key|to_snake }}.{{ entity._key|to_pascal }}.{{method._key|to_snake}}`
+{%- if loop.index == 1 %}
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:{% endif %}
 - :meth:`{{ entity._key|to_pascal }}.{{method._key|to_snake}}`
+{%- else %}
+The {{ entity_names }} entity does not have any methods, reading or updating {{ entity_names }} must be performed via
+the encapsulating entity.
 {%- endfor %}
 {%- endfor %}
 
 .. warning::
-    {{ entity_names }} should not be imported directly froma this module as the
+    {{ entity_names }} should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import {{ entity_names }}:

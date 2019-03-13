@@ -2,19 +2,17 @@
 Foundation Entity: User
 =======================
 
-- :meth:`mbed_cloud.foundation.entities.accounts.user.User.create`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`User.create`
-- :meth:`mbed_cloud.foundation.entities.accounts.user.User.delete`
 - :meth:`User.delete`
-- :meth:`mbed_cloud.foundation.entities.accounts.user.User.list`
 - :meth:`User.list`
-- :meth:`mbed_cloud.foundation.entities.accounts.user.User.read`
 - :meth:`User.read`
-- :meth:`mbed_cloud.foundation.entities.accounts.user.User.update`
 - :meth:`User.update`
 
 .. warning::
-    User should not be imported directly froma this module as the
+    User should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import User:

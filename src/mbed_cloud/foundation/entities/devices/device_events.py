@@ -2,13 +2,14 @@
 Foundation Entity: DeviceEvents
 ===============================
 
-- :meth:`mbed_cloud.foundation.entities.devices.device_events.DeviceEvents.list`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`DeviceEvents.list`
-- :meth:`mbed_cloud.foundation.entities.devices.device_events.DeviceEvents.read`
 - :meth:`DeviceEvents.read`
 
 .. warning::
-    DeviceEvents should not be imported directly froma this module as the
+    DeviceEvents should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import DeviceEvents:

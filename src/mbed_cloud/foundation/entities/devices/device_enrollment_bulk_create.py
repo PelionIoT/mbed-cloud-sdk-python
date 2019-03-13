@@ -2,17 +2,16 @@
 Foundation Entity: DeviceEnrollmentBulkCreate
 =============================================
 
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create.DeviceEnrollmentBulkCreate.create`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`DeviceEnrollmentBulkCreate.create`
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create.DeviceEnrollmentBulkCreate.download_errors_report_file`
 - :meth:`DeviceEnrollmentBulkCreate.download_errors_report_file`
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create.DeviceEnrollmentBulkCreate.download_full_report_file`
 - :meth:`DeviceEnrollmentBulkCreate.download_full_report_file`
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create.DeviceEnrollmentBulkCreate.read`
 - :meth:`DeviceEnrollmentBulkCreate.read`
 
 .. warning::
-    DeviceEnrollmentBulkCreate should not be imported directly froma this module as the
+    DeviceEnrollmentBulkCreate should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import DeviceEnrollmentBulkCreate:

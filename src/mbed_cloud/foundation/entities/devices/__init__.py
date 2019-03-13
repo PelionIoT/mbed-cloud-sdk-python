@@ -2,7 +2,13 @@
 Devices Foundation Entities
 ===========================
 
-This module contains the Foundation Entities that are grouped together under the Devices category.
+This module contains the Foundation Entities that are grouped together under the Devices category:
+
+- :class:`mbed_cloud.foundation.entities.Devices.device.Device`
+- :class:`mbed_cloud.foundation.entities.Devices.device_enrollment.DeviceEnrollment`
+- :class:`mbed_cloud.foundation.entities.Devices.device_enrollment_bulk_create.DeviceEnrollmentBulkCreate`
+- :class:`mbed_cloud.foundation.entities.Devices.device_enrollment_bulk_delete.DeviceEnrollmentBulkDelete`
+- :class:`mbed_cloud.foundation.entities.Devices.device_events.DeviceEvents`
 
 .. warning::
     Entities should not be imported via this module as the organisation may change in the future, please use the top

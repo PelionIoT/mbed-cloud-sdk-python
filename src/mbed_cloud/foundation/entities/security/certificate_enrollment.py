@@ -2,13 +2,14 @@
 Foundation Entity: CertificateEnrollment
 ========================================
 
-- :meth:`mbed_cloud.foundation.entities.security.certificate_enrollment.CertificateEnrollment.list`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`CertificateEnrollment.list`
-- :meth:`mbed_cloud.foundation.entities.security.certificate_enrollment.CertificateEnrollment.read`
 - :meth:`CertificateEnrollment.read`
 
 .. warning::
-    CertificateEnrollment should not be imported directly froma this module as the
+    CertificateEnrollment should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import CertificateEnrollment:

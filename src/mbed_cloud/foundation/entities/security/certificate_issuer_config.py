@@ -2,21 +2,18 @@
 Foundation Entity: CertificateIssuerConfig
 ==========================================
 
-- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer_config.CertificateIssuerConfig.create`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`CertificateIssuerConfig.create`
-- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer_config.CertificateIssuerConfig.delete`
 - :meth:`CertificateIssuerConfig.delete`
-- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer_config.CertificateIssuerConfig.get_default`
 - :meth:`CertificateIssuerConfig.get_default`
-- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer_config.CertificateIssuerConfig.list`
 - :meth:`CertificateIssuerConfig.list`
-- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer_config.CertificateIssuerConfig.read`
 - :meth:`CertificateIssuerConfig.read`
-- :meth:`mbed_cloud.foundation.entities.security.certificate_issuer_config.CertificateIssuerConfig.update`
 - :meth:`CertificateIssuerConfig.update`
 
 .. warning::
-    CertificateIssuerConfig should not be imported directly froma this module as the
+    CertificateIssuerConfig should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import CertificateIssuerConfig:

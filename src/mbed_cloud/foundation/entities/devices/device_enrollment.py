@@ -2,17 +2,16 @@
 Foundation Entity: DeviceEnrollment
 ===================================
 
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment.DeviceEnrollment.create`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`DeviceEnrollment.create`
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment.DeviceEnrollment.delete`
 - :meth:`DeviceEnrollment.delete`
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment.DeviceEnrollment.list`
 - :meth:`DeviceEnrollment.list`
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment.DeviceEnrollment.read`
 - :meth:`DeviceEnrollment.read`
 
 .. warning::
-    DeviceEnrollment should not be imported directly froma this module as the
+    DeviceEnrollment should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import DeviceEnrollment:

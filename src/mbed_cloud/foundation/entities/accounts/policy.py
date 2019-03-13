@@ -2,9 +2,11 @@
 Foundation Entity: Policy
 =========================
 
+The Policy entity does not have any methods, reading or updating Policy must be performed via
+the encapsulating entity.
 
 .. warning::
-    Policy should not be imported directly froma this module as the
+    Policy should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import Policy:

@@ -2,15 +2,15 @@
 Foundation Entity: SubtenantUserInvitation
 ==========================================
 
-- :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation.SubtenantUserInvitation.create`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`SubtenantUserInvitation.create`
-- :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation.SubtenantUserInvitation.delete`
 - :meth:`SubtenantUserInvitation.delete`
-- :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation.SubtenantUserInvitation.read`
 - :meth:`SubtenantUserInvitation.read`
 
 .. warning::
-    SubtenantUserInvitation should not be imported directly froma this module as the
+    SubtenantUserInvitation should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import SubtenantUserInvitation:

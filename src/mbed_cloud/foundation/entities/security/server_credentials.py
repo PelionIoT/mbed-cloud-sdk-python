@@ -2,13 +2,14 @@
 Foundation Entity: ServerCredentials
 ====================================
 
-- :meth:`mbed_cloud.foundation.entities.security.server_credentials.ServerCredentials.get_bootstrap`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`ServerCredentials.get_bootstrap`
-- :meth:`mbed_cloud.foundation.entities.security.server_credentials.ServerCredentials.get_lwm2m`
 - :meth:`ServerCredentials.get_lwm2m`
 
 .. warning::
-    ServerCredentials should not be imported directly froma this module as the
+    ServerCredentials should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import ServerCredentials:

@@ -2,17 +2,16 @@
 Foundation Entity: DeviceEnrollmentBulkDelete
 =============================================
 
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete.DeviceEnrollmentBulkDelete.delete`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`DeviceEnrollmentBulkDelete.delete`
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete.DeviceEnrollmentBulkDelete.download_errors_report_file`
 - :meth:`DeviceEnrollmentBulkDelete.download_errors_report_file`
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete.DeviceEnrollmentBulkDelete.download_full_report_file`
 - :meth:`DeviceEnrollmentBulkDelete.download_full_report_file`
-- :meth:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete.DeviceEnrollmentBulkDelete.read`
 - :meth:`DeviceEnrollmentBulkDelete.read`
 
 .. warning::
-    DeviceEnrollmentBulkDelete should not be imported directly froma this module as the
+    DeviceEnrollmentBulkDelete should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import DeviceEnrollmentBulkDelete:

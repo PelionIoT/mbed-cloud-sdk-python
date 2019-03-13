@@ -2,21 +2,18 @@
 Foundation Entity: ApiKey
 =========================
 
-- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.create`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`ApiKey.create`
-- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.delete`
 - :meth:`ApiKey.delete`
-- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.list`
 - :meth:`ApiKey.list`
-- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.me`
 - :meth:`ApiKey.me`
-- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.read`
 - :meth:`ApiKey.read`
-- :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.update`
 - :meth:`ApiKey.update`
 
 .. warning::
-    ApiKey should not be imported directly froma this module as the
+    ApiKey should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import ApiKey:

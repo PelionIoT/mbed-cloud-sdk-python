@@ -2,9 +2,11 @@
 Foundation Entity: VerificationResponse
 =======================================
 
+The VerificationResponse entity does not have any methods, reading or updating VerificationResponse must be performed via
+the encapsulating entity.
 
 .. warning::
-    VerificationResponse should not be imported directly froma this module as the
+    VerificationResponse should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import VerificationResponse:

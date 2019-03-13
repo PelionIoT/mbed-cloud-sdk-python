@@ -2,9 +2,11 @@
 Foundation Entity: LoginHistory
 ===============================
 
+The LoginHistory entity does not have any methods, reading or updating LoginHistory must be performed via
+the encapsulating entity.
 
 .. warning::
-    LoginHistory should not be imported directly froma this module as the
+    LoginHistory should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import LoginHistory:

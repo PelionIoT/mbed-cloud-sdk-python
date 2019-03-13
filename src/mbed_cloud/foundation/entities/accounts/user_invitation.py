@@ -2,17 +2,16 @@
 Foundation Entity: UserInvitation
 =================================
 
-- :meth:`mbed_cloud.foundation.entities.accounts.user_invitation.UserInvitation.create`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`UserInvitation.create`
-- :meth:`mbed_cloud.foundation.entities.accounts.user_invitation.UserInvitation.delete`
 - :meth:`UserInvitation.delete`
-- :meth:`mbed_cloud.foundation.entities.accounts.user_invitation.UserInvitation.list`
 - :meth:`UserInvitation.list`
-- :meth:`mbed_cloud.foundation.entities.accounts.user_invitation.UserInvitation.read`
 - :meth:`UserInvitation.read`
 
 .. warning::
-    UserInvitation should not be imported directly froma this module as the
+    UserInvitation should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import UserInvitation:

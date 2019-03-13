@@ -2,7 +2,20 @@
 Accounts Foundation Entities
 ============================
 
-This module contains the Foundation Entities that are grouped together under the Accounts category.
+This module contains the Foundation Entities that are grouped together under the Accounts category:
+
+- :class:`mbed_cloud.foundation.entities.Accounts.account.Account`
+- :class:`mbed_cloud.foundation.entities.Accounts.active_session.ActiveSession`
+- :class:`mbed_cloud.foundation.entities.Accounts.api_key.ApiKey`
+- :class:`mbed_cloud.foundation.entities.Accounts.login_history.LoginHistory`
+- :class:`mbed_cloud.foundation.entities.Accounts.login_profile.LoginProfile`
+- :class:`mbed_cloud.foundation.entities.Accounts.parent_account.ParentAccount`
+- :class:`mbed_cloud.foundation.entities.Accounts.password_policy.PasswordPolicy`
+- :class:`mbed_cloud.foundation.entities.Accounts.policy.Policy`
+- :class:`mbed_cloud.foundation.entities.Accounts.subtenant_user.SubtenantUser`
+- :class:`mbed_cloud.foundation.entities.Accounts.subtenant_user_invitation.SubtenantUserInvitation`
+- :class:`mbed_cloud.foundation.entities.Accounts.user.User`
+- :class:`mbed_cloud.foundation.entities.Accounts.user_invitation.UserInvitation`
 
 .. warning::
     Entities should not be imported via this module as the organisation may change in the future, please use the top

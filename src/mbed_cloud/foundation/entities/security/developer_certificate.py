@@ -2,17 +2,16 @@
 Foundation Entity: DeveloperCertificate
 =======================================
 
-- :meth:`mbed_cloud.foundation.entities.security.developer_certificate.DeveloperCertificate.create`
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
 - :meth:`DeveloperCertificate.create`
-- :meth:`mbed_cloud.foundation.entities.security.developer_certificate.DeveloperCertificate.delete`
 - :meth:`DeveloperCertificate.delete`
-- :meth:`mbed_cloud.foundation.entities.security.developer_certificate.DeveloperCertificate.get_trusted_certificate_info`
 - :meth:`DeveloperCertificate.get_trusted_certificate_info`
-- :meth:`mbed_cloud.foundation.entities.security.developer_certificate.DeveloperCertificate.read`
 - :meth:`DeveloperCertificate.read`
 
 .. warning::
-    DeveloperCertificate should not be imported directly froma this module as the
+    DeveloperCertificate should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import DeveloperCertificate:

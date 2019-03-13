@@ -2,9 +2,11 @@
 Foundation Entity: ActiveSession
 ================================
 
+The ActiveSession entity does not have any methods, reading or updating ActiveSession must be performed via
+the encapsulating entity.
 
 .. warning::
-    ActiveSession should not be imported directly froma this module as the
+    ActiveSession should not be imported directly from this module as the
     organisation may change in the future, please use the top level foundation module to import entities.
 
 How to import ActiveSession:
