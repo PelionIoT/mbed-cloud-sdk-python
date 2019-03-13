@@ -2,13 +2,23 @@
 Foundation Interface
 ====================
 
+Reference
+
+- :doc:`mbed_cloud.foundation.entities.accounts.user`
+
+
+Reference 2
+
+- :doc:`mbed_cloud.foundation.entities.accounts.user.rst`
+
+
 Without members:
 
-.. autoclass:: mbed_cloud.foundation.entities.accounts.user.User
+.. automodule:: mbed_cloud.foundation.entities.accounts.user
 
 With members:
 
-.. autoclass:: mbed_cloud.foundation.entities.accounts.user.User
+.. automodule:: mbed_cloud.foundation.entities.accounts.user
   :members: read, list, update, delete
 
 """

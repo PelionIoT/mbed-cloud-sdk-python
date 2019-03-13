@@ -1,7 +1,22 @@
 Pelion Device Management SDK for Python
 =======================================
 
-The ``mbed-cloud-sdk`` gives developers access to `Pelion Device Management <https://cloud.mbed.com/>`__ API using Python.
+The ``mbed-cloud-sdk`` gives developers access to `Pelion Device Management <https://cloud.mbed.com/>`__ API using
+Python.
+
+.. note::
+   Pelion Device Management was previously known as Mbed Cloud, some references (such as the package name) remain for
+   technical reasons, but the two names should be considered equivalent.
+
+.. toctree::
+    :maxdepth: 1
+
+    Foundation Interface <mbed_cloud.foundation.rst>
+
+.. toctree::
+    :maxdepth: 1
+
+    Legacy Interface <legacy_interface.rst>
 
 .. toctree::
     :maxdepth: 1
