@@ -1,6 +1,6 @@
 """
 Foundation Entity: SubtenantUser
-==============================
+================================
 
 - :meth:`mbed_cloud.foundation.entities.accounts.subtenant_user.SubtenantUser.create`
 - :meth:`SubtenantUser.create`

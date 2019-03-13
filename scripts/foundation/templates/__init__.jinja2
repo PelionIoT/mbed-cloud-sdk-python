@@ -2,14 +2,26 @@
 Foundation Interface
 ====================
 
-Reference
+The Foundation Interface consists of a number of Entities which are a representation of resources in the API. Entities
+are grouped into categories to aid discovery and indicate associated functionality.
 
-- :doc:`mbed_cloud.foundation.entities.accounts.user`
+.. note::
+    Entities should be imported via this module as the organisation of the categories may change in the future.
 
+{% for group in groups %}
+{{ group._key }}
+{% for letter in group._key %}-{% endfor %}
+{% for entity in group.entities|sort %}
+- :class:`mbed_cloud.foundation.entities.{{ group._key|to_snake }}.{{ entity|to_snake }}.{{ entity|to_pascal }}`
+{%- endfor %}
+{% endfor %}
 
-Reference 2
+How to import Entities:
 
-- :class:`mbed_cloud.foundation.entities.accounts.user.User`
+.. code-block:: python
+    {% for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}
+    from mbed_cloud.foundation import {{ entity._key|to_pascal }}
+    {%- endfor %}
 
 """
 

@@ -1,6 +1,6 @@
 """
 Foundation Entity: Device
-==============================
+=========================
 
 - :meth:`mbed_cloud.foundation.entities.devices.device.Device.create`
 - :meth:`Device.create`

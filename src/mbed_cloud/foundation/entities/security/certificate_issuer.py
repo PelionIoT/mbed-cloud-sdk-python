@@ -1,6 +1,6 @@
 """
 Foundation Entity: CertificateIssuer
-==============================
+====================================
 
 - :meth:`mbed_cloud.foundation.entities.security.certificate_issuer.CertificateIssuer.create`
 - :meth:`CertificateIssuer.create`

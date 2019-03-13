@@ -1,6 +1,6 @@
 """
 Foundation Entity: DeviceEvents
-==============================
+===============================
 
 - :meth:`mbed_cloud.foundation.entities.devices.device_events.DeviceEvents.list`
 - :meth:`DeviceEvents.list`

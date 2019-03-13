@@ -1,6 +1,6 @@
 """
 Foundation Entity: ApiKey
-==============================
+=========================
 
 - :meth:`mbed_cloud.foundation.entities.accounts.api_key.ApiKey.create`
 - :meth:`ApiKey.create`

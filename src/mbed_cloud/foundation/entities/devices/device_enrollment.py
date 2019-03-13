@@ -1,6 +1,6 @@
 """
 Foundation Entity: DeviceEnrollment
-==============================
+===================================
 
 - :meth:`mbed_cloud.foundation.entities.devices.device_enrollment.DeviceEnrollment.create`
 - :meth:`DeviceEnrollment.create`

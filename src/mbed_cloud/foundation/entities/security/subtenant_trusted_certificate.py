@@ -1,6 +1,6 @@
 """
 Foundation Entity: SubtenantTrustedCertificate
-==============================
+==============================================
 
 - :meth:`mbed_cloud.foundation.entities.security.subtenant_trusted_certificate.SubtenantTrustedCertificate.create`
 - :meth:`SubtenantTrustedCertificate.create`

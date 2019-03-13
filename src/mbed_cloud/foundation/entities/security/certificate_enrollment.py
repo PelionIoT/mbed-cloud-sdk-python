@@ -1,6 +1,6 @@
 """
 Foundation Entity: CertificateEnrollment
-==============================
+========================================
 
 - :meth:`mbed_cloud.foundation.entities.security.certificate_enrollment.CertificateEnrollment.list`
 - :meth:`CertificateEnrollment.list`

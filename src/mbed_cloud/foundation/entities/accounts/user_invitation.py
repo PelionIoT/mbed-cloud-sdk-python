@@ -1,6 +1,6 @@
 """
 Foundation Entity: UserInvitation
-==============================
+=================================
 
 - :meth:`mbed_cloud.foundation.entities.accounts.user_invitation.UserInvitation.create`
 - :meth:`UserInvitation.create`

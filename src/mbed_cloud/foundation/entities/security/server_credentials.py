@@ -1,6 +1,6 @@
 """
 Foundation Entity: ServerCredentials
-==============================
+====================================
 
 - :meth:`mbed_cloud.foundation.entities.security.server_credentials.ServerCredentials.get_bootstrap`
 - :meth:`ServerCredentials.get_bootstrap`

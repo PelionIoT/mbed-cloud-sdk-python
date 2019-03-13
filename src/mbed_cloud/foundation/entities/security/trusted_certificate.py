@@ -1,6 +1,6 @@
 """
 Foundation Entity: TrustedCertificate
-==============================
+=====================================
 
 - :meth:`mbed_cloud.foundation.entities.security.trusted_certificate.TrustedCertificate.create`
 - :meth:`TrustedCertificate.create`

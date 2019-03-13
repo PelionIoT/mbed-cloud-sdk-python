@@ -1,6 +1,6 @@
 """
 Foundation Entity: Account
-==============================
+==========================
 
 - :meth:`mbed_cloud.foundation.entities.accounts.account.Account.create`
 - :meth:`Account.create`

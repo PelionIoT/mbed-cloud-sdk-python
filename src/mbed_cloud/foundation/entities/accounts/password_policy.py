@@ -1,6 +1,6 @@
 """
 Foundation Entity: PasswordPolicy
-==============================
+=================================
 
 
 .. warning::

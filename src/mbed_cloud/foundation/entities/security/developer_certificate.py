@@ -1,6 +1,6 @@
 """
 Foundation Entity: DeveloperCertificate
-==============================
+=======================================
 
 - :meth:`mbed_cloud.foundation.entities.security.developer_certificate.DeveloperCertificate.create`
 - :meth:`DeveloperCertificate.create`
