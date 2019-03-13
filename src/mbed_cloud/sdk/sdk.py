@@ -4,6 +4,11 @@ SDK Interface
 
 This provides a single point of entry to use the Primary, Foundation and Client interfaces. It allows the configuration
 and other context information to be shared between instances.
+
+This is the preferred method of creating Foundation Entity instances and using the Client Interface:
+
+- :mod:`mbed_cloud.client.client.Client`
+- :mod:`mbed_cloud.foundation`
 """
 import warnings
 
