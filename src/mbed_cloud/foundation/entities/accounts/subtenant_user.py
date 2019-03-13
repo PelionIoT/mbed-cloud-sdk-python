@@ -44,11 +44,18 @@ class SubtenantUser(Entity):
         "username",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {
         "is_marketing_accepted": "marketing_accepted",
         "is_gtc_accepted": "terms_accepted",
         "is_totp_enabled": "two_factor_authentication",
+    }
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {
+        "marketing_accepted": "is_marketing_accepted",
+        "terms_accepted": "is_gtc_accepted",
+        "two_factor_authentication": "is_totp_enabled",
     }
 
     def __init__(
@@ -173,16 +180,12 @@ class SubtenantUser(Entity):
         self._id = fields.StringField(value=id)
         self._last_login_time = fields.IntegerField(value=last_login_time)
         self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
-        self._login_profiles = fields.ListField(
-            value=login_profiles, entity=LoginProfile
-        )
+        self._login_profiles = fields.ListField(value=login_profiles, entity=LoginProfile)
         self._marketing_accepted = fields.BooleanField(value=marketing_accepted)
         self._password = fields.StringField(value=password)
         self._password_changed_time = fields.IntegerField(value=password_changed_time)
         self._phone_number = fields.StringField(value=phone_number)
-        self._status = fields.StringField(
-            value=status, enum=enums.SubtenantUserStatusEnum
-        )
+        self._status = fields.StringField(value=status, enum=enums.SubtenantUserStatusEnum)
         self._terms_accepted = fields.BooleanField(value=terms_accepted)
         self._totp_scratch_codes = fields.ListField(value=totp_scratch_codes)
         self._two_factor_authentication = fields.BooleanField(
@@ -194,6 +197,8 @@ class SubtenantUser(Entity):
     @property
     def account_id(self):
         """The ID of the account.
+
+        This field must be set when creating a new SubtenantUser Entity.
         
         api example: '01619571e2e90242ac12000600000000'
         
@@ -205,8 +210,6 @@ class SubtenantUser(Entity):
     @account_id.setter
     def account_id(self, value):
         """Set value of `account_id`
-
-        This field must be set when creating a new SubtenantUser Entity.
 
         :param value: value to set
         :type value: str
@@ -318,6 +321,8 @@ class SubtenantUser(Entity):
     @property
     def email(self):
         """The email address.
+
+        This field must be set when creating a new SubtenantUser Entity.
         
         api example: 'user@arm.com'
         
@@ -329,8 +334,6 @@ class SubtenantUser(Entity):
     @email.setter
     def email(self, value):
         """Set value of `email`
-
-        This field must be set when creating a new SubtenantUser Entity.
 
         :param value: value to set
         :type value: str
@@ -383,6 +386,8 @@ class SubtenantUser(Entity):
     @property
     def id(self):
         """The ID of the user.
+
+        This field must be set when updating or deleting an existing SubtenantUser Entity.
         
         api example: '01619571e2e89242ac12000600000000'
         
@@ -394,8 +399,6 @@ class SubtenantUser(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing SubtenantUser Entity.
 
         :param value: value to set
         :type value: str

@@ -39,8 +39,11 @@ class TrustedCertificate(Entity):
         "validity",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
         self,
@@ -116,17 +119,13 @@ class TrustedCertificate(Entity):
         # fields
         self._account_id = fields.StringField(value=account_id)
         self._certificate = fields.StringField(value=certificate)
-        self._certificate_fingerprint = fields.StringField(
-            value=certificate_fingerprint
-        )
+        self._certificate_fingerprint = fields.StringField(value=certificate_fingerprint)
         self._created_at = fields.DateTimeField(value=created_at)
         self._description = fields.StringField(value=description)
         self._device_execution_mode = fields.IntegerField(value=None)
         self._enrollment_mode = fields.BooleanField(value=enrollment_mode)
         self._id = fields.StringField(value=id)
-        self._is_developer_certificate = fields.BooleanField(
-            value=is_developer_certificate
-        )
+        self._is_developer_certificate = fields.BooleanField(value=is_developer_certificate)
         self._issuer = fields.StringField(value=issuer)
         self._name = fields.StringField(value=name)
         self._owner_id = fields.StringField(value=owner_id)
@@ -165,6 +164,8 @@ class TrustedCertificate(Entity):
     @property
     def certificate(self):
         """X509.v3 trusted certificate in PEM format.
+
+        This field must be set when creating a new TrustedCertificate Entity.
         
         api example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
         
@@ -176,8 +177,6 @@ class TrustedCertificate(Entity):
     @certificate.setter
     def certificate(self, value):
         """Set value of `certificate`
-
-        This field must be set when creating a new TrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
@@ -270,6 +269,8 @@ class TrustedCertificate(Entity):
     @property
     def id(self):
         """Entity ID.
+
+        This field must be set when updating or deleting an existing TrustedCertificate Entity.
         
         api example: '01619571d01d0242ac12000600000000'
         
@@ -281,8 +282,6 @@ class TrustedCertificate(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing TrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
@@ -299,9 +298,7 @@ class TrustedCertificate(Entity):
         :rtype: bool
         """
 
-        from mbed_cloud.foundation._custom_methods import (
-            is_developer_certificate_getter,
-        )
+        from mbed_cloud.foundation._custom_methods import is_developer_certificate_getter
 
         return is_developer_certificate_getter(
             self=self, field=self._is_developer_certificate
@@ -315,9 +312,7 @@ class TrustedCertificate(Entity):
         :type value: bool
         """
 
-        from mbed_cloud.foundation._custom_methods import (
-            is_developer_certificate_setter,
-        )
+        from mbed_cloud.foundation._custom_methods import is_developer_certificate_setter
 
         is_developer_certificate_setter(
             self=self, field=self._is_developer_certificate, value=value
@@ -347,6 +342,8 @@ class TrustedCertificate(Entity):
     @property
     def name(self):
         """Certificate name.
+
+        This field must be set when creating a new TrustedCertificate Entity.
         
         api example: 'My certificate'
         
@@ -358,8 +355,6 @@ class TrustedCertificate(Entity):
     @name.setter
     def name(self, value):
         """Set value of `name`
-
-        This field must be set when creating a new TrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
@@ -391,6 +386,8 @@ class TrustedCertificate(Entity):
     @property
     def service(self):
         """Service name where the certificate is to be used.
+
+        This field must be set when creating a new TrustedCertificate Entity.
         
         :rtype: str
         """
@@ -400,8 +397,6 @@ class TrustedCertificate(Entity):
     @service.setter
     def service(self, value):
         """Set value of `service`
-
-        This field must be set when creating a new TrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
@@ -571,25 +566,66 @@ class TrustedCertificate(Entity):
             unpack=DeveloperCertificate,
         )
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all trusted certificates.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
+        **API Filters**
+
+        The following filters are supported by the API when listing TrustedCertificate entities:
+
+        +-----------------------+------+------+------+------+------+------+------+
+        | Field                 | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +=======================+======+======+======+======+======+======+======+
+        | device_execution_mode | Y    | Y    |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | enrollment_mode       | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | expire                | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | issuer                |      |      |      |      |      |      | Y    |
+        +-----------------------+------+------+------+------+------+------+------+
+        | name                  | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | owner                 | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | service               | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | status                | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | subject               |      |      |      |      |      |      | Y    |
+        +-----------------------+------+------+------+------+------+------+------+
+        | valid                 | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+
+            from mbed_cloud.foundation import TrustedCertificate
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("device_execution_mode", "eq", <filter value>)
+            for trusted_certificate in TrustedCertificate().list(filter=api_filter):
+                print(trusted_certificate.device_execution_mode)
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
+        :param filter: An optional filter to apply when listing entities, please see the
+            above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
         
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(TrustedCertificate)
@@ -597,51 +633,70 @@ class TrustedCertificate(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import TrustedCertificate
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(
+                filter_definition=filter, field_renames=TrustedCertificate._renames_to_api
+            )
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = TrustedCertificate._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
             foreign_key=TrustedCertificate,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
+            include=include,
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
+    def _paginate_list(self, after=None, filter=None, order="ASC", limit=50, include=None):
         """Get all trusted certificates.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.TrustedCertificateOrderEnum
+        ).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
             method="get",
             path="/v3/trusted-certificates",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.TrustedCertificateOrderEnum
-                ).to_api(),
-            },
+            query_params=query_params,
             unpack=False,
         )
 

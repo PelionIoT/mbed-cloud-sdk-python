@@ -26,10 +26,17 @@ class {{ entity._key|to_pascal }}(Entity):
         {% endfor %}
     ]
 
-    # common renames used when mapping {% raw %}{<API spec>: <SDK>}{% endraw %}
+    # Renames to be performed by the SDK when receiving data {% raw %}{<API Field Name>: <SDK Field Name>}{% endraw %}
     _renames = {
         {% for rename in entity.field_renames %}
         '{{rename.api_fieldname}}': '{{rename._key|to_snake}}',
+        {% endfor %}
+    }
+
+    # Renames to be performed by the SDK when sending data {% raw %}{<SDK Field Name>: <API Field Name>}{% endraw %}
+    _renames_to_api = {
+        {% for rename in entity.field_renames %}
+        '{{rename._key|to_snake}}' : '{{rename.api_fieldname}}',
         {% endfor %}
     }
 
@@ -74,6 +81,10 @@ class {{ entity._key|to_pascal }}(Entity):
     @property
     def {{field._key|to_snake}}(self):
         """{{ (field.description or '')|wordwrap(width=78)|indent(width=8) }}
+        {%- if field.required %}
+
+        This field must be set when {% if field._key=='id' %}updating or deleting an existing{% else %}creating a new{% endif %} {{ entity._key|to_pascal }} Entity.
+        {%- endif %}
         {% if field.example %}
         api example: {{ field.example|repr|wordwrap(width=78)|indent(width=12) }}
         {% endif %}
@@ -89,9 +100,7 @@ class {{ entity._key|to_pascal }}(Entity):
     @{{ field._key|to_snake }}.setter
     def {{field._key|to_snake}}(self, value):
         """Set value of `{{ field._key|to_snake }}`
-{% if field.required %}
-        This field must be set when {% if field._key=='id' %}updating or deleting an existing{% else %}creating a new{% endif %} {{ entity._key|to_pascal }} Entity.
-{% endif %}
+
         :param value: value to set
         :type value: {{ field.python_type }}{% if field['items'] and field['items'].foreign_key %}[{{ field['items'].foreign_key.entity|to_pascal }}]{% endif %}{% if field.foreign_key %}[{{ field.foreign_key.entity|to_pascal }}]{% endif %}
         """
@@ -121,47 +130,56 @@ class {{ entity._key|to_pascal }}(Entity):
     {% else %}
         {% set unpack_type = return_type %}
         {% set foreign_key_import = true %}
-
     {% endif %}
     def {% if method.private_method %}_{% endif %}{{method._key|to_snake}}(
-        {% if method.pagination and method.custom_method %}
-            self, include=None, max_results=None, page_size=None, order=None
-        {% else %}
-            self
-            {% for field in method.fields|sort_parg_kwarg %}
-                {% if field.external_param %},
-                    {% if field.required %}
-                        {{field._key|to_snake}}
-                    {% else %}
-                        {{field._key|to_snake}}={{ field.default|repr }}
-                    {% endif %}
+        self
+        {% for field in method.fields|sort_parg_kwarg %}
+            {% if field.external_param %},
+                {% if field.required %}
+                    {{field._key|to_snake}}
+                {% else %}
+                    {{field._key|to_snake}}={{ field.default|repr }}
                 {% endif %}
-            {% endfor %}
-        {% endif %}
+            {% endif %}
+        {% endfor %}
         ):
         """{{method.summary}}
+        {%- if method.x_filter and method.public_paginator_method %}
+
+        **API Filters**
+
+        The following filters are supported by the API when listing {{ entity._key|to_pascal }} entities:
+
+        {{ method.x_filter_table | indent(8) }}
+        **Example Usage**
+
+        .. code-block:: python
+
+            from mbed_cloud.foundation import {{ entity._key|to_pascal }}
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            {%- for field_name, filter_operator in method.x_filter.items() -%}
+            {% if loop.index == 1 %}
+            api_filter.add_filter("{{ field_name }}", "{{ filter_operator[0] }}", <filter value>){%- endif -%}
+            {%- endfor %}
+            for {{ entity._key|to_singular_name if method._key == "list" else method._key|to_singular_name}} in {{ entity._key|to_pascal }}().{{method._key|to_snake}}(filter=api_filter):
+            {%- for field_name, filter_operator in method.x_filter.items() %}
+            {%- if loop.index == 1 %}
+                print({{ entity._key|to_singular_name if method._key == "list" else method._key|to_singular_name}}.{{ field_name }})
+            {%- endif -%}
+            {%- endfor %}
+        {%- elif not method.private_method %}
 
         {% if method.path %}api documentation:
         https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
-        {%- if method.pagination and method.custom_method %}
-        {% for field in method.fields if field._key != "after" %}{% if field.external_param %}
-        {%- if field._key == "limit" %}
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            {% set field_name = "page_size" %}
-        {%- else %}
-            {%- set field_name = field._key|to_snake %}
         {%- endif %}
-        :param {{field_name}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
-        :type {{field_name}}: {{ (field.foreign_key and 'mbed_cloud.foundation.entities.' + field.foreign_key.entity|to_pascal) or field.python_type}}
-        {% endif %}{% endfor %}
-        :return: An iterator object which yields instances of an entity.
-        {%- else %}
         {% for field in method.fields %}{% if field.external_param %}
         :param {{field._key|to_snake}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
         :type {{field._key|to_snake}}: {{ (field.foreign_key and 'mbed_cloud.foundation.entities.' + field.foreign_key.entity|to_pascal) or field.python_type}}
         {% endif %}{% endfor %}
-        {%- endif %}
+        {%- if method.public_paginator_method %}
+        :return: An iterator object which yields instances of an entity.{%- endif %}
         :rtype: {{ return_type }}
         """
     {% for field in method.fields %}
@@ -173,25 +191,49 @@ class {{ entity._key|to_pascal }}(Entity):
     {% endfor %}
     {% if method.defer_to_foreign_key_field %}
         return {{ method.defer_to_foreign_key_field.field }}.{{ method.defer_to_foreign_key_field.method }}()
+    {% elif method.internal_paginator_method %}
+        # Filter query parameters
+        query_params=filter.to_api() if filter else {}
+        # Add in other query parameters
+        {%- for param_in, count in method.python_params_in.items() if param_in == "query" %}
+            {%- for field in method.fields if field['in'] == param_in %}
+        query_params['{{field.parameter_fieldname}}'] = fields.{{ field.python_field }}({{field._key|to_snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference|to_pascal }}{% endif %}).to_api()
+            {%- endfor %}
+        {%- endfor %}
+
+        return self._client.call_api(
+            method='{{method.method}}',
+            path='{{ method.path }}',
+            query_params=query_params,
+            unpack = {{ unpack_type }},
+        )
     {% elif method.custom_method %}
         from mbed_cloud.foundation._custom_methods import {{ method.custom_method }}
         {% if method.foreign_key %}from mbed_cloud.foundation import {{ method.foreign_key.entity|to_pascal }}{% endif %}
+        {%- if method.pagination %}
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(filter_definition=filter, field_renames={% if method.foreign_key %}{{ method.foreign_key.entity|to_pascal }}{%  else %}self{% endif %}._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = {% if method.foreign_key %}{{ method.foreign_key.entity|to_pascal }}{%  else %}self{% endif %}._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
+        {% endif %}
 
         return {{ method.custom_method }}(
             self=self,
             foreign_key={% if method.foreign_key %}{{ method.foreign_key.entity|to_pascal }}{% else %}self.__class__{% endif %}
-            {% if method.pagination %}
-            , include=include
-            , max_results=max_results
-            , page_size=page_size
-            , order=order
-            {% else %}
-                {% for field in method.fields|pargs_kwargs %}
-                    {% if field.external_param %},
-                        {{field._key|to_snake}}={{field._key|to_snake}}
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+            {% for field in method.fields|pargs_kwargs %}
+                {% if field.external_param %},
+                    {{field._key|to_snake}}={{field._key|to_snake}}
+                {% endif %}
+            {% endfor %}
             {% if method.pagination %},wraps=self._{{ method.paginate_target }}{% endif %}
         )
     {% else %}

@@ -28,10 +28,16 @@ class DeveloperCertificate(Entity):
         "security_file_content",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {
         "developer_certificate": "certificate",
         "developer_private_key": "private_key",
+    }
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {
+        "certificate": "developer_certificate",
+        "private_key": "developer_private_key",
     }
 
     def __init__(
@@ -163,6 +169,8 @@ class DeveloperCertificate(Entity):
     @property
     def id(self):
         """mUUID that uniquely identifies the developer certificate.
+
+        This field must be set when updating or deleting an existing DeveloperCertificate Entity.
         
         :rtype: str
         """
@@ -173,8 +181,6 @@ class DeveloperCertificate(Entity):
     def id(self, value):
         """Set value of `id`
 
-        This field must be set when updating or deleting an existing DeveloperCertificate Entity.
-
         :param value: value to set
         :type value: str
         """
@@ -184,6 +190,8 @@ class DeveloperCertificate(Entity):
     @property
     def name(self):
         """Name of the developer certificate.
+
+        This field must be set when creating a new DeveloperCertificate Entity.
         
         :rtype: str
         """
@@ -193,8 +201,6 @@ class DeveloperCertificate(Entity):
     @name.setter
     def name(self, value):
         """Set value of `name`
-
-        This field must be set when creating a new DeveloperCertificate Entity.
 
         :param value: value to set
         :type value: str

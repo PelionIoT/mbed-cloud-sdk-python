@@ -1489,6 +1489,7 @@ entities:
       type: account
     return_type: account
     summary: Create a new account.
+    x_filter: {}
   - _key: list
     description: 'Returns an array of account objects, optionally filtered by status
       and tier level.
@@ -2365,6 +2366,19 @@ entities:
       type: account
     return_type: paginated_response(account)
     summary: Get all accounts.
+    x_filter:
+      country:
+      - like
+      end_market:
+      - eq
+      parent:
+      - eq
+      status:
+      - eq
+      - in
+      - nin
+      tier:
+      - eq
   - _key: me
     description: 'Returns detailed information about the account.
 
@@ -3249,6 +3263,7 @@ entities:
       type: account
     return_type: account
     summary: Get account info.
+    x_filter: {}
   - _key: read
     description: 'Returns detailed information about the account.
 
@@ -4187,6 +4202,7 @@ entities:
       type: account
     return_type: account
     summary: Get account info.
+    x_filter: {}
   - _key: trusted_certificates
     description: 'An endpoint for retrieving trusted certificates in an array.
 
@@ -4634,6 +4650,28 @@ entities:
       type: subtenant_trusted_certificate
     return_type: paginated_response(subtenant_trusted_certificate)
     summary: Get all trusted certificates.
+    x_filter:
+      device_execution_mode:
+      - eq
+      - neq
+      enrollment_mode:
+      - eq
+      expire:
+      - eq
+      issuer:
+      - like
+      name:
+      - eq
+      owner:
+      - eq
+      service:
+      - eq
+      status:
+      - eq
+      subject:
+      - like
+      valid:
+      - eq
   - _key: update
     additional_operations:
     - notes: After retrieving the resource using the `me` method, it can modified
@@ -5807,6 +5845,7 @@ entities:
       type: account
     return_type: account
     summary: Update attributes of an existing account.
+    x_filter: {}
   - _key: user_invitations
     description: 'An endpoint for retrieving the details of all the active user invitations
       sent for new or existing users to join the account.
@@ -6222,6 +6261,9 @@ entities:
       type: subtenant_user_invitation
     return_type: paginated_response(subtenant_user_invitation)
     summary: Get the details of all the user invitations.
+    x_filter:
+      login_profile:
+      - eq
   - _key: users
     description: 'An endpoint for retrieving details of all users.
 
@@ -6825,6 +6867,15 @@ entities:
       type: subtenant_user
     return_type: paginated_response(subtenant_user)
     summary: Get all user details.
+    x_filter:
+      email:
+      - eq
+      login_profile:
+      - eq
+      status:
+      - eq
+      - in
+      - nin
   primary_key_field: id
   swagger_models:
   - AccountCreationReq
@@ -7287,6 +7338,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Create a new API key.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting the API key.
 
@@ -7477,6 +7529,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Delete API key.
+    x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving API keys in an array, optionally filtered
       by the owner.
@@ -7808,6 +7861,11 @@ entities:
       type: api_key
     return_type: paginated_response(api_key)
     summary: Get all API keys
+    x_filter:
+      key:
+      - eq
+      owner:
+      - eq
   - _key: me
     description: 'An endpoint for retrieving API key details.
 
@@ -8053,6 +8111,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Get API key details.
+    x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving API key details.
 
@@ -8352,6 +8411,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Get API key details.
+    x_filter: {}
   - _key: update
     additional_operations:
     - notes: After retrieving the resource using the `me` method, it can modified
@@ -8730,6 +8790,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Update API key details.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - ApiKeyInfoReq
@@ -9192,6 +9253,23 @@ entities:
       type: certificate_enrollment
     return_type: paginated_response(certificate_enrollment)
     summary: Get certificate enrollments list.
+    x_filter:
+      certificate_name:
+      - eq
+      created_at:
+      - lte
+      - gte
+      device_id:
+      - eq
+      enroll_result:
+      - neq
+      - eq
+      enroll_status:
+      - neq
+      - eq
+      updated_at:
+      - lte
+      - gte
   - _key: read
     description: 'Get a certificate enrollment by ID.
 
@@ -9495,6 +9573,7 @@ entities:
       type: certificate_enrollment
     return_type: certificate_enrollment
     summary: Get a certificate enrollment by ID.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - CertificateEnrollment
@@ -9979,6 +10058,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Create certificate issuer.
+    x_filter: {}
   - _key: delete
     description: 'Delete a certificate issuer by ID.
 
@@ -10202,6 +10282,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Delete certificate issuer.
+    x_filter: {}
   - _key: list
     description: 'Note: This endpoint does not implement pagination and therefore,
       list control parameters such as `limit` or `after` will be ignored by the system.
@@ -10497,6 +10578,7 @@ entities:
       type: certificate_issuer
     return_type: paginated_response(certificate_issuer)
     summary: Get certificate issuers list.
+    x_filter: {}
   - _key: read
     description: (No description provided)
     drop_fields:
@@ -10778,6 +10860,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Get certificate issuer by ID.
+    x_filter: {}
   - _key: update
     description: "Update a certificate issuer.\n<br>\n**Example usage:**\n\n```\n\
       curl -X PUT \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type:\
@@ -11201,6 +11284,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Update certificate issuer.
+    x_filter: {}
   - _key: verify
     description: 'A utility API that can be used to validate the user configuration
       before activating a certificate issuer.
@@ -11504,6 +11588,7 @@ entities:
     return_type: verification_response
     summary: Verify certificate issuer.
     unaggregated: true
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - CertificateIssuerInfo
@@ -11852,6 +11937,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Create certificate issuer configuration.
+    x_filter: {}
   - _key: delete
     description: 'Delete the configured certificate issuer configuration.
 
@@ -12060,6 +12146,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Delete certificate issuer configuration.
+    x_filter: {}
   - _key: get_default
     description: 'Provides the configured certificate issuer to be used when creating
       device
@@ -12284,6 +12371,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Get certificate issuer configuration.
+    x_filter: {}
   - _key: list
     description: 'Get certificate issuer configurations, optionally filtered by reference.
 
@@ -12626,6 +12714,9 @@ entities:
       type: certificate_issuer_config
     return_type: paginated_response(certificate_issuer_config)
     summary: Get certificate issuer configurations.
+    x_filter:
+      certificate_reference:
+      - eq
   - _key: read
     description: 'Provides the configured certificate issuer.
 
@@ -12897,6 +12988,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Get certificate issuer configuration.
+    x_filter: {}
   - _key: update
     additional_operations:
     - notes: After retrieving the resource using the `lwm2m` method, it can modified
@@ -13184,6 +13276,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Update certificate issuer configuration.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - CertificateIssuerConfigListResponse
@@ -13808,6 +13901,7 @@ entities:
       type: developer_certificate
     return_type: developer_certificate
     summary: Create a new developer certificate to connect to the bootstrap server.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a trusted certificate.
 
@@ -14003,6 +14097,7 @@ entities:
       type: developer_certificate
     return_type: developer_certificate
     summary: Delete a trusted certificate by ID.
+    x_filter: {}
   - _key: get_trusted_certificate_info
     description: 'An endpoint for retrieving a trusted certificate by ID.
 
@@ -14374,6 +14469,7 @@ entities:
     return_type: trusted_certificate
     summary: Get trusted certificate by ID.
     unaggregated: true
+    x_filter: {}
   - _key: read
     description: 'This REST API is intended to be used by customers to fetch an existing
       developer certificate (a certificate that can be flashed into multiple devices
@@ -14847,6 +14943,7 @@ entities:
       type: developer_certificate
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - DeveloperCertificateRequestData
@@ -15599,6 +15696,7 @@ entities:
       type: device
     return_type: device
     summary: Create a device
+    x_filter: {}
   - _key: delete
     description: Delete device. Only available for devices with a developer certificate.
       Attempts to delete a device with a production certicate will return a 400 response.
@@ -15643,6 +15741,7 @@ entities:
       type: device
     return_type: device
     summary: Delete a device.
+    x_filter: {}
   - _key: list
     description: List all devices.
     drop_fields:
@@ -15946,6 +16045,7 @@ entities:
       type: device
     return_type: paginated_response(device)
     summary: List all devices.
+    x_filter: {}
   - _key: read
     description: Retrieve information about a specific device.
     drop_fields:
@@ -16252,6 +16352,7 @@ entities:
       type: device
     return_type: device
     summary: Get a device
+    x_filter: {}
   - _key: renew_certificate
     description: 'Request a certificate renewal.
 
@@ -16651,6 +16752,7 @@ entities:
     return_type: certificate_enrollment
     summary: Request certificate renewal.
     unaggregated: true
+    x_filter: {}
   - _key: update
     description: Update a specific device.
     drop_fields:
@@ -17037,6 +17139,7 @@ entities:
       type: device
     return_type: device
     summary: Update a device
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - CertificateEnrollment
@@ -17393,6 +17496,7 @@ entities:
       type: device_enrollment
     return_type: device_enrollment
     summary: Place an enrollment claim for one or several devices.
+    x_filter: {}
   - _key: delete
     description: 'To free a device from your account you can delete the enrollment
       claim. To bypass the device ownership, you need to delete the enrollment and
@@ -17546,6 +17650,7 @@ entities:
       type: device_enrollment
     return_type: device_enrollment
     summary: Delete an enrollment by ID.
+    x_filter: {}
   - _key: list
     description: 'Provides a list of pending and claimed enrollments.
 
@@ -17876,6 +17981,7 @@ entities:
       type: device_enrollment
     return_type: paginated_response(device_enrollment)
     summary: Get enrollment list.
+    x_filter: {}
   - _key: read
     description: 'To check the enrollment info in detail, for example date of claim
       and expiration date.
@@ -18108,6 +18214,7 @@ entities:
       type: device_enrollment
     return_type: device_enrollment
     summary: Get details of an enrollment by ID.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - EnrollmentId
@@ -18519,6 +18626,7 @@ entities:
       type: device_enrollment_bulk_create
     return_type: device_enrollment_bulk_create
     summary: Bulk upload
+    x_filter: {}
   - _key: download_errors_report_file
     custom_method: download_errors_report_file
     description: This method will download the CSV file containing detailed information
@@ -18550,6 +18658,7 @@ entities:
       return_type: file
       summary: Download the error report file for the created the bulk enrollment.
     summary: Download the error report file for the created the bulk enrollment.
+    x_filter: {}
   - _key: download_full_report_file
     custom_method: download_full_report_file
     description: This method will download the CSV file containing detailed information
@@ -18581,6 +18690,7 @@ entities:
       return_type: file
       summary: Download the full report file for the created of the bulk enrollment.
     summary: Download the full report file for the created of the bulk enrollment.
+    x_filter: {}
   - _key: read
     description: 'Provides information on bulk upload for the given ID. For example,
       the bulk status and the number of processed enrollment identities. Also links
@@ -18941,6 +19051,7 @@ entities:
       type: device_enrollment_bulk_create
     return_type: device_enrollment_bulk_create
     summary: Get bulk upload entity
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - BulkResponse
@@ -19355,6 +19466,7 @@ entities:
       type: device_enrollment_bulk_delete
     return_type: device_enrollment_bulk_delete
     summary: Bulk delete
+    x_filter: {}
   - _key: download_errors_report_file
     custom_method: download_errors_report_file
     description: This method will download the CSV file containing detailed information
@@ -19386,6 +19498,7 @@ entities:
       return_type: file
       summary: Download the error report file for the bulk enrollment deletion.
     summary: Download the error report file for the bulk enrollment deletion.
+    x_filter: {}
   - _key: download_full_report_file
     custom_method: download_full_report_file
     description: This method will download the CSV file containing detailed information
@@ -19417,6 +19530,7 @@ entities:
       return_type: file
       summary: Download the full report file for the bulk enrollment deletion.
     summary: Download the full report file for the bulk enrollment deletion.
+    x_filter: {}
   - _key: read
     description: 'Provides information on bulk delete for the given ID. For example,
       the bulk status and the number of processed enrollment identities. Also links
@@ -19780,6 +19894,7 @@ entities:
       type: device_enrollment_bulk_delete
     return_type: device_enrollment_bulk_delete
     summary: Get bulk delete entity
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - BulkResponse
@@ -20059,6 +20174,7 @@ entities:
       type: device_events
     return_type: paginated_response(device_events)
     summary: List all device events.
+    x_filter: {}
   - _key: read
     description: Retrieve a specific device event.
     drop_fields:
@@ -20199,6 +20315,7 @@ entities:
       type: device_events
     return_type: device_events
     summary: Retrieve a device event.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - DeviceEventData
@@ -20586,6 +20703,7 @@ entities:
       type: server_credentials
     return_type: server_credentials
     summary: Fetch bootstrap server credentials.
+    x_filter: {}
   - _key: get_lwm2m
     additional_operations:
     - notes: The information returned by this endpoint can be obtained by calling
@@ -20782,6 +20900,7 @@ entities:
       type: server_credentials
     return_type: server_credentials
     summary: Fetch LwM2M server credentials.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - ServerCredentialsResponseData
@@ -21449,6 +21568,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Upload new trusted certificate.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting the trusted certificate.
 
@@ -21665,6 +21785,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Delete trusted certificate by ID.
+    x_filter: {}
   - _key: get_developer_certificate_info
     description: 'This REST API is intended to be used by customers to fetch an existing
       developer certificate (a certificate that can be flashed into multiple devices
@@ -22155,6 +22276,7 @@ entities:
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
     unaggregated: true
+    x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving a trusted certificate by ID.
 
@@ -22557,6 +22679,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Get trusted certificate by ID.
+    x_filter: {}
   - _key: update
     description: 'An endpoint for updating existing trusted certificates.
 
@@ -23062,6 +23185,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Update trusted certificate.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - DeveloperCertificateResponseData
@@ -24211,6 +24335,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Create a new user.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a user.
 
@@ -24465,6 +24590,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Delete a user.
+    x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving details of the user.
 
@@ -25052,6 +25178,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Details of the user.
+    x_filter: {}
   - _key: update
     description: 'An endpoint for updating user details.
 
@@ -25833,6 +25960,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Update user details.
+    x_filter: {}
   - _key: validate_email
     description: 'An endpoint for validating the user email.
 
@@ -26039,6 +26167,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Validate the user email.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - UserInfoReq
@@ -26544,6 +26673,7 @@ entities:
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Create a user invitation.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting an active user invitation which has been
       sent for a new or an existing user to join the account.
@@ -26745,6 +26875,7 @@ entities:
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Delete a user invitation.
+    x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving the details of an active user invitation
       sent for a new or an existing user to join the account.
@@ -27084,6 +27215,7 @@ entities:
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Details of a user invitation.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - UserInvitationReq
@@ -27706,6 +27838,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Upload a new trusted certificate.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a trusted certificate.
 
@@ -27912,6 +28045,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Delete a trusted certificate by ID.
+    x_filter: {}
   - _key: get_developer_certificate_info
     description: 'This REST API is intended to be used by customers to fetch an existing
       developer certificate (a certificate that can be flashed into multiple devices
@@ -28402,6 +28536,7 @@ entities:
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
     unaggregated: true
+    x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving trusted certificates in an array.
 
@@ -28789,6 +28924,28 @@ entities:
       type: trusted_certificate
     return_type: paginated_response(trusted_certificate)
     summary: Get all trusted certificates.
+    x_filter:
+      device_execution_mode:
+      - eq
+      - neq
+      enrollment_mode:
+      - eq
+      expire:
+      - eq
+      issuer:
+      - like
+      name:
+      - eq
+      owner:
+      - eq
+      service:
+      - eq
+      status:
+      - eq
+      subject:
+      - like
+      valid:
+      - eq
   - _key: read
     description: 'An endpoint for retrieving a trusted certificate by ID.
 
@@ -29160,6 +29317,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Get trusted certificate by ID.
+    x_filter: {}
   - _key: update
     description: 'An endpoint for updating existing trusted certificates.
 
@@ -29681,6 +29839,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Update trusted certificate.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - DeveloperCertificateResponseData
@@ -30710,6 +30869,7 @@ entities:
       type: user
     return_type: user
     summary: Create a new user.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a user.
 
@@ -30954,6 +31114,7 @@ entities:
       type: user
     return_type: user
     summary: Delete a user.
+    x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving the details of all users.
 
@@ -31489,6 +31650,15 @@ entities:
       type: user
     return_type: paginated_response(user)
     summary: Get the details of all users.
+    x_filter:
+      email:
+      - eq
+      login_profile:
+      - eq
+      status:
+      - eq
+      - in
+      - nin
   - _key: read
     description: 'An endpoint for retrieving the details of a user.
 
@@ -32026,6 +32196,7 @@ entities:
       type: user
     return_type: user
     summary: Details of a user.
+    x_filter: {}
   - _key: update
     description: 'An endpoint for updating user details.
 
@@ -32757,6 +32928,7 @@ entities:
       type: user
     return_type: user
     summary: Update user details.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - UserInfoReq
@@ -33234,6 +33406,7 @@ entities:
       type: user_invitation
     return_type: user_invitation
     summary: Create a user invitation.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting an active user invitation which has been
       sent for a new or an existing user to join the account.
@@ -33425,6 +33598,7 @@ entities:
       type: user_invitation
     return_type: user_invitation
     summary: Delete a user invitation.
+    x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving the details of all the active user invitations
       sent for new or existing users to join the account.
@@ -33766,6 +33940,9 @@ entities:
       type: user_invitation
     return_type: paginated_response(user_invitation)
     summary: Get the details of all the user invitations.
+    x_filter:
+      login_profile:
+      - eq
   - _key: read
     description: 'An endpoint for retrieving the details of an active user invitation
       sent for a new or an existing user to join the account.
@@ -34082,6 +34259,7 @@ entities:
       type: user_invitation
     return_type: user_invitation
     summary: Details of a user invitation.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - UserInvitationReq

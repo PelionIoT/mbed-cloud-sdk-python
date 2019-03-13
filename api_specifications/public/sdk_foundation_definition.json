@@ -1747,6 +1747,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -2932,6 +2933,25 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {
+            "status": [
+              "eq",
+              "in",
+              "nin"
+            ],
+            "tier": [
+              "eq"
+            ],
+            "parent": [
+              "eq"
+            ],
+            "end_market": [
+              "eq"
+            ],
+            "country": [
+              "like"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -4059,6 +4079,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -5303,6 +5324,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -5923,6 +5945,39 @@
             "self": false,
             "custom": false,
             "type": "subtenant_trusted_certificate"
+          },
+          "x_filter": {
+            "name": [
+              "eq"
+            ],
+            "service": [
+              "eq"
+            ],
+            "expire": [
+              "eq"
+            ],
+            "device_execution_mode": [
+              "eq",
+              "neq"
+            ],
+            "owner": [
+              "eq"
+            ],
+            "enrollment_mode": [
+              "eq"
+            ],
+            "status": [
+              "eq"
+            ],
+            "issuer": [
+              "like"
+            ],
+            "subject": [
+              "like"
+            ],
+            "valid": [
+              "eq"
+            ]
           },
           "drop_fields": [
             "object",
@@ -7468,6 +7523,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -8040,6 +8096,11 @@
             "self": false,
             "custom": false,
             "type": "subtenant_user_invitation"
+          },
+          "x_filter": {
+            "login_profile": [
+              "eq"
+            ]
           },
           "drop_fields": [
             "object",
@@ -8827,6 +8888,19 @@
             "self": false,
             "custom": false,
             "type": "subtenant_user"
+          },
+          "x_filter": {
+            "email": [
+              "eq"
+            ],
+            "status": [
+              "eq",
+              "in",
+              "nin"
+            ],
+            "login_profile": [
+              "eq"
+            ]
           },
           "drop_fields": [
             "object",
@@ -9850,6 +9924,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -10127,6 +10202,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -10557,6 +10633,14 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {
+            "key": [
+              "eq"
+            ],
+            "owner": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -10885,6 +10969,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -11299,6 +11384,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -11822,6 +11908,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -12415,6 +12502,30 @@
             "custom": false,
             "type": "certificate_enrollment"
           },
+          "x_filter": {
+            "device_id": [
+              "eq"
+            ],
+            "certificate_name": [
+              "eq"
+            ],
+            "enroll_status": [
+              "neq",
+              "eq"
+            ],
+            "enroll_result": [
+              "neq",
+              "eq"
+            ],
+            "created_at": [
+              "lte",
+              "gte"
+            ],
+            "updated_at": [
+              "lte",
+              "gte"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -12842,6 +12953,7 @@
             "custom": false,
             "type": "certificate_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -13461,6 +13573,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -13766,6 +13879,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -14137,6 +14251,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -14534,6 +14649,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -15109,6 +15225,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -15502,6 +15619,7 @@
             "custom": false,
             "type": "verification_response"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -15986,6 +16104,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -16297,6 +16416,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -16604,6 +16724,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -17021,6 +17142,11 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {
+            "certificate_reference": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -17412,6 +17538,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -17809,6 +17936,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -18398,6 +18526,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -18682,6 +18811,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -19165,6 +19295,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -19578,6 +19709,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -20263,6 +20395,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -20329,6 +20462,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -20692,6 +20826,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -21028,6 +21163,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -21594,6 +21730,7 @@
             "custom": false,
             "type": "certificate_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -22041,6 +22178,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -22736,6 +22874,7 @@
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -22936,6 +23075,7 @@
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -23339,6 +23479,7 @@
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -23638,6 +23779,7 @@
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24048,6 +24190,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_create"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24088,6 +24231,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24122,6 +24266,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24520,6 +24665,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_create"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24967,6 +25113,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_delete"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25007,6 +25154,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25041,6 +25189,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25442,6 +25591,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_delete"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25819,6 +25969,7 @@
             "custom": false,
             "type": "device_events"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -26004,6 +26155,7 @@
             "custom": false,
             "type": "device_events"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -26588,6 +26740,7 @@
             "custom": false,
             "type": "server_credentials"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -26852,6 +27005,7 @@
             "custom": false,
             "type": "server_credentials"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -27566,6 +27720,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -27876,6 +28031,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -28279,6 +28435,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -28809,6 +28966,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -29489,6 +29647,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -30744,6 +30903,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -31125,6 +31285,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -31866,6 +32027,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -32906,6 +33068,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -33215,6 +33378,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -34174,6 +34338,7 @@
             "custom": false,
             "type": "subtenant_user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -34461,6 +34626,7 @@
             "custom": false,
             "type": "subtenant_user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -34913,6 +35079,7 @@
             "custom": false,
             "type": "subtenant_user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -35685,6 +35852,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -35984,6 +36152,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -36387,6 +36556,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -36895,6 +37065,39 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {
+            "name": [
+              "eq"
+            ],
+            "service": [
+              "eq"
+            ],
+            "expire": [
+              "eq"
+            ],
+            "device_execution_mode": [
+              "eq",
+              "neq"
+            ],
+            "owner": [
+              "eq"
+            ],
+            "enrollment_mode": [
+              "eq"
+            ],
+            "status": [
+              "eq"
+            ],
+            "issuer": [
+              "like"
+            ],
+            "subject": [
+              "like"
+            ],
+            "valid": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -37395,6 +37598,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -38115,6 +38319,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -39233,6 +39438,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -39603,6 +39809,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -40291,6 +40498,19 @@
             "self": true,
             "custom": false,
             "type": "user"
+          },
+          "x_filter": {
+            "email": [
+              "eq"
+            ],
+            "status": [
+              "eq",
+              "in",
+              "nin"
+            ],
+            "login_profile": [
+              "eq"
+            ]
           },
           "drop_fields": [
             "object",
@@ -40993,6 +41213,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -41981,6 +42202,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -42906,6 +43128,7 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -43182,6 +43405,7 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -43627,6 +43851,11 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {
+            "login_profile": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -44062,6 +44291,7 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",

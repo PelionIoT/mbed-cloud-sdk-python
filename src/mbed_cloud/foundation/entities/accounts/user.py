@@ -44,11 +44,18 @@ class User(Entity):
         "username",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {
         "is_marketing_accepted": "marketing_accepted",
         "is_gtc_accepted": "terms_accepted",
         "is_totp_enabled": "two_factor_authentication",
+    }
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {
+        "marketing_accepted": "is_marketing_accepted",
+        "terms_accepted": "is_gtc_accepted",
+        "two_factor_authentication": "is_totp_enabled",
     }
 
     def __init__(
@@ -173,9 +180,7 @@ class User(Entity):
         self._id = fields.StringField(value=id)
         self._last_login_time = fields.IntegerField(value=last_login_time)
         self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
-        self._login_profiles = fields.ListField(
-            value=login_profiles, entity=LoginProfile
-        )
+        self._login_profiles = fields.ListField(value=login_profiles, entity=LoginProfile)
         self._marketing_accepted = fields.BooleanField(value=marketing_accepted)
         self._password = fields.StringField(value=password)
         self._password_changed_time = fields.IntegerField(value=password_changed_time)
@@ -314,6 +319,8 @@ class User(Entity):
     @property
     def email(self):
         """The email address.
+
+        This field must be set when creating a new User Entity.
         
         api example: 'user@arm.com'
         
@@ -325,8 +332,6 @@ class User(Entity):
     @email.setter
     def email(self, value):
         """Set value of `email`
-
-        This field must be set when creating a new User Entity.
 
         :param value: value to set
         :type value: str
@@ -379,6 +384,8 @@ class User(Entity):
     @property
     def id(self):
         """The ID of the user.
+
+        This field must be set when updating or deleting an existing User Entity.
         
         api example: '01619571e2e89242ac12000600000000'
         
@@ -390,8 +397,6 @@ class User(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing User Entity.
 
         :param value: value to set
         :type value: str
@@ -720,25 +725,52 @@ class User(Entity):
             unpack=self,
         )
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get the details of all users.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
+        **API Filters**
+
+        The following filters are supported by the API when listing User entities:
+
+        +---------------+------+------+------+------+------+------+------+
+        | Field         | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +===============+======+======+======+======+======+======+======+
+        | email         | Y    |      |      |      |      |      |      |
+        +---------------+------+------+------+------+------+------+------+
+        | login_profile | Y    |      |      |      |      |      |      |
+        +---------------+------+------+------+------+------+------+------+
+        | status        | Y    |      |      |      | Y    | Y    |      |
+        +---------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+
+            from mbed_cloud.foundation import User
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("email", "eq", <filter value>)
+            for user in User().list(filter=api_filter):
+                print(user.email)
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
+        :param filter: An optional filter to apply when listing entities, please see the
+            above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
         
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(User)
@@ -746,50 +778,64 @@ class User(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import User
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(filter_definition=filter, field_renames=User._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = User._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
             foreign_key=User,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
+            include=include,
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, include=None, limit=50, order="ASC"):
+    def _paginate_list(self, after=None, filter=None, order="ASC", limit=50, include=None):
         """Get the details of all users.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.UserOrderEnum).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
+
         return self._client.call_api(
-            method="get",
-            path="/v3/users",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(order, enum=enums.UserOrderEnum).to_api(),
-            },
-            unpack=False,
+            method="get", path="/v3/users", query_params=query_params, unpack=False
         )
 
     def read(self):

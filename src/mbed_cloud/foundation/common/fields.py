@@ -2,15 +2,14 @@
 from __future__ import unicode_literals
 from builtins import int
 from builtins import object
-from builtins import str
 from builtins import super
 
 from datetime import datetime
 from datetime import date
-
 from dateutil.parser import parse
-
 from io import BufferedIOBase
+import json
+import six
 
 import logging
 
@@ -69,13 +68,20 @@ class Field(object):
             else self.set(value)
         )
 
+    def to_query_param(self):
+        """Generate a format which is appropriate to representing a a query param
+
+        Note: This will not URL encode as this will be performed by the `requests` library
+        """
+        return json.dumps(self.value) if self.value is None else self.to_api()
+
 
 class DateTimeField(Field):
     base_type = datetime
 
     def set(self, value):
         """Set the date/time using a datetime object or a date/time like string."""
-        if isinstance(value, str):
+        if isinstance(value, six.string_types):
             # Use dateutil.parser to accept various input
             self._val = parse(value)
         else:
@@ -116,6 +122,13 @@ class DateField(DateTimeField):
 class DictField(Field):
     base_type = dict
 
+    def to_query_param(self):
+        """Generate a format which is appropriate to representing a a query param
+
+        Note: This will not URL encode as this will be performed by the `requests` library
+        """
+        return json.dumps(self.value)
+
 
 class IntegerField(Field):
     base_type = int
@@ -142,11 +155,19 @@ class FloatField(Field):
 
 
 class StringField(Field):
-    base_type = str
+    # Python 2 and 3 compatible string type
+    base_type = six.string_types
 
 
 class BooleanField(Field):
     base_type = bool
+
+    def to_query_param(self):
+        """Generate a format which is appropriate to representing a a query param
+
+        Note: This will not URL encode as this will be performed by the `requests` library
+        """
+        return json.dumps(self.value)
 
 
 class ListField(Field):
@@ -156,8 +177,7 @@ class ListField(Field):
         if isinstance(value, list) and self._entity:
             # Convert a list of dictionaries into a list of entities
             self._val = [
-                self._entity(**item) if isinstance(item, dict) else item
-                for item in value
+                self._entity(**item) if isinstance(item, dict) else item for item in value
             ]
         else:
             return super().set(value)
@@ -186,12 +206,17 @@ class ListField(Field):
     def from_literal(self, value):
         if self._entity:
             return self.set(
-                [self._entity().from_literal(**item) for item in value]
-                if value
-                else None
+                [self._entity().from_literal(**item) for item in value] if value else None
             )
         else:
             return super().from_api(value)
+
+    def to_query_param(self):
+        """Generate a format which is appropriate to representing a a query param
+
+        Note: This will not URL encode as this will be performed by the `requests` library
+        """
+        return ",".join(self.value)
 
 
 class FileField(Field):

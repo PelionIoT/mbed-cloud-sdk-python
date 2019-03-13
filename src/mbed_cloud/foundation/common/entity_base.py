@@ -26,8 +26,7 @@ class Entity(object):
         """Human readable short format text"""
         friendly = "?"
         for name in (
-            getattr(self, f, None)
-            for f in ["full_name", "name", "id"] + self._fieldnames
+            getattr(self, f, None) for f in ["full_name", "name", "id"] + self._fieldnames
         ):
             if name is not None:
                 friendly = name
@@ -83,9 +82,7 @@ class Entity(object):
     def to_api(self):
         """Return all fields in API format"""
         return {
-            self._renames.get(sdk_field, sdk_field): getattr(
-                self, "_" + sdk_field
-            ).to_api()
+            self._renames.get(sdk_field, sdk_field): getattr(self, "_" + sdk_field).to_api()
             for sdk_field in self._fieldnames
         }
 
@@ -98,10 +95,7 @@ class Entity(object):
             except Exception:
                 # we don't care why loading the field fails. maybe it's bad data? log it.
                 self._logger.exception(
-                    "unable to deserialise literal field: %s %s %s",
-                    self,
-                    field_name,
-                    value,
+                    "unable to deserialise literal field: %s %s %s", self, field_name, value
                 )
         return self
 

@@ -31,8 +31,11 @@ class DeviceEnrollmentBulkCreate(Entity):
         "total_count",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
         self,
@@ -235,6 +238,8 @@ class DeviceEnrollmentBulkCreate(Entity):
     @property
     def id(self):
         """Bulk ID
+
+        This field must be set when updating or deleting an existing DeviceEnrollmentBulkCreate Entity.
         
         :rtype: str
         """
@@ -244,8 +249,6 @@ class DeviceEnrollmentBulkCreate(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing DeviceEnrollmentBulkCreate Entity.
 
         :param value: value to set
         :type value: str
@@ -333,9 +336,7 @@ class DeviceEnrollmentBulkCreate(Entity):
             method="post",
             path="/v3/device-enrollments-bulk-uploads",
             stream_params={
-                "enrollment_identities": fields.FileField(
-                    enrollment_identities
-                ).to_api()
+                "enrollment_identities": fields.FileField(enrollment_identities).to_api()
             },
             unpack=self,
         )

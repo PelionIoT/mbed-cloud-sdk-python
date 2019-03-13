@@ -29,8 +29,11 @@ class SubtenantUserInvitation(Entity):
         "user_id",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
         self,
@@ -84,15 +87,15 @@ class SubtenantUserInvitation(Entity):
         self._email = fields.StringField(value=email)
         self._expiration = fields.DateTimeField(value=expiration)
         self._id = fields.StringField(value=id)
-        self._login_profiles = fields.ListField(
-            value=login_profiles, entity=LoginProfile
-        )
+        self._login_profiles = fields.ListField(value=login_profiles, entity=LoginProfile)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._user_id = fields.StringField(value=user_id)
 
     @property
     def account_id(self):
         """The ID of the account the user is invited to.
+
+        This field must be set when creating a new SubtenantUserInvitation Entity.
         
         api example: '01619571e2e90242ac12000600000000'
         
@@ -104,8 +107,6 @@ class SubtenantUserInvitation(Entity):
     @account_id.setter
     def account_id(self, value):
         """Set value of `account_id`
-
-        This field must be set when creating a new SubtenantUserInvitation Entity.
 
         :param value: value to set
         :type value: str
@@ -137,6 +138,8 @@ class SubtenantUserInvitation(Entity):
     @property
     def email(self):
         """Email address of the invited user.
+
+        This field must be set when creating a new SubtenantUserInvitation Entity.
         
         api example: 'friend@arm.com'
         
@@ -148,8 +151,6 @@ class SubtenantUserInvitation(Entity):
     @email.setter
     def email(self, value):
         """Set value of `email`
-
-        This field must be set when creating a new SubtenantUserInvitation Entity.
 
         :param value: value to set
         :type value: str
@@ -181,6 +182,8 @@ class SubtenantUserInvitation(Entity):
     @property
     def id(self):
         """The ID of the invitation.
+
+        This field must be set when updating or deleting an existing SubtenantUserInvitation Entity.
         
         api example: '01619571e2e89242ac12000600000000'
         
@@ -192,8 +195,6 @@ class SubtenantUserInvitation(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing SubtenantUserInvitation Entity.
 
         :param value: value to set
         :type value: str

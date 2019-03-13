@@ -10,7 +10,6 @@ import logging
 import copy
 import functools
 import subprocess
-from operator import itemgetter
 from collections import defaultdict
 import jinja2
 
@@ -19,8 +18,10 @@ logger = logging.getLogger(__name__)
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 
+SUPPORTED_FILTER_OPERATORS = ["eq", "neq", "gte", "lte", "in", "nin", "like"]
+
 # The required parameters for a paginator
-PAGINATOR_PARAMETERS = {
+PRIVATE_PAGINATOR_PARAMETERS = {
     "after": {
         '_key': 'after',
         'api_fieldname': 'after',
@@ -82,7 +83,122 @@ PAGINATOR_PARAMETERS = {
         'python_type': 'str',
         'python_field': 'StringField'
     },
+    "filter": {
+        '_key': 'filter',
+        'api_fieldname': 'filter',
+        'default': None,
+        'description': 'Optional API filter for listing resources.',
+        'entity_fieldname': 'filter',
+        'external_param': True,
+        'in': 'special_query',
+        'name': 'filter',
+        'parameter_fieldname': 'filter',
+        'required': False,
+        'type': 'mbed_cloud.client.api_filter.ApiFilter',
+        'python_type': 'mbed_cloud.client.api_filter.ApiFilter',
+        'python_field': 'mbed_cloud.client.api_filter.ApiFilter'
+    },
 }
+
+PUBLIC_PAGINATOR_PARAMETERS = {
+    'filter': {
+        '_key': 'filter',
+        'api_fieldname': 'filter',
+        'default': None,
+        'description': 'Filtering when listing entities is not supported by the API for this entity.',
+        'entity_fieldname': 'filter',
+        'external_param': True,
+        'in': 'query',
+        'name': 'after',
+        'parameter_fieldname': 'filter',
+        'python_field': 'mbed_cloud.client.api_filter.ApiFilter',
+        'python_type': 'mbed_cloud.client.api_filter.ApiFilter',
+        'required': False,
+        'type': 'mbed_cloud.client.api_filter.ApiFilter',
+        '_sort_order': "e",
+    },
+    'include': {
+        '_key': 'include',
+        'api_fieldname': 'include',
+        'default': None,
+        'description': 'Comma separated additional data to return.',
+        'entity_fieldname': 'include',
+        'external_param': True,
+        'in': 'query',
+        'name': 'include',
+        'parameter_fieldname': 'include',
+        'python_field': 'StringField',
+        'python_type': 'str',
+        'required': False,
+        'type': 'string',
+        '_sort_order': "a",
+    },
+    'page_size': {
+        '_key': 'page_size',
+        'api_fieldname': 'page_size',
+        'default': None,
+        'description': 'The number of results to return for each page.',
+        'entity_fieldname': 'page_size',
+        'external_param': True,
+        'format': 'int32',
+        'in': 'query',
+        'name': 'page_size',
+        'parameter_fieldname': 'page_size',
+        'python_field': 'IntegerField',
+        'python_type': 'int',
+        'required': False,
+        'type': 'integer',
+        '_sort_order': "c",
+    },
+    'order': {
+        '_key': 'order',
+        'api_fieldname': 'order',
+        'default': None,
+        'description': 'The order of the records based on creation time, ASC or DESC. Default value is ASC',
+        'entity_fieldname': 'order',
+        'enum': ['ASC', 'DESC'],
+        'external_param': True,
+        'in': 'query',
+        'name': 'order',
+        'parameter_fieldname': 'order',
+        'python_field': 'StringField',
+        'python_type': 'str',
+        'required': False,
+        'type': 'string',
+        '_sort_order': "d",
+    },
+    'max_results': {
+        '_key': 'max_results',
+        'api_fieldname': 'max_results',
+        'default': None,
+        'description': 'Total maximum number of results to retrieve',
+        'entity_fieldname': 'max_results',
+        'external_param': True,
+        'format': 'int32',
+        'in': 'query',
+        'name': 'max_results',
+        'parameter_fieldname': 'max_results',
+        'python_field': 'IntegerField',
+        'python_type': 'int',
+        'required': False,
+        'type': 'integer',
+        '_sort_order': "b",
+    },
+}
+
+# Define a sort order so that method for listing methods appear in a fixed sort order before any endpoint specific
+# parameters
+SORT_ORDER = {
+    "after": "1",
+    "filter": "2",
+    "order": "3",
+    "limit": "4",
+    "max_results": "5",
+    "page_size": "6",
+    "include": "7",
+}
+
+
 
 # Map from Swagger Types / Formats to Foundation field types
 SWAGGER_FIELD_MAP = {
@@ -157,6 +273,11 @@ def to_snake_case(name):
     return name.replace(" ", "_").lower()
 
 
+def to_singular_name(name):
+    """Convert to snake case and remove and trailing `s` if present"""
+    return to_snake_case(name).rstrip('s')
+
+
 def sort_parg_kwarg(items):
     """Very specific sort ordering for ensuring pargs, kwargs are in the correct order"""
     return sorted(items, key=lambda x: not bool(x.get('required')))
@@ -180,6 +301,7 @@ class TemplateRenderer(object):
             sort_parg_kwarg=sort_parg_kwarg,
             to_snake=to_snake_case,
             to_pascal=to_pascal_case,
+            to_singular_name=to_singular_name,
         ))
 
     def render_template(self, template_filename, group="", entity="", template_data=None):
@@ -285,35 +407,116 @@ def count_param_in(fields):
     return params_in
 
 
-def paginators_as_custom_methods(entity, method):
-    """Sets up a custom method whenever we come across a paginator
+def add_required_parameters(method, required_parameters):
+    # Fill in any missing list parameters so there is a consistent interface
+    required_fields = list(required_parameters.keys())
+    for field in method["fields"]:
+        # If the field is already present it can be removed from the list
+        if field["_key"] in required_fields:
+            required_fields.remove(field["_key"])
+    # If there are any required fields which were missing, add in a standard definition
+    for required_field in required_fields:
+        method["fields"].append(required_parameters[required_field])
+    # Sort the list in a predefined sort order so common parameters come first followed by endpoint specific parameters
+    method["fields"].sort(key=lambda field: SORT_ORDER.get(field["_key"], field["_key"]))
+
+
+def create_filter_table(x_filter):
+    """Render the filter table for insertion into the documentation
+
+    It is difficult to render the table with variable field lengths as the table formatting has strict requirements.
+
+    :param x_filter: The x_filter definition from the method.
+    """
+    field_column_title = "Field"
+    # Find the maximum length of the field names in this table
+    field_name_max_length = max([len(field_name) for field_name in x_filter.keys()] + [len(field_column_title)])
+    # Find the maximum length of the filter operators in this table
+    operator_max_length = max([len(filter_operator) for filter_operator in SUPPORTED_FILTER_OPERATORS])
+    # How many columuns are there for filter operators
+    num_supported_filters = len(SUPPORTED_FILTER_OPERATORS)
+
+    row_separator = "+-%s-+" % ("-" * field_name_max_length)
+    row_separator += ("-%s-+" % ("-" * operator_max_length) * num_supported_filters)
+    row_separator += "\n"
+
+    title_separator = "+=%s=+" % ("=" * field_name_max_length)
+    title_separator += ("=%s=+" % ("=" * operator_max_length) * num_supported_filters)
+    title_separator += "\n"
+
+    title_row = "| %-*s |" % (field_name_max_length, field_column_title)
+    title_row += "".join([" %-*s |" % (operator_max_length, operator) for operator in SUPPORTED_FILTER_OPERATORS])
+    title_row += "\n"
+
+    # Table heading
+    filter_table = row_separator
+    filter_table += title_row
+    filter_table += title_separator
+
+    for field_name, field_filters in x_filter.items():
+        field_row = "| %-*s |" % (field_name_max_length, field_name)
+        for supported_filter_operator in SUPPORTED_FILTER_OPERATORS:
+            if supported_filter_operator in field_filters:
+                field_row += " %-*s |" % (operator_max_length, "Y")
+            else:
+                field_row += " %-*s |" % (operator_max_length, " ")
+        filter_table += field_row + "\n"
+        filter_table += row_separator
+
+    return filter_table
+
+
+def create_custom_methods(entity, method):
+    """Create paginator methods for iterating over list resources
+
+    There is a public facing iterator method and a private method with makes the API inside a paginator. These both
+    need to be defined from the base resource description.
 
     The custom method is currently called 'paginate'
-    :param entity:
-    :param method:
+
+    :param entity: The entity being processed, this will be modified if a paginator is found.
+    :param method: The current method being processed.
     :return:
     """
-    paginated = method.get("pagination")
-    if paginated:
-        private = copy.deepcopy(method)
-        private["private_method"] = True
-        private["_key"] = f"paginate_{method['_key']}"
+    if method.get("pagination"):
+        internal_paginator = copy.deepcopy(method)
+        internal_paginator["private_method"] = True
+        internal_paginator["_key"] = f"paginate_{method['_key']}"
+        internal_paginator["internal_paginator_method"] = True
         method["custom_method"] = "paginate"
-        method["paginate_target"] = private["_key"]
+        method["paginate_target"] = internal_paginator["_key"]
+        method["public_paginator_method"] = True
 
-        # Fill in any missing list parameters so there is a consistent interface
-        required_fields = list(PAGINATOR_PARAMETERS.keys())
-        for field in private["fields"]:
-            # If the field is already present it can be removed from the list
-            if field["_key"] in required_fields:
-                required_fields.remove(field["_key"])
-        # If there are any required fields add in a standard definition
-        for required_field in required_fields:
-            private["fields"].append(PAGINATOR_PARAMETERS[required_field])
-        # Sort the list by the name of the field so the parameter order is consistent
-        if required_fields:
-            private["fields"].sort(key=itemgetter("_key"))
-        entity["methods"].append(private)
+        add_required_parameters(internal_paginator, PRIVATE_PAGINATOR_PARAMETERS)
+
+        # Rename the API `limit` to `page_size` and drop `after`
+        adjusted_fields = []
+        for field in method["fields"]:
+            field_name = field["_key"]
+            if field_name == "after":
+                continue
+            if field_name == "limit":
+                new_field = {}
+                for key, value in field.items():
+                    if value == "limit":
+                        value = "page_size"
+                    new_field[key] = value
+                adjusted_fields.append(new_field)
+            else:
+                adjusted_fields.append(field)
+        method["fields"] = adjusted_fields
+        add_required_parameters(method, PUBLIC_PAGINATOR_PARAMETERS)
+
+        x_filter = method.get("x_filter")
+        if x_filter:
+            method["x_filter_table"] = create_filter_table(x_filter)
+            # Replace the "not supported" description for the filter field if x_filter is defined
+            for field in method["fields"]:
+                if field["_key"] == "filter":
+                    field["description"] = "An optional filter to apply when listing entities, please see the above " \
+                                            "**API Filters** table for supported filters."
+
+        entity["methods"].append(internal_paginator)
 
 
 def post_process_definition_file(sdk_def_filename):
@@ -333,7 +536,7 @@ def post_process_definition_file(sdk_def_filename):
                 map_python_field_types(method["fields"])
                 method["python_params_in"] = count_param_in(method["fields"])
                 [f.setdefault("default", None) for f in method["fields"]]
-                paginators_as_custom_methods(entity, method)
+                create_custom_methods(entity, method)
                 # Convert the return type to a Python type or assume it is an entity if not known
                 return_type = method["return_type"]
                 method["python_return_type"] = SWAGGER_TYPE_MAP.get(return_type, to_pascal_case(return_type))
@@ -401,7 +604,7 @@ def main():
     render_foundation_sdk(python_sdk_def_dict, arguments.output_dir)
 
     logger.info("Reformatting generated source files in directory '%s'", arguments.output_dir)
-    subprocess.run(['black', arguments.output_dir, '--fast'])
+    subprocess.run(['black', arguments.output_dir, '--fast', '--line-length=92'])
 
     return 0
 

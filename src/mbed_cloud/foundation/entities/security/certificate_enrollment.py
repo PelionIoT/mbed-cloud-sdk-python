@@ -28,8 +28,11 @@ class CertificateEnrollment(Entity):
         "updated_at",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
         self,
@@ -188,6 +191,8 @@ class CertificateEnrollment(Entity):
     @property
     def id(self):
         """The ID of the certificate enrollment.
+
+        This field must be set when updating or deleting an existing CertificateEnrollment Entity.
         
         api example: '01612df56f3b0a580a010fc700000000'
         
@@ -199,8 +204,6 @@ class CertificateEnrollment(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing CertificateEnrollment Entity.
 
         :param value: value to set
         :type value: str
@@ -229,23 +232,56 @@ class CertificateEnrollment(Entity):
 
         self._updated_at.set(value)
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get certificate enrollments list.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
+        **API Filters**
+
+        The following filters are supported by the API when listing CertificateEnrollment entities:
+
+        +------------------+------+------+------+------+------+------+------+
+        | Field            | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +==================+======+======+======+======+======+======+======+
+        | certificate_name | Y    |      |      |      |      |      |      |
+        +------------------+------+------+------+------+------+------+------+
+        | created_at       |      |      | Y    | Y    |      |      |      |
+        +------------------+------+------+------+------+------+------+------+
+        | device_id        | Y    |      |      |      |      |      |      |
+        +------------------+------+------+------+------+------+------+------+
+        | enroll_result    | Y    | Y    |      |      |      |      |      |
+        +------------------+------+------+------+------+------+------+------+
+        | enroll_status    | Y    | Y    |      |      |      |      |      |
+        +------------------+------+------+------+------+------+------+------+
+        | updated_at       |      |      | Y    | Y    |      |      |      |
+        +------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+
+            from mbed_cloud.foundation import CertificateEnrollment
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("certificate_name", "eq", <filter value>)
+            for certificate_enrollment in CertificateEnrollment().list(filter=api_filter):
+                print(certificate_enrollment.certificate_name)
         
-        :param include: a comma-separated list of data fields to return.
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to be returned. Between 2 and 1000, inclusive.
-        :type page_size: int
+        :param filter: An optional filter to apply when listing entities, please see the
+            above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of results.
         :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to be returned. Between 2 and 1000, inclusive.
+        :type page_size: int
+        
+        :param include: a comma-separated list of data fields to return.
+        :type include: str
         
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(CertificateEnrollment)
@@ -253,51 +289,71 @@ class CertificateEnrollment(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import CertificateEnrollment
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(
+                filter_definition=filter,
+                field_renames=CertificateEnrollment._renames_to_api,
+            )
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = CertificateEnrollment._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
             foreign_key=CertificateEnrollment,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
+            include=include,
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, include=None, limit=None, order=None):
+    def _paginate_list(self, after=None, filter=None, order=None, limit=None, include=None):
         """Get certificate enrollments list.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-enrollments
         
         :param after: The ID of the item after which to retrieve the next page.
         :type after: str
         
-        :param include: a comma-separated list of data fields to return.
-        :type include: str
-        
-        :param limit: The number of results to be returned. Between 2 and 1000, inclusive.
-        :type limit: int
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of results.
         :type order: str
         
+        :param limit: The number of results to be returned. Between 2 and 1000, inclusive.
+        :type limit: int
+        
+        :param include: a comma-separated list of data fields to return.
+        :type include: str
+        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.CertificateEnrollmentOrderEnum
+        ).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(
+            include, enum=enums.CertificateEnrollmentIncludeEnum
+        ).to_api()
 
         return self._client.call_api(
             method="get",
             path="/v3/certificate-enrollments",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(
-                    include, enum=enums.CertificateEnrollmentIncludeEnum
-                ).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.CertificateEnrollmentOrderEnum
-                ).to_api(),
-            },
+            query_params=query_params,
             unpack=False,
         )
 

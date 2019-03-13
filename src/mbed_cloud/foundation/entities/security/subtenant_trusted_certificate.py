@@ -39,8 +39,11 @@ class SubtenantTrustedCertificate(Entity):
         "validity",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
         self,
@@ -116,17 +119,13 @@ class SubtenantTrustedCertificate(Entity):
         # fields
         self._account_id = fields.StringField(value=account_id)
         self._certificate = fields.StringField(value=certificate)
-        self._certificate_fingerprint = fields.StringField(
-            value=certificate_fingerprint
-        )
+        self._certificate_fingerprint = fields.StringField(value=certificate_fingerprint)
         self._created_at = fields.DateTimeField(value=created_at)
         self._description = fields.StringField(value=description)
         self._device_execution_mode = fields.IntegerField(value=None)
         self._enrollment_mode = fields.BooleanField(value=enrollment_mode)
         self._id = fields.StringField(value=id)
-        self._is_developer_certificate = fields.BooleanField(
-            value=is_developer_certificate
-        )
+        self._is_developer_certificate = fields.BooleanField(value=is_developer_certificate)
         self._issuer = fields.StringField(value=issuer)
         self._name = fields.StringField(value=name)
         self._owner_id = fields.StringField(value=owner_id)
@@ -144,6 +143,8 @@ class SubtenantTrustedCertificate(Entity):
     @property
     def account_id(self):
         """The ID of the account.
+
+        This field must be set when creating a new SubtenantTrustedCertificate Entity.
         
         api example: '01619571e2e90242ac12000600000000'
         
@@ -156,8 +157,6 @@ class SubtenantTrustedCertificate(Entity):
     def account_id(self, value):
         """Set value of `account_id`
 
-        This field must be set when creating a new SubtenantTrustedCertificate Entity.
-
         :param value: value to set
         :type value: str
         """
@@ -167,6 +166,8 @@ class SubtenantTrustedCertificate(Entity):
     @property
     def certificate(self):
         """X509.v3 trusted certificate in PEM format.
+
+        This field must be set when creating a new SubtenantTrustedCertificate Entity.
         
         api example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
         
@@ -178,8 +179,6 @@ class SubtenantTrustedCertificate(Entity):
     @certificate.setter
     def certificate(self, value):
         """Set value of `certificate`
-
-        This field must be set when creating a new SubtenantTrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
@@ -272,6 +271,8 @@ class SubtenantTrustedCertificate(Entity):
     @property
     def id(self):
         """Entity ID.
+
+        This field must be set when updating or deleting an existing SubtenantTrustedCertificate Entity.
         
         api example: '01619571d01d0242ac12000600000000'
         
@@ -283,8 +284,6 @@ class SubtenantTrustedCertificate(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing SubtenantTrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
@@ -301,9 +300,7 @@ class SubtenantTrustedCertificate(Entity):
         :rtype: bool
         """
 
-        from mbed_cloud.foundation._custom_methods import (
-            is_developer_certificate_getter,
-        )
+        from mbed_cloud.foundation._custom_methods import is_developer_certificate_getter
 
         return is_developer_certificate_getter(
             self=self, field=self._is_developer_certificate
@@ -317,9 +314,7 @@ class SubtenantTrustedCertificate(Entity):
         :type value: bool
         """
 
-        from mbed_cloud.foundation._custom_methods import (
-            is_developer_certificate_setter,
-        )
+        from mbed_cloud.foundation._custom_methods import is_developer_certificate_setter
 
         is_developer_certificate_setter(
             self=self, field=self._is_developer_certificate, value=value
@@ -349,6 +344,8 @@ class SubtenantTrustedCertificate(Entity):
     @property
     def name(self):
         """Certificate name.
+
+        This field must be set when creating a new SubtenantTrustedCertificate Entity.
         
         api example: 'My certificate'
         
@@ -360,8 +357,6 @@ class SubtenantTrustedCertificate(Entity):
     @name.setter
     def name(self, value):
         """Set value of `name`
-
-        This field must be set when creating a new SubtenantTrustedCertificate Entity.
 
         :param value: value to set
         :type value: str
@@ -393,6 +388,8 @@ class SubtenantTrustedCertificate(Entity):
     @property
     def service(self):
         """Service name where the certificate is to be used.
+
+        This field must be set when creating a new SubtenantTrustedCertificate Entity.
         
         :rtype: str
         """
@@ -402,8 +399,6 @@ class SubtenantTrustedCertificate(Entity):
     @service.setter
     def service(self, value):
         """Set value of `service`
-
-        This field must be set when creating a new SubtenantTrustedCertificate Entity.
 
         :param value: value to set
         :type value: str

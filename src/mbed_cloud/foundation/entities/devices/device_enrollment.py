@@ -28,8 +28,11 @@ class DeviceEnrollment(Entity):
         "id",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
         self,
@@ -166,6 +169,8 @@ class DeviceEnrollment(Entity):
     @property
     def enrollment_identity(self):
         """Enrollment identity.
+
+        This field must be set when creating a new DeviceEnrollment Entity.
         
         api example: 'A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:
             fa:af:4d:2d:73:95:c5'
@@ -178,8 +183,6 @@ class DeviceEnrollment(Entity):
     @enrollment_identity.setter
     def enrollment_identity(self, value):
         """Set value of `enrollment_identity`
-
-        This field must be set when creating a new DeviceEnrollment Entity.
 
         :param value: value to set
         :type value: str
@@ -211,6 +214,8 @@ class DeviceEnrollment(Entity):
     @property
     def id(self):
         """Enrollment identity.
+
+        This field must be set when updating or deleting an existing DeviceEnrollment Entity.
         
         api example: '00005a4e027f0a580a01081c00000000'
         
@@ -222,8 +227,6 @@ class DeviceEnrollment(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing DeviceEnrollment Entity.
 
         :param value: value to set
         :type value: str
@@ -263,24 +266,30 @@ class DeviceEnrollment(Entity):
             unpack=self,
         )
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(
+        self, filter=None, order="ASC", max_results=None, page_size=None, include=None
+    ):
         """Get enrollment list.
 
         api documentation:
         https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
         
-        :param include: Comma-separated additional data to return. Currently supported:
-            total_count.
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: Number of results to be returned. Between 2 and 1000, inclusive.
-        :type page_size: int
+        :param filter: An optional filter to apply when listing entities, please see the
+            above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: ASC or DESC
         :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: Number of results to be returned. Between 2 and 1000, inclusive.
+        :type page_size: int
+        
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
+        :type include: str
         
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(DeviceEnrollment)
@@ -288,50 +297,71 @@ class DeviceEnrollment(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import DeviceEnrollment
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(
+                filter_definition=filter, field_renames=DeviceEnrollment._renames_to_api
+            )
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = DeviceEnrollment._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
             foreign_key=DeviceEnrollment,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
+            include=include,
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, include=None, limit=None, order="ASC"):
+    def _paginate_list(
+        self, after=None, filter=None, order="ASC", limit=None, include=None
+    ):
         """Get enrollment list.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
         
         :param after: Entity ID to fetch after.
         :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: ASC or DESC
+        :type order: str
+        
+        :param limit: Number of results to be returned. Between 2 and 1000, inclusive.
+        :type limit: int
         
         :param include: Comma-separated additional data to return. Currently supported:
             total_count.
         :type include: str
         
-        :param limit: Number of results to be returned. Between 2 and 1000, inclusive.
-        :type limit: int
-        
-        :param order: ASC or DESC
-        :type order: str
-        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.DeviceEnrollmentOrderEnum
+        ).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
             method="get",
             path="/v3/device-enrollments",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.DeviceEnrollmentOrderEnum
-                ).to_api(),
-            },
+            query_params=query_params,
             unpack=False,
         )
 

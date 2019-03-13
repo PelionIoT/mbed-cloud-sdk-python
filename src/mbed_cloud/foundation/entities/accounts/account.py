@@ -64,8 +64,11 @@ class Account(Entity):
         "upgraded_at",
     ]
 
-    # common renames used when mapping {<API spec>: <SDK>}
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
         self,
@@ -227,9 +230,7 @@ class Account(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         from mbed_cloud.foundation.entities.accounts.parent_account import ParentAccount
-        from mbed_cloud.foundation.entities.accounts.password_policy import (
-            PasswordPolicy,
-        )
+        from mbed_cloud.foundation.entities.accounts.password_policy import PasswordPolicy
         from mbed_cloud.foundation.entities.accounts.policy import Policy
 
         # fields
@@ -264,9 +265,7 @@ class Account(Entity):
             value=mfa_status, enum=enums.AccountMfaStatusEnum
         )
         self._notification_emails = fields.ListField(value=notification_emails)
-        self._parent_account = fields.DictField(
-            value=parent_account, entity=ParentAccount
-        )
+        self._parent_account = fields.DictField(value=parent_account, entity=ParentAccount)
         self._parent_id = fields.StringField(value=parent_id)
         self._password_policy = fields.DictField(
             value=password_policy, entity=PasswordPolicy
@@ -691,6 +690,8 @@ class Account(Entity):
     @property
     def end_market(self):
         """Account end market.
+
+        This field must be set when creating a new Account Entity.
         
         api example: 'IT'
         
@@ -702,8 +703,6 @@ class Account(Entity):
     @end_market.setter
     def end_market(self, value):
         """Set value of `end_market`
-
-        This field must be set when creating a new Account Entity.
 
         :param value: value to set
         :type value: str
@@ -755,6 +754,8 @@ class Account(Entity):
     @property
     def id(self):
         """Account ID.
+
+        This field must be set when updating or deleting an existing Account Entity.
         
         api example: '01619571e2e90242ac12000600000000'
         
@@ -766,8 +767,6 @@ class Account(Entity):
     @id.setter
     def id(self, value):
         """Set value of `id`
-
-        This field must be set when updating or deleting an existing Account Entity.
 
         :param value: value to set
         :type value: str
@@ -1232,29 +1231,69 @@ class Account(Entity):
             unpack=self,
         )
 
-    def list(self, include=None, max_results=None, page_size=None, order=None):
+    def list(
+        self,
+        filter=None,
+        order="ASC",
+        max_results=None,
+        page_size=1000,
+        include=None,
+        format=None,
+        properties=None,
+    ):
         """Get all accounts.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts
+        **API Filters**
+
+        The following filters are supported by the API when listing Account entities:
+
+        +------------+------+------+------+------+------+------+------+
+        | Field      | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +============+======+======+======+======+======+======+======+
+        | country    |      |      |      |      |      |      | Y    |
+        +------------+------+------+------+------+------+------+------+
+        | end_market | Y    |      |      |      |      |      |      |
+        +------------+------+------+------+------+------+------+------+
+        | parent     | Y    |      |      |      |      |      |      |
+        +------------+------+------+------+------+------+------+------+
+        | status     | Y    |      |      |      | Y    | Y    |      |
+        +------------+------+------+------+------+------+------+------+
+        | tier       | Y    |      |      |      |      |      |      |
+        +------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("country", "like", <filter value>)
+            for account in Account().list(filter=api_filter):
+                print(account.country)
         
-        :param format: Format information for the response to the query, supported:
-            format=breakdown.
-        :type format: str
+        :param filter: An optional filter to apply when listing entities, please see the
+            above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: The order of the records based on creation time, ASC or DESC. Default
+            value is ASC
+        :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return (2-1000), default is 1000.
+        :type page_size: int
         
         :param include: Comma separated additional data to return. Currently supported:
             limits, policies, sub_accounts
         :type include: str
         
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 1000.
-        :type page_size: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC. Default
-            value is ASC
-        :type order: str
+        :param format: Format information for the response to the query, supported:
+            format=breakdown.
+        :type format: str
         
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
@@ -1265,13 +1304,30 @@ class Account(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
 
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = self._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
+
         return paginate(
             self=self,
             foreign_key=self.__class__,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
+            include=include,
+            format=format,
+            properties=properties,
             wraps=self._paginate_list,
         )
 
@@ -1304,34 +1360,35 @@ class Account(Entity):
     def _paginate_list(
         self,
         after=None,
-        format=None,
-        include=None,
-        limit=1000,
+        filter=None,
         order="ASC",
+        limit=1000,
+        include=None,
+        format=None,
         properties=None,
     ):
         """Get all accounts.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
         
-        :param format: Format information for the response to the query, supported:
-            format=breakdown.
-        :type format: str
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: The order of the records based on creation time, ASC or DESC. Default
+            value is ASC
+        :type order: str
+        
+        :param limit: The number of results to return (2-1000), default is 1000.
+        :type limit: int
         
         :param include: Comma separated additional data to return. Currently supported:
             limits, policies, sub_accounts
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 1000.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC. Default
-            value is ASC
-        :type order: str
+        :param format: Format information for the response to the query, supported:
+            format=breakdown.
+        :type format: str
         
         :param properties: Property name to be returned from account specific properties.
         :type properties: str
@@ -1339,136 +1396,142 @@ class Account(Entity):
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.AccountOrderEnum
+        ).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
+        query_params["format"] = fields.StringField(format).to_api()
+        query_params["properties"] = fields.StringField(properties).to_api()
+
         return self._client.call_api(
-            method="get",
-            path="/v3/accounts",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "format": fields.StringField(format).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.AccountOrderEnum
-                ).to_api(),
-                "properties": fields.StringField(properties).to_api(),
-            },
-            unpack=False,
+            method="get", path="/v3/accounts", query_params=query_params, unpack=False
         )
 
     def _paginate_trusted_certificates(
-        self, after=None, include=None, limit=50, order="ASC"
+        self, after=None, filter=None, order="ASC", limit=50, include=None
     ):
         """Get all trusted certificates.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
+        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.AccountOrderEnum
+        ).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/trusted-certificates",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.AccountOrderEnum
-                ).to_api(),
-            },
-            path_params={"account_id": self._id.to_api()},
+            query_params=query_params,
             unpack=False,
         )
 
     def _paginate_user_invitations(
-        self, after=None, include=None, limit=50, order="ASC"
+        self, after=None, filter=None, order="ASC", limit=50, include=None
     ):
         """Get the details of all the user invitations.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/user-invitations
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
         
-        :param include: Not supported by the API.
-        :type include: str
-        
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
         
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
+        
+        :param include: Not supported by the API.
+        :type include: str
+        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.AccountOrderEnum
+        ).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/user-invitations",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.AccountOrderEnum
-                ).to_api(),
-            },
-            path_params={"account_id": self._id.to_api()},
+            query_params=query_params,
             unpack=False,
         )
 
-    def _paginate_users(self, after=None, include=None, limit=50, order="ASC"):
+    def _paginate_users(self, after=None, filter=None, order="ASC", limit=50, include=None):
         """Get all user details.
-
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: The order of the records based on creation time, ASC or DESC; by
+            default ASC
+        :type order: str
+        
+        :param limit: The number of results to return (2-1000), default is 50.
+        :type limit: int
         
         :param include: Comma separated additional data to return. Currently supported:
             total_count
         :type include: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
-        :type limit: int
-        
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
-        :type order: str
-        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["order"] = fields.StringField(
+            order, enum=enums.AccountOrderEnum
+        ).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/users",
-            query_params={
-                "after": fields.StringField(after).to_api(),
-                "include": fields.StringField(include).to_api(),
-                "limit": fields.IntegerField(limit).to_api(),
-                "order": fields.StringField(
-                    order, enum=enums.AccountOrderEnum
-                ).to_api(),
-            },
-            path_params={"account_id": self._id.to_api()},
+            query_params=query_params,
             unpack=False,
         )
 
@@ -1500,26 +1563,67 @@ class Account(Entity):
         )
 
     def trusted_certificates(
-        self, include=None, max_results=None, page_size=None, order=None
+        self, filter=None, order="ASC", max_results=None, page_size=50, include=None
     ):
         """Get all trusted certificates.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates
+        **API Filters**
+
+        The following filters are supported by the API when listing Account entities:
+
+        +-----------------------+------+------+------+------+------+------+------+
+        | Field                 | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +=======================+======+======+======+======+======+======+======+
+        | device_execution_mode | Y    | Y    |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | enrollment_mode       | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | expire                | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | issuer                |      |      |      |      |      |      | Y    |
+        +-----------------------+------+------+------+------+------+------+------+
+        | name                  | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | owner                 | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | service               | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | status                | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+        | subject               |      |      |      |      |      |      | Y    |
+        +-----------------------+------+------+------+------+------+------+------+
+        | valid                 | Y    |      |      |      |      |      |      |
+        +-----------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("device_execution_mode", "eq", <filter value>)
+            for trusted_certificate in Account().trusted_certificates(filter=api_filter):
+                print(trusted_certificate.device_execution_mode)
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
+        :param filter: An optional filter to apply when listing entities, please see the
+            above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
         
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantTrustedCertificate)
@@ -1527,14 +1631,31 @@ class Account(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import SubtenantTrustedCertificate
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(
+                filter_definition=filter,
+                field_renames=SubtenantTrustedCertificate._renames_to_api,
+            )
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = SubtenantTrustedCertificate._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
             foreign_key=SubtenantTrustedCertificate,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
+            include=include,
             wraps=self._paginate_trusted_certificates,
         )
 
@@ -1580,22 +1701,48 @@ class Account(Entity):
         )
 
     def user_invitations(
-        self, include=None, max_results=None, page_size=None, order=None
+        self, filter=None, order="ASC", max_results=None, page_size=50, include=None
     ):
         """Get the details of all the user invitations.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/user-invitations
+        **API Filters**
+
+        The following filters are supported by the API when listing Account entities:
+
+        +---------------+------+------+------+------+------+------+------+
+        | Field         | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +===============+======+======+======+======+======+======+======+
+        | login_profile | Y    |      |      |      |      |      |      |
+        +---------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("login_profile", "eq", <filter value>)
+            for user_invitation in Account().user_invitations(filter=api_filter):
+                print(user_invitation.login_profile)
         
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
+        :param filter: An optional filter to apply when listing entities, please see the
+            above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
+        
+        :param include: Comma separated additional data to return.
+        :type include: str
         
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantUserInvitation)
@@ -1603,36 +1750,80 @@ class Account(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import SubtenantUserInvitation
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(
+                filter_definition=filter,
+                field_renames=SubtenantUserInvitation._renames_to_api,
+            )
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = SubtenantUserInvitation._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
             foreign_key=SubtenantUserInvitation,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
+            include=include,
             wraps=self._paginate_user_invitations,
         )
 
-    def users(self, include=None, max_results=None, page_size=None, order=None):
+    def users(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all user details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users
+        **API Filters**
+
+        The following filters are supported by the API when listing Account entities:
+
+        +---------------+------+------+------+------+------+------+------+
+        | Field         | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +===============+======+======+======+======+======+======+======+
+        | email         | Y    |      |      |      |      |      |      |
+        +---------------+------+------+------+------+------+------+------+
+        | login_profile | Y    |      |      |      |      |      |      |
+        +---------------+------+------+------+------+------+------+------+
+        | status        | Y    |      |      |      | Y    | Y    |      |
+        +---------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("email", "eq", <filter value>)
+            for user in Account().users(filter=api_filter):
+                print(user.email)
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
-        :type include: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-            
-        :param page_size: The number of results to return (2-1000), default is 50.
-        :type page_size: int
+        :param filter: An optional filter to apply when listing entities, please see the
+            above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, ASC or DESC; by
             default ASC
         :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return (2-1000), default is 50.
+        :type page_size: int
+        
+        :param include: Comma separated additional data to return. Currently supported:
+            total_count
+        :type include: str
         
         :return: An iterator object which yields instances of an entity.
         :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantUser)
@@ -1640,13 +1831,29 @@ class Account(Entity):
 
         from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import SubtenantUser
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(
+                filter_definition=filter, field_renames=SubtenantUser._renames_to_api
+            )
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = SubtenantUser._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
             foreign_key=SubtenantUser,
-            include=include,
+            filter=filter,
+            order=order,
             max_results=max_results,
             page_size=page_size,
-            order=order,
+            include=include,
             wraps=self._paginate_users,
         )

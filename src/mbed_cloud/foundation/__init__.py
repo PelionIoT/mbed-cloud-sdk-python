@@ -41,9 +41,7 @@ from mbed_cloud.foundation.entities.security.server_credentials import ServerCre
 from mbed_cloud.foundation.entities.security.subtenant_trusted_certificate import (
     SubtenantTrustedCertificate,
 )
-from mbed_cloud.foundation.entities.security.trusted_certificate import (
-    TrustedCertificate,
-)
+from mbed_cloud.foundation.entities.security.trusted_certificate import TrustedCertificate
 from mbed_cloud.foundation.entities.security.verification_response import (
     VerificationResponse,
 )
