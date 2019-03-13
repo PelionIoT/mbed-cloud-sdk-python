@@ -8,8 +8,7 @@ This module contains the Foundation Entities that are grouped together under the
 How to import {{ _key|to_pascal }} Entities:
 
 .. code-block:: python
-
-    {%- for entity in entities|sort %}
+    {% for entity in entities|sort %}
     from mbed_cloud.foundation import {{ entity|to_pascal }}
     {%- endfor %}
 

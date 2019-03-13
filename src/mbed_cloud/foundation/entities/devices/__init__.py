@@ -8,6 +8,7 @@ This module contains the Foundation Entities that are grouped together under the
 How to import Devices Entities:
 
 .. code-block:: python
+    
     from mbed_cloud.foundation import Device
     from mbed_cloud.foundation import DeviceEnrollment
     from mbed_cloud.foundation import DeviceEnrollmentBulkCreate

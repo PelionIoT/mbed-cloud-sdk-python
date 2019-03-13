@@ -4,11 +4,11 @@ Foundation Interface
 
 Without members:
 
-.. autoclass:: mbed_cloud.foundation.entities.account.User
+.. autoclass:: mbed_cloud.foundation.entities.account.user.User
 
 With members:
 
-.. autoclass:: mbed_cloud.foundation.entities.account.User
+.. autoclass:: mbed_cloud.foundation.entities.account.user.User
   :members: read, list, update, delete
 
 """

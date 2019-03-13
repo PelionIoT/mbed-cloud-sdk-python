@@ -8,6 +8,7 @@ This module contains all Foundation Entities, which are grouped together per int
 How to import Entities:
 
 .. code-block:: python
+    
     from mbed_cloud.foundation import Account
     from mbed_cloud.foundation import ActiveSession
     from mbed_cloud.foundation import ApiKey

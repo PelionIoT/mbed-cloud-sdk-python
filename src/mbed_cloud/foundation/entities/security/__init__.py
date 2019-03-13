@@ -8,6 +8,7 @@ This module contains the Foundation Entities that are grouped together under the
 How to import Security Entities:
 
 .. code-block:: python
+    
     from mbed_cloud.foundation import CertificateEnrollment
     from mbed_cloud.foundation import CertificateIssuer
     from mbed_cloud.foundation import CertificateIssuerConfig

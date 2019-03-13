@@ -8,8 +8,7 @@ This module contains all Foundation Entities, which are grouped together per int
 How to import Entities:
 
 .. code-block:: python
-
-    {%- for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}
+    {% for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}
     from mbed_cloud.foundation import {{ entity._key|to_pascal }}
     {%- endfor %}
 
