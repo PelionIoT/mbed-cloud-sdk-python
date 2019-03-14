@@ -297,7 +297,7 @@ class UserInvitation(Entity):
     def create(self, valid_for_days=None):
         """Create a user invitation.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations>`_.
         
         :param valid_for_days: Specifies how many days the invitation will be valid for. The default
             is 30 days. Value should be between 1 and 100 days.
@@ -320,7 +320,7 @@ class UserInvitation(Entity):
     def delete(self):
         """Delete a user invitation.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations/{invitation_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations/{invitation_id}>`_.
         
         :rtype: UserInvitation
         """
@@ -335,7 +335,7 @@ class UserInvitation(Entity):
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get the details of all the user invitations.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations>`_.
 
         **API Filters**
 
@@ -451,7 +451,7 @@ class UserInvitation(Entity):
     def read(self):
         """Details of a user invitation.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations/{invitation_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations/{invitation_id}>`_.
         
         :rtype: UserInvitation
         """

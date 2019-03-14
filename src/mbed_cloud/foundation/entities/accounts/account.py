@@ -1222,7 +1222,7 @@ class Account(Entity):
     def create(self, action="create"):
         """Create a new account.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts>`_.
         
         :param action: Action, either 'create' or 'enroll'. <ul><li>'create' creates the
             account where its admin user has ACTIVE status if admin_password was
@@ -1278,7 +1278,7 @@ class Account(Entity):
     ):
         """Get all accounts.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts>`_.
 
         **API Filters**
 
@@ -1371,7 +1371,7 @@ class Account(Entity):
     def me(self, include=None, properties=None):
         """Get account info.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/me
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/me>`_.
         
         :param include: Comma separated additional data to return. Currently supported:
             limits, policies, sub_accounts.
@@ -1574,7 +1574,7 @@ class Account(Entity):
     def read(self, include=None, properties=None):
         """Get account info.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}>`_.
         
         :param include: Comma separated additional data to return. Currently supported:
             limits, policies, sub_accounts
@@ -1602,7 +1602,7 @@ class Account(Entity):
     ):
         """Get all trusted certificates.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates>`_.
 
         **API Filters**
 
@@ -1699,7 +1699,7 @@ class Account(Entity):
     def update(self):
         """Update attributes of an existing account.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}>`_.
         
         :rtype: Account
         """
@@ -1741,7 +1741,7 @@ class Account(Entity):
     ):
         """Get the details of all the user invitations.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations>`_.
 
         **API Filters**
 
@@ -1819,7 +1819,7 @@ class Account(Entity):
     def users(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all user details.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users>`_.
 
         **API Filters**
 

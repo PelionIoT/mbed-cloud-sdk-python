@@ -265,7 +265,7 @@ class CertificateEnrollment(Entity):
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get certificate enrollments list.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-enrollments
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-enrollments>`_.
 
         **API Filters**
 
@@ -392,7 +392,7 @@ class CertificateEnrollment(Entity):
     def read(self):
         """Get a certificate enrollment by ID.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-enrollments/{certificate-enrollment-id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-enrollments/{certificate-enrollment-id}>`_.
         
         :rtype: CertificateEnrollment
         """

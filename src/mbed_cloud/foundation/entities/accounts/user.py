@@ -715,7 +715,7 @@ class User(Entity):
     def create(self, action="create"):
         """Create a new user.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/users
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users>`_.
         
         :param action: Action, either 'create' or 'invite'.
         :type action: str
@@ -744,7 +744,7 @@ class User(Entity):
     def delete(self):
         """Delete a user.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users/{user_id}>`_.
         
         :rtype: User
         """
@@ -759,7 +759,7 @@ class User(Entity):
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get the details of all users.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/users
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users>`_.
 
         **API Filters**
 
@@ -874,7 +874,7 @@ class User(Entity):
     def read(self):
         """Details of a user.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users/{user_id}>`_.
         
         :rtype: User
         """
@@ -889,7 +889,7 @@ class User(Entity):
     def update(self):
         """Update user details.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users/{user_id}>`_.
         
         :rtype: User
         """

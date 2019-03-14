@@ -547,7 +547,7 @@ class SubtenantTrustedCertificate(Entity):
     def create(self):
         """Upload new trusted certificate.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates>`_.
         
         :rtype: SubtenantTrustedCertificate
         """
@@ -570,7 +570,7 @@ class SubtenantTrustedCertificate(Entity):
     def delete(self):
         """Delete trusted certificate by ID.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates/{cert_id}>`_.
         
         :rtype: SubtenantTrustedCertificate
         """
@@ -588,7 +588,7 @@ class SubtenantTrustedCertificate(Entity):
     def get_developer_certificate_info(self):
         """Fetch an existing developer certificate to connect to the bootstrap server.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/developer-certificates/{developerCertificateId}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/developer-certificates/{developerCertificateId}>`_.
         
         :rtype: DeveloperCertificate
         """
@@ -605,7 +605,7 @@ class SubtenantTrustedCertificate(Entity):
     def read(self):
         """Get trusted certificate by ID.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates/{cert_id}>`_.
         
         :rtype: SubtenantTrustedCertificate
         """
@@ -623,7 +623,7 @@ class SubtenantTrustedCertificate(Entity):
     def update(self):
         """Update trusted certificate.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates/{cert_id}>`_.
         
         :rtype: SubtenantTrustedCertificate
         """

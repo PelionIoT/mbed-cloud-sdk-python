@@ -841,7 +841,7 @@ class Device(Entity):
     def create(self):
         """Create a device
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/devices/
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/devices/>`_.
         
         :rtype: Device
         """
@@ -879,7 +879,7 @@ class Device(Entity):
     def delete(self):
         """Delete a device.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/devices/{id}/
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/devices/{id}/>`_.
         
         :rtype: Device
         """
@@ -894,7 +894,7 @@ class Device(Entity):
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """List all devices.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/devices/
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/devices/>`_.
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
@@ -989,7 +989,7 @@ class Device(Entity):
     def read(self):
         """Get a device
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/devices/{id}/
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/devices/{id}/>`_.
         
         :rtype: Device
         """
@@ -1004,7 +1004,7 @@ class Device(Entity):
     def renew_certificate(self, certificate_name):
         """Request certificate renewal.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/devices/{device-id}/certificates/{certificate-name}/renew
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/devices/{device-id}/certificates/{certificate-name}/renew>`_.
         
         :param certificate_name: The certificate name.
         :type certificate_name: str
@@ -1027,7 +1027,7 @@ class Device(Entity):
     def update(self):
         """Update a device
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/devices/{id}/
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/devices/{id}/>`_.
         
         :rtype: Device
         """

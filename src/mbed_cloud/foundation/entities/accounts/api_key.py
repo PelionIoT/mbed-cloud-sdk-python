@@ -351,7 +351,7 @@ class ApiKey(Entity):
     def create(self):
         """Create a new API key.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys>`_.
         
         :rtype: ApiKey
         """
@@ -370,7 +370,7 @@ class ApiKey(Entity):
     def delete(self):
         """Delete API key.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}>`_.
         
         :rtype: ApiKey
         """
@@ -385,7 +385,7 @@ class ApiKey(Entity):
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all API keys
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys>`_.
 
         **API Filters**
 
@@ -465,7 +465,7 @@ class ApiKey(Entity):
     def me(self):
         """Get API key details.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/me
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/me>`_.
         
         :rtype: ApiKey
         """
@@ -512,7 +512,7 @@ class ApiKey(Entity):
     def read(self):
         """Get API key details.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}>`_.
         
         :rtype: ApiKey
         """
@@ -527,7 +527,7 @@ class ApiKey(Entity):
     def update(self):
         """Update API key details.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}>`_.
         
         :rtype: ApiKey
         """

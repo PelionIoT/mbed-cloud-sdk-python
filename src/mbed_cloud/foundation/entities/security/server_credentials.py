@@ -175,7 +175,7 @@ class ServerCredentials(Entity):
     def get_bootstrap(self):
         """Fetch bootstrap server credentials.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/server-credentials/bootstrap
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/server-credentials/bootstrap>`_.
         
         :rtype: ServerCredentials
         """
@@ -187,7 +187,7 @@ class ServerCredentials(Entity):
     def get_lwm2m(self):
         """Fetch LwM2M server credentials.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/server-credentials/lwm2m
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/server-credentials/lwm2m>`_.
         
         :rtype: ServerCredentials
         """

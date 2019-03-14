@@ -226,7 +226,7 @@ class CertificateIssuerConfig(Entity):
     def create(self):
         """Create certificate issuer configuration.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations>`_.
         
         :rtype: CertificateIssuerConfig
         """
@@ -244,7 +244,7 @@ class CertificateIssuerConfig(Entity):
     def delete(self):
         """Delete certificate issuer configuration.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}>`_.
         
         :rtype: CertificateIssuerConfig
         """
@@ -259,7 +259,7 @@ class CertificateIssuerConfig(Entity):
     def get_default(self):
         """Get certificate issuer configuration.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations/lwm2m
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations/lwm2m>`_.
         
         :rtype: CertificateIssuerConfig
         """
@@ -271,7 +271,7 @@ class CertificateIssuerConfig(Entity):
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get certificate issuer configurations.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations>`_.
 
         **API Filters**
 
@@ -392,7 +392,7 @@ class CertificateIssuerConfig(Entity):
     def read(self):
         """Get certificate issuer configuration.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}>`_.
         
         :rtype: CertificateIssuerConfig
         """
@@ -407,7 +407,7 @@ class CertificateIssuerConfig(Entity):
     def update(self):
         """Update certificate issuer configuration.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}>`_.
         
         :rtype: CertificateIssuerConfig
         """

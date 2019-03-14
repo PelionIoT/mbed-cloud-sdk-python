@@ -186,7 +186,7 @@ class {{ entity._key|to_pascal }}(Entity):
         """{{method.summary}}
         {%- if method.path and not method.private_method %}
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+{{ method.path }}{% endif %}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+{{ method.path }}>`_.{% endif %}
         {%- if method.x_filter and method.public_paginator_method %}
 
         **API Filters**

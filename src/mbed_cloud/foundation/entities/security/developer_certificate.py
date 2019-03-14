@@ -263,7 +263,7 @@ class DeveloperCertificate(Entity):
     def create(self):
         """Create a new developer certificate to connect to the bootstrap server.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/developer-certificates
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/developer-certificates>`_.
         
         :rtype: DeveloperCertificate
         """
@@ -281,7 +281,7 @@ class DeveloperCertificate(Entity):
     def delete(self):
         """Delete a trusted certificate by ID.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}>`_.
         
         :rtype: DeveloperCertificate
         """
@@ -296,7 +296,7 @@ class DeveloperCertificate(Entity):
     def get_trusted_certificate_info(self):
         """Get trusted certificate by ID.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}>`_.
         
         :rtype: TrustedCertificate
         """
@@ -313,7 +313,7 @@ class DeveloperCertificate(Entity):
     def read(self):
         """Fetch an existing developer certificate to connect to the bootstrap server.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/developer-certificates/{developerCertificateId}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/developer-certificates/{developerCertificateId}>`_.
         
         :rtype: DeveloperCertificate
         """

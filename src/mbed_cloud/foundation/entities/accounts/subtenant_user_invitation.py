@@ -298,7 +298,7 @@ class SubtenantUserInvitation(Entity):
     def create(self, valid_for_days=None):
         """Create a user invitation.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations>`_.
         
         :param valid_for_days: Specifies how many days the invitation will be valid for. The default
             is 30 days. Value should be between 1 and 100 days.
@@ -322,7 +322,7 @@ class SubtenantUserInvitation(Entity):
     def delete(self):
         """Delete a user invitation.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations/{invitation_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations/{invitation_id}>`_.
         
         :rtype: SubtenantUserInvitation
         """
@@ -340,7 +340,7 @@ class SubtenantUserInvitation(Entity):
     def read(self):
         """Details of a user invitation.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations/{invitation_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations/{invitation_id}>`_.
         
         :rtype: SubtenantUserInvitation
         """

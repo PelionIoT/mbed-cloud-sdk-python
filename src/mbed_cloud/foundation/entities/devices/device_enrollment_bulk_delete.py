@@ -354,7 +354,7 @@ class DeviceEnrollmentBulkDelete(Entity):
     def delete(self, enrollment_identities):
         """Bulk delete
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments-bulk-deletes
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments-bulk-deletes>`_.
         
         :param enrollment_identities: The `CSV` file containing the enrollment IDs. The maximum file size is
             10MB.
@@ -395,7 +395,7 @@ class DeviceEnrollmentBulkDelete(Entity):
     def read(self):
         """Get bulk delete entity
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments-bulk-deletes/{id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments-bulk-deletes/{id}>`_.
         
         :rtype: DeviceEnrollmentBulkDelete
         """

@@ -717,7 +717,7 @@ class SubtenantUser(Entity):
     def create(self, action="create"):
         """Create a new user.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users>`_.
         
         :param action: Create or invite user.
         :type action: str
@@ -747,7 +747,7 @@ class SubtenantUser(Entity):
     def delete(self):
         """Delete a user.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}>`_.
         
         :rtype: SubtenantUser
         """
@@ -765,7 +765,7 @@ class SubtenantUser(Entity):
     def read(self):
         """Details of the user.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}>`_.
         
         :rtype: SubtenantUser
         """
@@ -783,7 +783,7 @@ class SubtenantUser(Entity):
     def update(self):
         """Update user details.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}>`_.
         
         :rtype: SubtenantUser
         """
@@ -811,7 +811,7 @@ class SubtenantUser(Entity):
     def validate_email(self):
         """Validate the user email.
 
-        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}/validate-email
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}/validate-email>`_.
         
         :rtype: SubtenantUser
         """
