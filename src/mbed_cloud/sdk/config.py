@@ -5,10 +5,40 @@ Configuration of the Pelion Device Management SDK can be provided in a number of
 such that the methods at the top of the list have the highest order of precedence and those at the bottom the lowest.
 
 1. Parameters provided to the :class:`mbed_cloud.sdk.sdk.SDK` class on instantiation.
-2. Environment variables;
-  - `MBED_CLOUD_SDK_API_KEY` - API Key
-  - `MBED_CLOUD_SDK_HOST` - Pelion Device Management API Hostname
-3. From a `.env` file.
+2. Using environment variables.
+3. Environment variables configured via a `.env` file.
+
+
+Configuration Parameters
+------------------------
+
+The SDK can be configured with the following parameters:
+
+=========== ========================== =================================================================== ========
+Parameter   Environment Variable       Description                                                         Optional
+=========== ========================== =================================================================== ========
+``api_key`` ``MBED_CLOUD_SDK_API_KEY`` The API key created in the Pelion Device Management Portal.         Required
+``host``    ``MBED_CLOUD_SDK_HOST``    The fully qualified hostname (scheme, host, port) of the REST API.  Optional
+=========== ========================== =================================================================== ========
+
+
+Production deployment
+---------------------
+
+In a production environments, it is recommended that configuration is stored in environment variables, in a secure
+manner, this is the equivalent of:
+
+.. code-block:: console
+
+    export MBED_CLOUD_SDK_API_KEY=ak_abcdef123``
+
+
+Local Development
+-----------------
+
+For a reproducible local development environment a `.env` file can be used to configure the SDK without modifying the
+system's environment. The file should be named `.env` and placed at any level of the directory tree
+between the project's working directory and the root. Files closer to the working directory take priority.
 
 Example `.env` file:
 
@@ -16,9 +46,6 @@ Example `.env` file:
 
     MBED_CLOUD_SDK_API_KEY=ak_A644VERY4745LONG64RANDOM3254STRINGW555455ITHA564miXTurOFlowercaseANDUPPERCASELETTERSIintersperseDwithNUMBER5
 
-.. note::
-    The order of precedence does not indicate the method preference. For example, in a production environments, it is
-    recommended that configuration is stored in environment variables.
 
 .. warning::
     Take care to exclude `.env` files from your version control. Otherwise, you risk exposing your API keys to anyone

@@ -35,9 +35,6 @@ Python.
   :maxdepth: 1
   :caption: Concepts
 
-  configuration
-  exceptions
-  pagination
   subscriptions
 
 .. toctree::

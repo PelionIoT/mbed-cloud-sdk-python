@@ -5,6 +5,9 @@ The Legacy Interface was the original interface to the Python SDK but this has b
 Interface. While this interface remains operations, new features are only being added to the Foundation Interface,
 which should provide a more consistent and user friendly interface.
 
+API Interfaces
+--------------
+
 - :doc:`account_management`
 - :doc:`billing`
 - :doc:`bootstrap`
@@ -14,3 +17,9 @@ which should provide a more consistent and user friendly interface.
 - :doc:`enrollment`
 - :doc:`update`
 
+Concepts
+--------
+
+- :doc:`configuration`
+- :doc:`exceptions`
+- :doc:`pagination`
