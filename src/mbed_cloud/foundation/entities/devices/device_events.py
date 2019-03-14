@@ -365,8 +365,7 @@ class DeviceEvents(Entity):
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """List all device events.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-events/
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/device-events/
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
@@ -461,8 +460,7 @@ class DeviceEvents(Entity):
     def read(self):
         """Retrieve a device event.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-events/{device_event_id}/
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/device-events/{device_event_id}/
         
         :rtype: DeviceEvents
         """

@@ -354,8 +354,7 @@ class DeviceEnrollmentBulkCreate(Entity):
     def create(self, enrollment_identities):
         """Bulk upload
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-uploads
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments-bulk-uploads
         
         :param enrollment_identities: The `CSV` file containing the enrollment IDs. The maximum file size is
             10MB.
@@ -375,8 +374,6 @@ class DeviceEnrollmentBulkCreate(Entity):
 
     def download_errors_report_file(self):
         """Download the error report file for the created the bulk enrollment.
-
-        
         
         :rtype: file
         """
@@ -387,8 +384,6 @@ class DeviceEnrollmentBulkCreate(Entity):
 
     def download_full_report_file(self):
         """Download the full report file for the created of the bulk enrollment.
-
-        
         
         :rtype: file
         """
@@ -400,8 +395,7 @@ class DeviceEnrollmentBulkCreate(Entity):
     def read(self):
         """Get bulk upload entity
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-uploads/{id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments-bulk-uploads/{id}
         
         :rtype: DeviceEnrollmentBulkCreate
         """

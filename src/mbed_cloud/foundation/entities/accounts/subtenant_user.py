@@ -717,8 +717,7 @@ class SubtenantUser(Entity):
     def create(self, action="create"):
         """Create a new user.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users
         
         :param action: Create or invite user.
         :type action: str
@@ -748,8 +747,7 @@ class SubtenantUser(Entity):
     def delete(self):
         """Delete a user.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}
         
         :rtype: SubtenantUser
         """
@@ -767,8 +765,7 @@ class SubtenantUser(Entity):
     def read(self):
         """Details of the user.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}
         
         :rtype: SubtenantUser
         """
@@ -786,8 +783,7 @@ class SubtenantUser(Entity):
     def update(self):
         """Update user details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}
         
         :rtype: SubtenantUser
         """
@@ -815,8 +811,7 @@ class SubtenantUser(Entity):
     def validate_email(self):
         """Validate the user email.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}/validate-email
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}/validate-email
         
         :rtype: SubtenantUser
         """

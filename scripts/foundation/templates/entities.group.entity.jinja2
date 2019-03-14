@@ -184,6 +184,9 @@ class {{ entity._key|to_pascal }}(Entity):
         {% endfor %}
         ):
         """{{method.summary}}
+        {%- if method.path and not method.private_method %}
+
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+{{ method.path }}{% endif %}
         {%- if method.x_filter and method.public_paginator_method %}
 
         **API Filters**
@@ -209,10 +212,6 @@ class {{ entity._key|to_pascal }}(Entity):
                 print({{ entity._key|to_singular_name if method._key == "list" else method._key|to_singular_name}}.{{ field_name }})
             {%- endif -%}
             {%- endfor %}
-        {%- elif not method.private_method %}
-
-        {% if method.path %}api documentation:
-        https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
         {%- endif %}
         {% for field in method.fields %}{% if field.external_param %}
         :param {{field._key|to_snake}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}

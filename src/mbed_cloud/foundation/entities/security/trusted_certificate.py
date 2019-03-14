@@ -546,8 +546,7 @@ class TrustedCertificate(Entity):
     def create(self):
         """Upload a new trusted certificate.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates
         
         :rtype: TrustedCertificate
         """
@@ -569,8 +568,7 @@ class TrustedCertificate(Entity):
     def delete(self):
         """Delete a trusted certificate by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert_id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}
         
         :rtype: TrustedCertificate
         """
@@ -585,8 +583,7 @@ class TrustedCertificate(Entity):
     def get_developer_certificate_info(self):
         """Fetch an existing developer certificate to connect to the bootstrap server.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/developer-certificates/{developerCertificateId}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/developer-certificates/{developerCertificateId}
         
         :rtype: DeveloperCertificate
         """
@@ -602,6 +599,8 @@ class TrustedCertificate(Entity):
 
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all trusted certificates.
+
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates
 
         **API Filters**
 
@@ -737,8 +736,7 @@ class TrustedCertificate(Entity):
     def read(self):
         """Get trusted certificate by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert_id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}
         
         :rtype: TrustedCertificate
         """
@@ -753,8 +751,7 @@ class TrustedCertificate(Entity):
     def update(self):
         """Update trusted certificate.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert_id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}
         
         :rtype: TrustedCertificate
         """

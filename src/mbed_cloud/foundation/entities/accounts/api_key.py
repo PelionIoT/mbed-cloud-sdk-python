@@ -351,8 +351,7 @@ class ApiKey(Entity):
     def create(self):
         """Create a new API key.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys
         
         :rtype: ApiKey
         """
@@ -371,8 +370,7 @@ class ApiKey(Entity):
     def delete(self):
         """Delete API key.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apikey_id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}
         
         :rtype: ApiKey
         """
@@ -386,6 +384,8 @@ class ApiKey(Entity):
 
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all API keys
+
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys
 
         **API Filters**
 
@@ -465,8 +465,7 @@ class ApiKey(Entity):
     def me(self):
         """Get API key details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/me
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/me
         
         :rtype: ApiKey
         """
@@ -513,8 +512,7 @@ class ApiKey(Entity):
     def read(self):
         """Get API key details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apikey_id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}
         
         :rtype: ApiKey
         """
@@ -529,8 +527,7 @@ class ApiKey(Entity):
     def update(self):
         """Update API key details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apikey_id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}
         
         :rtype: ApiKey
         """

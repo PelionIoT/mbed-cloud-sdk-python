@@ -269,8 +269,7 @@ class DeviceEnrollment(Entity):
     def create(self):
         """Place an enrollment claim for one or several devices.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments
         
         :rtype: DeviceEnrollment
         """
@@ -285,8 +284,7 @@ class DeviceEnrollment(Entity):
     def delete(self):
         """Delete an enrollment by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments/{id}
         
         :rtype: DeviceEnrollment
         """
@@ -303,8 +301,7 @@ class DeviceEnrollment(Entity):
     ):
         """Get enrollment list.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
@@ -400,8 +397,7 @@ class DeviceEnrollment(Entity):
     def read(self):
         """Get details of an enrollment by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments/{id}
         
         :rtype: DeviceEnrollment
         """

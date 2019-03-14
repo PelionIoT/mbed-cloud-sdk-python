@@ -1222,8 +1222,7 @@ class Account(Entity):
     def create(self, action="create"):
         """Create a new account.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts
         
         :param action: Action, either 'create' or 'enroll'. <ul><li>'create' creates the
             account where its admin user has ACTIVE status if admin_password was
@@ -1278,6 +1277,8 @@ class Account(Entity):
         properties=None,
     ):
         """Get all accounts.
+
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts
 
         **API Filters**
 
@@ -1370,8 +1371,7 @@ class Account(Entity):
     def me(self, include=None, properties=None):
         """Get account info.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/me
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/me
         
         :param include: Comma separated additional data to return. Currently supported:
             limits, policies, sub_accounts.
@@ -1574,8 +1574,7 @@ class Account(Entity):
     def read(self, include=None, properties=None):
         """Get account info.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}
         
         :param include: Comma separated additional data to return. Currently supported:
             limits, policies, sub_accounts
@@ -1602,6 +1601,8 @@ class Account(Entity):
         self, filter=None, order="ASC", max_results=None, page_size=50, include=None
     ):
         """Get all trusted certificates.
+
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates
 
         **API Filters**
 
@@ -1698,8 +1699,7 @@ class Account(Entity):
     def update(self):
         """Update attributes of an existing account.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}
         
         :rtype: Account
         """
@@ -1740,6 +1740,8 @@ class Account(Entity):
         self, filter=None, order="ASC", max_results=None, page_size=50, include=None
     ):
         """Get the details of all the user invitations.
+
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations
 
         **API Filters**
 
@@ -1816,6 +1818,8 @@ class Account(Entity):
 
     def users(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all user details.
+
+        .. _REST API Documentation: https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users
 
         **API Filters**
 
