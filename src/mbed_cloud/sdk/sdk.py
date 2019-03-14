@@ -43,7 +43,7 @@ class SDK(object):
         beta_warning(self.__class__)
 
         # create a new config based on those we received
-        existing = config.to_dict() if config else {}
+        existing = config._to_dict() if config else {}
         if api_key:
             existing["api_key"] = api_key
         if host:

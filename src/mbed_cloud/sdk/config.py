@@ -30,7 +30,7 @@ manner, this is the equivalent of:
 
 .. code-block:: console
 
-    export MBED_CLOUD_SDK_API_KEY=ak_abcdef123``
+    export MBED_CLOUD_SDK_API_KEY=ak_abcdef123
 
 
 Local Development
@@ -70,9 +70,29 @@ class Config(object):
     host = None
     _user_agent = None
 
-    def __init__(self, **kwargs):
+    def __init__(self, api_key=None, host=None):
+        """Create a new configuration instance.
+
+        If configuration is not supplied then the default configuration from a `.env` file or environment variables will
+        be used.
+
+        :param api_key: (optional) API Key to use for Authentication, if provided this will override all other
+            configuration
+        :type api_key: str
+        :param host: (optional) Host of the Pelion Device Management API, if provided this will override all other
+            configuration
+        :type host: str
+        """
         self._logger = LOGGER.getChild(self.__class__.__name__)
-        self._update(**kwargs)
+
+        config_dict = {}
+
+        if api_key:
+            config_dict["api_key"] = api_key
+        if host:
+            config_dict["host"] = host
+
+        self._update(**config_dict)
         if not self.api_key and not Config._tried_dotenv:
             # mark dotenv load complete, so we don't have to do it again
             dotenv.load_dotenv(
@@ -95,21 +115,26 @@ class Config(object):
 
     @property
     def user_agent(self):
+        """The user-agent used in HTTP requests."""
         return self._user_agent
 
     @property
     def logger(self):
+        """Instance of the logger."""
         return self._logger
 
     @logger.setter
     def logger(self, value):
+        """Set the logger instance"""
         self._logger = value
 
     def _update(self, *updates, **kwargs):
+        """Update the current configuration with that provided in the arguments."""
         for update in updates:
             self.update(**update)
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-    def to_dict(self):
+    def _to_dict(self):
+        """Return the current configuration as a dictionary."""
         return {k: v for k, v in vars(self).items() if not k.startswith("_")}
