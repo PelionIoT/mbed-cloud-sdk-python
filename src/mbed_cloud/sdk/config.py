@@ -1,6 +1,33 @@
+"""SDK Configuration
+=================
+
+Configuration of the Pelion Device Management SDK can be provided in a number of ways. The list is ordered
+such that the methods at the top of the list have the highest order of precedence and those at the bottom the lowest.
+
+1. Parameters provided to the :class:`mbed_cloud.sdk.sdk.SDK` class on instantiation.
+2. Environment variables;
+  - `MBED_CLOUD_SDK_API_KEY` - API Key
+  - `MBED_CLOUD_SDK_HOST` - Pelion Device Management API Hostname
+3. From a `.env` file.
+
+Example `.env` file:
+
+.. code-block:: bash
+
+    MBED_CLOUD_SDK_API_KEY=ak_A644VERY4745LONG64RANDOM3254STRINGW555455ITHA564miXTurOFlowercaseANDUPPERCASELETTERSIintersperseDwithNUMBER5
+
+.. note::
+    The order of precedence does not indicate the method preference. For example, in a production environments, it is
+    recommended that configuration is stored in environment variables.
+
+.. warning::
+    Take care to exclude `.env` files from your version control. Otherwise, you risk exposing your API keys to anyone
+    with read access to your repository.
+
+------------
+"""
 import os
 import logging
-
 import dotenv
 
 from mbed_cloud import utils
@@ -14,11 +41,11 @@ class Config(object):
     _tried_dotenv = False
     api_key = None
     host = None
-    user_agent = None
+    _user_agent = None
 
     def __init__(self, **kwargs):
         self._logger = LOGGER.getChild(self.__class__.__name__)
-        self.update(**kwargs)
+        self._update(**kwargs)
         if not self.api_key and not Config._tried_dotenv:
             # mark dotenv load complete, so we don't have to do it again
             dotenv.load_dotenv(
@@ -37,7 +64,11 @@ class Config(object):
         self.host = (
                 self.host or os.getenv(constants.ENVVAR_HOST) or constants.DEFAULT_HOST
         )
-        self.user_agent = utils.get_user_agent()
+        self._user_agent = utils.get_user_agent()
+
+    @property
+    def user_agent(self):
+        return self._user_agent
 
     @property
     def logger(self):
@@ -47,7 +78,7 @@ class Config(object):
     def logger(self, value):
         self._logger = value
 
-    def update(self, *updates, **kwargs):
+    def _update(self, *updates, **kwargs):
         for update in updates:
             self.update(**update)
         for k, v in kwargs.items():
