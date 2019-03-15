@@ -1,7 +1,40 @@
 """
-Entity module
+.. warning::
+    SubtenantUser should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: SubtenantUser
+================================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`SubtenantUser.create`
+- :meth:`SubtenantUser.delete`
+- :meth:`SubtenantUser.read`
+- :meth:`SubtenantUser.update`
+- :meth:`SubtenantUser.validate_email`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    subtenant_users = pelion_dm_sdk.foundation.subtenant_user()
+
+How to import SubtenantUser directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import SubtenantUser
+
+------------
 """
 
 # Python 2 compatibility
@@ -684,8 +717,7 @@ class SubtenantUser(Entity):
     def create(self, action="create"):
         """Create a new user.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users>`_.
         
         :param action: Create or invite user.
         :type action: str
@@ -715,8 +747,7 @@ class SubtenantUser(Entity):
     def delete(self):
         """Delete a user.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}>`_.
         
         :rtype: SubtenantUser
         """
@@ -734,8 +765,7 @@ class SubtenantUser(Entity):
     def read(self):
         """Details of the user.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}>`_.
         
         :rtype: SubtenantUser
         """
@@ -753,8 +783,7 @@ class SubtenantUser(Entity):
     def update(self):
         """Update user details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}>`_.
         
         :rtype: SubtenantUser
         """
@@ -782,8 +811,7 @@ class SubtenantUser(Entity):
     def validate_email(self):
         """Validate the user email.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/users/{user_id}/validate-email
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}/validate-email>`_.
         
         :rtype: SubtenantUser
         """

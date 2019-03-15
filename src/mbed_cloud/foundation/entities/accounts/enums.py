@@ -1,7 +1,40 @@
 """
-Enum module
+.. warning::
+    Enums should not be imported directly from this module as the organisation of categories may change in
+    the future, please use the :mod:`mbed_cloud.foundation.enums` module to import enums.
 
-This file is auto-generated from API Specifications.
+Accounts Enums
+==============
+
+This module contains all Enums used by Foundation Entities in the Accounts category:
+
+- :class:`AccountMfaStatusEnum`
+- :class:`AccountOrderEnum`
+- :class:`AccountStatusEnum`
+- :class:`ApiKeyOrderEnum`
+- :class:`ApiKeyStatusEnum`
+- :class:`SubtenantUserStatusEnum`
+- :class:`UserInvitationOrderEnum`
+- :class:`UserOrderEnum`
+- :class:`UserStatusEnum`
+
+------------
+
+How to import Enums:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation.enums import AccountMfaStatusEnum
+    from mbed_cloud.foundation.enums import AccountOrderEnum
+    from mbed_cloud.foundation.enums import AccountStatusEnum
+    from mbed_cloud.foundation.enums import ApiKeyOrderEnum
+    from mbed_cloud.foundation.enums import ApiKeyStatusEnum
+    from mbed_cloud.foundation.enums import SubtenantUserStatusEnum
+    from mbed_cloud.foundation.enums import UserInvitationOrderEnum
+    from mbed_cloud.foundation.enums import UserOrderEnum
+    from mbed_cloud.foundation.enums import UserStatusEnum
+
+------------
 """
 
 # Python 2 compatibility
@@ -15,11 +48,11 @@ from mbed_cloud.foundation.common.enum_base import BaseEnum
 class AccountMfaStatusEnum(BaseEnum):
     """Represents expected values of `AccountMfaStatusEnum`
 
-    This is used by Mbed Cloud "accounts" functionality
+    This is used by Entities in the "accounts" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ENFORCED = "enforced"
@@ -31,11 +64,11 @@ class AccountMfaStatusEnum(BaseEnum):
 class AccountOrderEnum(BaseEnum):
     """Represents expected values of `AccountOrderEnum`
 
-    This is used by Mbed Cloud "accounts" functionality
+    This is used by Entities in the "accounts" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ASC = "ASC"
@@ -47,11 +80,11 @@ class AccountOrderEnum(BaseEnum):
 class AccountStatusEnum(BaseEnum):
     """Represents expected values of `AccountStatusEnum`
 
-    This is used by Mbed Cloud "accounts" functionality
+    This is used by Entities in the "accounts" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ACTIVE = "ACTIVE"
@@ -65,11 +98,11 @@ class AccountStatusEnum(BaseEnum):
 class ApiKeyOrderEnum(BaseEnum):
     """Represents expected values of `ApiKeyOrderEnum`
 
-    This is used by Mbed Cloud "accounts" functionality
+    This is used by Entities in the "accounts" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ASC = "ASC"
@@ -81,11 +114,11 @@ class ApiKeyOrderEnum(BaseEnum):
 class ApiKeyStatusEnum(BaseEnum):
     """Represents expected values of `ApiKeyStatusEnum`
 
-    This is used by Mbed Cloud "accounts" functionality
+    This is used by Entities in the "accounts" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ACTIVE = "ACTIVE"
@@ -97,11 +130,11 @@ class ApiKeyStatusEnum(BaseEnum):
 class SubtenantUserStatusEnum(BaseEnum):
     """Represents expected values of `SubtenantUserStatusEnum`
 
-    This is used by Mbed Cloud "accounts" functionality
+    This is used by Entities in the "accounts" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ACTIVE = "ACTIVE"
@@ -116,11 +149,11 @@ class SubtenantUserStatusEnum(BaseEnum):
 class UserInvitationOrderEnum(BaseEnum):
     """Represents expected values of `UserInvitationOrderEnum`
 
-    This is used by Mbed Cloud "accounts" functionality
+    This is used by Entities in the "accounts" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ASC = "ASC"
@@ -132,11 +165,11 @@ class UserInvitationOrderEnum(BaseEnum):
 class UserOrderEnum(BaseEnum):
     """Represents expected values of `UserOrderEnum`
 
-    This is used by Mbed Cloud "accounts" functionality
+    This is used by Entities in the "accounts" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ASC = "ASC"
@@ -148,11 +181,11 @@ class UserOrderEnum(BaseEnum):
 class UserStatusEnum(BaseEnum):
     """Represents expected values of `UserStatusEnum`
 
-    This is used by Mbed Cloud "accounts" functionality
+    This is used by Entities in the "accounts" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ACTIVE = "ACTIVE"

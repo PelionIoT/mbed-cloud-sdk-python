@@ -1,7 +1,40 @@
 """
-Entity module
+.. warning::
+    User should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: User
+=======================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`User.create`
+- :meth:`User.delete`
+- :meth:`User.list`
+- :meth:`User.read`
+- :meth:`User.update`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    users = pelion_dm_sdk.foundation.user()
+
+How to import User directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import User
+
+------------
 """
 
 # Python 2 compatibility
@@ -682,8 +715,7 @@ class User(Entity):
     def create(self, action="create"):
         """Create a new user.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users>`_.
         
         :param action: Action, either 'create' or 'invite'.
         :type action: str
@@ -712,8 +744,7 @@ class User(Entity):
     def delete(self):
         """Delete a user.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users/{user_id}>`_.
         
         :rtype: User
         """
@@ -727,6 +758,8 @@ class User(Entity):
 
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get the details of all users.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users>`_.
 
         **API Filters**
 
@@ -841,8 +874,7 @@ class User(Entity):
     def read(self):
         """Details of a user.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users/{user_id}>`_.
         
         :rtype: User
         """
@@ -857,8 +889,7 @@ class User(Entity):
     def update(self):
         """Update user details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/users/{user_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users/{user_id}>`_.
         
         :rtype: User
         """

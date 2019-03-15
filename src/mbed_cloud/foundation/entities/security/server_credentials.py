@@ -1,7 +1,37 @@
 """
-Entity module
+.. warning::
+    ServerCredentials should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: ServerCredentials
+====================================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`ServerCredentials.get_bootstrap`
+- :meth:`ServerCredentials.get_lwm2m`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    server_credentialss = pelion_dm_sdk.foundation.server_credentials()
+
+How to import ServerCredentials directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import ServerCredentials
+
+------------
 """
 
 # Python 2 compatibility
@@ -145,8 +175,7 @@ class ServerCredentials(Entity):
     def get_bootstrap(self):
         """Fetch bootstrap server credentials.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/server-credentials/bootstrap
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/server-credentials/bootstrap>`_.
         
         :rtype: ServerCredentials
         """
@@ -158,8 +187,7 @@ class ServerCredentials(Entity):
     def get_lwm2m(self):
         """Fetch LwM2M server credentials.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/server-credentials/lwm2m
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/server-credentials/lwm2m>`_.
         
         :rtype: ServerCredentials
         """

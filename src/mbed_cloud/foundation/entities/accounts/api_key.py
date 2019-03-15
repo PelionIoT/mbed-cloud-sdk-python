@@ -1,7 +1,41 @@
 """
-Entity module
+.. warning::
+    ApiKey should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: ApiKey
+=========================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`ApiKey.create`
+- :meth:`ApiKey.delete`
+- :meth:`ApiKey.list`
+- :meth:`ApiKey.me`
+- :meth:`ApiKey.read`
+- :meth:`ApiKey.update`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    api_keys = pelion_dm_sdk.foundation.api_key()
+
+How to import ApiKey directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import ApiKey
+
+------------
 """
 
 # Python 2 compatibility
@@ -317,8 +351,7 @@ class ApiKey(Entity):
     def create(self):
         """Create a new API key.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys>`_.
         
         :rtype: ApiKey
         """
@@ -337,8 +370,7 @@ class ApiKey(Entity):
     def delete(self):
         """Delete API key.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apikey_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}>`_.
         
         :rtype: ApiKey
         """
@@ -352,6 +384,8 @@ class ApiKey(Entity):
 
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all API keys
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys>`_.
 
         **API Filters**
 
@@ -431,8 +465,7 @@ class ApiKey(Entity):
     def me(self):
         """Get API key details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/me
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/me>`_.
         
         :rtype: ApiKey
         """
@@ -479,8 +512,7 @@ class ApiKey(Entity):
     def read(self):
         """Get API key details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apikey_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}>`_.
         
         :rtype: ApiKey
         """
@@ -495,8 +527,7 @@ class ApiKey(Entity):
     def update(self):
         """Update API key details.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/api-keys/{apikey_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}>`_.
         
         :rtype: ApiKey
         """

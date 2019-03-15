@@ -1,7 +1,39 @@
 """
-Entity module
+.. warning::
+    DeveloperCertificate should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: DeveloperCertificate
+=======================================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`DeveloperCertificate.create`
+- :meth:`DeveloperCertificate.delete`
+- :meth:`DeveloperCertificate.get_trusted_certificate_info`
+- :meth:`DeveloperCertificate.read`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    developer_certificates = pelion_dm_sdk.foundation.developer_certificate()
+
+How to import DeveloperCertificate directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import DeveloperCertificate
+
+------------
 """
 
 # Python 2 compatibility
@@ -231,8 +263,7 @@ class DeveloperCertificate(Entity):
     def create(self):
         """Create a new developer certificate to connect to the bootstrap server.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/developer-certificates
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/developer-certificates>`_.
         
         :rtype: DeveloperCertificate
         """
@@ -250,8 +281,7 @@ class DeveloperCertificate(Entity):
     def delete(self):
         """Delete a trusted certificate by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}>`_.
         
         :rtype: DeveloperCertificate
         """
@@ -266,8 +296,7 @@ class DeveloperCertificate(Entity):
     def get_trusted_certificate_info(self):
         """Get trusted certificate by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}>`_.
         
         :rtype: TrustedCertificate
         """
@@ -284,8 +313,7 @@ class DeveloperCertificate(Entity):
     def read(self):
         """Fetch an existing developer certificate to connect to the bootstrap server.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/developer-certificates/{developerCertificateId}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/developer-certificates/{developerCertificateId}>`_.
         
         :rtype: DeveloperCertificate
         """

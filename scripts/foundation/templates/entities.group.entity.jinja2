@@ -1,7 +1,47 @@
+{%- set entity_names = entities|join(", ", attribute='_key')|to_pascal -%}
 """
-Entity module
+.. warning::
+    {{ entity_names }} should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: {{ entity_names }}
+==================={% for letter in entity_names %}={% endfor %}
+{% for entity in entities %}
+{%- for method in entity.methods|sort(attribute='_key') if not method.private_method %}
+{%- if loop.index == 1 %}
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+{% endif %}
+- :meth:`{{ entity._key|to_pascal }}.{{method._key|to_snake}}`
+{%- else %}
+The {{ entity_names }} entity does not have any methods, all actions must be performed via
+the encapsulating entity.
+{%- endfor %}
+{%- endfor %}
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    {%- for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}
+    {{ entity._key|to_snake }}s = pelion_dm_sdk.foundation.{{ entity._key|to_snake }}()
+    {%- endfor %}
+
+How to import {{ entity_names }} directly:
+
+.. code-block:: python
+    {% for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}
+    from mbed_cloud.foundation import {{ entity._key|to_pascal }}
+    {%- endfor %}
+
+------------
 """
 
 # Python 2 compatibility
@@ -144,6 +184,9 @@ class {{ entity._key|to_pascal }}(Entity):
         {% endfor %}
         ):
         """{{method.summary}}
+        {%- if method.path and not method.private_method %}
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+{{ method.path }}>`_.{% endif %}
         {%- if method.x_filter and method.public_paginator_method %}
 
         **API Filters**
@@ -169,10 +212,6 @@ class {{ entity._key|to_pascal }}(Entity):
                 print({{ entity._key|to_singular_name if method._key == "list" else method._key|to_singular_name}}.{{ field_name }})
             {%- endif -%}
             {%- endfor %}
-        {%- elif not method.private_method %}
-
-        {% if method.path %}api documentation:
-        https://os.mbed.com/search/?q=service+apis+{{ method.path }}{% endif %}
         {%- endif %}
         {% for field in method.fields %}{% if field.external_param %}
         :param {{field._key|to_snake}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}

@@ -1,7 +1,37 @@
 """
-Entity module
+.. warning::
+    DeviceEvents should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: DeviceEvents
+===============================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`DeviceEvents.list`
+- :meth:`DeviceEvents.read`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    device_eventss = pelion_dm_sdk.foundation.device_events()
+
+How to import DeviceEvents directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import DeviceEvents
+
+------------
 """
 
 # Python 2 compatibility
@@ -335,8 +365,7 @@ class DeviceEvents(Entity):
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """List all device events.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-events/
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-events/>`_.
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
@@ -431,8 +460,7 @@ class DeviceEvents(Entity):
     def read(self):
         """Retrieve a device event.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-events/{device_event_id}/
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-events/{device_event_id}/>`_.
         
         :rtype: DeviceEvents
         """

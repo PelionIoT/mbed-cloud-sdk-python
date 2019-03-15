@@ -1,7 +1,42 @@
 """
-Enum module
+.. warning::
+    Enums should not be imported directly from this module as the organisation of categories may change in
+    the future, please use the :mod:`mbed_cloud.foundation.enums` module to import enums.
 
-This file is auto-generated from API Specifications.
+Security Enums
+==============
+
+This module contains all Enums used by Foundation Entities in the Security category:
+
+- :class:`CertificateEnrollmentEnrollResultEnum`
+- :class:`CertificateEnrollmentEnrollStatusEnum`
+- :class:`CertificateEnrollmentIncludeEnum`
+- :class:`CertificateEnrollmentOrderEnum`
+- :class:`CertificateIssuerTypeEnum`
+- :class:`SubtenantTrustedCertificateServiceEnum`
+- :class:`SubtenantTrustedCertificateStatusEnum`
+- :class:`TrustedCertificateOrderEnum`
+- :class:`TrustedCertificateServiceEnum`
+- :class:`TrustedCertificateStatusEnum`
+
+------------
+
+How to import Enums:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation.enums import CertificateEnrollmentEnrollResultEnum
+    from mbed_cloud.foundation.enums import CertificateEnrollmentEnrollStatusEnum
+    from mbed_cloud.foundation.enums import CertificateEnrollmentIncludeEnum
+    from mbed_cloud.foundation.enums import CertificateEnrollmentOrderEnum
+    from mbed_cloud.foundation.enums import CertificateIssuerTypeEnum
+    from mbed_cloud.foundation.enums import SubtenantTrustedCertificateServiceEnum
+    from mbed_cloud.foundation.enums import SubtenantTrustedCertificateStatusEnum
+    from mbed_cloud.foundation.enums import TrustedCertificateOrderEnum
+    from mbed_cloud.foundation.enums import TrustedCertificateServiceEnum
+    from mbed_cloud.foundation.enums import TrustedCertificateStatusEnum
+
+------------
 """
 
 # Python 2 compatibility
@@ -15,11 +50,11 @@ from mbed_cloud.foundation.common.enum_base import BaseEnum
 class CertificateEnrollmentEnrollResultEnum(BaseEnum):
     """Represents expected values of `CertificateEnrollmentEnrollResultEnum`
 
-    This is used by Mbed Cloud "security" functionality
+    This is used by Entities in the "security" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     FAILURE = "failure"
@@ -33,11 +68,11 @@ class CertificateEnrollmentEnrollResultEnum(BaseEnum):
 class CertificateEnrollmentEnrollStatusEnum(BaseEnum):
     """Represents expected values of `CertificateEnrollmentEnrollStatusEnum`
 
-    This is used by Mbed Cloud "security" functionality
+    This is used by Entities in the "security" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     COMPLETED = "completed"
@@ -49,11 +84,11 @@ class CertificateEnrollmentEnrollStatusEnum(BaseEnum):
 class CertificateEnrollmentIncludeEnum(BaseEnum):
     """Represents expected values of `CertificateEnrollmentIncludeEnum`
 
-    This is used by Mbed Cloud "security" functionality
+    This is used by Entities in the "security" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     TOTAL_COUNT = "total_count"
@@ -64,11 +99,11 @@ class CertificateEnrollmentIncludeEnum(BaseEnum):
 class CertificateEnrollmentOrderEnum(BaseEnum):
     """Represents expected values of `CertificateEnrollmentOrderEnum`
 
-    This is used by Mbed Cloud "security" functionality
+    This is used by Entities in the "security" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ASC = "ASC"
@@ -80,11 +115,11 @@ class CertificateEnrollmentOrderEnum(BaseEnum):
 class CertificateIssuerTypeEnum(BaseEnum):
     """Represents expected values of `CertificateIssuerTypeEnum`
 
-    This is used by Mbed Cloud "security" functionality
+    This is used by Entities in the "security" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     CFSSL_AUTH = "CFSSL_AUTH"
@@ -96,11 +131,11 @@ class CertificateIssuerTypeEnum(BaseEnum):
 class SubtenantTrustedCertificateServiceEnum(BaseEnum):
     """Represents expected values of `SubtenantTrustedCertificateServiceEnum`
 
-    This is used by Mbed Cloud "security" functionality
+    This is used by Entities in the "security" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     BOOTSTRAP = "bootstrap"
@@ -112,11 +147,11 @@ class SubtenantTrustedCertificateServiceEnum(BaseEnum):
 class SubtenantTrustedCertificateStatusEnum(BaseEnum):
     """Represents expected values of `SubtenantTrustedCertificateStatusEnum`
 
-    This is used by Mbed Cloud "security" functionality
+    This is used by Entities in the "security" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ACTIVE = "ACTIVE"
@@ -128,11 +163,11 @@ class SubtenantTrustedCertificateStatusEnum(BaseEnum):
 class TrustedCertificateOrderEnum(BaseEnum):
     """Represents expected values of `TrustedCertificateOrderEnum`
 
-    This is used by Mbed Cloud "security" functionality
+    This is used by Entities in the "security" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ASC = "ASC"
@@ -144,11 +179,11 @@ class TrustedCertificateOrderEnum(BaseEnum):
 class TrustedCertificateServiceEnum(BaseEnum):
     """Represents expected values of `TrustedCertificateServiceEnum`
 
-    This is used by Mbed Cloud "security" functionality
+    This is used by Entities in the "security" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     BOOTSTRAP = "bootstrap"
@@ -160,11 +195,11 @@ class TrustedCertificateServiceEnum(BaseEnum):
 class TrustedCertificateStatusEnum(BaseEnum):
     """Represents expected values of `TrustedCertificateStatusEnum`
 
-    This is used by Mbed Cloud "security" functionality
+    This is used by Entities in the "security" category.
 
-    Note: If new values are added to the enum in the API they will be passed through unchanged by
-    the SDK, but will not be on this list. If this occurs please update the SDK to the most recent
-    version.
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
     """
 
     ACTIVE = "ACTIVE"

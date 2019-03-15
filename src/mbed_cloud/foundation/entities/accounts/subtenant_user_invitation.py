@@ -1,7 +1,38 @@
 """
-Entity module
+.. warning::
+    SubtenantUserInvitation should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: SubtenantUserInvitation
+==========================================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`SubtenantUserInvitation.create`
+- :meth:`SubtenantUserInvitation.delete`
+- :meth:`SubtenantUserInvitation.read`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    subtenant_user_invitations = pelion_dm_sdk.foundation.subtenant_user_invitation()
+
+How to import SubtenantUserInvitation directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import SubtenantUserInvitation
+
+------------
 """
 
 # Python 2 compatibility
@@ -267,8 +298,7 @@ class SubtenantUserInvitation(Entity):
     def create(self, valid_for_days=None):
         """Create a user invitation.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/user-invitations
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations>`_.
         
         :param valid_for_days: Specifies how many days the invitation will be valid for. The default
             is 30 days. Value should be between 1 and 100 days.
@@ -292,8 +322,7 @@ class SubtenantUserInvitation(Entity):
     def delete(self):
         """Delete a user invitation.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/user-invitations/{invitation_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations/{invitation_id}>`_.
         
         :rtype: SubtenantUserInvitation
         """
@@ -311,8 +340,7 @@ class SubtenantUserInvitation(Entity):
     def read(self):
         """Details of a user invitation.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/user-invitations/{invitation_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations/{invitation_id}>`_.
         
         :rtype: SubtenantUserInvitation
         """

@@ -1,7 +1,41 @@
 """
-Entity module
+.. warning::
+    TrustedCertificate should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: TrustedCertificate
+=====================================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`TrustedCertificate.create`
+- :meth:`TrustedCertificate.delete`
+- :meth:`TrustedCertificate.get_developer_certificate_info`
+- :meth:`TrustedCertificate.list`
+- :meth:`TrustedCertificate.read`
+- :meth:`TrustedCertificate.update`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    trusted_certificates = pelion_dm_sdk.foundation.trusted_certificate()
+
+How to import TrustedCertificate directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import TrustedCertificate
+
+------------
 """
 
 # Python 2 compatibility
@@ -512,8 +546,7 @@ class TrustedCertificate(Entity):
     def create(self):
         """Upload a new trusted certificate.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates>`_.
         
         :rtype: TrustedCertificate
         """
@@ -535,8 +568,7 @@ class TrustedCertificate(Entity):
     def delete(self):
         """Delete a trusted certificate by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}>`_.
         
         :rtype: TrustedCertificate
         """
@@ -551,8 +583,7 @@ class TrustedCertificate(Entity):
     def get_developer_certificate_info(self):
         """Fetch an existing developer certificate to connect to the bootstrap server.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/developer-certificates/{developerCertificateId}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/developer-certificates/{developerCertificateId}>`_.
         
         :rtype: DeveloperCertificate
         """
@@ -568,6 +599,8 @@ class TrustedCertificate(Entity):
 
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all trusted certificates.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates>`_.
 
         **API Filters**
 
@@ -703,8 +736,7 @@ class TrustedCertificate(Entity):
     def read(self):
         """Get trusted certificate by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}>`_.
         
         :rtype: TrustedCertificate
         """
@@ -719,8 +751,7 @@ class TrustedCertificate(Entity):
     def update(self):
         """Update trusted certificate.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}>`_.
         
         :rtype: TrustedCertificate
         """

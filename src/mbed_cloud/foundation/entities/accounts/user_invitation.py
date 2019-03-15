@@ -1,7 +1,39 @@
 """
-Entity module
+.. warning::
+    UserInvitation should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: UserInvitation
+=================================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`UserInvitation.create`
+- :meth:`UserInvitation.delete`
+- :meth:`UserInvitation.list`
+- :meth:`UserInvitation.read`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    user_invitations = pelion_dm_sdk.foundation.user_invitation()
+
+How to import UserInvitation directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import UserInvitation
+
+------------
 """
 
 # Python 2 compatibility
@@ -265,8 +297,7 @@ class UserInvitation(Entity):
     def create(self, valid_for_days=None):
         """Create a user invitation.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations>`_.
         
         :param valid_for_days: Specifies how many days the invitation will be valid for. The default
             is 30 days. Value should be between 1 and 100 days.
@@ -289,8 +320,7 @@ class UserInvitation(Entity):
     def delete(self):
         """Delete a user invitation.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations/{invitation_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations/{invitation_id}>`_.
         
         :rtype: UserInvitation
         """
@@ -304,6 +334,8 @@ class UserInvitation(Entity):
 
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get the details of all the user invitations.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations>`_.
 
         **API Filters**
 
@@ -419,8 +451,7 @@ class UserInvitation(Entity):
     def read(self):
         """Details of a user invitation.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/user-invitations/{invitation_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations/{invitation_id}>`_.
         
         :rtype: UserInvitation
         """

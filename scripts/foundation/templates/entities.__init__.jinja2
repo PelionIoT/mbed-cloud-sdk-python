@@ -1,8 +1,8 @@
 """
-This module contains all entities, entities are grouped together per category/tag.
+This module contains all Foundation Entities, which are grouped together per into API categories.
 
-Note: Entities should not be imported via this module as the organisation may change in the
-      future, please use the top level foundation module to import entities.
+.. warning::
+    Entities should not be imported via this module as the organisation may change in the future, please use the
+    :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
 """

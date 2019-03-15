@@ -1,7 +1,39 @@
 """
-Entity module
+.. warning::
+    DeviceEnrollment should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: DeviceEnrollment
+===================================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`DeviceEnrollment.create`
+- :meth:`DeviceEnrollment.delete`
+- :meth:`DeviceEnrollment.list`
+- :meth:`DeviceEnrollment.read`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    device_enrollments = pelion_dm_sdk.foundation.device_enrollment()
+
+How to import DeviceEnrollment directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import DeviceEnrollment
+
+------------
 """
 
 # Python 2 compatibility
@@ -237,8 +269,7 @@ class DeviceEnrollment(Entity):
     def create(self):
         """Place an enrollment claim for one or several devices.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments>`_.
         
         :rtype: DeviceEnrollment
         """
@@ -253,8 +284,7 @@ class DeviceEnrollment(Entity):
     def delete(self):
         """Delete an enrollment by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments/{id}>`_.
         
         :rtype: DeviceEnrollment
         """
@@ -271,8 +301,7 @@ class DeviceEnrollment(Entity):
     ):
         """Get enrollment list.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments>`_.
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
@@ -368,8 +397,7 @@ class DeviceEnrollment(Entity):
     def read(self):
         """Get details of an enrollment by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments/{id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments/{id}>`_.
         
         :rtype: DeviceEnrollment
         """

@@ -1,7 +1,8 @@
-Mbed Cloud SDK for Python
-=========================
+Pelion Device Management SDK for Python
+=======================================
 
-The ``mbed-cloud-sdk`` gives developers access to the full `Mbed Cloud suite <https://cloud.mbed.com/>`__ using Python.
+The ``mbed-cloud-sdk`` gives developers access to `Pelion Device Management <https://cloud.mbed.com/>`__ API using
+Python.
 
 .. image:: https://img.shields.io/pypi/l/mbed-cloud-sdk.svg
     :target: https://github.com/ARMmbed/mbed-cloud-sdk-python/blob/master/LICENCE
@@ -45,7 +46,7 @@ Usage
 These instructions can also be found in the `official
 documentation <https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/>`__:
 
-1. Create an API key in the `Mbed Cloud
+1. Create an API key in the `Pelion Device Management
    Portal <https://portal.us-east-1.mbedcloud.com/>`__.
 
 2. Create a configuration file in your ``$HOME`` or project directory
@@ -96,13 +97,13 @@ See the `examples directory`_ for a collection of use-cases of this API, e.g.:
 Contributing
 ------------
 
-Mbed Cloud SDK for Python is open source and we would like your help; there
+Pelion Device Management SDK for Python is open source and we would like your help; there
 is a brief guide on how to get started in `CONTRIBUTING.md <https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/CONTRIBUTING.md>`__.
 
 Licence
 -------
 
-Mbed Cloud SDK for Python is free to use and licensed under the Apache
+Pelion Device Management SDK for Python is free to use and licensed under the Apache
 License 2.0. See `LICENCE <https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/LICENCE>`__ for more information.
 
 Versioning

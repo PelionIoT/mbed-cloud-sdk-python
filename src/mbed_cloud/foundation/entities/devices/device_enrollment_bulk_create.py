@@ -1,7 +1,39 @@
 """
-Entity module
+.. warning::
+    DeviceEnrollmentBulkCreate should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: DeviceEnrollmentBulkCreate
+=============================================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`DeviceEnrollmentBulkCreate.create`
+- :meth:`DeviceEnrollmentBulkCreate.download_errors_report_file`
+- :meth:`DeviceEnrollmentBulkCreate.download_full_report_file`
+- :meth:`DeviceEnrollmentBulkCreate.read`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    device_enrollment_bulk_creates = pelion_dm_sdk.foundation.device_enrollment_bulk_create()
+
+How to import DeviceEnrollmentBulkCreate directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import DeviceEnrollmentBulkCreate
+
+------------
 """
 
 # Python 2 compatibility
@@ -322,8 +354,7 @@ class DeviceEnrollmentBulkCreate(Entity):
     def create(self, enrollment_identities):
         """Bulk upload
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-uploads
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments-bulk-uploads>`_.
         
         :param enrollment_identities: The `CSV` file containing the enrollment IDs. The maximum file size is
             10MB.
@@ -343,8 +374,6 @@ class DeviceEnrollmentBulkCreate(Entity):
 
     def download_errors_report_file(self):
         """Download the error report file for the created the bulk enrollment.
-
-        
         
         :rtype: file
         """
@@ -355,8 +384,6 @@ class DeviceEnrollmentBulkCreate(Entity):
 
     def download_full_report_file(self):
         """Download the full report file for the created of the bulk enrollment.
-
-        
         
         :rtype: file
         """
@@ -368,8 +395,7 @@ class DeviceEnrollmentBulkCreate(Entity):
     def read(self):
         """Get bulk upload entity
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/device-enrollments-bulk-uploads/{id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments-bulk-uploads/{id}>`_.
         
         :rtype: DeviceEnrollmentBulkCreate
         """

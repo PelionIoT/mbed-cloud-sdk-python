@@ -1,7 +1,49 @@
 """
 Foundation Interface
+====================
 
-This file is auto-generated from API Specifications.
+The Foundation Interface consists of a number of Entities which are a representation of resources in the API. Entities
+are grouped into categories to aid discovery and indicate associated functionality.
+
+.. note::
+    Entities should be imported via this module as the organisation of the categories may change in the future.
+
+{% for group in groups %}
+{{ group._key }}
+{% for letter in group._key %}-{% endfor %}
+{% for entity in group.entities|sort %}
+- :mod:`mbed_cloud.foundation.entities.{{ group._key|to_snake }}.{{ entity|to_snake }}`
+{%- endfor %}
+{% endfor %}
+Enums
+-----
+
+Some Foundation Interface Entities have attributes which use enumerations, please see the
+:mod:`mbed_cloud.foundation.enums` for more information.
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+
+    pelion_dm_sdk = SDK()
+    {% for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}
+    {{ entity._key|to_snake }}s = pelion_dm_sdk.foundation.{{ entity._key|to_snake }}()
+    {%- endfor %}
+
+How to import Entities directly:
+
+.. code-block:: python
+    {% for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}
+    from mbed_cloud.foundation import {{ entity._key|to_pascal }}
+    {%- endfor %}
+
+------------
 """
 
 {% for entity in entities|sort(attribute='_key')|sort(attribute='group_id') %}from mbed_cloud.foundation.entities.{{ entity.group_id|to_snake }}.{{ entity._key|to_snake }} import {{ entity._key|to_pascal }}

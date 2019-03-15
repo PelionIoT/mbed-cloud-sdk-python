@@ -1,14 +1,21 @@
 """SDK Interface
+=============
 
-This provides a single point of entry to use the Primary, Foundation and Client interfaces.
+This provides a single point of entry to use the Primary, Foundation and Client interfaces. It allows the configuration
+and other context information to be shared between instances.
+
+This is the preferred method of creating Foundation Entity instances and using the Client Interface:
+
+- :mod:`mbed_cloud.client.client.Client`
+- :mod:`mbed_cloud.foundation`
+
+------------
 """
 import warnings
 
 from mbed_cloud.sdk import Config
 from mbed_cloud.client.client import Client
-
-# create a new InstanceFactory for providing access to Entities directly from this instance
-from mbed_cloud.foundation.entities._factory import InstanceFactory
+from mbed_cloud.foundation.entities.entity_factory import EntityFactory
 
 global_sdk = None
 has_warned = None
@@ -17,35 +24,43 @@ has_warned = None
 class SDK(object):
     """SDK Interface for interacting with Primary, Foundation and Client interfaces."""
 
-    def __init__(self, config=None, **config_overrides):
+    def __init__(self, config=None, api_key=None, host=None):
         """Create a new SDK instance
 
-        [Beta] this section of the SDK is at a `beta` release level
-               and is subject to change without notice
+        If configuration is not supplied then the default configuration from a `.env` file or environment variables will
+        be used. For more information please see :mod:`mbed_cloud.sdk.config`.
 
-        :param config: An SDK config object
-        :type config: Config
-
-        :param config_overrides: Key-value updates to apply to the config
-        :type config_overrides: dict(str, str)
+        :param config: (optional) An SDK configuration object, this will override settings in environment variables or
+            `.env` files.
+        :type config: mbed_cloud.sdk.config.Config
+        :param api_key: (optional) API Key to use for Authentication, if provided this will override all other
+            configuration
+        :type api_key: str
+        :param host: (optional) Host of the Pelion Device Management API, if provided this will override all other
+            configuration
+        :type host: str
         """
         beta_warning(self.__class__)
 
         # create a new config based on those we received
-        existing = config.to_dict() if config else {}
-        existing.update(config_overrides)
+        existing = config._to_dict() if config else {}
+        if api_key:
+            existing["api_key"] = api_key
+        if host:
+            existing["host"] = host
         self._config = Config(**existing)
 
         # create a new client for making http calls
         self._client = Client(self._config)
 
-        self._entities = InstanceFactory(self.client)
+        self._entities = EntityFactory(self.client)
 
     @property
     def client(self):
         """Client Interface, which can be use for direct communication with the Pelion Device Management API
 
-        :rtype: mbed_cloud.client.client.Client - Client Interface.
+        :return: Client Interface.
+        :rtype: mbed_cloud.client.client.Client
         """
         return self._client
 
@@ -53,7 +68,8 @@ class SDK(object):
     def config(self):
         """Configuration in use by SDK instance.
 
-        :rtype: mbed_cloud.sdk.config.Config - Configuration object.
+        :return: Configuration object.
+        :rtype: mbed_cloud.sdk.config.Config
         """
         return self._config
 
@@ -63,7 +79,8 @@ class SDK(object):
 
         This provides access to all Entities in the Foundation Interface via the returned factory class.
 
-        :rtype: mbed_cloud.foundation.entities._factory.InstanceFactory - Foundation Interface entity factory.
+        :return: Foundation Interface entity factory.
+        :rtype: mbed_cloud.foundation.entities.entity_factory.EntityFactory
         """
         return self._entities
 

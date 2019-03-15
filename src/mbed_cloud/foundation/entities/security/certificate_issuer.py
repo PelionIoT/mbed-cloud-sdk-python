@@ -1,7 +1,41 @@
 """
-Entity module
+.. warning::
+    CertificateIssuer should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: CertificateIssuer
+====================================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`CertificateIssuer.create`
+- :meth:`CertificateIssuer.delete`
+- :meth:`CertificateIssuer.list`
+- :meth:`CertificateIssuer.read`
+- :meth:`CertificateIssuer.update`
+- :meth:`CertificateIssuer.verify`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    certificate_issuers = pelion_dm_sdk.foundation.certificate_issuer()
+
+How to import CertificateIssuer directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import CertificateIssuer
+
+------------
 """
 
 # Python 2 compatibility
@@ -239,8 +273,7 @@ class CertificateIssuer(Entity):
     def create(self, issuer_credentials=None):
         """Create certificate issuer.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuers>`_.
         
         :param issuer_credentials: The credentials required for connecting to the certificate issuer.
             When the issuer_type is GLOBAL_SIGN, see definition of
@@ -268,8 +301,7 @@ class CertificateIssuer(Entity):
     def delete(self):
         """Delete certificate issuer.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuers/{certificate-issuer-id}>`_.
         
         :rtype: CertificateIssuer
         """
@@ -284,8 +316,7 @@ class CertificateIssuer(Entity):
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get certificate issuers list.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuers>`_.
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
@@ -383,8 +414,7 @@ class CertificateIssuer(Entity):
     def read(self):
         """Get certificate issuer by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuers/{certificate-issuer-id}>`_.
         
         :rtype: CertificateIssuer
         """
@@ -399,8 +429,7 @@ class CertificateIssuer(Entity):
     def update(self, issuer_credentials=None):
         """Update certificate issuer.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuers/{certificate-issuer-id}>`_.
         
         :param issuer_credentials: The credentials required for connecting to the certificate issuer.
             When the issuer_type is GLOBAL_SIGN, see definition of
@@ -428,8 +457,7 @@ class CertificateIssuer(Entity):
     def verify(self):
         """Verify certificate issuer.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/certificate-issuers/{certificate-issuer-id}/verify
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuers/{certificate-issuer-id}/verify>`_.
         
         :rtype: VerificationResponse
         """

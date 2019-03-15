@@ -1,7 +1,43 @@
 """
-Entity module
+.. warning::
+    Account should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: Account
+==========================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`Account.create`
+- :meth:`Account.list`
+- :meth:`Account.me`
+- :meth:`Account.read`
+- :meth:`Account.trusted_certificates`
+- :meth:`Account.update`
+- :meth:`Account.user_invitations`
+- :meth:`Account.users`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    accounts = pelion_dm_sdk.foundation.account()
+
+How to import Account directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import Account
+
+------------
 """
 
 # Python 2 compatibility
@@ -1186,8 +1222,7 @@ class Account(Entity):
     def create(self, action="create"):
         """Create a new account.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts>`_.
         
         :param action: Action, either 'create' or 'enroll'. <ul><li>'create' creates the
             account where its admin user has ACTIVE status if admin_password was
@@ -1242,6 +1277,8 @@ class Account(Entity):
         properties=None,
     ):
         """Get all accounts.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts>`_.
 
         **API Filters**
 
@@ -1334,8 +1371,7 @@ class Account(Entity):
     def me(self, include=None, properties=None):
         """Get account info.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/me
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/me>`_.
         
         :param include: Comma separated additional data to return. Currently supported:
             limits, policies, sub_accounts.
@@ -1538,8 +1574,7 @@ class Account(Entity):
     def read(self, include=None, properties=None):
         """Get account info.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}>`_.
         
         :param include: Comma separated additional data to return. Currently supported:
             limits, policies, sub_accounts
@@ -1566,6 +1601,8 @@ class Account(Entity):
         self, filter=None, order="ASC", max_results=None, page_size=50, include=None
     ):
         """Get all trusted certificates.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates>`_.
 
         **API Filters**
 
@@ -1662,8 +1699,7 @@ class Account(Entity):
     def update(self):
         """Update attributes of an existing account.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}>`_.
         
         :rtype: Account
         """
@@ -1704,6 +1740,8 @@ class Account(Entity):
         self, filter=None, order="ASC", max_results=None, page_size=50, include=None
     ):
         """Get the details of all the user invitations.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations>`_.
 
         **API Filters**
 
@@ -1780,6 +1818,8 @@ class Account(Entity):
 
     def users(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all user details.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users>`_.
 
         **API Filters**
 

@@ -1,7 +1,33 @@
 """
-Entity module
+.. warning::
+    ActiveSession should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: ActiveSession
+================================
+
+The ActiveSession entity does not have any methods, all actions must be performed via
+the encapsulating entity.
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    active_sessions = pelion_dm_sdk.foundation.active_session()
+
+How to import ActiveSession directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import ActiveSession
+
+------------
 """
 
 # Python 2 compatibility

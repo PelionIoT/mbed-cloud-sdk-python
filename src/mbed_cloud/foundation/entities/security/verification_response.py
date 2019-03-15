@@ -1,7 +1,33 @@
 """
-Entity module
+.. warning::
+    VerificationResponse should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: VerificationResponse
+=======================================
+
+The VerificationResponse entity does not have any methods, all actions must be performed via
+the encapsulating entity.
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    verification_responses = pelion_dm_sdk.foundation.verification_response()
+
+How to import VerificationResponse directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import VerificationResponse
+
+------------
 """
 
 # Python 2 compatibility

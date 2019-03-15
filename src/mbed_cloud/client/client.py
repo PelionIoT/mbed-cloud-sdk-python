@@ -1,8 +1,19 @@
 """Client Interface
+================
 
 This provides direct access the Pelion Device Management API.
 
-Note: It is not recommended that this is used directly, instead please use this class from an SDK instance.
+.. warning::
+    It is not recommended that this is used directly, instead please use this class from an SDK instance
+    (:mod:`mbed_cloud.sdk.sdk`).
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    api_client = pelion_dm_sdk.client()
+
+------------
 """
 import inspect
 import json
@@ -15,13 +26,13 @@ import requests
 
 
 class Client(object):
-    """Client Interface to give direct access to thePelion Device Management API."""
+    """Client Interface to give direct access to the Pelion Device Management API."""
 
     def __init__(self, config):
         """An http client container
 
-        :param config:
-        :type config: Config
+        :param config: An SDK configuration object.
+        :type config: mbed_cloud.sdk.config.Config
         """
         self.config = config
         self.session = requests.Session()
@@ -44,20 +55,52 @@ class Client(object):
         unpack=None,
         **kwargs
     ):
-        """Uses an http request handling mechanism to fetch and return results from the network
+        """Make an HTTP request handling to the Pelion Device Management REST API.
 
-        :param method: http method
-        :param path: the fully qualified path
-            (with variable substitution defined in single brace `{format}` syntax)
-        :param headers:
-        :param path_params:
-        :param query_params:
-        :param body_params:
-        :param stream_params:
-        :param unpack: unpack response into this Entity
-        :type unpack: mbed_cloud.sdk.common._entities.Entity
-        :param kwargs: extras passed into the http client
-        :return:
+        This method uses the `Requests HTTP Library <http://docs.python-requests.org/en/master/>`_. to interact with the
+        Pelion Device Management REST API. For more information on request and response objects please the third party
+        documentation.
+
+        .. code-block:: python
+
+            from mbed_cloud import SDK
+            pelion_dm_sdk = SDK()
+            api_client = pelion_dm_sdk.client()
+
+            response = api_client.call_api(
+                method="put",
+                path="/v3/path-to-resource/{an_id}",
+                path_params={
+                    "an_id": "0123456789"
+                },
+                body_params={
+                    "a_field": "field value",
+                },
+                query_params={
+                    "a_query_param": "query_param_value",
+                }
+             )
+
+        :param method: HTTP Method
+        :type method: str
+        :param path: Path relative to the configured host (with variable substitution using `{format}` syntax)
+        :type path: str
+        :param headers: (optional) HTTP Headers (Auth is not required)
+        :type headers: dict
+        :param path_params: (optional) Path parameters (substituted into the `path` parameter)
+        :type path_params: dict
+        :param query_params: (optional) Query Parameters
+        :type query_params: dict
+        :param body_params: (optional) Message Body
+        :type body_params: dict
+        :param stream_params: (optional) Files for multipart encoding uploading, see 'requests.request.files` for more
+            information.
+        :type stream_params: dict
+        :param unpack: (optional) Unpack the response into this Entity
+        :type unpack: mbed_cloud.foundation.common.entity_base.Entity
+        :param kwargs: (optional) Addition parameters to be passed to `requests.Session().request`
+        :return: Either a response object or an Entity instance
+        :rtype: mbed_cloud.foundation.common.entity_base.Entity requests.Response
         """
         url = self.config.host + path
 

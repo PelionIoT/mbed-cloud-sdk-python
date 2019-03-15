@@ -1,7 +1,40 @@
 """
-Entity module
+.. warning::
+    SubtenantTrustedCertificate should not be imported directly from this module as the
+    organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-This file is auto-generated from API Specifications.
+Foundation Entity: SubtenantTrustedCertificate
+==============================================
+
+Entities normally contain methods to create, read, update, delete and list resources. Other
+actions may also be possible on the entity depending on the capabilities present in the API.
+This entity has the following methods:
+
+- :meth:`SubtenantTrustedCertificate.create`
+- :meth:`SubtenantTrustedCertificate.delete`
+- :meth:`SubtenantTrustedCertificate.get_developer_certificate_info`
+- :meth:`SubtenantTrustedCertificate.read`
+- :meth:`SubtenantTrustedCertificate.update`
+
+Entity Usage and Importing
+--------------------------
+
+The recommended way of working with Entities is via the SDK Interface which will return an instance of an Entity which
+will share the same context as other Entities. There is more information in the :mod:`mbed_cloud.sdk.sdk` module.
+
+.. code-block:: python
+
+    from mbed_cloud import SDK
+    pelion_dm_sdk = SDK()
+    subtenant_trusted_certificates = pelion_dm_sdk.foundation.subtenant_trusted_certificate()
+
+How to import SubtenantTrustedCertificate directly:
+
+.. code-block:: python
+    
+    from mbed_cloud.foundation import SubtenantTrustedCertificate
+
+------------
 """
 
 # Python 2 compatibility
@@ -514,8 +547,7 @@ class SubtenantTrustedCertificate(Entity):
     def create(self):
         """Upload new trusted certificate.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates>`_.
         
         :rtype: SubtenantTrustedCertificate
         """
@@ -538,8 +570,7 @@ class SubtenantTrustedCertificate(Entity):
     def delete(self):
         """Delete trusted certificate by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates/{cert_id}>`_.
         
         :rtype: SubtenantTrustedCertificate
         """
@@ -557,8 +588,7 @@ class SubtenantTrustedCertificate(Entity):
     def get_developer_certificate_info(self):
         """Fetch an existing developer certificate to connect to the bootstrap server.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/developer-certificates/{developerCertificateId}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/developer-certificates/{developerCertificateId}>`_.
         
         :rtype: DeveloperCertificate
         """
@@ -575,8 +605,7 @@ class SubtenantTrustedCertificate(Entity):
     def read(self):
         """Get trusted certificate by ID.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates/{cert_id}>`_.
         
         :rtype: SubtenantTrustedCertificate
         """
@@ -594,8 +623,7 @@ class SubtenantTrustedCertificate(Entity):
     def update(self):
         """Update trusted certificate.
 
-        api documentation:
-        https://os.mbed.com/search/?q=service+apis+/v3/accounts/{account_id}/trusted-certificates/{cert_id}
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates/{cert_id}>`_.
         
         :rtype: SubtenantTrustedCertificate
         """
