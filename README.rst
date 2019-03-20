@@ -49,8 +49,8 @@ documentation <https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/>`__:
 1. Create an API key in the `Pelion Device Management
    Portal <https://portal.us-east-1.mbedcloud.com/>`__.
 
-2. Create a configuration file in your ``$HOME`` or project directory
-   (``.mbed_cloud_config.json``):
+2. Create a configuration file ``.mbed_cloud_config.json`` in your ``$HOME`` or project
+directory, and add your API key from the portal:
 
    .. code:: javascript
 
