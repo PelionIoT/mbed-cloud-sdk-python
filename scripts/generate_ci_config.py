@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
-# (C) COPYRIGHT 2017 Arm Limited
+# Pelion Device Management Python SDK
+# (C) COPYRIGHT 2017,2019 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -463,7 +463,7 @@ def generate_circle_output():
     base = new_base()
     workflow = networkx.DiGraph()
     LOG.info('%s python versions', len(python_versions))
-    LOG.info('%s mbed cloud hosts', len(mbed_cloud_hosts))
+    LOG.info('%s Pelion Device Management hosts', len(mbed_cloud_hosts))
 
     job, content = new_tpip()
     base['jobs'].update({job: content})
@@ -626,7 +626,7 @@ def main(output_path=None):
     and also cleanly maps to the appearance of config.yml before & after templating.
 
     The main job blocks (build, test, deploy) are expanded as the product of python versions
-    and mbed cloud environments, before being recombined into the job listing.
+    and Pelion Device Management environments, before being recombined into the job listing.
 
     Jobs are chained into a CircleCI workflow using a graph
     (in which nodes are job identifiers, and edges describe the dependencies

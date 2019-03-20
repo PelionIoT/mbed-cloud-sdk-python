@@ -1,4 +1,4 @@
-# Mbed Cloud SDK for Python
+# Pelion Device Management SDK for Python
 
 [![CircleCI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master.svg?style=shield&circle-token=ec05043ded945f81984e7fd2fce23fe793e7b634)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master) - Master
 

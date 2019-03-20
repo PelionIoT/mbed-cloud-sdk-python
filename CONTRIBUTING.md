@@ -1,6 +1,6 @@
 # Contributing
 
-Mbed Cloud SDK for Python is an open source project from Arm Mbed.
+Pelion Device Management SDK for Python is an open source project from Arm Mbed.
 
 We really appreciate your contributions! You can contribute by letting us know
 about any [SDK issues](https://github.com/ARMmbed/mbed-cloud-sdk-python/issues)
