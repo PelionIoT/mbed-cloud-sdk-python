@@ -136,7 +136,7 @@ class ApiFilter(object):
                 for sdk_operator, sdk_value in sdk_operator_value.items():
                     # The dictionary may contain multiple filters, process each one
                     api_value = _to_query_param(sdk_value)
-                    api_filter[api_field + "__" + sdk_operator] = api_value
+                    api_filter[api_field + "__" + sdk_operator.lstrip("$")] = api_value
             except AttributeError:
                 # Default to equality if a filter operator was not provided
                 api_value = _to_query_param(sdk_operator_value)

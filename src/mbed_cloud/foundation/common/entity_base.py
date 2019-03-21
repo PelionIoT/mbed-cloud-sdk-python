@@ -24,14 +24,9 @@ class Entity(object):
 
     def __str__(self):
         """Human readable short format text"""
-        friendly = "?"
-        for name in (
-            getattr(self, f, None) for f in ["full_name", "name", "id"] + self._fieldnames
-        ):
-            if name is not None:
-                friendly = name
-                break
-        return "<%s %s>" % (self.__class__.__name__, friendly)
+        entity_id = getattr(self, "id", None)
+        entity_id = entity_id if entity_id else "?"
+        return "<%s %s>" % (self.__class__.__name__, entity_id)
 
     def __repr__(self):
         """Long format text (object might be re-instantiatable from this)"""
@@ -77,7 +72,7 @@ class Entity(object):
 
     def to_dict(self):
         """Return all fields as key-value pairs"""
-        return {field: getattr(self, field) for field in self._fieldnames}
+        return {field: getattr(self, "_" + field).value for field in self._fieldnames}
 
     def to_api(self):
         """Return all fields in API format"""

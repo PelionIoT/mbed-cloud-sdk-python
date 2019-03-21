@@ -181,3 +181,40 @@ class TestApiFilter(BaseCase):
 
         api_filter = ApiFilter(filter_definition, renames)
         self.assertEqual(expected_filter, api_filter.to_api())
+
+    def test_legacy_filter(self):
+        filter_definition = {
+            "created_at": {
+                "$gte": datetime(2019, 1, 1),
+                "$lte": date(2019, 12, 31),
+            },
+            "colour": {"$like": "purple"},
+            "integer": {"$neq": 42},
+            "float": {"$neq": 13.98},
+            "state": {"$in": ["OPEN", "CLOSED"]},
+            "city": {"$nin": ["Cambridge", "London"]},
+            "strange": {"$eq": {"hello": "world"}},
+            "done": False,
+            "firmware_checksum": None,
+        }
+        renames = {
+            "colour": "API_colour",
+            "state": "API_state",
+            "strange": "API_strange",
+            "firmware_checksum": "API_fw_csum",
+        }
+        expected_filter = {
+            "created_at__gte": "2019-01-01T00:00:00Z",
+            "created_at__lte": "2019-12-31",
+            "API_colour__like": "purple",
+
+            "integer__neq": 42,
+            "float__neq": 13.98,
+            "API_state__in": "OPEN,CLOSED",
+            "city__nin": "Cambridge,London",
+            "API_strange__eq": '{"hello": "world"}',
+            "done__eq": "false",
+            "API_fw_csum__eq": "null"}
+
+        api_filter = ApiFilter(filter_definition, renames)
+        self.assertEqual(expected_filter, api_filter.to_api())
