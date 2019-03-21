@@ -422,30 +422,30 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
-    - created_at
-    - updated_at
-    - parent_id
-    - tier
-    - status
-    - upgraded_at
-    - limits
-    - policies
-    - template_id
-    - reason
-    - idle_timeout
-    - password_policy
-    - reference_note
-    - custom_fields
-    - mfa_status
-    - notification_emails
-    - sales_contact
-    - expiration_warning_threshold
-    - parent_account
-    - expiration
     - admin_id
     - admin_key
+    - created_at
+    - custom_fields
+    - expiration
+    - expiration_warning_threshold
+    - id
+    - idle_timeout
+    - limits
+    - mfa_status
+    - notification_emails
+    - parent_account
+    - parent_id
+    - password_policy
     - password_recovery_expiration
+    - policies
+    - reason
+    - reference_note
+    - sales_contact
+    - status
+    - template_id
+    - tier
+    - updated_at
+    - upgraded_at
     field_renames: []
     fields:
     - _key: action
@@ -1508,9 +1508,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - total_count
-    - has_more
     - data
+    - has_more
+    - total_count
     - status__eq
     - status__in
     - status__nin
@@ -2369,15 +2369,22 @@ entities:
     x_filter:
       country:
       - like
+      - like
       end_market:
       - eq
+      - eq
       parent:
+      - eq
       - eq
       status:
       - eq
       - in
       - nin
+      - eq
+      - in
+      - nin
       tier:
+      - eq
       - eq
   - _key: me
     description: 'Returns detailed information about the account.
@@ -2396,49 +2403,49 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
-    - created_at
-    - updated_at
-    - parent_id
-    - display_name
-    - company
-    - country
     - address_line1
     - address_line2
-    - city
-    - state
-    - postal_code
-    - contact
-    - email
-    - phone_number
+    - admin_email
+    - admin_full_name
+    - admin_id
+    - admin_key
+    - admin_name
+    - admin_password
     - aliases
-    - tier
-    - status
-    - upgraded_at
-    - limits
-    - policies
-    - template_id
-    - reason
-    - end_market
-    - idle_timeout
-    - password_policy
-    - reference_note
+    - city
+    - company
+    - contact
+    - contract_number
+    - country
+    - created_at
     - custom_fields
+    - customer_number
+    - display_name
+    - email
+    - end_market
+    - expiration
+    - expiration_warning_threshold
+    - id
+    - idle_timeout
+    - limits
     - mfa_status
     - notification_emails
-    - sales_contact
-    - expiration_warning_threshold
-    - contract_number
-    - customer_number
     - parent_account
-    - expiration
-    - admin_id
-    - admin_name
-    - admin_email
-    - admin_key
-    - admin_password
-    - admin_full_name
+    - parent_id
+    - password_policy
     - password_recovery_expiration
+    - phone_number
+    - policies
+    - postal_code
+    - reason
+    - reference_note
+    - sales_contact
+    - state
+    - status
+    - template_id
+    - tier
+    - updated_at
+    - upgraded_at
     field_renames: []
     fields:
     - _key: include
@@ -3281,48 +3288,48 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
-    - updated_at
-    - parent_id
-    - display_name
-    - company
-    - country
     - address_line1
     - address_line2
-    - city
-    - state
-    - postal_code
-    - contact
-    - email
-    - phone_number
+    - admin_email
+    - admin_full_name
+    - admin_id
+    - admin_key
+    - admin_name
+    - admin_password
     - aliases
-    - tier
-    - status
-    - upgraded_at
-    - limits
-    - policies
-    - template_id
-    - reason
-    - end_market
-    - idle_timeout
-    - password_policy
-    - reference_note
+    - city
+    - company
+    - contact
+    - contract_number
+    - country
+    - created_at
     - custom_fields
+    - customer_number
+    - display_name
+    - email
+    - end_market
+    - expiration
+    - expiration_warning_threshold
+    - idle_timeout
+    - limits
     - mfa_status
     - notification_emails
-    - sales_contact
-    - expiration_warning_threshold
-    - contract_number
-    - customer_number
     - parent_account
-    - expiration
-    - admin_id
-    - admin_name
-    - admin_email
-    - admin_key
-    - admin_password
-    - admin_full_name
+    - parent_id
+    - password_policy
     - password_recovery_expiration
+    - phone_number
+    - policies
+    - postal_code
+    - reason
+    - reference_note
+    - sales_contact
+    - state
+    - status
+    - template_id
+    - tier
+    - updated_at
+    - upgraded_at
     field_renames: []
     fields:
     - _key: id
@@ -4220,9 +4227,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - total_count
-    - has_more
     - data
+    - has_more
+    - total_count
     - name__eq
     - service__eq
     - expire__eq
@@ -4654,23 +4661,34 @@ entities:
       device_execution_mode:
       - eq
       - neq
+      - eq
+      - neq
       enrollment_mode:
+      - eq
       - eq
       expire:
       - eq
+      - eq
       issuer:
+      - like
       - like
       name:
       - eq
+      - eq
       owner:
+      - eq
       - eq
       service:
       - eq
+      - eq
       status:
+      - eq
       - eq
       subject:
       - like
+      - like
       valid:
+      - eq
       - eq
   - _key: update
     additional_operations:
@@ -4694,25 +4712,25 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
+    - admin_email
+    - admin_full_name
+    - admin_id
+    - admin_key
+    - admin_name
+    - admin_password
     - created_at
-    - updated_at
-    - parent_id
-    - tier
-    - status
-    - upgraded_at
+    - expiration
     - limits
+    - parent_account
+    - parent_id
     - policies
-    - template_id
     - reason
     - reference_note
-    - parent_account
-    - expiration
-    - admin_id
-    - admin_name
-    - admin_email
-    - admin_key
-    - admin_password
-    - admin_full_name
+    - status
+    - template_id
+    - tier
+    - updated_at
+    - upgraded_at
     field_renames: []
     fields:
     - _key: address_line1
@@ -5864,9 +5882,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - total_count
-    - has_more
     - data
+    - has_more
+    - total_count
     - login_profile__eq
     field_renames: []
     fields:
@@ -6264,6 +6282,7 @@ entities:
     x_filter:
       login_profile:
       - eq
+      - eq
   - _key: users
     description: 'An endpoint for retrieving details of all users.
 
@@ -6281,9 +6300,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - total_count
-    - has_more
     - data
+    - has_more
+    - total_count
     - email__eq
     - status__eq
     - status__in
@@ -6870,9 +6889,14 @@ entities:
     x_filter:
       email:
       - eq
+      - eq
       login_profile:
       - eq
+      - eq
       status:
+      - eq
+      - in
+      - nin
       - eq
       - in
       - nin
@@ -7036,13 +7060,13 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
-    - created_at
-    - updated_at
-    - key
-    - creation_time
-    - last_login_time
     - account_id
+    - created_at
+    - creation_time
+    - id
+    - key
+    - last_login_time
+    - updated_at
     field_renames: []
     fields:
     - _key: name
@@ -7548,9 +7572,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - total_count
-    - has_more
     - data
+    - has_more
+    - total_count
     - key__eq
     - owner__eq
     field_renames: []
@@ -7864,7 +7888,9 @@ entities:
     x_filter:
       key:
       - eq
+      - eq
       owner:
+      - eq
       - eq
   - _key: me
     description: 'An endpoint for retrieving API key details.
@@ -7883,16 +7909,16 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
+    - account_id
     - created_at
-    - updated_at
+    - creation_time
+    - id
     - key
+    - last_login_time
     - name
     - owner
     - status
-    - creation_time
-    - last_login_time
-    - account_id
+    - updated_at
     field_renames: []
     fields: []
     group_id: Accounts
@@ -8129,15 +8155,15 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
+    - account_id
     - created_at
-    - updated_at
+    - creation_time
     - key
+    - last_login_time
     - name
     - owner
     - status
-    - creation_time
-    - last_login_time
-    - account_id
+    - updated_at
     field_renames: []
     fields:
     - _key: id
@@ -8434,12 +8460,12 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
-    - updated_at
-    - key
-    - creation_time
-    - last_login_time
     - account_id
+    - created_at
+    - creation_time
+    - key
+    - last_login_time
+    - updated_at
     field_renames: []
     fields:
     - _key: id
@@ -8904,9 +8930,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - total_count
-    - has_more
     - data
+    - has_more
+    - total_count
     - device_id__eq
     - certificate_name__eq
     - enroll_status__neq
@@ -9256,18 +9282,28 @@ entities:
     x_filter:
       certificate_name:
       - eq
+      - eq
       created_at:
+      - lte
+      - gte
       - lte
       - gte
       device_id:
       - eq
+      - eq
       enroll_result:
+      - neq
+      - eq
       - neq
       - eq
       enroll_status:
       - neq
       - eq
+      - neq
+      - eq
       updated_at:
+      - lte
+      - gte
       - lte
       - gte
   - _key: read
@@ -9295,11 +9331,11 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
+    - certificate_name
     - created_at
     - device_id
-    - certificate_name
-    - enroll_status
     - enroll_result
+    - enroll_status
     - updated_at
     field_renames: []
     fields:
@@ -10297,9 +10333,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
+    - data
     - has_more
     - total_count
-    - data
     field_renames: []
     fields:
     - _key: after
@@ -10591,10 +10627,10 @@ entities:
     - private_key
     - sub_accounts
     - created_at
-    - issuer_type
-    - name
     - description
     - issuer_attributes
+    - issuer_type
+    - name
     field_renames: []
     fields:
     - _key: id
@@ -11327,8 +11363,8 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - successful
     - message
+    - successful
     field_renames: []
     fields:
     - _key: id
@@ -11665,8 +11701,8 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
     - created_at
+    - id
     - updated_at
     field_renames:
     - _key: certificate_reference
@@ -12163,9 +12199,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
     - certificate_issuer_id
     - created_at
+    - id
     - updated_at
     - certificate_reference
     field_renames:
@@ -12418,9 +12454,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
+    - data
     - has_more
     - total_count
-    - data
     - reference__eq
     field_renames:
     - _key: certificate_reference
@@ -12716,6 +12752,7 @@ entities:
     summary: Get certificate issuer configurations.
     x_filter:
       certificate_reference:
+      - eq
       - eq
   - _key: read
     description: 'Provides the configured certificate issuer.
@@ -13367,9 +13404,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
-    - created_at
     - account_id
+    - created_at
+    - id
     - security_file_content
     - certificate
     field_renames:
@@ -14115,21 +14152,21 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
-    - updated_at
-    - name
-    - description
     - account_id
-    - owner_id
     - certificate
-    - service
-    - issuer
-    - subject
-    - validity
-    - status
-    - enrollment_mode
     - certificate_fingerprint
+    - created_at
+    - description
+    - enrollment_mode
+    - issuer
+    - name
+    - owner_id
+    - service
+    - status
+    - subject
+    - updated_at
     - valid
+    - validity
     field_renames:
     - _key: certificate
       api_fieldname: developer_certificate
@@ -14491,10 +14528,10 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
     - account_id
-    - name
+    - created_at
     - description
+    - name
     - security_file_content
     - certificate
     field_renames:
@@ -16309,150 +16346,7 @@ entities:
       type: device
     return_type: paginated_response(device)
     summary: List all devices.
-    x_filter:
-      account_id:
-      - eq
-      - neq
-      - in
-      - nin
-      auto_update:
-      - eq
-      - neq
-      - in
-      - nin
-      bootstrapped_expiration_date:
-      - in
-      - nin
-      - lte
-      - gte
-      bootstrapped_timestamp:
-      - in
-      - nin
-      - lte
-      - gte
-      ca_id:
-      - eq
-      - neq
-      - in
-      - nin
-      connector_expiration_date:
-      - in
-      - nin
-      - lte
-      - gte
-      created_at:
-      - in
-      - nin
-      - lte
-      - gte
-      custom_attributes:
-      - eq
-      - neq
-      deployed_state:
-      - eq
-      - neq
-      - in
-      - nin
-      deployment:
-      - eq
-      - neq
-      - in
-      - nin
-      description:
-      - eq
-      - neq
-      - in
-      - nin
-      device_class:
-      - eq
-      - neq
-      - in
-      - nin
-      device_execution_mode:
-      - eq
-      - neq
-      - in
-      - nin
-      device_key:
-      - eq
-      - neq
-      - in
-      - nin
-      endpoint_name:
-      - eq
-      - neq
-      - in
-      - nin
-      endpoint_type:
-      - eq
-      - neq
-      - in
-      - nin
-      enrollment_list_timestamp:
-      - in
-      - nin
-      - lte
-      - gte
-      firmware_checksum:
-      - eq
-      - neq
-      - in
-      - nin
-      host_gateway:
-      - eq
-      - neq
-      - in
-      - nin
-      id:
-      - eq
-      - neq
-      - in
-      - nin
-      manifest:
-      - eq
-      - neq
-      - in
-      - nin
-      manifest_timestamp:
-      - in
-      - nin
-      - lte
-      - gte
-      mechanism:
-      - eq
-      - neq
-      - in
-      - nin
-      mechanism_url:
-      - eq
-      - neq
-      - in
-      - nin
-      name:
-      - eq
-      - neq
-      - in
-      - nin
-      serial_number:
-      - eq
-      - neq
-      - in
-      - nin
-      state:
-      - eq
-      - neq
-      - in
-      - nin
-      updated_at:
-      - in
-      - nin
-      - lte
-      - gte
-      vendor_id:
-      - eq
-      - neq
-      - in
-      - nin
+    x_filter: {}
   - _key: read
     description: Retrieve information about a specific device.
     drop_fields:
@@ -16880,8 +16774,8 @@ entities:
     - sub_accounts
     - created_at
     - device_id
-    - enroll_status
     - enroll_result
+    - enroll_status
     - updated_at
     field_renames: []
     fields:
@@ -17832,12 +17726,12 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
-    - created_at
-    - claimed_at
     - account_id
-    - expires_at
+    - claimed_at
+    - created_at
     - enrolled_device_id
+    - expires_at
+    - id
     field_renames: []
     fields:
     - _key: enrollment_identity
@@ -18280,9 +18174,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
+    - data
     - has_more
     - total_count
-    - data
     field_renames: []
     fields:
     - _key: after
@@ -18600,12 +18494,12 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
-    - claimed_at
-    - enrollment_identity
     - account_id
-    - expires_at
+    - claimed_at
+    - created_at
     - enrolled_device_id
+    - enrollment_identity
+    - expires_at
     field_renames: []
     fields:
     - _key: id
@@ -18961,16 +18855,16 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
     - account_id
+    - completed_at
     - created_at
+    - errors_count
+    - errors_report_file
+    - full_report_file
+    - id
+    - processed_count
     - status
     - total_count
-    - processed_count
-    - errors_count
-    - completed_at
-    - full_report_file
-    - errors_report_file
     field_renames: []
     fields:
     - _key: enrollment_identities
@@ -19343,14 +19237,14 @@ entities:
     - private_key
     - sub_accounts
     - account_id
+    - completed_at
     - created_at
+    - errors_count
+    - errors_report_file
+    - full_report_file
+    - processed_count
     - status
     - total_count
-    - processed_count
-    - errors_count
-    - completed_at
-    - full_report_file
-    - errors_report_file
     field_renames: []
     fields:
     - _key: id
@@ -19798,16 +19692,16 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
     - account_id
+    - completed_at
     - created_at
+    - errors_count
+    - errors_report_file
+    - full_report_file
+    - id
+    - processed_count
     - status
     - total_count
-    - processed_count
-    - errors_count
-    - completed_at
-    - full_report_file
-    - errors_report_file
     field_renames: []
     fields:
     - _key: enrollment_identities
@@ -20183,14 +20077,14 @@ entities:
     - private_key
     - sub_accounts
     - account_id
+    - completed_at
     - created_at
+    - errors_count
+    - errors_report_file
+    - full_report_file
+    - processed_count
     - status
     - total_count
-    - processed_count
-    - errors_count
-    - completed_at
-    - full_report_file
-    - errors_report_file
     field_renames: []
     fields:
     - _key: id
@@ -20497,17 +20391,12 @@ entities:
   fields:
   - _key: changes
     additionalProperties:
-      type: object
+      type: string
     api_fieldname: changes
     example: []
     readOnly: true
     required: false
     type: object
-    x-deprecation:
-      comment: This field is not used.
-      end_of_life_at: '2020-01-15T14:55:20+00:00'
-      issued_at: '2019-01-15T14:55:20+00:00'
-      links: []
   - _key: created_at
     api_fieldname: created_at
     example: '2017-05-22T12:37:55.576563Z'
@@ -20679,14 +20568,9 @@ entities:
             properties:
             - _key: changes
               additionalProperties:
-                type: object
+                type: string
               example: []
               type: object
-              x-deprecation:
-                comment: This field is not used.
-                end_of_life_at: '2020-01-15T14:55:20+00:00'
-                issued_at: '2019-01-15T14:55:20+00:00'
-                links: []
             - _key: created_at
               example: '2017-05-22T12:37:55.576563Z'
               format: date-time
@@ -20776,37 +20660,7 @@ entities:
       type: device_events
     return_type: paginated_response(device_events)
     summary: List all device events.
-    x_filter:
-      date_time:
-      - in
-      - nin
-      - lte
-      - gte
-      description:
-      - eq
-      - neq
-      - in
-      - nin
-      device_id:
-      - eq
-      - neq
-      - in
-      - nin
-      event_type:
-      - eq
-      - neq
-      - in
-      - nin
-      id:
-      - eq
-      - neq
-      - in
-      - nin
-      state_change:
-      - eq
-      - neq
-      - in
-      - nin
+    x_filter: {}
   - _key: read
     description: Retrieve a specific device event.
     drop_fields:
@@ -20818,8 +20672,8 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
     - changes
+    - created_at
     - data
     - date_time
     - description
@@ -20856,16 +20710,11 @@ entities:
         properties:
         - _key: changes
           additionalProperties:
-            type: object
+            type: string
           api_fieldname: changes
           entity_fieldname: changes
           example: []
           type: object
-          x-deprecation:
-            comment: This field is not used.
-            end_of_life_at: '2020-01-15T14:55:20+00:00'
-            issued_at: '2019-01-15T14:55:20+00:00'
-            links: []
         - _key: created_at
           api_fieldname: created_at
           entity_fieldname: created_at
@@ -21169,8 +21018,8 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
     - created_at
+    - id
     - server_certificate
     - server_uri
     field_renames: []
@@ -21366,8 +21215,8 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
     - created_at
+    - id
     - server_certificate
     - server_uri
     field_renames: []
@@ -21725,15 +21574,15 @@ entities:
     - private_key
     - sub_accounts
     - signature
-    - id
-    - created_at
-    - updated_at
-    - owner_id
-    - issuer
-    - subject
-    - validity
     - certificate_fingerprint
+    - created_at
+    - id
+    - issuer
+    - owner_id
+    - subject
+    - updated_at
     - valid
+    - validity
     field_renames: []
     fields:
     - _key: account_id
@@ -22444,12 +22293,12 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
     - account_id
-    - name
+    - created_at
     - description
     - developer_certificate
     - developer_private_key
+    - name
     - security_file_content
     field_renames: []
     fields:
@@ -22931,20 +22780,20 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
-    - updated_at
-    - name
-    - description
-    - owner_id
     - certificate
-    - service
-    - issuer
-    - subject
-    - validity
-    - status
-    - enrollment_mode
     - certificate_fingerprint
+    - created_at
+    - description
+    - enrollment_mode
+    - issuer
+    - name
+    - owner_id
+    - service
+    - status
+    - subject
+    - updated_at
     - valid
+    - validity
     field_renames: []
     fields:
     - _key: account_id
@@ -23336,14 +23185,14 @@ entities:
     - private_key
     - sub_accounts
     - signature
-    - created_at
-    - updated_at
-    - owner_id
-    - issuer
-    - subject
-    - validity
     - certificate_fingerprint
+    - created_at
+    - issuer
+    - owner_id
+    - subject
+    - updated_at
     - valid
+    - validity
     field_renames: []
     fields:
     - _key: account_id
@@ -24194,18 +24043,18 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
-    - created_at
-    - updated_at
-    - status
-    - email_verified
-    - creation_time
-    - last_login_time
-    - password_changed_time
-    - login_history
-    - totp_scratch_codes
-    - custom_fields
     - active_sessions
+    - created_at
+    - creation_time
+    - custom_fields
+    - email_verified
+    - id
+    - last_login_time
+    - login_history
+    - password_changed_time
+    - status
+    - totp_scratch_codes
+    - updated_at
     - two_factor_authentication
     field_renames:
     - _key: marketing_accepted
@@ -25245,24 +25094,24 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
-    - updated_at
-    - status
-    - username
-    - password
-    - full_name
-    - email
+    - active_sessions
     - address
-    - phone_number
-    - email_verified
+    - created_at
     - creation_time
+    - custom_fields
+    - email
+    - email_verified
+    - full_name
     - last_login_time
-    - password_changed_time
     - login_history
     - login_profiles
+    - password
+    - password_changed_time
+    - phone_number
+    - status
     - totp_scratch_codes
-    - custom_fields
-    - active_sessions
+    - updated_at
+    - username
     - two_factor_authentication
     - terms_accepted
     - marketing_accepted
@@ -25837,17 +25686,17 @@ entities:
     - email
     - two_factor_auth_enabled
     - status
-    - created_at
-    - updated_at
-    - password
-    - email_verified
-    - creation_time
-    - last_login_time
-    - password_changed_time
-    - login_history
-    - totp_scratch_codes
-    - custom_fields
     - active_sessions
+    - created_at
+    - creation_time
+    - custom_fields
+    - email_verified
+    - last_login_time
+    - login_history
+    - password
+    - password_changed_time
+    - totp_scratch_codes
+    - updated_at
     field_renames:
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
@@ -26934,11 +26783,11 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
     - created_at
+    - expiration
+    - id
     - updated_at
     - user_id
-    - expiration
     field_renames: []
     fields:
     - _key: account_id
@@ -27532,11 +27381,11 @@ entities:
     - private_key
     - sub_accounts
     - created_at
-    - updated_at
     - email
-    - user_id
     - expiration
     - login_profiles
+    - updated_at
+    - user_id
     field_renames: []
     fields:
     - _key: account_id
@@ -28027,16 +27876,16 @@ entities:
     - private_key
     - sub_accounts
     - signature
-    - id
-    - created_at
-    - updated_at
     - account_id
-    - owner_id
-    - issuer
-    - subject
-    - validity
     - certificate_fingerprint
+    - created_at
+    - id
+    - issuer
+    - owner_id
+    - subject
+    - updated_at
     - valid
+    - validity
     field_renames: []
     fields:
     - _key: certificate
@@ -28704,12 +28553,12 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
     - account_id
-    - name
+    - created_at
     - description
     - developer_certificate
     - developer_private_key
+    - name
     - security_file_content
     field_renames: []
     fields:
@@ -29191,9 +29040,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - total_count
-    - has_more
     - data
+    - has_more
+    - total_count
     - name__eq
     - service__eq
     - expire__eq
@@ -29565,23 +29414,34 @@ entities:
       device_execution_mode:
       - eq
       - neq
+      - eq
+      - neq
       enrollment_mode:
+      - eq
       - eq
       expire:
       - eq
+      - eq
       issuer:
+      - like
       - like
       name:
       - eq
+      - eq
       owner:
+      - eq
       - eq
       service:
       - eq
+      - eq
       status:
+      - eq
       - eq
       subject:
       - like
+      - like
       valid:
+      - eq
       - eq
   - _key: read
     description: 'An endpoint for retrieving a trusted certificate by ID.
@@ -29600,21 +29460,21 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
-    - updated_at
-    - name
-    - description
     - account_id
-    - owner_id
     - certificate
-    - service
-    - issuer
-    - subject
-    - validity
-    - status
-    - enrollment_mode
     - certificate_fingerprint
+    - created_at
+    - description
+    - enrollment_mode
+    - issuer
+    - name
+    - owner_id
+    - service
+    - status
+    - subject
+    - updated_at
     - valid
+    - validity
     field_renames: []
     fields:
     - _key: device_execution_mode
@@ -29974,15 +29834,15 @@ entities:
     - private_key
     - sub_accounts
     - signature
-    - created_at
-    - updated_at
     - account_id
-    - owner_id
-    - issuer
-    - subject
-    - validity
     - certificate_fingerprint
+    - created_at
+    - issuer
+    - owner_id
+    - subject
+    - updated_at
     - valid
+    - validity
     field_renames: []
     fields:
     - _key: certificate
@@ -30826,19 +30686,19 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
-    - created_at
-    - updated_at
-    - status
-    - email_verified
-    - creation_time
-    - last_login_time
-    - password_changed_time
     - account_id
-    - login_history
-    - totp_scratch_codes
-    - custom_fields
     - active_sessions
+    - created_at
+    - creation_time
+    - custom_fields
+    - email_verified
+    - id
+    - last_login_time
+    - login_history
+    - password_changed_time
+    - status
+    - totp_scratch_codes
+    - updated_at
     - two_factor_authentication
     field_renames:
     - _key: marketing_accepted
@@ -31769,9 +31629,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - total_count
-    - has_more
     - data
+    - has_more
+    - total_count
     - email__eq
     - status__eq
     - status__in
@@ -32290,9 +32150,14 @@ entities:
     x_filter:
       email:
       - eq
+      - eq
       login_profile:
       - eq
+      - eq
       status:
+      - eq
+      - in
+      - nin
       - eq
       - in
       - nin
@@ -32313,25 +32178,25 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
-    - updated_at
-    - status
-    - username
-    - password
-    - full_name
-    - email
-    - address
-    - phone_number
-    - email_verified
-    - creation_time
-    - last_login_time
-    - password_changed_time
     - account_id
+    - active_sessions
+    - address
+    - created_at
+    - creation_time
+    - custom_fields
+    - email
+    - email_verified
+    - full_name
+    - last_login_time
     - login_history
     - login_profiles
+    - password
+    - password_changed_time
+    - phone_number
+    - status
     - totp_scratch_codes
-    - custom_fields
-    - active_sessions
+    - updated_at
+    - username
     - two_factor_authentication
     - terms_accepted
     - marketing_accepted
@@ -32855,18 +32720,18 @@ entities:
     - email
     - two_factor_auth_enabled
     - status
-    - created_at
-    - updated_at
-    - password
-    - email_verified
-    - creation_time
-    - last_login_time
-    - password_changed_time
     - account_id
-    - login_history
-    - totp_scratch_codes
-    - custom_fields
     - active_sessions
+    - created_at
+    - creation_time
+    - custom_fields
+    - email_verified
+    - last_login_time
+    - login_history
+    - password
+    - password_changed_time
+    - totp_scratch_codes
+    - updated_at
     field_renames:
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
@@ -33690,12 +33555,12 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
+    - account_id
     - created_at
+    - expiration
+    - id
     - updated_at
     - user_id
-    - account_id
-    - expiration
     field_renames: []
     fields:
     - _key: email
@@ -34254,9 +34119,9 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - total_count
-    - has_more
     - data
+    - has_more
+    - total_count
     - login_profile__eq
     field_renames: []
     fields:
@@ -34580,6 +34445,7 @@ entities:
     x_filter:
       login_profile:
       - eq
+      - eq
   - _key: read
     description: 'An endpoint for retrieving the details of an active user invitation
       sent for a new or an existing user to join the account.
@@ -34598,13 +34464,13 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - created_at
-    - updated_at
-    - email
-    - user_id
     - account_id
+    - created_at
+    - email
     - expiration
     - login_profiles
+    - updated_at
+    - user_id
     field_renames: []
     fields:
     - _key: id
@@ -35176,8 +35042,8 @@ groups:
   - user_invitation_order_enum
   - api_key_status_enum
   - api_key_order_enum
-  - account_status_enum
   - account_mfa_status_enum
+  - account_status_enum
   - account_order_enum
 - _key: Devices
   entities:
@@ -35206,8 +35072,8 @@ groups:
   - developer_certificate
   enums:
   - certificate_issuer_type_enum
-  - certificate_enrollment_enroll_status_enum
   - certificate_enrollment_enroll_result_enum
+  - certificate_enrollment_enroll_status_enum
   - certificate_enrollment_order_enum
   - certificate_enrollment_include_enum
   - trusted_certificate_service_enum
