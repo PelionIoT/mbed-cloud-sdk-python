@@ -2138,64 +2138,6 @@ definitions:
         description: The device vendor ID.
         example: 00000000-0000-0000-0000-000000000000
         type: string
-  DeviceDataPatchRequest:
-    properties:
-      auto_update:
-        description: 'DEPRECATED: Mark this device for automatic firmware update.'
-        type: boolean
-      ca_id:
-        description: The certificate issuer's ID.
-        example: '00000000000000000000000000000000'
-        maxLength: 500
-        type: string
-      custom_attributes:
-        additionalProperties:
-          maxLength: 128
-          type: string
-        description: Up to five custom key-value attributes. Note that keys cannot
-          start with a number. Both keys and values are limited to 128 characters.
-        example: '{ ''key'': ''value'' }'
-        type: object
-      description:
-        description: The description of the device.
-        example: ''
-        maxLength: 2000
-        type: string
-      device_key:
-        description: The fingerprint of the device certificate.
-        example: 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
-        maxLength: 512
-        type: string
-      endpoint_name:
-        description: The endpoint name given to the device.
-        example: 00000000-0000-0000-0000-000000000000
-        maxLength: 64
-        type: string
-      endpoint_type:
-        description: The endpoint type of the device. For example, the device is a
-          gateway.
-        example: ''
-        maxLength: 64
-        type: string
-      groups:
-        description: An array containing an ID of each group this device belongs to.
-        items:
-          example: '00000000000000000000000000000000'
-          type: string
-        type: array
-      host_gateway:
-        description: The `endpoint_name` of the host gateway, if appropriate.
-        example: ''
-        type: string
-      name:
-        description: The name of the device.
-        example: 00000000-0000-0000-0000-000000000000
-        maxLength: 128
-        type: string
-      object:
-        description: The API resource entity.
-        example: device
-        type: string
   DeviceDataPostRequest:
     properties:
       auto_update:
@@ -2465,9 +2407,14 @@ definitions:
     properties:
       changes:
         additionalProperties:
-          type: string
+          type: object
         example: {}
         type: object
+        x-deprecation:
+          comment: This field is not used.
+          end_of_life_at: '2020-01-15T14:55:20+00:00'
+          issued_at: '2019-01-15T14:55:20+00:00'
+          links: []
       created_at:
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
@@ -2590,7 +2537,12 @@ definitions:
         type: string
       custom_attributes: &id022
         additionalProperties:
+          maxLength: 128
+          pattern: ^[A-Za-z].*
           type: string
+        description: Up to ten custom key-value attributes. Note that keys cannot
+          begin with a number. Both keys and values are limited to 128 characters.
+          Updating this field replaces existing contents.
         example:
           key: value
         maxProperties: 10
@@ -5568,6 +5520,11 @@ definitions:
         - userstopped
         - conflict
         type: string
+        x-deprecation:
+          comment: Use phase instead
+          end_of_life_at: '2020-03-18T14:55:20+00:00'
+          issued_at: '2019-03-18T14:55:20+00:00'
+          links: []
       updated_at:
         description: The time the object was updated
         example: '2017-05-22T12:37:55.576563Z'
@@ -5737,24 +5694,12 @@ definitions:
         enum:
         - draft
         - scheduled
-        - allocatingquota
-        - allocatedquota
-        - quotaallocationfailed
-        - checkingmanifest
-        - checkedmanifest
-        - devicefetch
-        - devicecopy
-        - devicecheck
-        - publishing
-        - deploying
-        - deployed
-        - manifestremoved
-        - expired
-        - stopping
-        - autostopped
-        - userstopped
-        - conflict
         type: string
+        x-deprecation:
+          comment: Use phase instead
+          end_of_life_at: '2020-03-18T14:55:20+00:00'
+          issued_at: '2019-03-18T14:55:20+00:00'
+          links: []
       when:
         description: The scheduled start time for the update campaign. Not in use.
         example: '2017-05-22T12:37:55.576563Z'
@@ -5809,6 +5754,11 @@ definitions:
         - userstopped
         - conflict
         type: string
+        x-deprecation:
+          comment: Use phase instead
+          end_of_life_at: '2020-03-18T14:55:20+00:00'
+          issued_at: '2019-03-18T14:55:20+00:00'
+          links: []
       when:
         description: The scheduled start time for the update campaign. Not in use.
         example: '2017-05-22T12:37:55.576563Z'
@@ -8372,22 +8322,15 @@ paths:
       x-filter:
         country:
         - like
-        - like
         end_market:
         - eq
-        - eq
         parent:
-        - eq
         - eq
         status:
         - eq
         - in
         - nin
-        - eq
-        - in
-        - nin
         tier:
-        - eq
         - eq
     post:
       consumes:
@@ -8749,9 +8692,7 @@ paths:
       x-filter:
         key:
         - eq
-        - eq
         owner:
-        - eq
         - eq
     post:
       consumes:
@@ -10461,7 +10402,6 @@ paths:
       x-filter:
         name:
         - eq
-        - eq
     post:
       consumes:
       - application/json
@@ -10983,9 +10923,6 @@ paths:
         - eq
         - in
         - nin
-        - eq
-        - in
-        - nin
   /v3/accounts/{account_id}/trusted-certificates:
     get:
       description: 'An endpoint for retrieving trusted certificates in an array.
@@ -11116,34 +11053,23 @@ paths:
         device_execution_mode:
         - eq
         - neq
-        - eq
-        - neq
         enrollment_mode:
-        - eq
         - eq
         expire:
         - eq
-        - eq
         issuer:
-        - like
         - like
         name:
         - eq
-        - eq
         owner:
-        - eq
         - eq
         service:
         - eq
-        - eq
         status:
-        - eq
         - eq
         subject:
         - like
-        - like
         valid:
-        - eq
         - eq
     post:
       consumes:
@@ -11402,7 +11328,6 @@ paths:
       x-filter:
         login_profile:
         - eq
-        - eq
     post:
       consumes:
       - application/json
@@ -11630,14 +11555,9 @@ paths:
       x-filter:
         email:
         - eq
-        - eq
         login_profile:
         - eq
-        - eq
         status:
-        - eq
-        - in
-        - nin
         - eq
         - in
         - nin
@@ -12145,9 +12065,7 @@ paths:
       x-filter:
         key:
         - eq
-        - eq
         owner:
-        - eq
         - eq
     post:
       consumes:
@@ -13972,28 +13890,18 @@ paths:
       x-filter:
         certificate_name:
         - eq
-        - eq
         created_at:
-        - lte
-        - gte
         - lte
         - gte
         device_id:
         - eq
-        - eq
         enroll_result:
-        - neq
-        - eq
         - neq
         - eq
         enroll_status:
         - neq
         - eq
-        - neq
-        - eq
         updated_at:
-        - lte
-        - gte
         - lte
         - gte
   /v3/certificate-enrollments/{certificate-enrollment-id}:
@@ -14140,7 +14048,6 @@ paths:
       - Certificate Issuers Activation
       x-filter:
         reference:
-        - eq
         - eq
     post:
       description: "Configure the certificate issuer to be used when creating the\
@@ -15858,6 +15765,37 @@ paths:
         '404':
           description: Unable to find page.
       summary: List all device events.
+      x-filter:
+        date_time:
+        - in
+        - nin
+        - lte
+        - gte
+        description:
+        - eq
+        - neq
+        - in
+        - nin
+        device_id:
+        - eq
+        - neq
+        - in
+        - nin
+        event_type:
+        - eq
+        - neq
+        - in
+        - nin
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        state_change:
+        - eq
+        - neq
+        - in
+        - nin
   /v3/device-events/{device_event_id}/:
     get:
       description: Retrieve a specific device event.
@@ -15920,26 +15858,27 @@ paths:
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
           \   </tr>\n    <tr>\n      <td>name</td>\n      <td>\u2713</td>\n      <td>\u2713\
           </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>custom_attributes</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>created_at</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>updated_at</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\n\
-          The examples below show the queries in *unencoded* form.\n\n###### By device\
-          \ group properties:\n```name__eq=mygroup```\n\n###### On date-time fields:\n\
-          \nDate-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```.\
-          \ There are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds\
-          \ e.g. 2016-11-30T16:25:12.1234Z\n* UTC RFC3339 without milliseconds e.g.\
-          \ 2016-11-30T16:25:12Z\n* UTC RFC3339 shortened - without milliseconds and\
-          \ punctuation e.g. 20161130T162512Z\n\nDate-time filtering supports three\
-          \ operators:\n\n* equality\n* greater than or equal to &ndash; field name\
-          \ suffixed with ```__gte```\n* less than or equal to &ndash; field name\
-          \ suffixed with ```__lte```\n\nLower and upper limits to a date-time range\
-          \ may be specified by including both the ```__gte``` and ```__lte``` forms\
-          \ in\nthe filter.\n```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```\n\
-          \n###### By device group custom attributes:\n\n```custom_attributes__{param}={value}```\n\
-          ```custom_attributes__tag=TAG1```\n\n##### Multi-field example\n\n```name__eq=mygroup&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```\n\
+          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n    <tr>\n      <td>created_at</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
+          \   <td>updated_at</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>etag</td>\n     \
+          \ <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n\
+          \  </tbody>\n</table>\n&nbsp;\n\nThe examples below show the queries in\
+          \ *unencoded* form.\n\n###### By device group properties:\n```name__eq=mygroup```\n\
+          \n###### On date-time fields:\n\nDate-time fields should be specified in\
+          \ UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted\n\
+          variations:\n\n* UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z\n\
+          * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z\n* UTC RFC3339\
+          \ shortened - without milliseconds and punctuation e.g. 20161130T162512Z\n\
+          \nDate-time filtering supports three operators:\n\n* equality\n* greater\
+          \ than or equal to &ndash; field name suffixed with ```__gte```\n* less\
+          \ than or equal to &ndash; field name suffixed with ```__lte```\n\nLower\
+          \ and upper limits to a date-time range may be specified by including both\
+          \ the ```__gte``` and ```__lte``` forms in\nthe filter.\n```{field name}[|__lte|__gte]={UTC\
+          \ RFC3339 date-time}```\n\n###### By device group custom attributes:\n\n\
+          ```custom_attributes__{param}={value}```\n```custom_attributes__tag=TAG1```\n\
+          \n##### Multi-field example\n\n```name__eq=mygroup&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```\n\
           \nEncoded:\n\n```?filter=name__eq%3Dmygroup%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-12-30T00%3A00%3A00Z```\n\
           \n##### Filtering with filter operators\n\nString field filtering supports\
           \ the following operators:\n\n* equality: `__eq`\n* non-equality: `__neq`\n\
@@ -15962,6 +15901,37 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: List all groups.
+      x-filter:
+        created_at:
+        - in
+        - nin
+        - lte
+        - gte
+        custom_attributes:
+        - eq
+        - neq
+        devices_count:
+        - eq
+        - neq
+        - in
+        - nin
+        - lte
+        - gte
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        name:
+        - eq
+        - neq
+        - in
+        - nin
+        updated_at:
+        - in
+        - nin
+        - lte
+        - gte
     post:
       description: Create a group.
       operationId: Group_create
@@ -16126,14 +16096,14 @@ paths:
           </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>description</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
           \   </tr>\n    <tr>\n      <td>custom_attributes</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>created_at</td>\n\
+          </td>\n      <td>&nbsp;</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>created_at</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>updated_at</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
-          \   <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe examples below show\
-          \ the queries in *unencoded* form.\n\n###### By device properties (all properties\
-          \ are filterable):\n\n```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```\n\
+          \   </tr>\n    <tr>\n      <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\n\
+          The examples below show the queries in *unencoded* form.\n\n###### By device\
+          \ properties (all properties are filterable):\n\n```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```\n\
           ```device_class={value}```\n\n###### On date-time fields:\n\nDate-time fields\
           \ should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```.\
           \ There are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds\
@@ -16156,8 +16126,10 @@ paths:
         name: filter
         type: string
       responses:
-        204:
+        200:
           description: Ok.
+          schema:
+            $ref: '#/definitions/DevicePage'
         400:
           description: Bad Request.
           schema:
@@ -16171,6 +16143,42 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get a page of devices
+      x-filter:
+        created_at:
+        - in
+        - nin
+        - lte
+        - gte
+        custom_attributes:
+        - eq
+        - neq
+        description:
+        - eq
+        - neq
+        - in
+        - nin
+        devices_count:
+        - eq
+        - neq
+        - in
+        - nin
+        - lte
+        - gte
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        name:
+        - eq
+        - neq
+        - in
+        - nin
+        updated_at:
+        - in
+        - nin
+        - lte
+        - gte
   /v3/device-groups/{device-group-id}/devices/add/:
     post:
       description: Add one device to a group.
@@ -16315,6 +16323,32 @@ paths:
         '404':
           description: Unable to find page.
       summary: List device queries.
+      x-filter:
+        created_at:
+        - in
+        - nin
+        - lte
+        - gte
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        name:
+        - eq
+        - neq
+        - in
+        - nin
+        query:
+        - eq
+        - neq
+        - in
+        - nin
+        updated_at:
+        - in
+        - nin
+        - lte
+        - gte
     post:
       description: Create a new device query.
       operationId: Device_Query_create
@@ -16492,6 +16526,37 @@ paths:
         '404':
           description: Unable to find page
       summary: 'DEPRECATED: List all device events.'
+      x-filter:
+        date_time:
+        - in
+        - nin
+        - lte
+        - gte
+        description:
+        - eq
+        - neq
+        - in
+        - nin
+        device_id:
+        - eq
+        - neq
+        - in
+        - nin
+        event_type:
+        - eq
+        - neq
+        - in
+        - nin
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        state_change:
+        - eq
+        - neq
+        - in
+        - nin
   /v3/devicelog/{device_event_id}/:
     get:
       deprecated: true
@@ -16551,69 +16616,85 @@ paths:
           \ can be filtered on with certain filters:\n\n<table>\n  <thead>\n    <tr>\n\
           \      <th>Field</th>\n      <th>= / __eq / __neq</th>\n      <th>__in /\
           \  __nin</th>\n      <th>__lte / __gte</th>\n    <tr>\n  <thead>\n  <tbody>\n\
-          \    <tr>\n      <td>account_id</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>auto_update</td>\n\
+          \    <tr>\n      <td>lifecycle_status</td>\n      <td>\u2713</td>\n    \
+          \  <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>account_id</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>bootstrap_expiration_date</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n\
-          \      <td>bootstrapped_timestamp</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>ca_id</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>connector_expiration_date</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n\
-          \      <td>created_at</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>custom_attributes</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>deployed_state</td>\n      <td>\u2713</td>\n\
+          \   </tr>\n    <tr>\n      <td>auto_update</td>\n      <td>\u2713</td>\n\
           \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>deployment</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>description</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>device_class</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>device_execution_mode</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>device_key</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>endpoint_name</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>endpoint_type</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>enrolment_list_timestamp</td>\n\
+          \   <td>bootstrap_expiration_date</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>bootstrapped_timestamp</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>firmware_checksum</td>\n\
+          \   </tr>\n    <tr>\n      <td>ca_id</td>\n      <td>\u2713</td>\n     \
+          \ <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>connector_expiration_date</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n    <tr>\n      <td>created_at</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
+          \   <td>custom_attributes</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>deployed_state</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>host_gateway</td>\n      <td>\u2713</td>\n\
+          \   </tr>\n    <tr>\n      <td>deployment</td>\n      <td>\u2713</td>\n\
           \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n\
-          \    </tr>\n    <tr>\n      <td>manifest</td>\n      <td>\u2713</td>\n \
+          \   <td>description</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>device_class</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n    <tr>\n      <td>device_execution_mode</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>device_key</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>endpoint_name</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n    <tr>\n      <td>endpoint_type</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
+          \   <td>enrolment_list_timestamp</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>etag</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n    <tr>\n      <td>firmware_checksum</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>host_gateway</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>id</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>manifest</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>manifest_timestamp</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n    <tr>\n      <td>mechanism</td>\n      <td>\u2713</td>\n \
           \     <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n    \
-          \  <td>manifest_timestamp</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>mechanism</td>\n\
+          \  <td>mechanism_url</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>name</td>\n     \
+          \ <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n\
+          \    <tr>\n      <td>serial_number</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>state</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>mechanism_url</td>\n      <td>\u2713</td>\n\
+          \   </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
+          \   <td>vendor_id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \     <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>issuer_fingerprint</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n    <tr>\n      <td>lifecycle_status</td>\n      <td>\u2713</td>\n\
           \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>name</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n\
-          \    </tr>\n    <tr>\n      <td>serial_number</td>\n      <td>\u2713</td>\n\
+          \   <td>operator_suspended</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>last_operator_suspension_category</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n    <tr>\n      <td>last_operator_suspension_updated_at</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n    <tr>\n      <td>system_suspended</td>\n      <td>\u2713</td>\n\
           \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>state</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n     \
-          \ <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>updated_at</td>\n    \
-          \  <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n\
-          \    <tr>\n      <td>vendor_id</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\n\
-          The examples below show the queries in *unencoded* form.\n\n###### By device\
-          \ properties (all properties are filterable):\n\n```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```\n\
-          ```device_class={value}```\n\n###### On date-time fields:\n\nDate-time fields\
-          \ should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```.\
-          \ There are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds\
-          \ e.g. 2016-11-30T16:25:12.1234Z\n* UTC RFC3339 without milliseconds e.g.\
-          \ 2016-11-30T16:25:12Z\n* UTC RFC3339 shortened - without milliseconds and\
-          \ punctuation e.g. 20161130T162512Z\n\nDate-time filtering supports three\
-          \ operators:\n\n* equality\n* greater than or equal to &ndash; field name\
-          \ suffixed with ```__gte```\n* less than or equal to &ndash; field name\
-          \ suffixed with ```__lte```\n\nLower and upper limits to a date-time range\
-          \ may be specified by including both the ```__gte``` and ```__lte``` forms\
-          \ in\nthe filter.\n```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```\n\
-          \n###### On device custom attributes:\n\n```custom_attributes__{param}={value}```\n\
+          \   <td>last_system_suspension_category</td>\n      <td>\u2713</td>\n  \
+          \    <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n     \
+          \ <td>last_system_suspension_updated_at</td>\n      <td>\u2713</td>\n  \
+          \    <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>                \n\
+          \  </tbody>\n</table>\n&nbsp;\n\nThe examples below show the queries in\
+          \ *unencoded* form.\n\n###### By device properties (all properties are filterable):\n\
+          \n```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```\n```device_class={value}```\n\
+          \n###### On date-time fields:\n\nDate-time fields should be specified in\
+          \ UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted\n\
+          variations:\n\n* UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z\n\
+          * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z\n* UTC RFC3339\
+          \ shortened - without milliseconds and punctuation e.g. 20161130T162512Z\n\
+          \nDate-time filtering supports three operators:\n\n* equality\n* greater\
+          \ than or equal to &ndash; field name suffixed with ```__gte```\n* less\
+          \ than or equal to &ndash; field name suffixed with ```__lte```\n\nLower\
+          \ and upper limits to a date-time range may be specified by including both\
+          \ the ```__gte``` and ```__lte``` forms in\nthe filter.\n```{field name}[|__lte|__gte]={UTC\
+          \ RFC3339 date-time}```\n\n###### On device custom attributes:\n\n```custom_attributes__{param}={value}```\n\
           ```custom_attributes__tag=TAG1```\n\n##### Multi-field example\n\n```state=bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```\n\
           \nEncoded:\n\n```?filter=state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```\n\
           \n##### Filtering with filter operators\n\nString field filtering supports\
@@ -16635,6 +16716,150 @@ paths:
         '404':
           description: Unable to find page.
       summary: List all devices.
+      x-filter:
+        account_id:
+        - eq
+        - neq
+        - in
+        - nin
+        auto_update:
+        - eq
+        - neq
+        - in
+        - nin
+        bootstrapped_expiration_date:
+        - in
+        - nin
+        - lte
+        - gte
+        bootstrapped_timestamp:
+        - in
+        - nin
+        - lte
+        - gte
+        ca_id:
+        - eq
+        - neq
+        - in
+        - nin
+        connector_expiration_date:
+        - in
+        - nin
+        - lte
+        - gte
+        created_at:
+        - in
+        - nin
+        - lte
+        - gte
+        custom_attributes:
+        - eq
+        - neq
+        deployed_state:
+        - eq
+        - neq
+        - in
+        - nin
+        deployment:
+        - eq
+        - neq
+        - in
+        - nin
+        description:
+        - eq
+        - neq
+        - in
+        - nin
+        device_class:
+        - eq
+        - neq
+        - in
+        - nin
+        device_execution_mode:
+        - eq
+        - neq
+        - in
+        - nin
+        device_key:
+        - eq
+        - neq
+        - in
+        - nin
+        endpoint_name:
+        - eq
+        - neq
+        - in
+        - nin
+        endpoint_type:
+        - eq
+        - neq
+        - in
+        - nin
+        enrollment_list_timestamp:
+        - in
+        - nin
+        - lte
+        - gte
+        firmware_checksum:
+        - eq
+        - neq
+        - in
+        - nin
+        host_gateway:
+        - eq
+        - neq
+        - in
+        - nin
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        manifest:
+        - eq
+        - neq
+        - in
+        - nin
+        manifest_timestamp:
+        - in
+        - nin
+        - lte
+        - gte
+        mechanism:
+        - eq
+        - neq
+        - in
+        - nin
+        mechanism_url:
+        - eq
+        - neq
+        - in
+        - nin
+        name:
+        - eq
+        - neq
+        - in
+        - nin
+        serial_number:
+        - eq
+        - neq
+        - in
+        - nin
+        state:
+        - eq
+        - neq
+        - in
+        - nin
+        updated_at:
+        - in
+        - nin
+        - lte
+        - gte
+        vendor_id:
+        - eq
+        - neq
+        - in
+        - nin
     post:
       description: Create a new device.
       operationId: Device_create
@@ -16886,6 +17111,52 @@ paths:
         '404':
           description: Unable to find content
       summary: List all images
+      x-filter:
+        created_at:
+        - in
+        - nin
+        - lte
+        - gte
+        datafile:
+        - eq
+        - neq
+        - in
+        - nin
+        datafile_checksum:
+        - eq
+        - neq
+        - in
+        - nin
+        datafile_size:
+        - eq
+        - neq
+        - in
+        - nin
+        description:
+        - eq
+        - neq
+        - in
+        - nin
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        name:
+        - eq
+        - neq
+        - in
+        - nin
+        timestamp:
+        - in
+        - nin
+        - lte
+        - gte
+        updated_at:
+        - in
+        - nin
+        - lte
+        - gte
     post:
       consumes:
       - multipart/form-data
@@ -16906,7 +17177,6 @@ paths:
         in: formData
         maxLength: 128
         name: name
-        required: true
         type: string
       responses:
         '201':
@@ -17005,6 +17275,52 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all upload jobs
+      x-filter:
+        created_at:
+        - in
+        - nin
+        - lte
+        - gte
+        datafile:
+        - eq
+        - neq
+        - in
+        - nin
+        datafile_checksum:
+        - eq
+        - neq
+        - in
+        - nin
+        datafile_size:
+        - eq
+        - neq
+        - in
+        - nin
+        description:
+        - eq
+        - neq
+        - in
+        - nin
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        name:
+        - eq
+        - neq
+        - in
+        - nin
+        timestamp:
+        - in
+        - nin
+        - lte
+        - gte
+        updated_at:
+        - in
+        - nin
+        - lte
+        - gte
     post:
       description: Create a new upload job
       operationId: Upload_Job_Create
@@ -17168,10 +17484,10 @@ paths:
           \     <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n  \
           \  </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n \
           \     <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n    \
-          \  <td>hash</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n\
-          \    <tr>\n      <td>length</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\n\
-          The query string is made up of key-value pairs separated by ampersands.\
+          \  <td>hash</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n\
+          \    </tr>\n    <tr>\n      <td>length</td>\n      <td>\u2713</td>\n   \
+          \   <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n  </tbody>\n</table>\n\
+          &nbsp;\n\nThe query string is made up of key-value pairs separated by ampersands.\
           \ For example, this query:\n`key1=value1&key2=value2&key3=value3`\n\nwould\
           \ be URL-encoded as:\n`?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`\n\
           \n\n**Filtering by properties**\n`hash__eq=8FS70vXrq5y1VxAAssUMAg==`\n\n\
@@ -17212,6 +17528,34 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: List all metadata for uploaded chunks
+      x-filter:
+        created_at:
+        - in
+        - nin
+        - lte
+        - gte
+        hash:
+        - eq
+        - neq
+        - in
+        - nin
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        length:
+        - eq
+        - neq
+        - in
+        - nin
+        - lte
+        - gte
+        updated_at:
+        - in
+        - nin
+        - lte
+        - gte
     post:
       consumes:
       - binary/octet-stream
@@ -17417,6 +17761,52 @@ paths:
         '404':
           description: Unable to find content
       summary: List manifests
+      x-filter:
+        created_at:
+        - in
+        - nin
+        - lte
+        - gte
+        datafile:
+        - eq
+        - neq
+        - in
+        - nin
+        datafile_size:
+        - eq
+        - neq
+        - in
+        - nin
+        description:
+        - eq
+        - neq
+        - in
+        - nin
+        device_class:
+        - eq
+        - neq
+        - in
+        - nin
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        name:
+        - eq
+        - neq
+        - in
+        - nin
+        timestamp:
+        - in
+        - nin
+        - lte
+        - gte
+        updated_at:
+        - in
+        - nin
+        - lte
+        - gte
     post:
       consumes:
       - multipart/form-data
@@ -17444,7 +17834,6 @@ paths:
         in: formData
         maxLength: 128
         name: name
-        required: true
         type: string
       responses:
         '201':
@@ -17991,7 +18380,6 @@ paths:
       x-filter:
         name:
         - eq
-        - eq
     post:
       consumes:
       - application/json
@@ -18461,9 +18849,6 @@ paths:
       - Account Admin
       x-filter:
         status:
-        - eq
-        - in
-        - nin
         - eq
         - in
         - nin
@@ -18973,34 +19358,23 @@ paths:
         device_execution_mode:
         - eq
         - neq
-        - eq
-        - neq
         enrollment_mode:
-        - eq
         - eq
         expire:
         - eq
-        - eq
         issuer:
-        - like
         - like
         name:
         - eq
-        - eq
         owner:
-        - eq
         - eq
         service:
         - eq
-        - eq
         status:
-        - eq
         - eq
         subject:
         - like
-        - like
         valid:
-        - eq
         - eq
     post:
       consumes:
@@ -19266,6 +19640,62 @@ paths:
         '404':
           description: Unable to find content
       summary: List all campaigns
+      x-filter:
+        created_at:
+        - in
+        - nin
+        - lte
+        - gte
+        description:
+        - eq
+        - neq
+        - in
+        - nin
+        device_filter:
+        - eq
+        - neq
+        - in
+        - nin
+        finished:
+        - in
+        - nin
+        - lte
+        - gte
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        name:
+        - eq
+        - neq
+        - in
+        - nin
+        root_manifest_id:
+        - eq
+        - neq
+        - in
+        - nin
+        started_at:
+        - in
+        - nin
+        - lte
+        - gte
+        state:
+        - eq
+        - neq
+        - in
+        - nin
+        updated_at:
+        - in
+        - nin
+        - lte
+        - gte
+        when:
+        - in
+        - nin
+        - lte
+        - gte
     post:
       description: Create an update campaign.
       operationId: Update_Campaign_create
@@ -19697,7 +20127,6 @@ paths:
       x-filter:
         login_profile:
         - eq
-        - eq
     post:
       consumes:
       - application/json
@@ -19899,14 +20328,9 @@ paths:
       x-filter:
         email:
         - eq
-        - eq
         login_profile:
         - eq
-        - eq
         status:
-        - eq
-        - in
-        - nin
         - eq
         - in
         - nin
