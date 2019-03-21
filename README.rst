@@ -52,7 +52,7 @@ documentation <https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/>`__:
 2. Create a configuration file ``.env`` in your ``$HOME`` or project
 directory, and add your API key from the portal:
 
-   .. code:: javascript
+   .. code:: bash
 
         MBED_CLOUD_SDK_API_KEY="your_api_key_here"
 

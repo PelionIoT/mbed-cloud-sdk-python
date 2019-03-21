@@ -110,12 +110,12 @@ def beta_warning(header, category=FutureWarning):
 
 
 def check_openssl_version():
-    """ Utility function to check that the OpenSSL version is recent enough """
-    version = ssl.OPENSSL_VERSION;
+    """Utility function to check that the OpenSSL version is recent enough"""
+    version = ssl.OPENSSL_VERSION
 
-    match = re.match('OpenSSL ((\d+)\.(\d+)\.(\d+))', ssl.OPENSSL_VERSION)
+    match = re.match(r'OpenSSL ((\d+)\.(\d+)\.(\d+))', ssl.OPENSSL_VERSION)
     if not match:
-        warnings.warn('No OPENSSL_VERSION found')
+        # Ignore the missing SSL package
         return
 
     major = int(match.group(2))
