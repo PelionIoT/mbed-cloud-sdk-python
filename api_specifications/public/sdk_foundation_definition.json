@@ -37,6 +37,7 @@
         "device_enrollment"
       ],
       "enums": [
+        "device_lifecycle_status_enum",
         "device_deployed_state_enum",
         "device_mechanism_enum",
         "device_state_enum",
@@ -231,6 +232,17 @@
       ],
       "group_id": "Devices",
       "_key": "device_enrollment_order_enum"
+    },
+    {
+      "entity_name": "device",
+      "field_name": "lifecycle_status",
+      "enum_name": "device_lifecycle_status_enum",
+      "values": [
+        "blocked",
+        "enabled"
+      ],
+      "group_id": "Devices",
+      "_key": "device_lifecycle_status_enum"
     },
     {
       "entity_name": "device",
@@ -19885,11 +19897,16 @@
             },
             {
               "type": "object",
-              "description": "Up to five custom key-value attributes.",
+              "maxProperties": 5,
               "additionalProperties": {
-                "type": "string"
+                "type": "string",
+                "maxLength": 128,
+                "pattern": "^[A-Za-z].*"
               },
-              "example": "{ 'key': 'value' }",
+              "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+              "example": {
+                "key": "value"
+              },
               "api_fieldname": "custom_attributes",
               "entity_fieldname": "custom_attributes",
               "parameter_fieldname": "custom_attributes",
@@ -19964,6 +19981,7 @@
               "type": "string",
               "description": "The endpoint name given to the device.",
               "example": "00000000-0000-0000-0000-000000000000",
+              "readOnly": true,
               "api_fieldname": "endpoint_name",
               "entity_fieldname": "endpoint_name",
               "parameter_fieldname": "endpoint_name",
@@ -20004,6 +20022,18 @@
               "in": "body",
               "required": false,
               "_key": "host_gateway"
+            },
+            {
+              "type": "string",
+              "pattern": "[A-Fa-f0-9]{64}",
+              "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+              "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
+              "api_fieldname": "issuer_fingerprint",
+              "entity_fieldname": "issuer_fingerprint",
+              "parameter_fieldname": "issuer_fingerprint",
+              "in": "body",
+              "required": false,
+              "_key": "issuer_fingerprint"
             },
             {
               "type": "string",
@@ -20117,6 +20147,85 @@
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
                   },
+                  "issuer_fingerprint": {
+                    "type": "string",
+                    "pattern": "[A-Fa-f0-9]{64}",
+                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
+                    "api_fieldname": "issuer_fingerprint",
+                    "entity_fieldname": "issuer_fingerprint"
+                  },
+                  "operator_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the operator?",
+                    "api_fieldname": "operator_suspended",
+                    "entity_fieldname": "operator_suspended"
+                  },
+                  "last_operator_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_operator_suspended_category",
+                    "entity_fieldname": "last_operator_suspended_category"
+                  },
+                  "last_operator_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description why the device was suspended or returned to service.",
+                    "example": "Suspended for maintenance.",
+                    "api_fieldname": "last_operator_suspended_description",
+                    "entity_fieldname": "last_operator_suspended_description"
+                  },
+                  "last_operator_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent suspension activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_operator_suspended_updated_at",
+                    "entity_fieldname": "last_operator_suspended_updated_at"
+                  },
+                  "system_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the system?",
+                    "api_fieldname": "system_suspended",
+                    "entity_fieldname": "system_suspended"
+                  },
+                  "last_system_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_system_suspended_category",
+                    "entity_fieldname": "last_system_suspended_category"
+                  },
+                  "last_system_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
+                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
+                    "api_fieldname": "last_system_suspended_description",
+                    "entity_fieldname": "last_system_suspended_description"
+                  },
+                  "last_system_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent system block activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_system_suspended_updated_at",
+                    "entity_fieldname": "last_system_suspended_updated_at"
+                  },
+                  "lifecycle_status": {
+                    "type": "string",
+                    "enum": [
+                      "enabled",
+                      "blocked"
+                    ],
+                    "description": "The lifecycle status of the device.",
+                    "example": "enabled",
+                    "api_fieldname": "lifecycle_status",
+                    "entity_fieldname": "lifecycle_status"
+                  },
                   "account_id": {
                     "type": "string",
                     "description": "The ID of the associated account.",
@@ -20182,11 +20291,16 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "description": "Up to five custom key-value attributes.",
+                    "maxProperties": 5,
                     "additionalProperties": {
-                      "type": "string"
+                      "type": "string",
+                      "maxLength": 128,
+                      "pattern": "^[A-Za-z].*"
                     },
-                    "example": "{ 'key': 'value' }",
+                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "example": {
+                      "key": "value"
+                    },
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -20242,6 +20356,7 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
+                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -20405,6 +20520,15 @@
             "is_custom",
             "private_key",
             "sub_accounts",
+            "operator_suspended",
+            "last_operator_suspended_category",
+            "last_operator_suspended_description",
+            "last_operator_suspended_updated_at",
+            "system_suspended",
+            "last_system_suspended_category",
+            "last_system_suspended_description",
+            "last_system_suspended_updated_at",
+            "lifecycle_status",
             "account_id",
             "created_at",
             "deployed_state",
@@ -20484,10 +20608,10 @@
           "fields": [
             {
               "type": "string",
-              "example": null,
+              "description": "The ID of The item after which to retrieve the next page.",
+              "example": "01631667477600000000000100100374",
               "api_fieldname": "after",
               "entity_fieldname": "after",
-              "description": "The ID of The item after which to retrieve the next page.",
               "in": "query",
               "name": "after",
               "external_param": true,
@@ -20509,14 +20633,14 @@
             },
             {
               "type": "integer",
-              "example": 1000,
-              "api_fieldname": "limit",
-              "entity_fieldname": "limit",
               "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
-              "in": "query",
-              "name": "limit",
+              "example": 50,
               "minimum": 2,
               "maximum": 1000,
+              "api_fieldname": "limit",
+              "entity_fieldname": "limit",
+              "in": "query",
+              "name": "limit",
               "external_param": true,
               "parameter_fieldname": "limit",
               "required": false,
@@ -20524,10 +20648,10 @@
             },
             {
               "type": "string",
+              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
               "example": "DESC",
               "api_fieldname": "order",
               "entity_fieldname": "order",
-              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
               "in": "query",
               "name": "order",
               "external_param": true,
@@ -20545,7 +20669,8 @@
                 "properties": [
                   {
                     "type": "string",
-                    "example": null,
+                    "description": "An offset token for current page.",
+                    "example": "01631667477600000000000100100374",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
                     "_key": "after"
@@ -20565,6 +20690,65 @@
                             "type": "string",
                             "example": "00000000000000000000000000000000"
                           }
+                        },
+                        "issuer_fingerprint": {
+                          "type": "string",
+                          "pattern": "[A-Fa-f0-9]{64}",
+                          "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+                          "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322"
+                        },
+                        "operator_suspended": {
+                          "type": "boolean",
+                          "description": "Is the device suspended by the operator?"
+                        },
+                        "last_operator_suspended_category": {
+                          "type": "string",
+                          "description": "The reference of the block category.",
+                          "pattern": "[a-f0-9_]{32}",
+                          "example": "maintenance"
+                        },
+                        "last_operator_suspended_description": {
+                          "type": "string",
+                          "maxLength": 2000,
+                          "description": "The most recent description why the device was suspended or returned to service.",
+                          "example": "Suspended for maintenance."
+                        },
+                        "last_operator_suspended_updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The timestamp of the most recent suspension activity.",
+                          "example": "2017-05-22T12:37:55.576563Z"
+                        },
+                        "system_suspended": {
+                          "type": "boolean",
+                          "description": "Is the device suspended by the system?"
+                        },
+                        "last_system_suspended_category": {
+                          "type": "string",
+                          "description": "The reference of the block category.",
+                          "pattern": "[a-f0-9_]{32}",
+                          "example": "maintenance"
+                        },
+                        "last_system_suspended_description": {
+                          "type": "string",
+                          "maxLength": 2000,
+                          "description": "The most recent description of why the device was blocked or unblocked by the system.",
+                          "example": "A certificate in the device's certificate chain was blacklisted by the system."
+                        },
+                        "last_system_suspended_updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The timestamp of the most recent system block activity.",
+                          "example": "2017-05-22T12:37:55.576563Z"
+                        },
+                        "lifecycle_status": {
+                          "type": "string",
+                          "enum": [
+                            "enabled",
+                            "blocked"
+                          ],
+                          "description": "The lifecycle status of the device.",
+                          "example": "enabled"
                         },
                         "account_id": {
                           "type": "string",
@@ -20615,11 +20799,16 @@
                         },
                         "custom_attributes": {
                           "type": "object",
-                          "description": "Up to five custom key-value attributes.",
+                          "maxProperties": 5,
                           "additionalProperties": {
-                            "type": "string"
+                            "type": "string",
+                            "maxLength": 128,
+                            "pattern": "^[A-Za-z].*"
                           },
-                          "example": "{ 'key': 'value' }"
+                          "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                          "example": {
+                            "key": "value"
+                          }
                         },
                         "deployed_state": {
                           "enum": [
@@ -20660,7 +20849,8 @@
                         "endpoint_name": {
                           "type": "string",
                           "description": "The endpoint name given to the device.",
-                          "example": "00000000-0000-0000-0000-000000000000"
+                          "example": "00000000-0000-0000-0000-000000000000",
+                          "readOnly": true
                         },
                         "endpoint_type": {
                           "type": "string",
@@ -20756,13 +20946,13 @@
                       }
                     ],
                     "type": "array",
-                    "example": "[]",
                     "api_fieldname": "data",
                     "entity_fieldname": "data",
                     "_key": "data"
                   },
                   {
                     "type": "boolean",
+                    "description": "Are there more results available.",
                     "example": false,
                     "api_fieldname": "has_more",
                     "entity_fieldname": "has_more",
@@ -20770,13 +20960,17 @@
                   },
                   {
                     "type": "integer",
-                    "example": 1000,
+                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+                    "example": 50,
+                    "minimum": 2,
+                    "maximum": 1000,
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
                     "type": "string",
+                    "description": "The type of this API object is a \"list\".",
                     "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
@@ -20784,12 +20978,14 @@
                   },
                   {
                     "type": "string",
+                    "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
                     "example": "DESC",
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
                     "_key": "order"
                   },
                   {
+                    "format": "integer",
                     "type": "integer",
                     "example": 1,
                     "api_fieldname": "total_count",
@@ -20826,7 +21022,180 @@
             "custom": false,
             "type": "device"
           },
-          "x_filter": {},
+          "x_filter": {
+            "account_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "auto_update": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "bootstrapped_expiration_date": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "bootstrapped_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "ca_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "connector_expiration_date": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "created_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "custom_attributes": [
+              "eq",
+              "neq"
+            ],
+            "deployed_state": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "deployment": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "description": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_class": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_execution_mode": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_key": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "endpoint_name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "endpoint_type": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "enrollment_list_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "firmware_checksum": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "host_gateway": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "manifest": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "manifest_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "mechanism": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "mechanism_url": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "serial_number": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "state": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "vendor_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -20888,6 +21257,85 @@
                     },
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
+                  },
+                  "issuer_fingerprint": {
+                    "type": "string",
+                    "pattern": "[A-Fa-f0-9]{64}",
+                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
+                    "api_fieldname": "issuer_fingerprint",
+                    "entity_fieldname": "issuer_fingerprint"
+                  },
+                  "operator_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the operator?",
+                    "api_fieldname": "operator_suspended",
+                    "entity_fieldname": "operator_suspended"
+                  },
+                  "last_operator_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_operator_suspended_category",
+                    "entity_fieldname": "last_operator_suspended_category"
+                  },
+                  "last_operator_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description why the device was suspended or returned to service.",
+                    "example": "Suspended for maintenance.",
+                    "api_fieldname": "last_operator_suspended_description",
+                    "entity_fieldname": "last_operator_suspended_description"
+                  },
+                  "last_operator_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent suspension activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_operator_suspended_updated_at",
+                    "entity_fieldname": "last_operator_suspended_updated_at"
+                  },
+                  "system_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the system?",
+                    "api_fieldname": "system_suspended",
+                    "entity_fieldname": "system_suspended"
+                  },
+                  "last_system_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_system_suspended_category",
+                    "entity_fieldname": "last_system_suspended_category"
+                  },
+                  "last_system_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
+                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
+                    "api_fieldname": "last_system_suspended_description",
+                    "entity_fieldname": "last_system_suspended_description"
+                  },
+                  "last_system_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent system block activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_system_suspended_updated_at",
+                    "entity_fieldname": "last_system_suspended_updated_at"
+                  },
+                  "lifecycle_status": {
+                    "type": "string",
+                    "enum": [
+                      "enabled",
+                      "blocked"
+                    ],
+                    "description": "The lifecycle status of the device.",
+                    "example": "enabled",
+                    "api_fieldname": "lifecycle_status",
+                    "entity_fieldname": "lifecycle_status"
                   },
                   "account_id": {
                     "type": "string",
@@ -20954,11 +21402,16 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "description": "Up to five custom key-value attributes.",
+                    "maxProperties": 5,
                     "additionalProperties": {
-                      "type": "string"
+                      "type": "string",
+                      "maxLength": 128,
+                      "pattern": "^[A-Za-z].*"
                     },
-                    "example": "{ 'key': 'value' }",
+                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "example": {
+                      "key": "value"
+                    },
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -21014,6 +21467,7 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
+                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -21173,6 +21627,16 @@
             "is_custom",
             "private_key",
             "sub_accounts",
+            "issuer_fingerprint",
+            "operator_suspended",
+            "last_operator_suspended_category",
+            "last_operator_suspended_description",
+            "last_operator_suspended_updated_at",
+            "system_suspended",
+            "last_system_suspended_category",
+            "last_system_suspended_description",
+            "last_system_suspended_updated_at",
+            "lifecycle_status",
             "account_id",
             "device_execution_mode",
             "auto_update",
@@ -21788,11 +22252,16 @@
             },
             {
               "type": "object",
-              "description": "Up to five custom key-value attributes.",
+              "maxProperties": 5,
               "additionalProperties": {
-                "type": "string"
+                "type": "string",
+                "maxLength": 128,
+                "pattern": "^[A-Za-z].*"
               },
-              "example": "{ 'key': 'value' }",
+              "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+              "example": {
+                "key": "value"
+              },
               "api_fieldname": "custom_attributes",
               "entity_fieldname": "custom_attributes",
               "parameter_fieldname": "custom_attributes",
@@ -21828,6 +22297,7 @@
               "type": "string",
               "description": "The endpoint name given to the device.",
               "example": "00000000-0000-0000-0000-000000000000",
+              "readOnly": true,
               "api_fieldname": "endpoint_name",
               "entity_fieldname": "endpoint_name",
               "parameter_fieldname": "endpoint_name",
@@ -21904,6 +22374,85 @@
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
                   },
+                  "issuer_fingerprint": {
+                    "type": "string",
+                    "pattern": "[A-Fa-f0-9]{64}",
+                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
+                    "api_fieldname": "issuer_fingerprint",
+                    "entity_fieldname": "issuer_fingerprint"
+                  },
+                  "operator_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the operator?",
+                    "api_fieldname": "operator_suspended",
+                    "entity_fieldname": "operator_suspended"
+                  },
+                  "last_operator_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_operator_suspended_category",
+                    "entity_fieldname": "last_operator_suspended_category"
+                  },
+                  "last_operator_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description why the device was suspended or returned to service.",
+                    "example": "Suspended for maintenance.",
+                    "api_fieldname": "last_operator_suspended_description",
+                    "entity_fieldname": "last_operator_suspended_description"
+                  },
+                  "last_operator_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent suspension activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_operator_suspended_updated_at",
+                    "entity_fieldname": "last_operator_suspended_updated_at"
+                  },
+                  "system_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the system?",
+                    "api_fieldname": "system_suspended",
+                    "entity_fieldname": "system_suspended"
+                  },
+                  "last_system_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_system_suspended_category",
+                    "entity_fieldname": "last_system_suspended_category"
+                  },
+                  "last_system_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
+                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
+                    "api_fieldname": "last_system_suspended_description",
+                    "entity_fieldname": "last_system_suspended_description"
+                  },
+                  "last_system_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent system block activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_system_suspended_updated_at",
+                    "entity_fieldname": "last_system_suspended_updated_at"
+                  },
+                  "lifecycle_status": {
+                    "type": "string",
+                    "enum": [
+                      "enabled",
+                      "blocked"
+                    ],
+                    "description": "The lifecycle status of the device.",
+                    "example": "enabled",
+                    "api_fieldname": "lifecycle_status",
+                    "entity_fieldname": "lifecycle_status"
+                  },
                   "account_id": {
                     "type": "string",
                     "description": "The ID of the associated account.",
@@ -21969,11 +22518,16 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "description": "Up to five custom key-value attributes.",
+                    "maxProperties": 5,
                     "additionalProperties": {
-                      "type": "string"
+                      "type": "string",
+                      "maxLength": 128,
+                      "pattern": "^[A-Za-z].*"
                     },
-                    "example": "{ 'key': 'value' }",
+                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "example": {
+                      "key": "value"
+                    },
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -22029,6 +22583,7 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
+                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -22188,6 +22743,16 @@
             "is_custom",
             "private_key",
             "sub_accounts",
+            "issuer_fingerprint",
+            "operator_suspended",
+            "last_operator_suspended_category",
+            "last_operator_suspended_description",
+            "last_operator_suspended_updated_at",
+            "system_suspended",
+            "last_system_suspended_category",
+            "last_system_suspended_description",
+            "last_system_suspended_updated_at",
+            "lifecycle_status",
             "account_id",
             "device_execution_mode",
             "bootstrap_expiration_date",
@@ -22282,11 +22847,16 @@
         },
         {
           "type": "object",
-          "description": "Up to five custom key-value attributes.",
+          "maxProperties": 5,
           "additionalProperties": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 128,
+            "pattern": "^[A-Za-z].*"
           },
-          "example": "{ 'key': 'value' }",
+          "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+          "example": {
+            "key": "value"
+          },
           "api_fieldname": "custom_attributes",
           "readOnly": false,
           "required": false,
@@ -22362,8 +22932,8 @@
           "type": "string",
           "description": "The endpoint name given to the device.",
           "example": "00000000-0000-0000-0000-000000000000",
+          "readOnly": true,
           "api_fieldname": "endpoint_name",
-          "readOnly": false,
           "required": false,
           "_key": "endpoint_name"
         },
@@ -22413,6 +22983,90 @@
           "readOnly": false,
           "required": true,
           "_key": "id"
+        },
+        {
+          "type": "string",
+          "pattern": "[A-Fa-f0-9]{64}",
+          "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+          "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
+          "api_fieldname": "issuer_fingerprint",
+          "readOnly": false,
+          "required": false,
+          "_key": "issuer_fingerprint"
+        },
+        {
+          "type": "string",
+          "description": "The reference of the block category.",
+          "pattern": "[a-f0-9_]{32}",
+          "example": "maintenance",
+          "api_fieldname": "last_operator_suspended_category",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_operator_suspended_category"
+        },
+        {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "The most recent description why the device was suspended or returned to service.",
+          "example": "Suspended for maintenance.",
+          "api_fieldname": "last_operator_suspended_description",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_operator_suspended_description"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the most recent suspension activity.",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "api_fieldname": "last_operator_suspended_updated_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_operator_suspended_updated_at"
+        },
+        {
+          "type": "string",
+          "description": "The reference of the block category.",
+          "pattern": "[a-f0-9_]{32}",
+          "example": "maintenance",
+          "api_fieldname": "last_system_suspended_category",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_system_suspended_category"
+        },
+        {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "The most recent description of why the device was blocked or unblocked by the system.",
+          "example": "A certificate in the device's certificate chain was blacklisted by the system.",
+          "api_fieldname": "last_system_suspended_description",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_system_suspended_description"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the most recent system block activity.",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "api_fieldname": "last_system_suspended_updated_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_system_suspended_updated_at"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "enabled",
+            "blocked"
+          ],
+          "description": "The lifecycle status of the device.",
+          "example": "enabled",
+          "api_fieldname": "lifecycle_status",
+          "readOnly": true,
+          "required": false,
+          "enum_reference": "device_lifecycle_status_enum",
+          "_key": "lifecycle_status"
         },
         {
           "type": "string",
@@ -22466,6 +23120,14 @@
           "_key": "name"
         },
         {
+          "type": "boolean",
+          "description": "Is the device suspended by the operator?",
+          "api_fieldname": "operator_suspended",
+          "readOnly": true,
+          "required": false,
+          "_key": "operator_suspended"
+        },
+        {
           "type": "string",
           "description": "The serial number of the device.",
           "example": "00000000-0000-0000-0000-000000000000",
@@ -22489,6 +23151,14 @@
           "required": false,
           "enum_reference": "device_state_enum",
           "_key": "state"
+        },
+        {
+          "type": "boolean",
+          "description": "Is the device suspended by the system?",
+          "api_fieldname": "system_suspended",
+          "readOnly": true,
+          "required": false,
+          "_key": "system_suspended"
         },
         {
           "format": "date-time",
@@ -25810,9 +26480,15 @@
                         {
                           "type": "object",
                           "additionalProperties": {
-                            "type": "string"
+                            "type": "object"
                           },
                           "example": [],
+                          "x-deprecation": {
+                            "issued_at": "2019-01-15T14:55:20+00:00",
+                            "end_of_life_at": "2020-01-15T14:55:20+00:00",
+                            "comment": "This field is not used.",
+                            "links": []
+                          },
                           "_key": "changes"
                         },
                         {
@@ -25969,7 +26645,44 @@
             "custom": false,
             "type": "device_events"
           },
-          "x_filter": {},
+          "x_filter": {
+            "date_time": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "description": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "event_type": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "state_change": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -26018,9 +26731,15 @@
                   {
                     "type": "object",
                     "additionalProperties": {
-                      "type": "string"
+                      "type": "object"
                     },
                     "example": [],
+                    "x-deprecation": {
+                      "issued_at": "2019-01-15T14:55:20+00:00",
+                      "end_of_life_at": "2020-01-15T14:55:20+00:00",
+                      "comment": "This field is not used.",
+                      "links": []
+                    },
                     "api_fieldname": "changes",
                     "entity_fieldname": "changes",
                     "_key": "changes"
@@ -26189,9 +26908,15 @@
         {
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "type": "object"
           },
           "example": [],
+          "x-deprecation": {
+            "issued_at": "2019-01-15T14:55:20+00:00",
+            "end_of_life_at": "2020-01-15T14:55:20+00:00",
+            "comment": "This field is not used.",
+            "links": []
+          },
           "api_fieldname": "changes",
           "readOnly": true,
           "required": false,
