@@ -49,39 +49,22 @@ documentation <https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/>`__:
 1. Create an API key in the `Pelion Device Management
    Portal <https://portal.us-east-1.mbedcloud.com/>`__.
 
-2. Create a configuration file ``.mbed_cloud_config.json`` in your ``$HOME`` or project
+2. Create a configuration file ``.env`` in your ``$HOME`` or project
 directory, and add your API key from the portal:
 
    .. code:: javascript
 
-       {
-           "api_key": "your_api_key_here"
-       }
+        MBED_CLOUD_SDK_API_KEY="your_api_key_here"
 
 3. Import the library and you're ready to go.
 
    .. code:: python
 
-       from mbed_cloud import ConnectAPI
-       connect_api = ConnectAPI()
-       connect_api.list_connected_devices().first()
-       {
-         "id": "Device #1",
-         "state": "unenrolled",
-         ...
-       }
+        from mbed_cloud.foundation import Device
 
-   .. code:: python
-
-       from mbed_cloud import AccountManagementAPI
-       api = AccountManagementAPI()
-       for user in api.list_users():
-          print(user)
-       {
-         "email": "username@example.org",
-         "full_name": "A.N. Individual",
-         ...
-       }
+        # List the first 10 devices on your Pelion Device Management account.
+        for device in Device().list(max_results=10):
+            print("Hello device %s" % device.name)
 
 Documentation and examples
 --------------------------
