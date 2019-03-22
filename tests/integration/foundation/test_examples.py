@@ -117,7 +117,7 @@ class TestExamples(BaseCase):
 
         pelion_dm_sdk = SDK()
 
-        # an example: read first entity in_ ist
+        # an example: read first entity in list
         first_user_in_list = pelion_dm_sdk.foundation.user().list().first()
         print("User email address: %s" % first_user_in_list.email)
         # end of example
