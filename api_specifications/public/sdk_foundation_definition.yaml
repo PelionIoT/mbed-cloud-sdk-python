@@ -6031,6 +6031,7 @@ entities:
                 - id
                 type: object
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always ''user-invitation'''
               enum:
@@ -6457,6 +6458,7 @@ entities:
               description: Address.
               example: 110 Fulbourn Rd, Cambridge, United Kingdom
               type: string
+              x-nullable: true
             - _key: created_at
               description: Creation UTC time RFC3339.
               example: '2018-02-13T09:35:20Z'
@@ -6601,6 +6603,7 @@ entities:
                 - id
                 type: object
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always ''user'''
               enum:
@@ -6611,6 +6614,7 @@ entities:
                 when not present in the request.
               example: PZf9eEUH43DAPE9ULINFeuj
               type: string
+              x-nullable: true
             - _key: password_changed_time
               description: A timestamp of the latest change of the user password,
                 in milliseconds.
@@ -6621,6 +6625,7 @@ entities:
               description: Phone number.
               example: +44 (1223) 400 400
               type: string
+              x-nullable: true
             - _key: status
               description: The status of the user. ENROLLING state indicates that
                 the user is in the middle of the enrollment process. INVITED means
@@ -6651,6 +6656,7 @@ entities:
                 characters.
               example: admin
               type: string
+              x-nullable: true
             required:
             - account_id
             - email
@@ -23916,6 +23922,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
@@ -24071,6 +24078,7 @@ entities:
     readOnly: false
     required: false
     type: array
+    x-nullable: true
   - _key: marketing_accepted
     api_fieldname: is_marketing_accepted
     description: A flag indicating that receiving marketing information has been accepted.
@@ -24090,6 +24098,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: password_changed_time
     api_fieldname: password_changed_time
     description: A timestamp of the latest change of the user password, in milliseconds.
@@ -24107,6 +24116,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: status
     api_fieldname: status
     description: The status of the user. ENROLLING state indicates that the user is
@@ -24172,6 +24182,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   group_id: Accounts
   methods:
   - _key: create
@@ -24244,6 +24255,7 @@ entities:
       parameter_fieldname: address
       required: false
       type: string
+      x-nullable: true
     - _key: email
       api_fieldname: email
       description: The email address.
@@ -24305,6 +24317,7 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
       description: A flag indicating that receiving marketing information has been
@@ -24325,6 +24338,7 @@ entities:
       parameter_fieldname: password
       required: false
       type: string
+      x-nullable: true
     - _key: phone_number
       api_fieldname: phone_number
       description: Phone number.
@@ -24334,6 +24348,7 @@ entities:
       parameter_fieldname: phone_number
       required: false
       type: string
+      x-nullable: true
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
       description: A flag indicating that the General Terms and Conditions has been
@@ -24353,6 +24368,7 @@ entities:
       parameter_fieldname: username
       required: false
       type: string
+      x-nullable: true
     group_id: Accounts
     method: post
     mode: create
@@ -24443,6 +24459,7 @@ entities:
           parameter_fieldname: address
           required: false
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -24497,7 +24514,8 @@ entities:
           type: string
         - _key: groups
           api_fieldname: groups
-          description: A list of group IDs this user belongs to.
+          description: A list of group IDs this user belongs to. Can be updated by
+            the Account Admin only.
           entity_fieldname: groups
           external_param: true
           in: body
@@ -24642,6 +24660,7 @@ entities:
           parameter_fieldname: login_profiles
           required: false
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -24659,6 +24678,7 @@ entities:
           parameter_fieldname: password
           required: false
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -24675,6 +24695,7 @@ entities:
           parameter_fieldname: phone_number
           required: false
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -24718,6 +24739,7 @@ entities:
           parameter_fieldname: username
           required: false
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -25382,6 +25404,7 @@ entities:
           parameter_fieldname: address
           required: false
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -25436,7 +25459,8 @@ entities:
           type: string
         - _key: groups
           api_fieldname: groups
-          description: A list of group IDs this user belongs to.
+          description: A list of group IDs this user belongs to. Can be updated by
+            the Account Admin only.
           entity_fieldname: groups
           external_param: true
           in: body
@@ -25581,6 +25605,7 @@ entities:
           parameter_fieldname: login_profiles
           required: false
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -25598,6 +25623,7 @@ entities:
           parameter_fieldname: password
           required: false
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -25614,6 +25640,7 @@ entities:
           parameter_fieldname: phone_number
           required: false
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -25657,6 +25684,7 @@ entities:
           parameter_fieldname: username
           required: false
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -25874,6 +25902,7 @@ entities:
       parameter_fieldname: address
       required: false
       type: string
+      x-nullable: true
     - _key: full_name
       api_fieldname: full_name
       description: The full name of the user.
@@ -25930,6 +25959,7 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
       description: A flag indicating that receiving marketing information has been
@@ -25949,6 +25979,7 @@ entities:
       parameter_fieldname: phone_number
       required: false
       type: string
+      x-nullable: true
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
       description: A flag indicating that the General Terms and Conditions has been
@@ -25978,6 +26009,7 @@ entities:
       parameter_fieldname: username
       required: false
       type: string
+      x-nullable: true
     group_id: Accounts
     method: put
     mode: update
@@ -26068,6 +26100,7 @@ entities:
           parameter_fieldname: address
           required: false
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -26122,7 +26155,8 @@ entities:
           type: string
         - _key: groups
           api_fieldname: groups
-          description: A list of group IDs this user belongs to.
+          description: A list of group IDs this user belongs to. Can be updated by
+            the Account Admin only.
           entity_fieldname: groups
           external_param: true
           in: body
@@ -26267,6 +26301,7 @@ entities:
           parameter_fieldname: login_profiles
           required: false
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -26284,6 +26319,7 @@ entities:
           parameter_fieldname: password
           required: false
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -26300,6 +26336,7 @@ entities:
           parameter_fieldname: phone_number
           required: false
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -26343,6 +26380,7 @@ entities:
           parameter_fieldname: username
           required: false
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -26899,6 +26937,7 @@ entities:
     readOnly: false
     required: false
     type: array
+    x-nullable: true
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
@@ -27002,14 +27041,17 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: valid_for_days
       api_fieldname: valid_for_days
-      description: Specifies how many days the invitation will be valid for. The default
-        is 30 days. Value should be between 1 and 100 days.
+      default: 30
+      description: Specifies how many days the invitation will be valid for.
       entity_fieldname: valid_for_days
       external_param: true
       format: int32
       in: body
+      maximum: 100
+      minimum: 1
       name: valid_for_days
       parameter_fieldname: valid_for_days
       required: false
@@ -27132,6 +27174,7 @@ entities:
           parameter_fieldname: login_profiles
           required: false
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user-invitation'''
@@ -27674,6 +27717,7 @@ entities:
           parameter_fieldname: login_profiles
           required: false
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user-invitation'''
@@ -30570,6 +30614,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
@@ -30717,6 +30762,7 @@ entities:
     readOnly: false
     required: false
     type: array
+    x-nullable: true
   - _key: marketing_accepted
     api_fieldname: is_marketing_accepted
     description: A flag indicating that receiving marketing information has been accepted.
@@ -30732,6 +30778,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: password_changed_time
     api_fieldname: password_changed_time
     description: A timestamp of the latest change of the user password, in milliseconds.
@@ -30747,6 +30794,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: status
     api_fieldname: status
     description: The status of the user. ENROLLING state indicates that the user is
@@ -30804,6 +30852,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   group_id: Accounts
   methods:
   - _key: create
@@ -30868,6 +30917,7 @@ entities:
       parameter_fieldname: address
       required: false
       type: string
+      x-nullable: true
     - _key: email
       api_fieldname: email
       description: The email address.
@@ -30929,6 +30979,7 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
       description: A flag indicating that receiving marketing information has been
@@ -30949,6 +31000,7 @@ entities:
       parameter_fieldname: password
       required: false
       type: string
+      x-nullable: true
     - _key: phone_number
       api_fieldname: phone_number
       description: Phone number.
@@ -30958,6 +31010,7 @@ entities:
       parameter_fieldname: phone_number
       required: false
       type: string
+      x-nullable: true
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
       description: A flag indicating that the General Terms and Conditions has been
@@ -30977,6 +31030,7 @@ entities:
       parameter_fieldname: username
       required: false
       type: string
+      x-nullable: true
     group_id: Accounts
     method: post
     mode: create
@@ -31064,6 +31118,7 @@ entities:
           entity_fieldname: address
           example: 110 Fulbourn Rd, Cambridge, United Kingdom
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -31236,6 +31291,7 @@ entities:
             - id
             type: object
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -31250,6 +31306,7 @@ entities:
           entity_fieldname: password
           example: PZf9eEUH43DAPE9ULINFeuj
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -31263,6 +31320,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -31300,6 +31358,7 @@ entities:
           entity_fieldname: username
           example: admin
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -31937,6 +31996,7 @@ entities:
               description: Address.
               example: 110 Fulbourn Rd, Cambridge, United Kingdom
               type: string
+              x-nullable: true
             - _key: created_at
               description: Creation UTC time RFC3339.
               example: '2018-02-13T09:35:20Z'
@@ -32081,6 +32141,7 @@ entities:
                 - id
                 type: object
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always ''user'''
               enum:
@@ -32091,6 +32152,7 @@ entities:
                 when not present in the request.
               example: PZf9eEUH43DAPE9ULINFeuj
               type: string
+              x-nullable: true
             - _key: password_changed_time
               description: A timestamp of the latest change of the user password,
                 in milliseconds.
@@ -32101,6 +32163,7 @@ entities:
               description: Phone number.
               example: +44 (1223) 400 400
               type: string
+              x-nullable: true
             - _key: status
               description: The status of the user. ENROLLING state indicates that
                 the user is in the middle of the enrollment process. INVITED means
@@ -32131,6 +32194,7 @@ entities:
                 characters.
               example: admin
               type: string
+              x-nullable: true
             required:
             - account_id
             - email
@@ -32439,6 +32503,7 @@ entities:
           entity_fieldname: address
           example: 110 Fulbourn Rd, Cambridge, United Kingdom
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -32611,6 +32676,7 @@ entities:
             - id
             type: object
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -32625,6 +32691,7 @@ entities:
           entity_fieldname: password
           example: PZf9eEUH43DAPE9ULINFeuj
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -32638,6 +32705,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -32675,6 +32743,7 @@ entities:
           entity_fieldname: username
           example: admin
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -32884,6 +32953,7 @@ entities:
       parameter_fieldname: address
       required: false
       type: string
+      x-nullable: true
     - _key: full_name
       api_fieldname: full_name
       description: The full name of the user.
@@ -32940,6 +33010,7 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
       description: A flag indicating that receiving marketing information has been
@@ -32959,6 +33030,7 @@ entities:
       parameter_fieldname: phone_number
       required: false
       type: string
+      x-nullable: true
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
       description: A flag indicating that the General Terms and Conditions has been
@@ -32988,6 +33060,7 @@ entities:
       parameter_fieldname: username
       required: false
       type: string
+      x-nullable: true
     group_id: Accounts
     method: put
     mode: update
@@ -33075,6 +33148,7 @@ entities:
           entity_fieldname: address
           example: 110 Fulbourn Rd, Cambridge, United Kingdom
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -33247,6 +33321,7 @@ entities:
             - id
             type: object
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -33261,6 +33336,7 @@ entities:
           entity_fieldname: password
           example: PZf9eEUH43DAPE9ULINFeuj
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -33274,6 +33350,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -33311,6 +33388,7 @@ entities:
           entity_fieldname: username
           example: admin
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -33655,6 +33733,7 @@ entities:
     readOnly: false
     required: false
     type: array
+    x-nullable: true
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
@@ -33750,14 +33829,17 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: valid_for_days
       api_fieldname: valid_for_days
-      description: Specifies how many days the invitation will be valid for. The default
-        is 30 days. Value should be between 1 and 100 days.
+      default: 30
+      description: Specifies how many days the invitation will be valid for.
       entity_fieldname: valid_for_days
       external_param: true
       format: int32
       in: body
+      maximum: 100
+      minimum: 1
       name: valid_for_days
       parameter_fieldname: valid_for_days
       required: false
@@ -33865,6 +33947,7 @@ entities:
             - id
             type: object
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user-invitation'''
@@ -34407,6 +34490,7 @@ entities:
                 - id
                 type: object
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always ''user-invitation'''
               enum:
@@ -34718,6 +34802,7 @@ entities:
             - id
             type: object
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user-invitation'''

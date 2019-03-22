@@ -990,7 +990,7 @@ definitions:
         type: string
       reference:
         description: Color name.
-        enum: &id016
+        enum: &id019
         - error_color
         - primary
         - secondary
@@ -1071,7 +1071,7 @@ definitions:
         type: string
       reference:
         description: Name of the image.
-        enum: &id017
+        enum: &id020
         - brand_logo_portrait
         - brand_logo_square
         - brand_logo_landscape
@@ -5938,6 +5938,7 @@ definitions:
       address:
         description: Address, not longer than 100 characters.
         type: string
+        x-nullable: true
       email:
         description: The email address, not longer than 254 characters.
         type: string
@@ -5969,13 +5970,16 @@ definitions:
         description: The password when creating a new user. It will be generated when
           not present in the request.
         type: string
+        x-nullable: true
       phone_number:
         description: Phone number, not longer than 100 characters.
         type: string
+        x-nullable: true
       username:
         description: A username containing alphanumerical letters and -,._@+= characters.
           It must be at least 4 but not more than 30 character long.
         type: string
+        x-nullable: true
     required:
     - email
     type: object
@@ -5995,6 +5999,7 @@ definitions:
         description: Address.
         example: 110 Fulbourn Rd, Cambridge, United Kingdom
         type: string
+        x-nullable: true
       created_at:
         description: Creation UTC time RFC3339.
         example: '2018-02-13T09:35:20Z'
@@ -6068,6 +6073,7 @@ definitions:
         items:
           $ref: '#/definitions/LoginProfile'
         type: array
+        x-nullable: true
       object:
         description: 'Entity name: always ''user'''
         enum:
@@ -6078,6 +6084,7 @@ definitions:
           not present in the request.
         example: PZf9eEUH43DAPE9ULINFeuj
         type: string
+        x-nullable: true
       password_changed_time:
         description: A timestamp of the latest change of the user password, in milliseconds.
         example: 1518630727688
@@ -6087,6 +6094,7 @@ definitions:
         description: Phone number.
         example: +44 (1223) 400 400
         type: string
+        x-nullable: true
       status:
         description: The status of the user. ENROLLING state indicates that the user
           is in the middle of the enrollment process. INVITED means that the user
@@ -6116,6 +6124,7 @@ definitions:
         description: A username containing alphanumerical letters and -,._@+= characters.
         example: admin
         type: string
+        x-nullable: true
     required:
     - account_id
     - email
@@ -6191,9 +6200,11 @@ definitions:
           $ref: '#/definitions/LoginProfile'
         type: array
       valid_for_days:
-        description: Specifies how many days the invitation will be valid for. The
-          default is 30 days. Value should be between 1 and 100 days.
+        default: 30
+        description: Specifies how many days the invitation will be valid for.
         format: int32
+        maximum: 100
+        minimum: 1
         type: integer
     required:
     - email
@@ -6238,6 +6249,7 @@ definitions:
         items:
           $ref: '#/definitions/LoginProfile'
         type: array
+        x-nullable: true
       object:
         description: 'Entity name: always ''user-invitation'''
         enum:
@@ -6313,13 +6325,15 @@ definitions:
         description: Address, not longer than 100 characters.
         type: string
       email:
-        description: The email address, not longer than 254 characters.
+        description: The email address, not longer than 254 characters. Not allowed
+          to update other user's email address.
         type: string
       full_name:
         description: The full name of the user, not longer than 100 characters.
         type: string
       groups:
-        description: A list of group IDs this user belongs to.
+        description: A list of group IDs this user belongs to. Can be updated by the
+          Account Admin only.
         items:
           type: string
         type: array
@@ -6337,9 +6351,9 @@ definitions:
         type: boolean
       login_profiles:
         description: A list of login profiles for the user. Specified as the identity
-          providers the user should be associated with. Only the ID attribute of the
-          login profile should be set in the request object. The list cannot be empty.
-          A limit of 100 profiles.
+          providers associated with the user. Only the ID attribute of the login profile
+          should be set in the request object. The list cannot be empty. Limit 100
+          profiles. Only an account admin may update login profiles.
         items:
           $ref: '#/definitions/LoginProfile'
         type: array
@@ -6351,7 +6365,7 @@ definitions:
           is in the middle of the enrollment process. INVITED means that the user
           has not accepted the invitation request. RESET means that the password must
           be changed immediately. INACTIVE users are locked out and not permitted
-          to use the system.
+          to use the system. Can be changed by the Aggregator Admin only.
         enum:
         - ENROLLING
         - INVITED
@@ -6617,240 +6631,6 @@ info:
   title: Mbed Cloud API
   version: '3'
 paths:
-  /auth/accounts/{account_id}/branding-colors/dark:
-    get:
-      description: Returns the branding colors of the dark theme.
-      operationId: getLoginPageAllDarkColors
-      parameters:
-      - description: The ID of the account whose branding colors to be fetched.
-        in: path
-        name: account_id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/BrandingColorList'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '404':
-          description: Account with the given ID not found.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Get branding colors of the dark theme.
-  /auth/accounts/{account_id}/branding-colors/dark/{reference}:
-    get:
-      description: Returns the requested branding color of the dark theme.
-      operationId: getLoginPageDarkColor
-      parameters:
-      - description: The ID of the account whose branding colors to be fetched.
-        in: path
-        name: account_id
-        required: true
-        type: string
-      - description: The name of the branding color.
-        enum: *id016
-        in: path
-        name: reference
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/BrandingColor'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '404':
-          description: Account with the given ID not found or unknown color reference.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Get branding color of the dark theme.
-  /auth/accounts/{account_id}/branding-colors/light:
-    get:
-      description: Returns the branding colors of the light theme.
-      operationId: getLoginPageAllLightColors
-      parameters:
-      - description: The ID of the account whose branding colors to be fetched.
-        in: path
-        name: account_id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/BrandingColorList'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '404':
-          description: Account with the given ID not found.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Get branding colors of the light theme.
-  /auth/accounts/{account_id}/branding-colors/light/{reference}:
-    get:
-      description: Returns the requested branding color of the light theme.
-      operationId: getLoginPageLightColor
-      parameters:
-      - description: The ID of the account whose branding colors to be fetched.
-        in: path
-        name: account_id
-        required: true
-        type: string
-      - description: The name of the branding color.
-        enum: *id016
-        in: path
-        name: reference
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/BrandingColor'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '404':
-          description: Account with the given ID not found or unknown color reference.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Get branding color of the light theme.
-  /auth/accounts/{account_id}/branding-images/dark:
-    get:
-      description: Returns the metadata of all branding images of the dark theme.
-      operationId: getLoginPageAllDarkImageData
-      parameters:
-      - description: The ID of the account whose branding images to be fetched.
-        in: path
-        name: account_id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/BrandingImageList'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '404':
-          description: Account with the given ID not found.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Get metadata of all images of the dark theme.
-  /auth/accounts/{account_id}/branding-images/dark/{reference}:
-    get:
-      description: An endpoint for getting metadata of one account branding image
-        of the dark theme.
-      operationId: getLoginPageDarkImageData
-      parameters:
-      - description: The ID of the account whose branding image to be fetched.
-        in: path
-        name: account_id
-        required: true
-        type: string
-      - description: Name of the picture whose metadata to be fetched.
-        enum: *id017
-        in: path
-        name: reference
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/BrandingImage'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '404':
-          description: Account with the given ID not found or unknown image reference.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Get metadata of an image of the dark theme.
-  /auth/accounts/{account_id}/branding-images/light:
-    get:
-      description: Returns the metadata of all branding images of the light theme.
-      operationId: getLoginPageAllLightImageData
-      parameters:
-      - description: The ID of the account whose branding images to be fetched.
-        in: path
-        name: account_id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/BrandingImageList'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '404':
-          description: Account with the given ID not found.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Get metadata of all images of the light theme.
-  /auth/accounts/{account_id}/branding-images/light/{reference}:
-    get:
-      description: An endpoint for getting metadata of one account branding image
-        of the light theme.
-      operationId: getLoginPageLightImageData
-      parameters:
-      - description: The ID of the account whose branding image to be fetched.
-        in: path
-        name: account_id
-        required: true
-        type: string
-      - description: Name of the picture whose metadata to be fetched.
-        enum: *id017
-        in: path
-        name: reference
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/BrandingImage'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '404':
-          description: Account with the given ID not found or unknown image reference.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Get metadata of an image of the light theme.
   /v2/device-requests/{device-id}:
     post:
       consumes:
@@ -7604,11 +7384,11 @@ paths:
         \ Bearer {api-key}'\n"
       operationId: deregisterWebhook
       responses:
-        204: &id020
+        204: &id018
           description: Successfully deleted.
-        401: &id018
+        401: &id016
           description: Unauthorized.
-        403: &id019
+        403: &id017
           description: Forbidden, the authorization token used is not an API key.
         404:
           description: Callback URL does not exist.
@@ -7627,8 +7407,8 @@ paths:
           description: URL found.
           schema:
             $ref: '#/definitions/Webhook'
-        401: *id018
-        403: *id019
+        401: *id016
+        403: *id017
         404:
           description: The callback URL does not exist.
       summary: Check callback URL
@@ -7695,8 +7475,8 @@ paths:
         400:
           description: Given URL is not accessible or other type of channel already
             exists.
-        401: *id018
-        403: *id019
+        401: *id016
+        403: *id017
         415:
           description: Unsupported Media Type.
       summary: Register a callback URL
@@ -7719,7 +7499,7 @@ paths:
           description: Success. The body can contain "REMOVED" if it was deleted by
             this call or "ALREADY_DELETED" if it was deleted before and not purged
             yet.
-        401: *id018
+        401: *id016
       summary: Delete notification Long Poll channel
       tags:
       - Notifications
@@ -7767,7 +7547,7 @@ paths:
           description: No new notifications.
         400:
           description: Other type of channel already exists.
-        401: *id018
+        401: *id016
         410:
           description: 'Pull channnel was deleted and waiting to be purged. This code
             is a result of incorrect client behavior (delete channel and then pull),
@@ -7803,9 +7583,9 @@ paths:
         \ -H 'authorization: Bearer {api-key}'\n"
       operationId: deleteWebsocket
       responses:
-        204: *id020
-        401: *id018
-        403: *id019
+        204: *id018
+        401: *id016
+        403: *id017
         404:
           description: Websocket channel doesn't exist
       summary: Delete websocket channel.
@@ -7823,8 +7603,8 @@ paths:
           description: Websocket found.
           schema:
             $ref: '#/definitions/WebsocketChannel'
-        401: *id018
-        403: *id019
+        401: *id016
+        403: *id017
         404:
           description: No channel has been registered.
       summary: Get websocket channel information.
@@ -7869,8 +7649,8 @@ paths:
             $ref: '#/definitions/WebsocketChannel'
         400:
           description: Other type of channel already exists.
-        401: *id018
-        403: *id019
+        401: *id016
+        403: *id017
       summary: Register a websocket channel
       tags:
       - Notifications
@@ -9212,7 +8992,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -9255,7 +9035,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -9301,7 +9081,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -9439,7 +9219,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -9482,7 +9262,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -9528,7 +9308,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -9621,7 +9401,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -9666,7 +9446,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -9704,7 +9484,7 @@ paths:
 
         `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/upload
         -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
-        ''myimage.png''`'
+        ''@myimage.png''`'
       operationId: uploadAccountDarkImage
       parameters:
       - description: Account ID.
@@ -9713,7 +9493,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -9752,6 +9532,63 @@ paths:
             $ref: '#/definitions/ErrorResponse'
         '404':
           description: Unknown image reference or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Upload an image in the dark theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart:
+    post:
+      consumes:
+      - multipart/form-data
+      description: An endpoint for uploading a new account branding image as form
+        data in the dark theme in PNG or JPEG format.
+      operationId: uploadAccountDarkImageMultipart
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: Name of the branding images (icon or picture).
+        enum: *id020
+        in: path
+        name: reference
+        required: true
+        type: string
+      - description: The image in PNG or JPEG format as multipart form data.
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: Image has been uploaded successfully.
+          headers:
+            Content-Location:
+              description: Location of the image metadata.
+              type: string
+            Location:
+              description: Location of the image binary.
+              type: string
+          schema:
+            $ref: '#/definitions/BrandingImage'
+        '400':
+          description: Error in input data format, e.g. image is too large.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Unknown image reference.
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload an image in the dark theme.
@@ -9813,7 +9650,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -9858,7 +9695,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -9896,7 +9733,7 @@ paths:
 
         `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/upload
         -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
-        ''myimage.png''`'
+        ''@myimage.png''`'
       operationId: uploadAccountLightImage
       parameters:
       - description: Account ID.
@@ -9905,7 +9742,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -9944,6 +9781,63 @@ paths:
             $ref: '#/definitions/ErrorResponse'
         '404':
           description: Unknown image reference or account not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Upload an image in the light theme.
+      tags:
+      - Aggregator Account Admin
+  /v3/accounts/{account_id}/branding-images/light/{reference}/upload-multipart:
+    post:
+      consumes:
+      - multipart/form-data
+      description: An endpoint for uploading a new account branding image as form
+        data in the light theme in PNG or JPEG format.
+      operationId: uploadAccountLightImageMultipart
+      parameters:
+      - description: Account ID.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: Name of the branding images (icon or picture).
+        enum: *id020
+        in: path
+        name: reference
+        required: true
+        type: string
+      - description: The image in PNG or JPEG format as multipart form data.
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: Image has been uploaded successfully.
+          headers:
+            Content-Location:
+              description: Location of the image metadata.
+              type: string
+            Location:
+              description: Location of the image binary.
+              type: string
+          schema:
+            $ref: '#/definitions/BrandingImage'
+        '400':
+          description: Error in input data format, e.g. image is too large.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Unknown image reference.
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload an image in the light theme.
@@ -13065,7 +12959,7 @@ paths:
       operationId: resetDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -13103,7 +12997,7 @@ paths:
       operationId: getDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -13144,7 +13038,7 @@ paths:
       operationId: setDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -13259,7 +13153,7 @@ paths:
       operationId: resetLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -13297,7 +13191,7 @@ paths:
       operationId: getLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -13338,7 +13232,7 @@ paths:
       operationId: setLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id016
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -13417,7 +13311,7 @@ paths:
       operationId: getDarkImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -13457,7 +13351,7 @@ paths:
       operationId: clearDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -13495,11 +13389,11 @@ paths:
 
         `curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/upload
         -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
-        ''myimage.png''`'
+        ''@myimage.png''`'
       operationId: uploadDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -13510,6 +13404,58 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/Image'
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: Image has been uploaded successfully.
+          headers:
+            Content-Location:
+              description: Location of the image metadata.
+              type: string
+            Location:
+              description: Location of the image binary.
+              type: string
+          schema:
+            $ref: '#/definitions/BrandingImage'
+        '400':
+          description: Error in input data format, e.g. image is too large.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Unknown image reference.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Upload an image in the dark theme.
+      tags:
+      - Account Admin
+  /v3/branding-images/dark/{reference}/upload-multipart:
+    post:
+      consumes:
+      - multipart/form-data
+      description: An endpoint for uploading a new account branding image as form
+        data in the dark theme in PNG or JPEG format.
+      operationId: uploadDarkImageMultipart
+      parameters:
+      - description: Name of the branding images (icon or picture).
+        enum: *id020
+        in: path
+        name: reference
+        required: true
+        type: string
+      - description: The image in PNG or JPEG format as multipart form data.
+        in: formData
+        name: image
+        required: true
+        type: file
       produces:
       - application/json
       responses:
@@ -13585,7 +13531,7 @@ paths:
       operationId: getLightImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -13625,7 +13571,7 @@ paths:
       operationId: clearLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -13663,11 +13609,11 @@ paths:
 
         `curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload
         -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
-        ''myimage.png''`'
+        ''@myimage.png''`'
       operationId: uploadLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id017
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -13678,6 +13624,58 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/Image'
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: Image has been uploaded successfully.
+          headers:
+            Content-Location:
+              description: Location of the image metadata.
+              type: string
+            Location:
+              description: Location of the image binary.
+              type: string
+          schema:
+            $ref: '#/definitions/BrandingImage'
+        '400':
+          description: Error in input data format, e.g. image is too large.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Unknown image reference.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Upload an image in the light theme.
+      tags:
+      - Account Admin
+  /v3/branding-images/light/{reference}/upload-multipart:
+    post:
+      consumes:
+      - multipart/form-data
+      description: An endpoint for uploading a new account branding image as form
+        data in the light theme in PNG or JPEG format.
+      operationId: uploadLightImageMultipart
+      parameters:
+      - description: Name of the branding images (icon or picture).
+        enum: *id020
+        in: path
+        name: reference
+        required: true
+        type: string
+      - description: The image in PNG or JPEG format as multipart form data.
+        in: formData
+        name: image
+        required: true
+        type: file
       produces:
       - application/json
       responses:

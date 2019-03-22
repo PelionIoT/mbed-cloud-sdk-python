@@ -7733,6 +7733,7 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -8341,6 +8342,7 @@
                           "type": "string",
                           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                           "description": "Address.",
+                          "x-nullable": true,
                           "_key": "address"
                         },
                         {
@@ -8485,6 +8487,7 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -8544,6 +8547,7 @@
                           "type": "string",
                           "example": "PZf9eEUH43DAPE9ULINFeuj",
                           "description": "The password when creating a new user. It will be generated when not present in the request.",
+                          "x-nullable": true,
                           "_key": "password"
                         },
                         {
@@ -8557,6 +8561,7 @@
                           "type": "string",
                           "example": "+44 (1223) 400 400",
                           "description": "Phone number.",
+                          "x-nullable": true,
                           "_key": "phone_number"
                         },
                         {
@@ -8591,6 +8596,7 @@
                           "type": "string",
                           "example": "admin",
                           "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                          "x-nullable": true,
                           "_key": "username"
                         }
                       ],
@@ -30659,6 +30665,7 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
+              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -30691,6 +30698,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -30758,6 +30766,7 @@
               "type": "string",
               "example": "PZf9eEUH43DAPE9ULINFeuj",
               "description": "The password when creating a new user. It will be generated when not present in the request.",
+              "x-nullable": true,
               "api_fieldname": "password",
               "entity_fieldname": "password",
               "parameter_fieldname": "password",
@@ -30769,6 +30778,7 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
+              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -30791,6 +30801,7 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
+              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -30903,6 +30914,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -30978,7 +30990,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of group IDs this user belongs to.",
+                    "description": "A list of group IDs this user belongs to. Can be updated by the Account Admin only.",
                     "items": {
                       "type": "string"
                     },
@@ -31104,6 +31116,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -31170,6 +31183,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -31190,6 +31204,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -31238,6 +31253,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -32173,6 +32189,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -32248,7 +32265,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of group IDs this user belongs to.",
+                    "description": "A list of group IDs this user belongs to. Can be updated by the Account Admin only.",
                     "items": {
                       "type": "string"
                     },
@@ -32374,6 +32391,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -32440,6 +32458,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -32460,6 +32479,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -32508,6 +32528,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -32824,6 +32845,7 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
+              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -32856,6 +32878,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -32923,6 +32946,7 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
+              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -32956,6 +32980,7 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
+              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -33068,6 +33093,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -33143,7 +33169,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of group IDs this user belongs to.",
+                    "description": "A list of group IDs this user belongs to. Can be updated by the Account Admin only.",
                     "items": {
                       "type": "string"
                     },
@@ -33269,6 +33295,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -33335,6 +33362,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -33355,6 +33383,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -33403,6 +33432,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -34214,6 +34244,7 @@
           "type": "string",
           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
           "description": "Address.",
+          "x-nullable": true,
           "api_fieldname": "address",
           "parameter_fieldname": "address",
           "in": "body",
@@ -34364,6 +34395,7 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -34431,6 +34463,7 @@
           "type": "string",
           "example": "PZf9eEUH43DAPE9ULINFeuj",
           "description": "The password when creating a new user. It will be generated when not present in the request.",
+          "x-nullable": true,
           "api_fieldname": "password",
           "parameter_fieldname": "password",
           "in": "body",
@@ -34452,6 +34485,7 @@
           "type": "string",
           "example": "+44 (1223) 400 400",
           "description": "Phone number.",
+          "x-nullable": true,
           "api_fieldname": "phone_number",
           "parameter_fieldname": "phone_number",
           "in": "body",
@@ -34525,6 +34559,7 @@
           "type": "string",
           "example": "admin",
           "description": "A username containing alphanumerical letters and -,._@+= characters.",
+          "x-nullable": true,
           "api_fieldname": "username",
           "parameter_fieldname": "username",
           "in": "body",
@@ -34589,6 +34624,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -34644,7 +34680,10 @@
             {
               "type": "integer",
               "format": "int32",
-              "description": "Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 30,
+              "description": "Specifies how many days the invitation will be valid for.",
               "name": "valid_for_days",
               "in": "body",
               "schema_param": true,
@@ -34747,6 +34786,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -35488,6 +35528,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -35885,6 +35926,7 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -39309,6 +39351,7 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
+              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -39341,6 +39384,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -39408,6 +39452,7 @@
               "type": "string",
               "example": "PZf9eEUH43DAPE9ULINFeuj",
               "description": "The password when creating a new user. It will be generated when not present in the request.",
+              "x-nullable": true,
               "api_fieldname": "password",
               "entity_fieldname": "password",
               "parameter_fieldname": "password",
@@ -39419,6 +39464,7 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
+              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -39441,6 +39487,7 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
+              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -39553,6 +39600,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -39727,6 +39775,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -39790,6 +39839,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -39807,6 +39857,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -39849,6 +39900,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -40750,6 +40802,7 @@
                           "type": "string",
                           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                           "description": "Address.",
+                          "x-nullable": true,
                           "_key": "address"
                         },
                         {
@@ -40894,6 +40947,7 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -40953,6 +41007,7 @@
                           "type": "string",
                           "example": "PZf9eEUH43DAPE9ULINFeuj",
                           "description": "The password when creating a new user. It will be generated when not present in the request.",
+                          "x-nullable": true,
                           "_key": "password"
                         },
                         {
@@ -40966,6 +41021,7 @@
                           "type": "string",
                           "example": "+44 (1223) 400 400",
                           "description": "Phone number.",
+                          "x-nullable": true,
                           "_key": "phone_number"
                         },
                         {
@@ -41000,6 +41056,7 @@
                           "type": "string",
                           "example": "admin",
                           "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                          "x-nullable": true,
                           "_key": "username"
                         }
                       ],
@@ -41401,6 +41458,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -41575,6 +41633,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -41638,6 +41697,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -41655,6 +41715,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -41697,6 +41758,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -42000,6 +42062,7 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
+              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -42032,6 +42095,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -42099,6 +42163,7 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
+              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -42132,6 +42197,7 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
+              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -42244,6 +42310,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -42418,6 +42485,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -42481,6 +42549,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -42498,6 +42567,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -42540,6 +42610,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -43053,6 +43124,7 @@
           "type": "string",
           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
           "description": "Address.",
+          "x-nullable": true,
           "api_fieldname": "address",
           "readOnly": false,
           "required": false,
@@ -43195,6 +43267,7 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -43258,6 +43331,7 @@
           "type": "string",
           "example": "PZf9eEUH43DAPE9ULINFeuj",
           "description": "The password when creating a new user. It will be generated when not present in the request.",
+          "x-nullable": true,
           "api_fieldname": "password",
           "readOnly": false,
           "required": false,
@@ -43277,6 +43351,7 @@
           "type": "string",
           "example": "+44 (1223) 400 400",
           "description": "Phone number.",
+          "x-nullable": true,
           "api_fieldname": "phone_number",
           "readOnly": false,
           "required": false,
@@ -43342,6 +43417,7 @@
           "type": "string",
           "example": "admin",
           "description": "A username containing alphanumerical letters and -,._@+= characters.",
+          "x-nullable": true,
           "api_fieldname": "username",
           "readOnly": false,
           "required": false,
@@ -43394,6 +43470,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -43449,7 +43526,10 @@
             {
               "type": "integer",
               "format": "int32",
-              "description": "Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 30,
+              "description": "Specifies how many days the invitation will be valid for.",
               "name": "valid_for_days",
               "in": "body",
               "schema_param": true,
@@ -43540,6 +43620,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -44286,6 +44367,7 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -44703,6 +44785,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -45094,6 +45177,7 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
