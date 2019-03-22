@@ -8,6 +8,7 @@ from tests.common import BaseCase
 
 from mbed_cloud.sdk import ApiErrorResponse
 from mbed_cloud.pagination import PaginatedResponse
+from mbed_cloud.foundation import User
 
 
 @BaseCase._skip_in_ci
@@ -50,6 +51,64 @@ class TestExamples(BaseCase):
         # List the first 10 devices on the second account
         for device in account_two.foundation.device().list(max_results=10):
             print("Account Two device %s" % device.name)
+        # end of example
+
+    def test_crud_of_an_entity(self):
+        """Example of create, read, update and delete of a user"""
+        from mbed_cloud import SDK
+
+        pelion_dm_sdk = SDK()
+
+        num_users = len(pelion_dm_sdk.foundation.user().list())
+
+        # Keep the example at the same indent level so the documentation looks sensible
+        try:
+            # an example: create an entity
+            new_user = pelion_dm_sdk.foundation.user(
+                email="python.sdk.user@arm.com",
+            )
+            new_user.create()
+            # end of example
+
+            self.assertEqual(len(User().list()), num_users+1, "The number of users should have increase")
+            user_id = new_user.id
+
+            # an example: read an entity
+            user_one = pelion_dm_sdk.foundation.user(id=user_id).read()
+            print(user_one.email)
+            # end of example
+
+            # an example: update an entity
+            user_two = pelion_dm_sdk.foundation.user(id=user_id).read()
+            user_two.full_name = "Python SDK User"
+            user_two.update()
+            # end of example
+
+            # an example: delete an entity
+            pelion_dm_sdk.foundation.user(id=user_id).delete()
+            # end of example
+            print("CRUD test done")
+
+        except Exception:
+            new_user.delete()
+        self.assertEqual(len(User().list()), num_users, "The number of users should be back to it's original value")
+
+    def test_list_entities(self):
+        from mbed_cloud import SDK
+
+        pelion_dm_sdk = SDK()
+
+        # an example: list entities
+        paginator = pelion_dm_sdk.foundation.user().list(
+            order="ASC",
+            page_size=5,
+            max_results=10,
+            include="total_count")
+
+        for user in paginator:
+            print("%s (%s): %s" % (user.full_name, user.id, user.email))
+
+        print("Total Count: %d" % paginator.count())
         # end of example
 
     def test_quick(self):
