@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 from builtins import str
 
+import os
+
 from tests.common import BaseCase
 
 from mbed_cloud.sdk import ApiErrorResponse
@@ -31,6 +33,25 @@ class TestExamples(BaseCase):
             print("Hello device %s" % device.name)
         # end of example
 
+    def test_hello_world_with_multiple_api_keys(self):
+        ACCOUNT_ONE_API_KEY = os.getenv("MBED_CLOUD_SDK_API_KEY")
+        ACCOUNT_TWO_API_KEY = os.getenv("MBED_CLOUD_SDK_API_KEY")
+        # an example: hello world with multiple api keys
+        from mbed_cloud import SDK
+
+        # Create instances of the Pelion Device Management SDK for two accounts
+        account_one = SDK(api_key=ACCOUNT_ONE_API_KEY)
+        account_two = SDK(api_key=ACCOUNT_TWO_API_KEY)
+
+        # List the first 10 devices on the first account
+        for device in account_one.foundation.device().list(max_results=10):
+            print("Account One device %s" % device.name)
+
+        # List the first 10 devices on the second account
+        for device in account_two.foundation.device().list(max_results=10):
+            print("Account Two device %s" % device.name)
+        # end of example
+
     def test_quick(self):
         # an example: checking account status
         from mbed_cloud.foundation import Account
@@ -50,15 +71,6 @@ class TestExamples(BaseCase):
         all_key_names = [key.name for key in all_keys]
         # end of example
         self.assertGreaterEqual(len(all_key_names), 1)
-
-    def test_custom_config(self):
-        with self.assertRaises(ApiErrorResponse):
-            # an example: using multiple api keys
-            from mbed_cloud import SDK
-            all_users = []
-            for account_key in ('ak_1', 'ak_2'):
-                all_users.extend(SDK(api_key=account_key).foundation.user().list())
-            # end of example
 
     def test_really_custom_config(self):
         # an example: using custom hosts
