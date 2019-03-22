@@ -976,6 +976,43 @@ definitions:
     - url
     - filename
     type: object
+  BlackListedDeviceData:
+    properties:
+      account_id:
+        description: account id
+        example: 00005a4e027f0a580a01081c00000000
+        pattern: '[a-f0-9]{32}'
+        type: string
+      created_at:
+        description: date on which the failed bootstrap was attempted on
+        example: '2000-01-23T04:56:07.000+00:00'
+        format: date-time
+        type: string
+      endpoint_name:
+        description: endpoint name
+        example: Endpoint_1234
+        type: string
+      id:
+        description: id of the recorded failed bootstrap attempt
+        example: 00005a4e027f0a580a04567c00000000
+        pattern: '[a-f0-9]{32}'
+        type: string
+      object:
+        enum:
+        - denied_device
+        type: string
+      trusted_certificate_id:
+        description: Trusted certificate id
+        example: 00005a4e027f0a580a01081c00000000
+        pattern: '[a-f0-9]{32}'
+        type: string
+    required:
+    - id
+    - account_id
+    - endpoint_name
+    - trusted_certificate_id
+    - created_at
+    - object
   BrandingColor:
     properties:
       color:
@@ -1865,6 +1902,46 @@ definitions:
       url:
         description: Server URI to which the client needs to connect to.
         type: string
+    type: object
+  DenialAttemptsResponse:
+    properties:
+      after:
+        description: An offset token for current page.
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/BlackListedDeviceData'
+        type: array
+      has_more:
+        description: Are there more results available.
+        example: false
+        type: boolean
+      limit:
+        description: How many objects to retrieve in the page. The minimum limit is
+          2 and the maximum is 1000. Limit values outside of this range are set to
+          the closest limit.
+        example: 50
+        maximum: 1000
+        minimum: 2
+        type: integer
+      object:
+        description: The type of this API object is a "list".
+        example: list
+        type: string
+      order:
+        description: The creation time based order of the entries.
+        enum:
+        - ASC
+        - DESC
+        example: DESC
+        type: string
+      total_count:
+        example: 1
+        format: integer
+        type: integer
+    required:
+    - object
+    - data
     type: object
   DeveloperCertificateRequestData:
     properties:
@@ -15188,6 +15265,118 @@ paths:
         server.
       tags:
       - Developer certificate
+  /v3/device-enrollment-denials:
+    get:
+      description: 'This produces a list of failed attempts to bootstrap using a particular
+        certificate which is blacklisted (trusted_certificate).
+
+        Returned list can be filtered by endpoint name. Trusted certificate ID filter
+        is required.
+
+
+        **Example usage:**
+
+        ```
+
+        curl -X GET -H ''Authorization: Bearer <valid access token>'' \
+
+        https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate_id__eq={cert-id}&endpoint_name__eq={endpoint_name}
+
+        ```
+
+        '
+      operationId: listEnrollmentDenialAttempts
+      parameters:
+      - description: filtering based on trusted certificate id
+        in: query
+        name: trusted_certificate_id__eq
+        required: true
+        type: string
+      - description: filtering based on endpoint name
+        in: query
+        name: endpoint_name__eq
+        type: string
+      - description: Optional parameter for pagination. Denied device ID.
+        in: query
+        name: after
+        type: string
+      - description: Optional parameter for pagination.
+        enum:
+        - ASC
+        - DESC
+        in: query
+        name: order
+        type: string
+      - description: Optional parameter for pagination.
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Query Success. Responding with List of Devices.
+          schema:
+            $ref: '#/definitions/DenialAttemptsResponse'
+        401:
+          description: JWT validation failed.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: ID set in pagination parameter `after` not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Return list of devices which were denied to bootstrap due to being
+        subjected to blacklisting.
+      tags:
+      - EnrollmentDenials
+      x-filter:
+        endpoint_name:
+        - eq
+        trusted_certificate_id:
+        - eq
+  /v3/device-enrollment-denials/{device_enrollment_denial_id}:
+    get:
+      description: 'Query for a single attempt to bootstrap with a blacklisted certificate
+        by ID.
+
+
+        **Example usage:**
+
+        ```
+
+        curl -X GET -H ''Authorization: Bearer <valid access token>'' \
+
+        https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials/{device_enrollment_denial_id}
+
+        ```
+
+        '
+      operationId: getEnrollmentDenialAttempt
+      parameters:
+      - description: id of the recorded failed bootstrap attempt
+        in: path
+        name: device_enrollment_denial_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Query Success. Responding with blacklisted device.
+          schema:
+            $ref: '#/definitions/BlackListedDeviceData'
+        401:
+          description: JWT validation failed.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: ID not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Query for a single device by ID
+      tags:
+      - EnrollmentDenials
   /v3/device-enrollments:
     get:
       description: 'Provides a list of pending and claimed enrollments.
