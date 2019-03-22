@@ -75,7 +75,7 @@ class TestExamples(BaseCase):
 
             # an example: read an entity
             user_one = pelion_dm_sdk.foundation.user(id=user_id).read()
-            print(user_one.email)
+            print("User email address: %s" % user_one.email)
             # end of example
 
             # an example: update an entity
@@ -84,10 +84,11 @@ class TestExamples(BaseCase):
             user_two.update()
             # end of example
 
+            self.assertEqual(user_two.read().full_name, "Python SDK User", "User name should have been changed")
+
             # an example: delete an entity
             pelion_dm_sdk.foundation.user(id=user_id).delete()
             # end of example
-            print("CRUD test done")
 
         except Exception:
             new_user.delete()
@@ -109,6 +110,32 @@ class TestExamples(BaseCase):
             print("%s (%s): %s" % (user.full_name, user.id, user.email))
 
         print("Total Count: %d" % paginator.count())
+        # end of example
+
+    def test_read_first_entity_in_list(self):
+        from mbed_cloud import SDK
+
+        pelion_dm_sdk = SDK()
+
+        # an example: read first entity in_ ist
+        first_user_in_list = pelion_dm_sdk.foundation.user().list().first()
+        print("User email address: %s" % first_user_in_list.email)
+        # end of example
+
+    def test_list_entities_with_filters(self):
+        from mbed_cloud import SDK
+        pelion_dm_sdk = SDK()
+
+        # an example: list entities with filters
+        from mbed_cloud import ApiFilter
+        from mbed_cloud.foundation.enums import UserStatusEnum
+
+        api_filter = ApiFilter()
+        api_filter.add_filter("email", "eq", "python.sdk.user@arm.com")
+        api_filter.add_filter("status", "in", [UserStatusEnum.ACTIVE, UserStatusEnum.ENROLLING])
+
+        for user in pelion_dm_sdk.foundation.user().list(filter=api_filter):
+            print("%s (%s): %s" % (user.full_name, user.id, user.email))
         # end of example
 
     def test_quick(self):
