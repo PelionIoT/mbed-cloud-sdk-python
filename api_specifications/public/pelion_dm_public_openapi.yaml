@@ -15751,6 +15751,106 @@ paths:
         in: query
         name: filter
         type: string
+      - description: in filter for the date_time field
+        format: date-time
+        in: query
+        name: date_time__in
+        type: string
+      - description: nin filter for the date_time field
+        format: date-time
+        in: query
+        name: date_time__nin
+        type: string
+      - description: lte filter for the date_time field
+        format: date-time
+        in: query
+        name: date_time__lte
+        type: string
+      - description: gte filter for the date_time field
+        format: date-time
+        in: query
+        name: date_time__gte
+        type: string
+      - description: eq filter for the description field
+        in: query
+        name: description__eq
+        type: string
+      - description: neq filter for the description field
+        in: query
+        name: description__neq
+        type: string
+      - description: in filter for the description field
+        in: query
+        name: description__in
+        type: string
+      - description: nin filter for the description field
+        in: query
+        name: description__nin
+        type: string
+      - description: eq filter for the id field
+        in: query
+        name: id__eq
+        type: string
+      - description: neq filter for the id field
+        in: query
+        name: id__neq
+        type: string
+      - description: in filter for the id field
+        in: query
+        name: id__in
+        type: string
+      - description: nin filter for the id field
+        in: query
+        name: id__nin
+        type: string
+      - description: eq filter for the device_id field
+        in: query
+        name: device_id__eq
+        type: string
+      - description: neq filter for the device_id field
+        in: query
+        name: device_id__neq
+        type: string
+      - description: in filter for the device_id field
+        in: query
+        name: device_id__in
+        type: string
+      - description: nin filter for the device_id field
+        in: query
+        name: device_id__nin
+        type: string
+      - description: eq filter for the event_type field
+        in: query
+        name: event_type__eq
+        type: string
+      - description: neq filter for the event_type field
+        in: query
+        name: event_type__neq
+        type: string
+      - description: in filter for the event_type field
+        in: query
+        name: event_type__in
+        type: string
+      - description: nin filter for the event_type field
+        in: query
+        name: event_type__nin
+        type: string
+      - description: eq filter for the state_change field
+        in: query
+        name: state_change__eq
+        type: boolean
+      - description: neq filter for the state_change field
+        in: query
+        name: state_change__neq
+        type: boolean
+      - description: in filter for the state_change field
+        in: query
+        name: state_change__in
+        type: boolean
+      - description: nin filter for the state_change field
+        in: query
+        name: state_change__nin
+        type: boolean
       responses:
         '200':
           description: Request successful.
@@ -15884,6 +15984,110 @@ paths:
           \ of parameters must be comma-separated:\n`name__in=group1,group2`"
         in: query
         name: filter
+        type: string
+      - description: eq filter for the id field
+        in: query
+        name: id__eq
+        type: string
+      - description: neq filter for the id field
+        in: query
+        name: id__neq
+        type: string
+      - description: in filter for the id field
+        in: query
+        name: id__in
+        type: string
+      - description: nin filter for the id field
+        in: query
+        name: id__nin
+        type: string
+      - description: eq filter for the devices_count field
+        in: query
+        name: devices_count__eq
+        type: integer
+      - description: neq filter for the devices_count field
+        in: query
+        name: devices_count__neq
+        type: integer
+      - description: in filter for the devices_count field
+        in: query
+        name: devices_count__in
+        type: integer
+      - description: nin filter for the devices_count field
+        in: query
+        name: devices_count__nin
+        type: integer
+      - description: lte filter for the devices_count field
+        in: query
+        name: devices_count__lte
+        type: integer
+      - description: gte filter for the devices_count field
+        in: query
+        name: devices_count__gte
+        type: integer
+      - description: eq filter for the name field
+        in: query
+        name: name__eq
+        type: string
+      - description: neq filter for the name field
+        in: query
+        name: name__neq
+        type: string
+      - description: in filter for the name field
+        in: query
+        name: name__in
+        type: string
+      - description: nin filter for the name field
+        in: query
+        name: name__nin
+        type: string
+      - description: eq filter for the custom_attributes field
+        in: query
+        name: custom_attributes__eq
+        type: string
+      - description: neq filter for the custom_attributes field
+        in: query
+        name: custom_attributes__neq
+        type: string
+      - description: in filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__in
+        type: string
+      - description: nin filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__nin
+        type: string
+      - description: lte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__lte
+        type: string
+      - description: gte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__gte
+        type: string
+      - description: in filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__gte
         type: string
       responses:
         '200':
@@ -16123,6 +16327,126 @@ paths:
         in: query
         name: filter
         type: string
+      - description: eq filter for the id field
+        in: query
+        name: id__eq
+        type: string
+      - description: neq filter for the id field
+        in: query
+        name: id__neq
+        type: string
+      - description: in filter for the id field
+        in: query
+        name: id__in
+        type: string
+      - description: nin filter for the id field
+        in: query
+        name: id__nin
+        type: string
+      - description: eq filter for the devices_count field
+        in: query
+        name: devices_count__eq
+        type: string
+      - description: neq filter for the devices_count field
+        in: query
+        name: devices_count__neq
+        type: string
+      - description: in filter for the devices_count field
+        in: query
+        name: devices_count__in
+        type: string
+      - description: nin filter for the devices_count field
+        in: query
+        name: devices_count__nin
+        type: string
+      - description: lte filter for the devices_count field
+        in: query
+        name: devices_count__lte
+        type: string
+      - description: gte filter for the devices_count field
+        in: query
+        name: devices_count__gte
+        type: string
+      - description: eq filter for the name field
+        in: query
+        name: name__eq
+        type: string
+      - description: neq filter for the name field
+        in: query
+        name: name__neq
+        type: string
+      - description: in filter for the name field
+        in: query
+        name: name__in
+        type: string
+      - description: nin filter for the name field
+        in: query
+        name: name__nin
+        type: string
+      - description: eq filter for the description field
+        in: query
+        name: description__eq
+        type: string
+      - description: neq filter for the description field
+        in: query
+        name: description__neq
+        type: string
+      - description: in filter for the description field
+        in: query
+        name: description__in
+        type: string
+      - description: nin filter for the description field
+        in: query
+        name: description__nin
+        type: string
+      - description: eq filter for the custom_attributes field
+        in: query
+        name: custom_attributes__eq
+        type: string
+      - description: neq filter for the custom_attributes field
+        in: query
+        name: custom_attributes__neq
+        type: string
+      - description: in filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__in
+        type: string
+      - description: nin filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__nin
+        type: string
+      - description: lte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__lte
+        type: string
+      - description: gte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__gte
+        type: string
+      - description: in filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__gte
+        type: string
       responses:
         200:
           description: Ok.
@@ -16308,6 +16632,94 @@ paths:
           \ of parameters must be comma-separated:\n`name__nin=query1,query2`"
         in: query
         name: filter
+        type: string
+      - description: in filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__in
+        type: string
+      - description: nin filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__nin
+        type: string
+      - description: lte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__lte
+        type: string
+      - description: gte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__gte
+        type: string
+      - description: eq filter for the id field
+        in: query
+        name: id__eq
+        type: string
+      - description: neq filter for the id field
+        in: query
+        name: id__neq
+        type: string
+      - description: in filter for the id field
+        in: query
+        name: id__in
+        type: string
+      - description: nin filter for the id field
+        in: query
+        name: id__nin
+        type: string
+      - description: eq filter for the name field
+        in: query
+        name: name__eq
+        type: string
+      - description: neq filter for the name field
+        in: query
+        name: name__neq
+        type: string
+      - description: in filter for the name field
+        in: query
+        name: name__in
+        type: string
+      - description: nin filter for the name field
+        in: query
+        name: name__nin
+        type: string
+      - description: eq filter for the query field
+        in: query
+        name: query__eq
+        type: string
+      - description: neq filter for the query field
+        in: query
+        name: query__neq
+        type: string
+      - description: in filter for the query field
+        in: query
+        name: query__in
+        type: string
+      - description: nin filter for the query field
+        in: query
+        name: query__nin
+        type: string
+      - description: in filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__gte
         type: string
       responses:
         '200':
@@ -16512,6 +16924,106 @@ paths:
         in: query
         name: filter
         type: string
+      - description: in filter for the date_time field
+        format: date-time
+        in: query
+        name: date_time__in
+        type: string
+      - description: nin filter for the date_time field
+        format: date-time
+        in: query
+        name: date_time__nin
+        type: string
+      - description: lte filter for the date_time field
+        format: date-time
+        in: query
+        name: date_time__lte
+        type: string
+      - description: gte filter for the date_time field
+        format: date-time
+        in: query
+        name: date_time__gte
+        type: string
+      - description: eq filter for the description field
+        in: query
+        name: description__eq
+        type: string
+      - description: neq filter for the description field
+        in: query
+        name: description__neq
+        type: string
+      - description: in filter for the description field
+        in: query
+        name: description__in
+        type: string
+      - description: nin filter for the description field
+        in: query
+        name: description__nin
+        type: string
+      - description: eq filter for the id field
+        in: query
+        name: id__eq
+        type: string
+      - description: neq filter for the id field
+        in: query
+        name: id__neq
+        type: string
+      - description: in filter for the id field
+        in: query
+        name: id__in
+        type: string
+      - description: nin filter for the id field
+        in: query
+        name: id__nin
+        type: string
+      - description: eq filter for the device_id field
+        in: query
+        name: device_id__eq
+        type: string
+      - description: neq filter for the device_id field
+        in: query
+        name: device_id__neq
+        type: string
+      - description: in filter for the device_id field
+        in: query
+        name: device_id__in
+        type: string
+      - description: nin filter for the device_id field
+        in: query
+        name: device_id__nin
+        type: string
+      - description: eq filter for the event_type field
+        in: query
+        name: event_type__eq
+        type: string
+      - description: neq filter for the event_type field
+        in: query
+        name: event_type__neq
+        type: string
+      - description: in filter for the event_type field
+        in: query
+        name: event_type__in
+        type: string
+      - description: nin filter for the event_type field
+        in: query
+        name: event_type__nin
+        type: string
+      - description: eq filter for the state_change field
+        in: query
+        name: state_change__eq
+        type: boolean
+      - description: neq filter for the state_change field
+        in: query
+        name: state_change__neq
+        type: boolean
+      - description: in filter for the state_change field
+        in: query
+        name: state_change__in
+        type: boolean
+      - description: nin filter for the state_change field
+        in: query
+        name: state_change__nin
+        type: boolean
       responses:
         '200':
           description: Request successful
@@ -16701,6 +17213,482 @@ paths:
           \ of parameters must be comma-separated:\n`state__nin=unenrolled,dergistered`"
         in: query
         name: filter
+        type: string
+      - description: eq filter for the account_id field
+        in: query
+        name: account_id__eq
+        type: string
+      - description: neq filter for the account_id field
+        in: query
+        name: account_id__neq
+        type: string
+      - description: in filter for the account_id field
+        in: query
+        name: account_id__in
+        type: string
+      - description: nin filter for the account_id field
+        in: query
+        name: account_id__nin
+        type: string
+      - description: eq filter for the auto_update field
+        in: query
+        name: auto_update__eq
+        type: boolean
+      - description: neq filter for the auto_update field
+        in: query
+        name: auto_update__neq
+        type: boolean
+      - description: in filter for the auto_update field
+        in: query
+        name: auto_update__in
+        type: boolean
+      - description: nin filter for the auto_update field
+        in: query
+        name: auto_update__nin
+        type: boolean
+      - description: in filter for the bootstrapped_expiration_date field
+        in: query
+        name: bootstrapped_expiration_date__in
+        type: string
+      - description: nin filter for the bootstrapped_expiration_date field
+        in: query
+        name: bootstrapped_expiration_date__nin
+        type: string
+      - description: lte filter for the bootstrapped_expiration_date field
+        in: query
+        name: bootstrapped_expiration_date__lte
+        type: string
+      - description: gte filter for the bootstrapped_expiration_date field
+        in: query
+        name: bootstrapped_expiration_date__gte
+        type: string
+      - description: in filter for the bootstrapped_timestamp field
+        format: date-time
+        in: query
+        name: bootstrapped_timestamp__in
+        type: string
+      - description: nin filter for the bootstrapped_timestamp field
+        format: date-time
+        in: query
+        name: bootstrapped_timestamp__nin
+        type: string
+      - description: lte filter for the bootstrapped_timestamp field
+        format: date-time
+        in: query
+        name: bootstrapped_timestamp__lte
+        type: string
+      - description: gte filter for the bootstrapped_timestamp field
+        format: date-time
+        in: query
+        name: bootstrapped_timestamp__gte
+        type: string
+      - description: eq filter for the ca_id field
+        in: query
+        name: ca_id__eq
+        type: string
+      - description: neq filter for the ca_id field
+        in: query
+        name: ca_id__neq
+        type: string
+      - description: in filter for the ca_id field
+        in: query
+        name: ca_id__in
+        type: string
+      - description: nin filter for the ca_id field
+        in: query
+        name: ca_id__nin
+        type: string
+      - description: in filter for the connector_expiration_date field
+        format: date
+        in: query
+        name: connector_expiration_date__in
+        type: string
+      - description: nin filter for the connector_expiration_date field
+        format: date
+        in: query
+        name: connector_expiration_date__nin
+        type: string
+      - description: lte filter for the connector_expiration_date field
+        format: date
+        in: query
+        name: connector_expiration_date__lte
+        type: string
+      - description: gte filter for the connector_expiration_date field
+        format: date
+        in: query
+        name: connector_expiration_date__gte
+        type: string
+      - description: in filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__in
+        type: string
+      - description: nin filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__nin
+        type: string
+      - description: lte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__lte
+        type: string
+      - description: gte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__gte
+        type: string
+      - description: eq filter for the custom_attributes field
+        in: query
+        name: custom_attributes__eq
+        type: string
+      - description: neq filter for the custom_attributes field
+        in: query
+        name: custom_attributes__neq
+        type: string
+      - description: eq filter for the deployed_state field
+        in: query
+        name: deployed_state__eq
+        type: string
+      - description: neq filter for the deployed_state field
+        in: query
+        name: deployed_state__neq
+        type: string
+      - description: in filter for the deployed_state field
+        in: query
+        name: deployed_state__in
+        type: string
+      - description: nin filter for the deployed_state field
+        in: query
+        name: deployed_state__nin
+        type: string
+      - description: eq filter for the deployment field
+        in: query
+        name: deployment__eq
+        type: string
+      - description: neq filter for the deployment field
+        in: query
+        name: deployment__neq
+        type: string
+      - description: in filter for the deployment field
+        in: query
+        name: deployment__in
+        type: string
+      - description: nin filter for the deployment field
+        in: query
+        name: deployment__nin
+        type: string
+      - description: eq filter for the description field
+        in: query
+        name: description__eq
+        type: string
+      - description: neq filter for the description field
+        in: query
+        name: description__neq
+        type: string
+      - description: in filter for the description field
+        in: query
+        name: description__in
+        type: string
+      - description: nin filter for the description field
+        in: query
+        name: description__nin
+        type: string
+      - description: eq filter for the device_class field
+        in: query
+        name: device_class__eq
+        type: string
+      - description: neq filter for the device_class field
+        in: query
+        name: device_class__neq
+        type: string
+      - description: in filter for the device_class field
+        in: query
+        name: device_class__in
+        type: string
+      - description: nin filter for the device_class field
+        in: query
+        name: device_class__nin
+        type: string
+      - description: eq filter for the device_execution_mode field
+        in: query
+        name: device_execution_mode__eq
+        type: integer
+      - description: neq filter for the device_execution_mode field
+        in: query
+        name: device_execution_mode__neq
+        type: integer
+      - description: in filter for the device_execution_mode field
+        in: query
+        name: device_execution_mode__in
+        type: integer
+      - description: nin filter for the device_execution_mode field
+        in: query
+        name: device_execution_mode__nin
+        type: integer
+      - description: eq filter for the device_key field
+        in: query
+        name: device_key__eq
+        type: string
+      - description: neq filter for the device_key field
+        in: query
+        name: device_key__neq
+        type: string
+      - description: in filter for the device_key field
+        in: query
+        name: device_key__in
+        type: string
+      - description: nin filter for the device_key field
+        in: query
+        name: device_key__nin
+        type: string
+      - description: eq filter for the endpoint_name field
+        in: query
+        name: endpoint_name__eq
+        type: string
+      - description: neq filter for the endpoint_name field
+        in: query
+        name: endpoint_name__neq
+        type: string
+      - description: in filter for the endpoint_name field
+        in: query
+        name: endpoint_name__in
+        type: string
+      - description: nin filter for the endpoint_name field
+        in: query
+        name: endpoint_name__nin
+        type: string
+      - description: eq filter for the endpoint_type field
+        in: query
+        name: endpoint_type__eq
+        type: string
+      - description: neq filter for the endpoint_type field
+        in: query
+        name: endpoint_type__neq
+        type: string
+      - description: in filter for the endpoint_type field
+        in: query
+        name: endpoint_type__in
+        type: string
+      - description: nin filter for the endpoint_type field
+        in: query
+        name: endpoint_type__nin
+        type: string
+      - description: in filter for the enrollment_list_timestamp field
+        in: query
+        name: enrollment_list_timestamp__in
+        type: string
+      - description: nin filter for the enrollment_list_timestamp field
+        in: query
+        name: enrollment_list_timestamp__nin
+        type: string
+      - description: lte filter for the enrollment_list_timestamp field
+        in: query
+        name: enrollment_list_timestamp__lte
+        type: string
+      - description: gte filter for the enrollment_list_timestamp field
+        in: query
+        name: enrollment_list_timestamp__gte
+        type: string
+      - description: eq filter for the firmware_checksum field
+        in: query
+        name: firmware_checksum__eq
+        type: string
+      - description: neq filter for the firmware_checksum field
+        in: query
+        name: firmware_checksum__neq
+        type: string
+      - description: in filter for the firmware_checksum field
+        in: query
+        name: firmware_checksum__in
+        type: string
+      - description: nin filter for the firmware_checksum field
+        in: query
+        name: firmware_checksum__nin
+        type: string
+      - description: eq filter for the host_gateway field
+        in: query
+        name: host_gateway__eq
+        type: string
+      - description: neq filter for the host_gateway field
+        in: query
+        name: host_gateway__neq
+        type: string
+      - description: in filter for the host_gateway field
+        in: query
+        name: host_gateway__in
+        type: string
+      - description: nin filter for the host_gateway field
+        in: query
+        name: host_gateway__nin
+        type: string
+      - description: eq filter for the id field
+        in: query
+        name: id__eq
+        type: string
+      - description: neq filter for the id field
+        in: query
+        name: id__neq
+        type: string
+      - description: in filter for the id field
+        in: query
+        name: id__in
+        type: string
+      - description: nin filter for the id field
+        in: query
+        name: id__nin
+        type: string
+      - description: eq filter for the manifest field
+        in: query
+        name: manifest__eq
+        type: string
+      - description: neq filter for the manifest field
+        in: query
+        name: manifest__neq
+        type: string
+      - description: in filter for the manifest field
+        in: query
+        name: manifest__in
+        type: string
+      - description: nin filter for the manifest field
+        in: query
+        name: manifest__nin
+        type: string
+      - description: in filter for the manifest_timestamp field
+        format: date-time
+        in: query
+        name: manifest_timestamp__in
+        type: string
+      - description: nin filter for the manifest_timestamp field
+        format: date-time
+        in: query
+        name: manifest_timestamp__nin
+        type: string
+      - description: lte filter for the manifest_timestamp field
+        format: date-time
+        in: query
+        name: manifest_timestamp__lte
+        type: string
+      - description: gte filter for the manifest_timestamp field
+        format: date-time
+        in: query
+        name: manifest_timestamp__gte
+        type: string
+      - description: eq filter for the mechanism field
+        in: query
+        name: mechanism__eq
+        type: string
+      - description: neq filter for the mechanism field
+        in: query
+        name: mechanism__neq
+        type: string
+      - description: in filter for the mechanism field
+        in: query
+        name: mechanism__in
+        type: string
+      - description: nin filter for the mechanism field
+        in: query
+        name: mechanism__nin
+        type: string
+      - description: eq filter for the mechanism_url field
+        in: query
+        name: mechanism_url__eq
+        type: string
+      - description: neq filter for the mechanism_url field
+        in: query
+        name: mechanism_url__neq
+        type: string
+      - description: in filter for the mechanism_url field
+        in: query
+        name: mechanism_url__in
+        type: string
+      - description: nin filter for the mechanism_url field
+        in: query
+        name: mechanism_url__nin
+        type: string
+      - description: eq filter for the name field
+        in: query
+        name: name__eq
+        type: string
+      - description: neq filter for the name field
+        in: query
+        name: name__neq
+        type: string
+      - description: in filter for the name field
+        in: query
+        name: name__in
+        type: string
+      - description: nin filter for the name field
+        in: query
+        name: name__nin
+        type: string
+      - description: eq filter for the serial_number field
+        in: query
+        name: serial_number__eq
+        type: string
+      - description: neq filter for the serial_number field
+        in: query
+        name: serial_number__neq
+        type: string
+      - description: in filter for the serial_number field
+        in: query
+        name: serial_number__in
+        type: string
+      - description: nin filter for the serial_number field
+        in: query
+        name: serial_number__nin
+        type: string
+      - description: eq filter for the state field
+        in: query
+        name: state__eq
+        type: string
+      - description: neq filter for the state field
+        in: query
+        name: state__neq
+        type: string
+      - description: in filter for the state field
+        in: query
+        name: state__in
+        type: string
+      - description: nin filter for the state field
+        in: query
+        name: state__nin
+        type: string
+      - description: in filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__gte
+        type: string
+      - description: eq filter for the vendor_id field
+        in: query
+        name: vendor_id__eq
+        type: string
+      - description: neq filter for the vendor_id field
+        in: query
+        name: vendor_id__neq
+        type: string
+      - description: in filter for the vendor_id field
+        in: query
+        name: vendor_id__in
+        type: string
+      - description: nin filter for the vendor_id field
+        in: query
+        name: vendor_id__nin
         type: string
       responses:
         '200':
@@ -17097,6 +18085,162 @@ paths:
         in: query
         name: filter
         type: string
+      - description: in filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__in
+        type: string
+      - description: nin filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__nin
+        type: string
+      - description: lte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__lte
+        type: string
+      - description: gte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__gte
+        type: string
+      - description: eq filter for the datafile field
+        in: query
+        name: datafile__eq
+        type: string
+      - description: neq filter for the datafile field
+        in: query
+        name: datafile__neq
+        type: string
+      - description: in filter for the datafile field
+        in: query
+        name: datafile__in
+        type: string
+      - description: nin filter for the datafile field
+        in: query
+        name: datafile__nin
+        type: string
+      - description: eq filter for the datafile_checksum field
+        in: query
+        name: datafile_checksum__eq
+        type: string
+      - description: neq filter for the datafile_checksum field
+        in: query
+        name: datafile_checksum__neq
+        type: string
+      - description: in filter for the datafile_checksum field
+        in: query
+        name: datafile_checksum__in
+        type: string
+      - description: nin filter for the datafile_checksum field
+        in: query
+        name: datafile_checksum__nin
+        type: string
+      - description: eq filter for the datafile_size field
+        format: int64
+        in: query
+        name: datafile_size__eq
+        type: integer
+      - description: neq filter for the datafile_size field
+        format: int64
+        in: query
+        name: datafile_size__neq
+        type: integer
+      - description: in filter for the datafile_size field
+        format: int64
+        in: query
+        name: datafile_size__in
+        type: integer
+      - description: nin filter for the datafile_size field
+        format: int64
+        in: query
+        name: datafile_size__nin
+        type: integer
+      - description: eq filter for the description field
+        in: query
+        name: description__eq
+        type: string
+      - description: neq filter for the description field
+        in: query
+        name: description__neq
+        type: string
+      - description: in filter for the description field
+        in: query
+        name: description__in
+        type: string
+      - description: nin filter for the description field
+        in: query
+        name: description__nin
+        type: string
+      - description: eq filter for the id field
+        in: query
+        name: id__eq
+        type: string
+      - description: neq filter for the id field
+        in: query
+        name: id__neq
+        type: string
+      - description: in filter for the id field
+        in: query
+        name: id__in
+        type: string
+      - description: nin filter for the id field
+        in: query
+        name: id__nin
+        type: string
+      - description: eq filter for the name field
+        in: query
+        name: name__eq
+        type: string
+      - description: neq filter for the name field
+        in: query
+        name: name__neq
+        type: string
+      - description: in filter for the name field
+        in: query
+        name: name__in
+        type: string
+      - description: nin filter for the name field
+        in: query
+        name: name__nin
+        type: string
+      - description: in filter for the timestamp field
+        in: query
+        name: timestamp__in
+        type: string
+      - description: nin filter for the timestamp field
+        in: query
+        name: timestamp__nin
+        type: string
+      - description: lte filter for the timestamp field
+        in: query
+        name: timestamp__lte
+        type: string
+      - description: gte filter for the timestamp field
+        in: query
+        name: timestamp__gte
+        type: string
+      - description: in filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__gte
+        type: string
       responses:
         '200':
           description: Request successful
@@ -17258,6 +18402,158 @@ paths:
           \ of parameters must be comma-separated:\n\n`name__in=fw-image1,fw-image2`"
         in: query
         name: filter
+        type: string
+      - description: in filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__in
+        type: string
+      - description: nin filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__nin
+        type: string
+      - description: lte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__lte
+        type: string
+      - description: gte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__gte
+        type: string
+      - description: eq filter for the datafile field
+        in: query
+        name: datafile__eq
+        type: string
+      - description: neq filter for the datafile field
+        in: query
+        name: datafile__neq
+        type: string
+      - description: in filter for the datafile field
+        in: query
+        name: datafile__in
+        type: string
+      - description: nin filter for the datafile field
+        in: query
+        name: datafile__nin
+        type: string
+      - description: eq filter for the datafile_checksum field
+        in: query
+        name: datafile_checksum__eq
+        type: string
+      - description: neq filter for the datafile_checksum field
+        in: query
+        name: datafile_checksum__neq
+        type: string
+      - description: in filter for the datafile_checksum field
+        in: query
+        name: datafile_checksum__in
+        type: string
+      - description: nin filter for the datafile_checksum field
+        in: query
+        name: datafile_checksum__nin
+        type: string
+      - description: eq filter for the datafile_size field
+        in: query
+        name: datafile_size__eq
+        type: string
+      - description: neq filter for the datafile_size field
+        in: query
+        name: datafile_size__neq
+        type: string
+      - description: in filter for the datafile_size field
+        in: query
+        name: datafile_size__in
+        type: string
+      - description: nin filter for the datafile_size field
+        in: query
+        name: datafile_size__nin
+        type: string
+      - description: eq filter for the description field
+        in: query
+        name: description__eq
+        type: string
+      - description: neq filter for the description field
+        in: query
+        name: description__neq
+        type: string
+      - description: in filter for the description field
+        in: query
+        name: description__in
+        type: string
+      - description: nin filter for the description field
+        in: query
+        name: description__nin
+        type: string
+      - description: eq filter for the id field
+        in: query
+        name: id__eq
+        type: string
+      - description: neq filter for the id field
+        in: query
+        name: id__neq
+        type: string
+      - description: in filter for the id field
+        in: query
+        name: id__in
+        type: string
+      - description: nin filter for the id field
+        in: query
+        name: id__nin
+        type: string
+      - description: eq filter for the name field
+        in: query
+        name: name__eq
+        type: string
+      - description: neq filter for the name field
+        in: query
+        name: name__neq
+        type: string
+      - description: in filter for the name field
+        in: query
+        name: name__in
+        type: string
+      - description: nin filter for the name field
+        in: query
+        name: name__nin
+        type: string
+      - description: in filter for the timestamp field
+        in: query
+        name: timestamp__in
+        type: string
+      - description: nin filter for the timestamp field
+        in: query
+        name: timestamp__nin
+        type: string
+      - description: lte filter for the timestamp field
+        in: query
+        name: timestamp__lte
+        type: string
+      - description: gte filter for the timestamp field
+        in: query
+        name: timestamp__gte
+        type: string
+      - description: in filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__gte
         type: string
       responses:
         200:
@@ -17508,6 +18804,102 @@ paths:
         in: query
         name: filter
         type: string
+      - description: in filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__in
+        type: string
+      - description: nin filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__nin
+        type: string
+      - description: lte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__lte
+        type: string
+      - description: gte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__gte
+        type: string
+      - description: eq filter for the id field
+        in: query
+        name: id__eq
+        type: integer
+      - description: neq filter for the id field
+        in: query
+        name: id__neq
+        type: integer
+      - description: in filter for the id field
+        in: query
+        name: id__in
+        type: integer
+      - description: nin filter for the id field
+        in: query
+        name: id__nin
+        type: integer
+      - description: in filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__gte
+        type: string
+      - description: eq filter for the hash field
+        in: query
+        name: hash__eq
+        type: string
+      - description: neq filter for the hash field
+        in: query
+        name: hash__neq
+        type: string
+      - description: in filter for the hash field
+        in: query
+        name: hash__in
+        type: string
+      - description: nin filter for the hash field
+        in: query
+        name: hash__nin
+        type: string
+      - description: eq filter for the length field
+        in: query
+        name: length__eq
+        type: integer
+      - description: neq filter for the length field
+        in: query
+        name: length__neq
+        type: integer
+      - description: in filter for the length field
+        in: query
+        name: length__in
+        type: integer
+      - description: nin filter for the length field
+        in: query
+        name: length__nin
+        type: integer
+      - description: lte filter for the length field
+        in: query
+        name: length__lte
+        type: integer
+      - description: gte filter for the length field
+        in: query
+        name: length__gte
+        type: integer
       responses:
         200:
           description: Ok
@@ -17746,6 +19138,166 @@ paths:
           \ of parameters must be comma-separated:\n\n`name__in=fw-manifest1,fw-manifest2`"
         in: query
         name: filter
+        type: string
+      - description: in filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__in
+        type: string
+      - description: nin filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__nin
+        type: string
+      - description: lte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__lte
+        type: string
+      - description: gte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__gte
+        type: string
+      - description: eq filter for the datafile field
+        in: query
+        name: datafile__eq
+        type: string
+      - description: neq filter for the datafile field
+        in: query
+        name: datafile__neq
+        type: string
+      - description: in filter for the datafile field
+        in: query
+        name: datafile__in
+        type: string
+      - description: nin filter for the datafile field
+        in: query
+        name: datafile__nin
+        type: string
+      - description: eq filter for the datafile_size field
+        format: int64
+        in: query
+        name: datafile_size__eq
+        type: integer
+      - description: neq filter for the datafile_size field
+        format: int64
+        in: query
+        name: datafile_size__neq
+        type: integer
+      - description: in filter for the datafile_size field
+        format: int64
+        in: query
+        name: datafile_size__in
+        type: integer
+      - description: nin filter for the datafile_size field
+        format: int64
+        in: query
+        name: datafile_size__nin
+        type: integer
+      - description: eq filter for the description field
+        in: query
+        name: description__eq
+        type: string
+      - description: neq filter for the description field
+        in: query
+        name: description__neq
+        type: string
+      - description: in filter for the description field
+        in: query
+        name: description__in
+        type: string
+      - description: nin filter for the description field
+        in: query
+        name: description__nin
+        type: string
+      - description: eq filter for the device_class field
+        in: query
+        name: device_class__eq
+        type: string
+      - description: neq filter for the device_class field
+        in: query
+        name: device_class__neq
+        type: string
+      - description: in filter for the device_class field
+        in: query
+        name: device_class__in
+        type: string
+      - description: nin filter for the device_class field
+        in: query
+        name: device_class__nin
+        type: string
+      - description: eq filter for the id field
+        in: query
+        name: id__eq
+        type: string
+      - description: neq filter for the id field
+        in: query
+        name: id__neq
+        type: string
+      - description: in filter for the id field
+        in: query
+        name: id__in
+        type: string
+      - description: nin filter for the id field
+        in: query
+        name: id__nin
+        type: string
+      - description: eq filter for the name field
+        in: query
+        name: name__eq
+        type: string
+      - description: neq filter for the name field
+        in: query
+        name: name__neq
+        type: string
+      - description: in filter for the name field
+        in: query
+        name: name__in
+        type: string
+      - description: nin filter for the name field
+        in: query
+        name: name__nin
+        type: string
+      - description: in filter for the timestamp field
+        format: date-time
+        in: query
+        name: timestamp__in
+        type: string
+      - description: nin filter for the timestamp field
+        format: date-time
+        in: query
+        name: timestamp__nin
+        type: string
+      - description: lte filter for the timestamp field
+        format: date-time
+        in: query
+        name: timestamp__lte
+        type: string
+      - description: gte filter for the timestamp field
+        format: date-time
+        in: query
+        name: timestamp__gte
+        type: string
+      - description: in filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__gte
         type: string
       responses:
         '200':
@@ -19622,6 +21174,202 @@ paths:
           \ of parameters must be comma-separated:\n\n`name__in=fw-image1,fw-image2`"
         in: query
         name: filter
+        type: string
+      - description: in filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__in
+        type: string
+      - description: nin filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__nin
+        type: string
+      - description: lte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__lte
+        type: string
+      - description: gte filter for the created_at field
+        format: date-time
+        in: query
+        name: created_at__gte
+        type: string
+      - description: eq filter for the description field
+        in: query
+        name: description__eq
+        type: string
+      - description: neq filter for the description field
+        in: query
+        name: description__neq
+        type: string
+      - description: in filter for the description field
+        in: query
+        name: description__in
+        type: string
+      - description: nin filter for the description field
+        in: query
+        name: description__nin
+        type: string
+      - description: eq filter for the device_filter field
+        in: query
+        name: device_filter__eq
+        type: string
+      - description: neq filter for the device_filter field
+        in: query
+        name: device_filter__neq
+        type: string
+      - description: in filter for the device_filter field
+        in: query
+        name: device_filter__in
+        type: string
+      - description: nin filter for the device_filter field
+        in: query
+        name: device_filter__nin
+        type: string
+      - description: in filter for the finished field
+        format: date-time
+        in: query
+        name: finished__in
+        type: string
+      - description: nin filter for the finished field
+        format: date-time
+        in: query
+        name: finished__nin
+        type: string
+      - description: lte filter for the finished field
+        format: date-time
+        in: query
+        name: finished__lte
+        type: string
+      - description: gte filter for the finished field
+        format: date-time
+        in: query
+        name: finished__gte
+        type: string
+      - description: eq filter for the id field
+        in: query
+        name: id__eq
+        type: string
+      - description: neq filter for the id field
+        in: query
+        name: id__neq
+        type: string
+      - description: in filter for the id field
+        in: query
+        name: id__in
+        type: string
+      - description: nin filter for the id field
+        in: query
+        name: id__nin
+        type: string
+      - description: eq filter for the name field
+        in: query
+        name: name__eq
+        type: string
+      - description: neq filter for the name field
+        in: query
+        name: name__neq
+        type: string
+      - description: in filter for the name field
+        in: query
+        name: name__in
+        type: string
+      - description: nin filter for the name field
+        in: query
+        name: name__nin
+        type: string
+      - description: eq filter for the root_manifest_id field
+        in: query
+        name: root_manifest_id__eq
+        type: string
+      - description: neq filter for the root_manifest_id field
+        in: query
+        name: root_manifest_id__neq
+        type: string
+      - description: in filter for the root_manifest_id field
+        in: query
+        name: root_manifest_id__in
+        type: string
+      - description: nin filter for the root_manifest_id field
+        in: query
+        name: root_manifest_id__nin
+        type: string
+      - description: in filter for the started_at field
+        format: date-time
+        in: query
+        name: started_at__in
+        type: string
+      - description: nin filter for the started_at field
+        format: date-time
+        in: query
+        name: started_at__nin
+        type: string
+      - description: lte filter for the started_at field
+        format: date-time
+        in: query
+        name: started_at__lte
+        type: string
+      - description: gte filter for the started_at field
+        format: date-time
+        in: query
+        name: started_at__gte
+        type: string
+      - description: eq filter for the state field
+        in: query
+        name: state__eq
+        type: string
+      - description: neq filter for the state field
+        in: query
+        name: state__neq
+        type: string
+      - description: in filter for the state field
+        in: query
+        name: state__in
+        type: string
+      - description: nin filter for the state field
+        in: query
+        name: state__nin
+        type: string
+      - description: in filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__gte
+        type: string
+      - description: in filter for the when field
+        format: date-time
+        in: query
+        name: when__in
+        type: string
+      - description: nin filter for the when field
+        format: date-time
+        in: query
+        name: when__nin
+        type: string
+      - description: lte filter for the when field
+        format: date-time
+        in: query
+        name: when__lte
+        type: string
+      - description: gte filter for the when field
+        format: date-time
+        in: query
+        name: when__gte
         type: string
       responses:
         '200':

@@ -1760,6 +1760,7 @@
             "type": "account"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -2964,6 +2965,7 @@
               "like"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -4092,6 +4094,7 @@
             "type": "account"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -5337,6 +5340,7 @@
             "type": "account"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -5991,6 +5995,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -7536,6 +7541,7 @@
             "type": "account"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -8115,6 +8121,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -8920,6 +8927,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -9943,6 +9951,7 @@
             "type": "api_key"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -10221,6 +10230,7 @@
             "type": "api_key"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -10659,6 +10669,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -10988,6 +10999,7 @@
             "type": "api_key"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -11403,6 +11415,7 @@
             "type": "api_key"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -11927,6 +11940,7 @@
             "type": "api_key"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -12544,6 +12558,7 @@
               "gte"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -12972,6 +12987,7 @@
             "type": "certificate_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -13592,6 +13608,7 @@
             "type": "certificate_issuer"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -13898,6 +13915,7 @@
             "type": "certificate_issuer"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -14270,6 +14288,7 @@
             "type": "certificate_issuer"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -14668,6 +14687,7 @@
             "type": "certificate_issuer"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -15244,6 +15264,7 @@
             "type": "certificate_issuer"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -15638,6 +15659,7 @@
             "type": "verification_response"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -16123,6 +16145,7 @@
             "type": "certificate_issuer_config"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -16435,6 +16458,7 @@
             "type": "certificate_issuer_config"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -16743,6 +16767,7 @@
             "type": "certificate_issuer_config"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -17165,6 +17190,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -17557,6 +17583,7 @@
             "type": "certificate_issuer_config"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -17955,6 +17982,7 @@
             "type": "certificate_issuer_config"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -18545,6 +18573,7 @@
             "type": "developer_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -18830,6 +18859,7 @@
             "type": "developer_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -19314,6 +19344,7 @@
             "type": "trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -19728,6 +19759,7 @@
             "type": "developer_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -20517,6 +20549,7 @@
             "type": "device"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -20593,6 +20626,7 @@
             "type": "device"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -21202,6 +21236,7 @@
               "nin"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -21213,7 +21248,121 @@
             "sub_accounts",
             "data",
             "has_more",
-            "total_count"
+            "total_count",
+            "account_id__eq",
+            "account_id__neq",
+            "account_id__in",
+            "account_id__nin",
+            "auto_update__eq",
+            "auto_update__neq",
+            "auto_update__in",
+            "auto_update__nin",
+            "bootstrapped_expiration_date__in",
+            "bootstrapped_expiration_date__nin",
+            "bootstrapped_expiration_date__lte",
+            "bootstrapped_expiration_date__gte",
+            "bootstrapped_timestamp__in",
+            "bootstrapped_timestamp__nin",
+            "bootstrapped_timestamp__lte",
+            "bootstrapped_timestamp__gte",
+            "ca_id__eq",
+            "ca_id__neq",
+            "ca_id__in",
+            "ca_id__nin",
+            "connector_expiration_date__in",
+            "connector_expiration_date__nin",
+            "connector_expiration_date__lte",
+            "connector_expiration_date__gte",
+            "created_at__in",
+            "created_at__nin",
+            "created_at__lte",
+            "created_at__gte",
+            "custom_attributes__eq",
+            "custom_attributes__neq",
+            "deployed_state__eq",
+            "deployed_state__neq",
+            "deployed_state__in",
+            "deployed_state__nin",
+            "deployment__eq",
+            "deployment__neq",
+            "deployment__in",
+            "deployment__nin",
+            "description__eq",
+            "description__neq",
+            "description__in",
+            "description__nin",
+            "device_class__eq",
+            "device_class__neq",
+            "device_class__in",
+            "device_class__nin",
+            "device_execution_mode__eq",
+            "device_execution_mode__neq",
+            "device_execution_mode__in",
+            "device_execution_mode__nin",
+            "device_key__eq",
+            "device_key__neq",
+            "device_key__in",
+            "device_key__nin",
+            "endpoint_name__eq",
+            "endpoint_name__neq",
+            "endpoint_name__in",
+            "endpoint_name__nin",
+            "endpoint_type__eq",
+            "endpoint_type__neq",
+            "endpoint_type__in",
+            "endpoint_type__nin",
+            "enrollment_list_timestamp__in",
+            "enrollment_list_timestamp__nin",
+            "enrollment_list_timestamp__lte",
+            "enrollment_list_timestamp__gte",
+            "firmware_checksum__eq",
+            "firmware_checksum__neq",
+            "firmware_checksum__in",
+            "firmware_checksum__nin",
+            "host_gateway__eq",
+            "host_gateway__neq",
+            "host_gateway__in",
+            "host_gateway__nin",
+            "id__eq",
+            "id__neq",
+            "id__in",
+            "id__nin",
+            "manifest__eq",
+            "manifest__neq",
+            "manifest__in",
+            "manifest__nin",
+            "manifest_timestamp__in",
+            "manifest_timestamp__nin",
+            "manifest_timestamp__lte",
+            "manifest_timestamp__gte",
+            "mechanism__eq",
+            "mechanism__neq",
+            "mechanism__in",
+            "mechanism__nin",
+            "mechanism_url__eq",
+            "mechanism_url__neq",
+            "mechanism_url__in",
+            "mechanism_url__nin",
+            "name__eq",
+            "name__neq",
+            "name__in",
+            "name__nin",
+            "serial_number__eq",
+            "serial_number__neq",
+            "serial_number__in",
+            "serial_number__nin",
+            "state__eq",
+            "state__neq",
+            "state__in",
+            "state__nin",
+            "updated_at__in",
+            "updated_at__nin",
+            "updated_at__lte",
+            "updated_at__gte",
+            "vendor_id__eq",
+            "vendor_id__neq",
+            "vendor_id__in",
+            "vendor_id__nin"
           ],
           "foreign_key_priority": "self",
           "group_id": "Devices",
@@ -21624,6 +21773,7 @@
             "type": "device"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -22201,6 +22351,7 @@
             "type": "certificate_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -22740,6 +22891,7 @@
             "type": "device"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -23551,6 +23703,7 @@
             "type": "device_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -23752,6 +23905,7 @@
             "type": "device_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -24156,6 +24310,7 @@
             "type": "device_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -24456,6 +24611,7 @@
             "type": "device_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -24867,6 +25023,7 @@
             "type": "device_enrollment_bulk_create"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -24908,6 +25065,7 @@
             "type": "file"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -24943,6 +25101,7 @@
             "type": "file"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -25342,6 +25501,7 @@
             "type": "device_enrollment_bulk_create"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -25790,6 +25950,7 @@
             "type": "device_enrollment_bulk_delete"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -25831,6 +25992,7 @@
             "type": "file"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -25866,6 +26028,7 @@
             "type": "file"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -26268,6 +26431,7 @@
             "type": "device_enrollment_bulk_delete"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -26689,6 +26853,7 @@
               "nin"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -26700,7 +26865,31 @@
             "sub_accounts",
             "data",
             "has_more",
-            "total_count"
+            "total_count",
+            "date_time__in",
+            "date_time__nin",
+            "date_time__lte",
+            "date_time__gte",
+            "description__eq",
+            "description__neq",
+            "description__in",
+            "description__nin",
+            "id__eq",
+            "id__neq",
+            "id__in",
+            "id__nin",
+            "device_id__eq",
+            "device_id__neq",
+            "device_id__in",
+            "device_id__nin",
+            "event_type__eq",
+            "event_type__neq",
+            "event_type__in",
+            "event_type__nin",
+            "state_change__eq",
+            "state_change__neq",
+            "state_change__in",
+            "state_change__nin"
           ],
           "foreign_key_priority": "self",
           "group_id": "Devices",
@@ -26881,6 +27070,7 @@
             "type": "device_events"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -27472,6 +27662,7 @@
             "type": "server_credentials"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -27737,6 +27928,7 @@
             "type": "server_credentials"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -28452,6 +28644,7 @@
             "type": "subtenant_trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -28763,6 +28956,7 @@
             "type": "subtenant_trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -29167,6 +29361,7 @@
             "type": "developer_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -29698,6 +29893,7 @@
             "type": "subtenant_trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -30379,6 +30575,7 @@
             "type": "subtenant_trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -31645,6 +31842,7 @@
             "type": "subtenant_user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -32027,6 +32225,7 @@
             "type": "subtenant_user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -32774,6 +32973,7 @@
             "type": "subtenant_user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -33824,6 +34024,7 @@
             "type": "subtenant_user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -34134,6 +34335,7 @@
             "type": "subtenant_user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -35104,6 +35306,7 @@
             "type": "subtenant_user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -35392,6 +35595,7 @@
             "type": "subtenant_user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -35846,6 +36050,7 @@
             "type": "subtenant_user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -36620,6 +36825,7 @@
             "type": "trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -36920,6 +37126,7 @@
             "type": "trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -37324,6 +37531,7 @@
             "type": "developer_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -37865,6 +38073,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -38366,6 +38575,7 @@
             "type": "trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -39087,6 +39297,7 @@
             "type": "trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -40216,6 +40427,7 @@
             "type": "user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -40587,6 +40799,7 @@
             "type": "user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -41294,6 +41507,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -42001,6 +42215,7 @@
             "type": "user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -42999,6 +43214,7 @@
             "type": "user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -43935,6 +44151,7 @@
             "type": "user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -44212,6 +44429,7 @@
             "type": "user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -44663,6 +44881,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -45100,6 +45319,7 @@
             "type": "user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
