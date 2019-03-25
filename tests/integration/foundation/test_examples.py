@@ -178,3 +178,42 @@ class TestExamples(BaseCase):
         # end of example
         self.assertIsInstance(user, User)
         self.assertIsNotNone(user.id)
+
+    def test_certificate_black_listing(self):
+        from mbed_cloud.foundation import TrustedCertificate
+
+        # Find a production certificate
+        my_certificate = TrustedCertificate().list(filter={"device_execution_mode": {"neq": 1}}).first()
+        my_cert_id = my_certificate.id
+        # Record the original status to revert to it's original state at the end
+        original_status = TrustedCertificate(id=my_cert_id).read().status
+
+        # an example: certificate black listing
+        from mbed_cloud import SDK
+        from mbed_cloud import ApiFilter
+        from mbed_cloud.foundation.enums import TrustedCertificateStatusEnum
+
+        pelion_dm_sdk = SDK()
+
+        # Set the certificate to inactive
+        my_cert = pelion_dm_sdk.foundation.trusted_certificate(id=my_cert_id).read()
+        my_cert.status = TrustedCertificateStatusEnum.INACTIVE
+        my_cert.update()
+
+        # List all devices which have tried to bootstrap
+        api_filter = ApiFilter()
+        api_filter.add_filter("trusted_certificate_id", "eq", my_cert)
+
+        for device_denial in pelion_dm_sdk.foundation.device_enrollment_denial().list(filter=api_filter):
+            print("Device endpoint name: %s" % device_denial.endpoint_name)
+        # end of example
+
+        new_status = my_cert.read().status
+        self.assertEqual(TrustedCertificateStatusEnum.INACTIVE, new_status, "Status should have been set to disabled")
+
+        # Revert the certificate to its original status
+        my_cert.status = original_status
+        my_cert.update()
+
+        end_status = my_cert.read().status
+        self.assertEqual(original_status, end_status, "Status should have been reverted back to its original value")
