@@ -11,7 +11,9 @@ This module contains all Enums used by Foundation Entities in the Devices catego
 - :class:`DeviceDeployedStateEnum`
 - :class:`DeviceEnrollmentBulkCreateStatusEnum`
 - :class:`DeviceEnrollmentBulkDeleteStatusEnum`
+- :class:`DeviceEnrollmentDenialOrderEnum`
 - :class:`DeviceEnrollmentOrderEnum`
+- :class:`DeviceLifecycleStatusEnum`
 - :class:`DeviceMechanismEnum`
 - :class:`DeviceStateEnum`
 
@@ -24,7 +26,9 @@ How to import Enums:
     from mbed_cloud.foundation.enums import DeviceDeployedStateEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentBulkCreateStatusEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentBulkDeleteStatusEnum
+    from mbed_cloud.foundation.enums import DeviceEnrollmentDenialOrderEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentOrderEnum
+    from mbed_cloud.foundation.enums import DeviceLifecycleStatusEnum
     from mbed_cloud.foundation.enums import DeviceMechanismEnum
     from mbed_cloud.foundation.enums import DeviceStateEnum
 
@@ -89,6 +93,22 @@ class DeviceEnrollmentBulkDeleteStatusEnum(BaseEnum):
     values = frozenset(("completed", "new", "processing"))
 
 
+class DeviceEnrollmentDenialOrderEnum(BaseEnum):
+    """Represents expected values of `DeviceEnrollmentDenialOrderEnum`
+
+    This is used by Entities in the "devices" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC"))
+
+
 class DeviceEnrollmentOrderEnum(BaseEnum):
     """Represents expected values of `DeviceEnrollmentOrderEnum`
 
@@ -103,6 +123,22 @@ class DeviceEnrollmentOrderEnum(BaseEnum):
     DESC = "DESC"
 
     values = frozenset(("ASC", "DESC"))
+
+
+class DeviceLifecycleStatusEnum(BaseEnum):
+    """Represents expected values of `DeviceLifecycleStatusEnum`
+
+    This is used by Entities in the "devices" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    BLOCKED = "blocked"
+    ENABLED = "enabled"
+
+    values = frozenset(("blocked", "enabled"))
 
 
 class DeviceMechanismEnum(BaseEnum):

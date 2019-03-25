@@ -366,6 +366,38 @@ class DeviceEvents(Entity):
         """List all device events.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-events/>`_.
+
+        **API Filters**
+
+        The following filters are supported by the API when listing DeviceEvents entities:
+
+        +--------------+------+------+------+------+------+------+------+
+        | Field        | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +==============+======+======+======+======+======+======+======+
+        | date_time    |      |      | Y    | Y    | Y    | Y    |      |
+        +--------------+------+------+------+------+------+------+------+
+        | description  | Y    | Y    |      |      | Y    | Y    |      |
+        +--------------+------+------+------+------+------+------+------+
+        | device_id    | Y    | Y    |      |      | Y    | Y    |      |
+        +--------------+------+------+------+------+------+------+------+
+        | event_type   | Y    | Y    |      |      | Y    | Y    |      |
+        +--------------+------+------+------+------+------+------+------+
+        | id           | Y    | Y    |      |      | Y    | Y    |      |
+        +--------------+------+------+------+------+------+------+------+
+        | state_change | Y    | Y    |      |      | Y    | Y    |      |
+        +--------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+
+            from mbed_cloud.foundation import DeviceEvents
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("date_time", "in", <filter value>)
+            for device_event in DeviceEvents().list(filter=api_filter):
+                print(device_event.date_time)
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.

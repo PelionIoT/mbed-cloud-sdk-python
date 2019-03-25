@@ -25,7 +25,9 @@ Devices
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceDeployedStateEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceEnrollmentBulkCreateStatusEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceEnrollmentBulkDeleteStatusEnum`
+- :class:`mbed_cloud.foundation.entities.devices.enums.DeviceEnrollmentDenialOrderEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceEnrollmentOrderEnum`
+- :class:`mbed_cloud.foundation.entities.devices.enums.DeviceLifecycleStatusEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceMechanismEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceStateEnum`
 
@@ -65,7 +67,9 @@ How to import Enums:
     from mbed_cloud.foundation.enums import DeviceDeployedStateEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentBulkCreateStatusEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentBulkDeleteStatusEnum
+    from mbed_cloud.foundation.enums import DeviceEnrollmentDenialOrderEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentOrderEnum
+    from mbed_cloud.foundation.enums import DeviceLifecycleStatusEnum
     from mbed_cloud.foundation.enums import DeviceMechanismEnum
     from mbed_cloud.foundation.enums import DeviceStateEnum
     from mbed_cloud.foundation.enums import CertificateEnrollmentEnrollResultEnum
@@ -98,7 +102,9 @@ from mbed_cloud.foundation.entities.devices.enums import (
 from mbed_cloud.foundation.entities.devices.enums import (
     DeviceEnrollmentBulkDeleteStatusEnum,
 )
+from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentDenialOrderEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentOrderEnum
+from mbed_cloud.foundation.entities.devices.enums import DeviceLifecycleStatusEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceMechanismEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceStateEnum
 from mbed_cloud.foundation.entities.security.enums import (
@@ -134,7 +140,9 @@ __all__ = [
     "DeviceDeployedStateEnum",
     "DeviceEnrollmentBulkCreateStatusEnum",
     "DeviceEnrollmentBulkDeleteStatusEnum",
+    "DeviceEnrollmentDenialOrderEnum",
     "DeviceEnrollmentOrderEnum",
+    "DeviceLifecycleStatusEnum",
     "DeviceMechanismEnum",
     "DeviceStateEnum",
     "CertificateEnrollmentEnrollResultEnum",
