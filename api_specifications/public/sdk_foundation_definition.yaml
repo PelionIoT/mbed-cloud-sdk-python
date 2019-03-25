@@ -15169,68 +15169,6 @@ entities:
     readOnly: false
     required: false
     type: string
-  - _key: last_operator_suspended_category
-    api_fieldname: last_operator_suspended_category
-    description: The reference of the block category.
-    example: maintenance
-    pattern: '[a-f0-9_]{32}'
-    readOnly: true
-    required: false
-    type: string
-  - _key: last_operator_suspended_description
-    api_fieldname: last_operator_suspended_description
-    description: The most recent description why the device was suspended or returned
-      to service.
-    example: Suspended for maintenance.
-    maxLength: 2000
-    readOnly: true
-    required: false
-    type: string
-  - _key: last_operator_suspended_updated_at
-    api_fieldname: last_operator_suspended_updated_at
-    description: The timestamp of the most recent suspension activity.
-    example: '2017-05-22T12:37:55.576563Z'
-    format: date-time
-    readOnly: true
-    required: false
-    type: string
-  - _key: last_system_suspended_category
-    api_fieldname: last_system_suspended_category
-    description: The reference of the block category.
-    example: maintenance
-    pattern: '[a-f0-9_]{32}'
-    readOnly: true
-    required: false
-    type: string
-  - _key: last_system_suspended_description
-    api_fieldname: last_system_suspended_description
-    description: The most recent description of why the device was blocked or unblocked
-      by the system.
-    example: A certificate in the device's certificate chain was blacklisted by the
-      system.
-    maxLength: 2000
-    readOnly: true
-    required: false
-    type: string
-  - _key: last_system_suspended_updated_at
-    api_fieldname: last_system_suspended_updated_at
-    description: The timestamp of the most recent system block activity.
-    example: '2017-05-22T12:37:55.576563Z'
-    format: date-time
-    readOnly: true
-    required: false
-    type: string
-  - _key: lifecycle_status
-    api_fieldname: lifecycle_status
-    description: The lifecycle status of the device.
-    enum:
-    - enabled
-    - blocked
-    enum_reference: device_lifecycle_status_enum
-    example: enabled
-    readOnly: true
-    required: false
-    type: string
   - _key: manifest
     api_fieldname: manifest
     description: 'DEPRECATED: The URL for the current device manifest.'
@@ -15271,12 +15209,6 @@ entities:
     readOnly: false
     required: false
     type: string
-  - _key: operator_suspended
-    api_fieldname: operator_suspended
-    description: Is the device suspended by the operator?
-    readOnly: true
-    required: false
-    type: boolean
   - _key: serial_number
     api_fieldname: serial_number
     description: The serial number of the device.
@@ -15297,12 +15229,6 @@ entities:
     readOnly: false
     required: false
     type: string
-  - _key: system_suspended
-    api_fieldname: system_suspended
-    description: Is the device suspended by the system?
-    readOnly: true
-    required: false
-    type: boolean
   - _key: updated_at
     api_fieldname: updated_at
     description: The time the object was updated.
@@ -15331,15 +15257,6 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - operator_suspended
-    - last_operator_suspended_category
-    - last_operator_suspended_description
-    - last_operator_suspended_updated_at
-    - system_suspended
-    - last_system_suspended_category
-    - last_system_suspended_description
-    - last_system_suspended_updated_at
-    - lifecycle_status
     - account_id
     - created_at
     - deployed_state
@@ -15779,60 +15696,6 @@ entities:
           example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
           pattern: '[A-Fa-f0-9]{64}'
           type: string
-        last_operator_suspended_category:
-          api_fieldname: last_operator_suspended_category
-          description: The reference of the block category.
-          entity_fieldname: last_operator_suspended_category
-          example: maintenance
-          pattern: '[a-f0-9_]{32}'
-          type: string
-        last_operator_suspended_description:
-          api_fieldname: last_operator_suspended_description
-          description: The most recent description why the device was suspended or
-            returned to service.
-          entity_fieldname: last_operator_suspended_description
-          example: Suspended for maintenance.
-          maxLength: 2000
-          type: string
-        last_operator_suspended_updated_at:
-          api_fieldname: last_operator_suspended_updated_at
-          description: The timestamp of the most recent suspension activity.
-          entity_fieldname: last_operator_suspended_updated_at
-          example: '2017-05-22T12:37:55.576563Z'
-          format: date-time
-          type: string
-        last_system_suspended_category:
-          api_fieldname: last_system_suspended_category
-          description: The reference of the block category.
-          entity_fieldname: last_system_suspended_category
-          example: maintenance
-          pattern: '[a-f0-9_]{32}'
-          type: string
-        last_system_suspended_description:
-          api_fieldname: last_system_suspended_description
-          description: The most recent description of why the device was blocked or
-            unblocked by the system.
-          entity_fieldname: last_system_suspended_description
-          example: A certificate in the device's certificate chain was blacklisted
-            by the system.
-          maxLength: 2000
-          type: string
-        last_system_suspended_updated_at:
-          api_fieldname: last_system_suspended_updated_at
-          description: The timestamp of the most recent system block activity.
-          entity_fieldname: last_system_suspended_updated_at
-          example: '2017-05-22T12:37:55.576563Z'
-          format: date-time
-          type: string
-        lifecycle_status:
-          api_fieldname: lifecycle_status
-          description: The lifecycle status of the device.
-          entity_fieldname: lifecycle_status
-          enum:
-          - enabled
-          - blocked
-          example: enabled
-          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -15873,11 +15736,6 @@ entities:
           entity_fieldname: object
           example: device
           type: string
-        operator_suspended:
-          api_fieldname: operator_suspended
-          description: Is the device suspended by the operator?
-          entity_fieldname: operator_suspended
-          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -15895,11 +15753,6 @@ entities:
           - registered
           - deregistered
           type: string
-        system_suspended:
-          api_fieldname: system_suspended
-          description: Is the device suspended by the system?
-          entity_fieldname: system_suspended
-          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -16319,46 +16172,6 @@ entities:
               example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
               pattern: '[A-Fa-f0-9]{64}'
               type: string
-            last_operator_suspended_category:
-              description: The reference of the block category.
-              example: maintenance
-              pattern: '[a-f0-9_]{32}'
-              type: string
-            last_operator_suspended_description:
-              description: The most recent description why the device was suspended
-                or returned to service.
-              example: Suspended for maintenance.
-              maxLength: 2000
-              type: string
-            last_operator_suspended_updated_at:
-              description: The timestamp of the most recent suspension activity.
-              example: '2017-05-22T12:37:55.576563Z'
-              format: date-time
-              type: string
-            last_system_suspended_category:
-              description: The reference of the block category.
-              example: maintenance
-              pattern: '[a-f0-9_]{32}'
-              type: string
-            last_system_suspended_description:
-              description: The most recent description of why the device was blocked
-                or unblocked by the system.
-              example: A certificate in the device's certificate chain was blacklisted
-                by the system.
-              maxLength: 2000
-              type: string
-            last_system_suspended_updated_at:
-              description: The timestamp of the most recent system block activity.
-              example: '2017-05-22T12:37:55.576563Z'
-              format: date-time
-              type: string
-            lifecycle_status:
-              description: The lifecycle status of the device.
-              enum:
-              - enabled
-              - blocked
-              example: enabled
-              type: string
             manifest:
               description: 'DEPRECATED: The URL for the current device manifest.'
               example: ''
@@ -16387,9 +16200,6 @@ entities:
               description: The API resource entity.
               example: device
               type: string
-            operator_suspended:
-              description: Is the device suspended by the operator?
-              type: boolean
             serial_number:
               description: The serial number of the device.
               example: 00000000-0000-0000-0000-000000000000
@@ -16403,9 +16213,6 @@ entities:
               - registered
               - deregistered
               type: string
-            system_suspended:
-              description: Is the device suspended by the system?
-              type: boolean
             updated_at:
               description: The time the object was updated.
               example: '2017-05-22T12:37:55.576563Z'
@@ -16620,15 +16427,6 @@ entities:
     - private_key
     - sub_accounts
     - issuer_fingerprint
-    - operator_suspended
-    - last_operator_suspended_category
-    - last_operator_suspended_description
-    - last_operator_suspended_updated_at
-    - system_suspended
-    - last_system_suspended_category
-    - last_system_suspended_description
-    - last_system_suspended_updated_at
-    - lifecycle_status
     - account_id
     - device_execution_mode
     - auto_update
@@ -16857,60 +16655,6 @@ entities:
           example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
           pattern: '[A-Fa-f0-9]{64}'
           type: string
-        last_operator_suspended_category:
-          api_fieldname: last_operator_suspended_category
-          description: The reference of the block category.
-          entity_fieldname: last_operator_suspended_category
-          example: maintenance
-          pattern: '[a-f0-9_]{32}'
-          type: string
-        last_operator_suspended_description:
-          api_fieldname: last_operator_suspended_description
-          description: The most recent description why the device was suspended or
-            returned to service.
-          entity_fieldname: last_operator_suspended_description
-          example: Suspended for maintenance.
-          maxLength: 2000
-          type: string
-        last_operator_suspended_updated_at:
-          api_fieldname: last_operator_suspended_updated_at
-          description: The timestamp of the most recent suspension activity.
-          entity_fieldname: last_operator_suspended_updated_at
-          example: '2017-05-22T12:37:55.576563Z'
-          format: date-time
-          type: string
-        last_system_suspended_category:
-          api_fieldname: last_system_suspended_category
-          description: The reference of the block category.
-          entity_fieldname: last_system_suspended_category
-          example: maintenance
-          pattern: '[a-f0-9_]{32}'
-          type: string
-        last_system_suspended_description:
-          api_fieldname: last_system_suspended_description
-          description: The most recent description of why the device was blocked or
-            unblocked by the system.
-          entity_fieldname: last_system_suspended_description
-          example: A certificate in the device's certificate chain was blacklisted
-            by the system.
-          maxLength: 2000
-          type: string
-        last_system_suspended_updated_at:
-          api_fieldname: last_system_suspended_updated_at
-          description: The timestamp of the most recent system block activity.
-          entity_fieldname: last_system_suspended_updated_at
-          example: '2017-05-22T12:37:55.576563Z'
-          format: date-time
-          type: string
-        lifecycle_status:
-          api_fieldname: lifecycle_status
-          description: The lifecycle status of the device.
-          entity_fieldname: lifecycle_status
-          enum:
-          - enabled
-          - blocked
-          example: enabled
-          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -16951,11 +16695,6 @@ entities:
           entity_fieldname: object
           example: device
           type: string
-        operator_suspended:
-          api_fieldname: operator_suspended
-          description: Is the device suspended by the operator?
-          entity_fieldname: operator_suspended
-          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -16973,11 +16712,6 @@ entities:
           - registered
           - deregistered
           type: string
-        system_suspended:
-          api_fieldname: system_suspended
-          description: Is the device suspended by the system?
-          entity_fieldname: system_suspended
-          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -17418,15 +17152,6 @@ entities:
     - private_key
     - sub_accounts
     - issuer_fingerprint
-    - operator_suspended
-    - last_operator_suspended_category
-    - last_operator_suspended_description
-    - last_operator_suspended_updated_at
-    - system_suspended
-    - last_system_suspended_category
-    - last_system_suspended_description
-    - last_system_suspended_updated_at
-    - lifecycle_status
     - account_id
     - device_execution_mode
     - bootstrap_expiration_date
@@ -17740,60 +17465,6 @@ entities:
           example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
           pattern: '[A-Fa-f0-9]{64}'
           type: string
-        last_operator_suspended_category:
-          api_fieldname: last_operator_suspended_category
-          description: The reference of the block category.
-          entity_fieldname: last_operator_suspended_category
-          example: maintenance
-          pattern: '[a-f0-9_]{32}'
-          type: string
-        last_operator_suspended_description:
-          api_fieldname: last_operator_suspended_description
-          description: The most recent description why the device was suspended or
-            returned to service.
-          entity_fieldname: last_operator_suspended_description
-          example: Suspended for maintenance.
-          maxLength: 2000
-          type: string
-        last_operator_suspended_updated_at:
-          api_fieldname: last_operator_suspended_updated_at
-          description: The timestamp of the most recent suspension activity.
-          entity_fieldname: last_operator_suspended_updated_at
-          example: '2017-05-22T12:37:55.576563Z'
-          format: date-time
-          type: string
-        last_system_suspended_category:
-          api_fieldname: last_system_suspended_category
-          description: The reference of the block category.
-          entity_fieldname: last_system_suspended_category
-          example: maintenance
-          pattern: '[a-f0-9_]{32}'
-          type: string
-        last_system_suspended_description:
-          api_fieldname: last_system_suspended_description
-          description: The most recent description of why the device was blocked or
-            unblocked by the system.
-          entity_fieldname: last_system_suspended_description
-          example: A certificate in the device's certificate chain was blacklisted
-            by the system.
-          maxLength: 2000
-          type: string
-        last_system_suspended_updated_at:
-          api_fieldname: last_system_suspended_updated_at
-          description: The timestamp of the most recent system block activity.
-          entity_fieldname: last_system_suspended_updated_at
-          example: '2017-05-22T12:37:55.576563Z'
-          format: date-time
-          type: string
-        lifecycle_status:
-          api_fieldname: lifecycle_status
-          description: The lifecycle status of the device.
-          entity_fieldname: lifecycle_status
-          enum:
-          - enabled
-          - blocked
-          example: enabled
-          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -17834,11 +17505,6 @@ entities:
           entity_fieldname: object
           example: device
           type: string
-        operator_suspended:
-          api_fieldname: operator_suspended
-          description: Is the device suspended by the operator?
-          entity_fieldname: operator_suspended
-          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -17856,11 +17522,6 @@ entities:
           - registered
           - deregistered
           type: string
-        system_suspended:
-          api_fieldname: system_suspended
-          description: Is the device suspended by the system?
-          entity_fieldname: system_suspended
-          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -35910,14 +35571,6 @@ enums:
   values:
   - ASC
   - DESC
-- _key: device_lifecycle_status_enum
-  entity_name: device
-  enum_name: device_lifecycle_status_enum
-  field_name: lifecycle_status
-  group_id: Devices
-  values:
-  - blocked
-  - enabled
 - _key: device_mechanism_enum
   entity_name: device
   enum_name: device_mechanism_enum
@@ -36049,7 +35702,6 @@ groups:
   - device_enrollment
   - device_enrollment_denial
   enums:
-  - device_lifecycle_status_enum
   - device_deployed_state_enum
   - device_mechanism_enum
   - device_state_enum

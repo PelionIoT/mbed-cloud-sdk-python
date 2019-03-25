@@ -2119,46 +2119,6 @@ definitions:
         example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
         pattern: '[A-Fa-f0-9]{64}'
         type: string
-      last_operator_suspended_category:
-        description: The reference of the block category.
-        example: maintenance
-        pattern: '[a-f0-9_]{32}'
-        type: string
-      last_operator_suspended_description:
-        description: The most recent description why the device was suspended or returned
-          to service.
-        example: Suspended for maintenance.
-        maxLength: 2000
-        type: string
-      last_operator_suspended_updated_at:
-        description: The timestamp of the most recent suspension activity.
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
-        type: string
-      last_system_suspended_category:
-        description: The reference of the block category.
-        example: maintenance
-        pattern: '[a-f0-9_]{32}'
-        type: string
-      last_system_suspended_description:
-        description: The most recent description of why the device was blocked or
-          unblocked by the system.
-        example: A certificate in the device's certificate chain was blacklisted by
-          the system.
-        maxLength: 2000
-        type: string
-      last_system_suspended_updated_at:
-        description: The timestamp of the most recent system block activity.
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
-        type: string
-      lifecycle_status:
-        description: The lifecycle status of the device.
-        enum:
-        - enabled
-        - blocked
-        example: enabled
-        type: string
       manifest:
         description: 'DEPRECATED: The URL for the current device manifest.'
         example: ''
@@ -2187,9 +2147,6 @@ definitions:
         description: The API resource entity.
         example: device
         type: string
-      operator_suspended:
-        description: Is the device suspended by the operator?
-        type: boolean
       serial_number:
         description: The serial number of the device.
         example: 00000000-0000-0000-0000-000000000000
@@ -2203,9 +2160,6 @@ definitions:
         - registered
         - deregistered
         type: string
-      system_suspended:
-        description: Is the device suspended by the system?
-        type: boolean
       updated_at:
         description: The time the object was updated.
         example: '2017-05-22T12:37:55.576563Z'
