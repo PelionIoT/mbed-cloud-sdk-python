@@ -108,6 +108,7 @@ def beta_warning(header, category=FutureWarning):
         )
         has_warned = True
 
+
 def check_openssl_version():
     """Utility function to check that the OpenSSL version is recent enough"""
     version = ssl.OPENSSL_VERSION
