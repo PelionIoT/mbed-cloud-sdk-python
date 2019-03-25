@@ -267,7 +267,7 @@ class DeviceEnrollment(Entity):
         self._id.set(value)
 
     def create(self):
-        """Place an enrollment claim for one or several devices.
+        """Create a single enrollment.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments>`_.
         
@@ -299,7 +299,7 @@ class DeviceEnrollment(Entity):
     def list(
         self, filter=None, order="ASC", max_results=None, page_size=None, include=None
     ):
-        """Get enrollment list.
+        """Get a list of enrollments per account.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments>`_.
         
@@ -356,7 +356,7 @@ class DeviceEnrollment(Entity):
     def _paginate_list(
         self, after=None, filter=None, order="ASC", limit=None, include=None
     ):
-        """Get enrollment list.
+        """Get a list of enrollments per account.
         
         :param after: Entity ID to fetch after.
         :type after: str
@@ -395,7 +395,7 @@ class DeviceEnrollment(Entity):
         )
 
     def read(self):
-        """Get details of an enrollment by ID.
+        """Get details of an single enrollment by ID.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments/{id}>`_.
         
