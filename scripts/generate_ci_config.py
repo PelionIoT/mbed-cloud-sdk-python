@@ -188,7 +188,7 @@ def new_foundation_gen():
     another build). The current build is then cancelled to avoid unnecessary builds and misleading test results (
     which would be with a pre-render code version).
     """
-    foundation_dir = "src/mbed_cloud/sdk/foundation"
+    foundation_dir = "src/mbed_cloud/foundation"
     template = yaml.safe_load(f"""
     steps:
       - checkout
