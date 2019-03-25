@@ -1978,7 +1978,7 @@ definitions:
         description: API resource entity version.
         type: string
       id:
-        description: mUUID that uniquely identifies the developer certificate.
+        description: ID that uniquely identifies the developer certificate.
         type: string
       name:
         description: Name of the developer certificate.
@@ -4946,7 +4946,7 @@ definitions:
         description: API resource entity version.
         type: string
       id:
-        description: mUUID that uniquely identifies the entity.
+        description: ID that uniquely identifies the entity.
         type: string
       object:
         description: Entity name, always 'server-credentials'

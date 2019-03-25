@@ -13353,7 +13353,7 @@ entities:
     type: string
   - _key: id
     api_fieldname: id
-    description: mUUID that uniquely identifies the developer certificate.
+    description: ID that uniquely identifies the developer certificate.
     in: path
     parameter_fieldname: developerCertificateId
     readOnly: false
@@ -13676,7 +13676,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: mUUID that uniquely identifies the developer certificate.
+          description: ID that uniquely identifies the developer certificate.
           entity_fieldname: id
           in: path
           parameter_fieldname: developerCertificateId
@@ -14542,7 +14542,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: id
-      description: mUUID that uniquely identifies the developer certificate.
+      description: ID that uniquely identifies the developer certificate.
       entity_fieldname: id
       in: path
       parameter_fieldname: developerCertificateId
@@ -14796,7 +14796,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: mUUID that uniquely identifies the developer certificate.
+          description: ID that uniquely identifies the developer certificate.
           entity_fieldname: id
           type: string
         - _key: name
@@ -21869,7 +21869,7 @@ entities:
     type: string
   - _key: id
     api_fieldname: id
-    description: mUUID that uniquely identifies the entity.
+    description: ID that uniquely identifies the entity.
     readOnly: true
     required: false
     type: string
@@ -21955,7 +21955,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: mUUID that uniquely identifies the entity.
+          description: ID that uniquely identifies the entity.
           entity_fieldname: id
           type: string
         - _key: object
@@ -22153,7 +22153,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: mUUID that uniquely identifies the entity.
+          description: ID that uniquely identifies the entity.
           entity_fieldname: id
           type: string
         - _key: object
@@ -23210,7 +23210,7 @@ entities:
       type: integer
     - _key: id
       api_fieldname: id
-      description: mUUID that uniquely identifies the developer certificate.
+      description: ID that uniquely identifies the developer certificate.
       entity_fieldname: id
       in: path
       parameter_fieldname: developerCertificateId
@@ -23476,7 +23476,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: mUUID that uniquely identifies the developer certificate.
+          description: ID that uniquely identifies the developer certificate.
           entity_fieldname: id
           type: string
         - _key: name
@@ -29521,7 +29521,7 @@ entities:
       type: integer
     - _key: id
       api_fieldname: id
-      description: mUUID that uniquely identifies the developer certificate.
+      description: ID that uniquely identifies the developer certificate.
       entity_fieldname: id
       in: path
       parameter_fieldname: developerCertificateId
@@ -29787,7 +29787,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: mUUID that uniquely identifies the developer certificate.
+          description: ID that uniquely identifies the developer certificate.
           entity_fieldname: id
           type: string
         - _key: name

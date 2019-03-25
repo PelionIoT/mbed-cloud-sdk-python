@@ -18180,7 +18180,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the developer certificate.",
+                    "description": "ID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "parameter_fieldname": "developerCertificateId",
@@ -19412,7 +19412,7 @@
           "fields": [
             {
               "type": "string",
-              "description": "mUUID that uniquely identifies the developer certificate.",
+              "description": "ID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -19474,7 +19474,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the developer certificate.",
+                    "description": "ID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -19834,7 +19834,7 @@
         },
         {
           "type": "string",
-          "description": "mUUID that uniquely identifies the developer certificate.",
+          "description": "ID that uniquely identifies the developer certificate.",
           "api_fieldname": "id",
           "parameter_fieldname": "developerCertificateId",
           "in": "path",
@@ -28176,7 +28176,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the entity.",
+                    "description": "ID that uniquely identifies the entity.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -28442,7 +28442,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the entity.",
+                    "description": "ID that uniquely identifies the entity.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -28692,7 +28692,7 @@
         },
         {
           "type": "string",
-          "description": "mUUID that uniquely identifies the entity.",
+          "description": "ID that uniquely identifies the entity.",
           "api_fieldname": "id",
           "readOnly": true,
           "required": false,
@@ -29715,7 +29715,7 @@
             },
             {
               "type": "string",
-              "description": "mUUID that uniquely identifies the developer certificate.",
+              "description": "ID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -29788,7 +29788,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the developer certificate.",
+                    "description": "ID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -37885,7 +37885,7 @@
             },
             {
               "type": "string",
-              "description": "mUUID that uniquely identifies the developer certificate.",
+              "description": "ID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -37958,7 +37958,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the developer certificate.",
+                    "description": "ID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
