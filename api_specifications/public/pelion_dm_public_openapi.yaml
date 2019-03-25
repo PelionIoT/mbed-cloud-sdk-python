@@ -15934,12 +15934,10 @@ paths:
         name: filter
         type: string
       - description: in filter for the date_time field
-        format: date-time
         in: query
         name: date_time__in
         type: string
       - description: nin filter for the date_time field
-        format: date-time
         in: query
         name: date_time__nin
         type: string
@@ -16028,11 +16026,11 @@ paths:
       - description: in filter for the state_change field
         in: query
         name: state_change__in
-        type: boolean
+        type: string
       - description: nin filter for the state_change field
         in: query
         name: state_change__nin
-        type: boolean
+        type: string
       responses:
         '200':
           description: Request successful.
@@ -16194,11 +16192,11 @@ paths:
       - description: in filter for the devices_count field
         in: query
         name: devices_count__in
-        type: integer
+        type: string
       - description: nin filter for the devices_count field
         in: query
         name: devices_count__nin
-        type: integer
+        type: string
       - description: lte filter for the devices_count field
         in: query
         name: devices_count__lte
@@ -16232,12 +16230,10 @@ paths:
         name: custom_attributes__neq
         type: string
       - description: in filter for the created_at field
-        format: date-time
         in: query
         name: created_at__in
         type: string
       - description: nin filter for the created_at field
-        format: date-time
         in: query
         name: created_at__nin
         type: string
@@ -16252,12 +16248,10 @@ paths:
         name: created_at__gte
         type: string
       - description: in filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__in
         type: string
       - description: nin filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__nin
         type: string
@@ -16590,12 +16584,10 @@ paths:
         name: custom_attributes__neq
         type: string
       - description: in filter for the created_at field
-        format: date-time
         in: query
         name: created_at__in
         type: string
       - description: nin filter for the created_at field
-        format: date-time
         in: query
         name: created_at__nin
         type: string
@@ -16610,12 +16602,10 @@ paths:
         name: created_at__gte
         type: string
       - description: in filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__in
         type: string
       - description: nin filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__nin
         type: string
@@ -16816,12 +16806,10 @@ paths:
         name: filter
         type: string
       - description: in filter for the created_at field
-        format: date-time
         in: query
         name: created_at__in
         type: string
       - description: nin filter for the created_at field
-        format: date-time
         in: query
         name: created_at__nin
         type: string
@@ -16884,12 +16872,10 @@ paths:
         name: query__nin
         type: string
       - description: in filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__in
         type: string
       - description: nin filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__nin
         type: string
@@ -17107,12 +17093,10 @@ paths:
         name: filter
         type: string
       - description: in filter for the date_time field
-        format: date-time
         in: query
         name: date_time__in
         type: string
       - description: nin filter for the date_time field
-        format: date-time
         in: query
         name: date_time__nin
         type: string
@@ -17201,11 +17185,11 @@ paths:
       - description: in filter for the state_change field
         in: query
         name: state_change__in
-        type: boolean
+        type: string
       - description: nin filter for the state_change field
         in: query
         name: state_change__nin
-        type: boolean
+        type: string
       responses:
         '200':
           description: Request successful
@@ -17423,11 +17407,11 @@ paths:
       - description: in filter for the auto_update field
         in: query
         name: auto_update__in
-        type: boolean
+        type: string
       - description: nin filter for the auto_update field
         in: query
         name: auto_update__nin
-        type: boolean
+        type: string
       - description: in filter for the bootstrapped_expiration_date field
         in: query
         name: bootstrapped_expiration_date__in
@@ -17445,12 +17429,10 @@ paths:
         name: bootstrapped_expiration_date__gte
         type: string
       - description: in filter for the bootstrapped_timestamp field
-        format: date-time
         in: query
         name: bootstrapped_timestamp__in
         type: string
       - description: nin filter for the bootstrapped_timestamp field
-        format: date-time
         in: query
         name: bootstrapped_timestamp__nin
         type: string
@@ -17481,12 +17463,10 @@ paths:
         name: ca_id__nin
         type: string
       - description: in filter for the connector_expiration_date field
-        format: date
         in: query
         name: connector_expiration_date__in
         type: string
       - description: nin filter for the connector_expiration_date field
-        format: date
         in: query
         name: connector_expiration_date__nin
         type: string
@@ -17501,12 +17481,10 @@ paths:
         name: connector_expiration_date__gte
         type: string
       - description: in filter for the created_at field
-        format: date-time
         in: query
         name: created_at__in
         type: string
       - description: nin filter for the created_at field
-        format: date-time
         in: query
         name: created_at__nin
         type: string
@@ -17603,11 +17581,11 @@ paths:
       - description: in filter for the device_execution_mode field
         in: query
         name: device_execution_mode__in
-        type: integer
+        type: string
       - description: nin filter for the device_execution_mode field
         in: query
         name: device_execution_mode__nin
-        type: integer
+        type: string
       - description: eq filter for the device_key field
         in: query
         name: device_key__eq
@@ -17737,12 +17715,10 @@ paths:
         name: manifest__nin
         type: string
       - description: in filter for the manifest_timestamp field
-        format: date-time
         in: query
         name: manifest_timestamp__in
         type: string
       - description: nin filter for the manifest_timestamp field
-        format: date-time
         in: query
         name: manifest_timestamp__nin
         type: string
@@ -17837,12 +17813,10 @@ paths:
         name: state__nin
         type: string
       - description: in filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__in
         type: string
       - description: nin filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__nin
         type: string
@@ -18268,12 +18242,10 @@ paths:
         name: filter
         type: string
       - description: in filter for the created_at field
-        format: date-time
         in: query
         name: created_at__in
         type: string
       - description: nin filter for the created_at field
-        format: date-time
         in: query
         name: created_at__nin
         type: string
@@ -18330,15 +18302,13 @@ paths:
         name: datafile_size__neq
         type: integer
       - description: in filter for the datafile_size field
-        format: int64
         in: query
         name: datafile_size__in
-        type: integer
+        type: string
       - description: nin filter for the datafile_size field
-        format: int64
         in: query
         name: datafile_size__nin
-        type: integer
+        type: string
       - description: eq filter for the description field
         in: query
         name: description__eq
@@ -18404,12 +18374,10 @@ paths:
         name: timestamp__gte
         type: string
       - description: in filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__in
         type: string
       - description: nin filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__nin
         type: string
@@ -18586,12 +18554,10 @@ paths:
         name: filter
         type: string
       - description: in filter for the created_at field
-        format: date-time
         in: query
         name: created_at__in
         type: string
       - description: nin filter for the created_at field
-        format: date-time
         in: query
         name: created_at__nin
         type: string
@@ -18718,12 +18684,10 @@ paths:
         name: timestamp__gte
         type: string
       - description: in filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__in
         type: string
       - description: nin filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__nin
         type: string
@@ -18987,12 +18951,10 @@ paths:
         name: filter
         type: string
       - description: in filter for the created_at field
-        format: date-time
         in: query
         name: created_at__in
         type: string
       - description: nin filter for the created_at field
-        format: date-time
         in: query
         name: created_at__nin
         type: string
@@ -19017,18 +18979,16 @@ paths:
       - description: in filter for the id field
         in: query
         name: id__in
-        type: integer
+        type: string
       - description: nin filter for the id field
         in: query
         name: id__nin
-        type: integer
+        type: string
       - description: in filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__in
         type: string
       - description: nin filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__nin
         type: string
@@ -19069,11 +19029,11 @@ paths:
       - description: in filter for the length field
         in: query
         name: length__in
-        type: integer
+        type: string
       - description: nin filter for the length field
         in: query
         name: length__nin
-        type: integer
+        type: string
       - description: lte filter for the length field
         in: query
         name: length__lte
@@ -19322,12 +19282,10 @@ paths:
         name: filter
         type: string
       - description: in filter for the created_at field
-        format: date-time
         in: query
         name: created_at__in
         type: string
       - description: nin filter for the created_at field
-        format: date-time
         in: query
         name: created_at__nin
         type: string
@@ -19368,15 +19326,13 @@ paths:
         name: datafile_size__neq
         type: integer
       - description: in filter for the datafile_size field
-        format: int64
         in: query
         name: datafile_size__in
-        type: integer
+        type: string
       - description: nin filter for the datafile_size field
-        format: int64
         in: query
         name: datafile_size__nin
-        type: integer
+        type: string
       - description: eq filter for the description field
         in: query
         name: description__eq
@@ -19442,12 +19398,10 @@ paths:
         name: name__nin
         type: string
       - description: in filter for the timestamp field
-        format: date-time
         in: query
         name: timestamp__in
         type: string
       - description: nin filter for the timestamp field
-        format: date-time
         in: query
         name: timestamp__nin
         type: string
@@ -19462,12 +19416,10 @@ paths:
         name: timestamp__gte
         type: string
       - description: in filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__in
         type: string
       - description: nin filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__nin
         type: string
@@ -21388,12 +21340,10 @@ paths:
         name: filter
         type: string
       - description: in filter for the created_at field
-        format: date-time
         in: query
         name: created_at__in
         type: string
       - description: nin filter for the created_at field
-        format: date-time
         in: query
         name: created_at__nin
         type: string
@@ -21440,12 +21390,10 @@ paths:
         name: device_filter__nin
         type: string
       - description: in filter for the finished field
-        format: date-time
         in: query
         name: finished__in
         type: string
       - description: nin filter for the finished field
-        format: date-time
         in: query
         name: finished__nin
         type: string
@@ -21508,12 +21456,10 @@ paths:
         name: root_manifest_id__nin
         type: string
       - description: in filter for the started_at field
-        format: date-time
         in: query
         name: started_at__in
         type: string
       - description: nin filter for the started_at field
-        format: date-time
         in: query
         name: started_at__nin
         type: string
@@ -21544,12 +21490,10 @@ paths:
         name: state__nin
         type: string
       - description: in filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__in
         type: string
       - description: nin filter for the updated_at field
-        format: date-time
         in: query
         name: updated_at__nin
         type: string
@@ -21564,12 +21508,10 @@ paths:
         name: updated_at__gte
         type: string
       - description: in filter for the when field
-        format: date-time
         in: query
         name: when__in
         type: string
       - description: nin filter for the when field
-        format: date-time
         in: query
         name: when__nin
         type: string
