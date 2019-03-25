@@ -74,22 +74,13 @@ class Device(Entity):
         "host_gateway",
         "id",
         "issuer_fingerprint",
-        "last_operator_suspended_category",
-        "last_operator_suspended_description",
-        "last_operator_suspended_updated_at",
-        "last_system_suspended_category",
-        "last_system_suspended_description",
-        "last_system_suspended_updated_at",
-        "lifecycle_status",
         "manifest",
         "manifest_timestamp",
         "mechanism",
         "mechanism_url",
         "name",
-        "operator_suspended",
         "serial_number",
         "state",
-        "system_suspended",
         "updated_at",
         "vendor_id",
     ]
@@ -124,22 +115,13 @@ class Device(Entity):
         host_gateway=None,
         id=None,
         issuer_fingerprint=None,
-        last_operator_suspended_category=None,
-        last_operator_suspended_description=None,
-        last_operator_suspended_updated_at=None,
-        last_system_suspended_category=None,
-        last_system_suspended_description=None,
-        last_system_suspended_updated_at=None,
-        lifecycle_status=None,
         manifest=None,
         manifest_timestamp=None,
         mechanism=None,
         mechanism_url=None,
         name=None,
-        operator_suspended=None,
         serial_number=None,
         state=None,
-        system_suspended=None,
         updated_at=None,
         vendor_id=None,
     ):
@@ -209,22 +191,6 @@ class Device(Entity):
         :param issuer_fingerprint: SHA256 fingerprint of the certificate used to validate the
             signature of the device certificate.
         :type issuer_fingerprint: str
-        :param last_operator_suspended_category: The reference of the block category.
-        :type last_operator_suspended_category: str
-        :param last_operator_suspended_description: The most recent description why the device was suspended or
-            returned to service.
-        :type last_operator_suspended_description: str
-        :param last_operator_suspended_updated_at: The timestamp of the most recent suspension activity.
-        :type last_operator_suspended_updated_at: datetime
-        :param last_system_suspended_category: The reference of the block category.
-        :type last_system_suspended_category: str
-        :param last_system_suspended_description: The most recent description of why the device was blocked or
-            unblocked by the system.
-        :type last_system_suspended_description: str
-        :param last_system_suspended_updated_at: The timestamp of the most recent system block activity.
-        :type last_system_suspended_updated_at: datetime
-        :param lifecycle_status: The lifecycle status of the device.
-        :type lifecycle_status: str
         :param manifest: DEPRECATED: The URL for the current device manifest.
         :type manifest: str
         :param manifest_timestamp: The timestamp of the current manifest version.
@@ -235,14 +201,10 @@ class Device(Entity):
         :type mechanism_url: str
         :param name: The name of the device.
         :type name: str
-        :param operator_suspended: Is the device suspended by the operator?
-        :type operator_suspended: bool
         :param serial_number: The serial number of the device.
         :type serial_number: str
         :param state: The current state of the device.
         :type state: str
-        :param system_suspended: Is the device suspended by the system?
-        :type system_suspended: bool
         :param updated_at: The time the object was updated.
         :type updated_at: datetime
         :param vendor_id: The device vendor ID.
@@ -279,27 +241,6 @@ class Device(Entity):
         self._host_gateway = fields.StringField(value=host_gateway)
         self._id = fields.StringField(value=id)
         self._issuer_fingerprint = fields.StringField(value=issuer_fingerprint)
-        self._last_operator_suspended_category = fields.StringField(
-            value=last_operator_suspended_category
-        )
-        self._last_operator_suspended_description = fields.StringField(
-            value=last_operator_suspended_description
-        )
-        self._last_operator_suspended_updated_at = fields.DateTimeField(
-            value=last_operator_suspended_updated_at
-        )
-        self._last_system_suspended_category = fields.StringField(
-            value=last_system_suspended_category
-        )
-        self._last_system_suspended_description = fields.StringField(
-            value=last_system_suspended_description
-        )
-        self._last_system_suspended_updated_at = fields.DateTimeField(
-            value=last_system_suspended_updated_at
-        )
-        self._lifecycle_status = fields.StringField(
-            value=lifecycle_status, enum=enums.DeviceLifecycleStatusEnum
-        )
         self._manifest = fields.StringField(value=manifest)
         self._manifest_timestamp = fields.DateTimeField(value=manifest_timestamp)
         self._mechanism = fields.StringField(
@@ -307,10 +248,8 @@ class Device(Entity):
         )
         self._mechanism_url = fields.StringField(value=mechanism_url)
         self._name = fields.StringField(value=name)
-        self._operator_suspended = fields.BooleanField(value=operator_suspended)
         self._serial_number = fields.StringField(value=serial_number)
         self._state = fields.StringField(value=state, enum=enums.DeviceStateEnum)
-        self._system_suspended = fields.BooleanField(value=system_suspended)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._vendor_id = fields.StringField(value=vendor_id)
 
@@ -751,156 +690,6 @@ class Device(Entity):
         self._issuer_fingerprint.set(value)
 
     @property
-    def last_operator_suspended_category(self):
-        """The reference of the block category.
-        
-        api example: 'maintenance'
-        
-        :rtype: str
-        """
-
-        return self._last_operator_suspended_category.value
-
-    @last_operator_suspended_category.setter
-    def last_operator_suspended_category(self, value):
-        """Set value of `last_operator_suspended_category`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._last_operator_suspended_category.set(value)
-
-    @property
-    def last_operator_suspended_description(self):
-        """The most recent description why the device was suspended or returned to
-        service.
-        
-        api example: 'Suspended for maintenance.'
-        
-        :rtype: str
-        """
-
-        return self._last_operator_suspended_description.value
-
-    @last_operator_suspended_description.setter
-    def last_operator_suspended_description(self, value):
-        """Set value of `last_operator_suspended_description`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._last_operator_suspended_description.set(value)
-
-    @property
-    def last_operator_suspended_updated_at(self):
-        """The timestamp of the most recent suspension activity.
-        
-        api example: '2017-05-22T12:37:55.576563Z'
-        
-        :rtype: datetime
-        """
-
-        return self._last_operator_suspended_updated_at.value
-
-    @last_operator_suspended_updated_at.setter
-    def last_operator_suspended_updated_at(self, value):
-        """Set value of `last_operator_suspended_updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._last_operator_suspended_updated_at.set(value)
-
-    @property
-    def last_system_suspended_category(self):
-        """The reference of the block category.
-        
-        api example: 'maintenance'
-        
-        :rtype: str
-        """
-
-        return self._last_system_suspended_category.value
-
-    @last_system_suspended_category.setter
-    def last_system_suspended_category(self, value):
-        """Set value of `last_system_suspended_category`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._last_system_suspended_category.set(value)
-
-    @property
-    def last_system_suspended_description(self):
-        """The most recent description of why the device was blocked or unblocked by the
-        system.
-        
-        api example: "A certificate in the device's certificate chain was blacklisted by the
-            system."
-        
-        :rtype: str
-        """
-
-        return self._last_system_suspended_description.value
-
-    @last_system_suspended_description.setter
-    def last_system_suspended_description(self, value):
-        """Set value of `last_system_suspended_description`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._last_system_suspended_description.set(value)
-
-    @property
-    def last_system_suspended_updated_at(self):
-        """The timestamp of the most recent system block activity.
-        
-        api example: '2017-05-22T12:37:55.576563Z'
-        
-        :rtype: datetime
-        """
-
-        return self._last_system_suspended_updated_at.value
-
-    @last_system_suspended_updated_at.setter
-    def last_system_suspended_updated_at(self, value):
-        """Set value of `last_system_suspended_updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._last_system_suspended_updated_at.set(value)
-
-    @property
-    def lifecycle_status(self):
-        """The lifecycle status of the device.
-        
-        api example: 'enabled'
-        
-        :rtype: str
-        """
-
-        return self._lifecycle_status.value
-
-    @lifecycle_status.setter
-    def lifecycle_status(self, value):
-        """Set value of `lifecycle_status`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._lifecycle_status.set(value)
-
-    @property
     def manifest(self):
         """DEPRECATED: The URL for the current device manifest.
         
@@ -1000,25 +789,6 @@ class Device(Entity):
         self._name.set(value)
 
     @property
-    def operator_suspended(self):
-        """Is the device suspended by the operator?
-        
-        :rtype: bool
-        """
-
-        return self._operator_suspended.value
-
-    @operator_suspended.setter
-    def operator_suspended(self, value):
-        """Set value of `operator_suspended`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._operator_suspended.set(value)
-
-    @property
     def serial_number(self):
         """The serial number of the device.
         
@@ -1057,25 +827,6 @@ class Device(Entity):
         """
 
         self._state.set(value)
-
-    @property
-    def system_suspended(self):
-        """Is the device suspended by the system?
-        
-        :rtype: bool
-        """
-
-        return self._system_suspended.value
-
-    @system_suspended.setter
-    def system_suspended(self, value):
-        """Set value of `system_suspended`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._system_suspended.set(value)
 
     @property
     def updated_at(self):

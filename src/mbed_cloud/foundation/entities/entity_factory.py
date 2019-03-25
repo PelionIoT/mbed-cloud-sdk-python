@@ -536,22 +536,13 @@ class EntityFactory:
         host_gateway=None,
         id=None,
         issuer_fingerprint=None,
-        last_operator_suspended_category=None,
-        last_operator_suspended_description=None,
-        last_operator_suspended_updated_at=None,
-        last_system_suspended_category=None,
-        last_system_suspended_description=None,
-        last_system_suspended_updated_at=None,
-        lifecycle_status=None,
         manifest=None,
         manifest_timestamp=None,
         mechanism=None,
         mechanism_url=None,
         name=None,
-        operator_suspended=None,
         serial_number=None,
         state=None,
-        system_suspended=None,
         updated_at=None,
         vendor_id=None,
     ):
@@ -614,22 +605,6 @@ class EntityFactory:
         :param issuer_fingerprint: SHA256 fingerprint of the certificate used to validate the
             signature of the device certificate.
         :type issuer_fingerprint: str
-        :param last_operator_suspended_category: The reference of the block category.
-        :type last_operator_suspended_category: str
-        :param last_operator_suspended_description: The most recent description why the device was suspended or
-            returned to service.
-        :type last_operator_suspended_description: str
-        :param last_operator_suspended_updated_at: The timestamp of the most recent suspension activity.
-        :type last_operator_suspended_updated_at: datetime
-        :param last_system_suspended_category: The reference of the block category.
-        :type last_system_suspended_category: str
-        :param last_system_suspended_description: The most recent description of why the device was blocked or
-            unblocked by the system.
-        :type last_system_suspended_description: str
-        :param last_system_suspended_updated_at: The timestamp of the most recent system block activity.
-        :type last_system_suspended_updated_at: datetime
-        :param lifecycle_status: The lifecycle status of the device.
-        :type lifecycle_status: str
         :param manifest: DEPRECATED: The URL for the current device manifest.
         :type manifest: str
         :param manifest_timestamp: The timestamp of the current manifest version.
@@ -640,14 +615,10 @@ class EntityFactory:
         :type mechanism_url: str
         :param name: The name of the device.
         :type name: str
-        :param operator_suspended: Is the device suspended by the operator?
-        :type operator_suspended: bool
         :param serial_number: The serial number of the device.
         :type serial_number: str
         :param state: The current state of the device.
         :type state: str
-        :param system_suspended: Is the device suspended by the system?
-        :type system_suspended: bool
         :param updated_at: The time the object was updated.
         :type updated_at: datetime
         :param vendor_id: The device vendor ID.
@@ -681,22 +652,13 @@ class EntityFactory:
             host_gateway=host_gateway,
             id=id,
             issuer_fingerprint=issuer_fingerprint,
-            last_operator_suspended_category=last_operator_suspended_category,
-            last_operator_suspended_description=last_operator_suspended_description,
-            last_operator_suspended_updated_at=last_operator_suspended_updated_at,
-            last_system_suspended_category=last_system_suspended_category,
-            last_system_suspended_description=last_system_suspended_description,
-            last_system_suspended_updated_at=last_system_suspended_updated_at,
-            lifecycle_status=lifecycle_status,
             manifest=manifest,
             manifest_timestamp=manifest_timestamp,
             mechanism=mechanism,
             mechanism_url=mechanism_url,
             name=name,
-            operator_suspended=operator_suspended,
             serial_number=serial_number,
             state=state,
-            system_suspended=system_suspended,
             updated_at=updated_at,
             vendor_id=vendor_id,
         )
