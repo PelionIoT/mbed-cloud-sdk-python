@@ -188,7 +188,8 @@ def new_foundation_gen():
     another build). The current build is then cancelled to avoid unnecessary builds and misleading test results (
     which would be with a pre-render code version).
     """
-    template = yaml.safe_load("""
+    foundation_dir = "src/mbed_cloud/sdk/foundation"
+    template = yaml.safe_load(f"""
     steps:
       - checkout
       - run:
@@ -205,16 +206,16 @@ def new_foundation_gen():
           command: pipenv run python scripts/foundation/render_sdk.py 
             api_specifications/public/sdk_foundation_definition.yaml  -vv
             -p python_definition.yaml 
-            -o src/mbed_cloud/sdk/foundation/
+            -o {foundation_dir}
       - run:
           name: Commit code changes (cancel this build if commit made)
           command: |-
-              git add -v src/mbed_cloud/foundation/entities
-              git add -v src/mbed_cloud/foundation/enums
-              git add -v src/mbed_cloud/foundation/__init__.py
+              git add -v {foundation_dir}/entities
+              git add -v {foundation_dir}/enums
+              git add -v {foundation_dir}/__init__.py
               git commit --message "Auto-generated code" || FILES_CHANGED=True
-              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
-              if [ -z "$FILES_CHANGED" ]; then curl -X POST https://circleci.com/api/v1.1/project/github/ARMmbed/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM}/cancel?circle-token=${DOCS_CIRCLE_CI_TOKEN}; fi
+              git push -q https://${{GITHUB_TOKEN}}@github.com/ARMmbed/${{CIRCLE_PROJECT_REPONAME}}.git ${{CIRCLE_BRANCH}}
+              if [ -z "$FILES_CHANGED" ]; then curl -X POST https://circleci.com/api/v1.1/project/github/ARMmbed/${{CIRCLE_PROJECT_REPONAME}}/${{CIRCLE_BUILD_NUM}}/cancel?circle-token=${{DOCS_CIRCLE_CI_TOKEN}}; fi
       - store_artifacts:
           path: python_definition.yaml
           when: always
