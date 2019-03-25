@@ -597,7 +597,7 @@ definitions:
         format: int32
         type: integer
       grace_period:
-        description: Is this service package on grace period or not?
+        description: Indicates whether the service package is in its grace period.
         type: boolean
       id:
         description: ID of this service package.
@@ -609,7 +609,7 @@ definitions:
         type: string
       next_id:
         description: Next service package ID if this service package has a pending
-          renewal or null.
+          renewal, or null.
         type: string
       previous_id:
         description: Previous service package ID or null.
@@ -672,13 +672,13 @@ definitions:
       account_id:
         type: string
       amount:
-        description: Amount of quota usage entry. Negative if it is quota consumption.
+        description: Amount of quota usage entry. Negative if quota consumption.
         format: int64
         type: integer
       campaign_name:
         description: 'Campaign name of quota usage entry.
 
-          Null if quota usage entry type is not reservation or reservation release.'
+          Null if quota usage entry type is not `reservation` or `reservation release`.'
         type: string
       time:
         description: Added time of quota usage entry in RFC3339 date-time with millisecond
@@ -909,7 +909,7 @@ definitions:
         type: integer
     type: object
   BadRequestErrorResponse:
-    description: 400 Bad Request response.
+    description: 400 Bad request response.
     properties:
       code:
         description: Response code. Always set to 400.
@@ -921,18 +921,18 @@ definitions:
           $ref: '#/definitions/BadRequestErrorResponseField'
         type: array
       message:
-        description: A human readable message with detailed info.
+        description: A human-readable message with detailed info.
         type: string
       object:
-        description: Always set to 'error'.
+        description: Always set to `error`.
         enum:
         - error
         type: string
       request_id:
-        description: Request ID
+        description: Request ID.
         type: string
       type:
-        description: Error type. Always set to 'validation_error'.
+        description: Error type. Always set to `validation_error`.
         enum:
         - validation_error
         type: string
@@ -945,31 +945,31 @@ definitions:
     - fields
     type: object
   BadRequestErrorResponseField:
-    description: Single field that failed validation
+    description: Single field that failed validation.
     properties:
       message:
-        description: A human readable message with detailed validation error.
+        description: A human-readable message with detailed validation error.
         type: string
       name:
-        description: Name of the field that failed the validation. If name is set
-          to "body" then the validation failed on request body.
+        description: Name of the field that failed validation. If name is set to `body,`
+          then the validation failed on request body.
         type: string
     required:
     - name
     - message
     type: object
   BillingReportRawDataResponse:
-    description: The response includes the URL to download the raw billing data.
+    description: The response includes the URL to download raw billing data.
     properties:
       filename:
-        description: The filename of the raw billing data file to be downloaded. It
-          contains the file extensions.
+        description: The filename of the raw billing data file to download. Contains
+          file extensions.
         type: string
       object:
         description: API Resource name.
         type: string
       url:
-        description: The URL to download the raw billing data.
+        description: The URL to download raw billing data.
         type: string
     required:
     - object
@@ -1886,8 +1886,8 @@ definitions:
 
           '
         example: customer.dlms
-        maxLength: 50
-        pattern: (?!mbed\.)[\w-_.]{1,50}
+        maxLength: 100
+        pattern: (?!mbed\.)[\w-_.]{1,100}
         type: string
     required:
     - reference
@@ -3801,10 +3801,10 @@ definitions:
         - 403
         type: integer
       message:
-        description: A human readable message with detailed info.
+        description: A human-readable message with detailed info.
         type: string
       object:
-        description: Always set to 'error'.
+        description: Always set to `error`.
         enum:
         - error
         type: string
@@ -3812,7 +3812,7 @@ definitions:
         description: Request ID
         type: string
       type:
-        description: Error type. Always set to 'forbidden'.
+        description: Error type. Always set to `forbidden`.
         enum:
         - forbidden
         type: string
@@ -4176,7 +4176,7 @@ definitions:
     format: binary
     type: string
   InternalServerErrorResponse:
-    description: 500 Internal Server Error response.
+    description: 500 Internal server error response.
     properties:
       code:
         description: Response code. Always set to 500.
@@ -4184,10 +4184,10 @@ definitions:
         - 500
         type: integer
       message:
-        description: A human readable message with detailed info.
+        description: A human-readable message with detailed info.
         type: string
       object:
-        description: Always set to 'error'.
+        description: Always set to `error`.
         enum:
         - error
         type: string
@@ -4195,7 +4195,7 @@ definitions:
         description: Request ID
         type: string
       type:
-        description: Error type. Always set to 'internal_error'.
+        description: Error type. Always set to `internal_error`.
         enum:
         - internal_error
         type: string
@@ -4625,7 +4625,7 @@ definitions:
         description: Previous service package ID.
         type: string
       reason:
-        description: Reason why this service package was ended
+        description: Reason the service package was ended.
         enum:
         - renewed
         - terminated
@@ -4646,16 +4646,16 @@ definitions:
     - reason
     type: object
   QuotaUsageReport:
-    description: Account's quota usage entry for queried month.
+    description: Account quota usage entry for queried month.
     properties:
       amount:
-        description: Amount of quota usage entry. Negative if it is quota consumption.
+        description: Amount of quota usage entry. Negative if quota consumption.
         format: int64
         type: integer
       campaign_name:
         description: 'Campaign name of quota usage entry.
 
-          Null if quota usage entry type is not reservation or reservation release.'
+          Null if quota usage entry type is not `reservation` or `reservation release`.'
         type: string
       time:
         description: Added time of quota usage entry in RFC3339 date-time with millisecond
@@ -4740,7 +4740,7 @@ definitions:
     - firmware_updates
     type: object
   ReportNotFoundErrorResponse:
-    description: 404 Not Found response.
+    description: 404 Not found response.
     properties:
       code:
         description: Response code. Always set to 404.
@@ -4748,10 +4748,10 @@ definitions:
         - 404
         type: integer
       message:
-        description: A human readable message with detailed info.
+        description: A human-readable message with detailed info.
         type: string
       object:
-        description: Always set to 'error'.
+        description: Always set to `error`.
         enum:
         - error
         type: string
@@ -4759,7 +4759,7 @@ definitions:
         description: Request ID
         type: string
       type:
-        description: Error type. Always set to 'report_not_found'.
+        description: Error type. Always set to `report_not_found`.
         enum:
         - report_not_found
         type: string
@@ -4778,7 +4778,7 @@ definitions:
         description: Account contact information.
       aggregated:
         $ref: '#/definitions/ReportBillingData'
-        description: Aggregated report billing data including all subtenant accounts
+        description: Aggregated report billing data including all subtenant accounts,
           if any.
       billing_data:
         $ref: '#/definitions/ReportBillingData'
@@ -4787,11 +4787,11 @@ definitions:
         description: Billing report ID.
         type: string
       month:
-        description: Month of requested billing report
+        description: Month of requested billing report.
         pattern: ^\d{4}-\d{2}$
         type: string
       object:
-        description: Billing report response object. Always set to 'billing-report'.
+        description: Billing report response object. Always set to `billing-report`.
         enum:
         - billing-report
         type: string
@@ -4992,7 +4992,7 @@ definitions:
     description: Quota of the service package.
     properties:
       object:
-        description: Always set to 'service-package-quota'.
+        description: Always set to `service-package-quota`.
         enum:
         - service-package-quota
         type: string
@@ -5014,7 +5014,7 @@ definitions:
         format: date-time
         type: string
       amount:
-        description: the amount of quota usage, negative or positive
+        description: Negative or positive quota usage.
         format: int64
         type: integer
       id:
@@ -5034,13 +5034,13 @@ definitions:
         type: string
       reservation:
         $ref: '#/definitions/ServicePackageQuotaHistoryReservation'
-        description: Reservation details if reason is reservation, reservation_release
-          or reservation_termination.
+        description: Reservation details if reason is `reservation`, `reservation_releasem`
+          or `reservation_termination`.
         type: object
       service_package:
         $ref: '#/definitions/ServicePackageQuotaHistoryServicePackage'
-        description: Service package details if reason is package_creation, package_renewal
-          or package_termination
+        description: Service package details if reason is `package_creation`, `package_renewal`
+          or `package_termination`.
         type: object
     required:
     - id
@@ -5057,7 +5057,7 @@ definitions:
         minLength: 1
         type: string
       campaign_name:
-        description: Textual campaign name for this reservation.
+        description: Campaign name for this reservation.
         maxLength: 250
         minLength: 1
         type: string
@@ -5074,33 +5074,32 @@ definitions:
     description: Quota history of the service package.
     properties:
       after:
-        description: After which quota history ID this paged response is fetched.
+        description: ID after which to fetch quota history.
         maxLength: 32
         minLength: 32
         type: string
       data:
-        description: List of history items, empty list if no entries are available.
+        description: List of history items. Empty list if no entries are available.
         items:
           $ref: '#/definitions/ServicePackageQuotaHistoryItem'
         type: array
       has_more:
-        description: If there is next available quota history paged response to be
-          fetched.
+        description: If there is next available quota history paged response to fetch.
         type: boolean
       limit:
-        description: Maximum amount of quota history entries contained in one paged
+        description: Maximum number of quota history entries contained in one paged
           response.
         format: int32
         maximum: 1000
         minimum: 2
         type: integer
       object:
-        description: Always set to 'service-package-quota-history'.
+        description: Always set to `service-package-quota-history`.
         enum:
         - service-package-quota-history
         type: string
       total_count:
-        description: Sum of all quota history entries that should be returned
+        description: Sum of all quota history entries that should be returned.
         format: int32
         minimum: 0
         type: integer
@@ -5127,7 +5126,7 @@ definitions:
         description: ID of this service package.
         type: string
       previous_id:
-        description: Previous service package ID or null.
+        description: Previous service package ID, or null.
         type: string
       start_time:
         description: Service package start time in RFC3339 date-time with millisecond
@@ -5158,18 +5157,16 @@ definitions:
     - aggregated_quota_usage
     type: object
   ServicePackagesResponse:
-    description: 'Contains service package information for currently active service
-      package,
-
-      currently pending service package and all previous service packages this account
-      has had.'
+    description: Contains service package information for currently active service
+      package, currently pending service package, and all previous service packages
+      associated with the account.
     properties:
       active:
         $ref: '#/definitions/ActiveServicePackage'
         description: Currently active service package. Can be null.
         type: object
       object:
-        description: Always set to 'service-packages'.
+        description: Always set to `service-packages`.
         enum:
         - service-packages
         type: string
@@ -5235,7 +5232,7 @@ definitions:
       country:
         type: string
       customer_subtenant_id:
-        description: Account subtenant ID if it is a subtenant.
+        description: Account subtenant ID, if a subtenant.
         type: string
       email:
         type: string
@@ -5495,10 +5492,10 @@ definitions:
         - 401
         type: integer
       message:
-        description: A human readable message with detailed info.
+        description: A human-readable message with detailed info.
         type: string
       object:
-        description: Always set to 'error'.
+        description: Always set to `error`.
         enum:
         - error
         type: string
@@ -5506,7 +5503,7 @@ definitions:
         description: Request ID
         type: string
       type:
-        description: Error type. Always set to 'unauthorized'.
+        description: Error type. Always set to `unauthorized`.
         enum:
         - unauthorized
         type: string
@@ -12585,11 +12582,23 @@ paths:
       - Account Admin
   /v3/billing-report:
     get:
-      description: "Fetch the billing report generated for the currently authenticated\
-        \ commercial non-subtenant account.\nBilling reports for subtenant accounts\
-        \ are included in their aggregator's billing report response.\n\n**Example\
-        \ usage:**\n\n    curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report?month=2018-07\
-        \ -H 'authorization: Bearer {api-key}'"
+      description: 'Fetch the billing report generated for the currently authenticated
+        commercial non-subtenant account.
+
+        Billing reports for subtenant accounts are included in their aggregator''s
+        billing report response.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report?month=2018-07
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getBillingReport
       parameters:
       - description: Queried year and month of billing report.
@@ -12720,7 +12729,7 @@ paths:
           schema:
             $ref: '#/definitions/ReportResponse'
         400:
-          description: Bad Request.
+          description: Bad request.
           examples:
             application/json:
               code: 400
@@ -12756,8 +12765,8 @@ paths:
           schema:
             $ref: '#/definitions/ForbiddenErrorResponse'
         404:
-          description: Billing report must not be found if requested month is current
-            or is in future. Also could not be available for previous months in special
+          description: Billing report not found if requested month is current or in
+            the future. Also could not be available for previous months in special
             cases.
           examples:
             application/json:
@@ -12769,7 +12778,7 @@ paths:
           schema:
             $ref: '#/definitions/ReportNotFoundErrorResponse'
         500:
-          description: Internal Server Error.
+          description: Internal server error.
           examples:
             application/json:
               code: 500
@@ -12782,15 +12791,30 @@ paths:
       summary: Get billing report.
   /v3/billing-report-active-devices:
     get:
-      description: "Fetch the raw billing data of the active devices for the currently\
-        \ authenticated commercial non-subtenant account.\nThis is supplementary data\
-        \ for the billing report. The raw billing data of the active devices for subtenant\
-        \ accounts\nare included in their aggregator's raw billing data of the active\
-        \ devices.\nThe endpoint returns the URL to download the gzipped CSV file.\
-        \ The first line is the header providing information on the active devices.\n\
-        For example, the ID of an active device.\n\n**Example usage:**\n\n    curl\
-        \ -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-active-devices?month=2018-07\
-        \ -H 'authorization: Bearer {api-key}'"
+      description: 'Fetch raw billing data for active devices for the currently authenticated
+        commercial non-subtenant account.
+
+        This is supplementary data for the billing report. The raw billing data of
+        the active devices for subtenant accounts
+
+        are included in their aggregator''s raw billing data of the active devices.
+
+
+        The endpoint returns the URL to download the gzipped CSV file. The first line
+        is the header providing information on active devices, for example, the ID
+        of an active device.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-active-devices?month=2018-07
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getBillingReportActiveDevices
       parameters:
       - description: Queried year and month of billing report.
@@ -12801,7 +12825,7 @@ paths:
         type: string
       responses:
         200:
-          description: The response includes the URL to download the raw billing data
+          description: The response includes the URL to download raw billing data
             of the active devices.
           examples:
             application/json:
@@ -12811,7 +12835,7 @@ paths:
           schema:
             $ref: '#/definitions/BillingReportRawDataResponse'
         400:
-          description: Bad Request.
+          description: Bad request.
           examples:
             application/json:
               code: 400
@@ -12858,7 +12882,7 @@ paths:
           schema:
             $ref: '#/definitions/ReportNotFoundErrorResponse'
         500:
-          description: Internal Server Error.
+          description: Internal server error.
           examples:
             application/json:
               code: 500
@@ -12871,15 +12895,30 @@ paths:
       summary: Get raw billing data of the active devices for the month.
   /v3/billing-report-firmware-updates:
     get:
-      description: "Fetch raw billing data of the firmware updates for the currently\
-        \ authenticated commercial non-subtenant account.\nThis is supplementary data\
-        \ for the billing report. The raw billing data of the firmware updates for\
-        \ subtenant accounts\nare included in their aggregator's raw billing data\
-        \ of the firmware updates.\nThe endpoint returns the URL to download the gzipped\
-        \ CSV file. The first line is the header providing information on the firmware\
-        \ updates.\nFor example, the ID of an firmware update.\n\n**Example usage:**\n\
-        \n    curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month=2018-07\
-        \ -H 'authorization: Bearer {api-key}'"
+      description: 'Fetch raw billing data for firmware updates for the currently
+        authenticated commercial non-subtenant account.
+
+        This is supplementary data for the billing report. The raw billing data of
+        the firmware updates for subtenant accounts
+
+        are included in their aggregator''s raw billing data of the firmware updates.
+
+        The endpoint returns the URL to download the gzipped CSV file. The first line
+        is the header providing information on the firmware updates.
+
+        For example, the ID of an firmware update.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month=2018-07
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getBillingReportFirmwareUpdates
       parameters:
       - description: Queried year and month of billing report.
@@ -12890,7 +12929,7 @@ paths:
         type: string
       responses:
         200:
-          description: The response includes the URL to download the raw billing data
+          description: The response includes the URL to download raw billing data
             of the firmware updates.
           examples:
             application/json:
@@ -12900,7 +12939,7 @@ paths:
           schema:
             $ref: '#/definitions/BillingReportRawDataResponse'
         400:
-          description: Bad Request.
+          description: Bad request.
           examples:
             application/json:
               code: 400
@@ -12947,7 +12986,7 @@ paths:
           schema:
             $ref: '#/definitions/ReportNotFoundErrorResponse'
         500:
-          description: Internal Server Error.
+          description: Internal server error.
           examples:
             application/json:
               code: 500
@@ -20740,16 +20779,28 @@ paths:
       - Server credentials
   /v3/service-packages:
     get:
-      description: "Get information of all service packages for the currently authenticated\
-        \ commercial account. The response is returned in\ndescending order by service\
-        \ package created timestamp, listing first the pending service package, then\
-        \ the active service package\nand finally the previous service packages.\n\
-        \n**Example usage:**\n\n    curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages\
-        \ -H 'authorization: Bearer {api-key}'"
+      description: 'Get information for all service packages for the current authenticated
+        commercial account. The response is returned in
+
+        descending order by service package created timestamp: first the pending service
+        package, then the active service package,
+
+        then the previous service packages.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getServicePackages
       responses:
         200:
-          description: Service package information for account's all service packages.
+          description: Information for all service packages associated with an account.
           examples:
             application/json:
               active:
@@ -20817,7 +20868,7 @@ paths:
           schema:
             $ref: '#/definitions/ForbiddenErrorResponse'
         500:
-          description: Internal Server Error.
+          description: Internal server error.
           examples:
             application/json:
               code: 500
@@ -20830,16 +20881,25 @@ paths:
       summary: Get all service packages.
   /v3/service-packages-quota:
     get:
-      description: "Get the available firmware update quota for the currently authenticated\
-        \ commercial account.\n\n**Example usage:**\n\n    curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota\
-        \ -H 'authorization: Bearer {api-key}'\n"
+      description: 'Get the available firmware update quota for the current authenticated
+        commercial account.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getServicePackageQuota
       responses:
         200:
-          description: 'Current firmware update quota for the currently authenticated
-            commercial account.
-
-            '
+          description: Firmware update quota for the current authenticated commercial
+            account.
           examples:
             application/json:
               object: service-package-quota
@@ -20869,7 +20929,7 @@ paths:
           schema:
             $ref: '#/definitions/ForbiddenErrorResponse'
         500:
-          description: Internal Server Error.
+          description: Internal server error.
           examples:
             application/json:
               code: 500
@@ -20882,14 +20942,26 @@ paths:
       summary: Service package quota.
   /v3/service-packages-quota-history:
     get:
-      description: "Get your quota usage history. This API is available for commercial\
-        \ accounts.\nAggregator accounts can see own and subtenant quota usage data.\n\
-        History data is ordered in ascending order based on the added timestamp.\n\
-        \n**Example usage:**\n\n    curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota-history\
-        \ -H 'authorization: Bearer {api-key}'\n"
+      description: 'Get your quota usage history. This API is available only for commercial
+        accounts. Aggregator accounts can see their own and subtenant quota usage
+        data.
+
+        Data is in ascending order based on the added timestamp.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota-history
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getServicePackageQuotaHistory
       parameters:
-      - description: Maximum amount of quota history entries contained in one paged
+      - description: Maximum number of quota history entries contained in one paged
           response.
         format: int32
         in: query
@@ -20898,8 +20970,7 @@ paths:
         name: limit
         required: false
         type: integer
-      - description: To fetch after which quota history ID. The results will contain
-          entries after specified entry.
+      - description: Results after specified entry ID.
         in: query
         maxLength: 32
         minLength: 32
@@ -20908,9 +20979,7 @@ paths:
         type: string
       responses:
         200:
-          description: 'Quota history for the currently authenticated commercial account.
-
-            '
+          description: Quota history for the currently authenticated commercial account.
           examples:
             application/json:
               after: null
@@ -20964,7 +21033,7 @@ paths:
           schema:
             $ref: '#/definitions/ForbiddenErrorResponse'
         500:
-          description: Internal Server Error.
+          description: Internal server error.
           examples:
             application/json:
               code: 500
