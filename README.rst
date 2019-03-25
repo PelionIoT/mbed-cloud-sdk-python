@@ -18,7 +18,7 @@ Python.
 
 .. image:: https://img.shields.io/circleci/project/github/ARMmbed/mbed-cloud-sdk-python/master.svg?label=circleci
     :target: https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-python/tree/master
-    
+
 .. image:: https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-python/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-python
 
@@ -49,8 +49,9 @@ documentation <https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/>`__:
 1. Create an API key in the `Pelion Device Management
    Portal <https://portal.us-east-1.mbedcloud.com/>`__.
 
+
 2. Create a configuration file ``.env`` in your ``$HOME`` or project
-directory, and add your API key from the portal:
+   directory, and add your API key from the portal:
 
    .. code:: bash
 
