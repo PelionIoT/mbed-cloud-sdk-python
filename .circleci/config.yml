@@ -177,12 +177,12 @@ jobs:
         name: Install SDK with dev dependencies
     - run:
         command: pipenv run python scripts/foundation/render_sdk.py api_specifications/public/sdk_foundation_definition.yaml  -vv
-          -p python_definition.yaml -o src/mbed_cloud/sdk
+          -p python_definition.yaml -o src/mbed_cloud/sdk/foundation/
         name: Generate the Foundation interface code
     - run:
-        command: 'git add -v src/mbed_cloud/foundation/entities/\*.py
+        command: 'git add -v src/mbed_cloud/foundation/entities
 
-          git add -v src/mbed_cloud/foundation/enums/\*.py
+          git add -v src/mbed_cloud/foundation/enums
 
           git add -v src/mbed_cloud/foundation/__init__.py
 

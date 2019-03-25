@@ -205,12 +205,12 @@ def new_foundation_gen():
           command: pipenv run python scripts/foundation/render_sdk.py 
             api_specifications/public/sdk_foundation_definition.yaml  -vv
             -p python_definition.yaml 
-            -o src/mbed_cloud/sdk
+            -o src/mbed_cloud/sdk/foundation/
       - run:
           name: Commit code changes (cancel this build if commit made)
           command: |-
-              git add -v src/mbed_cloud/foundation/entities/\*.py
-              git add -v src/mbed_cloud/foundation/enums/\*.py
+              git add -v src/mbed_cloud/foundation/entities
+              git add -v src/mbed_cloud/foundation/enums
               git add -v src/mbed_cloud/foundation/__init__.py
               git commit --message "Auto-generated code" || FILES_CHANGED=True
               git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
