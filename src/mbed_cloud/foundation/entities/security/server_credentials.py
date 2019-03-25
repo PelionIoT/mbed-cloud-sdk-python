@@ -75,7 +75,7 @@ class ServerCredentials(Entity):
 
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
-        :param id: mUUID that uniquely identifies the entity.
+        :param id: ID that uniquely identifies the entity.
         :type id: str
         :param server_certificate: PEM format X.509 server certificate that will be used to validate
             the server certificate that will be received during the TLS/DTLS
@@ -116,7 +116,7 @@ class ServerCredentials(Entity):
 
     @property
     def id(self):
-        """mUUID that uniquely identifies the entity.
+        """ID that uniquely identifies the entity.
         
         :rtype: str
         """

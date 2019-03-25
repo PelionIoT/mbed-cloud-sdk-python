@@ -489,7 +489,7 @@ class EntityFactory:
         :type created_at: datetime
         :param description: Description for the developer certificate.
         :type description: str
-        :param id: mUUID that uniquely identifies the developer certificate.
+        :param id: ID that uniquely identifies the developer certificate.
         :type id: str
         :param name: Name of the developer certificate.
         :type name: str
@@ -1080,7 +1080,7 @@ class EntityFactory:
 
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
-        :param id: mUUID that uniquely identifies the entity.
+        :param id: ID that uniquely identifies the entity.
         :type id: str
         :param server_certificate: PEM format X.509 server certificate that will be used to validate
             the server certificate that will be received during the TLS/DTLS

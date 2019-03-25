@@ -100,7 +100,7 @@ class DeveloperCertificate(Entity):
         :type created_at: datetime
         :param description: Description for the developer certificate.
         :type description: str
-        :param id: (Required) mUUID that uniquely identifies the developer certificate.
+        :param id: (Required) ID that uniquely identifies the developer certificate.
         :type id: str
         :param name: (Required) Name of the developer certificate.
         :type name: str
@@ -200,7 +200,7 @@ class DeveloperCertificate(Entity):
 
     @property
     def id(self):
-        """mUUID that uniquely identifies the developer certificate.
+        """ID that uniquely identifies the developer certificate.
 
         This field must be set when updating or deleting an existing DeveloperCertificate Entity.
         
