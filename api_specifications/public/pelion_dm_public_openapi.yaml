@@ -15443,7 +15443,7 @@ paths:
           description: The provided access token is not valid.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get enrollment list.
+      summary: Get a list of enrollments per account.
       tags:
       - Public API
     post:
@@ -15495,7 +15495,7 @@ paths:
             either on this or another account.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Place an enrollment claim for one or several devices.
+      summary: Create a single enrollment.
       tags:
       - Public API
   /v3/device-enrollments-bulk-deletes:
@@ -15862,7 +15862,7 @@ paths:
           description: Not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get details of an enrollment by ID.
+      summary: Get details of an single enrollment by ID.
       tags:
       - Public API
   /v3/device-events/:

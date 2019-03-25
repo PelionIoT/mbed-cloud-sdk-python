@@ -23313,7 +23313,7 @@
             }
           ],
           "path": "/v3/device-enrollments",
-          "summary": "Place an enrollment claim for one or several devices.",
+          "summary": "Create a single enrollment.",
           "return_type": "device_enrollment",
           "return_info": {
             "self": true,
@@ -23920,7 +23920,7 @@
             }
           ],
           "path": "/v3/device-enrollments",
-          "summary": "Get enrollment list.",
+          "summary": "Get a list of enrollments per account.",
           "return_type": "paginated_response(device_enrollment)",
           "return_info": {
             "self": true,
@@ -24221,7 +24221,7 @@
             }
           ],
           "path": "/v3/device-enrollments/{id}",
-          "summary": "Get details of an enrollment by ID.",
+          "summary": "Get details of an single enrollment by ID.",
           "return_type": "device_enrollment",
           "return_info": {
             "self": true,

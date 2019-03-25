@@ -17906,7 +17906,7 @@ entities:
       self: true
       type: device_enrollment
     return_type: device_enrollment
-    summary: Place an enrollment claim for one or several devices.
+    summary: Create a single enrollment.
     x_deprecation: null
     x_filter: {}
   - _key: delete
@@ -18393,7 +18393,7 @@ entities:
       self: true
       type: device_enrollment
     return_type: paginated_response(device_enrollment)
-    summary: Get enrollment list.
+    summary: Get a list of enrollments per account.
     x_deprecation: null
     x_filter: {}
   - _key: read
@@ -18627,7 +18627,7 @@ entities:
       self: true
       type: device_enrollment
     return_type: device_enrollment
-    summary: Get details of an enrollment by ID.
+    summary: Get details of an single enrollment by ID.
     x_deprecation: null
     x_filter: {}
   primary_key_field: id
