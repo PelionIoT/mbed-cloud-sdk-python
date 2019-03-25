@@ -1489,6 +1489,7 @@ entities:
       type: account
     return_type: account
     summary: Create a new account.
+    x_deprecation: null
     x_filter: {}
   - _key: list
     description: 'Returns an array of account objects, optionally filtered by status
@@ -2366,6 +2367,7 @@ entities:
       type: account
     return_type: paginated_response(account)
     summary: Get all accounts.
+    x_deprecation: null
     x_filter:
       country:
       - like
@@ -3263,6 +3265,7 @@ entities:
       type: account
     return_type: account
     summary: Get account info.
+    x_deprecation: null
     x_filter: {}
   - _key: read
     description: 'Returns detailed information about the account.
@@ -4202,6 +4205,7 @@ entities:
       type: account
     return_type: account
     summary: Get account info.
+    x_deprecation: null
     x_filter: {}
   - _key: trusted_certificates
     description: 'An endpoint for retrieving trusted certificates in an array.
@@ -4650,6 +4654,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: paginated_response(subtenant_trusted_certificate)
     summary: Get all trusted certificates.
+    x_deprecation: null
     x_filter:
       device_execution_mode:
       - eq
@@ -5845,6 +5850,7 @@ entities:
       type: account
     return_type: account
     summary: Update attributes of an existing account.
+    x_deprecation: null
     x_filter: {}
   - _key: user_invitations
     description: 'An endpoint for retrieving the details of all the active user invitations
@@ -6031,6 +6037,7 @@ entities:
                 - id
                 type: object
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always ''user-invitation'''
               enum:
@@ -6261,6 +6268,7 @@ entities:
       type: subtenant_user_invitation
     return_type: paginated_response(subtenant_user_invitation)
     summary: Get the details of all the user invitations.
+    x_deprecation: null
     x_filter:
       login_profile:
       - eq
@@ -6457,6 +6465,7 @@ entities:
               description: Address.
               example: 110 Fulbourn Rd, Cambridge, United Kingdom
               type: string
+              x-nullable: true
             - _key: created_at
               description: Creation UTC time RFC3339.
               example: '2018-02-13T09:35:20Z'
@@ -6601,6 +6610,7 @@ entities:
                 - id
                 type: object
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always ''user'''
               enum:
@@ -6611,6 +6621,7 @@ entities:
                 when not present in the request.
               example: PZf9eEUH43DAPE9ULINFeuj
               type: string
+              x-nullable: true
             - _key: password_changed_time
               description: A timestamp of the latest change of the user password,
                 in milliseconds.
@@ -6621,6 +6632,7 @@ entities:
               description: Phone number.
               example: +44 (1223) 400 400
               type: string
+              x-nullable: true
             - _key: status
               description: The status of the user. ENROLLING state indicates that
                 the user is in the middle of the enrollment process. INVITED means
@@ -6651,6 +6663,7 @@ entities:
                 characters.
               example: admin
               type: string
+              x-nullable: true
             required:
             - account_id
             - email
@@ -6867,6 +6880,7 @@ entities:
       type: subtenant_user
     return_type: paginated_response(subtenant_user)
     summary: Get all user details.
+    x_deprecation: null
     x_filter:
       email:
       - eq
@@ -7338,6 +7352,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Create a new API key.
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting the API key.
@@ -7529,6 +7544,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Delete API key.
+    x_deprecation: null
     x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving API keys in an array, optionally filtered
@@ -7861,6 +7877,7 @@ entities:
       type: api_key
     return_type: paginated_response(api_key)
     summary: Get all API keys
+    x_deprecation: null
     x_filter:
       key:
       - eq
@@ -8111,6 +8128,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Get API key details.
+    x_deprecation: null
     x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving API key details.
@@ -8411,6 +8429,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Get API key details.
+    x_deprecation: null
     x_filter: {}
   - _key: update
     additional_operations:
@@ -8790,6 +8809,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Update API key details.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -9253,6 +9273,7 @@ entities:
       type: certificate_enrollment
     return_type: paginated_response(certificate_enrollment)
     summary: Get certificate enrollments list.
+    x_deprecation: null
     x_filter:
       certificate_name:
       - eq
@@ -9573,6 +9594,7 @@ entities:
       type: certificate_enrollment
     return_type: certificate_enrollment
     summary: Get a certificate enrollment by ID.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -10058,6 +10080,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Create certificate issuer.
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: 'Delete a certificate issuer by ID.
@@ -10282,6 +10305,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Delete certificate issuer.
+    x_deprecation: null
     x_filter: {}
   - _key: list
     description: 'Note: This endpoint does not implement pagination and therefore,
@@ -10578,6 +10602,7 @@ entities:
       type: certificate_issuer
     return_type: paginated_response(certificate_issuer)
     summary: Get certificate issuers list.
+    x_deprecation: null
     x_filter: {}
   - _key: read
     description: (No description provided)
@@ -10860,6 +10885,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Get certificate issuer by ID.
+    x_deprecation: null
     x_filter: {}
   - _key: update
     description: "Update a certificate issuer.\n<br>\n**Example usage:**\n\n```\n\
@@ -11284,6 +11310,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Update certificate issuer.
+    x_deprecation: null
     x_filter: {}
   - _key: verify
     description: 'A utility API that can be used to validate the user configuration
@@ -11588,6 +11615,7 @@ entities:
     return_type: verification_response
     summary: Verify certificate issuer.
     unaggregated: true
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -11937,6 +11965,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Create certificate issuer configuration.
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: 'Delete the configured certificate issuer configuration.
@@ -12146,6 +12175,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Delete certificate issuer configuration.
+    x_deprecation: null
     x_filter: {}
   - _key: get_default
     description: 'Provides the configured certificate issuer to be used when creating
@@ -12371,6 +12401,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Get certificate issuer configuration.
+    x_deprecation: null
     x_filter: {}
   - _key: list
     description: 'Get certificate issuer configurations, optionally filtered by reference.
@@ -12714,6 +12745,7 @@ entities:
       type: certificate_issuer_config
     return_type: paginated_response(certificate_issuer_config)
     summary: Get certificate issuer configurations.
+    x_deprecation: null
     x_filter:
       certificate_reference:
       - eq
@@ -12988,6 +13020,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Get certificate issuer configuration.
+    x_deprecation: null
     x_filter: {}
   - _key: update
     additional_operations:
@@ -13276,6 +13309,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Update certificate issuer configuration.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -13901,6 +13935,7 @@ entities:
       type: developer_certificate
     return_type: developer_certificate
     summary: Create a new developer certificate to connect to the bootstrap server.
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a trusted certificate.
@@ -14097,6 +14132,7 @@ entities:
       type: developer_certificate
     return_type: developer_certificate
     summary: Delete a trusted certificate by ID.
+    x_deprecation: null
     x_filter: {}
   - _key: get_trusted_certificate_info
     description: 'An endpoint for retrieving a trusted certificate by ID.
@@ -14469,6 +14505,7 @@ entities:
     return_type: trusted_certificate
     summary: Get trusted certificate by ID.
     unaggregated: true
+    x_deprecation: null
     x_filter: {}
   - _key: read
     description: 'This REST API is intended to be used by customers to fetch an existing
@@ -14943,6 +14980,7 @@ entities:
       type: developer_certificate
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -15009,10 +15047,16 @@ entities:
     type: string
   - _key: custom_attributes
     additionalProperties:
+      maxLength: 128
+      pattern: ^[A-Za-z].*
       type: string
     api_fieldname: custom_attributes
-    description: Up to five custom key-value attributes.
-    example: '{ ''key'': ''value'' }'
+    description: Up to five custom key-value attributes. Note that keys cannot begin
+      with a number. Both keys and values are limited to 128 characters. Updating
+      this field replaces existing contents.
+    example:
+      key: value
+    maxProperties: 5
     readOnly: false
     required: false
     type: object
@@ -15075,7 +15119,7 @@ entities:
     api_fieldname: endpoint_name
     description: The endpoint name given to the device.
     example: 00000000-0000-0000-0000-000000000000
-    readOnly: false
+    readOnly: true
     required: false
     type: string
   - _key: endpoint_type
@@ -15115,6 +15159,77 @@ entities:
     example: '00000000000000000000000000000000'
     readOnly: false
     required: true
+    type: string
+  - _key: issuer_fingerprint
+    api_fieldname: issuer_fingerprint
+    description: SHA256 fingerprint of the certificate used to validate the signature
+      of the device certificate.
+    example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
+    pattern: '[A-Fa-f0-9]{64}'
+    readOnly: false
+    required: false
+    type: string
+  - _key: last_operator_suspended_category
+    api_fieldname: last_operator_suspended_category
+    description: The reference of the block category.
+    example: maintenance
+    pattern: '[a-f0-9_]{32}'
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_operator_suspended_description
+    api_fieldname: last_operator_suspended_description
+    description: The most recent description why the device was suspended or returned
+      to service.
+    example: Suspended for maintenance.
+    maxLength: 2000
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_operator_suspended_updated_at
+    api_fieldname: last_operator_suspended_updated_at
+    description: The timestamp of the most recent suspension activity.
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_system_suspended_category
+    api_fieldname: last_system_suspended_category
+    description: The reference of the block category.
+    example: maintenance
+    pattern: '[a-f0-9_]{32}'
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_system_suspended_description
+    api_fieldname: last_system_suspended_description
+    description: The most recent description of why the device was blocked or unblocked
+      by the system.
+    example: A certificate in the device's certificate chain was blacklisted by the
+      system.
+    maxLength: 2000
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_system_suspended_updated_at
+    api_fieldname: last_system_suspended_updated_at
+    description: The timestamp of the most recent system block activity.
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: lifecycle_status
+    api_fieldname: lifecycle_status
+    description: The lifecycle status of the device.
+    enum:
+    - enabled
+    - blocked
+    enum_reference: device_lifecycle_status_enum
+    example: enabled
+    readOnly: true
+    required: false
     type: string
   - _key: manifest
     api_fieldname: manifest
@@ -15156,6 +15271,12 @@ entities:
     readOnly: false
     required: false
     type: string
+  - _key: operator_suspended
+    api_fieldname: operator_suspended
+    description: Is the device suspended by the operator?
+    readOnly: true
+    required: false
+    type: boolean
   - _key: serial_number
     api_fieldname: serial_number
     description: The serial number of the device.
@@ -15176,6 +15297,12 @@ entities:
     readOnly: false
     required: false
     type: string
+  - _key: system_suspended
+    api_fieldname: system_suspended
+    description: Is the device suspended by the system?
+    readOnly: true
+    required: false
+    type: boolean
   - _key: updated_at
     api_fieldname: updated_at
     description: The time the object was updated.
@@ -15204,6 +15331,15 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
+    - operator_suspended
+    - last_operator_suspended_category
+    - last_operator_suspended_description
+    - last_operator_suspended_updated_at
+    - system_suspended
+    - last_system_suspended_category
+    - last_system_suspended_description
+    - last_system_suspended_updated_at
+    - lifecycle_status
     - account_id
     - created_at
     - deployed_state
@@ -15263,12 +15399,18 @@ entities:
       type: string
     - _key: custom_attributes
       additionalProperties:
+        maxLength: 128
+        pattern: ^[A-Za-z].*
         type: string
       api_fieldname: custom_attributes
-      description: Up to five custom key-value attributes.
+      description: Up to five custom key-value attributes. Note that keys cannot begin
+        with a number. Both keys and values are limited to 128 characters. Updating
+        this field replaces existing contents.
       entity_fieldname: custom_attributes
-      example: '{ ''key'': ''value'' }'
+      example:
+        key: value
       in: body
+      maxProperties: 5
       parameter_fieldname: custom_attributes
       required: false
       type: object
@@ -15334,6 +15476,7 @@ entities:
       example: 00000000-0000-0000-0000-000000000000
       in: body
       parameter_fieldname: endpoint_name
+      readOnly: true
       required: false
       type: string
     - _key: endpoint_type
@@ -15362,6 +15505,17 @@ entities:
       example: ''
       in: body
       parameter_fieldname: host_gateway
+      required: false
+      type: string
+    - _key: issuer_fingerprint
+      api_fieldname: issuer_fingerprint
+      description: SHA256 fingerprint of the certificate used to validate the signature
+        of the device certificate.
+      entity_fieldname: issuer_fingerprint
+      example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
+      in: body
+      parameter_fieldname: issuer_fingerprint
+      pattern: '[A-Fa-f0-9]{64}'
       required: false
       type: string
     - _key: manifest
@@ -15500,11 +15654,17 @@ entities:
           type: string
         custom_attributes:
           additionalProperties:
+            maxLength: 128
+            pattern: ^[A-Za-z].*
             type: string
           api_fieldname: custom_attributes
-          description: Up to five custom key-value attributes.
+          description: Up to five custom key-value attributes. Note that keys cannot
+            begin with a number. Both keys and values are limited to 128 characters.
+            Updating this field replaces existing contents.
           entity_fieldname: custom_attributes
-          example: '{ ''key'': ''value'' }'
+          example:
+            key: value
+          maxProperties: 5
           type: object
         deployed_state:
           api_fieldname: deployed_state
@@ -15559,6 +15719,7 @@ entities:
           description: The endpoint name given to the device.
           entity_fieldname: endpoint_name
           example: 00000000-0000-0000-0000-000000000000
+          readOnly: true
           type: string
         endpoint_type:
           api_fieldname: endpoint_type
@@ -15610,6 +15771,68 @@ entities:
           entity_fieldname: id
           example: '00000000000000000000000000000000'
           type: string
+        issuer_fingerprint:
+          api_fieldname: issuer_fingerprint
+          description: SHA256 fingerprint of the certificate used to validate the
+            signature of the device certificate.
+          entity_fieldname: issuer_fingerprint
+          example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
+          pattern: '[A-Fa-f0-9]{64}'
+          type: string
+        last_operator_suspended_category:
+          api_fieldname: last_operator_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_operator_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_operator_suspended_description:
+          api_fieldname: last_operator_suspended_description
+          description: The most recent description why the device was suspended or
+            returned to service.
+          entity_fieldname: last_operator_suspended_description
+          example: Suspended for maintenance.
+          maxLength: 2000
+          type: string
+        last_operator_suspended_updated_at:
+          api_fieldname: last_operator_suspended_updated_at
+          description: The timestamp of the most recent suspension activity.
+          entity_fieldname: last_operator_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        last_system_suspended_category:
+          api_fieldname: last_system_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_system_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_system_suspended_description:
+          api_fieldname: last_system_suspended_description
+          description: The most recent description of why the device was blocked or
+            unblocked by the system.
+          entity_fieldname: last_system_suspended_description
+          example: A certificate in the device's certificate chain was blacklisted
+            by the system.
+          maxLength: 2000
+          type: string
+        last_system_suspended_updated_at:
+          api_fieldname: last_system_suspended_updated_at
+          description: The timestamp of the most recent system block activity.
+          entity_fieldname: last_system_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        lifecycle_status:
+          api_fieldname: lifecycle_status
+          description: The lifecycle status of the device.
+          entity_fieldname: lifecycle_status
+          enum:
+          - enabled
+          - blocked
+          example: enabled
+          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -15650,6 +15873,11 @@ entities:
           entity_fieldname: object
           example: device
           type: string
+        operator_suspended:
+          api_fieldname: operator_suspended
+          description: Is the device suspended by the operator?
+          entity_fieldname: operator_suspended
+          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -15667,6 +15895,11 @@ entities:
           - registered
           - deregistered
           type: string
+        system_suspended:
+          api_fieldname: system_suspended
+          description: Is the device suspended by the system?
+          entity_fieldname: system_suspended
+          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -15696,6 +15929,7 @@ entities:
       type: device
     return_type: device
     summary: Create a device
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: Delete device. Only available for devices with a developer certificate.
@@ -15741,6 +15975,7 @@ entities:
       type: device
     return_type: device
     summary: Delete a device.
+    x_deprecation: null
     x_filter: {}
   - _key: list
     description: List all devices.
@@ -15756,13 +15991,127 @@ entities:
     - data
     - has_more
     - total_count
+    - account_id__eq
+    - account_id__neq
+    - account_id__in
+    - account_id__nin
+    - auto_update__eq
+    - auto_update__neq
+    - auto_update__in
+    - auto_update__nin
+    - bootstrapped_expiration_date__in
+    - bootstrapped_expiration_date__nin
+    - bootstrapped_expiration_date__lte
+    - bootstrapped_expiration_date__gte
+    - bootstrapped_timestamp__in
+    - bootstrapped_timestamp__nin
+    - bootstrapped_timestamp__lte
+    - bootstrapped_timestamp__gte
+    - ca_id__eq
+    - ca_id__neq
+    - ca_id__in
+    - ca_id__nin
+    - connector_expiration_date__in
+    - connector_expiration_date__nin
+    - connector_expiration_date__lte
+    - connector_expiration_date__gte
+    - created_at__in
+    - created_at__nin
+    - created_at__lte
+    - created_at__gte
+    - custom_attributes__eq
+    - custom_attributes__neq
+    - deployed_state__eq
+    - deployed_state__neq
+    - deployed_state__in
+    - deployed_state__nin
+    - deployment__eq
+    - deployment__neq
+    - deployment__in
+    - deployment__nin
+    - description__eq
+    - description__neq
+    - description__in
+    - description__nin
+    - device_class__eq
+    - device_class__neq
+    - device_class__in
+    - device_class__nin
+    - device_execution_mode__eq
+    - device_execution_mode__neq
+    - device_execution_mode__in
+    - device_execution_mode__nin
+    - device_key__eq
+    - device_key__neq
+    - device_key__in
+    - device_key__nin
+    - endpoint_name__eq
+    - endpoint_name__neq
+    - endpoint_name__in
+    - endpoint_name__nin
+    - endpoint_type__eq
+    - endpoint_type__neq
+    - endpoint_type__in
+    - endpoint_type__nin
+    - enrollment_list_timestamp__in
+    - enrollment_list_timestamp__nin
+    - enrollment_list_timestamp__lte
+    - enrollment_list_timestamp__gte
+    - firmware_checksum__eq
+    - firmware_checksum__neq
+    - firmware_checksum__in
+    - firmware_checksum__nin
+    - host_gateway__eq
+    - host_gateway__neq
+    - host_gateway__in
+    - host_gateway__nin
+    - id__eq
+    - id__neq
+    - id__in
+    - id__nin
+    - manifest__eq
+    - manifest__neq
+    - manifest__in
+    - manifest__nin
+    - manifest_timestamp__in
+    - manifest_timestamp__nin
+    - manifest_timestamp__lte
+    - manifest_timestamp__gte
+    - mechanism__eq
+    - mechanism__neq
+    - mechanism__in
+    - mechanism__nin
+    - mechanism_url__eq
+    - mechanism_url__neq
+    - mechanism_url__in
+    - mechanism_url__nin
+    - name__eq
+    - name__neq
+    - name__in
+    - name__nin
+    - serial_number__eq
+    - serial_number__neq
+    - serial_number__in
+    - serial_number__nin
+    - state__eq
+    - state__neq
+    - state__in
+    - state__nin
+    - updated_at__in
+    - updated_at__nin
+    - updated_at__lte
+    - updated_at__gte
+    - vendor_id__eq
+    - vendor_id__neq
+    - vendor_id__in
+    - vendor_id__nin
     field_renames: []
     fields:
     - _key: after
       api_fieldname: after
       description: The ID of The item after which to retrieve the next page.
       entity_fieldname: after
-      example: null
+      example: '01631667477600000000000100100374'
       external_param: true
       in: query
       name: after
@@ -15786,7 +16135,7 @@ entities:
         2 and the maximum is 1000. Limit values outside of this range are set to the
         closest limit.
       entity_fieldname: limit
-      example: 1000
+      example: 50
       external_param: true
       in: query
       maximum: 1000
@@ -15829,13 +16178,13 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
+          description: An offset token for current page.
           entity_fieldname: after
-          example: null
+          example: '01631667477600000000000100100374'
           type: string
         - _key: data
           api_fieldname: data
           entity_fieldname: data
-          example: '[]'
           items:
           - _key: foreign_key
             entity: device
@@ -15876,9 +16225,15 @@ entities:
               type: string
             custom_attributes:
               additionalProperties:
+                maxLength: 128
+                pattern: ^[A-Za-z].*
                 type: string
-              description: Up to five custom key-value attributes.
-              example: '{ ''key'': ''value'' }'
+              description: Up to five custom key-value attributes. Note that keys
+                cannot begin with a number. Both keys and values are limited to 128
+                characters. Updating this field replaces existing contents.
+              example:
+                key: value
+              maxProperties: 5
               type: object
             deployed_state:
               description: 'DEPRECATED: The state of the device''s deployment.'
@@ -15920,6 +16275,7 @@ entities:
             endpoint_name:
               description: The endpoint name given to the device.
               example: 00000000-0000-0000-0000-000000000000
+              readOnly: true
               type: string
             endpoint_type:
               description: The endpoint type of the device. For example, the device
@@ -15957,6 +16313,52 @@ entities:
                 Device Management APIs.
               example: '00000000000000000000000000000000'
               type: string
+            issuer_fingerprint:
+              description: SHA256 fingerprint of the certificate used to validate
+                the signature of the device certificate.
+              example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
+              pattern: '[A-Fa-f0-9]{64}'
+              type: string
+            last_operator_suspended_category:
+              description: The reference of the block category.
+              example: maintenance
+              pattern: '[a-f0-9_]{32}'
+              type: string
+            last_operator_suspended_description:
+              description: The most recent description why the device was suspended
+                or returned to service.
+              example: Suspended for maintenance.
+              maxLength: 2000
+              type: string
+            last_operator_suspended_updated_at:
+              description: The timestamp of the most recent suspension activity.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            last_system_suspended_category:
+              description: The reference of the block category.
+              example: maintenance
+              pattern: '[a-f0-9_]{32}'
+              type: string
+            last_system_suspended_description:
+              description: The most recent description of why the device was blocked
+                or unblocked by the system.
+              example: A certificate in the device's certificate chain was blacklisted
+                by the system.
+              maxLength: 2000
+              type: string
+            last_system_suspended_updated_at:
+              description: The timestamp of the most recent system block activity.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            lifecycle_status:
+              description: The lifecycle status of the device.
+              enum:
+              - enabled
+              - blocked
+              example: enabled
+              type: string
             manifest:
               description: 'DEPRECATED: The URL for the current device manifest.'
               example: ''
@@ -15985,6 +16387,9 @@ entities:
               description: The API resource entity.
               example: device
               type: string
+            operator_suspended:
+              description: Is the device suspended by the operator?
+              type: boolean
             serial_number:
               description: The serial number of the device.
               example: 00000000-0000-0000-0000-000000000000
@@ -15998,6 +16403,9 @@ entities:
               - registered
               - deregistered
               type: string
+            system_suspended:
+              description: Is the device suspended by the system?
+              type: boolean
             updated_at:
               description: The time the object was updated.
               example: '2017-05-22T12:37:55.576563Z'
@@ -16010,21 +16418,30 @@ entities:
           type: array
         - _key: has_more
           api_fieldname: has_more
+          description: Are there more results available.
           entity_fieldname: has_more
           example: false
           type: boolean
         - _key: limit
           api_fieldname: limit
+          description: How many objects to retrieve in the page. The minimum limit
+            is 2 and the maximum is 1000. Limit values outside of this range are set
+            to the closest limit.
           entity_fieldname: limit
-          example: 1000
+          example: 50
+          maximum: 1000
+          minimum: 2
           type: integer
         - _key: object
           api_fieldname: object
+          description: The type of this API object is a "list".
           entity_fieldname: object
           example: list
           type: string
         - _key: order
           api_fieldname: order
+          description: The order of the records based on creation time, `ASC` or `DESC`;
+            by default `ASC`.
           entity_fieldname: order
           example: DESC
           type: string
@@ -16032,6 +16449,7 @@ entities:
           api_fieldname: total_count
           entity_fieldname: total_count
           example: 1
+          format: integer
           type: integer
     - _key: '400'
       description: Bad Request.
@@ -16045,7 +16463,151 @@ entities:
       type: device
     return_type: paginated_response(device)
     summary: List all devices.
-    x_filter: {}
+    x_deprecation: null
+    x_filter:
+      account_id:
+      - eq
+      - neq
+      - in
+      - nin
+      auto_update:
+      - eq
+      - neq
+      - in
+      - nin
+      bootstrapped_expiration_date:
+      - in
+      - nin
+      - lte
+      - gte
+      bootstrapped_timestamp:
+      - in
+      - nin
+      - lte
+      - gte
+      ca_id:
+      - eq
+      - neq
+      - in
+      - nin
+      connector_expiration_date:
+      - in
+      - nin
+      - lte
+      - gte
+      created_at:
+      - in
+      - nin
+      - lte
+      - gte
+      custom_attributes:
+      - eq
+      - neq
+      deployed_state:
+      - eq
+      - neq
+      - in
+      - nin
+      deployment:
+      - eq
+      - neq
+      - in
+      - nin
+      description:
+      - eq
+      - neq
+      - in
+      - nin
+      device_class:
+      - eq
+      - neq
+      - in
+      - nin
+      device_execution_mode:
+      - eq
+      - neq
+      - in
+      - nin
+      device_key:
+      - eq
+      - neq
+      - in
+      - nin
+      endpoint_name:
+      - eq
+      - neq
+      - in
+      - nin
+      endpoint_type:
+      - eq
+      - neq
+      - in
+      - nin
+      enrollment_list_timestamp:
+      - in
+      - nin
+      - lte
+      - gte
+      firmware_checksum:
+      - eq
+      - neq
+      - in
+      - nin
+      host_gateway:
+      - eq
+      - neq
+      - in
+      - nin
+      id:
+      - eq
+      - neq
+      - in
+      - nin
+      manifest:
+      - eq
+      - neq
+      - in
+      - nin
+      manifest_timestamp:
+      - in
+      - nin
+      - lte
+      - gte
+      mechanism:
+      - eq
+      - neq
+      - in
+      - nin
+      mechanism_url:
+      - eq
+      - neq
+      - in
+      - nin
+      name:
+      - eq
+      - neq
+      - in
+      - nin
+      serial_number:
+      - eq
+      - neq
+      - in
+      - nin
+      state:
+      - eq
+      - neq
+      - in
+      - nin
+      updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+      vendor_id:
+      - eq
+      - neq
+      - in
+      - nin
   - _key: read
     description: Retrieve information about a specific device.
     drop_fields:
@@ -16057,6 +16619,16 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
+    - issuer_fingerprint
+    - operator_suspended
+    - last_operator_suspended_category
+    - last_operator_suspended_description
+    - last_operator_suspended_updated_at
+    - system_suspended
+    - last_system_suspended_category
+    - last_system_suspended_description
+    - last_system_suspended_updated_at
+    - lifecycle_status
     - account_id
     - device_execution_mode
     - auto_update
@@ -16160,11 +16732,17 @@ entities:
           type: string
         custom_attributes:
           additionalProperties:
+            maxLength: 128
+            pattern: ^[A-Za-z].*
             type: string
           api_fieldname: custom_attributes
-          description: Up to five custom key-value attributes.
+          description: Up to five custom key-value attributes. Note that keys cannot
+            begin with a number. Both keys and values are limited to 128 characters.
+            Updating this field replaces existing contents.
           entity_fieldname: custom_attributes
-          example: '{ ''key'': ''value'' }'
+          example:
+            key: value
+          maxProperties: 5
           type: object
         deployed_state:
           api_fieldname: deployed_state
@@ -16219,6 +16797,7 @@ entities:
           description: The endpoint name given to the device.
           entity_fieldname: endpoint_name
           example: 00000000-0000-0000-0000-000000000000
+          readOnly: true
           type: string
         endpoint_type:
           api_fieldname: endpoint_type
@@ -16270,6 +16849,68 @@ entities:
           entity_fieldname: id
           example: '00000000000000000000000000000000'
           type: string
+        issuer_fingerprint:
+          api_fieldname: issuer_fingerprint
+          description: SHA256 fingerprint of the certificate used to validate the
+            signature of the device certificate.
+          entity_fieldname: issuer_fingerprint
+          example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
+          pattern: '[A-Fa-f0-9]{64}'
+          type: string
+        last_operator_suspended_category:
+          api_fieldname: last_operator_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_operator_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_operator_suspended_description:
+          api_fieldname: last_operator_suspended_description
+          description: The most recent description why the device was suspended or
+            returned to service.
+          entity_fieldname: last_operator_suspended_description
+          example: Suspended for maintenance.
+          maxLength: 2000
+          type: string
+        last_operator_suspended_updated_at:
+          api_fieldname: last_operator_suspended_updated_at
+          description: The timestamp of the most recent suspension activity.
+          entity_fieldname: last_operator_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        last_system_suspended_category:
+          api_fieldname: last_system_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_system_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_system_suspended_description:
+          api_fieldname: last_system_suspended_description
+          description: The most recent description of why the device was blocked or
+            unblocked by the system.
+          entity_fieldname: last_system_suspended_description
+          example: A certificate in the device's certificate chain was blacklisted
+            by the system.
+          maxLength: 2000
+          type: string
+        last_system_suspended_updated_at:
+          api_fieldname: last_system_suspended_updated_at
+          description: The timestamp of the most recent system block activity.
+          entity_fieldname: last_system_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        lifecycle_status:
+          api_fieldname: lifecycle_status
+          description: The lifecycle status of the device.
+          entity_fieldname: lifecycle_status
+          enum:
+          - enabled
+          - blocked
+          example: enabled
+          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -16310,6 +16951,11 @@ entities:
           entity_fieldname: object
           example: device
           type: string
+        operator_suspended:
+          api_fieldname: operator_suspended
+          description: Is the device suspended by the operator?
+          entity_fieldname: operator_suspended
+          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -16327,6 +16973,11 @@ entities:
           - registered
           - deregistered
           type: string
+        system_suspended:
+          api_fieldname: system_suspended
+          description: Is the device suspended by the system?
+          entity_fieldname: system_suspended
+          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -16352,6 +17003,7 @@ entities:
       type: device
     return_type: device
     summary: Get a device
+    x_deprecation: null
     x_filter: {}
   - _key: renew_certificate
     description: 'Request a certificate renewal.
@@ -16752,6 +17404,7 @@ entities:
     return_type: certificate_enrollment
     summary: Request certificate renewal.
     unaggregated: true
+    x_deprecation: null
     x_filter: {}
   - _key: update
     description: Update a specific device.
@@ -16764,6 +17417,16 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
+    - issuer_fingerprint
+    - operator_suspended
+    - last_operator_suspended_category
+    - last_operator_suspended_description
+    - last_operator_suspended_updated_at
+    - system_suspended
+    - last_system_suspended_category
+    - last_system_suspended_description
+    - last_system_suspended_updated_at
+    - lifecycle_status
     - account_id
     - device_execution_mode
     - bootstrap_expiration_date
@@ -16805,12 +17468,18 @@ entities:
       type: string
     - _key: custom_attributes
       additionalProperties:
+        maxLength: 128
+        pattern: ^[A-Za-z].*
         type: string
       api_fieldname: custom_attributes
-      description: Up to five custom key-value attributes.
+      description: Up to five custom key-value attributes. Note that keys cannot begin
+        with a number. Both keys and values are limited to 128 characters. Updating
+        this field replaces existing contents.
       entity_fieldname: custom_attributes
-      example: '{ ''key'': ''value'' }'
+      example:
+        key: value
       in: body
+      maxProperties: 5
       parameter_fieldname: custom_attributes
       required: false
       type: object
@@ -16841,6 +17510,7 @@ entities:
       example: 00000000-0000-0000-0000-000000000000
       in: body
       parameter_fieldname: endpoint_name
+      readOnly: true
       required: false
       type: string
     - _key: endpoint_type
@@ -16945,11 +17615,17 @@ entities:
           type: string
         custom_attributes:
           additionalProperties:
+            maxLength: 128
+            pattern: ^[A-Za-z].*
             type: string
           api_fieldname: custom_attributes
-          description: Up to five custom key-value attributes.
+          description: Up to five custom key-value attributes. Note that keys cannot
+            begin with a number. Both keys and values are limited to 128 characters.
+            Updating this field replaces existing contents.
           entity_fieldname: custom_attributes
-          example: '{ ''key'': ''value'' }'
+          example:
+            key: value
+          maxProperties: 5
           type: object
         deployed_state:
           api_fieldname: deployed_state
@@ -17004,6 +17680,7 @@ entities:
           description: The endpoint name given to the device.
           entity_fieldname: endpoint_name
           example: 00000000-0000-0000-0000-000000000000
+          readOnly: true
           type: string
         endpoint_type:
           api_fieldname: endpoint_type
@@ -17055,6 +17732,68 @@ entities:
           entity_fieldname: id
           example: '00000000000000000000000000000000'
           type: string
+        issuer_fingerprint:
+          api_fieldname: issuer_fingerprint
+          description: SHA256 fingerprint of the certificate used to validate the
+            signature of the device certificate.
+          entity_fieldname: issuer_fingerprint
+          example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
+          pattern: '[A-Fa-f0-9]{64}'
+          type: string
+        last_operator_suspended_category:
+          api_fieldname: last_operator_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_operator_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_operator_suspended_description:
+          api_fieldname: last_operator_suspended_description
+          description: The most recent description why the device was suspended or
+            returned to service.
+          entity_fieldname: last_operator_suspended_description
+          example: Suspended for maintenance.
+          maxLength: 2000
+          type: string
+        last_operator_suspended_updated_at:
+          api_fieldname: last_operator_suspended_updated_at
+          description: The timestamp of the most recent suspension activity.
+          entity_fieldname: last_operator_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        last_system_suspended_category:
+          api_fieldname: last_system_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_system_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_system_suspended_description:
+          api_fieldname: last_system_suspended_description
+          description: The most recent description of why the device was blocked or
+            unblocked by the system.
+          entity_fieldname: last_system_suspended_description
+          example: A certificate in the device's certificate chain was blacklisted
+            by the system.
+          maxLength: 2000
+          type: string
+        last_system_suspended_updated_at:
+          api_fieldname: last_system_suspended_updated_at
+          description: The timestamp of the most recent system block activity.
+          entity_fieldname: last_system_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        lifecycle_status:
+          api_fieldname: lifecycle_status
+          description: The lifecycle status of the device.
+          entity_fieldname: lifecycle_status
+          enum:
+          - enabled
+          - blocked
+          example: enabled
+          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -17095,6 +17834,11 @@ entities:
           entity_fieldname: object
           example: device
           type: string
+        operator_suspended:
+          api_fieldname: operator_suspended
+          description: Is the device suspended by the operator?
+          entity_fieldname: operator_suspended
+          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -17112,6 +17856,11 @@ entities:
           - registered
           - deregistered
           type: string
+        system_suspended:
+          api_fieldname: system_suspended
+          description: Is the device suspended by the system?
+          entity_fieldname: system_suspended
+          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -17139,6 +17888,7 @@ entities:
       type: device
     return_type: device
     summary: Update a device
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -17496,6 +18246,7 @@ entities:
       type: device_enrollment
     return_type: device_enrollment
     summary: Place an enrollment claim for one or several devices.
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: 'To free a device from your account you can delete the enrollment
@@ -17650,6 +18401,7 @@ entities:
       type: device_enrollment
     return_type: device_enrollment
     summary: Delete an enrollment by ID.
+    x_deprecation: null
     x_filter: {}
   - _key: list
     description: 'Provides a list of pending and claimed enrollments.
@@ -17981,6 +18733,7 @@ entities:
       type: device_enrollment
     return_type: paginated_response(device_enrollment)
     summary: Get enrollment list.
+    x_deprecation: null
     x_filter: {}
   - _key: read
     description: 'To check the enrollment info in detail, for example date of claim
@@ -18214,6 +18967,7 @@ entities:
       type: device_enrollment
     return_type: device_enrollment
     summary: Get details of an enrollment by ID.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -18626,6 +19380,7 @@ entities:
       type: device_enrollment_bulk_create
     return_type: device_enrollment_bulk_create
     summary: Bulk upload
+    x_deprecation: null
     x_filter: {}
   - _key: download_errors_report_file
     custom_method: download_errors_report_file
@@ -18658,6 +19413,7 @@ entities:
       return_type: file
       summary: Download the error report file for the created the bulk enrollment.
     summary: Download the error report file for the created the bulk enrollment.
+    x_deprecation: null
     x_filter: {}
   - _key: download_full_report_file
     custom_method: download_full_report_file
@@ -18690,6 +19446,7 @@ entities:
       return_type: file
       summary: Download the full report file for the created of the bulk enrollment.
     summary: Download the full report file for the created of the bulk enrollment.
+    x_deprecation: null
     x_filter: {}
   - _key: read
     description: 'Provides information on bulk upload for the given ID. For example,
@@ -19051,6 +19808,7 @@ entities:
       type: device_enrollment_bulk_create
     return_type: device_enrollment_bulk_create
     summary: Get bulk upload entity
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -19466,6 +20224,7 @@ entities:
       type: device_enrollment_bulk_delete
     return_type: device_enrollment_bulk_delete
     summary: Bulk delete
+    x_deprecation: null
     x_filter: {}
   - _key: download_errors_report_file
     custom_method: download_errors_report_file
@@ -19498,6 +20257,7 @@ entities:
       return_type: file
       summary: Download the error report file for the bulk enrollment deletion.
     summary: Download the error report file for the bulk enrollment deletion.
+    x_deprecation: null
     x_filter: {}
   - _key: download_full_report_file
     custom_method: download_full_report_file
@@ -19530,6 +20290,7 @@ entities:
       return_type: file
       summary: Download the full report file for the bulk enrollment deletion.
     summary: Download the full report file for the bulk enrollment deletion.
+    x_deprecation: null
     x_filter: {}
   - _key: read
     description: 'Provides information on bulk delete for the given ID. For example,
@@ -19894,23 +20655,577 @@ entities:
       type: device_enrollment_bulk_delete
     return_type: device_enrollment_bulk_delete
     summary: Get bulk delete entity
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
   - BulkResponse
   tags:
   - Public API
+- _key: device_enrollment_denial
+  field_renames: []
+  fields:
+  - _key: account_id
+    api_fieldname: account_id
+    description: account id
+    example: 00005a4e027f0a580a01081c00000000
+    pattern: '[a-f0-9]{32}'
+    readOnly: true
+    required: false
+    type: string
+  - _key: created_at
+    api_fieldname: created_at
+    description: date on which the failed bootstrap was attempted on
+    example: '2000-01-23T04:56:07.000+00:00'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: endpoint_name
+    api_fieldname: endpoint_name
+    description: endpoint name
+    example: Endpoint_1234
+    readOnly: true
+    required: false
+    type: string
+  - _key: id
+    api_fieldname: id
+    description: id of the recorded failed bootstrap attempt
+    example: 00005a4e027f0a580a04567c00000000
+    pattern: '[a-f0-9]{32}'
+    readOnly: true
+    required: false
+    type: string
+  - _key: trusted_certificate_id
+    api_fieldname: trusted_certificate_id
+    description: Trusted certificate id
+    example: 00005a4e027f0a580a01081c00000000
+    pattern: '[a-f0-9]{32}'
+    readOnly: true
+    required: false
+    type: string
+  group_id: Devices
+  methods:
+  - _key: list
+    description: 'This produces a list of failed attempts to bootstrap using a particular
+      certificate which is blacklisted (trusted_certificate).
+
+      Returned list can be filtered by endpoint name. Trusted certificate ID filter
+      is required.
+
+
+      **Example usage:**
+
+      ```
+
+      curl -X GET -H ''Authorization: Bearer <valid access token>'' \
+
+      https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate_id__eq={cert-id}&endpoint_name__eq={endpoint_name}
+
+      ```
+
+      '
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - has_more
+    - total_count
+    - data
+    - trusted_certificate_id__eq
+    - endpoint_name__eq
+    field_renames: []
+    fields:
+    - _key: after
+      api_fieldname: after
+      description: Optional parameter for pagination. Denied device ID.
+      entity_fieldname: after
+      external_param: true
+      in: query
+      name: after
+      parameter_fieldname: after
+      required: false
+      type: string
+    - _key: limit
+      api_fieldname: limit
+      description: Optional parameter for pagination.
+      entity_fieldname: limit
+      example: 50
+      external_param: true
+      in: query
+      maximum: 1000
+      minimum: 2
+      name: limit
+      parameter_fieldname: limit
+      required: false
+      type: integer
+    - _key: order
+      api_fieldname: order
+      description: Optional parameter for pagination.
+      entity_fieldname: order
+      enum:
+      - ASC
+      - DESC
+      enum_reference: device_enrollment_denial_order_enum
+      example: DESC
+      external_param: true
+      in: query
+      name: order
+      parameter_fieldname: order
+      required: false
+      type: string
+    foreign_key:
+      entity: device_enrollment_denial
+      group: Devices
+    foreign_key_priority: self
+    group_id: Devices
+    method: get
+    mode: list
+    operation_id: listEnrollmentDenialAttempts
+    pagination: true
+    path: /v3/device-enrollment-denials
+    responses:
+    - _key: '200'
+      description: Query Success. Responding with List of Devices.
+      schema:
+        foreign_key:
+          entity: device_enrollment_denial
+          group: Devices
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: An offset token for current page.
+          entity_fieldname: after
+          type: string
+        - _key: data
+          api_fieldname: data
+          entity_fieldname: data
+          items:
+            foreign_key:
+              entity: device_enrollment_denial
+              group: Devices
+            properties:
+            - _key: account_id
+              description: account id
+              example: 00005a4e027f0a580a01081c00000000
+              pattern: '[a-f0-9]{32}'
+              type: string
+            - _key: created_at
+              description: date on which the failed bootstrap was attempted on
+              example: '2000-01-23T04:56:07.000+00:00'
+              format: date-time
+              type: string
+            - _key: endpoint_name
+              description: endpoint name
+              example: Endpoint_1234
+              type: string
+            - _key: id
+              description: id of the recorded failed bootstrap attempt
+              example: 00005a4e027f0a580a04567c00000000
+              pattern: '[a-f0-9]{32}'
+              type: string
+            - _key: object
+              enum:
+              - denied_device
+              type: string
+            - _key: trusted_certificate_id
+              description: Trusted certificate id
+              example: 00005a4e027f0a580a01081c00000000
+              pattern: '[a-f0-9]{32}'
+              type: string
+            required:
+            - id
+            - account_id
+            - endpoint_name
+            - trusted_certificate_id
+            - created_at
+            - object
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: Are there more results available.
+          entity_fieldname: has_more
+          example: false
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: How many objects to retrieve in the page. The minimum limit
+            is 2 and the maximum is 1000. Limit values outside of this range are set
+            to the closest limit.
+          entity_fieldname: limit
+          example: 50
+          maximum: 1000
+          minimum: 2
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: The type of this API object is a "list".
+          entity_fieldname: object
+          example: list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: The creation time based order of the entries.
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          example: DESC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          entity_fieldname: total_count
+          example: 1
+          format: integer
+          type: integer
+        required:
+        - object
+        - data
+        type: object
+    - _key: '401'
+      description: JWT validation failed.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: ID set in pagination parameter `after` not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_enrollment_denial
+    return_type: paginated_response(device_enrollment_denial)
+    summary: Return list of devices which were denied to bootstrap due to being subjected
+      to blacklisting.
+    x_deprecation: null
+    x_filter:
+      endpoint_name:
+      - eq
+      trusted_certificate_id:
+      - eq
+  - _key: read
+    description: 'Query for a single attempt to bootstrap with a blacklisted certificate
+      by ID.
+
+
+      **Example usage:**
+
+      ```
+
+      curl -X GET -H ''Authorization: Bearer <valid access token>'' \
+
+      https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials/{device_enrollment_denial_id}
+
+      ```
+
+      '
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - id
+    - account_id
+    - endpoint_name
+    - trusted_certificate_id
+    - created_at
+    field_renames: []
+    fields:
+    - _key: device_enrollment_denial_id
+      api_fieldname: device_enrollment_denial_id
+      description: id of the recorded failed bootstrap attempt
+      entity_fieldname: device_enrollment_denial_id
+      external_param: true
+      in: path
+      name: device_enrollment_denial_id
+      parameter_fieldname: device_enrollment_denial_id
+      required: true
+      type: string
+    group_id: Devices
+    method: get
+    mode: read
+    operation_id: getEnrollmentDenialAttempt
+    pagination: false
+    path: /v3/device-enrollment-denials/{device_enrollment_denial_id}
+    responses:
+    - _key: '200'
+      description: Query Success. Responding with blacklisted device.
+      schema:
+        foreign_key:
+          entity: device_enrollment_denial
+          group: Devices
+        properties:
+        - _key: account_id
+          api_fieldname: account_id
+          description: account id
+          entity_fieldname: account_id
+          example: 00005a4e027f0a580a01081c00000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: created_at
+          api_fieldname: created_at
+          description: date on which the failed bootstrap was attempted on
+          entity_fieldname: created_at
+          example: '2000-01-23T04:56:07.000+00:00'
+          format: date-time
+          type: string
+        - _key: endpoint_name
+          api_fieldname: endpoint_name
+          description: endpoint name
+          entity_fieldname: endpoint_name
+          example: Endpoint_1234
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: id of the recorded failed bootstrap attempt
+          entity_fieldname: id
+          example: 00005a4e027f0a580a04567c00000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: object
+          api_fieldname: object
+          entity_fieldname: object
+          enum:
+          - denied_device
+          type: string
+        - _key: trusted_certificate_id
+          api_fieldname: trusted_certificate_id
+          description: Trusted certificate id
+          entity_fieldname: trusted_certificate_id
+          example: 00005a4e027f0a580a01081c00000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        required:
+        - id
+        - account_id
+        - endpoint_name
+        - trusted_certificate_id
+        - created_at
+        - object
+    - _key: '401'
+      description: JWT validation failed.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: ID not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_enrollment_denial
+    return_type: device_enrollment_denial
+    summary: Query for a single device by ID
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: id
+  swagger_models:
+  - BlackListedDeviceData
+  - DenialAttemptsResponse
+  tags:
+  - EnrollmentDenials
 - _key: device_events
   field_renames: []
   fields:
   - _key: changes
     additionalProperties:
-      type: string
+      type: object
     api_fieldname: changes
     example: []
     readOnly: true
     required: false
     type: object
+    x-deprecation:
+      comment: This field is not used.
+      end_of_life_at: '2020-01-15T14:55:20+00:00'
+      issued_at: '2019-01-15T14:55:20+00:00'
+      links: []
   - _key: created_at
     api_fieldname: created_at
     example: '2017-05-22T12:37:55.576563Z'
@@ -19996,6 +21311,30 @@ entities:
     - data
     - has_more
     - total_count
+    - date_time__in
+    - date_time__nin
+    - date_time__lte
+    - date_time__gte
+    - description__eq
+    - description__neq
+    - description__in
+    - description__nin
+    - id__eq
+    - id__neq
+    - id__in
+    - id__nin
+    - device_id__eq
+    - device_id__neq
+    - device_id__in
+    - device_id__nin
+    - event_type__eq
+    - event_type__neq
+    - event_type__in
+    - event_type__nin
+    - state_change__eq
+    - state_change__neq
+    - state_change__in
+    - state_change__nin
     field_renames: []
     fields:
     - _key: after
@@ -20082,9 +21421,14 @@ entities:
             properties:
             - _key: changes
               additionalProperties:
-                type: string
+                type: object
               example: []
               type: object
+              x-deprecation:
+                comment: This field is not used.
+                end_of_life_at: '2020-01-15T14:55:20+00:00'
+                issued_at: '2019-01-15T14:55:20+00:00'
+                links: []
             - _key: created_at
               example: '2017-05-22T12:37:55.576563Z'
               format: date-time
@@ -20174,7 +21518,38 @@ entities:
       type: device_events
     return_type: paginated_response(device_events)
     summary: List all device events.
-    x_filter: {}
+    x_deprecation: null
+    x_filter:
+      date_time:
+      - in
+      - nin
+      - lte
+      - gte
+      description:
+      - eq
+      - neq
+      - in
+      - nin
+      device_id:
+      - eq
+      - neq
+      - in
+      - nin
+      event_type:
+      - eq
+      - neq
+      - in
+      - nin
+      id:
+      - eq
+      - neq
+      - in
+      - nin
+      state_change:
+      - eq
+      - neq
+      - in
+      - nin
   - _key: read
     description: Retrieve a specific device event.
     drop_fields:
@@ -20224,11 +21599,16 @@ entities:
         properties:
         - _key: changes
           additionalProperties:
-            type: string
+            type: object
           api_fieldname: changes
           entity_fieldname: changes
           example: []
           type: object
+          x-deprecation:
+            comment: This field is not used.
+            end_of_life_at: '2020-01-15T14:55:20+00:00'
+            issued_at: '2019-01-15T14:55:20+00:00'
+            links: []
         - _key: created_at
           api_fieldname: created_at
           entity_fieldname: created_at
@@ -20315,6 +21695,7 @@ entities:
       type: device_events
     return_type: device_events
     summary: Retrieve a device event.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -20703,6 +22084,7 @@ entities:
       type: server_credentials
     return_type: server_credentials
     summary: Fetch bootstrap server credentials.
+    x_deprecation: null
     x_filter: {}
   - _key: get_lwm2m
     additional_operations:
@@ -20900,6 +22282,7 @@ entities:
       type: server_credentials
     return_type: server_credentials
     summary: Fetch LwM2M server credentials.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -21568,6 +22951,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Upload new trusted certificate.
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting the trusted certificate.
@@ -21785,6 +23169,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Delete trusted certificate by ID.
+    x_deprecation: null
     x_filter: {}
   - _key: get_developer_certificate_info
     description: 'This REST API is intended to be used by customers to fetch an existing
@@ -22276,6 +23661,7 @@ entities:
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
     unaggregated: true
+    x_deprecation: null
     x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving a trusted certificate by ID.
@@ -22679,6 +24065,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Get trusted certificate by ID.
+    x_deprecation: null
     x_filter: {}
   - _key: update
     description: 'An endpoint for updating existing trusted certificates.
@@ -23185,6 +24572,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Update trusted certificate.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -23279,6 +24667,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
@@ -23434,6 +24823,7 @@ entities:
     readOnly: false
     required: false
     type: array
+    x-nullable: true
   - _key: marketing_accepted
     api_fieldname: is_marketing_accepted
     description: A flag indicating that receiving marketing information has been accepted.
@@ -23453,6 +24843,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: password_changed_time
     api_fieldname: password_changed_time
     description: A timestamp of the latest change of the user password, in milliseconds.
@@ -23470,6 +24861,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: status
     api_fieldname: status
     description: The status of the user. ENROLLING state indicates that the user is
@@ -23535,6 +24927,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   group_id: Accounts
   methods:
   - _key: create
@@ -23607,6 +25000,7 @@ entities:
       parameter_fieldname: address
       required: false
       type: string
+      x-nullable: true
     - _key: email
       api_fieldname: email
       description: The email address.
@@ -23668,6 +25062,7 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
       description: A flag indicating that receiving marketing information has been
@@ -23688,6 +25083,7 @@ entities:
       parameter_fieldname: password
       required: false
       type: string
+      x-nullable: true
     - _key: phone_number
       api_fieldname: phone_number
       description: Phone number.
@@ -23697,6 +25093,7 @@ entities:
       parameter_fieldname: phone_number
       required: false
       type: string
+      x-nullable: true
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
       description: A flag indicating that the General Terms and Conditions has been
@@ -23716,6 +25113,7 @@ entities:
       parameter_fieldname: username
       required: false
       type: string
+      x-nullable: true
     group_id: Accounts
     method: post
     mode: create
@@ -23806,6 +25204,7 @@ entities:
           parameter_fieldname: address
           required: false
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -23860,7 +25259,8 @@ entities:
           type: string
         - _key: groups
           api_fieldname: groups
-          description: A list of group IDs this user belongs to.
+          description: A list of group IDs this user belongs to. Can be updated by
+            the Account Admin only.
           entity_fieldname: groups
           external_param: true
           in: body
@@ -24005,6 +25405,7 @@ entities:
           parameter_fieldname: login_profiles
           required: false
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -24022,6 +25423,7 @@ entities:
           parameter_fieldname: password
           required: false
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -24038,6 +25440,7 @@ entities:
           parameter_fieldname: phone_number
           required: false
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -24081,6 +25484,7 @@ entities:
           parameter_fieldname: username
           required: false
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -24335,6 +25739,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Create a new user.
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a user.
@@ -24590,6 +25995,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Delete a user.
+    x_deprecation: null
     x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving details of the user.
@@ -24745,6 +26151,7 @@ entities:
           parameter_fieldname: address
           required: false
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -24799,7 +26206,8 @@ entities:
           type: string
         - _key: groups
           api_fieldname: groups
-          description: A list of group IDs this user belongs to.
+          description: A list of group IDs this user belongs to. Can be updated by
+            the Account Admin only.
           entity_fieldname: groups
           external_param: true
           in: body
@@ -24944,6 +26352,7 @@ entities:
           parameter_fieldname: login_profiles
           required: false
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -24961,6 +26370,7 @@ entities:
           parameter_fieldname: password
           required: false
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -24977,6 +26387,7 @@ entities:
           parameter_fieldname: phone_number
           required: false
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -25020,6 +26431,7 @@ entities:
           parameter_fieldname: username
           required: false
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -25178,6 +26590,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Details of the user.
+    x_deprecation: null
     x_filter: {}
   - _key: update
     description: 'An endpoint for updating user details.
@@ -25237,6 +26650,7 @@ entities:
       parameter_fieldname: address
       required: false
       type: string
+      x-nullable: true
     - _key: full_name
       api_fieldname: full_name
       description: The full name of the user.
@@ -25293,6 +26707,7 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
       description: A flag indicating that receiving marketing information has been
@@ -25312,6 +26727,7 @@ entities:
       parameter_fieldname: phone_number
       required: false
       type: string
+      x-nullable: true
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
       description: A flag indicating that the General Terms and Conditions has been
@@ -25341,6 +26757,7 @@ entities:
       parameter_fieldname: username
       required: false
       type: string
+      x-nullable: true
     group_id: Accounts
     method: put
     mode: update
@@ -25431,6 +26848,7 @@ entities:
           parameter_fieldname: address
           required: false
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -25485,7 +26903,8 @@ entities:
           type: string
         - _key: groups
           api_fieldname: groups
-          description: A list of group IDs this user belongs to.
+          description: A list of group IDs this user belongs to. Can be updated by
+            the Account Admin only.
           entity_fieldname: groups
           external_param: true
           in: body
@@ -25630,6 +27049,7 @@ entities:
           parameter_fieldname: login_profiles
           required: false
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -25647,6 +27067,7 @@ entities:
           parameter_fieldname: password
           required: false
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -25663,6 +27084,7 @@ entities:
           parameter_fieldname: phone_number
           required: false
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -25706,6 +27128,7 @@ entities:
           parameter_fieldname: username
           required: false
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -25960,6 +27383,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Update user details.
+    x_deprecation: null
     x_filter: {}
   - _key: validate_email
     description: 'An endpoint for validating the user email.
@@ -26167,6 +27591,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Validate the user email.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -26262,6 +27687,7 @@ entities:
     readOnly: false
     required: false
     type: array
+    x-nullable: true
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
@@ -26365,14 +27791,17 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: valid_for_days
       api_fieldname: valid_for_days
-      description: Specifies how many days the invitation will be valid for. The default
-        is 30 days. Value should be between 1 and 100 days.
+      default: 30
+      description: Specifies how many days the invitation will be valid for.
       entity_fieldname: valid_for_days
       external_param: true
       format: int32
       in: body
+      maximum: 100
+      minimum: 1
       name: valid_for_days
       parameter_fieldname: valid_for_days
       required: false
@@ -26495,6 +27924,7 @@ entities:
           parameter_fieldname: login_profiles
           required: false
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user-invitation'''
@@ -26673,6 +28103,7 @@ entities:
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Create a user invitation.
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting an active user invitation which has been
@@ -26875,6 +28306,7 @@ entities:
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Delete a user invitation.
+    x_deprecation: null
     x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving the details of an active user invitation
@@ -27037,6 +28469,7 @@ entities:
           parameter_fieldname: login_profiles
           required: false
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user-invitation'''
@@ -27215,6 +28648,7 @@ entities:
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Details of a user invitation.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -27838,6 +29272,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Upload a new trusted certificate.
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a trusted certificate.
@@ -28045,6 +29480,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Delete a trusted certificate by ID.
+    x_deprecation: null
     x_filter: {}
   - _key: get_developer_certificate_info
     description: 'This REST API is intended to be used by customers to fetch an existing
@@ -28536,6 +29972,7 @@ entities:
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
     unaggregated: true
+    x_deprecation: null
     x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving trusted certificates in an array.
@@ -28924,6 +30361,7 @@ entities:
       type: trusted_certificate
     return_type: paginated_response(trusted_certificate)
     summary: Get all trusted certificates.
+    x_deprecation: null
     x_filter:
       device_execution_mode:
       - eq
@@ -29317,6 +30755,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Get trusted certificate by ID.
+    x_deprecation: null
     x_filter: {}
   - _key: update
     description: 'An endpoint for updating existing trusted certificates.
@@ -29839,6 +31278,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Update trusted certificate.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -29933,6 +31373,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
@@ -30080,6 +31521,7 @@ entities:
     readOnly: false
     required: false
     type: array
+    x-nullable: true
   - _key: marketing_accepted
     api_fieldname: is_marketing_accepted
     description: A flag indicating that receiving marketing information has been accepted.
@@ -30095,6 +31537,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: password_changed_time
     api_fieldname: password_changed_time
     description: A timestamp of the latest change of the user password, in milliseconds.
@@ -30110,6 +31553,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: status
     api_fieldname: status
     description: The status of the user. ENROLLING state indicates that the user is
@@ -30167,6 +31611,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   group_id: Accounts
   methods:
   - _key: create
@@ -30231,6 +31676,7 @@ entities:
       parameter_fieldname: address
       required: false
       type: string
+      x-nullable: true
     - _key: email
       api_fieldname: email
       description: The email address.
@@ -30292,6 +31738,7 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
       description: A flag indicating that receiving marketing information has been
@@ -30312,6 +31759,7 @@ entities:
       parameter_fieldname: password
       required: false
       type: string
+      x-nullable: true
     - _key: phone_number
       api_fieldname: phone_number
       description: Phone number.
@@ -30321,6 +31769,7 @@ entities:
       parameter_fieldname: phone_number
       required: false
       type: string
+      x-nullable: true
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
       description: A flag indicating that the General Terms and Conditions has been
@@ -30340,6 +31789,7 @@ entities:
       parameter_fieldname: username
       required: false
       type: string
+      x-nullable: true
     group_id: Accounts
     method: post
     mode: create
@@ -30427,6 +31877,7 @@ entities:
           entity_fieldname: address
           example: 110 Fulbourn Rd, Cambridge, United Kingdom
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -30599,6 +32050,7 @@ entities:
             - id
             type: object
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -30613,6 +32065,7 @@ entities:
           entity_fieldname: password
           example: PZf9eEUH43DAPE9ULINFeuj
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -30626,6 +32079,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -30663,6 +32117,7 @@ entities:
           entity_fieldname: username
           example: admin
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -30869,6 +32324,7 @@ entities:
       type: user
     return_type: user
     summary: Create a new user.
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a user.
@@ -31114,6 +32570,7 @@ entities:
       type: user
     return_type: user
     summary: Delete a user.
+    x_deprecation: null
     x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving the details of all users.
@@ -31300,6 +32757,7 @@ entities:
               description: Address.
               example: 110 Fulbourn Rd, Cambridge, United Kingdom
               type: string
+              x-nullable: true
             - _key: created_at
               description: Creation UTC time RFC3339.
               example: '2018-02-13T09:35:20Z'
@@ -31444,6 +32902,7 @@ entities:
                 - id
                 type: object
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always ''user'''
               enum:
@@ -31454,6 +32913,7 @@ entities:
                 when not present in the request.
               example: PZf9eEUH43DAPE9ULINFeuj
               type: string
+              x-nullable: true
             - _key: password_changed_time
               description: A timestamp of the latest change of the user password,
                 in milliseconds.
@@ -31464,6 +32924,7 @@ entities:
               description: Phone number.
               example: +44 (1223) 400 400
               type: string
+              x-nullable: true
             - _key: status
               description: The status of the user. ENROLLING state indicates that
                 the user is in the middle of the enrollment process. INVITED means
@@ -31494,6 +32955,7 @@ entities:
                 characters.
               example: admin
               type: string
+              x-nullable: true
             required:
             - account_id
             - email
@@ -31650,6 +33112,7 @@ entities:
       type: user
     return_type: paginated_response(user)
     summary: Get the details of all users.
+    x_deprecation: null
     x_filter:
       email:
       - eq
@@ -31802,6 +33265,7 @@ entities:
           entity_fieldname: address
           example: 110 Fulbourn Rd, Cambridge, United Kingdom
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -31974,6 +33438,7 @@ entities:
             - id
             type: object
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -31988,6 +33453,7 @@ entities:
           entity_fieldname: password
           example: PZf9eEUH43DAPE9ULINFeuj
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -32001,6 +33467,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -32038,6 +33505,7 @@ entities:
           entity_fieldname: username
           example: admin
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -32196,6 +33664,7 @@ entities:
       type: user
     return_type: user
     summary: Details of a user.
+    x_deprecation: null
     x_filter: {}
   - _key: update
     description: 'An endpoint for updating user details.
@@ -32247,6 +33716,7 @@ entities:
       parameter_fieldname: address
       required: false
       type: string
+      x-nullable: true
     - _key: full_name
       api_fieldname: full_name
       description: The full name of the user.
@@ -32303,6 +33773,7 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
       description: A flag indicating that receiving marketing information has been
@@ -32322,6 +33793,7 @@ entities:
       parameter_fieldname: phone_number
       required: false
       type: string
+      x-nullable: true
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
       description: A flag indicating that the General Terms and Conditions has been
@@ -32351,6 +33823,7 @@ entities:
       parameter_fieldname: username
       required: false
       type: string
+      x-nullable: true
     group_id: Accounts
     method: put
     mode: update
@@ -32438,6 +33911,7 @@ entities:
           entity_fieldname: address
           example: 110 Fulbourn Rd, Cambridge, United Kingdom
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -32610,6 +34084,7 @@ entities:
             - id
             type: object
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user'''
@@ -32624,6 +34099,7 @@ entities:
           entity_fieldname: password
           example: PZf9eEUH43DAPE9ULINFeuj
           type: string
+          x-nullable: true
         - _key: password_changed_time
           api_fieldname: password_changed_time
           description: A timestamp of the latest change of the user password, in milliseconds.
@@ -32637,6 +34113,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the user. ENROLLING state indicates that the
@@ -32674,6 +34151,7 @@ entities:
           entity_fieldname: username
           example: admin
           type: string
+          x-nullable: true
         required:
         - account_id
         - email
@@ -32928,6 +34406,7 @@ entities:
       type: user
     return_type: user
     summary: Update user details.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -33018,6 +34497,7 @@ entities:
     readOnly: false
     required: false
     type: array
+    x-nullable: true
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
@@ -33113,14 +34593,17 @@ entities:
       parameter_fieldname: login_profiles
       required: false
       type: array
+      x-nullable: true
     - _key: valid_for_days
       api_fieldname: valid_for_days
-      description: Specifies how many days the invitation will be valid for. The default
-        is 30 days. Value should be between 1 and 100 days.
+      default: 30
+      description: Specifies how many days the invitation will be valid for.
       entity_fieldname: valid_for_days
       external_param: true
       format: int32
       in: body
+      maximum: 100
+      minimum: 1
       name: valid_for_days
       parameter_fieldname: valid_for_days
       required: false
@@ -33228,6 +34711,7 @@ entities:
             - id
             type: object
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user-invitation'''
@@ -33406,6 +34890,7 @@ entities:
       type: user_invitation
     return_type: user_invitation
     summary: Create a user invitation.
+    x_deprecation: null
     x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting an active user invitation which has been
@@ -33598,6 +35083,7 @@ entities:
       type: user_invitation
     return_type: user_invitation
     summary: Delete a user invitation.
+    x_deprecation: null
     x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving the details of all the active user invitations
@@ -33770,6 +35256,7 @@ entities:
                 - id
                 type: object
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always ''user-invitation'''
               enum:
@@ -33940,6 +35427,7 @@ entities:
       type: user_invitation
     return_type: paginated_response(user_invitation)
     summary: Get the details of all the user invitations.
+    x_deprecation: null
     x_filter:
       login_profile:
       - eq
@@ -34081,6 +35569,7 @@ entities:
             - id
             type: object
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always ''user-invitation'''
@@ -34259,6 +35748,7 @@ entities:
       type: user_invitation
     return_type: user_invitation
     summary: Details of a user invitation.
+    x_deprecation: null
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -34404,6 +35894,14 @@ enums:
   - completed
   - new
   - processing
+- _key: device_enrollment_denial_order_enum
+  entity_name: device_enrollment_denial
+  enum_name: device_enrollment_denial_order_enum
+  field_name: order
+  group_id: Devices
+  values:
+  - ASC
+  - DESC
 - _key: device_enrollment_order_enum
   entity_name: device_enrollment
   enum_name: device_enrollment_order_enum
@@ -34412,6 +35910,14 @@ enums:
   values:
   - ASC
   - DESC
+- _key: device_lifecycle_status_enum
+  entity_name: device
+  enum_name: device_lifecycle_status_enum
+  field_name: lifecycle_status
+  group_id: Devices
+  values:
+  - blocked
+  - enabled
 - _key: device_mechanism_enum
   entity_name: device
   enum_name: device_mechanism_enum
@@ -34541,13 +36047,16 @@ groups:
   - device_enrollment_bulk_create
   - device_enrollment_bulk_delete
   - device_enrollment
+  - device_enrollment_denial
   enums:
+  - device_lifecycle_status_enum
   - device_deployed_state_enum
   - device_mechanism_enum
   - device_state_enum
   - device_enrollment_bulk_create_status_enum
   - device_enrollment_bulk_delete_status_enum
   - device_enrollment_order_enum
+  - device_enrollment_denial_order_enum
 - _key: Security
   entities:
   - certificate_issuer_config
