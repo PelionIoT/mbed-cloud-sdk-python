@@ -16,6 +16,23 @@ class TestExamples(BaseCase):
         """
         pass
 
+    def test_legacy_listing_resources(self):
+        # an example: legacy listing resources
+        from mbed_cloud import BillingAPI
+
+        billing_api = BillingAPI()
+        for quota_history in billing_api.get_quota_history():
+            print("Quota change reason: %s, delta: %s" % (quota_history.reason, quota_history.delta))
+        # end of example
+
+    def test_legacy_get_resources(self):
+        # an example: legacy get resource
+        from mbed_cloud import BillingAPI
+
+        billing_api = BillingAPI()
+        print("Quota remaining: %s" % billing_api.get_quota_remaining())
+        # end of example
+
     def test_configuration(self):
         with self.assertRaises(CloudApiException):
             # an example: configuring the SDK
