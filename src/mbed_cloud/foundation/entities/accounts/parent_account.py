@@ -41,7 +41,7 @@ from mbed_cloud.foundation import enums
 
 
 class ParentAccount(Entity):
-    """Represents the `ParentAccount` entity in Mbed Cloud"""
+    """Represents the `ParentAccount` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = ["admin_email", "admin_name", "id"]

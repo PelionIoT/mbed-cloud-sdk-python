@@ -47,7 +47,7 @@ from mbed_cloud.foundation import enums
 
 
 class DeviceEnrollmentBulkDelete(Entity):
-    """Represents the `DeviceEnrollmentBulkDelete` entity in Mbed Cloud"""
+    """Represents the `DeviceEnrollmentBulkDelete` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = [

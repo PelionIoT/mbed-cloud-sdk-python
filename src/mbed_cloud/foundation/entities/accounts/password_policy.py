@@ -41,7 +41,7 @@ from mbed_cloud.foundation import enums
 
 
 class PasswordPolicy(Entity):
-    """Represents the `PasswordPolicy` entity in Mbed Cloud"""
+    """Represents the `PasswordPolicy` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = ["minimum_length"]

@@ -48,7 +48,7 @@ from mbed_cloud.foundation import enums
 
 
 class SubtenantTrustedCertificate(Entity):
-    """Represents the `SubtenantTrustedCertificate` entity in Mbed Cloud"""
+    """Represents the `SubtenantTrustedCertificate` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = [

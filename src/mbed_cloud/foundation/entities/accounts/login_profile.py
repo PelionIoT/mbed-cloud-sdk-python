@@ -41,7 +41,7 @@ from mbed_cloud.foundation import enums
 
 
 class LoginProfile(Entity):
-    """Represents the `LoginProfile` entity in Mbed Cloud"""
+    """Represents the `LoginProfile` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = ["id", "name"]

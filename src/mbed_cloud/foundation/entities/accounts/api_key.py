@@ -49,7 +49,7 @@ from mbed_cloud.foundation import enums
 
 
 class ApiKey(Entity):
-    """Represents the `ApiKey` entity in Mbed Cloud"""
+    """Represents the `ApiKey` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = [

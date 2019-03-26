@@ -47,7 +47,7 @@ from mbed_cloud.foundation import enums
 
 
 class DeveloperCertificate(Entity):
-    """Represents the `DeveloperCertificate` entity in Mbed Cloud"""
+    """Represents the `DeveloperCertificate` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = [

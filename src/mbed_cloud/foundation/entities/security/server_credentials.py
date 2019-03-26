@@ -45,7 +45,7 @@ from mbed_cloud.foundation import enums
 
 
 class ServerCredentials(Entity):
-    """Represents the `ServerCredentials` entity in Mbed Cloud"""
+    """Represents the `ServerCredentials` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = ["created_at", "id", "server_certificate", "server_uri"]

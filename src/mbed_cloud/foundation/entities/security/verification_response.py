@@ -41,7 +41,7 @@ from mbed_cloud.foundation import enums
 
 
 class VerificationResponse(Entity):
-    """Represents the `VerificationResponse` entity in Mbed Cloud"""
+    """Represents the `VerificationResponse` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = ["message", "successful"]

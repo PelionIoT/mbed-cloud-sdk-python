@@ -41,7 +41,7 @@ from mbed_cloud.foundation import enums
 
 
 class Policy(Entity):
-    """Represents the `Policy` entity in Mbed Cloud"""
+    """Represents the `Policy` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = ["action", "allow", "feature", "inherited", "resource"]

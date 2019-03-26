@@ -47,7 +47,7 @@ from mbed_cloud.foundation import enums
 
 
 class UserInvitation(Entity):
-    """Represents the `UserInvitation` entity in Mbed Cloud"""
+    """Represents the `UserInvitation` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = [

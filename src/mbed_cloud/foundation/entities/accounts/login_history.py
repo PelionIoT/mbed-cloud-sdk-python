@@ -41,7 +41,7 @@ from mbed_cloud.foundation import enums
 
 
 class LoginHistory(Entity):
-    """Represents the `LoginHistory` entity in Mbed Cloud"""
+    """Represents the `LoginHistory` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = ["date", "ip_address", "success", "user_agent"]

@@ -41,7 +41,7 @@ from mbed_cloud.foundation import enums
 
 
 class ActiveSession(Entity):
-    """Represents the `ActiveSession` entity in Mbed Cloud"""
+    """Represents the `ActiveSession` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = [
