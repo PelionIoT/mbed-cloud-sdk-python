@@ -12090,12 +12090,12 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "\nGet certificate enrollments list, optionally filtered.\n\n**Example usage:**\n\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments\n```\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000\n```\n",
+          "description": "Get certificate enrollments list, optionally filtered.\n\n**Examples:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments \\\n-H 'Authorization: Bearer <api_key>'\n```\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000 \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
               "type": "string",
-              "description": "The ID of the item after which to retrieve the next page.\n",
+              "description": "The ID of the item after which to retrieve the next page.",
               "example": "01625daa23230a580a0100bd00000000",
               "api_fieldname": "after",
               "entity_fieldname": "after",
@@ -12110,7 +12110,7 @@
             {
               "name": "include",
               "in": "query",
-              "description": "a comma-separated list of data fields to return.\n",
+              "description": "a comma-separated list of data fields to return.",
               "required": false,
               "type": "string",
               "enum": [
@@ -12126,7 +12126,7 @@
             {
               "type": "integer",
               "format": "int32",
-              "description": "The number of results to be returned. Between 2 and 1000, inclusive.\n",
+              "description": "The number of results to return (2-1000).",
               "api_fieldname": "limit",
               "entity_fieldname": "limit",
               "name": "limit",
@@ -12138,7 +12138,7 @@
             },
             {
               "type": "string",
-              "description": "The order of results.\n",
+              "description": "The order of results.",
               "enum": [
                 "ASC",
                 "DESC"
@@ -12211,16 +12211,27 @@
                           "type": "string",
                           "enum": [
                             "success",
+                            "failure",
                             "not_found",
-                            "forbidden",
-                            "failure"
+                            "forbidden"
                           ],
+                          "description": "The result of certificate enrollment request.",
+                          "example": "success",
                           "api_fieldname": "enroll_result",
                           "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
                           "type": "string",
+                          "description": "Additional information in case of failure.",
+                          "example": "The device is currently processing too many certificate renewals.",
+                          "api_fieldname": "enroll_result_detail",
+                          "entity_fieldname": "enroll_result_detail",
+                          "_key": "enroll_result_detail"
+                        },
+                        {
+                          "type": "string",
+                          "description": "The status of certificate enrollment request.",
                           "enum": [
                             "new",
                             "completed"
@@ -12239,7 +12250,7 @@
                         },
                         {
                           "type": "string",
-                          "description": "The ID of the certificate enrollment.",
+                          "description": "The certificate enrollment ID.",
                           "example": "01612df56f3b0a580a010fc700000000",
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
@@ -12311,7 +12322,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records to return based on creation time. By default ASC.",
+                    "description": "Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.",
                     "enum": [
                       "ASC",
                       "DESC"
@@ -12338,7 +12349,7 @@
               "_key": "200"
             },
             {
-              "description": "Validation error\n",
+              "description": "Validation error.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -12358,7 +12369,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12383,7 +12394,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12421,7 +12432,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12446,7 +12457,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12484,7 +12495,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12509,7 +12520,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12597,12 +12608,12 @@
           "_key": "list"
         },
         {
-          "description": "Get a certificate enrollment by ID.\n\n**Example usage:**\n\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000\n```\n",
+          "description": "Get a certificate enrollment by ID.\n\n**Example:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000 \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
               "type": "string",
-              "description": "The ID of the certificate enrollment.",
+              "description": "The certificate enrollment ID.",
               "example": "01612df56f3b0a580a010fc700000000",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -12656,16 +12667,27 @@
                     "type": "string",
                     "enum": [
                       "success",
+                      "failure",
                       "not_found",
-                      "forbidden",
-                      "failure"
+                      "forbidden"
                     ],
+                    "description": "The result of certificate enrollment request.",
+                    "example": "success",
                     "api_fieldname": "enroll_result",
                     "entity_fieldname": "enroll_result",
                     "_key": "enroll_result"
                   },
                   {
                     "type": "string",
+                    "description": "Additional information in case of failure.",
+                    "example": "The device is currently processing too many certificate renewals.",
+                    "api_fieldname": "enroll_result_detail",
+                    "entity_fieldname": "enroll_result_detail",
+                    "_key": "enroll_result_detail"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The status of certificate enrollment request.",
                     "enum": [
                       "new",
                       "completed"
@@ -12684,7 +12706,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The ID of the certificate enrollment.",
+                    "description": "The certificate enrollment ID.",
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -12727,7 +12749,7 @@
               "_key": "200"
             },
             {
-              "description": "Validation error\n",
+              "description": "Validation error.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -12747,7 +12769,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12772,7 +12794,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12810,7 +12832,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12835,7 +12857,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12873,7 +12895,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12898,7 +12920,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12936,7 +12958,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12961,7 +12983,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13003,6 +13025,7 @@
             "certificate_name",
             "enroll_status",
             "enroll_result",
+            "enroll_result_detail",
             "updated_at"
           ],
           "group_id": "Security",
@@ -13053,10 +13076,12 @@
           "type": "string",
           "enum": [
             "success",
+            "failure",
             "not_found",
-            "forbidden",
-            "failure"
+            "forbidden"
           ],
+          "description": "The result of certificate enrollment request.",
+          "example": "success",
           "api_fieldname": "enroll_result",
           "readOnly": true,
           "required": false,
@@ -13065,6 +13090,16 @@
         },
         {
           "type": "string",
+          "description": "Additional information in case of failure.",
+          "example": "The device is currently processing too many certificate renewals.",
+          "api_fieldname": "enroll_result_detail",
+          "readOnly": true,
+          "required": false,
+          "_key": "enroll_result_detail"
+        },
+        {
+          "type": "string",
+          "description": "The status of certificate enrollment request.",
           "enum": [
             "new",
             "completed"
@@ -13077,7 +13112,7 @@
         },
         {
           "type": "string",
-          "description": "The ID of the certificate enrollment.",
+          "description": "The certificate enrollment ID.",
           "example": "01612df56f3b0a580a010fc700000000",
           "api_fieldname": "id",
           "parameter_fieldname": "device-id",
@@ -13305,7 +13340,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13330,7 +13365,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13368,7 +13403,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13393,7 +13428,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13431,7 +13466,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13456,7 +13491,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13494,7 +13529,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13519,7 +13554,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13557,7 +13592,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13582,7 +13617,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13675,7 +13710,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13700,7 +13735,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13738,7 +13773,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13763,7 +13798,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13801,7 +13836,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13826,7 +13861,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13864,7 +13899,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13889,7 +13924,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14174,7 +14209,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14199,7 +14234,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14237,7 +14272,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14262,7 +14297,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14447,7 +14482,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14472,7 +14507,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14510,7 +14545,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14535,7 +14570,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14573,7 +14608,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14598,7 +14633,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14636,7 +14671,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14661,7 +14696,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14898,7 +14933,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14923,7 +14958,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14961,7 +14996,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14986,7 +15021,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15024,7 +15059,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15049,7 +15084,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15087,7 +15122,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15112,7 +15147,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15150,7 +15185,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15175,7 +15210,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15213,7 +15248,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15238,7 +15273,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15356,7 +15391,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15381,7 +15416,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15419,7 +15454,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15444,7 +15479,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15482,7 +15517,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15507,7 +15542,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15545,7 +15580,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15570,7 +15605,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15608,7 +15643,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15633,7 +15668,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15905,7 +15940,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15930,7 +15965,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15968,7 +16003,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15993,7 +16028,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16031,7 +16066,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16056,7 +16091,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16094,7 +16129,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16119,7 +16154,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16218,7 +16253,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16243,7 +16278,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16281,7 +16316,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16306,7 +16341,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16344,7 +16379,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16369,7 +16404,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16407,7 +16442,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16432,7 +16467,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16590,7 +16625,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16615,7 +16650,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16653,7 +16688,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16678,7 +16713,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16716,7 +16751,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16741,7 +16776,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17009,7 +17044,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17034,7 +17069,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17072,7 +17107,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17097,7 +17132,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17135,7 +17170,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17160,7 +17195,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17343,7 +17378,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17368,7 +17403,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17406,7 +17441,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17431,7 +17466,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17469,7 +17504,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17494,7 +17529,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17532,7 +17567,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17557,7 +17592,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17742,7 +17777,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17767,7 +17802,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17805,7 +17840,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17830,7 +17865,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17868,7 +17903,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17893,7 +17928,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17931,7 +17966,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17956,7 +17991,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -21616,7 +21651,7 @@
           "_key": "read"
         },
         {
-          "description": "Request a certificate renewal.\n\n**Example usage:**\n\n```\ncurl -X POST\n-H 'authorization: Bearer <valid access token>'\n-H 'content-length: 0'\nhttps://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew\n```\n",
+          "description": "Request a certificate renewal.\n\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-length: 0'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -21636,7 +21671,7 @@
             },
             {
               "type": "string",
-              "description": "The ID of the certificate enrollment.",
+              "description": "The certificate enrollment ID.",
               "example": "01612df56f3b0a580a010fc700000000",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -21684,16 +21719,27 @@
                     "type": "string",
                     "enum": [
                       "success",
+                      "failure",
                       "not_found",
-                      "forbidden",
-                      "failure"
+                      "forbidden"
                     ],
+                    "description": "The result of certificate enrollment request.",
+                    "example": "success",
                     "api_fieldname": "enroll_result",
                     "entity_fieldname": "enroll_result",
                     "_key": "enroll_result"
                   },
                   {
                     "type": "string",
+                    "description": "Additional information in case of failure.",
+                    "example": "The device is currently processing too many certificate renewals.",
+                    "api_fieldname": "enroll_result_detail",
+                    "entity_fieldname": "enroll_result_detail",
+                    "_key": "enroll_result_detail"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The status of certificate enrollment request.",
                     "enum": [
                       "new",
                       "completed"
@@ -21712,7 +21758,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The ID of the certificate enrollment.",
+                    "description": "The certificate enrollment ID.",
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -21752,7 +21798,7 @@
               "_key": "201"
             },
             {
-              "description": "Validation error: There is no certificate issuer configured for this certificate.\n",
+              "description": "Validation error: There is no certificate issuer configured for this certificate.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -21772,7 +21818,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -21797,7 +21843,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -21835,7 +21881,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -21860,7 +21906,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -21898,7 +21944,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -21923,7 +21969,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -21961,7 +22007,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -21986,7 +22032,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -22004,7 +22050,7 @@
               "_key": "404"
             },
             {
-              "description": "Conflict. A renewal request for this certificate is in process.\n",
+              "description": "Conflict. A renewal request for this certificate is in progress.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -22024,7 +22070,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -22049,7 +22095,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -22067,7 +22113,7 @@
               "_key": "409"
             },
             {
-              "description": "Either:\n- Operation not supported for this device\n- The device is not connected \n",
+              "description": "Either:\n- Operation not supported for this device.\n- The device is not connected.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -22087,7 +22133,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -22112,7 +22158,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -22153,6 +22199,7 @@
             "device_id",
             "enroll_status",
             "enroll_result",
+            "enroll_result_detail",
             "updated_at"
           ],
           "group_id": "Devices",

@@ -1457,13 +1457,20 @@ definitions:
         example: 01625daa23230a580a0100bd00000000
         type: string
       enroll_result:
+        description: The result of certificate enrollment request.
         enum:
         - success
+        - failure
         - not_found
         - forbidden
-        - failure
+        example: success
+        type: string
+      enroll_result_detail:
+        description: Additional information in case of failure.
+        example: The device is currently processing too many certificate renewals.
         type: string
       enroll_status:
+        description: The status of certificate enrollment request.
         enum:
         - new
         - completed
@@ -1473,7 +1480,7 @@ definitions:
         example: '1'
         type: string
       id:
-        description: The ID of the certificate enrollment.
+        description: The certificate enrollment ID.
         example: 01612df56f3b0a580a010fc700000000
         type: string
       object:
@@ -1516,8 +1523,8 @@ definitions:
         - list
         type: string
       order:
-        description: The order of the records to return based on creation time. By
-          default ASC.
+        description: 'Record order based on creation time. Acceptable values: ASC,
+          DESC. Default: ASC.'
         enum:
         - ASC
         - DESC
@@ -3171,7 +3178,7 @@ definitions:
         format: int32
         type: integer
       fields:
-        description: A list of request fields that failed the validation.
+        description: A list of request fields that failed validation.
         items:
           $ref: '#/definitions/FieldMessageEntry'
         type: array
@@ -3179,7 +3186,7 @@ definitions:
         description: Error message.
         type: string
       object:
-        description: 'entity name: ''error'''
+        description: 'Entity name: `error`.'
         type: string
       request_id:
         description: Request ID from JWT.
@@ -13781,66 +13788,55 @@ paths:
       - Account Admin
   /v3/certificate-enrollments:
     get:
-      description: '
-
-        Get certificate enrollments list, optionally filtered.
+      description: 'Get certificate enrollments list, optionally filtered.
 
 
-        **Example usage:**
+        **Examples:**
 
 
         ```
 
-        curl -H ''authorization: Bearer <valid access token>''
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments
+        \
 
-        https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments
-
-        ```
-
-        ```
-
-        curl -H ''authorization: Bearer <valid access token>''
-
-        https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
-        '
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getCertificateEnrollments
       parameters:
-      - description: 'An optional filter for the device ID.
-
-          '
+      - description: An optional filter for the device ID.
         in: query
         name: device_id__eq
         pattern: '[0-9a-fA-F]{32}'
         required: false
         type: string
-      - description: 'An optional filter for a certificate.
-
-          '
+      - description: An optional filter for a certificate.
         in: query
         name: certificate_name__eq
         required: false
         type: string
-      - description: 'The number of results to be returned. Between 2 and 1000, inclusive.
-
-          '
+      - description: The number of results to return (2-1000).
         in: query
         name: limit
         required: false
         type: integer
-      - description: 'The ID of the item after which to retrieve the next page.
-
-          '
+      - description: The ID of the item after which to retrieve the next page.
         in: query
         name: after
         pattern: '[0-9a-fA-F]{32}'
         required: false
         type: string
-      - description: 'The order of results.
-
-          '
+      - description: The order of results.
         enum:
         - ASC
         - DESC
@@ -13848,19 +13844,14 @@ paths:
         name: order
         required: false
         type: string
-      - description: 'a comma-separated list of data fields to return.
-
-          '
+      - description: a comma-separated list of data fields to return.
         enum:
         - total_count
         in: query
         name: include
         required: false
         type: string
-      - description: 'An optional filter for the non-equal certificate enrollment
-          status.
-
-          '
+      - description: An optional filter for the non-equal certificate enrollment status.
         enum:
         - new
         - completed
@@ -13868,9 +13859,7 @@ paths:
         name: enroll_status__neq
         required: false
         type: string
-      - description: 'An optional filter for the certificate enrollment status.
-
-          '
+      - description: An optional filter for the certificate enrollment status.
         enum:
         - new
         - completed
@@ -13878,57 +13867,44 @@ paths:
         name: enroll_status__eq
         required: false
         type: string
-      - description: 'An optional filter for the non-equal certificate enrollment
-          result.
-
-          '
+      - description: An optional filter for the non-equal certificate enrollment result.
         in: query
         name: enroll_result__neq
         required: false
         type: string
-      - description: 'An optional filter for the certificate enrollment result.
-
-          '
+      - description: An optional filter for the certificate enrollment result.
         in: query
         name: enroll_result__eq
         required: false
         type: string
-      - description: 'An optional filter for the date-time, less than or equal, of
+      - description: An optional filter for the date-time, less than or equal, of
           the certificate enrollment requests creation. Must be in RFC3339 format
           (for example, 2018-01-30T10:03:50.106Z).
-
-          '
-        format: data-time
+        format: date-time
         in: query
         name: created_at__lte
         required: false
         type: string
-      - description: 'An optional filter for the date-time, greater than or equal,
+      - description: An optional filter for the date-time, greater than or equal,
           of the certificate enrollment requests creation. Must be in RFC3339 format
           (for example, 2018-01-30T10:03:50.106Z).
-
-          '
-        format: data-time
+        format: date-time
         in: query
         name: created_at__gte
         required: false
         type: string
-      - description: 'An optional filter for the date-time, less than or equal, of
+      - description: An optional filter for the date-time, less than or equal, of
           the certificate enrollment requests update. Must be in RFC3339 format (for
           example, 2018-01-30T10:03:50.106Z).
-
-          '
-        format: data-time
+        format: date-time
         in: query
         name: updated_at__lte
         required: false
         type: string
-      - description: 'An optional filter for the date-time, greater than or equal,
+      - description: An optional filter for the date-time, greater than or equal,
           of the certificate enrollment requests update. Must be in RFC3339 format
           (for example, 2018-01-30T10:03:50.106Z).
-
-          '
-        format: data-time
+        format: date-time
         in: query
         name: updated_at__gte
         required: false
@@ -13939,9 +13915,7 @@ paths:
           schema:
             $ref: '#/definitions/CertificateEnrollmentListResponse'
         '400':
-          description: 'Validation error
-
-            '
+          description: Validation error.
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '401':
@@ -13977,23 +13951,20 @@ paths:
       description: 'Get a certificate enrollment by ID.
 
 
-        **Example usage:**
+        **Example:**
 
 
         ```
 
-        curl -H ''authorization: Bearer <valid access token>''
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000
+        \
 
-        https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000
+        -H ''Authorization: Bearer <api_key>''
 
-        ```
-
-        '
+        ```'
       operationId: getCertificateEnrollment
       parameters:
-      - description: 'The ID of the certificate enrollment.
-
-          '
+      - description: Certificate enrollment ID.
         in: path
         name: certificate-enrollment-id
         pattern: '[0-9a-fA-F]{32}'
@@ -14005,9 +13976,7 @@ paths:
           schema:
             $ref: '#/definitions/CertificateEnrollment'
         '400':
-          description: 'Validation error
-
-            '
+          description: Validation error.
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '401':
@@ -18033,22 +18002,19 @@ paths:
       description: 'Request a certificate renewal.
 
 
-        **Example usage:**
+        **Example:**
 
 
         ```
 
-        curl -X POST
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew
+        \
 
-        -H ''authorization: Bearer <valid access token>''
+        -H ''Authorization: Bearer <api_key>'' \
 
         -H ''content-length: 0''
 
-        https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew
-
-        ```
-
-        '
+        ```'
       operationId: RequestCertificateRenewal
       parameters:
       - description: The device ID.
@@ -18070,9 +18036,7 @@ paths:
             $ref: '#/definitions/CertificateEnrollment'
         '400':
           description: 'Validation error: There is no certificate issuer configured
-            for this certificate.
-
-            '
+            for this certificate.'
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '401':
@@ -18088,14 +18052,15 @@ paths:
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '409':
-          description: 'Conflict. A renewal request for this certificate is in process.
-
-            '
+          description: Conflict. A renewal request for this certificate is in progress.
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '423':
-          description: "Either:\n- Operation not supported for this device\n- The\
-            \ device is not connected \n"
+          description: 'Either:
+
+            - Operation not supported for this device.
+
+            - The device is not connected.'
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Request certificate renewal.
