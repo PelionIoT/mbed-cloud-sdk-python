@@ -601,7 +601,7 @@ class EntityFactory:
         :type enrolment_list_timestamp: datetime
         :param firmware_checksum: The SHA256 checksum of the current firmware image.
         :type firmware_checksum: str
-        :param host_gateway: The `endpoint_name` of the host gateway, if appropriate.
+        :param host_gateway: The ID of the host gateway, if appropriate.
         :type host_gateway: str
         :param id: The ID of the device. The device ID is used across all Device
             Management APIs.
