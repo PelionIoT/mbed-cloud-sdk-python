@@ -46,18 +46,14 @@ Usage
 These instructions can also be found in the `official
 documentation <https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/>`__:
 
-1. Create an API key in the `Pelion Device Management
-   Portal <https://portal.us-east-1.mbedcloud.com/>`__.
-
-
-2. Create a configuration file ``.env`` in your ``$HOME`` or project
+1. Create a configuration file ``.env`` in your ``$HOME`` or project
    directory, and add your API key from the portal:
 
    .. code:: bash
 
         MBED_CLOUD_SDK_API_KEY="your_api_key_here"
 
-3. Import the library and you're ready to go.
+2. Import the library and you're ready to go.
 
    .. code:: python
 
@@ -70,24 +66,22 @@ documentation <https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/>`__:
 Documentation and examples
 --------------------------
 
-The full documentation and API reference is hosted here: https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-python/.
+The SDK guide and examples are available at `GitHub <https://armmbed.github.io/mbed-cloud-sdk-documentation/#introduction>`__.
 
-.. _examples directory: https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/examples
-
-See the `examples directory`_ for a collection of use-cases of this API, e.g.:
-
-:code:`python examples/connect/list-connected-devices.py`
+The documentation contains many examples covering various Use Cases that you may have. In each
+case you can compare the python implementation with alternatives in languages
+supported by the other Pelion Device Management SDKs.
 
 Contributing
 ------------
 
-Pelion Device Management SDK for Python is open source and we would like your help; there
+The Pelion Device Management SDK for Python is open source and we would like your help; there
 is a brief guide on how to get started in `CONTRIBUTING.md <https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/CONTRIBUTING.md>`__.
 
 Licence
 -------
 
-Pelion Device Management SDK for Python is free to use and licensed under the Apache
+The Pelion Device Management SDK for Python is free to use and is licensed under the Apache
 License 2.0. See `LICENCE <https://github.com/ARMmbed/mbed-cloud-sdk-python/tree/master/LICENCE>`__ for more information.
 
 Versioning
@@ -104,7 +98,7 @@ Suggestions for issues that have been reported when using the SDK.
 - SSL version / :code:`SSLV3_ALERT_HANDSHAKE_FAILURE`
     .. code:: python
 
-        urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.us-east-1.mbedcloud.com', port=443):
+        urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.mbedcloud.com', port=443):
         Max retries exceeded with url: /v3/firmware-images/
         (Caused by SSLError(SSLError(1, u'[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:590)'),))
 
