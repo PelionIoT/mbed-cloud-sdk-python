@@ -185,7 +185,7 @@ class TestExamples(BaseCase):
         # Find a production certificate
         my_certificate = TrustedCertificate().list(filter={"device_execution_mode": {"neq": 1}}).first()
         my_cert_id = my_certificate.id
-        # Record the original status to revert to it's original state at the end
+        # Record the original status to revert to its original state at the end
         original_status = TrustedCertificate(id=my_cert_id).read().status
 
         # an example: certificate black listing
