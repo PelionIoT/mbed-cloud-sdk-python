@@ -12,6 +12,7 @@ This module contains the Foundation Entities that are grouped together under the
 - :mod:`mbed_cloud.foundation.entities.devices.device_enrollment`
 - :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create`
 - :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete`
+- :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_denial`
 - :mod:`mbed_cloud.foundation.entities.devices.device_events`
 
 ------------
@@ -24,6 +25,7 @@ How to import Devices Entities:
     from mbed_cloud.foundation import DeviceEnrollment
     from mbed_cloud.foundation import DeviceEnrollmentBulkCreate
     from mbed_cloud.foundation import DeviceEnrollmentBulkDelete
+    from mbed_cloud.foundation import DeviceEnrollmentDenial
     from mbed_cloud.foundation import DeviceEvents
 
 ------------

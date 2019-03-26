@@ -32,6 +32,7 @@ Devices
 - :mod:`mbed_cloud.foundation.entities.devices.device_enrollment`
 - :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create`
 - :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete`
+- :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_denial`
 - :mod:`mbed_cloud.foundation.entities.devices.device_events`
 
 Security
@@ -80,6 +81,7 @@ will share the same context as other Entities. There is more information in the 
     device_enrollments = pelion_dm_sdk.foundation.device_enrollment()
     device_enrollment_bulk_creates = pelion_dm_sdk.foundation.device_enrollment_bulk_create()
     device_enrollment_bulk_deletes = pelion_dm_sdk.foundation.device_enrollment_bulk_delete()
+    device_enrollment_denials = pelion_dm_sdk.foundation.device_enrollment_denial()
     device_eventss = pelion_dm_sdk.foundation.device_events()
     certificate_enrollments = pelion_dm_sdk.foundation.certificate_enrollment()
     certificate_issuers = pelion_dm_sdk.foundation.certificate_issuer()
@@ -110,6 +112,7 @@ How to import Entities directly:
     from mbed_cloud.foundation import DeviceEnrollment
     from mbed_cloud.foundation import DeviceEnrollmentBulkCreate
     from mbed_cloud.foundation import DeviceEnrollmentBulkDelete
+    from mbed_cloud.foundation import DeviceEnrollmentDenial
     from mbed_cloud.foundation import DeviceEvents
     from mbed_cloud.foundation import CertificateEnrollment
     from mbed_cloud.foundation import CertificateIssuer
@@ -145,6 +148,9 @@ from mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create import
 from mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete import (
     DeviceEnrollmentBulkDelete,
 )
+from mbed_cloud.foundation.entities.devices.device_enrollment_denial import (
+    DeviceEnrollmentDenial,
+)
 from mbed_cloud.foundation.entities.devices.device_events import DeviceEvents
 from mbed_cloud.foundation.entities.security.certificate_enrollment import (
     CertificateEnrollment,
@@ -178,6 +184,7 @@ __all__ = [
     "DeviceEnrollment",
     "DeviceEnrollmentBulkCreate",
     "DeviceEnrollmentBulkDelete",
+    "DeviceEnrollmentDenial",
     "DeviceEvents",
     "LoginHistory",
     "LoginProfile",

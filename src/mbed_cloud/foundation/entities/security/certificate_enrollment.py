@@ -53,6 +53,7 @@ class CertificateEnrollment(Entity):
         "created_at",
         "device_id",
         "enroll_result",
+        "enroll_result_detail",
         "enroll_status",
         "id",
         "updated_at",
@@ -71,6 +72,7 @@ class CertificateEnrollment(Entity):
         created_at=None,
         device_id=None,
         enroll_result=None,
+        enroll_result_detail=None,
         enroll_status=None,
         id=None,
         updated_at=None,
@@ -90,11 +92,13 @@ class CertificateEnrollment(Entity):
         :type created_at: datetime
         :param device_id: The device ID.
         :type device_id: str
-        :param enroll_result: 
+        :param enroll_result: The result of certificate enrollment request.
         :type enroll_result: str
-        :param enroll_status: 
+        :param enroll_result_detail: Additional information in case of failure.
+        :type enroll_result_detail: str
+        :param enroll_status: The status of certificate enrollment request.
         :type enroll_status: str
-        :param id: (Required) The ID of the certificate enrollment.
+        :param id: (Required) The certificate enrollment ID.
         :type id: str
         :param updated_at: Update UTC time RFC3339.
         :type updated_at: datetime
@@ -111,6 +115,7 @@ class CertificateEnrollment(Entity):
         self._enroll_result = fields.StringField(
             value=enroll_result, enum=enums.CertificateEnrollmentEnrollResultEnum
         )
+        self._enroll_result_detail = fields.StringField(value=enroll_result_detail)
         self._enroll_status = fields.StringField(
             value=enroll_status, enum=enums.CertificateEnrollmentEnrollStatusEnum
         )
@@ -182,7 +187,9 @@ class CertificateEnrollment(Entity):
 
     @property
     def enroll_result(self):
-        """
+        """The result of certificate enrollment request.
+        
+        api example: 'success'
         
         :rtype: str
         """
@@ -200,8 +207,29 @@ class CertificateEnrollment(Entity):
         self._enroll_result.set(value)
 
     @property
-    def enroll_status(self):
+    def enroll_result_detail(self):
+        """Additional information in case of failure.
+        
+        api example: 'The device is currently processing too many certificate renewals.'
+        
+        :rtype: str
         """
+
+        return self._enroll_result_detail.value
+
+    @enroll_result_detail.setter
+    def enroll_result_detail(self, value):
+        """Set value of `enroll_result_detail`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._enroll_result_detail.set(value)
+
+    @property
+    def enroll_status(self):
+        """The status of certificate enrollment request.
         
         :rtype: str
         """
@@ -220,7 +248,7 @@ class CertificateEnrollment(Entity):
 
     @property
     def id(self):
-        """The ID of the certificate enrollment.
+        """The certificate enrollment ID.
 
         This field must be set when updating or deleting an existing CertificateEnrollment Entity.
         
@@ -309,7 +337,7 @@ class CertificateEnrollment(Entity):
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: The number of results to be returned. Between 2 and 1000, inclusive.
+        :param page_size: The number of results to return (2-1000).
         :type page_size: int
         
         :param include: a comma-separated list of data fields to return.
@@ -361,7 +389,7 @@ class CertificateEnrollment(Entity):
         :param order: The order of results.
         :type order: str
         
-        :param limit: The number of results to be returned. Between 2 and 1000, inclusive.
+        :param limit: The number of results to return (2-1000).
         :type limit: int
         
         :param include: a comma-separated list of data fields to return.

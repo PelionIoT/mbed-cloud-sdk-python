@@ -34,7 +34,8 @@
         "device_events",
         "device_enrollment_bulk_create",
         "device_enrollment_bulk_delete",
-        "device_enrollment"
+        "device_enrollment",
+        "device_enrollment_denial"
       ],
       "enums": [
         "device_deployed_state_enum",
@@ -42,7 +43,8 @@
         "device_state_enum",
         "device_enrollment_bulk_create_status_enum",
         "device_enrollment_bulk_delete_status_enum",
-        "device_enrollment_order_enum"
+        "device_enrollment_order_enum",
+        "device_enrollment_denial_order_enum"
       ],
       "_key": "Devices"
     },
@@ -220,6 +222,17 @@
       ],
       "group_id": "Devices",
       "_key": "device_enrollment_bulk_delete_status_enum"
+    },
+    {
+      "entity_name": "device_enrollment_denial",
+      "field_name": "order",
+      "enum_name": "device_enrollment_denial_order_enum",
+      "values": [
+        "ASC",
+        "DESC"
+      ],
+      "group_id": "Devices",
+      "_key": "device_enrollment_denial_order_enum"
     },
     {
       "entity_name": "device_enrollment",
@@ -1748,6 +1761,7 @@
             "type": "account"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -2952,6 +2966,7 @@
               "like"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -4080,6 +4095,7 @@
             "type": "account"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -5325,6 +5341,7 @@
             "type": "account"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -5979,6 +5996,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -7524,6 +7542,7 @@
             "type": "account"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -7721,6 +7740,7 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -8102,6 +8122,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -8329,6 +8350,7 @@
                           "type": "string",
                           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                           "description": "Address.",
+                          "x-nullable": true,
                           "_key": "address"
                         },
                         {
@@ -8473,6 +8495,7 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -8532,6 +8555,7 @@
                           "type": "string",
                           "example": "PZf9eEUH43DAPE9ULINFeuj",
                           "description": "The password when creating a new user. It will be generated when not present in the request.",
+                          "x-nullable": true,
                           "_key": "password"
                         },
                         {
@@ -8545,6 +8569,7 @@
                           "type": "string",
                           "example": "+44 (1223) 400 400",
                           "description": "Phone number.",
+                          "x-nullable": true,
                           "_key": "phone_number"
                         },
                         {
@@ -8579,6 +8604,7 @@
                           "type": "string",
                           "example": "admin",
                           "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                          "x-nullable": true,
                           "_key": "username"
                         }
                       ],
@@ -8902,6 +8928,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -9925,6 +9952,7 @@
             "type": "api_key"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -10203,6 +10231,7 @@
             "type": "api_key"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -10641,6 +10670,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -10970,6 +11000,7 @@
             "type": "api_key"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -11385,6 +11416,7 @@
             "type": "api_key"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -11909,6 +11941,7 @@
             "type": "api_key"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -12057,12 +12090,12 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "\nGet certificate enrollments list, optionally filtered.\n\n**Example usage:**\n\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments\n```\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000\n```\n",
+          "description": "Get certificate enrollments list, optionally filtered.\n\n**Examples:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments \\\n-H 'Authorization: Bearer <api_key>'\n```\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000 \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
               "type": "string",
-              "description": "The ID of the item after which to retrieve the next page.\n",
+              "description": "The ID of the item after which to retrieve the next page.",
               "example": "01625daa23230a580a0100bd00000000",
               "api_fieldname": "after",
               "entity_fieldname": "after",
@@ -12077,7 +12110,7 @@
             {
               "name": "include",
               "in": "query",
-              "description": "a comma-separated list of data fields to return.\n",
+              "description": "a comma-separated list of data fields to return.",
               "required": false,
               "type": "string",
               "enum": [
@@ -12093,7 +12126,7 @@
             {
               "type": "integer",
               "format": "int32",
-              "description": "The number of results to be returned. Between 2 and 1000, inclusive.\n",
+              "description": "The number of results to return (2-1000).",
               "api_fieldname": "limit",
               "entity_fieldname": "limit",
               "name": "limit",
@@ -12105,7 +12138,7 @@
             },
             {
               "type": "string",
-              "description": "The order of results.\n",
+              "description": "The order of results.",
               "enum": [
                 "ASC",
                 "DESC"
@@ -12178,16 +12211,27 @@
                           "type": "string",
                           "enum": [
                             "success",
+                            "failure",
                             "not_found",
-                            "forbidden",
-                            "failure"
+                            "forbidden"
                           ],
+                          "description": "The result of certificate enrollment request.",
+                          "example": "success",
                           "api_fieldname": "enroll_result",
                           "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
                           "type": "string",
+                          "description": "Additional information in case of failure.",
+                          "example": "The device is currently processing too many certificate renewals.",
+                          "api_fieldname": "enroll_result_detail",
+                          "entity_fieldname": "enroll_result_detail",
+                          "_key": "enroll_result_detail"
+                        },
+                        {
+                          "type": "string",
+                          "description": "The status of certificate enrollment request.",
                           "enum": [
                             "new",
                             "completed"
@@ -12206,7 +12250,7 @@
                         },
                         {
                           "type": "string",
-                          "description": "The ID of the certificate enrollment.",
+                          "description": "The certificate enrollment ID.",
                           "example": "01612df56f3b0a580a010fc700000000",
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
@@ -12278,7 +12322,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records to return based on creation time. By default ASC.",
+                    "description": "Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.",
                     "enum": [
                       "ASC",
                       "DESC"
@@ -12305,7 +12349,7 @@
               "_key": "200"
             },
             {
-              "description": "Validation error\n",
+              "description": "Validation error.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -12325,7 +12369,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12350,7 +12394,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12388,7 +12432,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12413,7 +12457,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12451,7 +12495,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12476,7 +12520,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12526,6 +12570,7 @@
               "gte"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -12563,12 +12608,12 @@
           "_key": "list"
         },
         {
-          "description": "Get a certificate enrollment by ID.\n\n**Example usage:**\n\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000\n```\n",
+          "description": "Get a certificate enrollment by ID.\n\n**Example:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000 \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
               "type": "string",
-              "description": "The ID of the certificate enrollment.",
+              "description": "The certificate enrollment ID.",
               "example": "01612df56f3b0a580a010fc700000000",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -12622,16 +12667,27 @@
                     "type": "string",
                     "enum": [
                       "success",
+                      "failure",
                       "not_found",
-                      "forbidden",
-                      "failure"
+                      "forbidden"
                     ],
+                    "description": "The result of certificate enrollment request.",
+                    "example": "success",
                     "api_fieldname": "enroll_result",
                     "entity_fieldname": "enroll_result",
                     "_key": "enroll_result"
                   },
                   {
                     "type": "string",
+                    "description": "Additional information in case of failure.",
+                    "example": "The device is currently processing too many certificate renewals.",
+                    "api_fieldname": "enroll_result_detail",
+                    "entity_fieldname": "enroll_result_detail",
+                    "_key": "enroll_result_detail"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The status of certificate enrollment request.",
                     "enum": [
                       "new",
                       "completed"
@@ -12650,7 +12706,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The ID of the certificate enrollment.",
+                    "description": "The certificate enrollment ID.",
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -12693,7 +12749,7 @@
               "_key": "200"
             },
             {
-              "description": "Validation error\n",
+              "description": "Validation error.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -12713,7 +12769,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12738,7 +12794,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12776,7 +12832,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12801,7 +12857,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12839,7 +12895,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12864,7 +12920,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12902,7 +12958,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -12927,7 +12983,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -12954,6 +13010,7 @@
             "type": "certificate_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -12968,6 +13025,7 @@
             "certificate_name",
             "enroll_status",
             "enroll_result",
+            "enroll_result_detail",
             "updated_at"
           ],
           "group_id": "Security",
@@ -13018,10 +13076,12 @@
           "type": "string",
           "enum": [
             "success",
+            "failure",
             "not_found",
-            "forbidden",
-            "failure"
+            "forbidden"
           ],
+          "description": "The result of certificate enrollment request.",
+          "example": "success",
           "api_fieldname": "enroll_result",
           "readOnly": true,
           "required": false,
@@ -13030,6 +13090,16 @@
         },
         {
           "type": "string",
+          "description": "Additional information in case of failure.",
+          "example": "The device is currently processing too many certificate renewals.",
+          "api_fieldname": "enroll_result_detail",
+          "readOnly": true,
+          "required": false,
+          "_key": "enroll_result_detail"
+        },
+        {
+          "type": "string",
+          "description": "The status of certificate enrollment request.",
           "enum": [
             "new",
             "completed"
@@ -13042,7 +13112,7 @@
         },
         {
           "type": "string",
-          "description": "The ID of the certificate enrollment.",
+          "description": "The certificate enrollment ID.",
           "example": "01612df56f3b0a580a010fc700000000",
           "api_fieldname": "id",
           "parameter_fieldname": "device-id",
@@ -13270,7 +13340,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13295,7 +13365,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13333,7 +13403,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13358,7 +13428,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13396,7 +13466,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13421,7 +13491,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13459,7 +13529,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13484,7 +13554,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13522,7 +13592,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13547,7 +13617,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13574,6 +13644,7 @@
             "type": "certificate_issuer"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -13639,7 +13710,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13664,7 +13735,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13702,7 +13773,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13727,7 +13798,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13765,7 +13836,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13790,7 +13861,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13828,7 +13899,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -13853,7 +13924,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -13880,6 +13951,7 @@
             "type": "certificate_issuer"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -14137,7 +14209,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14162,7 +14234,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14200,7 +14272,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14225,7 +14297,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14252,6 +14324,7 @@
             "type": "certificate_issuer"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -14409,7 +14482,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14434,7 +14507,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14472,7 +14545,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14497,7 +14570,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14535,7 +14608,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14560,7 +14633,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14598,7 +14671,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14623,7 +14696,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14650,6 +14723,7 @@
             "type": "certificate_issuer"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -14859,7 +14933,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14884,7 +14958,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14922,7 +14996,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -14947,7 +15021,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -14985,7 +15059,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15010,7 +15084,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15048,7 +15122,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15073,7 +15147,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15111,7 +15185,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15136,7 +15210,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15174,7 +15248,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15199,7 +15273,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15226,6 +15300,7 @@
             "type": "certificate_issuer"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -15316,7 +15391,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15341,7 +15416,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15379,7 +15454,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15404,7 +15479,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15442,7 +15517,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15467,7 +15542,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15505,7 +15580,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15530,7 +15605,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15568,7 +15643,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15593,7 +15668,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15620,6 +15695,7 @@
             "type": "verification_response"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -15864,7 +15940,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15889,7 +15965,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15927,7 +16003,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -15952,7 +16028,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -15990,7 +16066,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16015,7 +16091,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16053,7 +16129,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16078,7 +16154,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16105,6 +16181,7 @@
             "type": "certificate_issuer_config"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -16176,7 +16253,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16201,7 +16278,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16239,7 +16316,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16264,7 +16341,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16302,7 +16379,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16327,7 +16404,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16365,7 +16442,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16390,7 +16467,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16417,6 +16494,7 @@
             "type": "certificate_issuer_config"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -16547,7 +16625,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16572,7 +16650,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16610,7 +16688,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16635,7 +16713,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16673,7 +16751,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16698,7 +16776,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -16725,6 +16803,7 @@
             "type": "certificate_issuer_config"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -16965,7 +17044,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -16990,7 +17069,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17028,7 +17107,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17053,7 +17132,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17091,7 +17170,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17116,7 +17195,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17147,6 +17226,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -17298,7 +17378,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17323,7 +17403,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17361,7 +17441,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17386,7 +17466,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17424,7 +17504,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17449,7 +17529,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17487,7 +17567,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17512,7 +17592,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17539,6 +17619,7 @@
             "type": "certificate_issuer_config"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -17696,7 +17777,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17721,7 +17802,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17759,7 +17840,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17784,7 +17865,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17822,7 +17903,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17847,7 +17928,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17885,7 +17966,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -17910,7 +17991,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -17937,6 +18018,7 @@
             "type": "certificate_issuer_config"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -18121,7 +18203,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the developer certificate.",
+                    "description": "ID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "parameter_fieldname": "developerCertificateId",
@@ -18527,6 +18609,7 @@
             "type": "developer_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -18812,6 +18895,7 @@
             "type": "developer_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -19296,6 +19380,7 @@
             "type": "trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -19350,7 +19435,7 @@
           "fields": [
             {
               "type": "string",
-              "description": "mUUID that uniquely identifies the developer certificate.",
+              "description": "ID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -19412,7 +19497,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the developer certificate.",
+                    "description": "ID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -19710,6 +19795,7 @@
             "type": "developer_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -19771,7 +19857,7 @@
         },
         {
           "type": "string",
-          "description": "mUUID that uniquely identifies the developer certificate.",
+          "description": "ID that uniquely identifies the developer certificate.",
           "api_fieldname": "id",
           "parameter_fieldname": "developerCertificateId",
           "in": "path",
@@ -19885,11 +19971,16 @@
             },
             {
               "type": "object",
-              "description": "Up to five custom key-value attributes.",
+              "maxProperties": 5,
               "additionalProperties": {
-                "type": "string"
+                "type": "string",
+                "maxLength": 128,
+                "pattern": "^[A-Za-z].*"
               },
-              "example": "{ 'key': 'value' }",
+              "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+              "example": {
+                "key": "value"
+              },
               "api_fieldname": "custom_attributes",
               "entity_fieldname": "custom_attributes",
               "parameter_fieldname": "custom_attributes",
@@ -19964,6 +20055,7 @@
               "type": "string",
               "description": "The endpoint name given to the device.",
               "example": "00000000-0000-0000-0000-000000000000",
+              "readOnly": true,
               "api_fieldname": "endpoint_name",
               "entity_fieldname": "endpoint_name",
               "parameter_fieldname": "endpoint_name",
@@ -19996,7 +20088,7 @@
             },
             {
               "type": "string",
-              "description": "The `endpoint_name` of the host gateway, if appropriate.",
+              "description": "The ID of the host gateway, if appropriate.",
               "example": "",
               "api_fieldname": "host_gateway",
               "entity_fieldname": "host_gateway",
@@ -20004,6 +20096,18 @@
               "in": "body",
               "required": false,
               "_key": "host_gateway"
+            },
+            {
+              "type": "string",
+              "pattern": "[A-Fa-f0-9]{64}",
+              "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+              "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
+              "api_fieldname": "issuer_fingerprint",
+              "entity_fieldname": "issuer_fingerprint",
+              "parameter_fieldname": "issuer_fingerprint",
+              "in": "body",
+              "required": false,
+              "_key": "issuer_fingerprint"
             },
             {
               "type": "string",
@@ -20117,6 +20221,14 @@
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
                   },
+                  "issuer_fingerprint": {
+                    "type": "string",
+                    "pattern": "[A-Fa-f0-9]{64}",
+                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
+                    "api_fieldname": "issuer_fingerprint",
+                    "entity_fieldname": "issuer_fingerprint"
+                  },
                   "account_id": {
                     "type": "string",
                     "description": "The ID of the associated account.",
@@ -20182,11 +20294,16 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "description": "Up to five custom key-value attributes.",
+                    "maxProperties": 5,
                     "additionalProperties": {
-                      "type": "string"
+                      "type": "string",
+                      "maxLength": 128,
+                      "pattern": "^[A-Za-z].*"
                     },
-                    "example": "{ 'key': 'value' }",
+                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "example": {
+                      "key": "value"
+                    },
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -20242,6 +20359,7 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
+                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -20270,7 +20388,7 @@
                   },
                   "host_gateway": {
                     "type": "string",
-                    "description": "The `endpoint_name` of the host gateway, if appropriate.",
+                    "description": "The ID of the host gateway, if appropriate.",
                     "example": "",
                     "api_fieldname": "host_gateway",
                     "entity_fieldname": "host_gateway"
@@ -20396,6 +20514,7 @@
             "type": "device"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -20463,6 +20582,7 @@
             "type": "device"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -20484,10 +20604,10 @@
           "fields": [
             {
               "type": "string",
-              "example": null,
+              "description": "The ID of The item after which to retrieve the next page.",
+              "example": "01631667477600000000000100100374",
               "api_fieldname": "after",
               "entity_fieldname": "after",
-              "description": "The ID of The item after which to retrieve the next page.",
               "in": "query",
               "name": "after",
               "external_param": true,
@@ -20509,14 +20629,14 @@
             },
             {
               "type": "integer",
-              "example": 1000,
-              "api_fieldname": "limit",
-              "entity_fieldname": "limit",
               "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
-              "in": "query",
-              "name": "limit",
+              "example": 50,
               "minimum": 2,
               "maximum": 1000,
+              "api_fieldname": "limit",
+              "entity_fieldname": "limit",
+              "in": "query",
+              "name": "limit",
               "external_param": true,
               "parameter_fieldname": "limit",
               "required": false,
@@ -20524,10 +20644,10 @@
             },
             {
               "type": "string",
+              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
               "example": "DESC",
               "api_fieldname": "order",
               "entity_fieldname": "order",
-              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
               "in": "query",
               "name": "order",
               "external_param": true,
@@ -20545,7 +20665,8 @@
                 "properties": [
                   {
                     "type": "string",
-                    "example": null,
+                    "description": "An offset token for current page.",
+                    "example": "01631667477600000000000100100374",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
                     "_key": "after"
@@ -20565,6 +20686,12 @@
                             "type": "string",
                             "example": "00000000000000000000000000000000"
                           }
+                        },
+                        "issuer_fingerprint": {
+                          "type": "string",
+                          "pattern": "[A-Fa-f0-9]{64}",
+                          "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+                          "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322"
                         },
                         "account_id": {
                           "type": "string",
@@ -20615,11 +20742,16 @@
                         },
                         "custom_attributes": {
                           "type": "object",
-                          "description": "Up to five custom key-value attributes.",
+                          "maxProperties": 5,
                           "additionalProperties": {
-                            "type": "string"
+                            "type": "string",
+                            "maxLength": 128,
+                            "pattern": "^[A-Za-z].*"
                           },
-                          "example": "{ 'key': 'value' }"
+                          "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                          "example": {
+                            "key": "value"
+                          }
                         },
                         "deployed_state": {
                           "enum": [
@@ -20660,7 +20792,8 @@
                         "endpoint_name": {
                           "type": "string",
                           "description": "The endpoint name given to the device.",
-                          "example": "00000000-0000-0000-0000-000000000000"
+                          "example": "00000000-0000-0000-0000-000000000000",
+                          "readOnly": true
                         },
                         "endpoint_type": {
                           "type": "string",
@@ -20681,7 +20814,7 @@
                         },
                         "host_gateway": {
                           "type": "string",
-                          "description": "The `endpoint_name` of the host gateway, if appropriate.",
+                          "description": "The ID of the host gateway, if appropriate.",
                           "example": ""
                         },
                         "manifest": {
@@ -20756,13 +20889,13 @@
                       }
                     ],
                     "type": "array",
-                    "example": "[]",
                     "api_fieldname": "data",
                     "entity_fieldname": "data",
                     "_key": "data"
                   },
                   {
                     "type": "boolean",
+                    "description": "Are there more results available.",
                     "example": false,
                     "api_fieldname": "has_more",
                     "entity_fieldname": "has_more",
@@ -20770,13 +20903,17 @@
                   },
                   {
                     "type": "integer",
-                    "example": 1000,
+                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+                    "example": 50,
+                    "minimum": 2,
+                    "maximum": 1000,
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
                     "type": "string",
+                    "description": "The type of this API object is a \"list\".",
                     "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
@@ -20784,12 +20921,14 @@
                   },
                   {
                     "type": "string",
+                    "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
                     "example": "DESC",
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
                     "_key": "order"
                   },
                   {
+                    "format": "integer",
                     "type": "integer",
                     "example": 1,
                     "api_fieldname": "total_count",
@@ -20826,7 +20965,181 @@
             "custom": false,
             "type": "device"
           },
-          "x_filter": {},
+          "x_filter": {
+            "account_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "auto_update": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "bootstrapped_expiration_date": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "bootstrapped_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "ca_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "connector_expiration_date": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "created_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "custom_attributes": [
+              "eq",
+              "neq"
+            ],
+            "deployed_state": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "deployment": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "description": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_class": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_execution_mode": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_key": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "endpoint_name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "endpoint_type": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "enrollment_list_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "firmware_checksum": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "host_gateway": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "manifest": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "manifest_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "mechanism": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "mechanism_url": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "serial_number": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "state": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "vendor_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ]
+          },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -20838,7 +21151,121 @@
             "sub_accounts",
             "data",
             "has_more",
-            "total_count"
+            "total_count",
+            "account_id__eq",
+            "account_id__neq",
+            "account_id__in",
+            "account_id__nin",
+            "auto_update__eq",
+            "auto_update__neq",
+            "auto_update__in",
+            "auto_update__nin",
+            "bootstrapped_expiration_date__in",
+            "bootstrapped_expiration_date__nin",
+            "bootstrapped_expiration_date__lte",
+            "bootstrapped_expiration_date__gte",
+            "bootstrapped_timestamp__in",
+            "bootstrapped_timestamp__nin",
+            "bootstrapped_timestamp__lte",
+            "bootstrapped_timestamp__gte",
+            "ca_id__eq",
+            "ca_id__neq",
+            "ca_id__in",
+            "ca_id__nin",
+            "connector_expiration_date__in",
+            "connector_expiration_date__nin",
+            "connector_expiration_date__lte",
+            "connector_expiration_date__gte",
+            "created_at__in",
+            "created_at__nin",
+            "created_at__lte",
+            "created_at__gte",
+            "custom_attributes__eq",
+            "custom_attributes__neq",
+            "deployed_state__eq",
+            "deployed_state__neq",
+            "deployed_state__in",
+            "deployed_state__nin",
+            "deployment__eq",
+            "deployment__neq",
+            "deployment__in",
+            "deployment__nin",
+            "description__eq",
+            "description__neq",
+            "description__in",
+            "description__nin",
+            "device_class__eq",
+            "device_class__neq",
+            "device_class__in",
+            "device_class__nin",
+            "device_execution_mode__eq",
+            "device_execution_mode__neq",
+            "device_execution_mode__in",
+            "device_execution_mode__nin",
+            "device_key__eq",
+            "device_key__neq",
+            "device_key__in",
+            "device_key__nin",
+            "endpoint_name__eq",
+            "endpoint_name__neq",
+            "endpoint_name__in",
+            "endpoint_name__nin",
+            "endpoint_type__eq",
+            "endpoint_type__neq",
+            "endpoint_type__in",
+            "endpoint_type__nin",
+            "enrollment_list_timestamp__in",
+            "enrollment_list_timestamp__nin",
+            "enrollment_list_timestamp__lte",
+            "enrollment_list_timestamp__gte",
+            "firmware_checksum__eq",
+            "firmware_checksum__neq",
+            "firmware_checksum__in",
+            "firmware_checksum__nin",
+            "host_gateway__eq",
+            "host_gateway__neq",
+            "host_gateway__in",
+            "host_gateway__nin",
+            "id__eq",
+            "id__neq",
+            "id__in",
+            "id__nin",
+            "manifest__eq",
+            "manifest__neq",
+            "manifest__in",
+            "manifest__nin",
+            "manifest_timestamp__in",
+            "manifest_timestamp__nin",
+            "manifest_timestamp__lte",
+            "manifest_timestamp__gte",
+            "mechanism__eq",
+            "mechanism__neq",
+            "mechanism__in",
+            "mechanism__nin",
+            "mechanism_url__eq",
+            "mechanism_url__neq",
+            "mechanism_url__in",
+            "mechanism_url__nin",
+            "name__eq",
+            "name__neq",
+            "name__in",
+            "name__nin",
+            "serial_number__eq",
+            "serial_number__neq",
+            "serial_number__in",
+            "serial_number__nin",
+            "state__eq",
+            "state__neq",
+            "state__in",
+            "state__nin",
+            "updated_at__in",
+            "updated_at__nin",
+            "updated_at__lte",
+            "updated_at__gte",
+            "vendor_id__eq",
+            "vendor_id__neq",
+            "vendor_id__in",
+            "vendor_id__nin"
           ],
           "foreign_key_priority": "self",
           "group_id": "Devices",
@@ -20888,6 +21315,14 @@
                     },
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
+                  },
+                  "issuer_fingerprint": {
+                    "type": "string",
+                    "pattern": "[A-Fa-f0-9]{64}",
+                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
+                    "api_fieldname": "issuer_fingerprint",
+                    "entity_fieldname": "issuer_fingerprint"
                   },
                   "account_id": {
                     "type": "string",
@@ -20954,11 +21389,16 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "description": "Up to five custom key-value attributes.",
+                    "maxProperties": 5,
                     "additionalProperties": {
-                      "type": "string"
+                      "type": "string",
+                      "maxLength": 128,
+                      "pattern": "^[A-Za-z].*"
                     },
-                    "example": "{ 'key': 'value' }",
+                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "example": {
+                      "key": "value"
+                    },
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -21014,6 +21454,7 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
+                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -21042,7 +21483,7 @@
                   },
                   "host_gateway": {
                     "type": "string",
-                    "description": "The `endpoint_name` of the host gateway, if appropriate.",
+                    "description": "The ID of the host gateway, if appropriate.",
                     "example": "",
                     "api_fieldname": "host_gateway",
                     "entity_fieldname": "host_gateway"
@@ -21164,6 +21605,7 @@
             "type": "device"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -21173,6 +21615,7 @@
             "is_custom",
             "private_key",
             "sub_accounts",
+            "issuer_fingerprint",
             "account_id",
             "device_execution_mode",
             "auto_update",
@@ -21208,7 +21651,7 @@
           "_key": "read"
         },
         {
-          "description": "Request a certificate renewal.\n\n**Example usage:**\n\n```\ncurl -X POST\n-H 'authorization: Bearer <valid access token>'\n-H 'content-length: 0'\nhttps://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew\n```\n",
+          "description": "Request a certificate renewal.\n\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-length: 0'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -21228,7 +21671,7 @@
             },
             {
               "type": "string",
-              "description": "The ID of the certificate enrollment.",
+              "description": "The certificate enrollment ID.",
               "example": "01612df56f3b0a580a010fc700000000",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -21276,16 +21719,27 @@
                     "type": "string",
                     "enum": [
                       "success",
+                      "failure",
                       "not_found",
-                      "forbidden",
-                      "failure"
+                      "forbidden"
                     ],
+                    "description": "The result of certificate enrollment request.",
+                    "example": "success",
                     "api_fieldname": "enroll_result",
                     "entity_fieldname": "enroll_result",
                     "_key": "enroll_result"
                   },
                   {
                     "type": "string",
+                    "description": "Additional information in case of failure.",
+                    "example": "The device is currently processing too many certificate renewals.",
+                    "api_fieldname": "enroll_result_detail",
+                    "entity_fieldname": "enroll_result_detail",
+                    "_key": "enroll_result_detail"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The status of certificate enrollment request.",
                     "enum": [
                       "new",
                       "completed"
@@ -21304,7 +21758,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The ID of the certificate enrollment.",
+                    "description": "The certificate enrollment ID.",
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -21344,7 +21798,7 @@
               "_key": "201"
             },
             {
-              "description": "Validation error: There is no certificate issuer configured for this certificate.\n",
+              "description": "Validation error: There is no certificate issuer configured for this certificate.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -21364,7 +21818,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -21389,7 +21843,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -21427,7 +21881,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -21452,7 +21906,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -21490,7 +21944,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -21515,7 +21969,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -21553,7 +22007,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -21578,7 +22032,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -21596,7 +22050,7 @@
               "_key": "404"
             },
             {
-              "description": "Conflict. A renewal request for this certificate is in process.\n",
+              "description": "Conflict. A renewal request for this certificate is in progress.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -21616,7 +22070,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -21641,7 +22095,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -21659,7 +22113,7 @@
               "_key": "409"
             },
             {
-              "description": "Either:\n- Operation not supported for this device\n- The device is not connected \n",
+              "description": "Either:\n- Operation not supported for this device.\n- The device is not connected.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -21679,7 +22133,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of request fields that failed the validation.",
+                    "description": "A list of request fields that failed validation.",
                     "items": {
                       "type": "object",
                       "properties": [
@@ -21704,7 +22158,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "entity name: 'error'",
+                    "description": "Entity name: `error`.",
                     "_key": "object"
                   },
                   {
@@ -21731,6 +22185,7 @@
             "type": "certificate_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -21744,6 +22199,7 @@
             "device_id",
             "enroll_status",
             "enroll_result",
+            "enroll_result_detail",
             "updated_at"
           ],
           "group_id": "Devices",
@@ -21788,11 +22244,16 @@
             },
             {
               "type": "object",
-              "description": "Up to five custom key-value attributes.",
+              "maxProperties": 5,
               "additionalProperties": {
-                "type": "string"
+                "type": "string",
+                "maxLength": 128,
+                "pattern": "^[A-Za-z].*"
               },
-              "example": "{ 'key': 'value' }",
+              "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+              "example": {
+                "key": "value"
+              },
               "api_fieldname": "custom_attributes",
               "entity_fieldname": "custom_attributes",
               "parameter_fieldname": "custom_attributes",
@@ -21828,6 +22289,7 @@
               "type": "string",
               "description": "The endpoint name given to the device.",
               "example": "00000000-0000-0000-0000-000000000000",
+              "readOnly": true,
               "api_fieldname": "endpoint_name",
               "entity_fieldname": "endpoint_name",
               "parameter_fieldname": "endpoint_name",
@@ -21849,7 +22311,7 @@
             },
             {
               "type": "string",
-              "description": "The `endpoint_name` of the host gateway, if appropriate.",
+              "description": "The ID of the host gateway, if appropriate.",
               "example": "",
               "api_fieldname": "host_gateway",
               "entity_fieldname": "host_gateway",
@@ -21903,6 +22365,14 @@
                     },
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
+                  },
+                  "issuer_fingerprint": {
+                    "type": "string",
+                    "pattern": "[A-Fa-f0-9]{64}",
+                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
+                    "api_fieldname": "issuer_fingerprint",
+                    "entity_fieldname": "issuer_fingerprint"
                   },
                   "account_id": {
                     "type": "string",
@@ -21969,11 +22439,16 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "description": "Up to five custom key-value attributes.",
+                    "maxProperties": 5,
                     "additionalProperties": {
-                      "type": "string"
+                      "type": "string",
+                      "maxLength": 128,
+                      "pattern": "^[A-Za-z].*"
                     },
-                    "example": "{ 'key': 'value' }",
+                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "example": {
+                      "key": "value"
+                    },
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -22029,6 +22504,7 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
+                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -22057,7 +22533,7 @@
                   },
                   "host_gateway": {
                     "type": "string",
-                    "description": "The `endpoint_name` of the host gateway, if appropriate.",
+                    "description": "The ID of the host gateway, if appropriate.",
                     "example": "",
                     "api_fieldname": "host_gateway",
                     "entity_fieldname": "host_gateway"
@@ -22179,6 +22655,7 @@
             "type": "device"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -22188,6 +22665,7 @@
             "is_custom",
             "private_key",
             "sub_accounts",
+            "issuer_fingerprint",
             "account_id",
             "device_execution_mode",
             "bootstrap_expiration_date",
@@ -22282,11 +22760,16 @@
         },
         {
           "type": "object",
-          "description": "Up to five custom key-value attributes.",
+          "maxProperties": 5,
           "additionalProperties": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 128,
+            "pattern": "^[A-Za-z].*"
           },
-          "example": "{ 'key': 'value' }",
+          "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+          "example": {
+            "key": "value"
+          },
           "api_fieldname": "custom_attributes",
           "readOnly": false,
           "required": false,
@@ -22362,8 +22845,8 @@
           "type": "string",
           "description": "The endpoint name given to the device.",
           "example": "00000000-0000-0000-0000-000000000000",
+          "readOnly": true,
           "api_fieldname": "endpoint_name",
-          "readOnly": false,
           "required": false,
           "_key": "endpoint_name"
         },
@@ -22398,7 +22881,7 @@
         },
         {
           "type": "string",
-          "description": "The `endpoint_name` of the host gateway, if appropriate.",
+          "description": "The ID of the host gateway, if appropriate.",
           "example": "",
           "api_fieldname": "host_gateway",
           "readOnly": false,
@@ -22413,6 +22896,16 @@
           "readOnly": false,
           "required": true,
           "_key": "id"
+        },
+        {
+          "type": "string",
+          "pattern": "[A-Fa-f0-9]{64}",
+          "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+          "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
+          "api_fieldname": "issuer_fingerprint",
+          "readOnly": false,
+          "required": false,
+          "_key": "issuer_fingerprint"
         },
         {
           "type": "string",
@@ -22867,7 +23360,7 @@
             }
           ],
           "path": "/v3/device-enrollments",
-          "summary": "Place an enrollment claim for one or several devices.",
+          "summary": "Create a single enrollment.",
           "return_type": "device_enrollment",
           "return_info": {
             "self": true,
@@ -22875,6 +23368,7 @@
             "type": "device_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -23076,6 +23570,7 @@
             "type": "device_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -23472,7 +23967,7 @@
             }
           ],
           "path": "/v3/device-enrollments",
-          "summary": "Get enrollment list.",
+          "summary": "Get a list of enrollments per account.",
           "return_type": "paginated_response(device_enrollment)",
           "return_info": {
             "self": true,
@@ -23480,6 +23975,7 @@
             "type": "device_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -23772,7 +24268,7 @@
             }
           ],
           "path": "/v3/device-enrollments/{id}",
-          "summary": "Get details of an enrollment by ID.",
+          "summary": "Get details of an single enrollment by ID.",
           "return_type": "device_enrollment",
           "return_info": {
             "self": true,
@@ -23780,6 +24276,7 @@
             "type": "device_enrollment"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -24191,6 +24688,7 @@
             "type": "device_enrollment_bulk_create"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -24232,6 +24730,7 @@
             "type": "file"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -24267,6 +24766,7 @@
             "type": "file"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -24666,6 +25166,7 @@
             "type": "device_enrollment_bulk_create"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -25114,6 +25615,7 @@
             "type": "device_enrollment_bulk_delete"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -25155,6 +25657,7 @@
             "type": "file"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -25190,6 +25693,7 @@
             "type": "file"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -25592,6 +26096,7 @@
             "type": "device_enrollment_bulk_delete"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -25727,6 +26232,718 @@
     },
     {
       "swagger_models": [
+        "BlackListedDeviceData",
+        "DenialAttemptsResponse"
+      ],
+      "primary_key_field": "id",
+      "methods": [
+        {
+          "description": "This produces a list of failed attempts to bootstrap using a particular certificate which is blacklisted (trusted_certificate).\nReturned list can be filtered by endpoint name. Trusted certificate ID filter is required.\n\n**Example usage:**\n```\ncurl -X GET -H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate_id__eq={cert-id}&endpoint_name__eq={endpoint_name}\n```\n",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "description": "Optional parameter for pagination. Denied device ID.",
+              "api_fieldname": "after",
+              "entity_fieldname": "after",
+              "in": "query",
+              "name": "after",
+              "external_param": true,
+              "parameter_fieldname": "after",
+              "required": false,
+              "_key": "after"
+            },
+            {
+              "type": "integer",
+              "description": "Optional parameter for pagination.",
+              "example": 50,
+              "minimum": 2,
+              "maximum": 1000,
+              "api_fieldname": "limit",
+              "entity_fieldname": "limit",
+              "in": "query",
+              "name": "limit",
+              "external_param": true,
+              "parameter_fieldname": "limit",
+              "required": false,
+              "_key": "limit"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "description": "Optional parameter for pagination.",
+              "example": "DESC",
+              "api_fieldname": "order",
+              "entity_fieldname": "order",
+              "in": "query",
+              "name": "order",
+              "external_param": true,
+              "parameter_fieldname": "order",
+              "required": false,
+              "enum_reference": "device_enrollment_denial_order_enum",
+              "_key": "order"
+            }
+          ],
+          "method": "get",
+          "mode": "list",
+          "responses": [
+            {
+              "description": "Query Success. Responding with List of Devices.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "object",
+                  "data"
+                ],
+                "properties": [
+                  {
+                    "type": "string",
+                    "description": "An offset token for current page.",
+                    "api_fieldname": "after",
+                    "entity_fieldname": "after",
+                    "_key": "after"
+                  },
+                  {
+                    "items": {
+                      "required": [
+                        "id",
+                        "account_id",
+                        "endpoint_name",
+                        "trusted_certificate_id",
+                        "created_at",
+                        "object"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "pattern": "[a-f0-9]{32}",
+                          "description": "account id",
+                          "example": "00005a4e027f0a580a01081c00000000",
+                          "_key": "account_id"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "date on which the failed bootstrap was attempted on",
+                          "example": "2000-01-23T04:56:07.000+00:00",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "string",
+                          "description": "endpoint name",
+                          "example": "Endpoint_1234",
+                          "_key": "endpoint_name"
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "[a-f0-9]{32}",
+                          "description": "id of the recorded failed bootstrap attempt",
+                          "example": "00005a4e027f0a580a04567c00000000",
+                          "_key": "id"
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "denied_device"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "[a-f0-9]{32}",
+                          "description": "Trusted certificate id",
+                          "example": "00005a4e027f0a580a01081c00000000",
+                          "_key": "trusted_certificate_id"
+                        }
+                      ],
+                      "foreign_key": {
+                        "group": "Devices",
+                        "entity": "device_enrollment_denial"
+                      }
+                    },
+                    "type": "array",
+                    "api_fieldname": "data",
+                    "entity_fieldname": "data",
+                    "_key": "data"
+                  },
+                  {
+                    "type": "boolean",
+                    "description": "Are there more results available.",
+                    "example": false,
+                    "api_fieldname": "has_more",
+                    "entity_fieldname": "has_more",
+                    "_key": "has_more"
+                  },
+                  {
+                    "type": "integer",
+                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+                    "example": 50,
+                    "minimum": 2,
+                    "maximum": 1000,
+                    "api_fieldname": "limit",
+                    "entity_fieldname": "limit",
+                    "_key": "limit"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The type of this API object is a \"list\".",
+                    "example": "list",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "ASC",
+                      "DESC"
+                    ],
+                    "description": "The creation time based order of the entries.",
+                    "example": "DESC",
+                    "api_fieldname": "order",
+                    "entity_fieldname": "order",
+                    "_key": "order"
+                  },
+                  {
+                    "format": "integer",
+                    "type": "integer",
+                    "example": 1,
+                    "api_fieldname": "total_count",
+                    "entity_fieldname": "total_count",
+                    "_key": "total_count"
+                  }
+                ],
+                "pagination": true,
+                "foreign_key": {
+                  "group": "Devices",
+                  "entity": "device_enrollment_denial"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "JWT validation failed.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "ID set in pagination parameter `after` not found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/device-enrollment-denials",
+          "summary": "Return list of devices which were denied to bootstrap due to being subjected to blacklisting.",
+          "return_type": "paginated_response(device_enrollment_denial)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_enrollment_denial"
+          },
+          "x_filter": {
+            "trusted_certificate_id": [
+              "eq"
+            ],
+            "endpoint_name": [
+              "eq"
+            ]
+          },
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "has_more",
+            "total_count",
+            "data",
+            "trusted_certificate_id__eq",
+            "endpoint_name__eq"
+          ],
+          "foreign_key_priority": "self",
+          "group_id": "Devices",
+          "operation_id": "listEnrollmentDenialAttempts",
+          "pagination": true,
+          "foreign_key": {
+            "group": "Devices",
+            "entity": "device_enrollment_denial"
+          },
+          "_key": "list"
+        },
+        {
+          "description": "Query for a single attempt to bootstrap with a blacklisted certificate by ID.\n\n**Example usage:**\n```\ncurl -X GET -H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials/{device_enrollment_denial_id}\n```\n",
+          "field_renames": [],
+          "fields": [
+            {
+              "in": "path",
+              "name": "device_enrollment_denial_id",
+              "type": "string",
+              "description": "id of the recorded failed bootstrap attempt",
+              "required": true,
+              "entity_fieldname": "device_enrollment_denial_id",
+              "api_fieldname": "device_enrollment_denial_id",
+              "external_param": true,
+              "parameter_fieldname": "device_enrollment_denial_id",
+              "_key": "device_enrollment_denial_id"
+            }
+          ],
+          "method": "get",
+          "mode": "read",
+          "responses": [
+            {
+              "description": "Query Success. Responding with blacklisted device.",
+              "schema": {
+                "required": [
+                  "id",
+                  "account_id",
+                  "endpoint_name",
+                  "trusted_certificate_id",
+                  "created_at",
+                  "object"
+                ],
+                "properties": [
+                  {
+                    "type": "string",
+                    "pattern": "[a-f0-9]{32}",
+                    "description": "account id",
+                    "example": "00005a4e027f0a580a01081c00000000",
+                    "api_fieldname": "account_id",
+                    "entity_fieldname": "account_id",
+                    "_key": "account_id"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "date on which the failed bootstrap was attempted on",
+                    "example": "2000-01-23T04:56:07.000+00:00",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "type": "string",
+                    "description": "endpoint name",
+                    "example": "Endpoint_1234",
+                    "api_fieldname": "endpoint_name",
+                    "entity_fieldname": "endpoint_name",
+                    "_key": "endpoint_name"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "[a-f0-9]{32}",
+                    "description": "id of the recorded failed bootstrap attempt",
+                    "example": "00005a4e027f0a580a04567c00000000",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "denied_device"
+                    ],
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "[a-f0-9]{32}",
+                    "description": "Trusted certificate id",
+                    "example": "00005a4e027f0a580a01081c00000000",
+                    "api_fieldname": "trusted_certificate_id",
+                    "entity_fieldname": "trusted_certificate_id",
+                    "_key": "trusted_certificate_id"
+                  }
+                ],
+                "foreign_key": {
+                  "group": "Devices",
+                  "entity": "device_enrollment_denial"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "JWT validation failed.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "ID not found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/device-enrollment-denials/{device_enrollment_denial_id}",
+          "summary": "Query for a single device by ID",
+          "return_type": "device_enrollment_denial",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_enrollment_denial"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "id",
+            "account_id",
+            "endpoint_name",
+            "trusted_certificate_id",
+            "created_at"
+          ],
+          "group_id": "Devices",
+          "operation_id": "getEnrollmentDenialAttempt",
+          "pagination": false,
+          "_key": "read"
+        }
+      ],
+      "fields": [
+        {
+          "type": "string",
+          "pattern": "[a-f0-9]{32}",
+          "description": "account id",
+          "example": "00005a4e027f0a580a01081c00000000",
+          "api_fieldname": "account_id",
+          "readOnly": true,
+          "required": false,
+          "_key": "account_id"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "description": "date on which the failed bootstrap was attempted on",
+          "example": "2000-01-23T04:56:07.000+00:00",
+          "api_fieldname": "created_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "created_at"
+        },
+        {
+          "type": "string",
+          "description": "endpoint name",
+          "example": "Endpoint_1234",
+          "api_fieldname": "endpoint_name",
+          "readOnly": true,
+          "required": false,
+          "_key": "endpoint_name"
+        },
+        {
+          "type": "string",
+          "pattern": "[a-f0-9]{32}",
+          "description": "id of the recorded failed bootstrap attempt",
+          "example": "00005a4e027f0a580a04567c00000000",
+          "api_fieldname": "id",
+          "readOnly": true,
+          "required": false,
+          "_key": "id"
+        },
+        {
+          "type": "string",
+          "pattern": "[a-f0-9]{32}",
+          "description": "Trusted certificate id",
+          "example": "00005a4e027f0a580a01081c00000000",
+          "api_fieldname": "trusted_certificate_id",
+          "readOnly": true,
+          "required": false,
+          "_key": "trusted_certificate_id"
+        }
+      ],
+      "field_renames": [],
+      "tags": [
+        "EnrollmentDenials"
+      ],
+      "group_id": "Devices",
+      "_key": "device_enrollment_denial"
+    },
+    {
+      "swagger_models": [
         "DeviceEventData",
         "DeviceEventPage"
       ],
@@ -25810,9 +27027,15 @@
                         {
                           "type": "object",
                           "additionalProperties": {
-                            "type": "string"
+                            "type": "object"
                           },
                           "example": [],
+                          "x-deprecation": {
+                            "issued_at": "2019-01-15T14:55:20+00:00",
+                            "end_of_life_at": "2020-01-15T14:55:20+00:00",
+                            "comment": "This field is not used.",
+                            "links": []
+                          },
                           "_key": "changes"
                         },
                         {
@@ -25969,7 +27192,45 @@
             "custom": false,
             "type": "device_events"
           },
-          "x_filter": {},
+          "x_filter": {
+            "date_time": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "description": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "event_type": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "state_change": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ]
+          },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -25981,7 +27242,31 @@
             "sub_accounts",
             "data",
             "has_more",
-            "total_count"
+            "total_count",
+            "date_time__in",
+            "date_time__nin",
+            "date_time__lte",
+            "date_time__gte",
+            "description__eq",
+            "description__neq",
+            "description__in",
+            "description__nin",
+            "id__eq",
+            "id__neq",
+            "id__in",
+            "id__nin",
+            "device_id__eq",
+            "device_id__neq",
+            "device_id__in",
+            "device_id__nin",
+            "event_type__eq",
+            "event_type__neq",
+            "event_type__in",
+            "event_type__nin",
+            "state_change__eq",
+            "state_change__neq",
+            "state_change__in",
+            "state_change__nin"
           ],
           "foreign_key_priority": "self",
           "group_id": "Devices",
@@ -26018,9 +27303,15 @@
                   {
                     "type": "object",
                     "additionalProperties": {
-                      "type": "string"
+                      "type": "object"
                     },
                     "example": [],
+                    "x-deprecation": {
+                      "issued_at": "2019-01-15T14:55:20+00:00",
+                      "end_of_life_at": "2020-01-15T14:55:20+00:00",
+                      "comment": "This field is not used.",
+                      "links": []
+                    },
                     "api_fieldname": "changes",
                     "entity_fieldname": "changes",
                     "_key": "changes"
@@ -26156,6 +27447,7 @@
             "type": "device_events"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -26189,9 +27481,15 @@
         {
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "type": "object"
           },
           "example": [],
+          "x-deprecation": {
+            "issued_at": "2019-01-15T14:55:20+00:00",
+            "end_of_life_at": "2020-01-15T14:55:20+00:00",
+            "comment": "This field is not used.",
+            "links": []
+          },
           "api_fieldname": "changes",
           "readOnly": true,
           "required": false,
@@ -26530,7 +27828,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the entity.",
+                    "description": "ID that uniquely identifies the entity.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -26741,6 +28039,7 @@
             "type": "server_credentials"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -26795,7 +28094,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the entity.",
+                    "description": "ID that uniquely identifies the entity.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -27006,6 +28305,7 @@
             "type": "server_credentials"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -27044,7 +28344,7 @@
         },
         {
           "type": "string",
-          "description": "mUUID that uniquely identifies the entity.",
+          "description": "ID that uniquely identifies the entity.",
           "api_fieldname": "id",
           "readOnly": true,
           "required": false,
@@ -27721,6 +29021,7 @@
             "type": "subtenant_trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -28032,6 +29333,7 @@
             "type": "subtenant_trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -28065,7 +29367,7 @@
             },
             {
               "type": "string",
-              "description": "mUUID that uniquely identifies the developer certificate.",
+              "description": "ID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -28138,7 +29440,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the developer certificate.",
+                    "description": "ID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -28436,6 +29738,7 @@
             "type": "developer_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -28967,6 +30270,7 @@
             "type": "subtenant_trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -29648,6 +30952,7 @@
             "type": "subtenant_trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -29934,6 +31239,7 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
+              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -29966,6 +31272,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -30033,6 +31340,7 @@
               "type": "string",
               "example": "PZf9eEUH43DAPE9ULINFeuj",
               "description": "The password when creating a new user. It will be generated when not present in the request.",
+              "x-nullable": true,
               "api_fieldname": "password",
               "entity_fieldname": "password",
               "parameter_fieldname": "password",
@@ -30044,6 +31352,7 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
+              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -30066,6 +31375,7 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
+              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -30178,6 +31488,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -30253,7 +31564,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of group IDs this user belongs to.",
+                    "description": "A list of group IDs this user belongs to. Can be updated by the Account Admin only.",
                     "items": {
                       "type": "string"
                     },
@@ -30379,6 +31690,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -30445,6 +31757,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -30465,6 +31778,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -30513,6 +31827,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -30904,6 +32219,7 @@
             "type": "subtenant_user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -31286,6 +32602,7 @@
             "type": "subtenant_user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -31448,6 +32765,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -31523,7 +32841,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of group IDs this user belongs to.",
+                    "description": "A list of group IDs this user belongs to. Can be updated by the Account Admin only.",
                     "items": {
                       "type": "string"
                     },
@@ -31649,6 +32967,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -31715,6 +33034,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -31735,6 +33055,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -31783,6 +33104,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -32028,6 +33350,7 @@
             "type": "subtenant_user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -32099,6 +33422,7 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
+              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -32131,6 +33455,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -32198,6 +33523,7 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
+              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -32231,6 +33557,7 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
+              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -32343,6 +33670,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -32418,7 +33746,7 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of group IDs this user belongs to.",
+                    "description": "A list of group IDs this user belongs to. Can be updated by the Account Admin only.",
                     "items": {
                       "type": "string"
                     },
@@ -32544,6 +33872,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -32610,6 +33939,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -32630,6 +33960,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -32678,6 +34009,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -33069,6 +34401,7 @@
             "type": "subtenant_user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -33379,6 +34712,7 @@
             "type": "subtenant_user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -33489,6 +34823,7 @@
           "type": "string",
           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
           "description": "Address.",
+          "x-nullable": true,
           "api_fieldname": "address",
           "parameter_fieldname": "address",
           "in": "body",
@@ -33639,6 +34974,7 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -33706,6 +35042,7 @@
           "type": "string",
           "example": "PZf9eEUH43DAPE9ULINFeuj",
           "description": "The password when creating a new user. It will be generated when not present in the request.",
+          "x-nullable": true,
           "api_fieldname": "password",
           "parameter_fieldname": "password",
           "in": "body",
@@ -33727,6 +35064,7 @@
           "type": "string",
           "example": "+44 (1223) 400 400",
           "description": "Phone number.",
+          "x-nullable": true,
           "api_fieldname": "phone_number",
           "parameter_fieldname": "phone_number",
           "in": "body",
@@ -33800,6 +35138,7 @@
           "type": "string",
           "example": "admin",
           "description": "A username containing alphanumerical letters and -,._@+= characters.",
+          "x-nullable": true,
           "api_fieldname": "username",
           "parameter_fieldname": "username",
           "in": "body",
@@ -33864,6 +35203,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -33919,7 +35259,10 @@
             {
               "type": "integer",
               "format": "int32",
-              "description": "Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 30,
+              "description": "Specifies how many days the invitation will be valid for.",
               "name": "valid_for_days",
               "in": "body",
               "schema_param": true,
@@ -34022,6 +35365,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -34339,6 +35683,7 @@
             "type": "subtenant_user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -34627,6 +35972,7 @@
             "type": "subtenant_user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -34763,6 +36109,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -35080,6 +36427,7 @@
             "type": "subtenant_user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -35160,6 +36508,7 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -35853,6 +37202,7 @@
             "type": "trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -36153,6 +37503,7 @@
             "type": "trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -36186,7 +37537,7 @@
             },
             {
               "type": "string",
-              "description": "mUUID that uniquely identifies the developer certificate.",
+              "description": "ID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -36259,7 +37610,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "mUUID that uniquely identifies the developer certificate.",
+                    "description": "ID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -36557,6 +37908,7 @@
             "type": "developer_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -37098,6 +38450,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -37599,6 +38952,7 @@
             "type": "trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -38320,6 +39674,7 @@
             "type": "trusted_certificate"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -38584,6 +39939,7 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
+              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -38616,6 +39972,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -38683,6 +40040,7 @@
               "type": "string",
               "example": "PZf9eEUH43DAPE9ULINFeuj",
               "description": "The password when creating a new user. It will be generated when not present in the request.",
+              "x-nullable": true,
               "api_fieldname": "password",
               "entity_fieldname": "password",
               "parameter_fieldname": "password",
@@ -38694,6 +40052,7 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
+              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -38716,6 +40075,7 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
+              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -38828,6 +40188,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -39002,6 +40363,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -39065,6 +40427,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -39082,6 +40445,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -39124,6 +40488,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -39439,6 +40804,7 @@
             "type": "user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -39810,6 +41176,7 @@
             "type": "user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -40025,6 +41392,7 @@
                           "type": "string",
                           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                           "description": "Address.",
+                          "x-nullable": true,
                           "_key": "address"
                         },
                         {
@@ -40169,6 +41537,7 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -40228,6 +41597,7 @@
                           "type": "string",
                           "example": "PZf9eEUH43DAPE9ULINFeuj",
                           "description": "The password when creating a new user. It will be generated when not present in the request.",
+                          "x-nullable": true,
                           "_key": "password"
                         },
                         {
@@ -40241,6 +41611,7 @@
                           "type": "string",
                           "example": "+44 (1223) 400 400",
                           "description": "Phone number.",
+                          "x-nullable": true,
                           "_key": "phone_number"
                         },
                         {
@@ -40275,6 +41646,7 @@
                           "type": "string",
                           "example": "admin",
                           "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                          "x-nullable": true,
                           "_key": "username"
                         }
                       ],
@@ -40512,6 +41884,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -40676,6 +42049,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -40850,6 +42224,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -40913,6 +42288,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -40930,6 +42306,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -40972,6 +42349,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -41214,6 +42592,7 @@
             "type": "user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -41275,6 +42654,7 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
+              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -41307,6 +42687,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -41374,6 +42755,7 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
+              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -41407,6 +42789,7 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
+              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -41519,6 +42902,7 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
+                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -41693,6 +43077,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -41756,6 +43141,7 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
+                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -41773,6 +43159,7 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
+                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -41815,6 +43202,7 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
+                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -42203,6 +43591,7 @@
             "type": "user"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -42328,6 +43717,7 @@
           "type": "string",
           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
           "description": "Address.",
+          "x-nullable": true,
           "api_fieldname": "address",
           "readOnly": false,
           "required": false,
@@ -42470,6 +43860,7 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -42533,6 +43924,7 @@
           "type": "string",
           "example": "PZf9eEUH43DAPE9ULINFeuj",
           "description": "The password when creating a new user. It will be generated when not present in the request.",
+          "x-nullable": true,
           "api_fieldname": "password",
           "readOnly": false,
           "required": false,
@@ -42552,6 +43944,7 @@
           "type": "string",
           "example": "+44 (1223) 400 400",
           "description": "Phone number.",
+          "x-nullable": true,
           "api_fieldname": "phone_number",
           "readOnly": false,
           "required": false,
@@ -42617,6 +44010,7 @@
           "type": "string",
           "example": "admin",
           "description": "A username containing alphanumerical letters and -,._@+= characters.",
+          "x-nullable": true,
           "api_fieldname": "username",
           "readOnly": false,
           "required": false,
@@ -42669,6 +44063,7 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -42724,7 +44119,10 @@
             {
               "type": "integer",
               "format": "int32",
-              "description": "Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 30,
+              "description": "Specifies how many days the invitation will be valid for.",
               "name": "valid_for_days",
               "in": "body",
               "schema_param": true,
@@ -42815,6 +44213,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -43129,6 +44528,7 @@
             "type": "user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -43406,6 +44806,7 @@
             "type": "user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -43561,6 +44962,7 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -43856,6 +45258,7 @@
               "eq"
             ]
           },
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -43978,6 +45381,7 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -44292,6 +45696,7 @@
             "type": "user_invitation"
           },
           "x_filter": {},
+          "x_deprecation": null,
           "drop_fields": [
             "object",
             "etag",
@@ -44369,6 +45774,7 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
+          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [

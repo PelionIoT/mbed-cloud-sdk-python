@@ -16,6 +16,7 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.device_enrollment`
 - :meth:`EntityFactory.device_enrollment_bulk_create`
 - :meth:`EntityFactory.device_enrollment_bulk_delete`
+- :meth:`EntityFactory.device_enrollment_denial`
 - :meth:`EntityFactory.device_events`
 - :meth:`EntityFactory.login_history`
 - :meth:`EntityFactory.login_profile`
@@ -341,6 +342,7 @@ class EntityFactory:
         created_at=None,
         device_id=None,
         enroll_result=None,
+        enroll_result_detail=None,
         enroll_status=None,
         id=None,
         updated_at=None,
@@ -353,11 +355,13 @@ class EntityFactory:
         :type created_at: datetime
         :param device_id: The device ID.
         :type device_id: str
-        :param enroll_result: 
+        :param enroll_result: The result of certificate enrollment request.
         :type enroll_result: str
-        :param enroll_status: 
+        :param enroll_result_detail: Additional information in case of failure.
+        :type enroll_result_detail: str
+        :param enroll_status: The status of certificate enrollment request.
         :type enroll_status: str
-        :param id: The ID of the certificate enrollment.
+        :param id: The certificate enrollment ID.
         :type id: str
         :param updated_at: Update UTC time RFC3339.
         :type updated_at: datetime
@@ -373,6 +377,7 @@ class EntityFactory:
             created_at=created_at,
             device_id=device_id,
             enroll_result=enroll_result,
+            enroll_result_detail=enroll_result_detail,
             enroll_status=enroll_status,
             id=id,
             updated_at=updated_at,
@@ -488,7 +493,7 @@ class EntityFactory:
         :type created_at: datetime
         :param description: Description for the developer certificate.
         :type description: str
-        :param id: mUUID that uniquely identifies the developer certificate.
+        :param id: ID that uniquely identifies the developer certificate.
         :type id: str
         :param name: Name of the developer certificate.
         :type name: str
@@ -534,6 +539,7 @@ class EntityFactory:
         firmware_checksum=None,
         host_gateway=None,
         id=None,
+        issuer_fingerprint=None,
         manifest=None,
         manifest_timestamp=None,
         mechanism=None,
@@ -563,7 +569,9 @@ class EntityFactory:
         :param created_at: The timestamp of when the device was created in the device
             directory.
         :type created_at: datetime
-        :param custom_attributes: Up to five custom key-value attributes.
+        :param custom_attributes: Up to five custom key-value attributes. Note that keys cannot
+            begin with a number. Both keys and values are limited to 128
+            characters. Updating this field replaces existing contents.
         :type custom_attributes: dict
         :param deployed_state: DEPRECATED: The state of the device's deployment.
         :type deployed_state: str
@@ -598,6 +606,9 @@ class EntityFactory:
         :param id: The ID of the device. The device ID is used across all Device
             Management APIs.
         :type id: str
+        :param issuer_fingerprint: SHA256 fingerprint of the certificate used to validate the
+            signature of the device certificate.
+        :type issuer_fingerprint: str
         :param manifest: DEPRECATED: The URL for the current device manifest.
         :type manifest: str
         :param manifest_timestamp: The timestamp of the current manifest version.
@@ -644,6 +655,7 @@ class EntityFactory:
             firmware_checksum=firmware_checksum,
             host_gateway=host_gateway,
             id=id,
+            issuer_fingerprint=issuer_fingerprint,
             manifest=manifest,
             manifest_timestamp=manifest_timestamp,
             mechanism=mechanism,
@@ -829,6 +841,41 @@ class EntityFactory:
             total_count=total_count,
         )
 
+    def device_enrollment_denial(
+        self,
+        account_id=None,
+        created_at=None,
+        endpoint_name=None,
+        id=None,
+        trusted_certificate_id=None,
+    ):
+        """Creates a local `DeviceEnrollmentDenial` instance, using the shared SDK context.
+
+        :param account_id: account id
+        :type account_id: str
+        :param created_at: date on which the failed bootstrap was attempted on
+        :type created_at: datetime
+        :param endpoint_name: endpoint name
+        :type endpoint_name: str
+        :param id: id of the recorded failed bootstrap attempt
+        :type id: str
+        :param trusted_certificate_id: Trusted certificate id
+        :type trusted_certificate_id: str
+        
+        :return: A new instance of a DeviceEnrollmentDenial Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.devices.device_enrollment_denial.DeviceEnrollmentDenial
+        """
+        from mbed_cloud.foundation import DeviceEnrollmentDenial
+
+        return DeviceEnrollmentDenial(
+            _client=self._client,
+            account_id=account_id,
+            created_at=created_at,
+            endpoint_name=endpoint_name,
+            id=id,
+            trusted_certificate_id=trusted_certificate_id,
+        )
+
     def device_events(
         self,
         changes=None,
@@ -999,7 +1046,7 @@ class EntityFactory:
 
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
-        :param id: mUUID that uniquely identifies the entity.
+        :param id: ID that uniquely identifies the entity.
         :type id: str
         :param server_certificate: PEM format X.509 server certificate that will be used to validate
             the server certificate that will be received during the TLS/DTLS

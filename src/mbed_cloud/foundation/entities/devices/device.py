@@ -73,6 +73,7 @@ class Device(Entity):
         "firmware_checksum",
         "host_gateway",
         "id",
+        "issuer_fingerprint",
         "manifest",
         "manifest_timestamp",
         "mechanism",
@@ -113,6 +114,7 @@ class Device(Entity):
         firmware_checksum=None,
         host_gateway=None,
         id=None,
+        issuer_fingerprint=None,
         manifest=None,
         manifest_timestamp=None,
         mechanism=None,
@@ -149,7 +151,9 @@ class Device(Entity):
         :param created_at: The timestamp of when the device was created in the device
             directory.
         :type created_at: datetime
-        :param custom_attributes: Up to five custom key-value attributes.
+        :param custom_attributes: Up to five custom key-value attributes. Note that keys cannot
+            begin with a number. Both keys and values are limited to 128
+            characters. Updating this field replaces existing contents.
         :type custom_attributes: dict
         :param deployed_state: DEPRECATED: The state of the device's deployment.
         :type deployed_state: str
@@ -184,6 +188,9 @@ class Device(Entity):
         :param id: (Required) The ID of the device. The device ID is used across all Device
             Management APIs.
         :type id: str
+        :param issuer_fingerprint: SHA256 fingerprint of the certificate used to validate the
+            signature of the device certificate.
+        :type issuer_fingerprint: str
         :param manifest: DEPRECATED: The URL for the current device manifest.
         :type manifest: str
         :param manifest_timestamp: The timestamp of the current manifest version.
@@ -233,6 +240,7 @@ class Device(Entity):
         self._firmware_checksum = fields.StringField(value=firmware_checksum)
         self._host_gateway = fields.StringField(value=host_gateway)
         self._id = fields.StringField(value=id)
+        self._issuer_fingerprint = fields.StringField(value=issuer_fingerprint)
         self._manifest = fields.StringField(value=manifest)
         self._manifest_timestamp = fields.DateTimeField(value=manifest_timestamp)
         self._mechanism = fields.StringField(
@@ -388,9 +396,11 @@ class Device(Entity):
 
     @property
     def custom_attributes(self):
-        """Up to five custom key-value attributes.
+        """Up to five custom key-value attributes. Note that keys cannot begin with a
+        number. Both keys and values are limited to 128 characters. Updating this
+        field replaces existing contents.
         
-        api example: "{ 'key': 'value' }"
+        api example: {'key': 'value'}
         
         :rtype: dict
         """
@@ -658,6 +668,28 @@ class Device(Entity):
         self._id.set(value)
 
     @property
+    def issuer_fingerprint(self):
+        """SHA256 fingerprint of the certificate used to validate the signature of the
+        device certificate.
+        
+        api example: 'C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322'
+        
+        :rtype: str
+        """
+
+        return self._issuer_fingerprint.value
+
+    @issuer_fingerprint.setter
+    def issuer_fingerprint(self, value):
+        """Set value of `issuer_fingerprint`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._issuer_fingerprint.set(value)
+
+    @property
     def manifest(self):
         """DEPRECATED: The URL for the current device manifest.
         
@@ -865,6 +897,7 @@ class Device(Entity):
                 "endpoint_type": self._endpoint_type.to_api(),
                 "firmware_checksum": self._firmware_checksum.to_api(),
                 "host_gateway": self._host_gateway.to_api(),
+                "issuer_fingerprint": self._issuer_fingerprint.to_api(),
                 "manifest": self._manifest.to_api(),
                 "mechanism": self._mechanism.to_api(),
                 "mechanism_url": self._mechanism_url.to_api(),
@@ -895,6 +928,84 @@ class Device(Entity):
         """List all devices.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/devices/>`_.
+
+        **API Filters**
+
+        The following filters are supported by the API when listing Device entities:
+
+        +------------------------------+------+------+------+------+------+------+------+
+        | Field                        | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +==============================+======+======+======+======+======+======+======+
+        | account_id                   | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | auto_update                  | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | bootstrapped_expiration_date |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | bootstrapped_timestamp       |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | ca_id                        | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | connector_expiration_date    |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | created_at                   |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | custom_attributes            | Y    | Y    |      |      |      |      |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | deployed_state               | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | deployment                   | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | description                  | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | device_class                 | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | device_execution_mode        | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | device_key                   | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | endpoint_name                | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | endpoint_type                | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | enrollment_list_timestamp    |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | firmware_checksum            | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | host_gateway                 | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | id                           | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | manifest                     | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | manifest_timestamp           |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | mechanism                    | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | mechanism_url                | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | name                         | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | serial_number                | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | state                        | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | updated_at                   |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+        | vendor_id                    | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+
+            from mbed_cloud.foundation import Device
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("account_id", "eq", <filter value>)
+            for device in Device().list(filter=api_filter):
+                print(device.account_id)
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.

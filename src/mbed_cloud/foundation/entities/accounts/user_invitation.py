@@ -294,13 +294,12 @@ class UserInvitation(Entity):
 
         self._user_id.set(value)
 
-    def create(self, valid_for_days=None):
+    def create(self, valid_for_days=30):
         """Create a user invitation.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations>`_.
         
-        :param valid_for_days: Specifies how many days the invitation will be valid for. The default
-            is 30 days. Value should be between 1 and 100 days.
+        :param valid_for_days: Specifies how many days the invitation will be valid for.
         :type valid_for_days: int
         
         :rtype: UserInvitation
