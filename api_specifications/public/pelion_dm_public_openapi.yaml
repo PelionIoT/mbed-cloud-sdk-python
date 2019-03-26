@@ -2112,7 +2112,7 @@ definitions:
           type: string
         type: array
       host_gateway:
-        description: The `endpoint_name` of the host gateway, if appropriate.
+        description: The ID of the host gateway, if appropriate.
         example: ''
         type: string
       id:
@@ -2256,7 +2256,7 @@ definitions:
         type: string
       groups: *id011
       host_gateway:
-        description: The `endpoint_name` of the host gateway, if appropriate.
+        description: The ID of the host gateway, if appropriate.
         example: ''
         type: string
       issuer_fingerprint: *id012
@@ -2348,7 +2348,7 @@ definitions:
         type: string
       groups: *id011
       host_gateway:
-        description: The `endpoint_name` of the host gateway, if appropriate.
+        description: The ID of the host gateway, if appropriate.
         example: ''
         type: string
       name:

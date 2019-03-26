@@ -20088,7 +20088,7 @@
             },
             {
               "type": "string",
-              "description": "The `endpoint_name` of the host gateway, if appropriate.",
+              "description": "The ID of the host gateway, if appropriate.",
               "example": "",
               "api_fieldname": "host_gateway",
               "entity_fieldname": "host_gateway",
@@ -20388,7 +20388,7 @@
                   },
                   "host_gateway": {
                     "type": "string",
-                    "description": "The `endpoint_name` of the host gateway, if appropriate.",
+                    "description": "The ID of the host gateway, if appropriate.",
                     "example": "",
                     "api_fieldname": "host_gateway",
                     "entity_fieldname": "host_gateway"
@@ -20814,7 +20814,7 @@
                         },
                         "host_gateway": {
                           "type": "string",
-                          "description": "The `endpoint_name` of the host gateway, if appropriate.",
+                          "description": "The ID of the host gateway, if appropriate.",
                           "example": ""
                         },
                         "manifest": {
@@ -21483,7 +21483,7 @@
                   },
                   "host_gateway": {
                     "type": "string",
-                    "description": "The `endpoint_name` of the host gateway, if appropriate.",
+                    "description": "The ID of the host gateway, if appropriate.",
                     "example": "",
                     "api_fieldname": "host_gateway",
                     "entity_fieldname": "host_gateway"
@@ -22311,7 +22311,7 @@
             },
             {
               "type": "string",
-              "description": "The `endpoint_name` of the host gateway, if appropriate.",
+              "description": "The ID of the host gateway, if appropriate.",
               "example": "",
               "api_fieldname": "host_gateway",
               "entity_fieldname": "host_gateway",
@@ -22533,7 +22533,7 @@
                   },
                   "host_gateway": {
                     "type": "string",
-                    "description": "The `endpoint_name` of the host gateway, if appropriate.",
+                    "description": "The ID of the host gateway, if appropriate.",
                     "example": "",
                     "api_fieldname": "host_gateway",
                     "entity_fieldname": "host_gateway"
@@ -22881,7 +22881,7 @@
         },
         {
           "type": "string",
-          "description": "The `endpoint_name` of the host gateway, if appropriate.",
+          "description": "The ID of the host gateway, if appropriate.",
           "example": "",
           "api_fieldname": "host_gateway",
           "readOnly": false,

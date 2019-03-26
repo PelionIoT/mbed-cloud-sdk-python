@@ -15161,7 +15161,7 @@ entities:
     type: string
   - _key: host_gateway
     api_fieldname: host_gateway
-    description: The `endpoint_name` of the host gateway, if appropriate.
+    description: The ID of the host gateway, if appropriate.
     example: ''
     readOnly: false
     required: false
@@ -15431,7 +15431,7 @@ entities:
       type: string
     - _key: host_gateway
       api_fieldname: host_gateway
-      description: The `endpoint_name` of the host gateway, if appropriate.
+      description: The ID of the host gateway, if appropriate.
       entity_fieldname: host_gateway
       example: ''
       in: body
@@ -15691,7 +15691,7 @@ entities:
           type: array
         host_gateway:
           api_fieldname: host_gateway
-          description: The `endpoint_name` of the host gateway, if appropriate.
+          description: The ID of the host gateway, if appropriate.
           entity_fieldname: host_gateway
           example: ''
           type: string
@@ -16172,7 +16172,7 @@ entities:
                 type: string
               type: array
             host_gateway:
-              description: The `endpoint_name` of the host gateway, if appropriate.
+              description: The ID of the host gateway, if appropriate.
               example: ''
               type: string
             id:
@@ -16650,7 +16650,7 @@ entities:
           type: array
         host_gateway:
           api_fieldname: host_gateway
-          description: The `endpoint_name` of the host gateway, if appropriate.
+          description: The ID of the host gateway, if appropriate.
           entity_fieldname: host_gateway
           example: ''
           type: string
@@ -17270,7 +17270,7 @@ entities:
       type: string
     - _key: host_gateway
       api_fieldname: host_gateway
-      description: The `endpoint_name` of the host gateway, if appropriate.
+      description: The ID of the host gateway, if appropriate.
       entity_fieldname: host_gateway
       example: ''
       in: body
@@ -17466,7 +17466,7 @@ entities:
           type: array
         host_gateway:
           api_fieldname: host_gateway
-          description: The `endpoint_name` of the host gateway, if appropriate.
+          description: The ID of the host gateway, if appropriate.
           entity_fieldname: host_gateway
           example: ''
           type: string
