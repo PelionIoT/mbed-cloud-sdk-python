@@ -12,6 +12,8 @@ This is the preferred method of creating Foundation Entity instances and using t
 ------------
 """
 import warnings
+import ssl
+import re
 
 from mbed_cloud.sdk import Config
 from mbed_cloud.client.client import Client
@@ -41,6 +43,7 @@ class SDK(object):
         :type host: str
         """
         beta_warning(self.__class__)
+        check_openssl_version()
 
         # create a new config based on those we received
         existing = config._to_dict() if config else {}
@@ -104,3 +107,26 @@ def beta_warning(header, category=FutureWarning):
             stacklevel=3,  # make the trace log from two levels above this `warnings.warn` line
         )
         has_warned = True
+
+
+def check_openssl_version():
+    """Utility function to check that the OpenSSL version is recent enough"""
+    version = ssl.OPENSSL_VERSION
+
+    match = re.match(r'OpenSSL ((\d+)\.(\d+)\.(\d+))', ssl.OPENSSL_VERSION)
+    if not match:
+        # Ignore the missing SSL package
+        return
+
+    major = int(match.group(2))
+    minor = int(match.group(3))
+    patch = int(match.group(4))
+
+    if major >= 1 and minor >= 0 and patch >= 2:
+        return  # all ok
+
+    warnings.warn("""
+The Python interpreter being used has an old version of SSL. The recommended
+minimum version for the SDK is 1.0.2, however security best practice is to use the latest
+available version of SSL, which can be found at https://www.openssl.org.
+Reported SSL version is '""" + version + "'")
