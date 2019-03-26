@@ -342,6 +342,7 @@ class EntityFactory:
         created_at=None,
         device_id=None,
         enroll_result=None,
+        enroll_result_detail=None,
         enroll_status=None,
         id=None,
         updated_at=None,
@@ -354,11 +355,13 @@ class EntityFactory:
         :type created_at: datetime
         :param device_id: The device ID.
         :type device_id: str
-        :param enroll_result: 
+        :param enroll_result: The result of certificate enrollment request.
         :type enroll_result: str
-        :param enroll_status: 
+        :param enroll_result_detail: Additional information in case of failure.
+        :type enroll_result_detail: str
+        :param enroll_status: The status of certificate enrollment request.
         :type enroll_status: str
-        :param id: The ID of the certificate enrollment.
+        :param id: The certificate enrollment ID.
         :type id: str
         :param updated_at: Update UTC time RFC3339.
         :type updated_at: datetime
@@ -374,6 +377,7 @@ class EntityFactory:
             created_at=created_at,
             device_id=device_id,
             enroll_result=enroll_result,
+            enroll_result_detail=enroll_result_detail,
             enroll_status=enroll_status,
             id=id,
             updated_at=updated_at,
