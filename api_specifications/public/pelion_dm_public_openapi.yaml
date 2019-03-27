@@ -5910,7 +5910,7 @@ definitions:
         example: false
         type: boolean
       created_at: *id013
-      description: &id025
+      description: &id026
         description: Human-readable description
         example: New Linux update for my devices
         maxLength: 2000
@@ -5924,7 +5924,7 @@ definitions:
         description: The upload job ID
         example: '00000000000000000000000000000000'
         type: string
-      name: &id026
+      name: &id027
         description: Human-readable name
         example: New Linux update
         maxLength: 128
@@ -15992,14 +15992,6 @@ paths:
         in: query
         name: state_change__neq
         type: boolean
-      - description: in filter for the state_change field
-        in: query
-        name: state_change__in
-        type: string
-      - description: nin filter for the state_change field
-        in: query
-        name: state_change__nin
-        type: string
       responses:
         '200':
           description: Request successful.
@@ -16041,8 +16033,6 @@ paths:
         state_change:
         - eq
         - neq
-        - in
-        - nin
   /v3/device-events/{device_event_id}/:
     get:
       description: Retrieve a specific device event.
@@ -16428,29 +16418,69 @@ paths:
         name: include
         type: string
       - description: "URL encoded query string parameter to filter returned data.\n\
-          \n##### Filtering\n\n```?filter={URL encoded query string}```\n\nThe query\
-          \ string is made up of key/value pairs separated by ampersands. So for a\
-          \ query of\n\n```key1=value1&key2=value2&key3=value3``` this would be encoded\
-          \ as follows:\n```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```\n\
-          \n###### Filterable fields:\n\nThe table lists all the fields that can be\
-          \ filtered on with certain filters:\n\n<table>\n  <thead>\n    <tr>\n  \
-          \    <th>Field</th>\n      <th>= / __eq / __neq</th>\n      <th>__in / \
-          \ __nin</th>\n      <th>__lte / __gte</th>\n    <tr>\n  <thead>\n  <tbody>\n\
-          \    <tr>\n      <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>devices_count</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>name</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>description</td>\n\
+          \      \n##### Filtering\n\n```?filter={URL encoded query string}```\n\n\
+          The query string is made up of key/value pairs separated by ampersands.\
+          \ So for a query of\n```key1=value1&key2=value2&key3=value3``` this would\
+          \ be encoded as follows:\n```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```\n\
+          \n###### Filterable fields:\n\nThe below table lists all the fields that\
+          \ can be filtered on with certain filters:\n\n<table>\n  <thead>\n    <tr>\n\
+          \      <th>Field</th>\n      <th>= / __eq / __neq</th>\n      <th>__in /\
+          \  __nin</th>\n      <th>__lte / __gte</th>\n    <tr>\n  <thead>\n  <tbody>\n\
+          \    <tr>\n      <td>lifecycle_status</td>\n      <td>\u2713</td>\n    \
+          \  <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>account_id</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>custom_attributes</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
-          \      <td>created_at</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>updated_at</td>\n\
+          \   </tr>\n    <tr>\n      <td>auto_update</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
+          \   <td>bootstrap_expiration_date</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>bootstrapped_timestamp</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\n\
-          The examples below show the queries in *unencoded* form.\n\n###### By device\
-          \ properties (all properties are filterable):\n\n```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```\n\
+          \     </tr>\n    <tr>\n      <td>ca_id</td>\n      <td>\u2713</td>\n   \
+          \   <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>connector_expiration_date</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n    <tr>\n      <td>created_at</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
+          \   <td>custom_attributes</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>deployed_state</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n    <tr>\n      <td>deployment</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
+          \   <td>description</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>device_class</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n    <tr>\n      <td>device_execution_mode</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>device_key</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>endpoint_name</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n    <tr>\n      <td>endpoint_type</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
+          \   <td>enrolment_list_timestamp</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>etag</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n    <tr>\n      <td>firmware_checksum</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>host_gateway</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>id</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>manifest</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>manifest_timestamp</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n    <tr>\n      <td>mechanism</td>\n      <td>\u2713</td>\n \
+          \     <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n    \
+          \  <td>mechanism_url</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>name</td>\n     \
+          \ <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n\
+          \    <tr>\n      <td>serial_number</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>state</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
+          \   <td>vendor_id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \     <td>&nbsp;</td>\n      </tr>\n    <tr>\n      <td>issuer_fingerprint</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>            \n  </tbody>\n</table>\n&nbsp;\n\nThe examples below\
+          \ show the queries in *unencoded* form.\n\n###### By device properties (all\
+          \ properties are filterable):\n\n```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```\n\
           ```device_class={value}```\n\n###### On date-time fields:\n\nDate-time fields\
           \ should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```.\
           \ There are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds\
@@ -16461,7 +16491,7 @@ paths:
           \ suffixed with ```__gte```\n* less than or equal to &ndash; field name\
           \ suffixed with ```__lte```\n\nLower and upper limits to a date-time range\
           \ may be specified by including both the ```__gte``` and ```__lte``` forms\
-          \ in\nthe filter.\n```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```\n\
+          \ in the filter.\n```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```\n\
           \n###### On device custom attributes:\n\n```custom_attributes__{param}={value}```\n\
           ```custom_attributes__tag=TAG1```\n\n##### Multi-field example\n\n```state=bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```\n\
           \nEncoded:\n\n```?filter=state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```\n\
@@ -16472,123 +16502,146 @@ paths:
         in: query
         name: filter
         type: string
-      - description: eq filter for the id field
-        in: query
-        name: id__eq
-        type: string
-      - description: neq filter for the id field
-        in: query
-        name: id__neq
-        type: string
-      - description: in filter for the id field
-        in: query
-        name: id__in
-        type: string
-      - description: nin filter for the id field
-        in: query
-        name: id__nin
-        type: string
-      - description: eq filter for the devices_count field
-        in: query
-        name: devices_count__eq
-        type: string
-      - description: neq filter for the devices_count field
-        in: query
-        name: devices_count__neq
-        type: string
-      - description: in filter for the devices_count field
-        in: query
-        name: devices_count__in
-        type: string
-      - description: nin filter for the devices_count field
-        in: query
-        name: devices_count__nin
-        type: string
-      - description: lte filter for the devices_count field
-        in: query
-        name: devices_count__lte
-        type: string
-      - description: gte filter for the devices_count field
-        in: query
-        name: devices_count__gte
-        type: string
-      - description: eq filter for the name field
-        in: query
-        name: name__eq
-        type: string
-      - description: neq filter for the name field
-        in: query
-        name: name__neq
-        type: string
-      - description: in filter for the name field
-        in: query
-        name: name__in
-        type: string
-      - description: nin filter for the name field
-        in: query
-        name: name__nin
-        type: string
-      - description: eq filter for the description field
-        in: query
-        name: description__eq
-        type: string
-      - description: neq filter for the description field
-        in: query
-        name: description__neq
-        type: string
-      - description: in filter for the description field
-        in: query
-        name: description__in
-        type: string
-      - description: nin filter for the description field
-        in: query
-        name: description__nin
-        type: string
-      - description: eq filter for the custom_attributes field
-        in: query
-        name: custom_attributes__eq
-        type: string
-      - description: neq filter for the custom_attributes field
-        in: query
-        name: custom_attributes__neq
-        type: string
-      - description: in filter for the created_at field
-        in: query
-        name: created_at__in
-        type: string
-      - description: nin filter for the created_at field
-        in: query
-        name: created_at__nin
-        type: string
-      - description: lte filter for the created_at field
-        format: date-time
-        in: query
-        name: created_at__lte
-        type: string
-      - description: gte filter for the created_at field
-        format: date-time
-        in: query
-        name: created_at__gte
-        type: string
-      - description: in filter for the updated_at field
-        in: query
-        name: updated_at__in
-        type: string
-      - description: nin filter for the updated_at field
-        in: query
-        name: updated_at__nin
-        type: string
-      - description: lte filter for the updated_at field
-        format: date-time
-        in: query
-        name: updated_at__lte
-        type: string
-      - description: gte filter for the updated_at field
-        format: date-time
-        in: query
-        name: updated_at__gte
-        type: string
       responses:
+        x-filter: &id025
+          account_id:
+          - eq
+          - neq
+          - in
+          - nin
+          auto_update:
+          - eq
+          - neq
+          bootstrap_expiration_date:
+          - in
+          - nin
+          - lte
+          - gte
+          bootstrapped_timestamp:
+          - in
+          - nin
+          - lte
+          - gte
+          ca_id:
+          - eq
+          - neq
+          - in
+          - nin
+          connector_expiration_date:
+          - in
+          - nin
+          - lte
+          - gte
+          created_at:
+          - in
+          - nin
+          - lte
+          - gte
+          deployed_state:
+          - eq
+          - neq
+          - in
+          - nin
+          deployment:
+          - eq
+          - neq
+          - in
+          - nin
+          description:
+          - eq
+          - neq
+          - in
+          - nin
+          device_class:
+          - eq
+          - neq
+          - in
+          - nin
+          device_execution_mode:
+          - eq
+          - neq
+          - in
+          - nin
+          device_key:
+          - eq
+          - neq
+          - in
+          - nin
+          endpoint_name:
+          - eq
+          - neq
+          - in
+          - nin
+          endpoint_type:
+          - eq
+          - neq
+          - in
+          - nin
+          enrolment_list_timestamp:
+          - in
+          - nin
+          - lte
+          - gte
+          firmware_checksum:
+          - eq
+          - neq
+          - in
+          - nin
+          host_gateway:
+          - eq
+          - neq
+          - in
+          - nin
+          id:
+          - eq
+          - neq
+          - in
+          - nin
+          manifest:
+          - eq
+          - neq
+          - in
+          - nin
+          manifest_timestamp:
+          - in
+          - nin
+          - lte
+          - gte
+          mechanism:
+          - eq
+          - neq
+          - in
+          - nin
+          mechanism_url:
+          - eq
+          - neq
+          - in
+          - nin
+          name:
+          - eq
+          - neq
+          - in
+          - nin
+          serial_number:
+          - eq
+          - neq
+          - in
+          - nin
+          state:
+          - eq
+          - neq
+          - in
+          - nin
+          updated_at:
+          - in
+          - nin
+          - lte
+          - gte
+          vendor_id:
+          - eq
+          - neq
+          - in
+          - nin
         200:
           description: Ok.
           schema:
@@ -16606,42 +16659,6 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get a page of devices
-      x-filter:
-        created_at:
-        - in
-        - nin
-        - lte
-        - gte
-        custom_attributes:
-        - eq
-        - neq
-        description:
-        - eq
-        - neq
-        - in
-        - nin
-        devices_count:
-        - eq
-        - neq
-        - in
-        - nin
-        - lte
-        - gte
-        id:
-        - eq
-        - neq
-        - in
-        - nin
-        name:
-        - eq
-        - neq
-        - in
-        - nin
-        updated_at:
-        - in
-        - nin
-        - lte
-        - gte
   /v3/device-groups/{device-group-id}/devices/add/:
     post:
       description: Add one device to a group.
@@ -17253,10 +17270,10 @@ paths:
         name: include
         type: string
       - description: "URL encoded query string parameter to filter returned data.\n\
-          \n##### Filtering\n\n```?filter={URL encoded query string}```\n\nThe query\
-          \ string is made up of key/value pairs separated by ampersands. So for a\
-          \ query of\n```key1=value1&key2=value2&key3=value3``` this would be encoded\
-          \ as follows:\n```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```\n\
+          \      \n##### Filtering\n\n```?filter={URL encoded query string}```\n\n\
+          The query string is made up of key/value pairs separated by ampersands.\
+          \ So for a query of\n```key1=value1&key2=value2&key3=value3``` this would\
+          \ be encoded as follows:\n```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```\n\
           \n###### Filterable fields:\n\nThe below table lists all the fields that\
           \ can be filtered on with certain filters:\n\n<table>\n  <thead>\n    <tr>\n\
           \      <th>Field</th>\n      <th>= / __eq / __neq</th>\n      <th>__in /\
@@ -17269,8 +17286,8 @@ paths:
           \   <td>bootstrap_expiration_date</td>\n      <td>\u2713</td>\n      <td>\u2713\
           </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>bootstrapped_timestamp</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>ca_id</td>\n      <td>\u2713</td>\n     \
-          \ <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>connector_expiration_date</td>\n\
+          \     </tr>\n    <tr>\n      <td>ca_id</td>\n      <td>\u2713</td>\n   \
+          \   <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>connector_expiration_date</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
           \   </tr>\n    <tr>\n      <td>created_at</td>\n      <td>\u2713</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
@@ -17311,35 +17328,23 @@ paths:
           \   </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
           \   <td>vendor_id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \     <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>issuer_fingerprint</td>\n\
+          \     <td>&nbsp;</td>\n      </tr>\n    <tr>\n      <td>issuer_fingerprint</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>lifecycle_status</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>operator_suspended</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>last_operator_suspension_category</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>last_operator_suspension_updated_at</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>system_suspended</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>last_system_suspension_category</td>\n      <td>\u2713</td>\n  \
-          \    <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n     \
-          \ <td>last_system_suspension_updated_at</td>\n      <td>\u2713</td>\n  \
-          \    <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>                \n\
-          \  </tbody>\n</table>\n&nbsp;\n\nThe examples below show the queries in\
-          \ *unencoded* form.\n\n###### By device properties (all properties are filterable):\n\
-          \n```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```\n```device_class={value}```\n\
-          \n###### On date-time fields:\n\nDate-time fields should be specified in\
-          \ UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted\n\
-          variations:\n\n* UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z\n\
-          * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z\n* UTC RFC3339\
-          \ shortened - without milliseconds and punctuation e.g. 20161130T162512Z\n\
-          \nDate-time filtering supports three operators:\n\n* equality\n* greater\
-          \ than or equal to &ndash; field name suffixed with ```__gte```\n* less\
-          \ than or equal to &ndash; field name suffixed with ```__lte```\n\nLower\
-          \ and upper limits to a date-time range may be specified by including both\
-          \ the ```__gte``` and ```__lte``` forms in\nthe filter.\n```{field name}[|__lte|__gte]={UTC\
-          \ RFC3339 date-time}```\n\n###### On device custom attributes:\n\n```custom_attributes__{param}={value}```\n\
+          \   </tr>            \n  </tbody>\n</table>\n&nbsp;\n\nThe examples below\
+          \ show the queries in *unencoded* form.\n\n###### By device properties (all\
+          \ properties are filterable):\n\n```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```\n\
+          ```device_class={value}```\n\n###### On date-time fields:\n\nDate-time fields\
+          \ should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```.\
+          \ There are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds\
+          \ e.g. 2016-11-30T16:25:12.1234Z\n* UTC RFC3339 without milliseconds e.g.\
+          \ 2016-11-30T16:25:12Z\n* UTC RFC3339 shortened - without milliseconds and\
+          \ punctuation e.g. 20161130T162512Z\n\nDate-time filtering supports three\
+          \ operators:\n\n* equality\n* greater than or equal to &ndash; field name\
+          \ suffixed with ```__gte```\n* less than or equal to &ndash; field name\
+          \ suffixed with ```__lte```\n\nLower and upper limits to a date-time range\
+          \ may be specified by including both the ```__gte``` and ```__lte``` forms\
+          \ in the filter.\n```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```\n\
+          \n###### On device custom attributes:\n\n```custom_attributes__{param}={value}```\n\
           ```custom_attributes__tag=TAG1```\n\n##### Multi-field example\n\n```state=bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```\n\
           \nEncoded:\n\n```?filter=state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```\n\
           \n##### Filtering with filter operators\n\nString field filtering supports\
@@ -17373,29 +17378,23 @@ paths:
         in: query
         name: auto_update__neq
         type: boolean
-      - description: in filter for the auto_update field
+      - description: in filter for the bootstrap_expiration_date field
         in: query
-        name: auto_update__in
+        name: bootstrap_expiration_date__in
         type: string
-      - description: nin filter for the auto_update field
+      - description: nin filter for the bootstrap_expiration_date field
         in: query
-        name: auto_update__nin
+        name: bootstrap_expiration_date__nin
         type: string
-      - description: in filter for the bootstrapped_expiration_date field
+      - description: lte filter for the bootstrap_expiration_date field
+        format: date
         in: query
-        name: bootstrapped_expiration_date__in
+        name: bootstrap_expiration_date__lte
         type: string
-      - description: nin filter for the bootstrapped_expiration_date field
+      - description: gte filter for the bootstrap_expiration_date field
+        format: date
         in: query
-        name: bootstrapped_expiration_date__nin
-        type: string
-      - description: lte filter for the bootstrapped_expiration_date field
-        in: query
-        name: bootstrapped_expiration_date__lte
-        type: string
-      - description: gte filter for the bootstrapped_expiration_date field
-        in: query
-        name: bootstrapped_expiration_date__gte
+        name: bootstrap_expiration_date__gte
         type: string
       - description: in filter for the bootstrapped_timestamp field
         in: query
@@ -17466,14 +17465,6 @@ paths:
         format: date-time
         in: query
         name: created_at__gte
-        type: string
-      - description: eq filter for the custom_attributes field
-        in: query
-        name: custom_attributes__eq
-        type: string
-      - description: neq filter for the custom_attributes field
-        in: query
-        name: custom_attributes__neq
         type: string
       - description: eq filter for the deployed_state field
         in: query
@@ -17603,21 +17594,23 @@ paths:
         in: query
         name: endpoint_type__nin
         type: string
-      - description: in filter for the enrollment_list_timestamp field
+      - description: in filter for the enrolment_list_timestamp field
         in: query
-        name: enrollment_list_timestamp__in
+        name: enrolment_list_timestamp__in
         type: string
-      - description: nin filter for the enrollment_list_timestamp field
+      - description: nin filter for the enrolment_list_timestamp field
         in: query
-        name: enrollment_list_timestamp__nin
+        name: enrolment_list_timestamp__nin
         type: string
-      - description: lte filter for the enrollment_list_timestamp field
+      - description: lte filter for the enrolment_list_timestamp field
+        format: date-time
         in: query
-        name: enrollment_list_timestamp__lte
+        name: enrolment_list_timestamp__lte
         type: string
-      - description: gte filter for the enrollment_list_timestamp field
+      - description: gte filter for the enrolment_list_timestamp field
+        format: date-time
         in: query
-        name: enrollment_list_timestamp__gte
+        name: enrolment_list_timestamp__gte
         type: string
       - description: eq filter for the firmware_checksum field
         in: query
@@ -17827,150 +17820,7 @@ paths:
         '404':
           description: Unable to find page.
       summary: List all devices.
-      x-filter:
-        account_id:
-        - eq
-        - neq
-        - in
-        - nin
-        auto_update:
-        - eq
-        - neq
-        - in
-        - nin
-        bootstrapped_expiration_date:
-        - in
-        - nin
-        - lte
-        - gte
-        bootstrapped_timestamp:
-        - in
-        - nin
-        - lte
-        - gte
-        ca_id:
-        - eq
-        - neq
-        - in
-        - nin
-        connector_expiration_date:
-        - in
-        - nin
-        - lte
-        - gte
-        created_at:
-        - in
-        - nin
-        - lte
-        - gte
-        custom_attributes:
-        - eq
-        - neq
-        deployed_state:
-        - eq
-        - neq
-        - in
-        - nin
-        deployment:
-        - eq
-        - neq
-        - in
-        - nin
-        description:
-        - eq
-        - neq
-        - in
-        - nin
-        device_class:
-        - eq
-        - neq
-        - in
-        - nin
-        device_execution_mode:
-        - eq
-        - neq
-        - in
-        - nin
-        device_key:
-        - eq
-        - neq
-        - in
-        - nin
-        endpoint_name:
-        - eq
-        - neq
-        - in
-        - nin
-        endpoint_type:
-        - eq
-        - neq
-        - in
-        - nin
-        enrollment_list_timestamp:
-        - in
-        - nin
-        - lte
-        - gte
-        firmware_checksum:
-        - eq
-        - neq
-        - in
-        - nin
-        host_gateway:
-        - eq
-        - neq
-        - in
-        - nin
-        id:
-        - eq
-        - neq
-        - in
-        - nin
-        manifest:
-        - eq
-        - neq
-        - in
-        - nin
-        manifest_timestamp:
-        - in
-        - nin
-        - lte
-        - gte
-        mechanism:
-        - eq
-        - neq
-        - in
-        - nin
-        mechanism_url:
-        - eq
-        - neq
-        - in
-        - nin
-        name:
-        - eq
-        - neq
-        - in
-        - nin
-        serial_number:
-        - eq
-        - neq
-        - in
-        - nin
-        state:
-        - eq
-        - neq
-        - in
-        - nin
-        updated_at:
-        - in
-        - nin
-        - lte
-        - gte
-        vendor_id:
-        - eq
-        - neq
-        - in
-        - nin
+      x-filter: *id025
     post:
       description: Create a new device.
       operationId: Device_create
@@ -18180,12 +18030,11 @@ paths:
           \    <tr>\n      <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
           \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>name</td>\n     \
           \ <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n\
-          \    <tr>\n      <td>timestamp</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>updated_at</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe query string is made up of\
-          \ key-value pairs separated by ampersands. For example, this query:\n`key1=value1&key2=value2&key3=value3`\n\
-          \nwould be URL-encoded as:\n`?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`\n\
+          \    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\n\
+          The query string is made up of key-value pairs separated by ampersands.\
+          \ For example, this query:\n`key1=value1&key2=value2&key3=value3`\n\nwould\
+          \ be URL-encoded as:\n`?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`\n\
           \n\n**Filtering by properties**\n`name__eq=myimage`\n\n**Filtering on date-time\
           \ fields**\n\nDate-time fields should be specified in UTC RFC3339 format,\
           \ `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:\n\n*\
@@ -18322,22 +18171,6 @@ paths:
         in: query
         name: name__nin
         type: string
-      - description: in filter for the timestamp field
-        in: query
-        name: timestamp__in
-        type: string
-      - description: nin filter for the timestamp field
-        in: query
-        name: timestamp__nin
-        type: string
-      - description: lte filter for the timestamp field
-        in: query
-        name: timestamp__lte
-        type: string
-      - description: gte filter for the timestamp field
-        in: query
-        name: timestamp__gte
-        type: string
       - description: in filter for the updated_at field
         in: query
         name: updated_at__in
@@ -18404,11 +18237,6 @@ paths:
         - neq
         - in
         - nin
-        timestamp:
-        - in
-        - nin
-        - lte
-        - gte
         updated_at:
         - in
         - nin
@@ -18518,6 +18346,40 @@ paths:
         in: query
         name: filter
         type: string
+      - description: in filter for the updated_at field
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the updated_at field
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the updated_at field
+        format: date-time
+        in: query
+        name: updated_at__gte
+        type: string
+      - description: eq filter for the name field
+        in: query
+        name: name__eq
+        type: string
+      - description: neq filter for the name field
+        in: query
+        name: name__neq
+        type: string
+      - description: in filter for the name field
+        in: query
+        name: name__in
+        type: string
+      - description: nin filter for the name field
+        in: query
+        name: name__nin
+        type: string
       - description: in filter for the created_at field
         in: query
         name: created_at__in
@@ -18535,54 +18397,6 @@ paths:
         format: date-time
         in: query
         name: created_at__gte
-        type: string
-      - description: eq filter for the datafile field
-        in: query
-        name: datafile__eq
-        type: string
-      - description: neq filter for the datafile field
-        in: query
-        name: datafile__neq
-        type: string
-      - description: in filter for the datafile field
-        in: query
-        name: datafile__in
-        type: string
-      - description: nin filter for the datafile field
-        in: query
-        name: datafile__nin
-        type: string
-      - description: eq filter for the datafile_checksum field
-        in: query
-        name: datafile_checksum__eq
-        type: string
-      - description: neq filter for the datafile_checksum field
-        in: query
-        name: datafile_checksum__neq
-        type: string
-      - description: in filter for the datafile_checksum field
-        in: query
-        name: datafile_checksum__in
-        type: string
-      - description: nin filter for the datafile_checksum field
-        in: query
-        name: datafile_checksum__nin
-        type: string
-      - description: eq filter for the datafile_size field
-        in: query
-        name: datafile_size__eq
-        type: string
-      - description: neq filter for the datafile_size field
-        in: query
-        name: datafile_size__neq
-        type: string
-      - description: in filter for the datafile_size field
-        in: query
-        name: datafile_size__in
-        type: string
-      - description: nin filter for the datafile_size field
-        in: query
-        name: datafile_size__nin
         type: string
       - description: eq filter for the description field
         in: query
@@ -18616,55 +18430,29 @@ paths:
         in: query
         name: id__nin
         type: string
-      - description: eq filter for the name field
+      - description: eq filter for the complete field
         in: query
-        name: name__eq
+        name: complete__eq
+        type: boolean
+      - description: neq filter for the complete field
+        in: query
+        name: complete__neq
+        type: boolean
+      - description: eq filter for the status field
+        in: query
+        name: status__eq
         type: string
-      - description: neq filter for the name field
+      - description: neq filter for the status field
         in: query
-        name: name__neq
+        name: status__neq
         type: string
-      - description: in filter for the name field
+      - description: in filter for the status field
         in: query
-        name: name__in
+        name: status__in
         type: string
-      - description: nin filter for the name field
+      - description: nin filter for the status field
         in: query
-        name: name__nin
-        type: string
-      - description: in filter for the timestamp field
-        in: query
-        name: timestamp__in
-        type: string
-      - description: nin filter for the timestamp field
-        in: query
-        name: timestamp__nin
-        type: string
-      - description: lte filter for the timestamp field
-        in: query
-        name: timestamp__lte
-        type: string
-      - description: gte filter for the timestamp field
-        in: query
-        name: timestamp__gte
-        type: string
-      - description: in filter for the updated_at field
-        in: query
-        name: updated_at__in
-        type: string
-      - description: nin filter for the updated_at field
-        in: query
-        name: updated_at__nin
-        type: string
-      - description: lte filter for the updated_at field
-        format: date-time
-        in: query
-        name: updated_at__lte
-        type: string
-      - description: gte filter for the updated_at field
-        format: date-time
-        in: query
-        name: updated_at__gte
+        name: status__nin
         type: string
       responses:
         200:
@@ -18681,26 +18469,14 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all upload jobs
       x-filter:
+        complete:
+        - eq
+        - neq
         created_at:
         - in
         - nin
         - lte
         - gte
-        datafile:
-        - eq
-        - neq
-        - in
-        - nin
-        datafile_checksum:
-        - eq
-        - neq
-        - in
-        - nin
-        datafile_size:
-        - eq
-        - neq
-        - in
-        - nin
         description:
         - eq
         - neq
@@ -18716,11 +18492,11 @@ paths:
         - neq
         - in
         - nin
-        timestamp:
+        status:
+        - eq
+        - neq
         - in
         - nin
-        - lte
-        - gte
         updated_at:
         - in
         - nin
@@ -18736,8 +18512,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id025
-            name: *id026
+            description: *id026
+            name: *id027
           type: object
       responses:
         201:
@@ -18825,8 +18601,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id025
-            name: *id026
+            description: *id026
+            name: *id027
           type: object
       responses:
         200:

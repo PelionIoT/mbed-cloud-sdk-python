@@ -20974,11 +20974,9 @@
             ],
             "auto_update": [
               "eq",
-              "neq",
-              "in",
-              "nin"
+              "neq"
             ],
-            "bootstrapped_expiration_date": [
+            "bootstrap_expiration_date": [
               "in",
               "nin",
               "lte",
@@ -21007,10 +21005,6 @@
               "nin",
               "lte",
               "gte"
-            ],
-            "custom_attributes": [
-              "eq",
-              "neq"
             ],
             "deployed_state": [
               "eq",
@@ -21060,7 +21054,7 @@
               "in",
               "nin"
             ],
-            "enrollment_list_timestamp": [
+            "enrolment_list_timestamp": [
               "in",
               "nin",
               "lte",
@@ -21158,12 +21152,10 @@
             "account_id__nin",
             "auto_update__eq",
             "auto_update__neq",
-            "auto_update__in",
-            "auto_update__nin",
-            "bootstrapped_expiration_date__in",
-            "bootstrapped_expiration_date__nin",
-            "bootstrapped_expiration_date__lte",
-            "bootstrapped_expiration_date__gte",
+            "bootstrap_expiration_date__in",
+            "bootstrap_expiration_date__nin",
+            "bootstrap_expiration_date__lte",
+            "bootstrap_expiration_date__gte",
             "bootstrapped_timestamp__in",
             "bootstrapped_timestamp__nin",
             "bootstrapped_timestamp__lte",
@@ -21180,8 +21172,6 @@
             "created_at__nin",
             "created_at__lte",
             "created_at__gte",
-            "custom_attributes__eq",
-            "custom_attributes__neq",
             "deployed_state__eq",
             "deployed_state__neq",
             "deployed_state__in",
@@ -21214,10 +21204,10 @@
             "endpoint_type__neq",
             "endpoint_type__in",
             "endpoint_type__nin",
-            "enrollment_list_timestamp__in",
-            "enrollment_list_timestamp__nin",
-            "enrollment_list_timestamp__lte",
-            "enrollment_list_timestamp__gte",
+            "enrolment_list_timestamp__in",
+            "enrolment_list_timestamp__nin",
+            "enrolment_list_timestamp__lte",
+            "enrolment_list_timestamp__gte",
             "firmware_checksum__eq",
             "firmware_checksum__neq",
             "firmware_checksum__in",
@@ -27225,9 +27215,7 @@
             ],
             "state_change": [
               "eq",
-              "neq",
-              "in",
-              "nin"
+              "neq"
             ]
           },
           "x_deprecation": null,
@@ -27264,9 +27252,7 @@
             "event_type__in",
             "event_type__nin",
             "state_change__eq",
-            "state_change__neq",
-            "state_change__in",
-            "state_change__nin"
+            "state_change__neq"
           ],
           "foreign_key_priority": "self",
           "group_id": "Devices",
