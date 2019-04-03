@@ -262,15 +262,17 @@ def to_pascal_case(string):
 
 
 @functools.lru_cache()
-def to_snake_case(name):
+def to_snake_case(string):
     """Converts string to snake_case
 
     we don't use title because that forces lowercase for the word, whereas we want:
     PSK -> psk
     api key -> api_key
+    content-length -> content_length
     user -> user
     """
-    return name.replace(" ", "_").lower()
+    string = string.replace("-", "_")
+    return string.replace(" ", "_").lower()
 
 
 def to_singular_name(name):
