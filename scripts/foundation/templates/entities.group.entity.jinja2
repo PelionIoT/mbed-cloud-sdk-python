@@ -214,7 +214,7 @@ class {{ entity._key|to_pascal }}(Entity):
             {%- endfor %}
         {%- endif %}
         {% for field in method.fields %}{% if field.external_param %}
-        :param {{field._key|to_snake}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
+        :param {{field._key|to_snake}}: {{ (field.description or "No description available")|wordwrap(width=70)|indent(width=12)  }}
         :type {{field._key|to_snake}}: {{ (field.foreign_key and 'mbed_cloud.foundation.entities.' + field.foreign_key.entity|to_pascal) or field.python_type}}
         {% endif %}{% endfor %}
         {%- if method.public_paginator_method %}
