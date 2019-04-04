@@ -280,7 +280,7 @@ class {{ entity._key|to_pascal }}(Entity):
         return self._client.call_api(
             method='{{method.method}}',
             path='{{ method.path }}',
-            content_type='{{ method.get("request_content_type") }}',
+            content_type={% if method.get.request_content_type %}'{{ method.get.request_content_type }}'{% else %}None{% endif %},
             {% for param_in, count in method.python_params_in.items() %}
                 {% if count %}
                 {# If the request body is binary then pass external parameters straight through to requests #}
