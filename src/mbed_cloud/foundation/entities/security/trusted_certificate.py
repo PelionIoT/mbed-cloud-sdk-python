@@ -334,9 +334,7 @@ class TrustedCertificate(Entity):
 
         from mbed_cloud.foundation._custom_methods import is_developer_certificate_getter
 
-        return is_developer_certificate_getter(
-            self=self, field=self._is_developer_certificate
-        )
+        return is_developer_certificate_getter(self=self)
 
     @is_developer_certificate.setter
     def is_developer_certificate(self, value):
@@ -348,9 +346,7 @@ class TrustedCertificate(Entity):
 
         from mbed_cloud.foundation._custom_methods import is_developer_certificate_setter
 
-        is_developer_certificate_setter(
-            self=self, field=self._is_developer_certificate, value=value
-        )
+        is_developer_certificate_setter(self=self, value=value)
 
     @property
     def issuer(self):
