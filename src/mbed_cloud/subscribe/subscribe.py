@@ -55,6 +55,7 @@ LOG = logging.getLogger(__name__)
 
 has_warned = None
 
+
 def expand_dict_as_keys(d):
     """Expands a dictionary into a list of immutables with cartesian product
 
