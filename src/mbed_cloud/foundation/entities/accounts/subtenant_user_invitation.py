@@ -309,7 +309,7 @@ class SubtenantUserInvitation(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/accounts/{account_id}/user-invitations",
-            content_type="None",
+            content_type=None,
             path_params={"account_id": self._account_id.to_api()},
             body_params={
                 "email": self._email.to_api(),
@@ -330,7 +330,7 @@ class SubtenantUserInvitation(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/accounts/{account_id}/user-invitations/{invitation_id}",
-            content_type="None",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "invitation_id": self._id.to_api(),
@@ -349,7 +349,7 @@ class SubtenantUserInvitation(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/user-invitations/{invitation_id}",
-            content_type="None",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "invitation_id": self._id.to_api(),

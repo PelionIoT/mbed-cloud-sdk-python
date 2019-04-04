@@ -234,7 +234,7 @@ class CertificateIssuerConfig(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/certificate-issuer-configurations",
-            content_type="None",
+            content_type=None,
             body_params={
                 "certificate_issuer_id": self._certificate_issuer_id.to_api(),
                 "reference": self._certificate_reference.to_api(),
@@ -253,7 +253,7 @@ class CertificateIssuerConfig(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
-            content_type="None",
+            content_type=None,
             path_params={"certificate-issuer-configuration-id": self._id.to_api()},
             unpack=self,
         )
@@ -269,7 +269,7 @@ class CertificateIssuerConfig(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/certificate-issuer-configurations/lwm2m",
-            content_type="None",
+            content_type=None,
             unpack=self,
         )
 
@@ -405,7 +405,7 @@ class CertificateIssuerConfig(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
-            content_type="None",
+            content_type=None,
             path_params={"certificate-issuer-configuration-id": self._id.to_api()},
             unpack=self,
         )
@@ -421,7 +421,7 @@ class CertificateIssuerConfig(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
-            content_type="None",
+            content_type=None,
             body_params={"certificate_issuer_id": self._certificate_issuer_id.to_api()},
             path_params={"certificate-issuer-configuration-id": self._id.to_api()},
             unpack=self,

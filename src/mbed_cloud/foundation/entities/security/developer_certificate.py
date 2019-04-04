@@ -271,7 +271,7 @@ class DeveloperCertificate(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/developer-certificates",
-            content_type="None",
+            content_type=None,
             body_params={
                 "description": self._description.to_api(),
                 "name": self._name.to_api(),
@@ -290,7 +290,7 @@ class DeveloperCertificate(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/trusted-certificates/{cert_id}",
-            content_type="None",
+            content_type=None,
             path_params={"cert_id": self._id.to_api()},
             unpack=self,
         )
@@ -308,7 +308,7 @@ class DeveloperCertificate(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/trusted-certificates/{cert_id}",
-            content_type="None",
+            content_type=None,
             path_params={"cert_id": self._id.to_api()},
             unpack=TrustedCertificate,
         )
@@ -324,7 +324,7 @@ class DeveloperCertificate(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/developer-certificates/{developerCertificateId}",
-            content_type="None",
+            content_type=None,
             path_params={"developerCertificateId": self._id.to_api()},
             unpack=self,
         )

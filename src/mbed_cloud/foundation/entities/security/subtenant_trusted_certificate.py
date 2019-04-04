@@ -555,7 +555,7 @@ class SubtenantTrustedCertificate(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/accounts/{account_id}/trusted-certificates",
-            content_type="None",
+            content_type=None,
             path_params={"account_id": self._account_id.to_api()},
             body_params={
                 "certificate": self._certificate.to_api(),
@@ -579,7 +579,7 @@ class SubtenantTrustedCertificate(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
-            content_type="None",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "cert_id": self._id.to_api(),
@@ -600,7 +600,7 @@ class SubtenantTrustedCertificate(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/developer-certificates/{developerCertificateId}",
-            content_type="None",
+            content_type=None,
             path_params={"developerCertificateId": self._id.to_api()},
             unpack=DeveloperCertificate,
         )
@@ -616,7 +616,7 @@ class SubtenantTrustedCertificate(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
-            content_type="None",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "cert_id": self._id.to_api(),
@@ -635,7 +635,7 @@ class SubtenantTrustedCertificate(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
-            content_type="None",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "cert_id": self._id.to_api(),
