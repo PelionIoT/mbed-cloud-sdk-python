@@ -1241,6 +1241,7 @@ class Account(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/accounts",
+            content_type="None",
             query_params={"action": fields.StringField(action).to_api()},
             body_params={
                 "address_line1": self._address_line1.to_api(),
@@ -1386,6 +1387,7 @@ class Account(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/me",
+            content_type="None",
             query_params={
                 "include": fields.StringField(include).to_api(),
                 "properties": fields.StringField(properties).to_api(),
@@ -1589,6 +1591,7 @@ class Account(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}",
+            content_type="None",
             path_params={"account_id": self._id.to_api()},
             query_params={
                 "include": fields.StringField(include).to_api(),
@@ -1707,6 +1710,7 @@ class Account(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/accounts/{account_id}",
+            content_type="None",
             body_params={
                 "address_line1": self._address_line1.to_api(),
                 "address_line2": self._address_line2.to_api(),

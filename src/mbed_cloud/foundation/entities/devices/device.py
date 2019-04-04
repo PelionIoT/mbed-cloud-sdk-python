@@ -881,6 +881,7 @@ class Device(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/devices/",
+            content_type="None",
             body_params={
                 "auto_update": self._auto_update.to_api(),
                 "bootstrap_expiration_date": self._bootstrap_expiration_date.to_api(),
@@ -920,6 +921,7 @@ class Device(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/devices/{id}/",
+            content_type="None",
             path_params={"id": self._id.to_api()},
             unpack=self,
         )
@@ -1108,6 +1110,7 @@ class Device(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/devices/{id}/",
+            content_type="None",
             path_params={"id": self._id.to_api()},
             unpack=self,
         )
@@ -1128,6 +1131,7 @@ class Device(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/devices/{device-id}/certificates/{certificate-name}/renew",
+            content_type="None",
             path_params={
                 "certificate-name": fields.StringField(certificate_name).to_api(),
                 "device-id": self._id.to_api(),
@@ -1146,6 +1150,7 @@ class Device(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/devices/{id}/",
+            content_type="None",
             body_params={
                 "auto_update": self._auto_update.to_api(),
                 "ca_id": self._ca_id.to_api(),

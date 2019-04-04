@@ -181,7 +181,10 @@ class ServerCredentials(Entity):
         """
 
         return self._client.call_api(
-            method="get", path="/v3/server-credentials/bootstrap", unpack=self
+            method="get",
+            path="/v3/server-credentials/bootstrap",
+            content_type="None",
+            unpack=self,
         )
 
     def get_lwm2m(self):
@@ -193,5 +196,8 @@ class ServerCredentials(Entity):
         """
 
         return self._client.call_api(
-            method="get", path="/v3/server-credentials/lwm2m", unpack=self
+            method="get",
+            path="/v3/server-credentials/lwm2m",
+            content_type="None",
+            unpack=self,
         )

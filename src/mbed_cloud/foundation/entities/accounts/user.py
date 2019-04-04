@@ -726,6 +726,7 @@ class User(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/users",
+            content_type="None",
             query_params={"action": fields.StringField(action).to_api()},
             body_params={
                 "address": self._address.to_api(),
@@ -752,6 +753,7 @@ class User(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/users/{user_id}",
+            content_type="None",
             path_params={"user_id": self._id.to_api()},
             unpack=self,
         )
@@ -882,6 +884,7 @@ class User(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/users/{user_id}",
+            content_type="None",
             path_params={"user_id": self._id.to_api()},
             unpack=self,
         )
@@ -897,6 +900,7 @@ class User(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/users/{user_id}",
+            content_type="None",
             body_params={
                 "address": self._address.to_api(),
                 "full_name": self._full_name.to_api(),

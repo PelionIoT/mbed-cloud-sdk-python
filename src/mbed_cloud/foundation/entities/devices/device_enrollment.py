@@ -277,6 +277,7 @@ class DeviceEnrollment(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/device-enrollments",
+            content_type="None",
             body_params={"enrollment_identity": self._enrollment_identity.to_api()},
             unpack=self,
         )
@@ -292,6 +293,7 @@ class DeviceEnrollment(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/device-enrollments/{id}",
+            content_type="None",
             path_params={"id": self._id.to_api()},
             unpack=self,
         )
@@ -405,6 +407,7 @@ class DeviceEnrollment(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/device-enrollments/{id}",
+            content_type="None",
             path_params={"id": self._id.to_api()},
             unpack=self,
         )

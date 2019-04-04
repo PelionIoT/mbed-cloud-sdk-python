@@ -339,6 +339,7 @@ class DeviceEnrollmentDenial(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/device-enrollment-denials/{device_enrollment_denial_id}",
+            content_type="None",
             path_params={
                 "device_enrollment_denial_id": fields.StringField(
                     device_enrollment_denial_id

@@ -500,6 +500,7 @@ class DeviceEvents(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/device-events/{device_event_id}/",
+            content_type="None",
             path_params={"device_event_id": self._id.to_api()},
             unpack=self,
         )

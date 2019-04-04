@@ -366,6 +366,7 @@ class DeviceEnrollmentBulkDelete(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/device-enrollments-bulk-deletes",
+            content_type="None",
             stream_params={
                 "enrollment_identities": fields.FileField(enrollment_identities).to_api()
             },
@@ -403,6 +404,7 @@ class DeviceEnrollmentBulkDelete(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/device-enrollments-bulk-deletes/{id}",
+            content_type="None",
             path_params={"id": self._id.to_api()},
             unpack=self,
         )
