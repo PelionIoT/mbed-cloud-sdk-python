@@ -213,8 +213,8 @@ SWAGGER_FIELD_MAP = {
     "binary": "BinaryField",
     "date-time": "DateTimeField",
     "date": "DateField",
-    # Custom filter field is rendered as a string
-    "filter": "StringField",
+    # Custom filter field is stored as a dictionary
+    "filter": "DictField",
 }
 
 # Map from Swagger Types / Formats to native Python types
