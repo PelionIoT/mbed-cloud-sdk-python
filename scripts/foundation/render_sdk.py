@@ -198,8 +198,6 @@ SORT_ORDER = {
     "include": "7",
 }
 
-
-
 # Map from Swagger Types / Formats to Foundation field types
 SWAGGER_FIELD_MAP = {
     # Swagger types
@@ -215,6 +213,8 @@ SWAGGER_FIELD_MAP = {
     "binary": "BinaryField",
     "date-time": "DateTimeField",
     "date": "DateField",
+    # Custom filter field is rendered as a string
+    "filter": "StringField",
 }
 
 # Map from Swagger Types / Formats to native Python types
@@ -232,6 +232,8 @@ SWAGGER_TYPE_MAP = {
     "binary": "bytes",
     "date-time": "datetime",
     "date": "date",
+    # Custom filter field is used the standard API filter builder
+    "filter": "mbed_cloud.client.api_filter.ApiFilter",
 }
 
 
@@ -538,6 +540,18 @@ def post_process_definition_file(sdk_def_filename):
         # The SDK generation file is organised around SDK entities
         for entity in sdk_gen_dict["entities"]:
             map_python_field_types(entity["fields"])
+
+            for field in entity["fields"]:
+                foundation_reference = field.get("foundation_reference")
+                if foundation_reference:
+                    reference_segments = foundation_reference.split(".")
+                    python_reference = "mbed_cloud.foundation.entities." + to_snake_case(reference_segments[0])
+                    if len(reference_segments) > 1:
+                        python_reference += ".%s.%s" %(to_snake_case(reference_segments[1]), to_pascal_case(reference_segments[1]))
+                    if len(reference_segments) > 2:
+                        python_reference += ".%s" % to_snake_case(reference_segments[2])
+                    field["foundation_reference"] = python_reference
+
             for method in entity["methods"][:]:
                 map_python_field_types(method["fields"])
                 method["python_params_in"] = count_param_in(method["fields"])

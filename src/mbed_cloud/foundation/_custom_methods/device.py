@@ -1,10 +1,6 @@
 """Custom methods for device entities."""
 
-try:
-    from urllib.parse import urlparse
-except ImportError:
-    from urlparse import urlparse
-
+from six.moves.urllib.parse import urlparse
 from io import StringIO
 
 
