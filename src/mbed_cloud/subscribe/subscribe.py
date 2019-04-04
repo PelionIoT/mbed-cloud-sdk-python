@@ -46,12 +46,14 @@ while True:
 """
 import itertools
 import logging
+import warnings
 
 import six
 from mbed_cloud import utils
 
 LOG = logging.getLogger(__name__)
 
+has_warned = None
 
 def expand_dict_as_keys(d):
     """Expands a dictionary into a list of immutables with cartesian product
@@ -127,6 +129,7 @@ class SubscriptionsManager(RoutingBase):
 
     def __init__(self, connect_api):
         """Subscriptions Manager"""
+        beta_warning(self.__class__)
         super(SubscriptionsManager, self).__init__()
         self.watch_keys = set()
         self.connect_api = connect_api
@@ -210,3 +213,16 @@ class SubscriptionsManager(RoutingBase):
         for channel in self.list_all():
             channel.ensure_stopped()
         self.connect_api.stop_notifications()
+
+
+def beta_warning(header, category=FutureWarning):
+    """Utility function to generate a beta warning."""
+    global has_warned
+    if not has_warned:
+        warnings.warn(
+            "[Beta] this section of the SDK is at a `beta` release level and is subject to change without notice: %s"
+            % header,
+            category=category,
+            stacklevel=3,  # make the trace log from two levels above this `warnings.warn` line
+        )
+        has_warned = True
