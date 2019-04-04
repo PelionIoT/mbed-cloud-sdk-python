@@ -209,8 +209,10 @@ SWAGGER_FIELD_MAP = {
     "number": "FloatField",
     "object": "DictField",
     "file": "FileField",
-    # Swagger formats (specialisation of types)
     "string": "StringField",
+    # Swagger formats (specialisation of types)
+    "byte": "BinaryField",
+    "binary": "BinaryField",
     "date-time": "DateTimeField",
     "date": "DateField",
 }
@@ -226,6 +228,8 @@ SWAGGER_TYPE_MAP = {
     "string": "str",
     "file": "file",
     # Swagger formats (specialisation of types)
+    "byte": "bytes",
+    "binary": "bytes",
     "date-time": "datetime",
     "date": "date",
 }
