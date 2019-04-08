@@ -415,7 +415,17 @@ def count_param_in(fields):
     return params_in
 
 
-def add_required_parameters(method, required_parameters):
+def add_required_parameters(method, parameters):
+    """Add any missing parameters to the method definition.
+
+    If the parameter is not present then add the definition, otherwise leave the existing definition (along with the
+    documentation) unchanged.
+
+    :param method: The method to which to add the parameters.
+    :param parameters: The required parameters.
+    """
+    # Deepcopy the parameters so any later changes to not impact the base definition.
+    required_parameters = copy.deepcopy(parameters)
     # Fill in any missing list parameters so there is a consistent interface
     required_fields = list(required_parameters.keys())
     for field in method["fields"]:
