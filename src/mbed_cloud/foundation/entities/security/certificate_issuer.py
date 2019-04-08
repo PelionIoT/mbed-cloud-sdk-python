@@ -320,8 +320,8 @@ class CertificateIssuer(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuers>`_.
         
-        :param filter: An optional filter to apply when listing entities, please see the
-            above **API Filters** table for supported filters.
+        :param filter: Filtering when listing entities is not supported by the API for this
+            entity.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, `ASC` or `DESC`; by
