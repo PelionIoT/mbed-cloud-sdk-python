@@ -7583,6 +7583,8 @@ paths:
         400:
           description: Other type of channel already exists.
         401: *id016
+        409:
+          description: Conflict. Long poll request exists already.
         410:
           description: 'Pull channnel was deleted and waiting to be purged. This code
             is a result of incorrect client behavior (delete channel and then pull),
