@@ -10,6 +10,7 @@ import logging
 import copy
 import functools
 import subprocess
+import re
 from collections import defaultdict
 import jinja2
 
@@ -277,8 +278,7 @@ def to_snake_case(string):
     content-length -> content_length
     user -> user
     """
-    string = string.replace("-", "_")
-    return string.replace(" ", "_").lower()
+    return re.sub("[ -]", "_", string).lower()
 
 
 def to_singular_name(name):
@@ -325,7 +325,7 @@ class TemplateRenderer(object):
         :param str template_filename: name of template to render, this also defines the output path and filename.
         :param str group: This should be supplied when the template filename contains `group` .
         :param str entity: This should be supplied when the template filename contains `entity`.
-        :param str template_data: Data to pass to the template.
+        :param dict template_data: Data to pass to the template.
         """
         template = self.jinja_env.get_template(template_filename)
 
@@ -494,7 +494,6 @@ def create_custom_methods(entity, method):
 
     :param entity: The entity being processed, this will be modified if a paginator is found.
     :param method: The current method being processed.
-    :return:
     """
     if method.get("pagination"):
         internal_paginator = copy.deepcopy(method)
@@ -551,14 +550,19 @@ def post_process_definition_file(sdk_def_filename):
         for entity in sdk_gen_dict["entities"]:
             map_python_field_types(entity["fields"])
 
+            # Convert a reference to an SDK Entity to a Python code reference
+            # devices.device.list -> mbed_cloud.foundation.entities.devices.device.Device.list
             for field in entity["fields"]:
                 foundation_reference = field.get("foundation_reference")
                 if foundation_reference:
                     reference_segments = foundation_reference.split(".")
+                    # E.g. mbed_cloud.foundation.entities.devices
                     python_reference = "mbed_cloud.foundation.entities." + to_snake_case(reference_segments[0])
                     if len(reference_segments) > 1:
+                        # E.g. mbed_cloud.foundation.entities.devices.device.Device
                         python_reference += ".%s.%s" %(to_snake_case(reference_segments[1]), to_pascal_case(reference_segments[1]))
                     if len(reference_segments) > 2:
+                        # E.g. mbed_cloud.foundation.entities.devices.device.Device.list
                         python_reference += ".%s" % to_snake_case(reference_segments[2])
                     field["foundation_reference"] = python_reference
 

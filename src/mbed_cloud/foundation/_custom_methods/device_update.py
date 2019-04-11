@@ -13,9 +13,7 @@ def device_filter_helper_setter(self, value):
     :type value: mbed_cloud.client.api_filter.ApiFilter
     """
     if isinstance(value, dict):
-        value = ApiFilter(
-            filter_definition=value, field_renames=Device._renames_to_api
-        )
+        value = ApiFilter(filter_definition=value, field_renames=Device._renames_to_api)
     elif isinstance(value, ApiFilter):
         value.field_renames = Device._renames_to_api
     elif value is not None:
@@ -34,4 +32,6 @@ def device_filter_helper_getter(self):
 
     :rtype: mbed_cloud.client.api_filter.ApiFilter
     """
-    return ApiFilter(filter_definition=self._device_filter_helper, field_renames=Device._renames_to_api)
+    return ApiFilter(
+        filter_definition=self._device_filter_helper, field_renames=Device._renames_to_api
+    )

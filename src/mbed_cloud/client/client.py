@@ -93,7 +93,7 @@ class Client(object):
         :type path_params: dict
         :param query_params: (optional) Query Parameters
         :type query_params: dict
-        :param body_params: (optional) JSON compatible Message Body
+        :param body_params: (optional) JSON-compatible Message Body
         :type body_params: dict
         :param stream_params: (optional) Files for multipart encoding uploading, see 'requests.request.files` for more
             information.
