@@ -650,6 +650,8 @@ entities:
     parameter_map:
       account_id: id
     path: /v3/accounts
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: Successful operation.
@@ -1601,6 +1603,8 @@ entities:
     parameter_map:
       account_id: id
     path: /v3/accounts
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -2474,6 +2478,8 @@ entities:
     parameter_map:
       account_id: id
     path: /v3/accounts/me
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Successful operation.
@@ -3366,6 +3372,8 @@ entities:
     parameter_map:
       account_id: id
     path: /v3/accounts/{account_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -4312,6 +4320,8 @@ entities:
     parameter_map:
       account_id: id
     path: /v3/accounts/{account_id}/trusted-certificates
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -4963,6 +4973,8 @@ entities:
     parameter_map:
       account_id: id
     path: /v3/accounts/{account_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -5937,6 +5949,8 @@ entities:
     parameter_map:
       account_id: id
     path: /v3/accounts/{account_id}/user-invitations
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Successful operation.
@@ -6371,6 +6385,8 @@ entities:
     parameter_map:
       account_id: id
     path: /v3/accounts/{account_id}/users
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -7098,6 +7114,8 @@ entities:
     parameter_map:
       apikey_id: id
     path: /v3/api-keys
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: New entity created.
@@ -7391,6 +7409,8 @@ entities:
     parameter_map:
       apikey_id: id
     path: /v3/api-keys/{apikey_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: Deleted successfully.
@@ -7634,6 +7654,8 @@ entities:
     parameter_map:
       apikey_id: id
     path: /v3/api-keys
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Successful operation.
@@ -7922,6 +7944,8 @@ entities:
     parameter_map:
       apikey_id: id
     path: /v3/api-keys/me
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -8175,6 +8199,8 @@ entities:
     parameter_map:
       apikey_id: id
     path: /v3/api-keys/{apikey_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Successful operation.
@@ -8507,6 +8533,8 @@ entities:
     parameter_map:
       apikey_id: id
     path: /v3/api-keys/{apikey_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Successful operation.
@@ -8819,6 +8847,249 @@ entities:
   - ApiKeyUpdateReq
   tags:
   - Developer
+- _key: campaign_device_metadata
+  field_renames: []
+  fields:
+  - _key: campaign
+    api_fieldname: campaign
+    description: The device's campaign ID
+    example: 015bf72fccda00000000000100100280
+    readOnly: false
+    required: true
+    type: string
+  - _key: created_at
+    api_fieldname: created_at
+    description: The time the campaign was created
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: deployment_state
+    api_fieldname: deployment_state
+    description: The state of the update campaign on the device
+    enum:
+    - pending
+    - updated_connector_channel
+    - failed_connector_channel_update
+    - deployed
+    - manifestremoved
+    - deregistered
+    enum_reference: campaign_device_metadata_deployment_state_enum
+    readOnly: true
+    required: false
+    type: string
+  - _key: description
+    api_fieldname: description
+    description: Description
+    example: ''
+    maxLength: 2000
+    readOnly: true
+    required: false
+    type: string
+  - _key: device_id
+    api_fieldname: device_id
+    description: The device ID
+    example: 015c2fec9bba0000000000010010036f
+    readOnly: true
+    required: false
+    type: string
+  - _key: id
+    api_fieldname: id
+    description: The metadata record ID
+    example: 015c3029f6f7000000000001001000c3
+    readOnly: false
+    required: true
+    type: string
+  - _key: mechanism
+    api_fieldname: mechanism
+    description: How the firmware is delivered (connector or direct)
+    example: connector
+    readOnly: true
+    required: false
+    type: string
+  - _key: mechanism_url
+    api_fieldname: mechanism_url
+    description: The Device Management Connect URL
+    example: ''
+    readOnly: true
+    required: false
+    type: string
+  - _key: name
+    api_fieldname: name
+    description: The record name
+    example: default_object_name
+    maxLength: 128
+    readOnly: true
+    required: false
+    type: string
+  - _key: updated_at
+    api_fieldname: updated_at
+    description: 'The record was modified in the database format: date-time'
+    example: '2017-05-22T12:37:58.776736Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  group_id: Device_Update
+  methods:
+  - _key: read
+    description: Get update campaign metadata.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - created_at
+    - deployment_state
+    - description
+    - device_id
+    - mechanism
+    - mechanism_url
+    - name
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: campaign
+      api_fieldname: campaign
+      description: The device's campaign ID
+      entity_fieldname: campaign
+      example: 015bf72fccda00000000000100100280
+      in: path
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    - _key: id
+      api_fieldname: id
+      description: The metadata record ID
+      entity_fieldname: id
+      example: 015c3029f6f7000000000001001000c3
+      in: path
+      parameter_fieldname: campaign_device_metadata_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: get
+    mode: read
+    operation_id: Update_Campaign_Metadata_retrieve
+    pagination: false
+    parameter_map:
+      campaign_device_metadata_id: id
+      campaign_id: campaign
+    path: /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Request successful
+      schema:
+        foreign_key:
+          entity: campaign_device_metadata
+          group: Device_Update
+        properties:
+        - _key: campaign
+          api_fieldname: campaign
+          description: The device's campaign ID
+          entity_fieldname: campaign
+          example: 015bf72fccda00000000000100100280
+          type: string
+        - _key: created_at
+          api_fieldname: created_at
+          description: The time the campaign was created
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: deployment_state
+          api_fieldname: deployment_state
+          description: The state of the update campaign on the device
+          entity_fieldname: deployment_state
+          enum:
+          - pending
+          - updated_connector_channel
+          - failed_connector_channel_update
+          - deployed
+          - manifestremoved
+          - deregistered
+          type: string
+        - _key: description
+          api_fieldname: description
+          description: Description
+          entity_fieldname: description
+          example: ''
+          maxLength: 2000
+          type: string
+        - _key: device_id
+          api_fieldname: device_id
+          description: The device ID
+          entity_fieldname: device_id
+          example: 015c2fec9bba0000000000010010036f
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version
+          entity_fieldname: etag
+          example: '2017-05-22T12:37:58.753425Z'
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The metadata record ID
+          entity_fieldname: id
+          example: 015c3029f6f7000000000001001000c3
+          type: string
+        - _key: mechanism
+          api_fieldname: mechanism
+          description: How the firmware is delivered (connector or direct)
+          entity_fieldname: mechanism
+          example: connector
+          type: string
+        - _key: mechanism_url
+          api_fieldname: mechanism_url
+          description: The Device Management Connect URL
+          entity_fieldname: mechanism_url
+          example: ''
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: The record name
+          entity_fieldname: name
+          example: default_object_name
+          maxLength: 128
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'The entity name: always ''update-campaign-device-metadata'''
+          entity_fieldname: object
+          example: update-campaign-device-metadata
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: 'The record was modified in the database format: date-time'
+          entity_fieldname: updated_at
+          example: '2017-05-22T12:37:58.776736Z'
+          format: date-time
+          type: string
+        type: object
+    - _key: '401'
+      description: Unauthorized
+    - _key: '404'
+      description: Not Found
+    return_info:
+      custom: false
+      self: true
+      type: campaign_device_metadata
+    return_type: campaign_device_metadata
+    summary: Get a campaign device metadata
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: id
+  swagger_models:
+  - CampaignDeviceMetadata
+  tags: []
 - _key: certificate_enrollment
   field_renames: []
   fields:
@@ -9009,6 +9280,8 @@ entities:
     parameter_map:
       certificate-enrollment-id: id
     path: /v3/certificate-enrollments
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK.
@@ -9348,6 +9621,8 @@ entities:
     parameter_map:
       certificate-enrollment-id: id
     path: /v3/certificate-enrollments/{certificate-enrollment-id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK.
@@ -9804,6 +10079,8 @@ entities:
     parameter_map:
       certificate-issuer-id: id
     path: /v3/certificate-issuers
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: Created.
@@ -10148,6 +10425,8 @@ entities:
     parameter_map:
       certificate-issuer-id: id
     path: /v3/certificate-issuers/{certificate-issuer-id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: Certificate issuer deleted.
@@ -10401,6 +10680,8 @@ entities:
     parameter_map:
       certificate-issuer-id: id
     path: /v3/certificate-issuers
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK.
@@ -10653,6 +10934,8 @@ entities:
     parameter_map:
       certificate-issuer-id: id
     path: /v3/certificate-issuers/{certificate-issuer-id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK.
@@ -10994,6 +11277,8 @@ entities:
     parameter_map:
       certificate-issuer-id: id
     path: /v3/certificate-issuers/{certificate-issuer-id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK.
@@ -11395,6 +11680,8 @@ entities:
     parameter_map:
       certificate-issuer-id: id
     path: /v3/certificate-issuers/{certificate-issuer-id}/verify
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK.
@@ -11745,6 +12032,8 @@ entities:
     parameter_map:
       certificate-issuer-configuration-id: id
     path: /v3/certificate-issuer-configurations
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: OK.
@@ -12020,6 +12309,8 @@ entities:
     parameter_map:
       certificate-issuer-configuration-id: id
     path: /v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: No content.
@@ -12224,6 +12515,8 @@ entities:
     parameter_map:
       certificate-issuer-configuration-id: id
     path: /v3/certificate-issuer-configurations/lwm2m
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK.
@@ -12532,6 +12825,8 @@ entities:
     parameter_map:
       certificate-issuer-configuration-id: id
     path: /v3/certificate-issuer-configurations
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK.
@@ -12803,6 +13098,8 @@ entities:
     parameter_map:
       certificate-issuer-configuration-id: id
     path: /v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK.
@@ -13092,6 +13389,8 @@ entities:
     parameter_map:
       certificate-issuer-configuration-id: id
     path: /v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK.
@@ -13450,6 +13749,8 @@ entities:
     parameter_map:
       developerCertificateId: id
     path: /v3/developer-certificates
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: Developer certificate created successfully.
@@ -13993,6 +14294,8 @@ entities:
       cert_id: id
       developerCertificateId: id
     path: /v3/trusted-certificates/{cert_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: Deleted successfully.
@@ -14217,6 +14520,8 @@ entities:
       cert_id: id
       developerCertificateId: id
     path: /v3/trusted-certificates/{cert_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -14570,6 +14875,8 @@ entities:
     parameter_map:
       developerCertificateId: id
     path: /v3/developer-certificates/{developerCertificateId}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Developer certificate fetched successfully.
@@ -15528,6 +15835,8 @@ entities:
     operation_id: Device_create
     pagination: false
     path: /v3/devices/
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: Device created.
@@ -15827,6 +16136,8 @@ entities:
     operation_id: Device_destroy
     pagination: false
     path: /v3/devices/{id}/
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: Device deleted.
@@ -15864,12 +16175,10 @@ entities:
     - account_id__nin
     - auto_update__eq
     - auto_update__neq
-    - auto_update__in
-    - auto_update__nin
-    - bootstrapped_expiration_date__in
-    - bootstrapped_expiration_date__nin
-    - bootstrapped_expiration_date__lte
-    - bootstrapped_expiration_date__gte
+    - bootstrap_expiration_date__in
+    - bootstrap_expiration_date__nin
+    - bootstrap_expiration_date__lte
+    - bootstrap_expiration_date__gte
     - bootstrapped_timestamp__in
     - bootstrapped_timestamp__nin
     - bootstrapped_timestamp__lte
@@ -15886,8 +16195,6 @@ entities:
     - created_at__nin
     - created_at__lte
     - created_at__gte
-    - custom_attributes__eq
-    - custom_attributes__neq
     - deployed_state__eq
     - deployed_state__neq
     - deployed_state__in
@@ -15920,10 +16227,10 @@ entities:
     - endpoint_type__neq
     - endpoint_type__in
     - endpoint_type__nin
-    - enrollment_list_timestamp__in
-    - enrollment_list_timestamp__nin
-    - enrollment_list_timestamp__lte
-    - enrollment_list_timestamp__gte
+    - enrolment_list_timestamp__in
+    - enrolment_list_timestamp__nin
+    - enrolment_list_timestamp__lte
+    - enrolment_list_timestamp__gte
     - firmware_checksum__eq
     - firmware_checksum__neq
     - firmware_checksum__in
@@ -16034,6 +16341,8 @@ entities:
     operation_id: Device_list
     pagination: true
     path: /v3/devices/
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Request successful.
@@ -16294,9 +16603,7 @@ entities:
       auto_update:
       - eq
       - neq
-      - in
-      - nin
-      bootstrapped_expiration_date:
+      bootstrap_expiration_date:
       - in
       - nin
       - lte
@@ -16321,9 +16628,6 @@ entities:
       - nin
       - lte
       - gte
-      custom_attributes:
-      - eq
-      - neq
       deployed_state:
       - eq
       - neq
@@ -16364,7 +16668,7 @@ entities:
       - neq
       - in
       - nin
-      enrollment_list_timestamp:
+      enrolment_list_timestamp:
       - in
       - nin
       - lte
@@ -16487,6 +16791,8 @@ entities:
     operation_id: Device_retrieve
     pagination: false
     path: /v3/devices/{id}/
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Retrieved result successfully.
@@ -16821,6 +17127,8 @@ entities:
       certificate-name: certificate_name
       device-id: id
     path: /v3/devices/{device-id}/certificates/{certificate-name}/renew
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: Created.
@@ -17303,6 +17611,8 @@ entities:
     operation_id: Device_update
     pagination: false
     path: /v3/devices/{id}/
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Device updated.
@@ -17695,6 +18005,8 @@ entities:
     operation_id: createDeviceEnrollment
     pagination: false
     path: /v3/device-enrollments
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: Created. The enrollment claim has been created and is waiting for
@@ -17977,6 +18289,8 @@ entities:
     operation_id: deleteDeviceEnrollment
     pagination: false
     path: /v3/device-enrollments/{id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: No content. The enrollment claim has been deleted.
@@ -18188,6 +18502,8 @@ entities:
     operation_id: getDeviceEnrollments
     pagination: true
     path: /v3/device-enrollments
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK.
@@ -18466,6 +18782,8 @@ entities:
     operation_id: getDeviceEnrollment
     pagination: false
     path: /v3/device-enrollments/{id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: OK. Pending enrollment data.
@@ -18833,6 +19151,8 @@ entities:
     operation_id: createBulkDeviceEnrollment
     pagination: false
     path: /v3/device-enrollments-bulk-uploads
+    request_body: file
+    request_content_type: multipart/form-data
     responses:
     - _key: '201'
       description: Bulk upload data has been received and asynchronous processing
@@ -19082,6 +19402,8 @@ entities:
     method: null
     mode: download_errors_report_file
     path: null
+    request_body: json
+    request_content_type: application/json
     responses: []
     return_info:
       custom: true
@@ -19115,6 +19437,8 @@ entities:
     method: null
     mode: download_full_report_file
     path: null
+    request_body: json
+    request_content_type: application/json
     responses: []
     return_info:
       custom: true
@@ -19214,6 +19538,8 @@ entities:
     operation_id: getBulkDeviceEnrollment
     pagination: false
     path: /v3/device-enrollments-bulk-uploads/{id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Bulk upload entity found
@@ -19674,6 +20000,8 @@ entities:
     operation_id: deleteBulkDeviceEnrollment
     pagination: false
     path: /v3/device-enrollments-bulk-deletes
+    request_body: file
+    request_content_type: multipart/form-data
     responses:
     - _key: '201'
       description: Bulk delete data has been received and asynchronous processing
@@ -19926,6 +20254,8 @@ entities:
     method: null
     mode: download_errors_report_file
     path: null
+    request_body: json
+    request_content_type: application/json
     responses: []
     return_info:
       custom: true
@@ -19959,6 +20289,8 @@ entities:
     method: null
     mode: download_full_report_file
     path: null
+    request_body: json
+    request_content_type: application/json
     responses: []
     return_info:
       custom: true
@@ -20058,6 +20390,8 @@ entities:
     operation_id: getBulkDeviceEnrollmentDelete
     pagination: false
     path: /v3/device-enrollments-bulk-deletes/{id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Bulk delete entity found
@@ -20470,6 +20804,8 @@ entities:
     operation_id: listEnrollmentDenialAttempts
     pagination: true
     path: /v3/device-enrollment-denials
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Query Success. Responding with List of Devices.
@@ -20726,6 +21062,8 @@ entities:
     operation_id: getEnrollmentDenialAttempt
     pagination: false
     path: /v3/device-enrollment-denials/{device_enrollment_denial_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Query Success. Responding with blacklisted device.
@@ -21014,8 +21352,6 @@ entities:
     - event_type__nin
     - state_change__eq
     - state_change__neq
-    - state_change__in
-    - state_change__nin
     field_renames: []
     fields:
     - _key: after
@@ -21077,6 +21413,8 @@ entities:
     operation_id: Device_Event_list
     pagination: true
     path: /v3/device-events/
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Request successful.
@@ -21229,8 +21567,6 @@ entities:
       state_change:
       - eq
       - neq
-      - in
-      - nin
   - _key: read
     description: Retrieve a specific device event.
     drop_fields:
@@ -21270,6 +21606,8 @@ entities:
     parameter_map:
       device_event_id: id
     path: /v3/device-events/{device_event_id}/
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Retrieved result successfully.
@@ -21382,6 +21720,1509 @@ entities:
   swagger_models:
   - DeviceEventData
   - DeviceEventPage
+  tags: []
+- _key: firmware_image
+  field_renames:
+  - _key: datafile_url
+    api_fieldname: datafile
+  fields:
+  - _key: created_at
+    api_fieldname: created_at
+    description: The time the object was created
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: datafile_checksum
+    api_fieldname: datafile_checksum
+    description: The checksum (sha256) generated for the datafile
+    example: '0000000000000000000000000000000000000000000000000000000000000000'
+    readOnly: true
+    required: false
+    type: string
+  - _key: datafile_size
+    api_fieldname: datafile_size
+    description: The size of the datafile in bytes
+    format: int64
+    readOnly: true
+    required: false
+    type: integer
+  - _key: datafile_url
+    api_fieldname: datafile
+    description: The firmware image file URL
+    example: http://example.com/00000000000000000000000000000000
+    readOnly: true
+    required: false
+    type: string
+  - _key: description
+    api_fieldname: description
+    description: The description of the object
+    example: ''
+    maxLength: 2000
+    readOnly: false
+    required: false
+    type: string
+  - _key: id
+    api_fieldname: id
+    description: The firmware image ID
+    example: '00000000000000000000000000000000'
+    readOnly: false
+    required: true
+    type: string
+  - _key: name
+    api_fieldname: name
+    description: The firmware image name
+    example: ''
+    maxLength: 128
+    readOnly: false
+    required: false
+    type: string
+  - _key: updated_at
+    api_fieldname: updated_at
+    description: The time the object was updated
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  group_id: Device_Update
+  methods:
+  - _key: delete
+    description: Delete a firmware image.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    field_renames:
+    - _key: datafile_url
+      api_fieldname: datafile
+    fields:
+    - _key: id
+      api_fieldname: image_id
+      description: The firmware image ID
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: image_id
+      parameter_fieldname: image_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: delete
+    mode: delete
+    operation_id: Firmware_Image_destroy
+    pagination: false
+    parameter_map:
+      image_id: id
+    path: /v3/firmware-images/{image_id}/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Firmware image deleted
+    - _key: '400'
+      description: Bad Request
+    - _key: '401'
+      description: Not authenticated
+    - _key: '404'
+      description: Firmware image not found
+    return_info:
+      custom: false
+      self: true
+      type: firmware_image
+    return_type: firmware_image
+    summary: Delete an image
+    x_deprecation: null
+    x_filter: {}
+  - _key: list
+    description: List all firmware images.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - data
+    - has_more
+    - total_count
+    - created_at__in
+    - created_at__nin
+    - created_at__lte
+    - created_at__gte
+    - datafile__eq
+    - datafile__neq
+    - datafile__in
+    - datafile__nin
+    - datafile_checksum__eq
+    - datafile_checksum__neq
+    - datafile_checksum__in
+    - datafile_checksum__nin
+    - datafile_size__eq
+    - datafile_size__neq
+    - datafile_size__in
+    - datafile_size__nin
+    - description__eq
+    - description__neq
+    - description__in
+    - description__nin
+    - id__eq
+    - id__neq
+    - id__in
+    - id__nin
+    - name__eq
+    - name__neq
+    - name__in
+    - name__nin
+    - updated_at__in
+    - updated_at__nin
+    - updated_at__lte
+    - updated_at__gte
+    field_renames:
+    - _key: datafile_url
+      api_fieldname: datafile
+    fields:
+    - _key: after
+      api_fieldname: after
+      description: The ID of the the item after which to retrieve the next page
+      entity_fieldname: after
+      example: null
+      external_param: true
+      in: query
+      name: after
+      parameter_fieldname: after
+      required: false
+      type: string
+    - _key: include
+      api_fieldname: include
+      description: 'A comma-separated list of data fields to return. Currently supported:
+        total_count'
+      entity_fieldname: include
+      external_param: true
+      in: query
+      name: include
+      parameter_fieldname: include
+      required: false
+      type: string
+    - _key: limit
+      api_fieldname: limit
+      description: How many objects to retrieve in the page. The minimum limit is
+        2 and the maximum is 1000. Limit values outside of this range are set to the
+        closest limit.
+      entity_fieldname: limit
+      external_param: true
+      format: int32
+      in: query
+      maximum: 1000
+      minimum: 2
+      name: limit
+      parameter_fieldname: limit
+      required: false
+      type: integer
+    - _key: order
+      api_fieldname: order
+      description: ASC or DESC
+      entity_fieldname: order
+      enum:
+      - ASC
+      - DESC
+      enum_reference: firmware_image_order_enum
+      example: ASC
+      external_param: true
+      in: query
+      name: order
+      parameter_fieldname: order
+      required: false
+      type: string
+    foreign_key:
+      entity: firmware_image
+      group: Device_Update
+    foreign_key_priority: self
+    group_id: Device_Update
+    method: get
+    mode: list
+    operation_id: Firmware_Image_list
+    pagination: true
+    parameter_map:
+      image_id: id
+    path: /v3/firmware-images/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Request successful
+      schema:
+        foreign_key:
+          entity: firmware_image
+          group: Device_Update
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          entity_fieldname: after
+          example: null
+          type: string
+        - _key: data
+          api_fieldname: data
+          entity_fieldname: data
+          example: '[]'
+          items:
+            foreign_key:
+              entity: firmware_image
+              group: Device_Update
+            properties:
+            - _key: created_at
+              description: The time the object was created
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            - _key: datafile
+              description: The firmware image file URL
+              example: http://example.com/00000000000000000000000000000000
+              type: string
+            - _key: datafile_checksum
+              description: The checksum (sha256) generated for the datafile
+              example: '0000000000000000000000000000000000000000000000000000000000000000'
+              type: string
+            - _key: datafile_size
+              description: The size of the datafile in bytes
+              format: int64
+              type: integer
+            - _key: description
+              description: The description of the object
+              example: ''
+              maxLength: 2000
+              type: string
+            - _key: etag
+              description: The entity instance signature
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            - _key: id
+              description: The firmware image ID
+              example: '00000000000000000000000000000000'
+              type: string
+            - _key: name
+              description: The firmware image name
+              example: ''
+              maxLength: 128
+              type: string
+            - _key: object
+              description: The API resource entity
+              example: firmware-image
+              type: string
+            - _key: updated_at
+              description: The time the object was updated
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            required:
+            - created_at
+            - datafile
+            - datafile_checksum
+            - description
+            - etag
+            - id
+            - name
+            - object
+            - updated_at
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          entity_fieldname: has_more
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          entity_fieldname: limit
+          format: int32
+          type: integer
+        - _key: object
+          api_fieldname: object
+          entity_fieldname: object
+          example: list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: The order of the records based on creation time, `ASC` or `DESC`;
+            by default `ASC`.
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          entity_fieldname: total_count
+          format: int32
+          type: integer
+    - _key: '400'
+      description: Bad Request
+    - _key: '401'
+      description: Not authenticated
+    - _key: '404'
+      description: Unable to find content
+    return_info:
+      custom: false
+      self: true
+      type: firmware_image
+    return_type: paginated_response(firmware_image)
+    summary: List all images
+    x_deprecation: null
+    x_filter:
+      created_at:
+      - in
+      - nin
+      - lte
+      - gte
+      datafile_checksum:
+      - eq
+      - neq
+      - in
+      - nin
+      datafile_size:
+      - eq
+      - neq
+      - in
+      - nin
+      datafile_url:
+      - eq
+      - neq
+      - in
+      - nin
+      description:
+      - eq
+      - neq
+      - in
+      - nin
+      id:
+      - eq
+      - neq
+      - in
+      - nin
+      name:
+      - eq
+      - neq
+      - in
+      - nin
+      updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+  - _key: read
+    description: Retrieve a firmware image.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - created_at
+    - datafile_checksum
+    - datafile_size
+    - description
+    - name
+    - updated_at
+    - datafile_url
+    field_renames:
+    - _key: datafile_url
+      api_fieldname: datafile
+    fields:
+    - _key: id
+      api_fieldname: id
+      description: The firmware image ID
+      entity_fieldname: id
+      example: '00000000000000000000000000000000'
+      in: path
+      parameter_fieldname: image_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: get
+    mode: read
+    operation_id: Firmware_Image_retrieve
+    pagination: false
+    parameter_map:
+      image_id: id
+    path: /v3/firmware-images/{image_id}/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Retrieved result successfully
+      schema:
+        foreign_key:
+          entity: firmware_image
+          group: Device_Update
+        properties:
+        - _key: created_at
+          api_fieldname: created_at
+          description: The time the object was created
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: datafile
+          api_fieldname: datafile
+          description: The firmware image file URL
+          entity_fieldname: datafile_url
+          example: http://example.com/00000000000000000000000000000000
+          type: string
+        - _key: datafile_checksum
+          api_fieldname: datafile_checksum
+          description: The checksum (sha256) generated for the datafile
+          entity_fieldname: datafile_checksum
+          example: '0000000000000000000000000000000000000000000000000000000000000000'
+          type: string
+        - _key: datafile_size
+          api_fieldname: datafile_size
+          description: The size of the datafile in bytes
+          entity_fieldname: datafile_size
+          format: int64
+          type: integer
+        - _key: description
+          api_fieldname: description
+          description: The description of the object
+          entity_fieldname: description
+          example: ''
+          maxLength: 2000
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: The entity instance signature
+          entity_fieldname: etag
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The firmware image ID
+          entity_fieldname: id
+          example: '00000000000000000000000000000000'
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: The firmware image name
+          entity_fieldname: name
+          example: ''
+          maxLength: 128
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: The API resource entity
+          entity_fieldname: object
+          example: firmware-image
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: The time the object was updated
+          entity_fieldname: updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        required:
+        - created_at
+        - datafile
+        - datafile_checksum
+        - description
+        - etag
+        - id
+        - name
+        - object
+        - updated_at
+    - _key: '400'
+      description: Bad Request
+    - _key: '401'
+      description: Not authenticated
+    - _key: '404'
+      description: Firmware image can't be found
+    return_info:
+      custom: false
+      self: true
+      type: firmware_image
+    return_type: firmware_image
+    summary: Get an image
+    x_deprecation: null
+    x_filter: {}
+  - _key: upload
+    description: Create a firmware image.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - created_at
+    - datafile_checksum
+    - datafile_size
+    - id
+    - updated_at
+    - datafile_url
+    field_renames:
+    - _key: datafile_url
+      api_fieldname: datafile
+    fields:
+    - _key: description
+      api_fieldname: description
+      description: The description of the object
+      entity_fieldname: description
+      example: ''
+      in: stream
+      maxLength: 2000
+      parameter_fieldname: description
+      required: false
+      type: string
+    - _key: firmware_image_file
+      api_fieldname: datafile
+      description: The firmware image file to upload
+      entity_fieldname: firmware_image_file
+      external_param: true
+      in: stream
+      name: datafile
+      parameter_fieldname: datafile
+      required: true
+      type: file
+    - _key: name
+      api_fieldname: name
+      description: The firmware image name
+      entity_fieldname: name
+      example: ''
+      in: stream
+      maxLength: 128
+      parameter_fieldname: name
+      required: false
+      type: string
+    group_id: Device_Update
+    method: post
+    mode: upload
+    notes: This is not a standard create method as it uploads a file which creates
+      an entity which contains URIs to the uploaded file.
+    operation_id: Firmware_Image_create
+    pagination: false
+    parameter_map:
+      datafile: firmware_image_file
+      image_id: id
+    path: /v3/firmware-images/
+    request_body: file
+    request_content_type: multipart/form-data
+    responses:
+    - _key: '201'
+      description: Firmware image created. The API gateway enforces the account-specific
+        file size.
+      schema:
+        foreign_key:
+          entity: firmware_image
+          group: Device_Update
+        properties:
+        - _key: created_at
+          api_fieldname: created_at
+          description: The time the object was created
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: datafile
+          api_fieldname: datafile
+          description: The firmware image file URL
+          entity_fieldname: datafile_url
+          example: http://example.com/00000000000000000000000000000000
+          type: string
+        - _key: datafile_checksum
+          api_fieldname: datafile_checksum
+          description: The checksum (sha256) generated for the datafile
+          entity_fieldname: datafile_checksum
+          example: '0000000000000000000000000000000000000000000000000000000000000000'
+          type: string
+        - _key: datafile_size
+          api_fieldname: datafile_size
+          description: The size of the datafile in bytes
+          entity_fieldname: datafile_size
+          format: int64
+          type: integer
+        - _key: description
+          api_fieldname: description
+          description: The description of the object
+          entity_fieldname: description
+          example: ''
+          maxLength: 2000
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: The entity instance signature
+          entity_fieldname: etag
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The firmware image ID
+          entity_fieldname: id
+          example: '00000000000000000000000000000000'
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: The firmware image name
+          entity_fieldname: name
+          example: ''
+          maxLength: 128
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: The API resource entity
+          entity_fieldname: object
+          example: firmware-image
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: The time the object was updated
+          entity_fieldname: updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        required:
+        - created_at
+        - datafile
+        - datafile_checksum
+        - description
+        - etag
+        - id
+        - name
+        - object
+        - updated_at
+    - _key: '400'
+      description: Cannot validate the data used to create the firmware image.
+    - _key: '401'
+      description: Not authenticated
+    - _key: '403'
+      description: Forbidden
+    - _key: '413'
+      description: Firmware image too large.
+    return_info:
+      custom: false
+      self: true
+      type: firmware_image
+    return_type: firmware_image
+    summary: Create an image
+    unaggregated: true
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: id
+  swagger_models:
+  - FirmwareImage
+  - FirmwareImagePage
+  tags: []
+- _key: firmware_manifest
+  field_renames:
+  - _key: datafile_url
+    api_fieldname: datafile
+  - _key: key_table_url
+    api_fieldname: key_table
+  fields:
+  - _key: created_at
+    api_fieldname: created_at
+    description: The time the object was created
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: datafile_size
+    api_fieldname: datafile_size
+    description: The size of the datafile in bytes
+    format: int64
+    readOnly: true
+    required: false
+    type: integer
+  - _key: datafile_url
+    api_fieldname: datafile
+    description: The URL of the firmware manifest binary
+    example: http://example.com/00000000000000000000000000000000
+    readOnly: true
+    required: false
+    type: string
+  - _key: description
+    api_fieldname: description
+    description: The description of the firmware manifest
+    example: ''
+    maxLength: 2000
+    readOnly: false
+    required: false
+    type: string
+  - _key: device_class
+    api_fieldname: device_class
+    description: The class of the device
+    example: 00000000-0000-0000-0000-000000000000
+    readOnly: true
+    required: false
+    type: string
+  - _key: id
+    api_fieldname: id
+    description: The firmware manifest ID
+    example: '00000000000000000000000000000000'
+    readOnly: false
+    required: true
+    type: string
+  - _key: key_table_url
+    api_fieldname: key_table
+    description: The key table of pre-shared keys for devices
+    example: http://example.com
+    format: uri
+    readOnly: true
+    required: false
+    type: string
+  - _key: name
+    api_fieldname: name
+    description: The name of the object
+    example: ''
+    maxLength: 128
+    readOnly: false
+    required: false
+    type: string
+  - _key: timestamp
+    api_fieldname: timestamp
+    description: The firmware manifest version as a timestamp
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: updated_at
+    api_fieldname: updated_at
+    description: The time the object was updated
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  group_id: Device_Update
+  methods:
+  - _key: delete
+    description: Delete a firmware manifest.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    field_renames:
+    - _key: datafile_url
+      api_fieldname: datafile
+    - _key: key_table_url
+      api_fieldname: key_table
+    fields:
+    - _key: id
+      api_fieldname: manifest_id
+      description: The firmware manifest ID
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: manifest_id
+      parameter_fieldname: manifest_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: delete
+    mode: delete
+    operation_id: Firmware_Manifest_destroy
+    pagination: false
+    parameter_map:
+      manifest_id: id
+    path: /v3/firmware-manifests/{manifest_id}/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Firmware manifest deleted
+    - _key: '400'
+      description: Bad Request
+    - _key: '401'
+      description: Not authenticated
+    - _key: '404'
+      description: Firmware manifest not found
+    return_info:
+      custom: false
+      self: true
+      type: firmware_manifest
+    return_type: firmware_manifest
+    summary: Delete a manifest
+    x_deprecation: null
+    x_filter: {}
+  - _key: list
+    description: List firmware manifests.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - data
+    - has_more
+    - total_count
+    - created_at__in
+    - created_at__nin
+    - created_at__lte
+    - created_at__gte
+    - datafile__eq
+    - datafile__neq
+    - datafile__in
+    - datafile__nin
+    - datafile_size__eq
+    - datafile_size__neq
+    - datafile_size__in
+    - datafile_size__nin
+    - description__eq
+    - description__neq
+    - description__in
+    - description__nin
+    - device_class__eq
+    - device_class__neq
+    - device_class__in
+    - device_class__nin
+    - id__eq
+    - id__neq
+    - id__in
+    - id__nin
+    - name__eq
+    - name__neq
+    - name__in
+    - name__nin
+    - timestamp__in
+    - timestamp__nin
+    - timestamp__lte
+    - timestamp__gte
+    - updated_at__in
+    - updated_at__nin
+    - updated_at__lte
+    - updated_at__gte
+    field_renames:
+    - _key: datafile_url
+      api_fieldname: datafile
+    - _key: key_table_url
+      api_fieldname: key_table
+    fields:
+    - _key: after
+      api_fieldname: after
+      description: The ID of the the item after which to retrieve the next page
+      entity_fieldname: after
+      example: null
+      external_param: true
+      in: query
+      name: after
+      parameter_fieldname: after
+      required: false
+      type: string
+    - _key: include
+      api_fieldname: include
+      description: 'A comma-separated list of data fields to return. Currently supported:
+        total_count'
+      entity_fieldname: include
+      external_param: true
+      in: query
+      name: include
+      parameter_fieldname: include
+      required: false
+      type: string
+    - _key: limit
+      api_fieldname: limit
+      description: How many objects to retrieve in the page. The minimum limit is
+        2 and the maximum is 1000. Limit values outside of this range are set to the
+        closest limit.
+      entity_fieldname: limit
+      external_param: true
+      format: int32
+      in: query
+      maximum: 1000
+      minimum: 2
+      name: limit
+      parameter_fieldname: limit
+      required: false
+      type: integer
+    - _key: order
+      api_fieldname: order
+      description: ASC or DESC
+      entity_fieldname: order
+      enum:
+      - ASC
+      - DESC
+      enum_reference: firmware_manifest_order_enum
+      example: ASC
+      external_param: true
+      in: query
+      name: order
+      parameter_fieldname: order
+      required: false
+      type: string
+    foreign_key:
+      entity: firmware_manifest
+      group: Device_Update
+    foreign_key_priority: self
+    group_id: Device_Update
+    method: get
+    mode: list
+    operation_id: Firmware_Manifest_list
+    pagination: true
+    parameter_map:
+      manifest_id: id
+    path: /v3/firmware-manifests/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Request successful
+      schema:
+        foreign_key:
+          entity: firmware_manifest
+          group: Device_Update
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          entity_fieldname: after
+          example: null
+          type: string
+        - _key: data
+          api_fieldname: data
+          entity_fieldname: data
+          example: '[]'
+          items:
+            foreign_key:
+              entity: firmware_manifest
+              group: Device_Update
+            properties:
+            - _key: created_at
+              description: The time the object was created
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            - _key: datafile
+              description: The URL of the firmware manifest binary
+              example: http://example.com/00000000000000000000000000000000
+              type: string
+            - _key: datafile_size
+              description: The size of the datafile in bytes
+              format: int64
+              type: integer
+            - _key: description
+              description: The description of the firmware manifest
+              example: ''
+              maxLength: 2000
+              type: string
+            - _key: device_class
+              description: The class of the device
+              example: 00000000-0000-0000-0000-000000000000
+              type: string
+            - _key: etag
+              description: The entity instance signature
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            - _key: id
+              description: The firmware manifest ID
+              example: '00000000000000000000000000000000'
+              type: string
+            - _key: key_table
+              description: The key table of pre-shared keys for devices
+              example: http://example.com
+              format: uri
+              type: string
+            - _key: name
+              description: The name of the object
+              example: ''
+              maxLength: 128
+              type: string
+            - _key: object
+              description: The API resource entity
+              example: firmware-manifest
+              type: string
+            - _key: timestamp
+              description: The firmware manifest version as a timestamp
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            - _key: updated_at
+              description: The time the object was updated
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            required:
+            - created_at
+            - datafile
+            - description
+            - device_class
+            - etag
+            - id
+            - name
+            - object
+            - timestamp
+            - updated_at
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          entity_fieldname: has_more
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          entity_fieldname: limit
+          format: int32
+          type: integer
+        - _key: object
+          api_fieldname: object
+          entity_fieldname: object
+          example: list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: 'The order of the records to return. Acceptable values: ASC,
+            DESC. Default: ASC'
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          entity_fieldname: total_count
+          format: int32
+          type: integer
+    - _key: '400'
+      description: Bad Request
+    - _key: '401'
+      description: Not authenticated
+    - _key: '404'
+      description: Unable to find content
+    return_info:
+      custom: false
+      self: true
+      type: firmware_manifest
+    return_type: paginated_response(firmware_manifest)
+    summary: List manifests
+    x_deprecation: null
+    x_filter:
+      created_at:
+      - in
+      - nin
+      - lte
+      - gte
+      datafile_size:
+      - eq
+      - neq
+      - in
+      - nin
+      datafile_url:
+      - eq
+      - neq
+      - in
+      - nin
+      description:
+      - eq
+      - neq
+      - in
+      - nin
+      device_class:
+      - eq
+      - neq
+      - in
+      - nin
+      id:
+      - eq
+      - neq
+      - in
+      - nin
+      name:
+      - eq
+      - neq
+      - in
+      - nin
+      timestamp:
+      - in
+      - nin
+      - lte
+      - gte
+      updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+  - _key: read
+    description: Retrieve a firmware manifest.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - created_at
+    - datafile_size
+    - description
+    - device_class
+    - name
+    - timestamp
+    - updated_at
+    - datafile_url
+    - key_table_url
+    field_renames:
+    - _key: datafile_url
+      api_fieldname: datafile
+    - _key: key_table_url
+      api_fieldname: key_table
+    fields:
+    - _key: id
+      api_fieldname: id
+      description: The firmware manifest ID
+      entity_fieldname: id
+      example: '00000000000000000000000000000000'
+      in: path
+      parameter_fieldname: manifest_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: get
+    mode: read
+    operation_id: Firmware_Manifest_retrieve
+    pagination: false
+    parameter_map:
+      manifest_id: id
+    path: /v3/firmware-manifests/{manifest_id}/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Retrieved result successfully
+      schema:
+        foreign_key:
+          entity: firmware_manifest
+          group: Device_Update
+        properties:
+        - _key: created_at
+          api_fieldname: created_at
+          description: The time the object was created
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: datafile
+          api_fieldname: datafile
+          description: The URL of the firmware manifest binary
+          entity_fieldname: datafile_url
+          example: http://example.com/00000000000000000000000000000000
+          type: string
+        - _key: datafile_size
+          api_fieldname: datafile_size
+          description: The size of the datafile in bytes
+          entity_fieldname: datafile_size
+          format: int64
+          type: integer
+        - _key: description
+          api_fieldname: description
+          description: The description of the firmware manifest
+          entity_fieldname: description
+          example: ''
+          maxLength: 2000
+          type: string
+        - _key: device_class
+          api_fieldname: device_class
+          description: The class of the device
+          entity_fieldname: device_class
+          example: 00000000-0000-0000-0000-000000000000
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: The entity instance signature
+          entity_fieldname: etag
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The firmware manifest ID
+          entity_fieldname: id
+          example: '00000000000000000000000000000000'
+          type: string
+        - _key: key_table
+          api_fieldname: key_table
+          description: The key table of pre-shared keys for devices
+          entity_fieldname: key_table_url
+          example: http://example.com
+          format: uri
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: The name of the object
+          entity_fieldname: name
+          example: ''
+          maxLength: 128
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: The API resource entity
+          entity_fieldname: object
+          example: firmware-manifest
+          type: string
+        - _key: timestamp
+          api_fieldname: timestamp
+          description: The firmware manifest version as a timestamp
+          entity_fieldname: timestamp
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: The time the object was updated
+          entity_fieldname: updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        required:
+        - created_at
+        - datafile
+        - description
+        - device_class
+        - etag
+        - id
+        - name
+        - object
+        - timestamp
+        - updated_at
+    - _key: '400'
+      description: Bad request
+    - _key: '401'
+      description: Not authenticated
+    - _key: '404'
+      description: Firmware manifest can't be found
+    return_info:
+      custom: false
+      self: true
+      type: firmware_manifest
+    return_type: firmware_manifest
+    summary: Get a manifest
+    x_deprecation: null
+    x_filter: {}
+  - _key: upload
+    description: Upload a firmware manifest. The API enforces a maximum size of manifests
+      of 2 KB.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - created_at
+    - datafile_size
+    - device_class
+    - id
+    - timestamp
+    - updated_at
+    - datafile_url
+    - key_table_url
+    field_renames:
+    - _key: datafile_url
+      api_fieldname: datafile
+    - _key: key_table_url
+      api_fieldname: key_table
+    fields:
+    - _key: description
+      api_fieldname: description
+      description: The description of the firmware manifest
+      entity_fieldname: description
+      example: ''
+      in: stream
+      maxLength: 2000
+      parameter_fieldname: description
+      required: false
+      type: string
+    - _key: firmware_manifest_file
+      api_fieldname: datafile
+      description: The manifest file to create. The API gateway enforces the account-specific
+        file size.
+      entity_fieldname: firmware_manifest_file
+      external_param: true
+      in: stream
+      name: datafile
+      parameter_fieldname: datafile
+      required: true
+      type: file
+    - _key: key_table_file
+      api_fieldname: key_table
+      description: The key table of pre-shared keys for devices
+      entity_fieldname: key_table_file
+      external_param: true
+      in: stream
+      name: key_table
+      parameter_fieldname: key_table
+      required: false
+      type: file
+    - _key: name
+      api_fieldname: name
+      description: The name of the object
+      entity_fieldname: name
+      example: ''
+      in: stream
+      maxLength: 128
+      parameter_fieldname: name
+      required: false
+      type: string
+    group_id: Device_Update
+    method: post
+    mode: upload
+    notes: This is not a standard create method as it uploads a file (or files) which
+      creates an entity which contains URIs to the uploaded file(s).
+    operation_id: Firmware_Manifest_create
+    pagination: false
+    parameter_map:
+      datafile: firmware_manifest_file
+      key_table: key_table_file
+      manifest_id: id
+    path: /v3/firmware-manifests/
+    request_body: file
+    request_content_type: multipart/form-data
+    responses:
+    - _key: '201'
+      description: Created
+      schema:
+        foreign_key:
+          entity: firmware_manifest
+          group: Device_Update
+        properties:
+        - _key: created_at
+          api_fieldname: created_at
+          description: The time the object was created
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: datafile
+          api_fieldname: datafile
+          description: The URL of the firmware manifest binary
+          entity_fieldname: datafile_url
+          example: http://example.com/00000000000000000000000000000000
+          type: string
+        - _key: datafile_size
+          api_fieldname: datafile_size
+          description: The size of the datafile in bytes
+          entity_fieldname: datafile_size
+          format: int64
+          type: integer
+        - _key: description
+          api_fieldname: description
+          description: The description of the firmware manifest
+          entity_fieldname: description
+          example: ''
+          maxLength: 2000
+          type: string
+        - _key: device_class
+          api_fieldname: device_class
+          description: The class of the device
+          entity_fieldname: device_class
+          example: 00000000-0000-0000-0000-000000000000
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: The entity instance signature
+          entity_fieldname: etag
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The firmware manifest ID
+          entity_fieldname: id
+          example: '00000000000000000000000000000000'
+          type: string
+        - _key: key_table
+          api_fieldname: key_table
+          description: The key table of pre-shared keys for devices
+          entity_fieldname: key_table_url
+          example: http://example.com
+          format: uri
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: The name of the object
+          entity_fieldname: name
+          example: ''
+          maxLength: 128
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: The API resource entity
+          entity_fieldname: object
+          example: firmware-manifest
+          type: string
+        - _key: timestamp
+          api_fieldname: timestamp
+          description: The firmware manifest version as a timestamp
+          entity_fieldname: timestamp
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: The time the object was updated
+          entity_fieldname: updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        required:
+        - created_at
+        - datafile
+        - description
+        - device_class
+        - etag
+        - id
+        - name
+        - object
+        - timestamp
+        - updated_at
+    - _key: '400'
+      description: 'Validation error. The data used to create the firmware manifest
+        did not validate and/or the manifest uploaded exceeded 2 KB in size.
+
+        '
+    - _key: '401'
+      description: Not authenticated
+    - _key: '403'
+      description: Forbidden
+    return_info:
+      custom: false
+      self: true
+      type: firmware_manifest
+    return_type: firmware_manifest
+    summary: Upload a manifest
+    unaggregated: true
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: id
+  swagger_models:
+  - FirmwareManifest
+  - FirmwareManifestPage
   tags: []
 - _key: login_history
   field_renames: []
@@ -21606,6 +23447,8 @@ entities:
     operation_id: getBootstrapServerCredentials
     pagination: false
     path: /v3/server-credentials/bootstrap
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Bootstrap server credentials fetched successfully.
@@ -21804,6 +23647,8 @@ entities:
     operation_id: getL2M2MServerCredentials
     pagination: false
     path: /v3/server-credentials/lwm2m
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: LwM2M server credentials fetched successfully.
@@ -22259,6 +24104,8 @@ entities:
     operation_id: addAccountCertificate
     pagination: false
     path: /v3/accounts/{account_id}/trusted-certificates
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: New entity created.
@@ -22697,6 +24544,8 @@ entities:
     parameter_map:
       cert_id: id
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: Deleted successfully.
@@ -22917,6 +24766,8 @@ entities:
     parameter_map:
       developerCertificateId: id
     path: /v3/developer-certificates/{developerCertificateId}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Developer certificate fetched successfully.
@@ -23422,6 +25273,8 @@ entities:
     parameter_map:
       cert_id: id
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -23880,6 +25733,8 @@ entities:
     parameter_map:
       cert_id: id
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -24803,6 +26658,8 @@ entities:
     parameter_map:
       user_id: id
     path: /v3/accounts/{account_id}/users
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: New entity created.
@@ -25475,6 +27332,8 @@ entities:
     parameter_map:
       user_id: id
     path: /v3/accounts/{account_id}/users/{user_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: Deleted successfully.
@@ -25750,6 +27609,8 @@ entities:
     parameter_map:
       user_id: id
     path: /v3/accounts/{account_id}/users/{user_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -26447,6 +28308,8 @@ entities:
     parameter_map:
       user_id: id
     path: /v3/accounts/{account_id}/users/{user_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -27119,6 +28982,8 @@ entities:
     parameter_map:
       user_id: id
     path: /v3/accounts/{account_id}/users/{user_id}/validate-email
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: Email validation successfully requested.
@@ -27496,6 +29361,8 @@ entities:
     parameter_map:
       invitation_id: id
     path: /v3/accounts/{account_id}/user-invitations
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: New entity created.
@@ -27834,6 +29701,8 @@ entities:
     parameter_map:
       invitation_id: id
     path: /v3/accounts/{account_id}/user-invitations/{invitation_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: Deleted successfully.
@@ -28041,6 +29910,8 @@ entities:
     parameter_map:
       invitation_id: id
     path: /v3/accounts/{account_id}/user-invitations/{invitation_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Successful operation.
@@ -28604,6 +30475,8 @@ entities:
     operation_id: addCertificate
     pagination: false
     path: /v3/trusted-certificates
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: New entity created.
@@ -29008,6 +30881,8 @@ entities:
     parameter_map:
       cert_id: id
     path: /v3/trusted-certificates/{cert_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: Deleted successfully.
@@ -29228,6 +31103,8 @@ entities:
     parameter_map:
       developerCertificateId: id
     path: /v3/developer-certificates/{developerCertificateId}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Developer certificate fetched successfully.
@@ -29765,6 +31642,8 @@ entities:
     operation_id: getAllCertificates
     pagination: true
     path: /v3/trusted-certificates
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -30135,6 +32014,8 @@ entities:
     parameter_map:
       cert_id: id
     path: /v3/trusted-certificates/{cert_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -30562,6 +32443,8 @@ entities:
     parameter_map:
       cert_id: id
     path: /v3/trusted-certificates/{cert_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: successful operation
@@ -30972,6 +32855,1765 @@ entities:
   - Developer
   - Account Admin
   - Developer certificate
+- _key: update_campaign
+  field_renames: []
+  fields:
+  - _key: autostop_reason
+    api_fieldname: autostop_reason
+    description: Text description of why a campaign failed to start or why a campaign
+      stopped.
+    example: Insufficient billing credit.
+    readOnly: true
+    required: false
+    type: string
+  - _key: created_at
+    api_fieldname: created_at
+    description: The time the update campaign was created
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: description
+    api_fieldname: description
+    description: An optional description of the campaign
+    example: ''
+    maxLength: 2000
+    readOnly: false
+    required: false
+    type: string
+  - _key: device_filter
+    api_fieldname: device_filter
+    description: The filter for the devices the campaign is targeting at
+    example: id__eq=00000000000000000000000000000000
+    readOnly: false
+    required: true
+    type: string
+  - _key: device_filter_helper
+    _override: true
+    api_fieldname: device_filter_helper
+    description: Helper for creating the device filter string.
+    detail: This helper can be used instead of setting device filter directly. This
+      allows the campaign filter to be created in a way which is similar to the device
+      listing filter.
+    foundation_reference: devices.device.list
+    getter_custom_method: device_filter_helper_getter
+    readOnly: false
+    required: false
+    setter_custom_method: device_filter_helper_setter
+    type: filter
+  - _key: finished
+    api_fieldname: finished
+    description: The campaign finish timestamp
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: id
+    api_fieldname: id
+    description: The campaign ID
+    example: '00000000000000000000000000000000'
+    readOnly: false
+    required: true
+    type: string
+  - _key: name
+    api_fieldname: name
+    description: The campaign name
+    example: campaign
+    maxLength: 128
+    readOnly: false
+    required: false
+    type: string
+  - _key: phase
+    api_fieldname: phase
+    description: The current phase of the campaign.
+    readOnly: true
+    required: false
+    type: string
+  - _key: root_manifest_id
+    api_fieldname: root_manifest_id
+    example: '00000000000000000000000000000000'
+    readOnly: false
+    required: false
+    type: string
+  - _key: root_manifest_url
+    api_fieldname: root_manifest_url
+    example: http://example.com/00000000000000000000000000000000
+    readOnly: true
+    required: false
+    type: string
+  - _key: started_at
+    api_fieldname: started_at
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: updated_at
+    api_fieldname: updated_at
+    description: The time the object was updated
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: when
+    api_fieldname: when
+    description: The scheduled start time for the campaign. The campaign will start
+      within 1 minute when then start time has elapsed.
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: false
+    required: false
+    type: string
+  group_id: Device_Update
+  methods:
+  - _key: archive
+    description: This command will archive a campaign.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - state
+    field_renames: []
+    fields:
+    - _key: device_filter_helper
+      _override: true
+      api_fieldname: device_filter_helper
+      description: Helper for creating the device filter string.
+      detail: This helper can be used instead of setting device filter directly. This
+        allows the campaign filter to be created in a way which is similar to the
+        device listing filter.
+      entity_fieldname: device_filter_helper
+      foundation_reference: devices.device.list
+      getter_custom_method: device_filter_helper_getter
+      setter_custom_method: device_filter_helper_setter
+      type: filter
+    - _key: id
+      api_fieldname: campaign_id
+      description: The campaign ID
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: campaign_id
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: post
+    mode: archive
+    operation_id: Update_Campaign_archive
+    pagination: false
+    parameter_map:
+      campaign_id: id
+    path: /v3/update-campaigns/{campaign_id}/archive
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '202'
+      description: The campaign has been archived.
+    - _key: '400'
+      description: Unable to change the phase of the campaign.
+    - _key: '401'
+      description: Not authenticated.
+    - _key: '404'
+      description: Cannot find the campaign.
+    - _key: '409'
+      description: Cannot archive the campaign while in the current phase.
+    return_info:
+      custom: false
+      self: true
+      type: update_campaign
+    return_type: update_campaign
+    summary: Archive a campaign.
+    x_deprecation: null
+    x_filter: {}
+  - _key: create
+    description: Create an update campaign.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - state
+    - autostop_reason
+    - phase
+    - created_at
+    - finished
+    - id
+    - root_manifest_url
+    - started_at
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: description
+      api_fieldname: description
+      description: An optional description of the campaign
+      entity_fieldname: description
+      example: ''
+      in: body
+      maxLength: 2000
+      parameter_fieldname: description
+      required: false
+      type: string
+    - _key: device_filter
+      api_fieldname: device_filter
+      description: The filter for the devices the campaign is targeting at
+      entity_fieldname: device_filter
+      example: id__eq=00000000000000000000000000000000
+      in: body
+      parameter_fieldname: device_filter
+      required: false
+      type: string
+    - _key: device_filter_helper
+      _override: true
+      api_fieldname: device_filter_helper
+      description: Helper for creating the device filter string.
+      detail: This helper can be used instead of setting device filter directly. This
+        allows the campaign filter to be created in a way which is similar to the
+        device listing filter.
+      entity_fieldname: device_filter_helper
+      foundation_reference: devices.device.list
+      getter_custom_method: device_filter_helper_getter
+      setter_custom_method: device_filter_helper_setter
+      type: filter
+    - _key: name
+      api_fieldname: name
+      description: The campaign name
+      entity_fieldname: name
+      example: campaign
+      in: body
+      maxLength: 128
+      parameter_fieldname: name
+      required: false
+      type: string
+    - _key: root_manifest_id
+      api_fieldname: root_manifest_id
+      entity_fieldname: root_manifest_id
+      example: '00000000000000000000000000000000'
+      in: body
+      parameter_fieldname: root_manifest_id
+      required: false
+      type: string
+    - _key: when
+      api_fieldname: when
+      description: The scheduled start time for the campaign. The campaign will start
+        within 1 minute when then start time has elapsed.
+      entity_fieldname: when
+      example: '2017-05-22T12:37:55.576563Z'
+      format: date-time
+      in: body
+      parameter_fieldname: when
+      required: false
+      type: string
+    group_id: Device_Update
+    method: post
+    mode: create
+    operation_id: Update_Campaign_create
+    pagination: false
+    parameter_map:
+      campaign_id: id
+    path: /v3/update-campaigns/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '201'
+      description: Update campaign created
+      schema:
+      - _key: foreign_key
+        entity: update_campaign
+        group: Device_Update
+      - _key: properties
+        autostop_reason:
+          api_fieldname: autostop_reason
+          description: Text description of why a campaign failed to start or why a
+            campaign stopped.
+          entity_fieldname: autostop_reason
+          example: Insufficient billing credit.
+          type: string
+        created_at:
+          api_fieldname: created_at
+          description: The time the update campaign was created
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        description:
+          api_fieldname: description
+          description: An optional description of the campaign
+          entity_fieldname: description
+          example: ''
+          maxLength: 2000
+          type: string
+        device_filter:
+          api_fieldname: device_filter
+          description: The filter for the devices the campaign is targeting at
+          entity_fieldname: device_filter
+          example: id__eq=00000000000000000000000000000000
+          type: string
+        etag:
+          api_fieldname: etag
+          description: The entity instance signature
+          entity_fieldname: etag
+          example: '2017-05-22T12:37:58.753425Z'
+          type: string
+        finished:
+          api_fieldname: finished
+          description: The campaign finish timestamp
+          entity_fieldname: finished
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        id:
+          api_fieldname: id
+          description: The campaign ID
+          entity_fieldname: id
+          example: '00000000000000000000000000000000'
+          type: string
+        name:
+          api_fieldname: name
+          description: The campaign name
+          entity_fieldname: name
+          example: campaign
+          maxLength: 128
+          type: string
+        object:
+          api_fieldname: object
+          description: The API resource entity
+          entity_fieldname: object
+          example: update-campaign
+          type: string
+        phase:
+          api_fieldname: phase
+          description: The current phase of the campaign.
+          entity_fieldname: phase
+          readOnly: true
+          type: string
+        root_manifest_id:
+          api_fieldname: root_manifest_id
+          entity_fieldname: root_manifest_id
+          example: '00000000000000000000000000000000'
+          type: string
+        root_manifest_url:
+          api_fieldname: root_manifest_url
+          entity_fieldname: root_manifest_url
+          example: http://example.com/00000000000000000000000000000000
+          type: string
+        started_at:
+          api_fieldname: started_at
+          entity_fieldname: started_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        state:
+          api_fieldname: state
+          description: 'DEPRECATED: The state of the campaign (use phase instead).'
+          entity_fieldname: state
+          enum:
+          - draft
+          - scheduled
+          - allocatingquota
+          - allocatedquota
+          - quotaallocationfailed
+          - checkingmanifest
+          - checkedmanifest
+          - devicefetch
+          - devicecopy
+          - devicecheck
+          - publishing
+          - deploying
+          - deployed
+          - manifestremoved
+          - expired
+          - stopping
+          - autostopped
+          - userstopped
+          - conflict
+          type: string
+          x-deprecation:
+            comment: Use phase instead
+            end_of_life_at: '2020-03-18T14:55:20+00:00'
+            issued_at: '2019-03-18T14:55:20+00:00'
+            links: []
+        updated_at:
+          api_fieldname: updated_at
+          description: The time the object was updated
+          entity_fieldname: updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        when:
+          api_fieldname: when
+          description: The scheduled start time for the campaign. The campaign will
+            start within 1 minute when then start time has elapsed.
+          entity_fieldname: when
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+    - _key: '400'
+      description: 'Validation error: The data used to create the campaign did not
+        validate
+
+        '
+    - _key: '401'
+      description: Not authenticated
+    return_info:
+      custom: false
+      self: true
+      type: update_campaign
+    return_type: update_campaign
+    summary: Create a campaign
+    x_deprecation: null
+    x_filter: {}
+  - _key: delete
+    description: Delete an update campaign.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - state
+    field_renames: []
+    fields:
+    - _key: device_filter_helper
+      _override: true
+      api_fieldname: device_filter_helper
+      description: Helper for creating the device filter string.
+      detail: This helper can be used instead of setting device filter directly. This
+        allows the campaign filter to be created in a way which is similar to the
+        device listing filter.
+      entity_fieldname: device_filter_helper
+      foundation_reference: devices.device.list
+      getter_custom_method: device_filter_helper_getter
+      setter_custom_method: device_filter_helper_setter
+      type: filter
+    - _key: id
+      api_fieldname: campaign_id
+      description: The ID of the update campaign
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: campaign_id
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: delete
+    mode: delete
+    operation_id: Update_Campaign_destroy
+    pagination: false
+    parameter_map:
+      campaign_id: id
+    path: /v3/update-campaigns/{campaign_id}/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Update campaign deleted
+    - _key: '400'
+      description: 'Validation error: The data used to update the campaign did not
+        validate
+
+        '
+    - _key: '401'
+      description: Not authenticated
+    - _key: '404'
+      description: Update campaign can't be found
+    - _key: '409'
+      description: Conflict - Cannot delete the campaign while in the current phase.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: update_campaign
+    return_type: update_campaign
+    summary: Delete a campaign
+    x_deprecation: null
+    x_filter: {}
+  - _key: device_metadata
+    description: Get campaign device metadata.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - state
+    - has_more
+    - data
+    - total_count
+    field_renames: []
+    fields:
+    - _key: after
+      api_fieldname: after
+      description: The ID of the the item after which to retrieve the next page
+      entity_fieldname: after
+      example: 'null'
+      external_param: true
+      in: query
+      name: after
+      parameter_fieldname: after
+      required: false
+      type: string
+    - _key: device_filter_helper
+      _override: true
+      api_fieldname: device_filter_helper
+      description: Helper for creating the device filter string.
+      detail: This helper can be used instead of setting device filter directly. This
+        allows the campaign filter to be created in a way which is similar to the
+        device listing filter.
+      entity_fieldname: device_filter_helper
+      foundation_reference: devices.device.list
+      getter_custom_method: device_filter_helper_getter
+      setter_custom_method: device_filter_helper_setter
+      type: filter
+    - _key: id
+      api_fieldname: campaign_id
+      description: The update campaign ID
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: campaign_id
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    - _key: include
+      api_fieldname: include
+      description: 'A comma-separated list of data fields to return. Currently supported:
+        total_count'
+      entity_fieldname: include
+      external_param: true
+      in: query
+      name: include
+      parameter_fieldname: include
+      required: false
+      type: string
+    - _key: limit
+      api_fieldname: limit
+      description: How many objects to retrieve in the page. The minimum limit is
+        2 and the maximum is 1000. Limit values outside of this range are set to the
+        closest limit.
+      entity_fieldname: limit
+      example: '50'
+      external_param: true
+      in: query
+      maximum: 1000
+      minimum: 2
+      name: limit
+      parameter_fieldname: limit
+      required: false
+      type: integer
+    - _key: order
+      api_fieldname: order
+      description: ASC or DESC
+      entity_fieldname: order
+      enum:
+      - ASC
+      - DESC
+      enum_reference: update_campaign_order_enum
+      example: ASC
+      external_param: true
+      in: query
+      name: order
+      parameter_fieldname: order
+      required: false
+      type: string
+    foreign_key:
+      entity: campaign_device_metadata
+      group: Device_Update
+    group_id: Device_Update
+    method: get
+    mode: device_metadata
+    operation_id: Update_Campaign_Metadata_list
+    pagination: true
+    parameter_map:
+      campaign_id: id
+    path: /v3/update-campaigns/{campaign_id}/campaign-device-metadata/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Request successful
+      schema:
+        foreign_key:
+          entity: update_campaign
+          group: Device_Update
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: The entity ID to fetch after the given one
+          entity_fieldname: after
+          example: 'null'
+          type: string
+        - _key: data
+          api_fieldname: data
+          description: A list of entities
+          entity_fieldname: data
+          items:
+            foreign_key:
+              entity: campaign_device_metadata
+              group: Device_Update
+            properties:
+            - _key: campaign
+              api_fieldname: campaign
+              description: The device's campaign ID
+              entity_fieldname: campaign
+              example: 015bf72fccda00000000000100100280
+              in: path
+              parameter_fieldname: campaign_id
+              required: true
+              type: string
+            - _key: created_at
+              api_fieldname: created_at
+              description: The time the campaign was created
+              entity_fieldname: created_at
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            - _key: deployment_state
+              api_fieldname: deployment_state
+              description: The state of the update campaign on the device
+              entity_fieldname: deployment_state
+              enum:
+              - pending
+              - updated_connector_channel
+              - failed_connector_channel_update
+              - deployed
+              - manifestremoved
+              - deregistered
+              type: string
+            - _key: description
+              api_fieldname: description
+              description: Description
+              entity_fieldname: description
+              example: ''
+              maxLength: 2000
+              type: string
+            - _key: device_id
+              api_fieldname: device_id
+              description: The device ID
+              entity_fieldname: device_id
+              example: 015c2fec9bba0000000000010010036f
+              type: string
+            - _key: etag
+              api_fieldname: etag
+              description: API resource entity version
+              entity_fieldname: etag
+              example: '2017-05-22T12:37:58.753425Z'
+              type: string
+            - _key: id
+              api_fieldname: id
+              description: The metadata record ID
+              entity_fieldname: id
+              example: 015c3029f6f7000000000001001000c3
+              in: path
+              parameter_fieldname: campaign_device_metadata_id
+              required: true
+              type: string
+            - _key: mechanism
+              api_fieldname: mechanism
+              description: How the firmware is delivered (connector or direct)
+              entity_fieldname: mechanism
+              example: connector
+              type: string
+            - _key: mechanism_url
+              api_fieldname: mechanism_url
+              description: The Device Management Connect URL
+              entity_fieldname: mechanism_url
+              example: ''
+              type: string
+            - _key: name
+              api_fieldname: name
+              description: The record name
+              entity_fieldname: name
+              example: default_object_name
+              maxLength: 128
+              type: string
+            - _key: object
+              api_fieldname: object
+              description: 'The entity name: always ''update-campaign-device-metadata'''
+              entity_fieldname: object
+              example: update-campaign-device-metadata
+              type: string
+            - _key: updated_at
+              api_fieldname: updated_at
+              description: 'The record was modified in the database format: date-time'
+              entity_fieldname: updated_at
+              example: '2017-05-22T12:37:58.776736Z'
+              format: date-time
+              type: string
+            type: object
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: A flag indicating whether there are more results
+          entity_fieldname: has_more
+          example: 'false'
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: How many objects to retrieve in the page. The minimum limit
+            is 2 and the maximum is 1000. Limit values outside of this range are set
+            to the closest limit.
+          entity_fieldname: limit
+          example: '50'
+          maximum: 1000
+          minimum: 2
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: 'The entity name: always ''list'''
+          entity_fieldname: object
+          example: list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: 'The order of the records to return. Acceptable values: ASC,
+            DESC. Default: ASC'
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          description: The total number or records, if requested. It may be returned
+            also for small lists.
+          entity_fieldname: total_count
+          example: '1'
+          type: integer
+        type: object
+    - _key: '401'
+      description: Unauthorized
+    return_info:
+      custom: false
+      self: false
+      type: campaign_device_metadata
+    return_type: paginated_response(campaign_device_metadata)
+    summary: List all campaign device metadata
+    x_deprecation: null
+    x_filter: {}
+  - _key: list
+    description: Get update campaigns for devices specified by a filter.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - state
+    - data
+    - has_more
+    - total_count
+    - created_at__in
+    - created_at__nin
+    - created_at__lte
+    - created_at__gte
+    - description__eq
+    - description__neq
+    - description__in
+    - description__nin
+    - device_filter__eq
+    - device_filter__neq
+    - device_filter__in
+    - device_filter__nin
+    - finished__in
+    - finished__nin
+    - finished__lte
+    - finished__gte
+    - id__eq
+    - id__neq
+    - id__in
+    - id__nin
+    - name__eq
+    - name__neq
+    - name__in
+    - name__nin
+    - root_manifest_id__eq
+    - root_manifest_id__neq
+    - root_manifest_id__in
+    - root_manifest_id__nin
+    - started_at__in
+    - started_at__nin
+    - started_at__lte
+    - started_at__gte
+    - state__eq
+    - state__neq
+    - state__in
+    - state__nin
+    - updated_at__in
+    - updated_at__nin
+    - updated_at__lte
+    - updated_at__gte
+    - when__in
+    - when__nin
+    - when__lte
+    - when__gte
+    field_renames: []
+    fields:
+    - _key: after
+      api_fieldname: after
+      description: The ID of the the item after which to retrieve the next page
+      entity_fieldname: after
+      example: null
+      external_param: true
+      in: query
+      name: after
+      parameter_fieldname: after
+      required: false
+      type: string
+    - _key: device_filter_helper
+      _override: true
+      api_fieldname: device_filter_helper
+      description: Helper for creating the device filter string.
+      detail: This helper can be used instead of setting device filter directly. This
+        allows the campaign filter to be created in a way which is similar to the
+        device listing filter.
+      entity_fieldname: device_filter_helper
+      foundation_reference: devices.device.list
+      getter_custom_method: device_filter_helper_getter
+      setter_custom_method: device_filter_helper_setter
+      type: filter
+    - _key: include
+      api_fieldname: include
+      description: 'A comma-separated list of data fields to return. Currently supported:
+        total_count'
+      entity_fieldname: include
+      external_param: true
+      in: query
+      name: include
+      parameter_fieldname: include
+      required: false
+      type: string
+    - _key: limit
+      api_fieldname: limit
+      description: How many objects to retrieve in the page. The minimum limit is
+        2 and the maximum is 1000. Limit values outside of this range are set to the
+        closest limit.
+      entity_fieldname: limit
+      external_param: true
+      in: query
+      maximum: 1000
+      minimum: 2
+      name: limit
+      parameter_fieldname: limit
+      required: false
+      type: integer
+    - _key: order
+      api_fieldname: order
+      description: 'The order of the records. Acceptable values: ASC, DESC. Default:
+        ASC'
+      entity_fieldname: order
+      enum:
+      - ASC
+      - DESC
+      enum_reference: update_campaign_order_enum
+      example: ASC
+      external_param: true
+      in: query
+      name: order
+      parameter_fieldname: order
+      required: false
+      type: string
+    foreign_key:
+      _key: foreign_key
+      entity: update_campaign
+      group: Device_Update
+    foreign_key_priority: self
+    group_id: Device_Update
+    method: get
+    mode: list
+    operation_id: Update_Campaign_list
+    pagination: true
+    parameter_map:
+      campaign_id: id
+    path: /v3/update-campaigns/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Request successful
+      schema:
+        foreign_key:
+          entity: update_campaign
+          group: Device_Update
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          entity_fieldname: after
+          example: null
+          type: string
+        - _key: data
+          api_fieldname: data
+          entity_fieldname: data
+          example: '[]'
+          items:
+          - _key: foreign_key
+            entity: update_campaign
+            group: Device_Update
+          - _key: properties
+            autostop_reason:
+              description: Text description of why a campaign failed to start or why
+                a campaign stopped.
+              example: Insufficient billing credit.
+              type: string
+            created_at:
+              description: The time the update campaign was created
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            description:
+              description: An optional description of the campaign
+              example: ''
+              maxLength: 2000
+              type: string
+            device_filter:
+              description: The filter for the devices the campaign is targeting at
+              example: id__eq=00000000000000000000000000000000
+              type: string
+            etag:
+              description: The entity instance signature
+              example: '2017-05-22T12:37:58.753425Z'
+              type: string
+            finished:
+              description: The campaign finish timestamp
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            id:
+              description: The campaign ID
+              example: '00000000000000000000000000000000'
+              type: string
+            name:
+              description: The campaign name
+              example: campaign
+              maxLength: 128
+              type: string
+            object:
+              description: The API resource entity
+              example: update-campaign
+              type: string
+            phase:
+              description: The current phase of the campaign.
+              readOnly: true
+              type: string
+            root_manifest_id:
+              example: '00000000000000000000000000000000'
+              type: string
+            root_manifest_url:
+              example: http://example.com/00000000000000000000000000000000
+              type: string
+            started_at:
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            state:
+              description: 'DEPRECATED: The state of the campaign (use phase instead).'
+              enum:
+              - draft
+              - scheduled
+              - allocatingquota
+              - allocatedquota
+              - quotaallocationfailed
+              - checkingmanifest
+              - checkedmanifest
+              - devicefetch
+              - devicecopy
+              - devicecheck
+              - publishing
+              - deploying
+              - deployed
+              - manifestremoved
+              - expired
+              - stopping
+              - autostopped
+              - userstopped
+              - conflict
+              type: string
+              x-deprecation:
+                comment: Use phase instead
+                end_of_life_at: '2020-03-18T14:55:20+00:00'
+                issued_at: '2019-03-18T14:55:20+00:00'
+                links: []
+            updated_at:
+              description: The time the object was updated
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            when:
+              description: The scheduled start time for the campaign. The campaign
+                will start within 1 minute when then start time has elapsed.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          entity_fieldname: has_more
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          entity_fieldname: limit
+          type: integer
+        - _key: object
+          api_fieldname: object
+          entity_fieldname: object
+          example: list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: 'The order of the records to return. Acceptable values: ASC,
+            DESC. Default: ASC'
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          entity_fieldname: total_count
+          type: integer
+    - _key: '400'
+      description: 'Validation error: The data used to update the campaign did not
+        validate
+
+        '
+    - _key: '401'
+      description: Not authenticated
+    - _key: '404'
+      description: Unable to find content
+    return_info:
+      custom: false
+      self: true
+      type: update_campaign
+    return_type: paginated_response(update_campaign)
+    summary: List all campaigns
+    x_deprecation: null
+    x_filter:
+      created_at:
+      - in
+      - nin
+      - lte
+      - gte
+      description:
+      - eq
+      - neq
+      - in
+      - nin
+      device_filter:
+      - eq
+      - neq
+      - in
+      - nin
+      finished:
+      - in
+      - nin
+      - lte
+      - gte
+      id:
+      - eq
+      - neq
+      - in
+      - nin
+      name:
+      - eq
+      - neq
+      - in
+      - nin
+      root_manifest_id:
+      - eq
+      - neq
+      - in
+      - nin
+      started_at:
+      - in
+      - nin
+      - lte
+      - gte
+      state:
+      - eq
+      - neq
+      - in
+      - nin
+      updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+      when:
+      - in
+      - nin
+      - lte
+      - gte
+  - _key: read
+    description: Get an update campaign.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - state
+    - autostop_reason
+    - phase
+    - created_at
+    - description
+    - device_filter
+    - finished
+    - name
+    - root_manifest_id
+    - root_manifest_url
+    - started_at
+    - when
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: device_filter_helper
+      _override: true
+      api_fieldname: device_filter_helper
+      description: Helper for creating the device filter string.
+      detail: This helper can be used instead of setting device filter directly. This
+        allows the campaign filter to be created in a way which is similar to the
+        device listing filter.
+      entity_fieldname: device_filter_helper
+      foundation_reference: devices.device.list
+      getter_custom_method: device_filter_helper_getter
+      setter_custom_method: device_filter_helper_setter
+      type: filter
+    - _key: id
+      api_fieldname: id
+      description: The campaign ID
+      entity_fieldname: id
+      example: '00000000000000000000000000000000'
+      in: path
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: get
+    mode: read
+    operation_id: Update_Campaign_retrieve
+    pagination: false
+    parameter_map:
+      campaign_id: id
+    path: /v3/update-campaigns/{campaign_id}/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Retrieved result successfully
+      schema:
+      - _key: foreign_key
+        entity: update_campaign
+        group: Device_Update
+      - _key: properties
+        autostop_reason:
+          api_fieldname: autostop_reason
+          description: Text description of why a campaign failed to start or why a
+            campaign stopped.
+          entity_fieldname: autostop_reason
+          example: Insufficient billing credit.
+          type: string
+        created_at:
+          api_fieldname: created_at
+          description: The time the update campaign was created
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        description:
+          api_fieldname: description
+          description: An optional description of the campaign
+          entity_fieldname: description
+          example: ''
+          maxLength: 2000
+          type: string
+        device_filter:
+          api_fieldname: device_filter
+          description: The filter for the devices the campaign is targeting at
+          entity_fieldname: device_filter
+          example: id__eq=00000000000000000000000000000000
+          type: string
+        etag:
+          api_fieldname: etag
+          description: The entity instance signature
+          entity_fieldname: etag
+          example: '2017-05-22T12:37:58.753425Z'
+          type: string
+        finished:
+          api_fieldname: finished
+          description: The campaign finish timestamp
+          entity_fieldname: finished
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        id:
+          api_fieldname: id
+          description: The campaign ID
+          entity_fieldname: id
+          example: '00000000000000000000000000000000'
+          type: string
+        name:
+          api_fieldname: name
+          description: The campaign name
+          entity_fieldname: name
+          example: campaign
+          maxLength: 128
+          type: string
+        object:
+          api_fieldname: object
+          description: The API resource entity
+          entity_fieldname: object
+          example: update-campaign
+          type: string
+        phase:
+          api_fieldname: phase
+          description: The current phase of the campaign.
+          entity_fieldname: phase
+          readOnly: true
+          type: string
+        root_manifest_id:
+          api_fieldname: root_manifest_id
+          entity_fieldname: root_manifest_id
+          example: '00000000000000000000000000000000'
+          type: string
+        root_manifest_url:
+          api_fieldname: root_manifest_url
+          entity_fieldname: root_manifest_url
+          example: http://example.com/00000000000000000000000000000000
+          type: string
+        started_at:
+          api_fieldname: started_at
+          entity_fieldname: started_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        state:
+          api_fieldname: state
+          description: 'DEPRECATED: The state of the campaign (use phase instead).'
+          entity_fieldname: state
+          enum:
+          - draft
+          - scheduled
+          - allocatingquota
+          - allocatedquota
+          - quotaallocationfailed
+          - checkingmanifest
+          - checkedmanifest
+          - devicefetch
+          - devicecopy
+          - devicecheck
+          - publishing
+          - deploying
+          - deployed
+          - manifestremoved
+          - expired
+          - stopping
+          - autostopped
+          - userstopped
+          - conflict
+          type: string
+          x-deprecation:
+            comment: Use phase instead
+            end_of_life_at: '2020-03-18T14:55:20+00:00'
+            issued_at: '2019-03-18T14:55:20+00:00'
+            links: []
+        updated_at:
+          api_fieldname: updated_at
+          description: The time the object was updated
+          entity_fieldname: updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        when:
+          api_fieldname: when
+          description: The scheduled start time for the campaign. The campaign will
+            start within 1 minute when then start time has elapsed.
+          entity_fieldname: when
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+    - _key: '400'
+      description: 'Validation error: The data used to update the campaign did not
+        validate
+
+        '
+    - _key: '401'
+      description: Not authenticated
+    - _key: '404'
+      description: Unable to find campaign
+    return_info:
+      custom: false
+      self: true
+      type: update_campaign
+    return_type: update_campaign
+    summary: Get a campaign.
+    x_deprecation: null
+    x_filter: {}
+  - _key: start
+    description: This command will begin the process of starting a campaign.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - state
+    field_renames: []
+    fields:
+    - _key: device_filter_helper
+      _override: true
+      api_fieldname: device_filter_helper
+      description: Helper for creating the device filter string.
+      detail: This helper can be used instead of setting device filter directly. This
+        allows the campaign filter to be created in a way which is similar to the
+        device listing filter.
+      entity_fieldname: device_filter_helper
+      foundation_reference: devices.device.list
+      getter_custom_method: device_filter_helper_getter
+      setter_custom_method: device_filter_helper_setter
+      type: filter
+    - _key: id
+      api_fieldname: campaign_id
+      description: The campaign ID
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: campaign_id
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: post
+    mode: start
+    operation_id: Update_Campaign_start
+    pagination: false
+    parameter_map:
+      campaign_id: id
+    path: /v3/update-campaigns/{campaign_id}/start
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '202'
+      description: The campaign is starting.
+    - _key: '400'
+      description: Unable to change the phase of the campaign.
+    - _key: '401'
+      description: Not authenticated.
+    - _key: '404'
+      description: Cannot find the campaign.
+    - _key: '409'
+      description: Cannot start the campaign while in the current phase.
+    return_info:
+      custom: false
+      self: true
+      type: update_campaign
+    return_type: update_campaign
+    summary: Start a campaign.
+    x_deprecation: null
+    x_filter: {}
+  - _key: stop
+    description: This command will begin the process of stopping a campaign.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - state
+    field_renames: []
+    fields:
+    - _key: device_filter_helper
+      _override: true
+      api_fieldname: device_filter_helper
+      description: Helper for creating the device filter string.
+      detail: This helper can be used instead of setting device filter directly. This
+        allows the campaign filter to be created in a way which is similar to the
+        device listing filter.
+      entity_fieldname: device_filter_helper
+      foundation_reference: devices.device.list
+      getter_custom_method: device_filter_helper_getter
+      setter_custom_method: device_filter_helper_setter
+      type: filter
+    - _key: id
+      api_fieldname: campaign_id
+      description: The campaign ID
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: campaign_id
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: post
+    mode: stop
+    operation_id: Update_Campaign_stop
+    pagination: false
+    parameter_map:
+      campaign_id: id
+    path: /v3/update-campaigns/{campaign_id}/stop
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '202'
+      description: The campaign is stopping.
+    - _key: '400'
+      description: Unable to change the phase of the campaign.
+    - _key: '401'
+      description: Not authenticated.
+    - _key: '404'
+      description: Cannot find the campaign.
+    - _key: '409'
+      description: Cannot stop the campaign while in the current phase.
+    return_info:
+      custom: false
+      self: true
+      type: update_campaign
+    return_type: update_campaign
+    summary: Stop a campaign.
+    x_deprecation: null
+    x_filter: {}
+  - _key: update
+    description: Modify an update campaign.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - state
+    - autostop_reason
+    - phase
+    - created_at
+    - finished
+    - root_manifest_url
+    - started_at
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: description
+      api_fieldname: description
+      description: An optional description of the campaign
+      entity_fieldname: description
+      example: ''
+      in: body
+      maxLength: 2000
+      parameter_fieldname: description
+      required: false
+      type: string
+    - _key: device_filter
+      api_fieldname: device_filter
+      description: The filter for the devices the campaign is targeting at
+      entity_fieldname: device_filter
+      example: id__eq=00000000000000000000000000000000
+      in: body
+      parameter_fieldname: device_filter
+      required: false
+      type: string
+    - _key: device_filter_helper
+      _override: true
+      api_fieldname: device_filter_helper
+      description: Helper for creating the device filter string.
+      detail: This helper can be used instead of setting device filter directly. This
+        allows the campaign filter to be created in a way which is similar to the
+        device listing filter.
+      entity_fieldname: device_filter_helper
+      foundation_reference: devices.device.list
+      getter_custom_method: device_filter_helper_getter
+      setter_custom_method: device_filter_helper_setter
+      type: filter
+    - _key: id
+      api_fieldname: id
+      description: The campaign ID
+      entity_fieldname: id
+      example: '00000000000000000000000000000000'
+      in: path
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    - _key: name
+      api_fieldname: name
+      description: The campaign name
+      entity_fieldname: name
+      example: campaign
+      in: body
+      maxLength: 128
+      parameter_fieldname: name
+      required: false
+      type: string
+    - _key: root_manifest_id
+      api_fieldname: root_manifest_id
+      entity_fieldname: root_manifest_id
+      example: '00000000000000000000000000000000'
+      in: body
+      parameter_fieldname: root_manifest_id
+      required: false
+      type: string
+    - _key: when
+      api_fieldname: when
+      description: The scheduled start time for the campaign. The campaign will start
+        within 1 minute when then start time has elapsed.
+      entity_fieldname: when
+      example: '2017-05-22T12:37:55.576563Z'
+      format: date-time
+      in: body
+      parameter_fieldname: when
+      required: false
+      type: string
+    group_id: Device_Update
+    method: put
+    mode: update
+    operation_id: Update_Campaign_update
+    pagination: false
+    parameter_map:
+      campaign_id: id
+    path: /v3/update-campaigns/{campaign_id}/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Update campaign updated
+      schema:
+      - _key: foreign_key
+        entity: update_campaign
+        group: Device_Update
+      - _key: properties
+        autostop_reason:
+          api_fieldname: autostop_reason
+          description: Text description of why a campaign failed to start or why a
+            campaign stopped.
+          entity_fieldname: autostop_reason
+          example: Insufficient billing credit.
+          type: string
+        created_at:
+          api_fieldname: created_at
+          description: The time the update campaign was created
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        description:
+          api_fieldname: description
+          description: An optional description of the campaign
+          entity_fieldname: description
+          example: ''
+          maxLength: 2000
+          type: string
+        device_filter:
+          api_fieldname: device_filter
+          description: The filter for the devices the campaign is targeting at
+          entity_fieldname: device_filter
+          example: id__eq=00000000000000000000000000000000
+          type: string
+        etag:
+          api_fieldname: etag
+          description: The entity instance signature
+          entity_fieldname: etag
+          example: '2017-05-22T12:37:58.753425Z'
+          type: string
+        finished:
+          api_fieldname: finished
+          description: The campaign finish timestamp
+          entity_fieldname: finished
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        id:
+          api_fieldname: id
+          description: The campaign ID
+          entity_fieldname: id
+          example: '00000000000000000000000000000000'
+          type: string
+        name:
+          api_fieldname: name
+          description: The campaign name
+          entity_fieldname: name
+          example: campaign
+          maxLength: 128
+          type: string
+        object:
+          api_fieldname: object
+          description: The API resource entity
+          entity_fieldname: object
+          example: update-campaign
+          type: string
+        phase:
+          api_fieldname: phase
+          description: The current phase of the campaign.
+          entity_fieldname: phase
+          readOnly: true
+          type: string
+        root_manifest_id:
+          api_fieldname: root_manifest_id
+          entity_fieldname: root_manifest_id
+          example: '00000000000000000000000000000000'
+          type: string
+        root_manifest_url:
+          api_fieldname: root_manifest_url
+          entity_fieldname: root_manifest_url
+          example: http://example.com/00000000000000000000000000000000
+          type: string
+        started_at:
+          api_fieldname: started_at
+          entity_fieldname: started_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        state:
+          api_fieldname: state
+          description: 'DEPRECATED: The state of the campaign (use phase instead).'
+          entity_fieldname: state
+          enum:
+          - draft
+          - scheduled
+          - allocatingquota
+          - allocatedquota
+          - quotaallocationfailed
+          - checkingmanifest
+          - checkedmanifest
+          - devicefetch
+          - devicecopy
+          - devicecheck
+          - publishing
+          - deploying
+          - deployed
+          - manifestremoved
+          - expired
+          - stopping
+          - autostopped
+          - userstopped
+          - conflict
+          type: string
+          x-deprecation:
+            comment: Use phase instead
+            end_of_life_at: '2020-03-18T14:55:20+00:00'
+            issued_at: '2019-03-18T14:55:20+00:00'
+            links: []
+        updated_at:
+          api_fieldname: updated_at
+          description: The time the object was updated
+          entity_fieldname: updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        when:
+          api_fieldname: when
+          description: The scheduled start time for the campaign. The campaign will
+            start within 1 minute when then start time has elapsed.
+          entity_fieldname: when
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+    - _key: '400'
+      description: 'Validation error: The data used to update the campaign did not
+        validate
+
+        '
+    - _key: '401'
+      description: Not authenticated
+    - _key: '403'
+      description: Fields apart from 'name', 'description' and 'state' cannot be modified
+        when the state is not 'draft'.
+    - _key: '404'
+      description: Update campaign can't be found
+    return_info:
+      custom: false
+      self: true
+      type: update_campaign
+    return_type: update_campaign
+    summary: Modify a campaign
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: id
+  swagger_models:
+  - CampaignDeviceMetadataPage
+  - UpdateCampaign
+  - UpdateCampaignPage
+  - UpdateCampaignPostRequest
+  - UpdateCampaignPutRequest
+  tags: []
 - _key: user
   field_renames:
   - _key: marketing_accepted
@@ -31479,6 +35121,8 @@ entities:
     parameter_map:
       user_id: id
     path: /v3/users
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: New entity created.
@@ -32050,6 +35694,8 @@ entities:
     parameter_map:
       user_id: id
     path: /v3/users/{user_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: Deleted successfully.
@@ -32349,6 +35995,8 @@ entities:
     parameter_map:
       user_id: id
     path: /v3/users
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Successful operation.
@@ -32867,6 +36515,8 @@ entities:
     parameter_map:
       user_id: id
     path: /v3/users/{user_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Successful operation.
@@ -33513,6 +37163,8 @@ entities:
     parameter_map:
       user_id: id
     path: /v3/users/{user_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Successful operation.
@@ -34298,6 +37950,8 @@ entities:
     parameter_map:
       invitation_id: id
     path: /v3/user-invitations
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '201'
       description: New entity created.
@@ -34611,6 +38265,8 @@ entities:
     parameter_map:
       invitation_id: id
     path: /v3/user-invitations/{invitation_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '204'
       description: Deleted successfully.
@@ -34842,6 +38498,8 @@ entities:
     parameter_map:
       invitation_id: id
     path: /v3/user-invitations
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Successful operation.
@@ -35156,6 +38814,8 @@ entities:
     parameter_map:
       invitation_id: id
     path: /v3/user-invitations/{invitation_id}
+    request_body: json
+    request_content_type: application/json
     responses:
     - _key: '200'
       description: Successful operation.
@@ -35508,6 +39168,18 @@ enums:
   values:
   - ACTIVE
   - INACTIVE
+- _key: campaign_device_metadata_deployment_state_enum
+  entity_name: campaign_device_metadata
+  enum_name: campaign_device_metadata_deployment_state_enum
+  field_name: deployment_state
+  group_id: Device_Update
+  values:
+  - deployed
+  - deregistered
+  - failed_connector_channel_update
+  - manifestremoved
+  - pending
+  - updated_connector_channel
 - _key: certificate_enrollment_enroll_result_enum
   entity_name: certificate_enrollment
   enum_name: certificate_enrollment_enroll_result_enum
@@ -35610,6 +39282,22 @@ enums:
   - deregistered
   - registered
   - unenrolled
+- _key: firmware_image_order_enum
+  entity_name: firmware_image
+  enum_name: firmware_image_order_enum
+  field_name: order
+  group_id: Device_Update
+  values:
+  - ASC
+  - DESC
+- _key: firmware_manifest_order_enum
+  entity_name: firmware_manifest
+  enum_name: firmware_manifest_order_enum
+  field_name: order
+  group_id: Device_Update
+  values:
+  - ASC
+  - DESC
 - _key: subtenant_trusted_certificate_service_enum
   entity_name: subtenant_trusted_certificate
   enum_name: subtenant_trusted_certificate_service_enum
@@ -35661,6 +39349,14 @@ enums:
   values:
   - ACTIVE
   - INACTIVE
+- _key: update_campaign_order_enum
+  entity_name: update_campaign
+  enum_name: update_campaign_order_enum
+  field_name: order
+  group_id: Device_Update
+  values:
+  - ASC
+  - DESC
 - _key: user_invitation_order_enum
   entity_name: user_invitation
   enum_name: user_invitation_order_enum
@@ -35713,6 +39409,17 @@ groups:
   - account_status_enum
   - account_mfa_status_enum
   - account_order_enum
+- _key: Device_Update
+  entities:
+  - campaign_device_metadata
+  - update_campaign
+  - firmware_image
+  - firmware_manifest
+  enums:
+  - campaign_device_metadata_deployment_state_enum
+  - update_campaign_order_enum
+  - firmware_image_order_enum
+  - firmware_manifest_order_enum
 - _key: Devices
   entities:
   - device

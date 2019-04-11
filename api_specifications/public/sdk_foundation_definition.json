@@ -30,6 +30,21 @@
     },
     {
       "entities": [
+        "campaign_device_metadata",
+        "update_campaign",
+        "firmware_image",
+        "firmware_manifest"
+      ],
+      "enums": [
+        "campaign_device_metadata_deployment_state_enum",
+        "update_campaign_order_enum",
+        "firmware_image_order_enum",
+        "firmware_manifest_order_enum"
+      ],
+      "_key": "Device_Update"
+    },
+    {
+      "entities": [
         "device",
         "device_events",
         "device_enrollment_bulk_create",
@@ -131,6 +146,21 @@
       ],
       "group_id": "Accounts",
       "_key": "api_key_status_enum"
+    },
+    {
+      "entity_name": "campaign_device_metadata",
+      "field_name": "deployment_state",
+      "enum_name": "campaign_device_metadata_deployment_state_enum",
+      "values": [
+        "deployed",
+        "deregistered",
+        "failed_connector_channel_update",
+        "manifestremoved",
+        "pending",
+        "updated_connector_channel"
+      ],
+      "group_id": "Device_Update",
+      "_key": "campaign_device_metadata_deployment_state_enum"
     },
     {
       "entity_name": "certificate_enrollment",
@@ -271,6 +301,28 @@
       "_key": "device_state_enum"
     },
     {
+      "entity_name": "firmware_image",
+      "field_name": "order",
+      "enum_name": "firmware_image_order_enum",
+      "values": [
+        "ASC",
+        "DESC"
+      ],
+      "group_id": "Device_Update",
+      "_key": "firmware_image_order_enum"
+    },
+    {
+      "entity_name": "firmware_manifest",
+      "field_name": "order",
+      "enum_name": "firmware_manifest_order_enum",
+      "values": [
+        "ASC",
+        "DESC"
+      ],
+      "group_id": "Device_Update",
+      "_key": "firmware_manifest_order_enum"
+    },
+    {
       "entity_name": "subtenant_trusted_certificate",
       "field_name": "service",
       "enum_name": "subtenant_trusted_certificate_service_enum",
@@ -338,6 +390,17 @@
       ],
       "group_id": "Security",
       "_key": "trusted_certificate_status_enum"
+    },
+    {
+      "entity_name": "update_campaign",
+      "field_name": "order",
+      "enum_name": "update_campaign_order_enum",
+      "values": [
+        "ASC",
+        "DESC"
+      ],
+      "group_id": "Device_Update",
+      "_key": "update_campaign_order_enum"
     },
     {
       "entity_name": "user_invitation",
@@ -1802,6 +1865,8 @@
           },
           "operation_id": "createAccount",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -2994,6 +3059,8 @@
           },
           "operation_id": "getAllAccounts",
           "pagination": true,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -4156,6 +4223,8 @@
           "operation_id": "getMyAccountInfo",
           "notes": "This is provided by the SDK to avoid listing to retrieve the user's own Account.",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "me"
         },
         {
@@ -5400,6 +5469,8 @@
           },
           "operation_id": "getAccountInfo",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         },
         {
@@ -6031,6 +6102,8 @@
             "entity": "subtenant_trusted_certificate"
           },
           "pagination": true,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "trusted_certificates"
         },
         {
@@ -7584,6 +7657,8 @@
             }
           ],
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "update"
         },
         {
@@ -8147,6 +8222,8 @@
             "entity": "subtenant_user_invitation"
           },
           "pagination": true,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "user_invitations"
         },
         {
@@ -8957,6 +9034,8 @@
             "entity": "subtenant_user"
           },
           "pagination": true,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "users"
         }
       ],
@@ -9976,6 +10055,8 @@
           },
           "operation_id": "createApiKey",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -10248,6 +10329,8 @@
           },
           "operation_id": "deleteApiKey",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -10697,6 +10780,8 @@
             "group": "Accounts",
             "entity": "api_key"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -11028,6 +11113,8 @@
           "operation_id": "getMyApiKey",
           "notes": "This is provided by the SDK to avoid listing to retrieve the user's own API Key.",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "me"
         },
         {
@@ -11442,6 +11529,8 @@
           },
           "operation_id": "getApiKey",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         },
         {
@@ -11970,6 +12059,8 @@
             }
           ],
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "update"
         }
       ],
@@ -12081,6 +12172,320 @@
       ],
       "group_id": "Accounts",
       "_key": "api_key"
+    },
+    {
+      "swagger_models": [
+        "CampaignDeviceMetadata"
+      ],
+      "primary_key_field": "id",
+      "methods": [
+        {
+          "description": "Get update campaign metadata.",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "description": "The device's campaign ID",
+              "example": "015bf72fccda00000000000100100280",
+              "api_fieldname": "campaign",
+              "entity_fieldname": "campaign",
+              "parameter_fieldname": "campaign_id",
+              "in": "path",
+              "required": true,
+              "_key": "campaign"
+            },
+            {
+              "type": "string",
+              "description": "The metadata record ID",
+              "example": "015c3029f6f7000000000001001000c3",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "campaign_device_metadata_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
+            }
+          ],
+          "method": "get",
+          "mode": "read",
+          "responses": [
+            {
+              "description": "Request successful",
+              "schema": {
+                "type": "object",
+                "properties": [
+                  {
+                    "type": "string",
+                    "description": "The device's campaign ID",
+                    "example": "015bf72fccda00000000000100100280",
+                    "api_fieldname": "campaign",
+                    "entity_fieldname": "campaign",
+                    "_key": "campaign"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The time the campaign was created",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "description": "The state of the update campaign on the device",
+                    "enum": [
+                      "pending",
+                      "updated_connector_channel",
+                      "failed_connector_channel_update",
+                      "deployed",
+                      "manifestremoved",
+                      "deregistered"
+                    ],
+                    "type": "string",
+                    "api_fieldname": "deployment_state",
+                    "entity_fieldname": "deployment_state",
+                    "_key": "deployment_state"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "Description",
+                    "example": "",
+                    "api_fieldname": "description",
+                    "entity_fieldname": "description",
+                    "_key": "description"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The device ID",
+                    "example": "015c2fec9bba0000000000010010036f",
+                    "api_fieldname": "device_id",
+                    "entity_fieldname": "device_id",
+                    "_key": "device_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "API resource entity version",
+                    "example": "2017-05-22T12:37:58.753425Z",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The metadata record ID",
+                    "example": "015c3029f6f7000000000001001000c3",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "How the firmware is delivered (connector or direct)",
+                    "example": "connector",
+                    "api_fieldname": "mechanism",
+                    "entity_fieldname": "mechanism",
+                    "_key": "mechanism"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The Device Management Connect URL",
+                    "example": "",
+                    "api_fieldname": "mechanism_url",
+                    "entity_fieldname": "mechanism_url",
+                    "_key": "mechanism_url"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 128,
+                    "description": "The record name",
+                    "example": "default_object_name",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "_key": "name"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The entity name: always 'update-campaign-device-metadata'",
+                    "example": "update-campaign-device-metadata",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The record was modified in the database format: date-time",
+                    "example": "2017-05-22T12:37:58.776736Z",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  }
+                ],
+                "foreign_key": {
+                  "group": "Device_Update",
+                  "entity": "campaign_device_metadata"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Unauthorized",
+              "_key": "401"
+            },
+            {
+              "description": "Not Found",
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/",
+          "summary": "Get a campaign device metadata",
+          "return_type": "campaign_device_metadata",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "campaign_device_metadata"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "created_at",
+            "deployment_state",
+            "description",
+            "device_id",
+            "mechanism",
+            "mechanism_url",
+            "name",
+            "updated_at"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "campaign_device_metadata_id": "id",
+            "campaign_id": "campaign"
+          },
+          "operation_id": "Update_Campaign_Metadata_retrieve",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "read"
+        }
+      ],
+      "fields": [
+        {
+          "type": "string",
+          "description": "The device's campaign ID",
+          "example": "015bf72fccda00000000000100100280",
+          "api_fieldname": "campaign",
+          "readOnly": false,
+          "required": true,
+          "_key": "campaign"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time the campaign was created",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "api_fieldname": "created_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "created_at"
+        },
+        {
+          "description": "The state of the update campaign on the device",
+          "enum": [
+            "pending",
+            "updated_connector_channel",
+            "failed_connector_channel_update",
+            "deployed",
+            "manifestremoved",
+            "deregistered"
+          ],
+          "type": "string",
+          "api_fieldname": "deployment_state",
+          "readOnly": true,
+          "required": false,
+          "enum_reference": "campaign_device_metadata_deployment_state_enum",
+          "_key": "deployment_state"
+        },
+        {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "Description",
+          "example": "",
+          "api_fieldname": "description",
+          "readOnly": true,
+          "required": false,
+          "_key": "description"
+        },
+        {
+          "type": "string",
+          "description": "The device ID",
+          "example": "015c2fec9bba0000000000010010036f",
+          "api_fieldname": "device_id",
+          "readOnly": true,
+          "required": false,
+          "_key": "device_id"
+        },
+        {
+          "type": "string",
+          "description": "The metadata record ID",
+          "example": "015c3029f6f7000000000001001000c3",
+          "api_fieldname": "id",
+          "readOnly": false,
+          "required": true,
+          "_key": "id"
+        },
+        {
+          "type": "string",
+          "description": "How the firmware is delivered (connector or direct)",
+          "example": "connector",
+          "api_fieldname": "mechanism",
+          "readOnly": true,
+          "required": false,
+          "_key": "mechanism"
+        },
+        {
+          "type": "string",
+          "description": "The Device Management Connect URL",
+          "example": "",
+          "api_fieldname": "mechanism_url",
+          "readOnly": true,
+          "required": false,
+          "_key": "mechanism_url"
+        },
+        {
+          "type": "string",
+          "maxLength": 128,
+          "description": "The record name",
+          "example": "default_object_name",
+          "api_fieldname": "name",
+          "readOnly": true,
+          "required": false,
+          "_key": "name"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "description": "The record was modified in the database format: date-time",
+          "example": "2017-05-22T12:37:58.776736Z",
+          "api_fieldname": "updated_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "updated_at"
+        }
+      ],
+      "field_renames": [],
+      "tags": [],
+      "group_id": "Device_Update",
+      "_key": "campaign_device_metadata"
     },
     {
       "swagger_models": [
@@ -12605,6 +13010,8 @@
             "group": "Security",
             "entity": "certificate_enrollment"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -13034,6 +13441,8 @@
           },
           "operation_id": "getCertificateEnrollment",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         }
       ],
@@ -13663,6 +14072,8 @@
           },
           "operation_id": "createCertificateIssuer",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -13968,6 +14379,8 @@
           },
           "operation_id": "deleteCertificateIssuer",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -14349,6 +14762,8 @@
             "group": "Security",
             "entity": "certificate_issuer"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -14745,6 +15160,8 @@
           },
           "operation_id": "getCertificateIssuer",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         },
         {
@@ -15319,6 +15736,8 @@
           },
           "operation_id": "updateCertificateIssuer",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "update"
         },
         {
@@ -15719,6 +16138,8 @@
             "group": "Security"
           },
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "verify"
         }
       ],
@@ -16201,6 +16622,8 @@
           },
           "operation_id": "createCertificateIssuerConfig",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -16511,6 +16934,8 @@
           },
           "operation_id": "deleteCertificateIssuerConfigByID",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -16825,6 +17250,8 @@
           },
           "operation_id": "getCertificateIssuerConfig",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "get_default"
         },
         {
@@ -17252,6 +17679,8 @@
             "group": "Security",
             "entity": "certificate_issuer_config"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -17640,6 +18069,8 @@
           },
           "operation_id": "getCertificateIssuerConfigByID",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         },
         {
@@ -18044,6 +18475,8 @@
             }
           ],
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "update"
         }
       ],
@@ -18631,6 +19064,8 @@
           },
           "operation_id": "createDeveloperCertificate",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -18913,6 +19348,8 @@
           },
           "operation_id": "deleteCertificate",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -19418,6 +19855,8 @@
             "group": "Security"
           },
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "get_trusted_certificate_info"
         },
         {
@@ -19818,6 +20257,8 @@
           },
           "operation_id": "getDeveloperCertificate",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         }
       ],
@@ -20535,6 +20976,8 @@
           "group_id": "Devices",
           "operation_id": "Device_create",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -20596,6 +21039,8 @@
           "group_id": "Devices",
           "operation_id": "Device_destroy",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -20974,11 +21419,9 @@
             ],
             "auto_update": [
               "eq",
-              "neq",
-              "in",
-              "nin"
+              "neq"
             ],
-            "bootstrapped_expiration_date": [
+            "bootstrap_expiration_date": [
               "in",
               "nin",
               "lte",
@@ -21007,10 +21450,6 @@
               "nin",
               "lte",
               "gte"
-            ],
-            "custom_attributes": [
-              "eq",
-              "neq"
             ],
             "deployed_state": [
               "eq",
@@ -21060,7 +21499,7 @@
               "in",
               "nin"
             ],
-            "enrollment_list_timestamp": [
+            "enrolment_list_timestamp": [
               "in",
               "nin",
               "lte",
@@ -21158,12 +21597,10 @@
             "account_id__nin",
             "auto_update__eq",
             "auto_update__neq",
-            "auto_update__in",
-            "auto_update__nin",
-            "bootstrapped_expiration_date__in",
-            "bootstrapped_expiration_date__nin",
-            "bootstrapped_expiration_date__lte",
-            "bootstrapped_expiration_date__gte",
+            "bootstrap_expiration_date__in",
+            "bootstrap_expiration_date__nin",
+            "bootstrap_expiration_date__lte",
+            "bootstrap_expiration_date__gte",
             "bootstrapped_timestamp__in",
             "bootstrapped_timestamp__nin",
             "bootstrapped_timestamp__lte",
@@ -21180,8 +21617,6 @@
             "created_at__nin",
             "created_at__lte",
             "created_at__gte",
-            "custom_attributes__eq",
-            "custom_attributes__neq",
             "deployed_state__eq",
             "deployed_state__neq",
             "deployed_state__in",
@@ -21214,10 +21649,10 @@
             "endpoint_type__neq",
             "endpoint_type__in",
             "endpoint_type__nin",
-            "enrollment_list_timestamp__in",
-            "enrollment_list_timestamp__nin",
-            "enrollment_list_timestamp__lte",
-            "enrollment_list_timestamp__gte",
+            "enrolment_list_timestamp__in",
+            "enrolment_list_timestamp__nin",
+            "enrolment_list_timestamp__lte",
+            "enrolment_list_timestamp__gte",
             "firmware_checksum__eq",
             "firmware_checksum__neq",
             "firmware_checksum__in",
@@ -21276,6 +21711,8 @@
             "entity": "device",
             "_key": "foreign_key"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -21648,6 +22085,8 @@
           "group_id": "Devices",
           "operation_id": "Device_retrieve",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         },
         {
@@ -22214,6 +22653,8 @@
             "group": "Security"
           },
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "renew_certificate"
         },
         {
@@ -22689,6 +23130,8 @@
           "group_id": "Devices",
           "operation_id": "Device_update",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "update"
         }
       ],
@@ -23388,6 +23831,8 @@
           "group_id": "Devices",
           "operation_id": "createDeviceEnrollment",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -23584,6 +24029,8 @@
           "group_id": "Devices",
           "operation_id": "deleteDeviceEnrollment",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -23997,6 +24444,8 @@
             "group": "Devices",
             "entity": "device_enrollment"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -24296,6 +24745,8 @@
           "group_id": "Devices",
           "operation_id": "getDeviceEnrollment",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         }
       ],
@@ -24712,6 +25163,8 @@
           "group_id": "Devices",
           "operation_id": "createBulkDeviceEnrollment",
           "pagination": false,
+          "request_content_type": "multipart/form-data",
+          "request_body": "file",
           "_key": "create"
         },
         {
@@ -24748,6 +25201,8 @@
             "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
             "return_type": "file"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "download_errors_report_file"
         },
         {
@@ -24784,6 +25239,8 @@
             "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
             "return_type": "file"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "download_full_report_file"
         },
         {
@@ -25189,6 +25646,8 @@
           "group_id": "Devices",
           "operation_id": "getBulkDeviceEnrollment",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         }
       ],
@@ -25639,6 +26098,8 @@
           "group_id": "Devices",
           "operation_id": "deleteBulkDeviceEnrollment",
           "pagination": false,
+          "request_content_type": "multipart/form-data",
+          "request_body": "file",
           "_key": "delete"
         },
         {
@@ -25675,6 +26136,8 @@
             "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
             "return_type": "file"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "download_errors_report_file"
         },
         {
@@ -25711,6 +26174,8 @@
             "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
             "return_type": "file"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "download_full_report_file"
         },
         {
@@ -26119,6 +26584,8 @@
           "group_id": "Devices",
           "operation_id": "getBulkDeviceEnrollmentDelete",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         }
       ],
@@ -26611,6 +27078,8 @@
             "group": "Devices",
             "entity": "device_enrollment_denial"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -26881,6 +27350,8 @@
           "group_id": "Devices",
           "operation_id": "getEnrollmentDenialAttempt",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         }
       ],
@@ -27225,9 +27696,7 @@
             ],
             "state_change": [
               "eq",
-              "neq",
-              "in",
-              "nin"
+              "neq"
             ]
           },
           "x_deprecation": null,
@@ -27264,9 +27733,7 @@
             "event_type__in",
             "event_type__nin",
             "state_change__eq",
-            "state_change__neq",
-            "state_change__in",
-            "state_change__nin"
+            "state_change__neq"
           ],
           "foreign_key_priority": "self",
           "group_id": "Devices",
@@ -27276,6 +27743,8 @@
             "group": "Devices",
             "entity": "device_events"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -27474,6 +27943,8 @@
             "device_event_id": "id"
           },
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         }
       ],
@@ -27591,6 +28062,1954 @@
       "tags": [],
       "group_id": "Devices",
       "_key": "device_events"
+    },
+    {
+      "swagger_models": [
+        "FirmwareImage",
+        "FirmwareImagePage"
+      ],
+      "primary_key_field": "id",
+      "methods": [
+        {
+          "description": "Delete a firmware image.",
+          "field_renames": [
+            {
+              "api_fieldname": "datafile",
+              "_key": "datafile_url"
+            }
+          ],
+          "fields": [
+            {
+              "description": "The firmware image ID",
+              "in": "path",
+              "name": "image_id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "image_id",
+              "external_param": false,
+              "parameter_fieldname": "image_id",
+              "_key": "id"
+            }
+          ],
+          "method": "delete",
+          "mode": "delete",
+          "responses": [
+            {
+              "description": "Firmware image deleted",
+              "_key": "204"
+            },
+            {
+              "description": "Bad Request",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Firmware image not found",
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/firmware-images/{image_id}/",
+          "summary": "Delete an image",
+          "return_type": "firmware_image",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "firmware_image"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "image_id": "id"
+          },
+          "operation_id": "Firmware_Image_destroy",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "delete"
+        },
+        {
+          "description": "List all firmware images.",
+          "field_renames": [
+            {
+              "api_fieldname": "datafile",
+              "_key": "datafile_url"
+            }
+          ],
+          "fields": [
+            {
+              "type": "string",
+              "example": null,
+              "api_fieldname": "after",
+              "entity_fieldname": "after",
+              "description": "The ID of the the item after which to retrieve the next page",
+              "in": "query",
+              "name": "after",
+              "external_param": true,
+              "parameter_fieldname": "after",
+              "required": false,
+              "_key": "after"
+            },
+            {
+              "description": "A comma-separated list of data fields to return. Currently supported: total_count",
+              "in": "query",
+              "name": "include",
+              "type": "string",
+              "entity_fieldname": "include",
+              "api_fieldname": "include",
+              "external_param": true,
+              "parameter_fieldname": "include",
+              "required": false,
+              "_key": "include"
+            },
+            {
+              "format": "int32",
+              "type": "integer",
+              "api_fieldname": "limit",
+              "entity_fieldname": "limit",
+              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "in": "query",
+              "name": "limit",
+              "minimum": 2,
+              "maximum": 1000,
+              "external_param": true,
+              "parameter_fieldname": "limit",
+              "required": false,
+              "_key": "limit"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "description": "ASC or DESC",
+              "example": "ASC",
+              "api_fieldname": "order",
+              "entity_fieldname": "order",
+              "in": "query",
+              "name": "order",
+              "external_param": true,
+              "parameter_fieldname": "order",
+              "required": false,
+              "enum_reference": "firmware_image_order_enum",
+              "_key": "order"
+            }
+          ],
+          "method": "get",
+          "mode": "list",
+          "responses": [
+            {
+              "description": "Request successful",
+              "schema": {
+                "properties": [
+                  {
+                    "type": "string",
+                    "example": null,
+                    "api_fieldname": "after",
+                    "entity_fieldname": "after",
+                    "_key": "after"
+                  },
+                  {
+                    "items": {
+                      "properties": [
+                        {
+                          "description": "The time the object was created",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "_key": "created_at"
+                        },
+                        {
+                          "description": "The firmware image file URL",
+                          "type": "string",
+                          "example": "http://example.com/00000000000000000000000000000000",
+                          "_key": "datafile"
+                        },
+                        {
+                          "description": "The checksum (sha256) generated for the datafile",
+                          "type": "string",
+                          "example": "0000000000000000000000000000000000000000000000000000000000000000",
+                          "_key": "datafile_checksum"
+                        },
+                        {
+                          "description": "The size of the datafile in bytes",
+                          "format": "int64",
+                          "type": "integer",
+                          "_key": "datafile_size"
+                        },
+                        {
+                          "description": "The description of the object",
+                          "type": "string",
+                          "maxLength": 2000,
+                          "example": "",
+                          "_key": "description"
+                        },
+                        {
+                          "description": "The entity instance signature",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "_key": "etag"
+                        },
+                        {
+                          "description": "The firmware image ID",
+                          "type": "string",
+                          "example": "00000000000000000000000000000000",
+                          "_key": "id"
+                        },
+                        {
+                          "description": "The firmware image name",
+                          "type": "string",
+                          "maxLength": 128,
+                          "example": "",
+                          "_key": "name"
+                        },
+                        {
+                          "description": "The API resource entity",
+                          "type": "string",
+                          "example": "firmware-image",
+                          "_key": "object"
+                        },
+                        {
+                          "description": "The time the object was updated",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "_key": "updated_at"
+                        }
+                      ],
+                      "required": [
+                        "created_at",
+                        "datafile",
+                        "datafile_checksum",
+                        "description",
+                        "etag",
+                        "id",
+                        "name",
+                        "object",
+                        "updated_at"
+                      ],
+                      "foreign_key": {
+                        "group": "Device_Update",
+                        "entity": "firmware_image"
+                      }
+                    },
+                    "type": "array",
+                    "example": "[]",
+                    "api_fieldname": "data",
+                    "entity_fieldname": "data",
+                    "_key": "data"
+                  },
+                  {
+                    "type": "boolean",
+                    "api_fieldname": "has_more",
+                    "entity_fieldname": "has_more",
+                    "_key": "has_more"
+                  },
+                  {
+                    "format": "int32",
+                    "type": "integer",
+                    "api_fieldname": "limit",
+                    "entity_fieldname": "limit",
+                    "_key": "limit"
+                  },
+                  {
+                    "type": "string",
+                    "example": "list",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "ASC",
+                      "DESC"
+                    ],
+                    "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+                    "example": "ASC",
+                    "api_fieldname": "order",
+                    "entity_fieldname": "order",
+                    "_key": "order"
+                  },
+                  {
+                    "format": "int32",
+                    "type": "integer",
+                    "api_fieldname": "total_count",
+                    "entity_fieldname": "total_count",
+                    "_key": "total_count"
+                  }
+                ],
+                "pagination": true,
+                "foreign_key": {
+                  "group": "Device_Update",
+                  "entity": "firmware_image"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Bad Request",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Unable to find content",
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/firmware-images/",
+          "summary": "List all images",
+          "return_type": "paginated_response(firmware_image)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "firmware_image"
+          },
+          "x_filter": {
+            "created_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "datafile_url": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "datafile_checksum": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "datafile_size": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "description": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ]
+          },
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "data",
+            "has_more",
+            "total_count",
+            "created_at__in",
+            "created_at__nin",
+            "created_at__lte",
+            "created_at__gte",
+            "datafile__eq",
+            "datafile__neq",
+            "datafile__in",
+            "datafile__nin",
+            "datafile_checksum__eq",
+            "datafile_checksum__neq",
+            "datafile_checksum__in",
+            "datafile_checksum__nin",
+            "datafile_size__eq",
+            "datafile_size__neq",
+            "datafile_size__in",
+            "datafile_size__nin",
+            "description__eq",
+            "description__neq",
+            "description__in",
+            "description__nin",
+            "id__eq",
+            "id__neq",
+            "id__in",
+            "id__nin",
+            "name__eq",
+            "name__neq",
+            "name__in",
+            "name__nin",
+            "updated_at__in",
+            "updated_at__nin",
+            "updated_at__lte",
+            "updated_at__gte"
+          ],
+          "foreign_key_priority": "self",
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "image_id": "id"
+          },
+          "operation_id": "Firmware_Image_list",
+          "pagination": true,
+          "foreign_key": {
+            "group": "Device_Update",
+            "entity": "firmware_image"
+          },
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "list"
+        },
+        {
+          "description": "Retrieve a firmware image.",
+          "field_renames": [
+            {
+              "api_fieldname": "datafile",
+              "_key": "datafile_url"
+            }
+          ],
+          "fields": [
+            {
+              "description": "The firmware image ID",
+              "type": "string",
+              "example": "00000000000000000000000000000000",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "image_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
+            }
+          ],
+          "method": "get",
+          "mode": "read",
+          "responses": [
+            {
+              "description": "Retrieved result successfully",
+              "schema": {
+                "properties": [
+                  {
+                    "description": "The time the object was created",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "description": "The firmware image file URL",
+                    "type": "string",
+                    "example": "http://example.com/00000000000000000000000000000000",
+                    "api_fieldname": "datafile",
+                    "entity_fieldname": "datafile_url",
+                    "_key": "datafile"
+                  },
+                  {
+                    "description": "The checksum (sha256) generated for the datafile",
+                    "type": "string",
+                    "example": "0000000000000000000000000000000000000000000000000000000000000000",
+                    "api_fieldname": "datafile_checksum",
+                    "entity_fieldname": "datafile_checksum",
+                    "_key": "datafile_checksum"
+                  },
+                  {
+                    "description": "The size of the datafile in bytes",
+                    "format": "int64",
+                    "type": "integer",
+                    "api_fieldname": "datafile_size",
+                    "entity_fieldname": "datafile_size",
+                    "_key": "datafile_size"
+                  },
+                  {
+                    "description": "The description of the object",
+                    "type": "string",
+                    "maxLength": 2000,
+                    "example": "",
+                    "api_fieldname": "description",
+                    "entity_fieldname": "description",
+                    "_key": "description"
+                  },
+                  {
+                    "description": "The entity instance signature",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "description": "The firmware image ID",
+                    "type": "string",
+                    "example": "00000000000000000000000000000000",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "description": "The firmware image name",
+                    "type": "string",
+                    "maxLength": 128,
+                    "example": "",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "_key": "name"
+                  },
+                  {
+                    "description": "The API resource entity",
+                    "type": "string",
+                    "example": "firmware-image",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "description": "The time the object was updated",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  }
+                ],
+                "required": [
+                  "created_at",
+                  "datafile",
+                  "datafile_checksum",
+                  "description",
+                  "etag",
+                  "id",
+                  "name",
+                  "object",
+                  "updated_at"
+                ],
+                "foreign_key": {
+                  "group": "Device_Update",
+                  "entity": "firmware_image"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Bad Request",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Firmware image can't be found",
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/firmware-images/{image_id}/",
+          "summary": "Get an image",
+          "return_type": "firmware_image",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "firmware_image"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "created_at",
+            "datafile_checksum",
+            "datafile_size",
+            "description",
+            "name",
+            "updated_at",
+            "datafile_url"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "image_id": "id"
+          },
+          "operation_id": "Firmware_Image_retrieve",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "read"
+        },
+        {
+          "description": "Create a firmware image.",
+          "field_renames": [
+            {
+              "api_fieldname": "datafile",
+              "_key": "datafile_url"
+            }
+          ],
+          "fields": [
+            {
+              "description": "The description of the object",
+              "type": "string",
+              "maxLength": 2000,
+              "example": "",
+              "api_fieldname": "description",
+              "entity_fieldname": "description",
+              "parameter_fieldname": "description",
+              "in": "stream",
+              "required": false,
+              "_key": "description"
+            },
+            {
+              "description": "The firmware image file to upload",
+              "in": "stream",
+              "name": "datafile",
+              "required": true,
+              "type": "file",
+              "entity_fieldname": "firmware_image_file",
+              "api_fieldname": "datafile",
+              "external_param": true,
+              "parameter_fieldname": "datafile",
+              "_key": "firmware_image_file"
+            },
+            {
+              "description": "The firmware image name",
+              "type": "string",
+              "maxLength": 128,
+              "example": "",
+              "api_fieldname": "name",
+              "entity_fieldname": "name",
+              "parameter_fieldname": "name",
+              "in": "stream",
+              "required": false,
+              "_key": "name"
+            }
+          ],
+          "method": "post",
+          "mode": "upload",
+          "responses": [
+            {
+              "description": "Firmware image created. The API gateway enforces the account-specific file size.",
+              "schema": {
+                "properties": [
+                  {
+                    "description": "The time the object was created",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "description": "The firmware image file URL",
+                    "type": "string",
+                    "example": "http://example.com/00000000000000000000000000000000",
+                    "api_fieldname": "datafile",
+                    "entity_fieldname": "datafile_url",
+                    "_key": "datafile"
+                  },
+                  {
+                    "description": "The checksum (sha256) generated for the datafile",
+                    "type": "string",
+                    "example": "0000000000000000000000000000000000000000000000000000000000000000",
+                    "api_fieldname": "datafile_checksum",
+                    "entity_fieldname": "datafile_checksum",
+                    "_key": "datafile_checksum"
+                  },
+                  {
+                    "description": "The size of the datafile in bytes",
+                    "format": "int64",
+                    "type": "integer",
+                    "api_fieldname": "datafile_size",
+                    "entity_fieldname": "datafile_size",
+                    "_key": "datafile_size"
+                  },
+                  {
+                    "description": "The description of the object",
+                    "type": "string",
+                    "maxLength": 2000,
+                    "example": "",
+                    "api_fieldname": "description",
+                    "entity_fieldname": "description",
+                    "_key": "description"
+                  },
+                  {
+                    "description": "The entity instance signature",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "description": "The firmware image ID",
+                    "type": "string",
+                    "example": "00000000000000000000000000000000",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "description": "The firmware image name",
+                    "type": "string",
+                    "maxLength": 128,
+                    "example": "",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "_key": "name"
+                  },
+                  {
+                    "description": "The API resource entity",
+                    "type": "string",
+                    "example": "firmware-image",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "description": "The time the object was updated",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  }
+                ],
+                "required": [
+                  "created_at",
+                  "datafile",
+                  "datafile_checksum",
+                  "description",
+                  "etag",
+                  "id",
+                  "name",
+                  "object",
+                  "updated_at"
+                ],
+                "foreign_key": {
+                  "group": "Device_Update",
+                  "entity": "firmware_image"
+                }
+              },
+              "_key": "201"
+            },
+            {
+              "description": "Cannot validate the data used to create the firmware image.",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden",
+              "_key": "403"
+            },
+            {
+              "description": "Firmware image too large.",
+              "_key": "413"
+            }
+          ],
+          "path": "/v3/firmware-images/",
+          "summary": "Create an image",
+          "return_type": "firmware_image",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "firmware_image"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "created_at",
+            "datafile_checksum",
+            "datafile_size",
+            "id",
+            "updated_at",
+            "datafile_url"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "image_id": "id",
+            "datafile": "firmware_image_file"
+          },
+          "operation_id": "Firmware_Image_create",
+          "notes": "This is not a standard create method as it uploads a file which creates an entity which contains URIs to the uploaded file.",
+          "unaggregated": true,
+          "pagination": false,
+          "request_content_type": "multipart/form-data",
+          "request_body": "file",
+          "_key": "upload"
+        }
+      ],
+      "fields": [
+        {
+          "description": "The time the object was created",
+          "format": "date-time",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "type": "string",
+          "api_fieldname": "created_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "created_at"
+        },
+        {
+          "description": "The checksum (sha256) generated for the datafile",
+          "type": "string",
+          "example": "0000000000000000000000000000000000000000000000000000000000000000",
+          "api_fieldname": "datafile_checksum",
+          "readOnly": true,
+          "required": false,
+          "_key": "datafile_checksum"
+        },
+        {
+          "description": "The size of the datafile in bytes",
+          "format": "int64",
+          "type": "integer",
+          "api_fieldname": "datafile_size",
+          "readOnly": true,
+          "required": false,
+          "_key": "datafile_size"
+        },
+        {
+          "description": "The firmware image file URL",
+          "type": "string",
+          "example": "http://example.com/00000000000000000000000000000000",
+          "api_fieldname": "datafile",
+          "readOnly": true,
+          "required": false,
+          "_key": "datafile_url"
+        },
+        {
+          "description": "The description of the object",
+          "type": "string",
+          "maxLength": 2000,
+          "example": "",
+          "api_fieldname": "description",
+          "readOnly": false,
+          "required": false,
+          "_key": "description"
+        },
+        {
+          "description": "The firmware image ID",
+          "type": "string",
+          "example": "00000000000000000000000000000000",
+          "api_fieldname": "id",
+          "readOnly": false,
+          "required": true,
+          "_key": "id"
+        },
+        {
+          "description": "The firmware image name",
+          "type": "string",
+          "maxLength": 128,
+          "example": "",
+          "api_fieldname": "name",
+          "readOnly": false,
+          "required": false,
+          "_key": "name"
+        },
+        {
+          "description": "The time the object was updated",
+          "format": "date-time",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "type": "string",
+          "api_fieldname": "updated_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "updated_at"
+        }
+      ],
+      "field_renames": [
+        {
+          "api_fieldname": "datafile",
+          "_key": "datafile_url"
+        }
+      ],
+      "tags": [],
+      "group_id": "Device_Update",
+      "_key": "firmware_image"
+    },
+    {
+      "swagger_models": [
+        "FirmwareManifest",
+        "FirmwareManifestPage"
+      ],
+      "primary_key_field": "id",
+      "methods": [
+        {
+          "description": "Delete a firmware manifest.",
+          "field_renames": [
+            {
+              "api_fieldname": "datafile",
+              "_key": "datafile_url"
+            },
+            {
+              "api_fieldname": "key_table",
+              "_key": "key_table_url"
+            }
+          ],
+          "fields": [
+            {
+              "description": "The firmware manifest ID",
+              "in": "path",
+              "name": "manifest_id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "manifest_id",
+              "external_param": false,
+              "parameter_fieldname": "manifest_id",
+              "_key": "id"
+            }
+          ],
+          "method": "delete",
+          "mode": "delete",
+          "responses": [
+            {
+              "description": "Firmware manifest deleted",
+              "_key": "204"
+            },
+            {
+              "description": "Bad Request",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Firmware manifest not found",
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/firmware-manifests/{manifest_id}/",
+          "summary": "Delete a manifest",
+          "return_type": "firmware_manifest",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "firmware_manifest"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "manifest_id": "id"
+          },
+          "operation_id": "Firmware_Manifest_destroy",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "delete"
+        },
+        {
+          "description": "List firmware manifests.",
+          "field_renames": [
+            {
+              "api_fieldname": "datafile",
+              "_key": "datafile_url"
+            },
+            {
+              "api_fieldname": "key_table",
+              "_key": "key_table_url"
+            }
+          ],
+          "fields": [
+            {
+              "type": "string",
+              "example": null,
+              "api_fieldname": "after",
+              "entity_fieldname": "after",
+              "description": "The ID of the the item after which to retrieve the next page",
+              "in": "query",
+              "name": "after",
+              "external_param": true,
+              "parameter_fieldname": "after",
+              "required": false,
+              "_key": "after"
+            },
+            {
+              "description": "A comma-separated list of data fields to return. Currently supported: total_count",
+              "in": "query",
+              "name": "include",
+              "type": "string",
+              "entity_fieldname": "include",
+              "api_fieldname": "include",
+              "external_param": true,
+              "parameter_fieldname": "include",
+              "required": false,
+              "_key": "include"
+            },
+            {
+              "format": "int32",
+              "type": "integer",
+              "api_fieldname": "limit",
+              "entity_fieldname": "limit",
+              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "in": "query",
+              "name": "limit",
+              "minimum": 2,
+              "maximum": 1000,
+              "external_param": true,
+              "parameter_fieldname": "limit",
+              "required": false,
+              "_key": "limit"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "description": "ASC or DESC",
+              "example": "ASC",
+              "api_fieldname": "order",
+              "entity_fieldname": "order",
+              "in": "query",
+              "name": "order",
+              "external_param": true,
+              "parameter_fieldname": "order",
+              "required": false,
+              "enum_reference": "firmware_manifest_order_enum",
+              "_key": "order"
+            }
+          ],
+          "method": "get",
+          "mode": "list",
+          "responses": [
+            {
+              "description": "Request successful",
+              "schema": {
+                "properties": [
+                  {
+                    "type": "string",
+                    "example": null,
+                    "api_fieldname": "after",
+                    "entity_fieldname": "after",
+                    "_key": "after"
+                  },
+                  {
+                    "items": {
+                      "properties": [
+                        {
+                          "description": "The time the object was created",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "_key": "created_at"
+                        },
+                        {
+                          "description": "The URL of the firmware manifest binary",
+                          "type": "string",
+                          "example": "http://example.com/00000000000000000000000000000000",
+                          "_key": "datafile"
+                        },
+                        {
+                          "description": "The size of the datafile in bytes",
+                          "format": "int64",
+                          "type": "integer",
+                          "_key": "datafile_size"
+                        },
+                        {
+                          "description": "The description of the firmware manifest",
+                          "type": "string",
+                          "maxLength": 2000,
+                          "example": "",
+                          "_key": "description"
+                        },
+                        {
+                          "description": "The class of the device",
+                          "type": "string",
+                          "example": "00000000-0000-0000-0000-000000000000",
+                          "_key": "device_class"
+                        },
+                        {
+                          "description": "The entity instance signature",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "_key": "etag"
+                        },
+                        {
+                          "description": "The firmware manifest ID",
+                          "type": "string",
+                          "example": "00000000000000000000000000000000",
+                          "_key": "id"
+                        },
+                        {
+                          "description": "The key table of pre-shared keys for devices",
+                          "type": "string",
+                          "format": "uri",
+                          "example": "http://example.com",
+                          "_key": "key_table"
+                        },
+                        {
+                          "description": "The name of the object",
+                          "type": "string",
+                          "maxLength": 128,
+                          "example": "",
+                          "_key": "name"
+                        },
+                        {
+                          "description": "The API resource entity",
+                          "type": "string",
+                          "example": "firmware-manifest",
+                          "_key": "object"
+                        },
+                        {
+                          "description": "The firmware manifest version as a timestamp",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "_key": "timestamp"
+                        },
+                        {
+                          "description": "The time the object was updated",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "_key": "updated_at"
+                        }
+                      ],
+                      "required": [
+                        "created_at",
+                        "datafile",
+                        "description",
+                        "device_class",
+                        "etag",
+                        "id",
+                        "name",
+                        "object",
+                        "timestamp",
+                        "updated_at"
+                      ],
+                      "foreign_key": {
+                        "group": "Device_Update",
+                        "entity": "firmware_manifest"
+                      }
+                    },
+                    "type": "array",
+                    "example": "[]",
+                    "api_fieldname": "data",
+                    "entity_fieldname": "data",
+                    "_key": "data"
+                  },
+                  {
+                    "type": "boolean",
+                    "api_fieldname": "has_more",
+                    "entity_fieldname": "has_more",
+                    "_key": "has_more"
+                  },
+                  {
+                    "format": "int32",
+                    "type": "integer",
+                    "api_fieldname": "limit",
+                    "entity_fieldname": "limit",
+                    "_key": "limit"
+                  },
+                  {
+                    "type": "string",
+                    "example": "list",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "ASC",
+                      "DESC"
+                    ],
+                    "description": "The order of the records to return. Acceptable values: ASC, DESC. Default: ASC",
+                    "example": "ASC",
+                    "api_fieldname": "order",
+                    "entity_fieldname": "order",
+                    "_key": "order"
+                  },
+                  {
+                    "format": "int32",
+                    "type": "integer",
+                    "api_fieldname": "total_count",
+                    "entity_fieldname": "total_count",
+                    "_key": "total_count"
+                  }
+                ],
+                "pagination": true,
+                "foreign_key": {
+                  "group": "Device_Update",
+                  "entity": "firmware_manifest"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Bad Request",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Unable to find content",
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/firmware-manifests/",
+          "summary": "List manifests",
+          "return_type": "paginated_response(firmware_manifest)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "firmware_manifest"
+          },
+          "x_filter": {
+            "created_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "datafile_url": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "datafile_size": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "description": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_class": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ]
+          },
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "data",
+            "has_more",
+            "total_count",
+            "created_at__in",
+            "created_at__nin",
+            "created_at__lte",
+            "created_at__gte",
+            "datafile__eq",
+            "datafile__neq",
+            "datafile__in",
+            "datafile__nin",
+            "datafile_size__eq",
+            "datafile_size__neq",
+            "datafile_size__in",
+            "datafile_size__nin",
+            "description__eq",
+            "description__neq",
+            "description__in",
+            "description__nin",
+            "device_class__eq",
+            "device_class__neq",
+            "device_class__in",
+            "device_class__nin",
+            "id__eq",
+            "id__neq",
+            "id__in",
+            "id__nin",
+            "name__eq",
+            "name__neq",
+            "name__in",
+            "name__nin",
+            "timestamp__in",
+            "timestamp__nin",
+            "timestamp__lte",
+            "timestamp__gte",
+            "updated_at__in",
+            "updated_at__nin",
+            "updated_at__lte",
+            "updated_at__gte"
+          ],
+          "foreign_key_priority": "self",
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "manifest_id": "id"
+          },
+          "operation_id": "Firmware_Manifest_list",
+          "pagination": true,
+          "foreign_key": {
+            "group": "Device_Update",
+            "entity": "firmware_manifest"
+          },
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "list"
+        },
+        {
+          "description": "Retrieve a firmware manifest.",
+          "field_renames": [
+            {
+              "api_fieldname": "datafile",
+              "_key": "datafile_url"
+            },
+            {
+              "api_fieldname": "key_table",
+              "_key": "key_table_url"
+            }
+          ],
+          "fields": [
+            {
+              "description": "The firmware manifest ID",
+              "type": "string",
+              "example": "00000000000000000000000000000000",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "manifest_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
+            }
+          ],
+          "method": "get",
+          "mode": "read",
+          "responses": [
+            {
+              "description": "Retrieved result successfully",
+              "schema": {
+                "properties": [
+                  {
+                    "description": "The time the object was created",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "description": "The URL of the firmware manifest binary",
+                    "type": "string",
+                    "example": "http://example.com/00000000000000000000000000000000",
+                    "api_fieldname": "datafile",
+                    "entity_fieldname": "datafile_url",
+                    "_key": "datafile"
+                  },
+                  {
+                    "description": "The size of the datafile in bytes",
+                    "format": "int64",
+                    "type": "integer",
+                    "api_fieldname": "datafile_size",
+                    "entity_fieldname": "datafile_size",
+                    "_key": "datafile_size"
+                  },
+                  {
+                    "description": "The description of the firmware manifest",
+                    "type": "string",
+                    "maxLength": 2000,
+                    "example": "",
+                    "api_fieldname": "description",
+                    "entity_fieldname": "description",
+                    "_key": "description"
+                  },
+                  {
+                    "description": "The class of the device",
+                    "type": "string",
+                    "example": "00000000-0000-0000-0000-000000000000",
+                    "api_fieldname": "device_class",
+                    "entity_fieldname": "device_class",
+                    "_key": "device_class"
+                  },
+                  {
+                    "description": "The entity instance signature",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "description": "The firmware manifest ID",
+                    "type": "string",
+                    "example": "00000000000000000000000000000000",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "description": "The key table of pre-shared keys for devices",
+                    "type": "string",
+                    "format": "uri",
+                    "example": "http://example.com",
+                    "api_fieldname": "key_table",
+                    "entity_fieldname": "key_table_url",
+                    "_key": "key_table"
+                  },
+                  {
+                    "description": "The name of the object",
+                    "type": "string",
+                    "maxLength": 128,
+                    "example": "",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "_key": "name"
+                  },
+                  {
+                    "description": "The API resource entity",
+                    "type": "string",
+                    "example": "firmware-manifest",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "description": "The firmware manifest version as a timestamp",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "timestamp",
+                    "entity_fieldname": "timestamp",
+                    "_key": "timestamp"
+                  },
+                  {
+                    "description": "The time the object was updated",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  }
+                ],
+                "required": [
+                  "created_at",
+                  "datafile",
+                  "description",
+                  "device_class",
+                  "etag",
+                  "id",
+                  "name",
+                  "object",
+                  "timestamp",
+                  "updated_at"
+                ],
+                "foreign_key": {
+                  "group": "Device_Update",
+                  "entity": "firmware_manifest"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Bad request",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Firmware manifest can't be found",
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/firmware-manifests/{manifest_id}/",
+          "summary": "Get a manifest",
+          "return_type": "firmware_manifest",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "firmware_manifest"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "created_at",
+            "datafile_size",
+            "description",
+            "device_class",
+            "name",
+            "timestamp",
+            "updated_at",
+            "datafile_url",
+            "key_table_url"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "manifest_id": "id"
+          },
+          "operation_id": "Firmware_Manifest_retrieve",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "read"
+        },
+        {
+          "description": "Upload a firmware manifest. The API enforces a maximum size of manifests of 2 KB.",
+          "field_renames": [
+            {
+              "api_fieldname": "datafile",
+              "_key": "datafile_url"
+            },
+            {
+              "api_fieldname": "key_table",
+              "_key": "key_table_url"
+            }
+          ],
+          "fields": [
+            {
+              "description": "The description of the firmware manifest",
+              "type": "string",
+              "maxLength": 2000,
+              "example": "",
+              "api_fieldname": "description",
+              "entity_fieldname": "description",
+              "parameter_fieldname": "description",
+              "in": "stream",
+              "required": false,
+              "_key": "description"
+            },
+            {
+              "description": "The manifest file to create. The API gateway enforces the account-specific file size.",
+              "in": "stream",
+              "name": "datafile",
+              "required": true,
+              "type": "file",
+              "entity_fieldname": "firmware_manifest_file",
+              "api_fieldname": "datafile",
+              "external_param": true,
+              "parameter_fieldname": "datafile",
+              "_key": "firmware_manifest_file"
+            },
+            {
+              "description": "The key table of pre-shared keys for devices",
+              "in": "stream",
+              "name": "key_table",
+              "required": false,
+              "type": "file",
+              "entity_fieldname": "key_table_file",
+              "api_fieldname": "key_table",
+              "external_param": true,
+              "parameter_fieldname": "key_table",
+              "_key": "key_table_file"
+            },
+            {
+              "description": "The name of the object",
+              "type": "string",
+              "maxLength": 128,
+              "example": "",
+              "api_fieldname": "name",
+              "entity_fieldname": "name",
+              "parameter_fieldname": "name",
+              "in": "stream",
+              "required": false,
+              "_key": "name"
+            }
+          ],
+          "method": "post",
+          "mode": "upload",
+          "responses": [
+            {
+              "description": "Created",
+              "schema": {
+                "properties": [
+                  {
+                    "description": "The time the object was created",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "description": "The URL of the firmware manifest binary",
+                    "type": "string",
+                    "example": "http://example.com/00000000000000000000000000000000",
+                    "api_fieldname": "datafile",
+                    "entity_fieldname": "datafile_url",
+                    "_key": "datafile"
+                  },
+                  {
+                    "description": "The size of the datafile in bytes",
+                    "format": "int64",
+                    "type": "integer",
+                    "api_fieldname": "datafile_size",
+                    "entity_fieldname": "datafile_size",
+                    "_key": "datafile_size"
+                  },
+                  {
+                    "description": "The description of the firmware manifest",
+                    "type": "string",
+                    "maxLength": 2000,
+                    "example": "",
+                    "api_fieldname": "description",
+                    "entity_fieldname": "description",
+                    "_key": "description"
+                  },
+                  {
+                    "description": "The class of the device",
+                    "type": "string",
+                    "example": "00000000-0000-0000-0000-000000000000",
+                    "api_fieldname": "device_class",
+                    "entity_fieldname": "device_class",
+                    "_key": "device_class"
+                  },
+                  {
+                    "description": "The entity instance signature",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "description": "The firmware manifest ID",
+                    "type": "string",
+                    "example": "00000000000000000000000000000000",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "description": "The key table of pre-shared keys for devices",
+                    "type": "string",
+                    "format": "uri",
+                    "example": "http://example.com",
+                    "api_fieldname": "key_table",
+                    "entity_fieldname": "key_table_url",
+                    "_key": "key_table"
+                  },
+                  {
+                    "description": "The name of the object",
+                    "type": "string",
+                    "maxLength": 128,
+                    "example": "",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "_key": "name"
+                  },
+                  {
+                    "description": "The API resource entity",
+                    "type": "string",
+                    "example": "firmware-manifest",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "description": "The firmware manifest version as a timestamp",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "timestamp",
+                    "entity_fieldname": "timestamp",
+                    "_key": "timestamp"
+                  },
+                  {
+                    "description": "The time the object was updated",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  }
+                ],
+                "required": [
+                  "created_at",
+                  "datafile",
+                  "description",
+                  "device_class",
+                  "etag",
+                  "id",
+                  "name",
+                  "object",
+                  "timestamp",
+                  "updated_at"
+                ],
+                "foreign_key": {
+                  "group": "Device_Update",
+                  "entity": "firmware_manifest"
+                }
+              },
+              "_key": "201"
+            },
+            {
+              "description": "Validation error. The data used to create the firmware manifest did not validate and/or the manifest uploaded exceeded 2 KB in size.\n",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden",
+              "_key": "403"
+            }
+          ],
+          "path": "/v3/firmware-manifests/",
+          "summary": "Upload a manifest",
+          "return_type": "firmware_manifest",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "firmware_manifest"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "created_at",
+            "datafile_size",
+            "device_class",
+            "id",
+            "timestamp",
+            "updated_at",
+            "datafile_url",
+            "key_table_url"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "manifest_id": "id",
+            "datafile": "firmware_manifest_file",
+            "key_table": "key_table_file"
+          },
+          "operation_id": "Firmware_Manifest_create",
+          "notes": "This is not a standard create method as it uploads a file (or files) which creates an entity which contains URIs to the uploaded file(s).",
+          "unaggregated": true,
+          "pagination": false,
+          "request_content_type": "multipart/form-data",
+          "request_body": "file",
+          "_key": "upload"
+        }
+      ],
+      "fields": [
+        {
+          "description": "The time the object was created",
+          "format": "date-time",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "type": "string",
+          "api_fieldname": "created_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "created_at"
+        },
+        {
+          "description": "The size of the datafile in bytes",
+          "format": "int64",
+          "type": "integer",
+          "api_fieldname": "datafile_size",
+          "readOnly": true,
+          "required": false,
+          "_key": "datafile_size"
+        },
+        {
+          "description": "The URL of the firmware manifest binary",
+          "type": "string",
+          "example": "http://example.com/00000000000000000000000000000000",
+          "api_fieldname": "datafile",
+          "readOnly": true,
+          "required": false,
+          "_key": "datafile_url"
+        },
+        {
+          "description": "The description of the firmware manifest",
+          "type": "string",
+          "maxLength": 2000,
+          "example": "",
+          "api_fieldname": "description",
+          "readOnly": false,
+          "required": false,
+          "_key": "description"
+        },
+        {
+          "description": "The class of the device",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000",
+          "api_fieldname": "device_class",
+          "readOnly": true,
+          "required": false,
+          "_key": "device_class"
+        },
+        {
+          "description": "The firmware manifest ID",
+          "type": "string",
+          "example": "00000000000000000000000000000000",
+          "api_fieldname": "id",
+          "readOnly": false,
+          "required": true,
+          "_key": "id"
+        },
+        {
+          "description": "The key table of pre-shared keys for devices",
+          "type": "string",
+          "format": "uri",
+          "example": "http://example.com",
+          "api_fieldname": "key_table",
+          "readOnly": true,
+          "required": false,
+          "_key": "key_table_url"
+        },
+        {
+          "description": "The name of the object",
+          "type": "string",
+          "maxLength": 128,
+          "example": "",
+          "api_fieldname": "name",
+          "readOnly": false,
+          "required": false,
+          "_key": "name"
+        },
+        {
+          "description": "The firmware manifest version as a timestamp",
+          "format": "date-time",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "type": "string",
+          "api_fieldname": "timestamp",
+          "readOnly": true,
+          "required": false,
+          "_key": "timestamp"
+        },
+        {
+          "description": "The time the object was updated",
+          "format": "date-time",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "type": "string",
+          "api_fieldname": "updated_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "updated_at"
+        }
+      ],
+      "field_renames": [
+        {
+          "api_fieldname": "datafile",
+          "_key": "datafile_url"
+        },
+        {
+          "api_fieldname": "key_table",
+          "_key": "key_table_url"
+        }
+      ],
+      "tags": [],
+      "group_id": "Device_Update",
+      "_key": "firmware_manifest"
     },
     {
       "swagger_models": [
@@ -28063,6 +30482,8 @@
             }
           ],
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "get_bootstrap"
         },
         {
@@ -28329,6 +30750,8 @@
             }
           ],
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "get_lwm2m"
         }
       ],
@@ -29046,6 +31469,8 @@
           "operation_id": "addAccountCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -29350,6 +31775,8 @@
             "cert_id": "id"
           },
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -29767,6 +32194,8 @@
             "group": "Security"
           },
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "get_developer_certificate_info"
         },
         {
@@ -30301,6 +32730,8 @@
             "cert_id": "id"
           },
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         },
         {
@@ -30979,6 +33410,8 @@
           },
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "update"
         }
       ],
@@ -32249,6 +34682,8 @@
           },
           "operation_id": "createAccountUser",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -32619,6 +35054,8 @@
           },
           "operation_id": "deleteAccountUser",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -33388,6 +35825,8 @@
           },
           "operation_id": "getAccountUser",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         },
         {
@@ -34432,6 +36871,8 @@
           },
           "operation_id": "updateAccountUser",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "update"
         },
         {
@@ -34729,6 +37170,8 @@
           },
           "operation_id": "validateAccountUserEmail",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "validate_email"
         }
       ],
@@ -35705,6 +38148,8 @@
           },
           "operation_id": "createAccountInvitation",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -35989,6 +38434,8 @@
           },
           "operation_id": "deleteAccountInvitation",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -36450,6 +38897,8 @@
           },
           "operation_id": "getAccountInvitation",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         }
       ],
@@ -37228,6 +39677,8 @@
           "operation_id": "addCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -37520,6 +39971,8 @@
             "cert_id": "id"
           },
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -37937,6 +40390,8 @@
             "group": "Security"
           },
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "get_developer_certificate_info"
         },
         {
@@ -38483,6 +40938,8 @@
             "group": "Security",
             "entity": "trusted_certificate"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -38984,6 +41441,8 @@
             "cert_id": "id"
           },
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         },
         {
@@ -39702,6 +42161,8 @@
           },
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "update"
         }
       ],
@@ -39895,6 +42356,2140 @@
       ],
       "group_id": "Security",
       "_key": "trusted_certificate"
+    },
+    {
+      "swagger_models": [
+        "CampaignDeviceMetadataPage",
+        "UpdateCampaign",
+        "UpdateCampaignPage",
+        "UpdateCampaignPostRequest",
+        "UpdateCampaignPutRequest"
+      ],
+      "primary_key_field": "id",
+      "methods": [
+        {
+          "description": "This command will archive a campaign.",
+          "field_renames": [],
+          "fields": [
+            {
+              "description": "Helper for creating the device filter string.",
+              "detail": "This helper can be used instead of setting device filter directly. This allows the campaign filter to be created in a way which is similar to the device listing filter.",
+              "type": "filter",
+              "foundation_reference": "devices.device.list",
+              "getter_custom_method": "device_filter_helper_getter",
+              "setter_custom_method": "device_filter_helper_setter",
+              "_override": true,
+              "api_fieldname": "device_filter_helper",
+              "entity_fieldname": "device_filter_helper",
+              "_key": "device_filter_helper"
+            },
+            {
+              "description": "The campaign ID",
+              "in": "path",
+              "name": "campaign_id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "campaign_id",
+              "external_param": false,
+              "parameter_fieldname": "campaign_id",
+              "_key": "id"
+            }
+          ],
+          "method": "post",
+          "mode": "archive",
+          "responses": [
+            {
+              "description": "The campaign has been archived.",
+              "_key": "202"
+            },
+            {
+              "description": "Unable to change the phase of the campaign.",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated.",
+              "_key": "401"
+            },
+            {
+              "description": "Cannot find the campaign.",
+              "_key": "404"
+            },
+            {
+              "description": "Cannot archive the campaign while in the current phase.",
+              "_key": "409"
+            }
+          ],
+          "path": "/v3/update-campaigns/{campaign_id}/archive",
+          "summary": "Archive a campaign.",
+          "return_type": "update_campaign",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "update_campaign"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "state"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "campaign_id": "id"
+          },
+          "operation_id": "Update_Campaign_archive",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "archive"
+        },
+        {
+          "description": "Create an update campaign.",
+          "field_renames": [],
+          "fields": [
+            {
+              "description": "An optional description of the campaign",
+              "type": "string",
+              "maxLength": 2000,
+              "example": "",
+              "api_fieldname": "description",
+              "entity_fieldname": "description",
+              "parameter_fieldname": "description",
+              "in": "body",
+              "required": false,
+              "_key": "description"
+            },
+            {
+              "description": "The filter for the devices the campaign is targeting at",
+              "type": "string",
+              "example": "id__eq=00000000000000000000000000000000",
+              "api_fieldname": "device_filter",
+              "entity_fieldname": "device_filter",
+              "parameter_fieldname": "device_filter",
+              "in": "body",
+              "required": false,
+              "_key": "device_filter"
+            },
+            {
+              "description": "Helper for creating the device filter string.",
+              "detail": "This helper can be used instead of setting device filter directly. This allows the campaign filter to be created in a way which is similar to the device listing filter.",
+              "type": "filter",
+              "foundation_reference": "devices.device.list",
+              "getter_custom_method": "device_filter_helper_getter",
+              "setter_custom_method": "device_filter_helper_setter",
+              "_override": true,
+              "api_fieldname": "device_filter_helper",
+              "entity_fieldname": "device_filter_helper",
+              "_key": "device_filter_helper"
+            },
+            {
+              "description": "The campaign name",
+              "type": "string",
+              "maxLength": 128,
+              "example": "campaign",
+              "api_fieldname": "name",
+              "entity_fieldname": "name",
+              "parameter_fieldname": "name",
+              "in": "body",
+              "required": false,
+              "_key": "name"
+            },
+            {
+              "type": "string",
+              "example": "00000000000000000000000000000000",
+              "api_fieldname": "root_manifest_id",
+              "entity_fieldname": "root_manifest_id",
+              "parameter_fieldname": "root_manifest_id",
+              "in": "body",
+              "required": false,
+              "_key": "root_manifest_id"
+            },
+            {
+              "description": "The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.",
+              "type": "string",
+              "format": "date-time",
+              "example": "2017-05-22T12:37:55.576563Z",
+              "api_fieldname": "when",
+              "entity_fieldname": "when",
+              "parameter_fieldname": "when",
+              "in": "body",
+              "required": false,
+              "_key": "when"
+            }
+          ],
+          "method": "post",
+          "mode": "create",
+          "responses": [
+            {
+              "description": "Update campaign created",
+              "schema": [
+                {
+                  "group": "Device_Update",
+                  "entity": "update_campaign",
+                  "_key": "foreign_key"
+                },
+                {
+                  "autostop_reason": {
+                    "description": "Text description of why a campaign failed to start or why a campaign stopped.",
+                    "type": "string",
+                    "example": "Insufficient billing credit.",
+                    "api_fieldname": "autostop_reason",
+                    "entity_fieldname": "autostop_reason"
+                  },
+                  "phase": {
+                    "description": "The current phase of the campaign.",
+                    "type": "string",
+                    "readOnly": true,
+                    "api_fieldname": "phase",
+                    "entity_fieldname": "phase"
+                  },
+                  "created_at": {
+                    "description": "The time the update campaign was created",
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at"
+                  },
+                  "description": {
+                    "description": "An optional description of the campaign",
+                    "type": "string",
+                    "maxLength": 2000,
+                    "example": "",
+                    "api_fieldname": "description",
+                    "entity_fieldname": "description"
+                  },
+                  "device_filter": {
+                    "description": "The filter for the devices the campaign is targeting at",
+                    "type": "string",
+                    "example": "id__eq=00000000000000000000000000000000",
+                    "api_fieldname": "device_filter",
+                    "entity_fieldname": "device_filter"
+                  },
+                  "etag": {
+                    "description": "The entity instance signature",
+                    "type": "string",
+                    "example": "2017-05-22T12:37:58.753425Z",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag"
+                  },
+                  "finished": {
+                    "description": "The campaign finish timestamp",
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "finished",
+                    "entity_fieldname": "finished"
+                  },
+                  "id": {
+                    "description": "The campaign ID",
+                    "type": "string",
+                    "example": "00000000000000000000000000000000",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id"
+                  },
+                  "name": {
+                    "description": "The campaign name",
+                    "type": "string",
+                    "maxLength": 128,
+                    "example": "campaign",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name"
+                  },
+                  "object": {
+                    "description": "The API resource entity",
+                    "type": "string",
+                    "example": "update-campaign",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object"
+                  },
+                  "root_manifest_id": {
+                    "type": "string",
+                    "example": "00000000000000000000000000000000",
+                    "api_fieldname": "root_manifest_id",
+                    "entity_fieldname": "root_manifest_id"
+                  },
+                  "root_manifest_url": {
+                    "type": "string",
+                    "example": "http://example.com/00000000000000000000000000000000",
+                    "api_fieldname": "root_manifest_url",
+                    "entity_fieldname": "root_manifest_url"
+                  },
+                  "started_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "started_at",
+                    "entity_fieldname": "started_at"
+                  },
+                  "state": {
+                    "description": "DEPRECATED: The state of the campaign (use phase instead).",
+                    "enum": [
+                      "draft",
+                      "scheduled",
+                      "allocatingquota",
+                      "allocatedquota",
+                      "quotaallocationfailed",
+                      "checkingmanifest",
+                      "checkedmanifest",
+                      "devicefetch",
+                      "devicecopy",
+                      "devicecheck",
+                      "publishing",
+                      "deploying",
+                      "deployed",
+                      "manifestremoved",
+                      "expired",
+                      "stopping",
+                      "autostopped",
+                      "userstopped",
+                      "conflict"
+                    ],
+                    "type": "string",
+                    "x-deprecation": {
+                      "issued_at": "2019-03-18T14:55:20+00:00",
+                      "end_of_life_at": "2020-03-18T14:55:20+00:00",
+                      "comment": "Use phase instead",
+                      "links": []
+                    },
+                    "api_fieldname": "state",
+                    "entity_fieldname": "state"
+                  },
+                  "when": {
+                    "description": "The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.",
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "when",
+                    "entity_fieldname": "when"
+                  },
+                  "updated_at": {
+                    "description": "The time the object was updated",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at"
+                  },
+                  "_key": "properties"
+                }
+              ],
+              "_key": "201"
+            },
+            {
+              "description": "Validation error: The data used to create the campaign did not validate\n",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            }
+          ],
+          "path": "/v3/update-campaigns/",
+          "summary": "Create a campaign",
+          "return_type": "update_campaign",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "update_campaign"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "state",
+            "autostop_reason",
+            "phase",
+            "created_at",
+            "finished",
+            "id",
+            "root_manifest_url",
+            "started_at",
+            "updated_at"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "campaign_id": "id"
+          },
+          "operation_id": "Update_Campaign_create",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "create"
+        },
+        {
+          "description": "Delete an update campaign.",
+          "field_renames": [],
+          "fields": [
+            {
+              "description": "Helper for creating the device filter string.",
+              "detail": "This helper can be used instead of setting device filter directly. This allows the campaign filter to be created in a way which is similar to the device listing filter.",
+              "type": "filter",
+              "foundation_reference": "devices.device.list",
+              "getter_custom_method": "device_filter_helper_getter",
+              "setter_custom_method": "device_filter_helper_setter",
+              "_override": true,
+              "api_fieldname": "device_filter_helper",
+              "entity_fieldname": "device_filter_helper",
+              "_key": "device_filter_helper"
+            },
+            {
+              "description": "The ID of the update campaign",
+              "in": "path",
+              "name": "campaign_id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "campaign_id",
+              "external_param": false,
+              "parameter_fieldname": "campaign_id",
+              "_key": "id"
+            }
+          ],
+          "method": "delete",
+          "mode": "delete",
+          "responses": [
+            {
+              "description": "Update campaign deleted",
+              "_key": "204"
+            },
+            {
+              "description": "Validation error: The data used to update the campaign did not validate\n",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Update campaign can't be found",
+              "_key": "404"
+            },
+            {
+              "description": "Conflict - Cannot delete the campaign while in the current phase.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "409"
+            }
+          ],
+          "path": "/v3/update-campaigns/{campaign_id}/",
+          "summary": "Delete a campaign",
+          "return_type": "update_campaign",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "update_campaign"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "state"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "campaign_id": "id"
+          },
+          "operation_id": "Update_Campaign_destroy",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "delete"
+        },
+        {
+          "description": "Get campaign device metadata.",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "description": "The ID of the the item after which to retrieve the next page",
+              "example": "null",
+              "api_fieldname": "after",
+              "entity_fieldname": "after",
+              "in": "query",
+              "name": "after",
+              "external_param": true,
+              "parameter_fieldname": "after",
+              "required": false,
+              "_key": "after"
+            },
+            {
+              "description": "Helper for creating the device filter string.",
+              "detail": "This helper can be used instead of setting device filter directly. This allows the campaign filter to be created in a way which is similar to the device listing filter.",
+              "type": "filter",
+              "foundation_reference": "devices.device.list",
+              "getter_custom_method": "device_filter_helper_getter",
+              "setter_custom_method": "device_filter_helper_setter",
+              "_override": true,
+              "api_fieldname": "device_filter_helper",
+              "entity_fieldname": "device_filter_helper",
+              "_key": "device_filter_helper"
+            },
+            {
+              "description": "The update campaign ID",
+              "in": "path",
+              "name": "campaign_id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "campaign_id",
+              "external_param": false,
+              "parameter_fieldname": "campaign_id",
+              "_key": "id"
+            },
+            {
+              "description": "A comma-separated list of data fields to return. Currently supported: total_count",
+              "in": "query",
+              "name": "include",
+              "type": "string",
+              "entity_fieldname": "include",
+              "api_fieldname": "include",
+              "external_param": true,
+              "parameter_fieldname": "include",
+              "required": false,
+              "_key": "include"
+            },
+            {
+              "type": "integer",
+              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "example": "50",
+              "minimum": 2,
+              "maximum": 1000,
+              "api_fieldname": "limit",
+              "entity_fieldname": "limit",
+              "in": "query",
+              "name": "limit",
+              "external_param": true,
+              "parameter_fieldname": "limit",
+              "required": false,
+              "_key": "limit"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "description": "ASC or DESC",
+              "example": "ASC",
+              "api_fieldname": "order",
+              "entity_fieldname": "order",
+              "in": "query",
+              "name": "order",
+              "external_param": true,
+              "parameter_fieldname": "order",
+              "required": false,
+              "enum_reference": "update_campaign_order_enum",
+              "_key": "order"
+            }
+          ],
+          "method": "get",
+          "mode": "device_metadata",
+          "responses": [
+            {
+              "description": "Request successful",
+              "schema": {
+                "type": "object",
+                "properties": [
+                  {
+                    "type": "string",
+                    "description": "The entity ID to fetch after the given one",
+                    "example": "null",
+                    "api_fieldname": "after",
+                    "entity_fieldname": "after",
+                    "_key": "after"
+                  },
+                  {
+                    "type": "array",
+                    "description": "A list of entities",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "The device's campaign ID",
+                          "example": "015bf72fccda00000000000100100280",
+                          "api_fieldname": "campaign",
+                          "entity_fieldname": "campaign",
+                          "parameter_fieldname": "campaign_id",
+                          "in": "path",
+                          "required": true,
+                          "_key": "campaign"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The time the campaign was created",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
+                          "_key": "created_at"
+                        },
+                        {
+                          "description": "The state of the update campaign on the device",
+                          "enum": [
+                            "pending",
+                            "updated_connector_channel",
+                            "failed_connector_channel_update",
+                            "deployed",
+                            "manifestremoved",
+                            "deregistered"
+                          ],
+                          "type": "string",
+                          "api_fieldname": "deployment_state",
+                          "entity_fieldname": "deployment_state",
+                          "_key": "deployment_state"
+                        },
+                        {
+                          "type": "string",
+                          "maxLength": 2000,
+                          "description": "Description",
+                          "example": "",
+                          "api_fieldname": "description",
+                          "entity_fieldname": "description",
+                          "_key": "description"
+                        },
+                        {
+                          "type": "string",
+                          "description": "The device ID",
+                          "example": "015c2fec9bba0000000000010010036f",
+                          "api_fieldname": "device_id",
+                          "entity_fieldname": "device_id",
+                          "_key": "device_id"
+                        },
+                        {
+                          "type": "string",
+                          "description": "API resource entity version",
+                          "example": "2017-05-22T12:37:58.753425Z",
+                          "api_fieldname": "etag",
+                          "entity_fieldname": "etag",
+                          "_key": "etag"
+                        },
+                        {
+                          "type": "string",
+                          "description": "The metadata record ID",
+                          "example": "015c3029f6f7000000000001001000c3",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
+                          "parameter_fieldname": "campaign_device_metadata_id",
+                          "in": "path",
+                          "required": true,
+                          "_key": "id"
+                        },
+                        {
+                          "type": "string",
+                          "description": "How the firmware is delivered (connector or direct)",
+                          "example": "connector",
+                          "api_fieldname": "mechanism",
+                          "entity_fieldname": "mechanism",
+                          "_key": "mechanism"
+                        },
+                        {
+                          "type": "string",
+                          "description": "The Device Management Connect URL",
+                          "example": "",
+                          "api_fieldname": "mechanism_url",
+                          "entity_fieldname": "mechanism_url",
+                          "_key": "mechanism_url"
+                        },
+                        {
+                          "type": "string",
+                          "maxLength": 128,
+                          "description": "The record name",
+                          "example": "default_object_name",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
+                          "_key": "name"
+                        },
+                        {
+                          "type": "string",
+                          "description": "The entity name: always 'update-campaign-device-metadata'",
+                          "example": "update-campaign-device-metadata",
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
+                          "_key": "object"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The record was modified in the database format: date-time",
+                          "example": "2017-05-22T12:37:58.776736Z",
+                          "api_fieldname": "updated_at",
+                          "entity_fieldname": "updated_at",
+                          "_key": "updated_at"
+                        }
+                      ],
+                      "foreign_key": {
+                        "group": "Device_Update",
+                        "entity": "campaign_device_metadata"
+                      }
+                    },
+                    "api_fieldname": "data",
+                    "entity_fieldname": "data",
+                    "_key": "data"
+                  },
+                  {
+                    "type": "boolean",
+                    "description": "A flag indicating whether there are more results",
+                    "example": "false",
+                    "api_fieldname": "has_more",
+                    "entity_fieldname": "has_more",
+                    "_key": "has_more"
+                  },
+                  {
+                    "type": "integer",
+                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+                    "example": "50",
+                    "minimum": 2,
+                    "maximum": 1000,
+                    "api_fieldname": "limit",
+                    "entity_fieldname": "limit",
+                    "_key": "limit"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The entity name: always 'list'",
+                    "example": "list",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "ASC",
+                      "DESC"
+                    ],
+                    "description": "The order of the records to return. Acceptable values: ASC, DESC. Default: ASC",
+                    "example": "ASC",
+                    "api_fieldname": "order",
+                    "entity_fieldname": "order",
+                    "_key": "order"
+                  },
+                  {
+                    "type": "integer",
+                    "description": "The total number or records, if requested. It may be returned also for small lists.",
+                    "example": "1",
+                    "api_fieldname": "total_count",
+                    "entity_fieldname": "total_count",
+                    "_key": "total_count"
+                  }
+                ],
+                "pagination": true,
+                "foreign_key": {
+                  "group": "Device_Update",
+                  "entity": "update_campaign"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Unauthorized",
+              "_key": "401"
+            }
+          ],
+          "path": "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/",
+          "summary": "List all campaign device metadata",
+          "return_type": "paginated_response(campaign_device_metadata)",
+          "return_info": {
+            "self": false,
+            "custom": false,
+            "type": "campaign_device_metadata"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "state",
+            "has_more",
+            "data",
+            "total_count"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "campaign_id": "id"
+          },
+          "operation_id": "Update_Campaign_Metadata_list",
+          "pagination": true,
+          "foreign_key": {
+            "group": "Device_Update",
+            "entity": "campaign_device_metadata"
+          },
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "device_metadata"
+        },
+        {
+          "description": "Get update campaigns for devices specified by a filter.",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "example": null,
+              "api_fieldname": "after",
+              "entity_fieldname": "after",
+              "description": "The ID of the the item after which to retrieve the next page",
+              "in": "query",
+              "name": "after",
+              "external_param": true,
+              "parameter_fieldname": "after",
+              "required": false,
+              "_key": "after"
+            },
+            {
+              "description": "Helper for creating the device filter string.",
+              "detail": "This helper can be used instead of setting device filter directly. This allows the campaign filter to be created in a way which is similar to the device listing filter.",
+              "type": "filter",
+              "foundation_reference": "devices.device.list",
+              "getter_custom_method": "device_filter_helper_getter",
+              "setter_custom_method": "device_filter_helper_setter",
+              "_override": true,
+              "api_fieldname": "device_filter_helper",
+              "entity_fieldname": "device_filter_helper",
+              "_key": "device_filter_helper"
+            },
+            {
+              "description": "A comma-separated list of data fields to return. Currently supported: total_count",
+              "in": "query",
+              "name": "include",
+              "type": "string",
+              "entity_fieldname": "include",
+              "api_fieldname": "include",
+              "external_param": true,
+              "parameter_fieldname": "include",
+              "required": false,
+              "_key": "include"
+            },
+            {
+              "type": "integer",
+              "api_fieldname": "limit",
+              "entity_fieldname": "limit",
+              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "in": "query",
+              "name": "limit",
+              "minimum": 2,
+              "maximum": 1000,
+              "external_param": true,
+              "parameter_fieldname": "limit",
+              "required": false,
+              "_key": "limit"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "description": "The order of the records. Acceptable values: ASC, DESC. Default: ASC",
+              "example": "ASC",
+              "api_fieldname": "order",
+              "entity_fieldname": "order",
+              "in": "query",
+              "name": "order",
+              "external_param": true,
+              "parameter_fieldname": "order",
+              "required": false,
+              "enum_reference": "update_campaign_order_enum",
+              "_key": "order"
+            }
+          ],
+          "method": "get",
+          "mode": "list",
+          "responses": [
+            {
+              "description": "Request successful",
+              "schema": {
+                "properties": [
+                  {
+                    "type": "string",
+                    "example": null,
+                    "api_fieldname": "after",
+                    "entity_fieldname": "after",
+                    "_key": "after"
+                  },
+                  {
+                    "items": [
+                      {
+                        "group": "Device_Update",
+                        "entity": "update_campaign",
+                        "_key": "foreign_key"
+                      },
+                      {
+                        "autostop_reason": {
+                          "description": "Text description of why a campaign failed to start or why a campaign stopped.",
+                          "type": "string",
+                          "example": "Insufficient billing credit."
+                        },
+                        "phase": {
+                          "description": "The current phase of the campaign.",
+                          "type": "string",
+                          "readOnly": true
+                        },
+                        "created_at": {
+                          "description": "The time the update campaign was created",
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z"
+                        },
+                        "description": {
+                          "description": "An optional description of the campaign",
+                          "type": "string",
+                          "maxLength": 2000,
+                          "example": ""
+                        },
+                        "device_filter": {
+                          "description": "The filter for the devices the campaign is targeting at",
+                          "type": "string",
+                          "example": "id__eq=00000000000000000000000000000000"
+                        },
+                        "etag": {
+                          "description": "The entity instance signature",
+                          "type": "string",
+                          "example": "2017-05-22T12:37:58.753425Z"
+                        },
+                        "finished": {
+                          "description": "The campaign finish timestamp",
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z"
+                        },
+                        "id": {
+                          "description": "The campaign ID",
+                          "type": "string",
+                          "example": "00000000000000000000000000000000"
+                        },
+                        "name": {
+                          "description": "The campaign name",
+                          "type": "string",
+                          "maxLength": 128,
+                          "example": "campaign"
+                        },
+                        "object": {
+                          "description": "The API resource entity",
+                          "type": "string",
+                          "example": "update-campaign"
+                        },
+                        "root_manifest_id": {
+                          "type": "string",
+                          "example": "00000000000000000000000000000000"
+                        },
+                        "root_manifest_url": {
+                          "type": "string",
+                          "example": "http://example.com/00000000000000000000000000000000"
+                        },
+                        "started_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z"
+                        },
+                        "state": {
+                          "description": "DEPRECATED: The state of the campaign (use phase instead).",
+                          "enum": [
+                            "draft",
+                            "scheduled",
+                            "allocatingquota",
+                            "allocatedquota",
+                            "quotaallocationfailed",
+                            "checkingmanifest",
+                            "checkedmanifest",
+                            "devicefetch",
+                            "devicecopy",
+                            "devicecheck",
+                            "publishing",
+                            "deploying",
+                            "deployed",
+                            "manifestremoved",
+                            "expired",
+                            "stopping",
+                            "autostopped",
+                            "userstopped",
+                            "conflict"
+                          ],
+                          "type": "string",
+                          "x-deprecation": {
+                            "issued_at": "2019-03-18T14:55:20+00:00",
+                            "end_of_life_at": "2020-03-18T14:55:20+00:00",
+                            "comment": "Use phase instead",
+                            "links": []
+                          }
+                        },
+                        "when": {
+                          "description": "The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.",
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z"
+                        },
+                        "updated_at": {
+                          "description": "The time the object was updated",
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string"
+                        },
+                        "_key": "properties"
+                      }
+                    ],
+                    "type": "array",
+                    "example": "[]",
+                    "api_fieldname": "data",
+                    "entity_fieldname": "data",
+                    "_key": "data"
+                  },
+                  {
+                    "type": "boolean",
+                    "api_fieldname": "has_more",
+                    "entity_fieldname": "has_more",
+                    "_key": "has_more"
+                  },
+                  {
+                    "type": "integer",
+                    "api_fieldname": "limit",
+                    "entity_fieldname": "limit",
+                    "_key": "limit"
+                  },
+                  {
+                    "type": "string",
+                    "example": "list",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "ASC",
+                      "DESC"
+                    ],
+                    "description": "The order of the records to return. Acceptable values: ASC, DESC. Default: ASC",
+                    "example": "ASC",
+                    "api_fieldname": "order",
+                    "entity_fieldname": "order",
+                    "_key": "order"
+                  },
+                  {
+                    "type": "integer",
+                    "api_fieldname": "total_count",
+                    "entity_fieldname": "total_count",
+                    "_key": "total_count"
+                  }
+                ],
+                "pagination": true,
+                "foreign_key": {
+                  "group": "Device_Update",
+                  "entity": "update_campaign"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Validation error: The data used to update the campaign did not validate\n",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Unable to find content",
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/update-campaigns/",
+          "summary": "List all campaigns",
+          "return_type": "paginated_response(update_campaign)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "update_campaign"
+          },
+          "x_filter": {
+            "created_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "description": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_filter": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "finished": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "root_manifest_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "started_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "state": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "when": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ]
+          },
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "state",
+            "data",
+            "has_more",
+            "total_count",
+            "created_at__in",
+            "created_at__nin",
+            "created_at__lte",
+            "created_at__gte",
+            "description__eq",
+            "description__neq",
+            "description__in",
+            "description__nin",
+            "device_filter__eq",
+            "device_filter__neq",
+            "device_filter__in",
+            "device_filter__nin",
+            "finished__in",
+            "finished__nin",
+            "finished__lte",
+            "finished__gte",
+            "id__eq",
+            "id__neq",
+            "id__in",
+            "id__nin",
+            "name__eq",
+            "name__neq",
+            "name__in",
+            "name__nin",
+            "root_manifest_id__eq",
+            "root_manifest_id__neq",
+            "root_manifest_id__in",
+            "root_manifest_id__nin",
+            "started_at__in",
+            "started_at__nin",
+            "started_at__lte",
+            "started_at__gte",
+            "state__eq",
+            "state__neq",
+            "state__in",
+            "state__nin",
+            "updated_at__in",
+            "updated_at__nin",
+            "updated_at__lte",
+            "updated_at__gte",
+            "when__in",
+            "when__nin",
+            "when__lte",
+            "when__gte"
+          ],
+          "foreign_key_priority": "self",
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "campaign_id": "id"
+          },
+          "operation_id": "Update_Campaign_list",
+          "pagination": true,
+          "foreign_key": {
+            "group": "Device_Update",
+            "entity": "update_campaign",
+            "_key": "foreign_key"
+          },
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "list"
+        },
+        {
+          "description": "Get an update campaign.",
+          "field_renames": [],
+          "fields": [
+            {
+              "description": "Helper for creating the device filter string.",
+              "detail": "This helper can be used instead of setting device filter directly. This allows the campaign filter to be created in a way which is similar to the device listing filter.",
+              "type": "filter",
+              "foundation_reference": "devices.device.list",
+              "getter_custom_method": "device_filter_helper_getter",
+              "setter_custom_method": "device_filter_helper_setter",
+              "_override": true,
+              "api_fieldname": "device_filter_helper",
+              "entity_fieldname": "device_filter_helper",
+              "_key": "device_filter_helper"
+            },
+            {
+              "description": "The campaign ID",
+              "type": "string",
+              "example": "00000000000000000000000000000000",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "campaign_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
+            }
+          ],
+          "method": "get",
+          "mode": "read",
+          "responses": [
+            {
+              "description": "Retrieved result successfully",
+              "schema": [
+                {
+                  "group": "Device_Update",
+                  "entity": "update_campaign",
+                  "_key": "foreign_key"
+                },
+                {
+                  "autostop_reason": {
+                    "description": "Text description of why a campaign failed to start or why a campaign stopped.",
+                    "type": "string",
+                    "example": "Insufficient billing credit.",
+                    "api_fieldname": "autostop_reason",
+                    "entity_fieldname": "autostop_reason"
+                  },
+                  "phase": {
+                    "description": "The current phase of the campaign.",
+                    "type": "string",
+                    "readOnly": true,
+                    "api_fieldname": "phase",
+                    "entity_fieldname": "phase"
+                  },
+                  "created_at": {
+                    "description": "The time the update campaign was created",
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at"
+                  },
+                  "description": {
+                    "description": "An optional description of the campaign",
+                    "type": "string",
+                    "maxLength": 2000,
+                    "example": "",
+                    "api_fieldname": "description",
+                    "entity_fieldname": "description"
+                  },
+                  "device_filter": {
+                    "description": "The filter for the devices the campaign is targeting at",
+                    "type": "string",
+                    "example": "id__eq=00000000000000000000000000000000",
+                    "api_fieldname": "device_filter",
+                    "entity_fieldname": "device_filter"
+                  },
+                  "etag": {
+                    "description": "The entity instance signature",
+                    "type": "string",
+                    "example": "2017-05-22T12:37:58.753425Z",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag"
+                  },
+                  "finished": {
+                    "description": "The campaign finish timestamp",
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "finished",
+                    "entity_fieldname": "finished"
+                  },
+                  "id": {
+                    "description": "The campaign ID",
+                    "type": "string",
+                    "example": "00000000000000000000000000000000",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id"
+                  },
+                  "name": {
+                    "description": "The campaign name",
+                    "type": "string",
+                    "maxLength": 128,
+                    "example": "campaign",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name"
+                  },
+                  "object": {
+                    "description": "The API resource entity",
+                    "type": "string",
+                    "example": "update-campaign",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object"
+                  },
+                  "root_manifest_id": {
+                    "type": "string",
+                    "example": "00000000000000000000000000000000",
+                    "api_fieldname": "root_manifest_id",
+                    "entity_fieldname": "root_manifest_id"
+                  },
+                  "root_manifest_url": {
+                    "type": "string",
+                    "example": "http://example.com/00000000000000000000000000000000",
+                    "api_fieldname": "root_manifest_url",
+                    "entity_fieldname": "root_manifest_url"
+                  },
+                  "started_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "started_at",
+                    "entity_fieldname": "started_at"
+                  },
+                  "state": {
+                    "description": "DEPRECATED: The state of the campaign (use phase instead).",
+                    "enum": [
+                      "draft",
+                      "scheduled",
+                      "allocatingquota",
+                      "allocatedquota",
+                      "quotaallocationfailed",
+                      "checkingmanifest",
+                      "checkedmanifest",
+                      "devicefetch",
+                      "devicecopy",
+                      "devicecheck",
+                      "publishing",
+                      "deploying",
+                      "deployed",
+                      "manifestremoved",
+                      "expired",
+                      "stopping",
+                      "autostopped",
+                      "userstopped",
+                      "conflict"
+                    ],
+                    "type": "string",
+                    "x-deprecation": {
+                      "issued_at": "2019-03-18T14:55:20+00:00",
+                      "end_of_life_at": "2020-03-18T14:55:20+00:00",
+                      "comment": "Use phase instead",
+                      "links": []
+                    },
+                    "api_fieldname": "state",
+                    "entity_fieldname": "state"
+                  },
+                  "when": {
+                    "description": "The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.",
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "when",
+                    "entity_fieldname": "when"
+                  },
+                  "updated_at": {
+                    "description": "The time the object was updated",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at"
+                  },
+                  "_key": "properties"
+                }
+              ],
+              "_key": "200"
+            },
+            {
+              "description": "Validation error: The data used to update the campaign did not validate\n",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Unable to find campaign",
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/update-campaigns/{campaign_id}/",
+          "summary": "Get a campaign.",
+          "return_type": "update_campaign",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "update_campaign"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "state",
+            "autostop_reason",
+            "phase",
+            "created_at",
+            "description",
+            "device_filter",
+            "finished",
+            "name",
+            "root_manifest_id",
+            "root_manifest_url",
+            "started_at",
+            "when",
+            "updated_at"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "campaign_id": "id"
+          },
+          "operation_id": "Update_Campaign_retrieve",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "read"
+        },
+        {
+          "description": "This command will begin the process of starting a campaign.",
+          "field_renames": [],
+          "fields": [
+            {
+              "description": "Helper for creating the device filter string.",
+              "detail": "This helper can be used instead of setting device filter directly. This allows the campaign filter to be created in a way which is similar to the device listing filter.",
+              "type": "filter",
+              "foundation_reference": "devices.device.list",
+              "getter_custom_method": "device_filter_helper_getter",
+              "setter_custom_method": "device_filter_helper_setter",
+              "_override": true,
+              "api_fieldname": "device_filter_helper",
+              "entity_fieldname": "device_filter_helper",
+              "_key": "device_filter_helper"
+            },
+            {
+              "description": "The campaign ID",
+              "in": "path",
+              "name": "campaign_id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "campaign_id",
+              "external_param": false,
+              "parameter_fieldname": "campaign_id",
+              "_key": "id"
+            }
+          ],
+          "method": "post",
+          "mode": "start",
+          "responses": [
+            {
+              "description": "The campaign is starting.",
+              "_key": "202"
+            },
+            {
+              "description": "Unable to change the phase of the campaign.",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated.",
+              "_key": "401"
+            },
+            {
+              "description": "Cannot find the campaign.",
+              "_key": "404"
+            },
+            {
+              "description": "Cannot start the campaign while in the current phase.",
+              "_key": "409"
+            }
+          ],
+          "path": "/v3/update-campaigns/{campaign_id}/start",
+          "summary": "Start a campaign.",
+          "return_type": "update_campaign",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "update_campaign"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "state"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "campaign_id": "id"
+          },
+          "operation_id": "Update_Campaign_start",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "start"
+        },
+        {
+          "description": "This command will begin the process of stopping a campaign.",
+          "field_renames": [],
+          "fields": [
+            {
+              "description": "Helper for creating the device filter string.",
+              "detail": "This helper can be used instead of setting device filter directly. This allows the campaign filter to be created in a way which is similar to the device listing filter.",
+              "type": "filter",
+              "foundation_reference": "devices.device.list",
+              "getter_custom_method": "device_filter_helper_getter",
+              "setter_custom_method": "device_filter_helper_setter",
+              "_override": true,
+              "api_fieldname": "device_filter_helper",
+              "entity_fieldname": "device_filter_helper",
+              "_key": "device_filter_helper"
+            },
+            {
+              "description": "The campaign ID",
+              "in": "path",
+              "name": "campaign_id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "campaign_id",
+              "external_param": false,
+              "parameter_fieldname": "campaign_id",
+              "_key": "id"
+            }
+          ],
+          "method": "post",
+          "mode": "stop",
+          "responses": [
+            {
+              "description": "The campaign is stopping.",
+              "_key": "202"
+            },
+            {
+              "description": "Unable to change the phase of the campaign.",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated.",
+              "_key": "401"
+            },
+            {
+              "description": "Cannot find the campaign.",
+              "_key": "404"
+            },
+            {
+              "description": "Cannot stop the campaign while in the current phase.",
+              "_key": "409"
+            }
+          ],
+          "path": "/v3/update-campaigns/{campaign_id}/stop",
+          "summary": "Stop a campaign.",
+          "return_type": "update_campaign",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "update_campaign"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "state"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "campaign_id": "id"
+          },
+          "operation_id": "Update_Campaign_stop",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "stop"
+        },
+        {
+          "description": "Modify an update campaign.",
+          "field_renames": [],
+          "fields": [
+            {
+              "description": "An optional description of the campaign",
+              "type": "string",
+              "maxLength": 2000,
+              "example": "",
+              "api_fieldname": "description",
+              "entity_fieldname": "description",
+              "parameter_fieldname": "description",
+              "in": "body",
+              "required": false,
+              "_key": "description"
+            },
+            {
+              "description": "The filter for the devices the campaign is targeting at",
+              "type": "string",
+              "example": "id__eq=00000000000000000000000000000000",
+              "api_fieldname": "device_filter",
+              "entity_fieldname": "device_filter",
+              "parameter_fieldname": "device_filter",
+              "in": "body",
+              "required": false,
+              "_key": "device_filter"
+            },
+            {
+              "description": "Helper for creating the device filter string.",
+              "detail": "This helper can be used instead of setting device filter directly. This allows the campaign filter to be created in a way which is similar to the device listing filter.",
+              "type": "filter",
+              "foundation_reference": "devices.device.list",
+              "getter_custom_method": "device_filter_helper_getter",
+              "setter_custom_method": "device_filter_helper_setter",
+              "_override": true,
+              "api_fieldname": "device_filter_helper",
+              "entity_fieldname": "device_filter_helper",
+              "_key": "device_filter_helper"
+            },
+            {
+              "description": "The campaign ID",
+              "type": "string",
+              "example": "00000000000000000000000000000000",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "campaign_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
+            },
+            {
+              "description": "The campaign name",
+              "type": "string",
+              "maxLength": 128,
+              "example": "campaign",
+              "api_fieldname": "name",
+              "entity_fieldname": "name",
+              "parameter_fieldname": "name",
+              "in": "body",
+              "required": false,
+              "_key": "name"
+            },
+            {
+              "type": "string",
+              "example": "00000000000000000000000000000000",
+              "api_fieldname": "root_manifest_id",
+              "entity_fieldname": "root_manifest_id",
+              "parameter_fieldname": "root_manifest_id",
+              "in": "body",
+              "required": false,
+              "_key": "root_manifest_id"
+            },
+            {
+              "description": "The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.",
+              "type": "string",
+              "format": "date-time",
+              "example": "2017-05-22T12:37:55.576563Z",
+              "api_fieldname": "when",
+              "entity_fieldname": "when",
+              "parameter_fieldname": "when",
+              "in": "body",
+              "required": false,
+              "_key": "when"
+            }
+          ],
+          "method": "put",
+          "mode": "update",
+          "responses": [
+            {
+              "description": "Update campaign updated",
+              "schema": [
+                {
+                  "group": "Device_Update",
+                  "entity": "update_campaign",
+                  "_key": "foreign_key"
+                },
+                {
+                  "autostop_reason": {
+                    "description": "Text description of why a campaign failed to start or why a campaign stopped.",
+                    "type": "string",
+                    "example": "Insufficient billing credit.",
+                    "api_fieldname": "autostop_reason",
+                    "entity_fieldname": "autostop_reason"
+                  },
+                  "phase": {
+                    "description": "The current phase of the campaign.",
+                    "type": "string",
+                    "readOnly": true,
+                    "api_fieldname": "phase",
+                    "entity_fieldname": "phase"
+                  },
+                  "created_at": {
+                    "description": "The time the update campaign was created",
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at"
+                  },
+                  "description": {
+                    "description": "An optional description of the campaign",
+                    "type": "string",
+                    "maxLength": 2000,
+                    "example": "",
+                    "api_fieldname": "description",
+                    "entity_fieldname": "description"
+                  },
+                  "device_filter": {
+                    "description": "The filter for the devices the campaign is targeting at",
+                    "type": "string",
+                    "example": "id__eq=00000000000000000000000000000000",
+                    "api_fieldname": "device_filter",
+                    "entity_fieldname": "device_filter"
+                  },
+                  "etag": {
+                    "description": "The entity instance signature",
+                    "type": "string",
+                    "example": "2017-05-22T12:37:58.753425Z",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag"
+                  },
+                  "finished": {
+                    "description": "The campaign finish timestamp",
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "finished",
+                    "entity_fieldname": "finished"
+                  },
+                  "id": {
+                    "description": "The campaign ID",
+                    "type": "string",
+                    "example": "00000000000000000000000000000000",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id"
+                  },
+                  "name": {
+                    "description": "The campaign name",
+                    "type": "string",
+                    "maxLength": 128,
+                    "example": "campaign",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name"
+                  },
+                  "object": {
+                    "description": "The API resource entity",
+                    "type": "string",
+                    "example": "update-campaign",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object"
+                  },
+                  "root_manifest_id": {
+                    "type": "string",
+                    "example": "00000000000000000000000000000000",
+                    "api_fieldname": "root_manifest_id",
+                    "entity_fieldname": "root_manifest_id"
+                  },
+                  "root_manifest_url": {
+                    "type": "string",
+                    "example": "http://example.com/00000000000000000000000000000000",
+                    "api_fieldname": "root_manifest_url",
+                    "entity_fieldname": "root_manifest_url"
+                  },
+                  "started_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "started_at",
+                    "entity_fieldname": "started_at"
+                  },
+                  "state": {
+                    "description": "DEPRECATED: The state of the campaign (use phase instead).",
+                    "enum": [
+                      "draft",
+                      "scheduled",
+                      "allocatingquota",
+                      "allocatedquota",
+                      "quotaallocationfailed",
+                      "checkingmanifest",
+                      "checkedmanifest",
+                      "devicefetch",
+                      "devicecopy",
+                      "devicecheck",
+                      "publishing",
+                      "deploying",
+                      "deployed",
+                      "manifestremoved",
+                      "expired",
+                      "stopping",
+                      "autostopped",
+                      "userstopped",
+                      "conflict"
+                    ],
+                    "type": "string",
+                    "x-deprecation": {
+                      "issued_at": "2019-03-18T14:55:20+00:00",
+                      "end_of_life_at": "2020-03-18T14:55:20+00:00",
+                      "comment": "Use phase instead",
+                      "links": []
+                    },
+                    "api_fieldname": "state",
+                    "entity_fieldname": "state"
+                  },
+                  "when": {
+                    "description": "The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.",
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "when",
+                    "entity_fieldname": "when"
+                  },
+                  "updated_at": {
+                    "description": "The time the object was updated",
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at"
+                  },
+                  "_key": "properties"
+                }
+              ],
+              "_key": "200"
+            },
+            {
+              "description": "Validation error: The data used to update the campaign did not validate\n",
+              "_key": "400"
+            },
+            {
+              "description": "Not authenticated",
+              "_key": "401"
+            },
+            {
+              "description": "Fields apart from 'name', 'description' and 'state' cannot be modified when the state is not 'draft'.",
+              "_key": "403"
+            },
+            {
+              "description": "Update campaign can't be found",
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/update-campaigns/{campaign_id}/",
+          "summary": "Modify a campaign",
+          "return_type": "update_campaign",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "update_campaign"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "is_custom",
+            "private_key",
+            "sub_accounts",
+            "state",
+            "autostop_reason",
+            "phase",
+            "created_at",
+            "finished",
+            "root_manifest_url",
+            "started_at",
+            "updated_at"
+          ],
+          "group_id": "Device_Update",
+          "parameter_map": {
+            "campaign_id": "id"
+          },
+          "operation_id": "Update_Campaign_update",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "update"
+        }
+      ],
+      "fields": [
+        {
+          "description": "Text description of why a campaign failed to start or why a campaign stopped.",
+          "type": "string",
+          "example": "Insufficient billing credit.",
+          "api_fieldname": "autostop_reason",
+          "readOnly": true,
+          "required": false,
+          "_key": "autostop_reason"
+        },
+        {
+          "description": "The time the update campaign was created",
+          "type": "string",
+          "format": "date-time",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "api_fieldname": "created_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "created_at"
+        },
+        {
+          "description": "An optional description of the campaign",
+          "type": "string",
+          "maxLength": 2000,
+          "example": "",
+          "api_fieldname": "description",
+          "readOnly": false,
+          "required": false,
+          "_key": "description"
+        },
+        {
+          "description": "The filter for the devices the campaign is targeting at",
+          "type": "string",
+          "example": "id__eq=00000000000000000000000000000000",
+          "api_fieldname": "device_filter",
+          "readOnly": false,
+          "required": true,
+          "_key": "device_filter"
+        },
+        {
+          "description": "Helper for creating the device filter string.",
+          "detail": "This helper can be used instead of setting device filter directly. This allows the campaign filter to be created in a way which is similar to the device listing filter.",
+          "type": "filter",
+          "foundation_reference": "devices.device.list",
+          "getter_custom_method": "device_filter_helper_getter",
+          "setter_custom_method": "device_filter_helper_setter",
+          "_override": true,
+          "api_fieldname": "device_filter_helper",
+          "readOnly": false,
+          "required": false,
+          "_key": "device_filter_helper"
+        },
+        {
+          "description": "The campaign finish timestamp",
+          "type": "string",
+          "format": "date-time",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "api_fieldname": "finished",
+          "readOnly": true,
+          "required": false,
+          "_key": "finished"
+        },
+        {
+          "description": "The campaign ID",
+          "type": "string",
+          "example": "00000000000000000000000000000000",
+          "api_fieldname": "id",
+          "readOnly": false,
+          "required": true,
+          "_key": "id"
+        },
+        {
+          "description": "The campaign name",
+          "type": "string",
+          "maxLength": 128,
+          "example": "campaign",
+          "api_fieldname": "name",
+          "readOnly": false,
+          "required": false,
+          "_key": "name"
+        },
+        {
+          "description": "The current phase of the campaign.",
+          "type": "string",
+          "readOnly": true,
+          "api_fieldname": "phase",
+          "required": false,
+          "_key": "phase"
+        },
+        {
+          "type": "string",
+          "example": "00000000000000000000000000000000",
+          "api_fieldname": "root_manifest_id",
+          "readOnly": false,
+          "required": false,
+          "_key": "root_manifest_id"
+        },
+        {
+          "type": "string",
+          "example": "http://example.com/00000000000000000000000000000000",
+          "api_fieldname": "root_manifest_url",
+          "readOnly": true,
+          "required": false,
+          "_key": "root_manifest_url"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "api_fieldname": "started_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "started_at"
+        },
+        {
+          "description": "The time the object was updated",
+          "format": "date-time",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "type": "string",
+          "api_fieldname": "updated_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "updated_at"
+        },
+        {
+          "description": "The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.",
+          "type": "string",
+          "format": "date-time",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "api_fieldname": "when",
+          "readOnly": false,
+          "required": false,
+          "_key": "when"
+        }
+      ],
+      "field_renames": [],
+      "tags": [],
+      "group_id": "Device_Update",
+      "_key": "update_campaign"
     },
     {
       "swagger_models": [
@@ -40835,6 +45430,8 @@
           },
           "operation_id": "createUser",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -41193,6 +45790,8 @@
           },
           "operation_id": "deleteUser",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -41914,6 +46513,8 @@
             "group": "Accounts",
             "entity": "user"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -42631,6 +47232,8 @@
           },
           "operation_id": "getUser",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         },
         {
@@ -43623,6 +48226,8 @@
           },
           "operation_id": "updateUser",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "update"
         }
       ],
@@ -44551,6 +49156,8 @@
           },
           "operation_id": "createInvitation",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "create"
         },
         {
@@ -44823,6 +49430,8 @@
           },
           "operation_id": "deleteInvitation",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "delete"
         },
         {
@@ -45284,6 +49893,8 @@
             "group": "Accounts",
             "entity": "user_invitation"
           },
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "list"
         },
         {
@@ -45720,6 +50331,8 @@
           },
           "operation_id": "getInvitation",
           "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
           "_key": "read"
         }
       ],
