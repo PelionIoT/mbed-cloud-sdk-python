@@ -8,6 +8,7 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.account`
 - :meth:`EntityFactory.active_session`
 - :meth:`EntityFactory.api_key`
+- :meth:`EntityFactory.campaign_device_metadata`
 - :meth:`EntityFactory.certificate_enrollment`
 - :meth:`EntityFactory.certificate_issuer`
 - :meth:`EntityFactory.certificate_issuer_config`
@@ -18,6 +19,8 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.device_enrollment_bulk_delete`
 - :meth:`EntityFactory.device_enrollment_denial`
 - :meth:`EntityFactory.device_events`
+- :meth:`EntityFactory.firmware_image`
+- :meth:`EntityFactory.firmware_manifest`
 - :meth:`EntityFactory.login_history`
 - :meth:`EntityFactory.login_profile`
 - :meth:`EntityFactory.parent_account`
@@ -28,6 +31,7 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.subtenant_user`
 - :meth:`EntityFactory.subtenant_user_invitation`
 - :meth:`EntityFactory.trusted_certificate`
+- :meth:`EntityFactory.update_campaign`
 - :meth:`EntityFactory.user`
 - :meth:`EntityFactory.user_invitation`
 - :meth:`EntityFactory.verification_response`
@@ -333,6 +337,61 @@ class EntityFactory:
             name=name,
             owner=owner,
             status=status,
+            updated_at=updated_at,
+        )
+
+    def campaign_device_metadata(
+        self,
+        campaign=None,
+        created_at=None,
+        deployment_state=None,
+        description=None,
+        device_id=None,
+        id=None,
+        mechanism=None,
+        mechanism_url=None,
+        name=None,
+        updated_at=None,
+    ):
+        """Creates a local `CampaignDeviceMetadata` instance, using the shared SDK context.
+
+        :param campaign: The device's campaign ID
+        :type campaign: str
+        :param created_at: The time the campaign was created
+        :type created_at: datetime
+        :param deployment_state: The state of the update campaign on the device
+        :type deployment_state: str
+        :param description: Description
+        :type description: str
+        :param device_id: The device ID
+        :type device_id: str
+        :param id: The metadata record ID
+        :type id: str
+        :param mechanism: How the firmware is delivered (connector or direct)
+        :type mechanism: str
+        :param mechanism_url: The Device Management Connect URL
+        :type mechanism_url: str
+        :param name: The record name
+        :type name: str
+        :param updated_at: The record was modified in the database format: date-time
+        :type updated_at: datetime
+        
+        :return: A new instance of a CampaignDeviceMetadata Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.device_update.campaign_device_metadata.CampaignDeviceMetadata
+        """
+        from mbed_cloud.foundation import CampaignDeviceMetadata
+
+        return CampaignDeviceMetadata(
+            _client=self._client,
+            campaign=campaign,
+            created_at=created_at,
+            deployment_state=deployment_state,
+            description=description,
+            device_id=device_id,
+            id=id,
+            mechanism=mechanism,
+            mechanism_url=mechanism_url,
+            name=name,
             updated_at=updated_at,
         )
 
@@ -935,6 +994,108 @@ class EntityFactory:
             state_change=state_change,
         )
 
+    def firmware_image(
+        self,
+        created_at=None,
+        datafile_checksum=None,
+        datafile_size=None,
+        datafile_url=None,
+        description=None,
+        id=None,
+        name=None,
+        updated_at=None,
+    ):
+        """Creates a local `FirmwareImage` instance, using the shared SDK context.
+
+        :param created_at: The time the object was created
+        :type created_at: datetime
+        :param datafile_checksum: The checksum (sha256) generated for the datafile
+        :type datafile_checksum: str
+        :param datafile_size: The size of the datafile in bytes
+        :type datafile_size: int
+        :param datafile_url: The firmware image file URL
+        :type datafile_url: str
+        :param description: The description of the object
+        :type description: str
+        :param id: The firmware image ID
+        :type id: str
+        :param name: The firmware image name
+        :type name: str
+        :param updated_at: The time the object was updated
+        :type updated_at: datetime
+        
+        :return: A new instance of a FirmwareImage Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.device_update.firmware_image.FirmwareImage
+        """
+        from mbed_cloud.foundation import FirmwareImage
+
+        return FirmwareImage(
+            _client=self._client,
+            created_at=created_at,
+            datafile_checksum=datafile_checksum,
+            datafile_size=datafile_size,
+            datafile_url=datafile_url,
+            description=description,
+            id=id,
+            name=name,
+            updated_at=updated_at,
+        )
+
+    def firmware_manifest(
+        self,
+        created_at=None,
+        datafile_size=None,
+        datafile_url=None,
+        description=None,
+        device_class=None,
+        id=None,
+        key_table_url=None,
+        name=None,
+        timestamp=None,
+        updated_at=None,
+    ):
+        """Creates a local `FirmwareManifest` instance, using the shared SDK context.
+
+        :param created_at: The time the object was created
+        :type created_at: datetime
+        :param datafile_size: The size of the datafile in bytes
+        :type datafile_size: int
+        :param datafile_url: The URL of the firmware manifest binary
+        :type datafile_url: str
+        :param description: The description of the firmware manifest
+        :type description: str
+        :param device_class: The class of the device
+        :type device_class: str
+        :param id: The firmware manifest ID
+        :type id: str
+        :param key_table_url: The key table of pre-shared keys for devices
+        :type key_table_url: str
+        :param name: The name of the object
+        :type name: str
+        :param timestamp: The firmware manifest version as a timestamp
+        :type timestamp: datetime
+        :param updated_at: The time the object was updated
+        :type updated_at: datetime
+        
+        :return: A new instance of a FirmwareManifest Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.device_update.firmware_manifest.FirmwareManifest
+        """
+        from mbed_cloud.foundation import FirmwareManifest
+
+        return FirmwareManifest(
+            _client=self._client,
+            created_at=created_at,
+            datafile_size=datafile_size,
+            datafile_url=datafile_url,
+            description=description,
+            device_class=device_class,
+            id=id,
+            key_table_url=key_table_url,
+            name=name,
+            timestamp=timestamp,
+            updated_at=updated_at,
+        )
+
     def login_history(self, date=None, ip_address=None, success=None, user_agent=None):
         """Creates a local `LoginHistory` instance, using the shared SDK context.
 
@@ -1404,6 +1565,79 @@ class EntityFactory:
             updated_at=updated_at,
             valid=valid,
             validity=validity,
+        )
+
+    def update_campaign(
+        self,
+        autostop_reason=None,
+        created_at=None,
+        description=None,
+        device_filter=None,
+        device_filter_helper=None,
+        finished=None,
+        id=None,
+        name=None,
+        phase=None,
+        root_manifest_id=None,
+        root_manifest_url=None,
+        started_at=None,
+        updated_at=None,
+        when=None,
+    ):
+        """Creates a local `UpdateCampaign` instance, using the shared SDK context.
+
+        :param autostop_reason: Text description of why a campaign failed to start or why a
+            campaign stopped.
+        :type autostop_reason: str
+        :param created_at: The time the update campaign was created
+        :type created_at: datetime
+        :param description: An optional description of the campaign
+        :type description: str
+        :param device_filter: The filter for the devices the campaign is targeting at
+        :type device_filter: str
+        :param device_filter_helper: Helper for creating the device filter string.
+        :type device_filter_helper: mbed_cloud.client.api_filter.ApiFilter
+        :param finished: The campaign finish timestamp
+        :type finished: datetime
+        :param id: The campaign ID
+        :type id: str
+        :param name: The campaign name
+        :type name: str
+        :param phase: The current phase of the campaign.
+        :type phase: str
+        :param root_manifest_id: 
+        :type root_manifest_id: str
+        :param root_manifest_url: 
+        :type root_manifest_url: str
+        :param started_at: 
+        :type started_at: datetime
+        :param updated_at: The time the object was updated
+        :type updated_at: datetime
+        :param when: The scheduled start time for the campaign. The campaign will start
+            within 1 minute when then start time has elapsed.
+        :type when: datetime
+        
+        :return: A new instance of a UpdateCampaign Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.device_update.update_campaign.UpdateCampaign
+        """
+        from mbed_cloud.foundation import UpdateCampaign
+
+        return UpdateCampaign(
+            _client=self._client,
+            autostop_reason=autostop_reason,
+            created_at=created_at,
+            description=description,
+            device_filter=device_filter,
+            device_filter_helper=device_filter_helper,
+            finished=finished,
+            id=id,
+            name=name,
+            phase=phase,
+            root_manifest_id=root_manifest_id,
+            root_manifest_url=root_manifest_url,
+            started_at=started_at,
+            updated_at=updated_at,
+            when=when,
         )
 
     def user(
