@@ -277,6 +277,7 @@ class DeviceEnrollment(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/device-enrollments",
+            content_type=None,
             body_params={"enrollment_identity": self._enrollment_identity.to_api()},
             unpack=self,
         )
@@ -292,6 +293,7 @@ class DeviceEnrollment(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/device-enrollments/{id}",
+            content_type=None,
             path_params={"id": self._id.to_api()},
             unpack=self,
         )
@@ -303,8 +305,8 @@ class DeviceEnrollment(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments>`_.
         
-        :param filter: An optional filter to apply when listing entities, please see the
-            above **API Filters** table for supported filters.
+        :param filter: Filtering when listing entities is not supported by the API for this
+            entity.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: ASC or DESC
@@ -405,6 +407,7 @@ class DeviceEnrollment(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/device-enrollments/{id}",
+            content_type=None,
             path_params={"id": self._id.to_api()},
             unpack=self,
         )

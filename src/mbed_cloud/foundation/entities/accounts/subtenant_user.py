@@ -728,6 +728,7 @@ class SubtenantUser(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/accounts/{account_id}/users",
+            content_type=None,
             path_params={"account_id": self._account_id.to_api()},
             query_params={"action": fields.StringField(action).to_api()},
             body_params={
@@ -755,6 +756,7 @@ class SubtenantUser(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/accounts/{account_id}/users/{user_id}",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "user_id": self._id.to_api(),
@@ -773,6 +775,7 @@ class SubtenantUser(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/users/{user_id}",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "user_id": self._id.to_api(),
@@ -791,6 +794,7 @@ class SubtenantUser(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/accounts/{account_id}/users/{user_id}",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "user_id": self._id.to_api(),
@@ -819,6 +823,7 @@ class SubtenantUser(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/accounts/{account_id}/users/{user_id}/validate-email",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "user_id": self._id.to_api(),

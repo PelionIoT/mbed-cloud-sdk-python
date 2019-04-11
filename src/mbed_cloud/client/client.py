@@ -11,7 +11,7 @@ This provides direct access the Pelion Device Management API.
 
     from mbed_cloud import SDK
     pelion_dm_sdk = SDK()
-    api_client = pelion_dm_sdk.client()
+    response = pelion_dm_sdk.client.call_api(method="GET", path="/...")
 
 ------------
 """
@@ -39,7 +39,7 @@ class Client(object):
         self.session.headers.update(
             {
                 "Authorization": "Bearer %s" % self.config.api_key,
-                "UserAgent": utils.get_user_agent(),
+                "User-Agent": utils.get_user_agent(),
             }
         )
 
@@ -52,6 +52,8 @@ class Client(object):
         query_params=None,
         body_params=None,
         stream_params=None,
+        binary_data=None,
+        content_type=None,
         unpack=None,
         **kwargs
     ):
@@ -85,17 +87,21 @@ class Client(object):
         :type method: str
         :param path: Path relative to the configured host (with variable substitution using `{format}` syntax)
         :type path: str
-        :param headers: (optional) HTTP Headers (Auth is not required)
+        :param headers: (optional) HTTP Headers (Auth is not required, Content-Type can be provided via content_type)
         :type headers: dict
         :param path_params: (optional) Path parameters (substituted into the `path` parameter)
         :type path_params: dict
         :param query_params: (optional) Query Parameters
         :type query_params: dict
-        :param body_params: (optional) Message Body
+        :param body_params: (optional) JSON-compatible Message Body
         :type body_params: dict
         :param stream_params: (optional) Files for multipart encoding uploading, see 'requests.request.files` for more
             information.
         :type stream_params: dict
+        :param binary_data: (optional) Binary data suitable for binary/octet-stream content type.
+        :type binary_data: str/byte
+        :param content_type: (optional) Content-Type of the request, if defined this will be added to the HTTP Headers.
+        :type content_type: str
         :param unpack: (optional) Unpack the response into this Entity
         :type unpack: mbed_cloud.foundation.common.entity_base.Entity
         :param kwargs: (optional) Addition parameters to be passed to `requests.Session().request`
@@ -107,12 +113,21 @@ class Client(object):
         if path_params:
             url = url.format(**path_params)
 
+        if binary_data and not content_type:
+            content_type = "binary/octet-stream"
+
+        if content_type:
+            if headers is None:
+                headers = {}
+            headers.update({"Content-Type": content_type})
+
         response = self.session.request(
             method=method,
             url=url,
             headers=headers,
             params=query_params,
             json=body_params,
+            data=binary_data,
             files=stream_params,
             stream=bool(stream_params),
             **kwargs

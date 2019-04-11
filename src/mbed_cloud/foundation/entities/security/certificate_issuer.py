@@ -288,6 +288,7 @@ class CertificateIssuer(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/certificate-issuers",
+            content_type=None,
             body_params={
                 "description": self._description.to_api(),
                 "issuer_attributes": self._issuer_attributes.to_api(),
@@ -309,6 +310,7 @@ class CertificateIssuer(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/certificate-issuers/{certificate-issuer-id}",
+            content_type=None,
             path_params={"certificate-issuer-id": self._id.to_api()},
             unpack=self,
         )
@@ -318,8 +320,8 @@ class CertificateIssuer(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuers>`_.
         
-        :param filter: An optional filter to apply when listing entities, please see the
-            above **API Filters** table for supported filters.
+        :param filter: Filtering when listing entities is not supported by the API for this
+            entity.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
         :param order: The order of the records based on creation time, `ASC` or `DESC`; by
@@ -422,6 +424,7 @@ class CertificateIssuer(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/certificate-issuers/{certificate-issuer-id}",
+            content_type=None,
             path_params={"certificate-issuer-id": self._id.to_api()},
             unpack=self,
         )
@@ -444,6 +447,7 @@ class CertificateIssuer(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/certificate-issuers/{certificate-issuer-id}",
+            content_type=None,
             body_params={
                 "description": self._description.to_api(),
                 "issuer_attributes": self._issuer_attributes.to_api(),
@@ -467,6 +471,7 @@ class CertificateIssuer(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/certificate-issuers/{certificate-issuer-id}/verify",
+            content_type=None,
             path_params={"certificate-issuer-id": self._id.to_api()},
             unpack=VerificationResponse,
         )

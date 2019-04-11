@@ -308,6 +308,7 @@ class UserInvitation(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/user-invitations",
+            content_type=None,
             body_params={
                 "email": self._email.to_api(),
                 "login_profiles": self._login_profiles.to_api(),
@@ -327,6 +328,7 @@ class UserInvitation(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/user-invitations/{invitation_id}",
+            content_type=None,
             path_params={"invitation_id": self._id.to_api()},
             unpack=self,
         )
@@ -458,6 +460,7 @@ class UserInvitation(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/user-invitations/{invitation_id}",
+            content_type=None,
             path_params={"invitation_id": self._id.to_api()},
             unpack=self,
         )

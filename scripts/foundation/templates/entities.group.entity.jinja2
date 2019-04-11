@@ -121,6 +121,14 @@ class {{ entity._key|to_pascal }}(Entity):
     @property
     def {{field._key|to_snake}}(self):
         """{{ (field.description or '')|wordwrap(width=78)|indent(width=8) }}
+        {%- if field.detail %}
+
+        {{ field.detail |wordwrap(width=78)|indent(width=8) }}
+        {%- endif %}
+        {%- if field.foundation_reference %}
+
+        - See {{ field.foundation_reference }} for details.
+        {%- endif %}
         {%- if field.required %}
 
         This field must be set when {% if field._key=='id' %}updating or deleting an existing{% else %}creating a new{% endif %} {{ entity._key|to_pascal }} Entity.
@@ -132,7 +140,7 @@ class {{ entity._key|to_pascal }}(Entity):
         """
         {% if field.getter_custom_method %}
         from mbed_cloud.foundation._custom_methods import {{ field.getter_custom_method }}
-        return {{ field.getter_custom_method }}(self=self, field=self._{{field._key|to_snake}})
+        return {{ field.getter_custom_method }}(self=self)
         {% else %}
         return self._{{field._key|to_snake}}.value
         {% endif %}
@@ -146,7 +154,7 @@ class {{ entity._key|to_pascal }}(Entity):
         """
         {% if field.setter_custom_method %}
         from mbed_cloud.foundation._custom_methods import {{ field.setter_custom_method }}
-        {{ field.setter_custom_method }}(self=self, field=self._{{field._key|to_snake}}, value=value)
+        {{ field.setter_custom_method }}(self=self, value=value)
         {% else %}
         self._{{field._key|to_snake}}.set(value)
         {% endif %}
@@ -214,7 +222,7 @@ class {{ entity._key|to_pascal }}(Entity):
             {%- endfor %}
         {%- endif %}
         {% for field in method.fields %}{% if field.external_param %}
-        :param {{field._key|to_snake}}: {{ (field.description or field.foreign_key.entity|to_pascal)|wordwrap(width=70)|indent(width=12) }}
+        :param {{field._key|to_snake}}: {{ (field.description or "No description available")|wordwrap(width=70)|indent(width=12)  }}
         :type {{field._key|to_snake}}: {{ (field.foreign_key and 'mbed_cloud.foundation.entities.' + field.foreign_key.entity|to_pascal) or field.python_type}}
         {% endif %}{% endfor %}
         {%- if method.public_paginator_method %}
@@ -280,23 +288,37 @@ class {{ entity._key|to_pascal }}(Entity):
         return self._client.call_api(
             method='{{method.method}}',
             path='{{ method.path }}',
+            content_type={% if method.get.request_content_type %}'{{ method.get.request_content_type }}'{% else %}None{% endif %},
             {% for param_in, count in method.python_params_in.items() %}
                 {% if count %}
-                {{ param_in }}_params = {% if not method.__REPLACE_BODY or param_in != 'body' %}{% raw %}{{% endraw %}{% endif %}
+                {# If the request body is binary then pass external parameters straight through to requests #}
+                {% if method.request_body == "binary" and param_in == "body" %}
+                    binary_data =
                     {% for field in method.fields %}
                     {% if field['in'] == param_in %}
-                    {% if not method.__REPLACE_BODY or param_in != 'body' %}
-                        '{{field.parameter_fieldname}}':
+                        {% if field.external_param %}
+                            {{field._key|to_snake}}
+                        {% else %}
+                            self._{{field._key|to_snake}}.to_api()
+                        {% endif %}
+                    ,
                     {% endif %}
+                    {% endfor %}
+                {% else %}
+                {{ param_in }}_params = {% raw %}{{% endraw %}
+                    {% for field in method.fields %}
+                    {% if field['in'] == param_in %}
+                        '{{field.parameter_fieldname}}':
                         {% if field.external_param %}
                             fields.{{ field.python_field }}({{field._key|to_snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference|to_pascal }}{% endif %}).to_api()
                         {% else %}
                             self._{{field._key|to_snake}}.to_api()
                         {% endif %}
-                    {% if not method.__REPLACE_BODY or param_in != 'body' %},{% endif %}
+                    ,
                     {% endif %}
                     {% endfor %}
-                {% if not method.__REPLACE_BODY or param_in != 'body' %}{% raw %}}{% endraw %}{% endif %},
+                {% raw %}}{% endraw %},
+                {% endif %}
                 {% endif %}
             {% endfor %}
             unpack = {{ unpack_type }},

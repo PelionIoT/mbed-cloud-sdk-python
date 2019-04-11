@@ -159,6 +159,11 @@ class StringField(Field):
     base_type = six.string_types
 
 
+class BinaryField(Field):
+    # Python 2 and 3 compatible binary type
+    base_type = six.binary_type
+
+
 class BooleanField(Field):
     base_type = bool
 

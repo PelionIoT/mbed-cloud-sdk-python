@@ -335,9 +335,7 @@ class SubtenantTrustedCertificate(Entity):
 
         from mbed_cloud.foundation._custom_methods import is_developer_certificate_getter
 
-        return is_developer_certificate_getter(
-            self=self, field=self._is_developer_certificate
-        )
+        return is_developer_certificate_getter(self=self)
 
     @is_developer_certificate.setter
     def is_developer_certificate(self, value):
@@ -349,9 +347,7 @@ class SubtenantTrustedCertificate(Entity):
 
         from mbed_cloud.foundation._custom_methods import is_developer_certificate_setter
 
-        is_developer_certificate_setter(
-            self=self, field=self._is_developer_certificate, value=value
-        )
+        is_developer_certificate_setter(self=self, value=value)
 
     @property
     def issuer(self):
@@ -555,6 +551,7 @@ class SubtenantTrustedCertificate(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/accounts/{account_id}/trusted-certificates",
+            content_type=None,
             path_params={"account_id": self._account_id.to_api()},
             body_params={
                 "certificate": self._certificate.to_api(),
@@ -578,6 +575,7 @@ class SubtenantTrustedCertificate(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "cert_id": self._id.to_api(),
@@ -598,6 +596,7 @@ class SubtenantTrustedCertificate(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/developer-certificates/{developerCertificateId}",
+            content_type=None,
             path_params={"developerCertificateId": self._id.to_api()},
             unpack=DeveloperCertificate,
         )
@@ -613,6 +612,7 @@ class SubtenantTrustedCertificate(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "cert_id": self._id.to_api(),
@@ -631,6 +631,7 @@ class SubtenantTrustedCertificate(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
+            content_type=None,
             path_params={
                 "account_id": self._account_id.to_api(),
                 "cert_id": self._id.to_api(),

@@ -10,6 +10,7 @@ import logging
 import copy
 import functools
 import subprocess
+import re
 from collections import defaultdict
 import jinja2
 
@@ -198,8 +199,6 @@ SORT_ORDER = {
     "include": "7",
 }
 
-
-
 # Map from Swagger Types / Formats to Foundation field types
 SWAGGER_FIELD_MAP = {
     # Swagger types
@@ -209,10 +208,14 @@ SWAGGER_FIELD_MAP = {
     "number": "FloatField",
     "object": "DictField",
     "file": "FileField",
-    # Swagger formats (specialisation of types)
     "string": "StringField",
+    # Swagger formats (specialisation of types)
+    "byte": "BinaryField",
+    "binary": "BinaryField",
     "date-time": "DateTimeField",
     "date": "DateField",
+    # Custom filter field is stored as a dictionary
+    "filter": "DictField",
 }
 
 # Map from Swagger Types / Formats to native Python types
@@ -226,8 +229,12 @@ SWAGGER_TYPE_MAP = {
     "string": "str",
     "file": "file",
     # Swagger formats (specialisation of types)
+    "byte": "bytes",
+    "binary": "bytes",
     "date-time": "datetime",
     "date": "date",
+    # Custom filter field is used the standard API filter builder
+    "filter": "mbed_cloud.client.api_filter.ApiFilter",
 }
 
 
@@ -262,15 +269,16 @@ def to_pascal_case(string):
 
 
 @functools.lru_cache()
-def to_snake_case(name):
+def to_snake_case(string):
     """Converts string to snake_case
 
     we don't use title because that forces lowercase for the word, whereas we want:
     PSK -> psk
     api key -> api_key
+    content-length -> content_length
     user -> user
     """
-    return name.replace(" ", "_").lower()
+    return re.sub("[ -]", "_", string).lower()
 
 
 def to_singular_name(name):
@@ -317,7 +325,7 @@ class TemplateRenderer(object):
         :param str template_filename: name of template to render, this also defines the output path and filename.
         :param str group: This should be supplied when the template filename contains `group` .
         :param str entity: This should be supplied when the template filename contains `entity`.
-        :param str template_data: Data to pass to the template.
+        :param dict template_data: Data to pass to the template.
         """
         template = self.jinja_env.get_template(template_filename)
 
@@ -407,7 +415,17 @@ def count_param_in(fields):
     return params_in
 
 
-def add_required_parameters(method, required_parameters):
+def add_required_parameters(method, parameters):
+    """Add any missing parameters to the method definition.
+
+    If the parameter is not present then add the definition, otherwise leave the existing definition (along with the
+    documentation) unchanged.
+
+    :param method: The method to which to add the parameters.
+    :param parameters: The required parameters.
+    """
+    # Deepcopy the parameters so any later changes to not impact the base definition.
+    required_parameters = copy.deepcopy(parameters)
     # Fill in any missing list parameters so there is a consistent interface
     required_fields = list(required_parameters.keys())
     for field in method["fields"]:
@@ -476,7 +494,6 @@ def create_custom_methods(entity, method):
 
     :param entity: The entity being processed, this will be modified if a paginator is found.
     :param method: The current method being processed.
-    :return:
     """
     if method.get("pagination"):
         internal_paginator = copy.deepcopy(method)
@@ -532,6 +549,23 @@ def post_process_definition_file(sdk_def_filename):
         # The SDK generation file is organised around SDK entities
         for entity in sdk_gen_dict["entities"]:
             map_python_field_types(entity["fields"])
+
+            # Convert a reference to an SDK Entity to a Python code reference
+            # devices.device.list -> mbed_cloud.foundation.entities.devices.device.Device.list
+            for field in entity["fields"]:
+                foundation_reference = field.get("foundation_reference")
+                if foundation_reference:
+                    reference_segments = foundation_reference.split(".")
+                    # E.g. mbed_cloud.foundation.entities.devices
+                    python_reference = "mbed_cloud.foundation.entities." + to_snake_case(reference_segments[0])
+                    if len(reference_segments) > 1:
+                        # E.g. mbed_cloud.foundation.entities.devices.device.Device
+                        python_reference += ".%s.%s" %(to_snake_case(reference_segments[1]), to_pascal_case(reference_segments[1]))
+                    if len(reference_segments) > 2:
+                        # E.g. mbed_cloud.foundation.entities.devices.device.Device.list
+                        python_reference += ".%s" % to_snake_case(reference_segments[2])
+                    field["foundation_reference"] = python_reference
+
             for method in entity["methods"][:]:
                 map_python_field_types(method["fields"])
                 method["python_params_in"] = count_param_in(method["fields"])

@@ -68,6 +68,8 @@ class TestExamples(BaseCase):
         # end of example
 
     def test_subscribe_resources(self):
+        import logging
+        logging.basicConfig(level=logging.DEBUG)
         # an example: subscribing to resource value changes
         # creates an Observer listening to resource value changes for devices
         # whose id starts with `016` and resource paths start with `/3/0/`
