@@ -471,7 +471,7 @@ class UpdateCampaign(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/update-campaigns/{campaign_id}/archive",
-            content_type=None,
+            content_type="application/json",
             path_params={"campaign_id": self._id.to_api()},
             unpack=self,
         )
@@ -487,7 +487,7 @@ class UpdateCampaign(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/update-campaigns/",
-            content_type=None,
+            content_type="application/json",
             body_params={
                 "description": self._description.to_api(),
                 "device_filter": self._device_filter.to_api(),
@@ -509,7 +509,7 @@ class UpdateCampaign(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/update-campaigns/{campaign_id}/",
-            content_type=None,
+            content_type="application/json",
             path_params={"campaign_id": self._id.to_api()},
             unpack=self,
         )
@@ -768,7 +768,7 @@ class UpdateCampaign(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/update-campaigns/{campaign_id}/",
-            content_type=None,
+            content_type="application/json",
             path_params={"campaign_id": self._id.to_api()},
             unpack=self,
         )
@@ -784,7 +784,7 @@ class UpdateCampaign(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/update-campaigns/{campaign_id}/start",
-            content_type=None,
+            content_type="application/json",
             path_params={"campaign_id": self._id.to_api()},
             unpack=self,
         )
@@ -800,7 +800,7 @@ class UpdateCampaign(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/update-campaigns/{campaign_id}/stop",
-            content_type=None,
+            content_type="application/json",
             path_params={"campaign_id": self._id.to_api()},
             unpack=self,
         )
@@ -816,7 +816,7 @@ class UpdateCampaign(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/update-campaigns/{campaign_id}/",
-            content_type=None,
+            content_type="application/json",
             body_params={
                 "description": self._description.to_api(),
                 "device_filter": self._device_filter.to_api(),

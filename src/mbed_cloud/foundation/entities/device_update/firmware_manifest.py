@@ -347,7 +347,7 @@ class FirmwareManifest(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/firmware-manifests/{manifest_id}/",
-            content_type=None,
+            content_type="application/json",
             path_params={"manifest_id": self._id.to_api()},
             unpack=self,
         )
@@ -499,7 +499,7 @@ class FirmwareManifest(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/firmware-manifests/{manifest_id}/",
-            content_type=None,
+            content_type="application/json",
             path_params={"manifest_id": self._id.to_api()},
             unpack=self,
         )
@@ -522,7 +522,7 @@ class FirmwareManifest(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/firmware-manifests/",
-            content_type=None,
+            content_type="multipart/form-data",
             stream_params={
                 "description": self._description.to_api(),
                 "datafile": fields.FileField(firmware_manifest_file).to_api(),

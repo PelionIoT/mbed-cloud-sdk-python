@@ -348,7 +348,7 @@ class CampaignDeviceMetadata(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/",
-            content_type=None,
+            content_type="application/json",
             path_params={
                 "campaign_id": self._campaign.to_api(),
                 "campaign_device_metadata_id": self._id.to_api(),

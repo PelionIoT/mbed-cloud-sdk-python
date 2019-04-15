@@ -295,7 +295,7 @@ class FirmwareImage(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/firmware-images/{image_id}/",
-            content_type=None,
+            content_type="application/json",
             path_params={"image_id": self._id.to_api()},
             unpack=self,
         )
@@ -445,7 +445,7 @@ class FirmwareImage(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/firmware-images/{image_id}/",
-            content_type=None,
+            content_type="application/json",
             path_params={"image_id": self._id.to_api()},
             unpack=self,
         )
@@ -464,7 +464,7 @@ class FirmwareImage(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/firmware-images/",
-            content_type=None,
+            content_type="multipart/form-data",
             stream_params={
                 "description": self._description.to_api(),
                 "datafile": fields.FileField(firmware_image_file).to_api(),

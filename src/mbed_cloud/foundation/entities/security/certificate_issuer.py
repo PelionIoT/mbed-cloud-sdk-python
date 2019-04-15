@@ -288,7 +288,7 @@ class CertificateIssuer(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/certificate-issuers",
-            content_type=None,
+            content_type="application/json",
             body_params={
                 "description": self._description.to_api(),
                 "issuer_attributes": self._issuer_attributes.to_api(),
@@ -310,7 +310,7 @@ class CertificateIssuer(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/certificate-issuers/{certificate-issuer-id}",
-            content_type=None,
+            content_type="application/json",
             path_params={"certificate-issuer-id": self._id.to_api()},
             unpack=self,
         )
@@ -424,7 +424,7 @@ class CertificateIssuer(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/certificate-issuers/{certificate-issuer-id}",
-            content_type=None,
+            content_type="application/json",
             path_params={"certificate-issuer-id": self._id.to_api()},
             unpack=self,
         )
@@ -447,7 +447,7 @@ class CertificateIssuer(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/certificate-issuers/{certificate-issuer-id}",
-            content_type=None,
+            content_type="application/json",
             body_params={
                 "description": self._description.to_api(),
                 "issuer_attributes": self._issuer_attributes.to_api(),
@@ -471,7 +471,7 @@ class CertificateIssuer(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/certificate-issuers/{certificate-issuer-id}/verify",
-            content_type=None,
+            content_type="application/json",
             path_params={"certificate-issuer-id": self._id.to_api()},
             unpack=VerificationResponse,
         )
