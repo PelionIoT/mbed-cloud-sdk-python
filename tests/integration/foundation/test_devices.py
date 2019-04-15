@@ -1,4 +1,4 @@
-"""Tests for entities in the security module."""
+"""Tests for entities in the devices module."""
 
 import time
 
