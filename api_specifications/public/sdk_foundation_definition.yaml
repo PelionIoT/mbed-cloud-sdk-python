@@ -23379,6 +23379,433 @@ entities:
   swagger_models:
   - FeaturePolicy
   tags: []
+- _key: pre_shared_key
+  field_renames: []
+  fields:
+  - _key: created_at
+    api_fieldname: created_at
+    description: The date-time (RFC3339) when this pre-shared key was uploaded to
+      Pelion device management.
+    example: '2017-07-21T17:32:28.012Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: endpoint_name
+    api_fieldname: endpoint_name
+    description: The unique endpoint identifier that this pre-shared key applies to.
+      16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
+      (non-control) ASCII characters.
+    example: my-endpoint-0001
+    pattern: ^[ -~]{16,64}$
+    readOnly: false
+    required: true
+    type: string
+  group_id: Security
+  methods:
+  - _key: create
+    description: "Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap.\
+      \ The existing key will not be overwritten but needs\nto be deleted first in\
+      \ case of re-setting PSK for an endpoint.\n\n**Note**: The PSK APIs are available\
+      \ only to accounts that have this feature enabled.\n\n**Example usage:**\n\n\
+      ```\ncurl -H \"authorization: Bearer ${API_TOKEN}\" -H \"content-type: application/json\"\
+      \ -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\\n   \
+      \  -d '{\"endpoint_name\": \"my-endpoint-0001\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\"\
+      \ }'\n```\n"
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    field_renames: []
+    fields:
+    - _key: endpoint_name
+      api_fieldname: endpoint_name
+      description: The unique endpoint identifier that this pre-shared key applies
+        to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
+        (non-control) ASCII characters.
+      entity_fieldname: endpoint_name
+      example: my-endpoint-0001
+      external_param: false
+      in: body
+      name: endpoint_name
+      parameter_fieldname: endpoint_name
+      pattern: ^[ -~]{16,64}$
+      required: true
+      schema_param: true
+      type: string
+    - _key: secret_hex
+      api_fieldname: secret_hex
+      description: The secret of the pre-shared key in hexadecimal. It is not case
+        sensitive; 4a is same as 4A, and it is allowed with or without 0x in the beginning.
+        The minimum length of the secret is 128 bits and maximum 256 bits.
+      entity_fieldname: secret_hex
+      example: 4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a
+      external_param: true
+      in: body
+      name: secret_hex
+      parameter_fieldname: secret_hex
+      pattern: ^(0[xX])?[0-9a-fA-F]{32,64}$
+      required: true
+      schema_param: true
+      type: string
+    group_id: Security
+    method: post
+    mode: create
+    operation_id: uploadPreSharedKey
+    pagination: false
+    path: /v2/device-shared-keys
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '201'
+      description: Successfully created.
+    - _key: '400'
+      description: Bad request. Contains comma-separated errors INVALID_ENDPOINT_NAME,
+        INVALID_SECRET_HEX and MALFORMED_JSON_CONTENT.
+      schema:
+        type: string
+    - _key: '401'
+      description: Authentication failure.
+    - _key: '403'
+      description: Forbidden. You need to read and accept the PSK license in Pelion
+        Device Management Portal.
+    - _key: '409'
+      description: Conflict. The pre-shared key for the endpoint already exists and
+        will not be overwritten. Contains error KEY_ALREADY_EXISTS_FOR_ENDPOINT.
+      schema:
+        type: string
+    return_info:
+      custom: false
+      self: true
+      type: pre_shared_key
+    return_type: pre_shared_key
+    summary: Upload a pre-shared key to Pelion Device Management.
+    x_deprecation: null
+    x_filter: {}
+  - _key: delete
+    description: 'Remove a pre-shared key.
+
+
+      **Example usage:**
+
+
+      ```
+
+      curl -H "authorization: Bearer ${API_TOKEN}" -X DELETE https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001
+
+      ```
+
+      '
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    field_renames: []
+    fields:
+    - _key: endpoint_name
+      api_fieldname: endpoint_name
+      description: The unique endpoint identifier that this pre-shared key applies
+        to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters)
+        must be percent-encoded.
+      entity_fieldname: endpoint_name
+      external_param: false
+      in: path
+      name: endpoint_name
+      parameter_fieldname: endpoint_name
+      required: true
+      type: string
+    group_id: Security
+    method: delete
+    mode: delete
+    operation_id: deletePreSharedKey
+    pagination: false
+    path: /v2/device-shared-keys/{endpoint_name}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Successfully deleted. Responded even if the endpoint did not have
+        a PSK associated.
+    - _key: '400'
+      description: Bad request. Endpoint name validation failed. Contains error INVALID_ENDPOINT_NAME.
+      schema:
+        type: string
+    - _key: '401'
+      description: Authentication failure.
+    return_info:
+      custom: false
+      self: true
+      type: pre_shared_key
+    return_type: pre_shared_key
+    summary: Remove a pre-shared key.
+    x_deprecation: null
+    x_filter: {}
+  - _key: list
+    description: 'List pre-shared keys with pagination and default page size of 50
+      entries.
+
+
+      **Example usage:**
+
+
+      ```
+
+      curl -H "authorization: Bearer ${API_TOKEN}" https://api.us-east-1.mbedcloud.com/v2/device-shared-keys
+
+      ```
+
+      '
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - order
+    - has_more
+    - continuation_marker
+    - data
+    field_renames: []
+    fields:
+    - _key: after
+      api_fieldname: after
+      description: An offset token for fetching a specific page. Provided by the server.
+      entity_fieldname: after
+      example: 001e001000120010fac8f300487f11e8839a459edde8bd42f07fffffebf07fffffebb1219cc7862b64bbaf775dc545e274810004
+      external_param: true
+      in: query
+      name: after
+      parameter_fieldname: after
+      required: false
+      type: string
+    - _key: limit
+      api_fieldname: limit
+      description: The number of entries per page
+      entity_fieldname: limit
+      example: 50
+      external_param: true
+      in: query
+      name: limit
+      parameter_fieldname: limit
+      required: false
+      type: integer
+    foreign_key:
+      entity: pre_shared_key
+      group: Security
+    foreign_key_priority: self
+    group_id: Security
+    method: get
+    mode: list
+    operation_id: listPreSharedKeys
+    pagination: true
+    path: /v2/device-shared-keys
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: List of pre-shared keys.
+      schema:
+        foreign_key:
+          entity: pre_shared_key
+          group: Security
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: An offset token for current page.
+          entity_fieldname: after
+          example: 001e001000120010fac8f300487f11e8839a459edde8bd42f07fffffebf07fffffebb1219cc7862b64bbaf775dc545e274810004
+          type: string
+        - _key: continuation_marker
+          api_fieldname: continuation_marker
+          description: An offset token for fetching the next page. Note that exactly
+            the same limit needs to be used on the request for fetching the subsequent
+            pages.
+          entity_fieldname: continuation_marker
+          example: 001e001000120010fac8f300487f11e8839a459edde8bd42f07fffffebf07fffffebb1219cc7862b64bbaf775dc545e274810005
+          type: string
+        - _key: data
+          api_fieldname: data
+          description: Array of the pre-shared key entries. The array is empty if
+            there are no pre-shared keys.
+          entity_fieldname: data
+          items:
+            foreign_key:
+              entity: pre_shared_key
+              group: Security
+            properties:
+            - _key: created_at
+              description: The date-time (RFC3339) when this pre-shared key was uploaded
+                to Pelion device management.
+              example: '2017-07-21T17:32:28.012Z'
+              format: date-time
+              type: string
+            - _key: endpoint_name
+              description: The unique endpoint identifier that this pre-shared key
+                applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
+                (non-control) ASCII characters.
+              example: my-endpoint-0001
+              pattern: ^[ -~]{16,64}$
+              type: string
+            required:
+            - endpoint_name
+            type: object
+          minLength: 0
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: Are there more results available.
+          entity_fieldname: has_more
+          example: true
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: The value of limit query parameter from the request, or default
+            if not specified.
+          entity_fieldname: limit
+          example: 50
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: The type of this API object is a "list".
+          entity_fieldname: object
+          example: list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: The creation time based order of the entries.
+          entity_fieldname: order
+          example: DESC
+          type: string
+        required:
+        - object
+        - limit
+        - order
+        - has_more
+        - data
+        type: object
+    - _key: '400'
+      description: Bad request. Contains the error as a string, either TOKEN_NOT_FOUND
+        or INVALID_LIMIT.
+    return_info:
+      custom: false
+      self: true
+      type: pre_shared_key
+    return_type: paginated_response(pre_shared_key)
+    summary: List pre-shared keys.
+    x_deprecation: null
+    x_filter: {}
+  - _key: read
+    description: 'Check if a pre-shared key for an endpoint exists or not. The response
+      does not contain the secret itself.
+
+
+      **Example usage:**
+
+
+      ```
+
+      curl -H "authorization: Bearer ${API_TOKEN}" https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001
+
+      ```
+
+      '
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - created_at
+    field_renames: []
+    fields:
+    - _key: endpoint_name
+      api_fieldname: endpoint_name
+      description: The unique endpoint identifier that this pre-shared key applies
+        to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
+        (non-control) ASCII characters.
+      entity_fieldname: endpoint_name
+      example: my-endpoint-0001
+      in: path
+      parameter_fieldname: endpoint_name
+      pattern: ^[ -~]{16,64}$
+      required: true
+      type: string
+    group_id: Security
+    method: get
+    mode: read
+    operation_id: getPreSharedKey
+    pagination: false
+    path: /v2/device-shared-keys/{endpoint_name}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Pre-shared key for the device (does not contain secret).
+      schema:
+        foreign_key:
+          entity: pre_shared_key
+          group: Security
+        properties:
+        - _key: created_at
+          api_fieldname: created_at
+          description: The date-time (RFC3339) when this pre-shared key was uploaded
+            to Pelion device management.
+          entity_fieldname: created_at
+          example: '2017-07-21T17:32:28.012Z'
+          format: date-time
+          type: string
+        - _key: endpoint_name
+          api_fieldname: endpoint_name
+          description: The unique endpoint identifier that this pre-shared key applies
+            to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
+            (non-control) ASCII characters.
+          entity_fieldname: endpoint_name
+          example: my-endpoint-0001
+          pattern: ^[ -~]{16,64}$
+          type: string
+        required:
+        - endpoint_name
+        type: object
+    - _key: '400'
+      description: Bad request. Endpoint name validation failed. Contains error INVALID_ENDPOINT_NAME.
+      schema:
+        type: string
+    - _key: '401'
+      description: Authentication failure.
+    - _key: '404'
+      description: The pre-shared key does not exist.
+    return_info:
+      custom: false
+      self: true
+      type: pre_shared_key
+    return_type: pre_shared_key
+    summary: Get a pre-shared key.
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: null
+  swagger_models:
+  - ListOfPreSharedKeysWithoutSecret
+  - PreSharedKey
+  - PreSharedKeyWithoutSecret
+  tags:
+  - PreSharedKeys
 - _key: server_credentials
   field_renames: []
   fields:
@@ -39438,6 +39865,7 @@ groups:
   - device_enrollment_denial_order_enum
 - _key: Security
   entities:
+  - pre_shared_key
   - certificate_issuer_config
   - verification_response
   - certificate_issuer
