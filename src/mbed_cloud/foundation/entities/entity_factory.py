@@ -26,6 +26,7 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.parent_account`
 - :meth:`EntityFactory.password_policy`
 - :meth:`EntityFactory.policy`
+- :meth:`EntityFactory.pre_shared_key`
 - :meth:`EntityFactory.server_credentials`
 - :meth:`EntityFactory.subtenant_trusted_certificate`
 - :meth:`EntityFactory.subtenant_user`
@@ -1198,6 +1199,26 @@ class EntityFactory:
             feature=feature,
             inherited=inherited,
             resource=resource,
+        )
+
+    def pre_shared_key(self, created_at=None, endpoint_name=None):
+        """Creates a local `PreSharedKey` instance, using the shared SDK context.
+
+        :param created_at: The date-time (RFC3339) when this pre-shared key was uploaded to
+            Pelion device management.
+        :type created_at: datetime
+        :param endpoint_name: The unique endpoint identifier that this pre-shared key applies
+            to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printabl
+            e_characters) (non-control) ASCII characters.
+        :type endpoint_name: str
+        
+        :return: A new instance of a PreSharedKey Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.security.pre_shared_key.PreSharedKey
+        """
+        from mbed_cloud.foundation import PreSharedKey
+
+        return PreSharedKey(
+            _client=self._client, created_at=created_at, endpoint_name=endpoint_name
         )
 
     def server_credentials(
