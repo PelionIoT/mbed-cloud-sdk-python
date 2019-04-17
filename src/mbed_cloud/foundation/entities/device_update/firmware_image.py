@@ -40,6 +40,7 @@ How to import FirmwareImage directly:
 from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
+import six
 
 from mbed_cloud.foundation.common.entity_base import Entity
 from mbed_cloud.foundation.common import fields
@@ -455,20 +456,36 @@ class FirmwareImage(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images/>`_.
         
-        :param firmware_image_file: The firmware image file to upload
+        :param firmware_image_file: The firmware image file to upload Files can be provided as a file
+            object or a path to an existing file on disk.
         :type firmware_image_file: file
         
         :rtype: FirmwareImage
         """
 
-        return self._client.call_api(
-            method="post",
-            path="/v3/firmware-images/",
-            content_type="multipart/form-data",
-            stream_params={
-                "description": self._description.to_api(),
-                "datafile": fields.FileField(firmware_image_file).to_api(),
-                "name": self._name.to_api(),
-            },
-            unpack=self,
-        )
+        auto_close_firmware_image_file = False
+
+        # If firmware_image_file is a string rather than a file, treat as a path and attempt to open the file.
+        if firmware_image_file and isinstance(firmware_image_file, six.string_types):
+            firmware_image_file = open(firmware_image_file, "rb")
+            auto_close_firmware_image_file = True
+
+        try:
+            return self._client.call_api(
+                method="post",
+                path="/v3/firmware-images/",
+                stream_params={
+                    "description": (None, self._description.to_api(), "text/plain"),
+                    "datafile": (
+                        "firmware_image_file.bin",
+                        firmware_image_file,
+                        "application/octet-stream",
+                    ),
+                    "name": (None, self._name.to_api(), "text/plain"),
+                },
+                unpack=self,
+            )
+        finally:
+            # Close file if it was opened by this method
+            if auto_close_firmware_image_file:
+                firmware_image_file.close()

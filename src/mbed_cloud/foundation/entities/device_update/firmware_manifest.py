@@ -40,6 +40,7 @@ How to import FirmwareManifest directly:
 from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
+import six
 
 from mbed_cloud.foundation.common.entity_base import Entity
 from mbed_cloud.foundation.common import fields
@@ -510,24 +511,56 @@ class FirmwareManifest(Entity):
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-manifests/>`_.
         
         :param firmware_manifest_file: The manifest file to create. The API gateway enforces the account-
-            specific file size.
+            specific file size. Files can be provided as a file object or a path
+            to an existing file on disk.
         :type firmware_manifest_file: file
         
-        :param key_table_file: The key table of pre-shared keys for devices
+        :param key_table_file: The key table of pre-shared keys for devices Files can be provided as
+            a file object or a path to an existing file on disk.
         :type key_table_file: file
         
         :rtype: FirmwareManifest
         """
 
-        return self._client.call_api(
-            method="post",
-            path="/v3/firmware-manifests/",
-            content_type="multipart/form-data",
-            stream_params={
-                "description": self._description.to_api(),
-                "datafile": fields.FileField(firmware_manifest_file).to_api(),
-                "key_table": fields.FileField(key_table_file).to_api(),
-                "name": self._name.to_api(),
-            },
-            unpack=self,
-        )
+        auto_close_firmware_manifest_file = False
+
+        auto_close_key_table_file = False
+
+        # If firmware_manifest_file is a string rather than a file, treat as a path and attempt to open the file.
+        if firmware_manifest_file and isinstance(firmware_manifest_file, six.string_types):
+            firmware_manifest_file = open(firmware_manifest_file, "rb")
+            auto_close_firmware_manifest_file = True
+
+        # If key_table_file is a string rather than a file, treat as a path and attempt to open the file.
+        if key_table_file and isinstance(key_table_file, six.string_types):
+            key_table_file = open(key_table_file, "rb")
+            auto_close_key_table_file = True
+
+        try:
+            return self._client.call_api(
+                method="post",
+                path="/v3/firmware-manifests/",
+                stream_params={
+                    "description": (None, self._description.to_api(), "text/plain"),
+                    "datafile": (
+                        "firmware_manifest_file.bin",
+                        firmware_manifest_file,
+                        "application/octet-stream",
+                    ),
+                    "key_table": (
+                        "key_table_file.bin",
+                        key_table_file,
+                        "application/octet-stream",
+                    ),
+                    "name": (None, self._name.to_api(), "text/plain"),
+                },
+                unpack=self,
+            )
+        finally:
+            # Close file if it was opened by this method
+            if auto_close_firmware_manifest_file:
+                firmware_manifest_file.close()
+
+            # Close file if it was opened by this method
+            if auto_close_key_table_file:
+                key_table_file.close()

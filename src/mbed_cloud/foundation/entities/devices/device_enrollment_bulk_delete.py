@@ -40,6 +40,7 @@ How to import DeviceEnrollmentBulkDelete directly:
 from __future__ import unicode_literals
 from builtins import str  # noqa
 from builtins import super
+import six
 
 from mbed_cloud.foundation.common.entity_base import Entity
 from mbed_cloud.foundation.common import fields
@@ -357,21 +358,37 @@ class DeviceEnrollmentBulkDelete(Entity):
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments-bulk-deletes>`_.
         
         :param enrollment_identities: The `CSV` file containing the enrollment IDs. The maximum file size is
-            10MB.
+            10MB. Files can be provided as a file object or a path to an existing
+            file on disk.
         :type enrollment_identities: file
         
         :rtype: DeviceEnrollmentBulkDelete
         """
 
-        return self._client.call_api(
-            method="post",
-            path="/v3/device-enrollments-bulk-deletes",
-            content_type="multipart/form-data",
-            stream_params={
-                "enrollment_identities": fields.FileField(enrollment_identities).to_api()
-            },
-            unpack=self,
-        )
+        auto_close_enrollment_identities = False
+
+        # If enrollment_identities is a string rather than a file, treat as a path and attempt to open the file.
+        if enrollment_identities and isinstance(enrollment_identities, six.string_types):
+            enrollment_identities = open(enrollment_identities, "rb")
+            auto_close_enrollment_identities = True
+
+        try:
+            return self._client.call_api(
+                method="post",
+                path="/v3/device-enrollments-bulk-deletes",
+                stream_params={
+                    "enrollment_identities": (
+                        "enrollment_identities.bin",
+                        enrollment_identities,
+                        "application/octet-stream",
+                    )
+                },
+                unpack=self,
+            )
+        finally:
+            # Close file if it was opened by this method
+            if auto_close_enrollment_identities:
+                enrollment_identities.close()
 
     def download_errors_report_file(self):
         """Download the error report file for the bulk enrollment deletion.
