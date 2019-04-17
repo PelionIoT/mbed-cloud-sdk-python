@@ -51,7 +51,7 @@ class TestClient(BaseCase):
 
         last_request = httpretty.last_request()
         self.assertEqual(last_request.body, binary_data)
-        self.assertEqual("binary/octet-stream", last_request.headers["Content-Type"])
+        self.assertEqual("application/octet-stream", last_request.headers["Content-Type"])
 
     def test_multipart_message(self):
         file_stream = six.StringIO("Badger Gopher Squirrel Ferret")
