@@ -27,7 +27,7 @@ class TestFirmwareImage(BaseCase):
         file = io.BytesIO(six.b("\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F"))
 
         image = self.sdk.foundation.firmware_image(description="Test Description", name="Test Name")
-        image.upload(firmware_image_file=file)
+        image.create(firmware_image_file=file)
 
         last_request = httpretty.last_request()
 
