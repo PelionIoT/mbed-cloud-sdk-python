@@ -352,7 +352,7 @@ return self._client.call_api(
         {% if method.file_fields %}
         {%- for field in method.file_fields %}
         auto_close_{{ field }} = False
-        {% endfor %}
+        {%- endfor %}
 
         {% for field in method.file_fields %}
         # If {{ field }} is a string rather than a file, treat as a path and attempt to open the file.
@@ -364,8 +364,9 @@ return self._client.call_api(
         try:
             {{ call_api(method, unpack_type)|indent(12) }}
         finally:
+            # Calling the API may result in an exception being raised so close the files in a finally statement.
+            # Note: Files are only closed if they were opened by the method.
             {%- for field in method.file_fields %}
-            # Close file if it was opened by this method
             if auto_close_{{ field }}:
                 {{ field }}.close()
             {% endfor %}
