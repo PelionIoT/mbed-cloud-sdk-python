@@ -523,7 +523,6 @@ class FirmwareManifest(Entity):
         """
 
         auto_close_firmware_manifest_file = False
-
         auto_close_key_table_file = False
 
         # If firmware_manifest_file is a string rather than a file, treat as a path and attempt to open the file.
@@ -557,10 +556,10 @@ class FirmwareManifest(Entity):
                 unpack=self,
             )
         finally:
-            # Close file if it was opened by this method
+            # Calling the API may result in an exception being raised so close the files in a finally statement.
+            # Note: Files are only closed if they were opened by the method.
             if auto_close_firmware_manifest_file:
                 firmware_manifest_file.close()
 
-            # Close file if it was opened by this method
             if auto_close_key_table_file:
                 key_table_file.close()

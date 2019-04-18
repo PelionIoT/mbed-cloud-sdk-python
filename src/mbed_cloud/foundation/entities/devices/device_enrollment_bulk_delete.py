@@ -386,7 +386,8 @@ class DeviceEnrollmentBulkDelete(Entity):
                 unpack=self,
             )
         finally:
-            # Close file if it was opened by this method
+            # Calling the API may result in an exception being raised so close the files in a finally statement.
+            # Note: Files are only closed if they were opened by the method.
             if auto_close_enrollment_identities:
                 enrollment_identities.close()
 
