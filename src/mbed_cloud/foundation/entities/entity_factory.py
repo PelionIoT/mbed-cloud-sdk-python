@@ -1192,7 +1192,7 @@ class EntityFactory:
             resource=resource,
         )
 
-    def pre_shared_key(self, created_at=None, endpoint_name=None):
+    def pre_shared_key(self, created_at=None, endpoint_name=None, id=None):
         """Creates a local `PreSharedKey` instance, using the shared SDK context.
 
         :param created_at: The date-time (RFC3339) when this PSK was uploaded to Device
@@ -1202,6 +1202,8 @@ class EntityFactory:
             intable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
             (non-control) ASCII characters.
         :type endpoint_name: str
+        :param id: The Id of the pre_shared_key, shadows the endpoint_name
+        :type id: str
         
         :return: A new instance of a PreSharedKey Foundation Entity.
         :rtype: mbed_cloud.foundation.entities.security.pre_shared_key.PreSharedKey
@@ -1209,7 +1211,7 @@ class EntityFactory:
         from mbed_cloud.foundation import PreSharedKey
 
         return PreSharedKey(
-            _client=self._client, created_at=created_at, endpoint_name=endpoint_name
+            _client=self._client, created_at=created_at, endpoint_name=endpoint_name, id=id
         )
 
     def server_credentials(

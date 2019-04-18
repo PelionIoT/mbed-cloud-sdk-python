@@ -23216,13 +23216,23 @@ entities:
     required: false
     type: string
   - _key: endpoint_name
+    _override: true
     api_fieldname: endpoint_name
     description: The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
       (non-control) ASCII characters.
     example: my-endpoint-0001
     pattern: ^[ -~]{16,64}$
     readOnly: false
-    required: true
+    required: false
+    type: string
+  - _key: id
+    _override: true
+    api_fieldname: id
+    description: The Id of the pre_shared_key, shadows the endpoint_name
+    getter_custom_method: pre_shared_key_id_getter
+    readOnly: false
+    required: false
+    setter_custom_method: pre_shared_key_id_setter
     type: string
   group_id: Security
   methods:
@@ -23245,19 +23255,23 @@ entities:
     field_renames: []
     fields:
     - _key: endpoint_name
+      _override: true
       api_fieldname: endpoint_name
-      description: The unique endpoint identifier that this PSK applies to. 16-64
-        [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control)
-        ASCII characters.
       entity_fieldname: endpoint_name
+      readOnly: false
+      type: string
+    - _key: id
+      _override: true
+      api_fieldname: id
+      description: The Id of the pre_shared_key, shadows the endpoint_name
+      entity_fieldname: id
       example: my-endpoint-0001
-      external_param: false
+      getter_custom_method: pre_shared_key_id_getter
       in: body
       name: endpoint_name
-      parameter_fieldname: endpoint_name
       pattern: ^[ -~]{16,64}$
-      required: true
       schema_param: true
+      setter_custom_method: pre_shared_key_id_setter
       type: string
     - _key: secret_hex
       api_fieldname: secret_hex
@@ -23279,6 +23293,8 @@ entities:
     mode: create
     operation_id: uploadPreSharedKey
     pagination: false
+    parameter_map:
+      endpoint_name: id
     path: /v2/device-shared-keys
     request_body: json
     request_content_type: application/json
@@ -23334,22 +23350,29 @@ entities:
     field_renames: []
     fields:
     - _key: endpoint_name
+      _override: true
       api_fieldname: endpoint_name
-      description: The unique endpoint identifier that this PSK applies to. [Reserved
-        characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters)
-        must be percent-encoded.
       entity_fieldname: endpoint_name
-      external_param: false
+      readOnly: false
+      type: string
+    - _key: id
+      _override: true
+      api_fieldname: id
+      description: The Id of the pre_shared_key, shadows the endpoint_name
+      entity_fieldname: id
+      getter_custom_method: pre_shared_key_id_getter
       in: path
       name: endpoint_name
-      parameter_fieldname: endpoint_name
       required: true
+      setter_custom_method: pre_shared_key_id_setter
       type: string
     group_id: Security
     method: delete
     mode: delete
     operation_id: deletePreSharedKey
     pagination: false
+    parameter_map:
+      endpoint_name: id
     path: /v2/device-shared-keys/{endpoint_name}
     request_body: json
     request_content_type: application/json
@@ -23411,6 +23434,20 @@ entities:
       parameter_fieldname: after
       required: false
       type: string
+    - _key: endpoint_name
+      _override: true
+      api_fieldname: endpoint_name
+      entity_fieldname: endpoint_name
+      readOnly: false
+      type: string
+    - _key: id
+      _override: true
+      api_fieldname: id
+      description: The Id of the pre_shared_key, shadows the endpoint_name
+      entity_fieldname: id
+      getter_custom_method: pre_shared_key_id_getter
+      setter_custom_method: pre_shared_key_id_setter
+      type: string
     - _key: limit
       api_fieldname: limit
       description: The number of entries per page.
@@ -23431,6 +23468,8 @@ entities:
     mode: list
     operation_id: listPreSharedKeys
     pagination: true
+    parameter_map:
+      endpoint_name: id
     path: /v2/device-shared-keys
     request_body: json
     request_content_type: application/json
@@ -23474,11 +23513,13 @@ entities:
               format: date-time
               type: string
             - _key: endpoint_name
+              _override: true
               description: The unique endpoint identifier that this PSK applies to.
                 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
                 (non-control) ASCII characters.
               example: my-endpoint-0001
               pattern: ^[ -~]{16,64}$
+              readOnly: false
               type: string
             required:
             - endpoint_name
@@ -23556,22 +23597,34 @@ entities:
     field_renames: []
     fields:
     - _key: endpoint_name
+      _override: true
       api_fieldname: endpoint_name
       description: The unique endpoint identifier that this PSK applies to. 16-64
         [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control)
         ASCII characters.
       entity_fieldname: endpoint_name
       example: my-endpoint-0001
-      in: path
-      parameter_fieldname: endpoint_name
       pattern: ^[ -~]{16,64}$
+      readOnly: false
+      type: string
+    - _key: id
+      _override: true
+      api_fieldname: id
+      description: The Id of the pre_shared_key, shadows the endpoint_name
+      entity_fieldname: id
+      getter_custom_method: pre_shared_key_id_getter
+      in: path
+      name: endpoint_name
       required: true
+      setter_custom_method: pre_shared_key_id_setter
       type: string
     group_id: Security
     method: get
     mode: read
     operation_id: getPreSharedKey
     pagination: false
+    parameter_map:
+      endpoint_name: id
     path: /v2/device-shared-keys/{endpoint_name}
     request_body: json
     request_content_type: application/json
@@ -23592,6 +23645,7 @@ entities:
           format: date-time
           type: string
         - _key: endpoint_name
+          _override: true
           api_fieldname: endpoint_name
           description: The unique endpoint identifier that this PSK applies to. 16-64
             [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
@@ -23599,6 +23653,7 @@ entities:
           entity_fieldname: endpoint_name
           example: my-endpoint-0001
           pattern: ^[ -~]{16,64}$
+          readOnly: false
           type: string
         required:
         - endpoint_name
@@ -23619,7 +23674,7 @@ entities:
     summary: Get a PSK.
     x_deprecation: null
     x_filter: {}
-  primary_key_field: null
+  primary_key_field: id
   swagger_models:
   - ListOfPreSharedKeysWithoutSecret
   - PreSharedKey

@@ -30063,26 +30063,34 @@
         "PreSharedKey",
         "PreSharedKeyWithoutSecret"
       ],
-      "primary_key_field": null,
+      "primary_key_field": "id",
       "methods": [
         {
           "description": "Upload a PSK for an endpoint to allow it to bootstrap. The existing key cannot be overwritten, but needs\nto be deleted first in the case of re-setting a PSK for an endpoint.\n\n**Note**: The PSK APIs are available only to accounts that have this feature enabled.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\\n-H \"Authorization: Bearer <api_key>\" \\\n-H \"content-type: application/json\"  \\\n     -d '{ \"endpoint_name\": \"my-endpoint-0001\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" }'\n```",
           "field_renames": [],
           "fields": [
             {
+              "readOnly": false,
+              "_override": true,
               "type": "string",
+              "api_fieldname": "endpoint_name",
+              "entity_fieldname": "endpoint_name",
+              "_key": "endpoint_name"
+            },
+            {
+              "description": "The Id of the pre_shared_key, shadows the endpoint_name",
+              "type": "string",
+              "getter_custom_method": "pre_shared_key_id_getter",
+              "setter_custom_method": "pre_shared_key_id_setter",
+              "_override": true,
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
               "pattern": "^[ -~]{16,64}$",
-              "description": "The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.",
               "example": "my-endpoint-0001",
               "name": "endpoint_name",
               "in": "body",
               "schema_param": true,
-              "entity_fieldname": "endpoint_name",
-              "api_fieldname": "endpoint_name",
-              "external_param": false,
-              "parameter_fieldname": "endpoint_name",
-              "required": true,
-              "_key": "endpoint_name"
+              "_key": "id"
             },
             {
               "type": "string",
@@ -30150,6 +30158,9 @@
             "private_key"
           ],
           "group_id": "Security",
+          "parameter_map": {
+            "endpoint_name": "id"
+          },
           "operation_id": "uploadPreSharedKey",
           "pagination": false,
           "request_content_type": "application/json",
@@ -30161,16 +30172,25 @@
           "field_renames": [],
           "fields": [
             {
+              "readOnly": false,
+              "_override": true,
+              "type": "string",
+              "api_fieldname": "endpoint_name",
+              "entity_fieldname": "endpoint_name",
+              "_key": "endpoint_name"
+            },
+            {
+              "description": "The Id of the pre_shared_key, shadows the endpoint_name",
+              "type": "string",
+              "getter_custom_method": "pre_shared_key_id_getter",
+              "setter_custom_method": "pre_shared_key_id_setter",
+              "_override": true,
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
               "name": "endpoint_name",
               "in": "path",
-              "description": "The unique endpoint identifier that this PSK applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.",
               "required": true,
-              "type": "string",
-              "entity_fieldname": "endpoint_name",
-              "api_fieldname": "endpoint_name",
-              "external_param": false,
-              "parameter_fieldname": "endpoint_name",
-              "_key": "endpoint_name"
+              "_key": "id"
             }
           ],
           "method": "delete",
@@ -30212,6 +30232,9 @@
             "private_key"
           ],
           "group_id": "Security",
+          "parameter_map": {
+            "endpoint_name": "id"
+          },
           "operation_id": "deletePreSharedKey",
           "pagination": false,
           "request_content_type": "application/json",
@@ -30234,6 +30257,24 @@
               "external_param": true,
               "parameter_fieldname": "after",
               "_key": "after"
+            },
+            {
+              "readOnly": false,
+              "_override": true,
+              "type": "string",
+              "api_fieldname": "endpoint_name",
+              "entity_fieldname": "endpoint_name",
+              "_key": "endpoint_name"
+            },
+            {
+              "description": "The Id of the pre_shared_key, shadows the endpoint_name",
+              "type": "string",
+              "getter_custom_method": "pre_shared_key_id_getter",
+              "setter_custom_method": "pre_shared_key_id_setter",
+              "_override": true,
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "_key": "id"
             },
             {
               "type": "integer",
@@ -30302,6 +30343,8 @@
                           "pattern": "^[ -~]{16,64}$",
                           "description": "The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.",
                           "example": "my-endpoint-0001",
+                          "readOnly": false,
+                          "_override": true,
                           "_key": "endpoint_name"
                         }
                       ],
@@ -30385,6 +30428,9 @@
           ],
           "foreign_key_priority": "self",
           "group_id": "Security",
+          "parameter_map": {
+            "endpoint_name": "id"
+          },
           "operation_id": "listPreSharedKeys",
           "pagination": true,
           "foreign_key": {
@@ -30404,12 +30450,24 @@
               "pattern": "^[ -~]{16,64}$",
               "description": "The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.",
               "example": "my-endpoint-0001",
+              "readOnly": false,
+              "_override": true,
               "api_fieldname": "endpoint_name",
               "entity_fieldname": "endpoint_name",
-              "parameter_fieldname": "endpoint_name",
+              "_key": "endpoint_name"
+            },
+            {
+              "description": "The Id of the pre_shared_key, shadows the endpoint_name",
+              "type": "string",
+              "getter_custom_method": "pre_shared_key_id_getter",
+              "setter_custom_method": "pre_shared_key_id_setter",
+              "_override": true,
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "name": "endpoint_name",
               "in": "path",
               "required": true,
-              "_key": "endpoint_name"
+              "_key": "id"
             }
           ],
           "method": "get",
@@ -30437,6 +30495,8 @@
                     "pattern": "^[ -~]{16,64}$",
                     "description": "The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.",
                     "example": "my-endpoint-0001",
+                    "readOnly": false,
+                    "_override": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name",
                     "_key": "endpoint_name"
@@ -30486,6 +30546,9 @@
             "created_at"
           ],
           "group_id": "Security",
+          "parameter_map": {
+            "endpoint_name": "id"
+          },
           "operation_id": "getPreSharedKey",
           "pagination": false,
           "request_content_type": "application/json",
@@ -30505,14 +30568,26 @@
           "_key": "created_at"
         },
         {
+          "readOnly": false,
+          "_override": true,
           "type": "string",
+          "api_fieldname": "endpoint_name",
           "pattern": "^[ -~]{16,64}$",
           "description": "The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.",
           "example": "my-endpoint-0001",
-          "api_fieldname": "endpoint_name",
-          "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "endpoint_name"
+        },
+        {
+          "description": "The Id of the pre_shared_key, shadows the endpoint_name",
+          "type": "string",
+          "getter_custom_method": "pre_shared_key_id_getter",
+          "setter_custom_method": "pre_shared_key_id_setter",
+          "_override": true,
+          "api_fieldname": "id",
+          "readOnly": false,
+          "required": false,
+          "_key": "id"
         }
       ],
       "field_renames": [],
