@@ -114,7 +114,7 @@ class Client(object):
             url = url.format(**path_params)
 
         if binary_data and not content_type:
-            content_type = "binary/octet-stream"
+            content_type = "application/octet-stream"
 
         if content_type:
             if headers is None:
@@ -129,7 +129,6 @@ class Client(object):
             json=body_params,
             data=binary_data,
             files=stream_params,
-            stream=bool(stream_params),
             **kwargs
         )
 

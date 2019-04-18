@@ -19,6 +19,14 @@ Accounts
 - :class:`mbed_cloud.foundation.entities.accounts.enums.UserOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.UserStatusEnum`
 
+Device_Update
+-------------
+
+- :class:`mbed_cloud.foundation.entities.device_update.enums.CampaignDeviceMetadataDeploymentStateEnum`
+- :class:`mbed_cloud.foundation.entities.device_update.enums.FirmwareImageOrderEnum`
+- :class:`mbed_cloud.foundation.entities.device_update.enums.FirmwareManifestOrderEnum`
+- :class:`mbed_cloud.foundation.entities.device_update.enums.UpdateCampaignOrderEnum`
+
 Devices
 -------
 
@@ -63,6 +71,10 @@ How to import Enums:
     from mbed_cloud.foundation.enums import UserInvitationOrderEnum
     from mbed_cloud.foundation.enums import UserOrderEnum
     from mbed_cloud.foundation.enums import UserStatusEnum
+    from mbed_cloud.foundation.enums import CampaignDeviceMetadataDeploymentStateEnum
+    from mbed_cloud.foundation.enums import FirmwareImageOrderEnum
+    from mbed_cloud.foundation.enums import FirmwareManifestOrderEnum
+    from mbed_cloud.foundation.enums import UpdateCampaignOrderEnum
     from mbed_cloud.foundation.enums import DeviceDeployedStateEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentBulkCreateStatusEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentBulkDeleteStatusEnum
@@ -93,6 +105,12 @@ from mbed_cloud.foundation.entities.accounts.enums import SubtenantUserStatusEnu
 from mbed_cloud.foundation.entities.accounts.enums import UserInvitationOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import UserOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import UserStatusEnum
+from mbed_cloud.foundation.entities.device_update.enums import (
+    CampaignDeviceMetadataDeploymentStateEnum,
+)
+from mbed_cloud.foundation.entities.device_update.enums import FirmwareImageOrderEnum
+from mbed_cloud.foundation.entities.device_update.enums import FirmwareManifestOrderEnum
+from mbed_cloud.foundation.entities.device_update.enums import UpdateCampaignOrderEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceDeployedStateEnum
 from mbed_cloud.foundation.entities.devices.enums import (
     DeviceEnrollmentBulkCreateStatusEnum,
@@ -134,6 +152,10 @@ __all__ = [
     "UserInvitationOrderEnum",
     "UserOrderEnum",
     "UserStatusEnum",
+    "CampaignDeviceMetadataDeploymentStateEnum",
+    "FirmwareImageOrderEnum",
+    "FirmwareManifestOrderEnum",
+    "UpdateCampaignOrderEnum",
     "DeviceDeployedStateEnum",
     "DeviceEnrollmentBulkCreateStatusEnum",
     "DeviceEnrollmentBulkDeleteStatusEnum",

@@ -237,6 +237,28 @@ SWAGGER_TYPE_MAP = {
     "filter": "mbed_cloud.client.api_filter.ApiFilter",
 }
 
+TEXT_CONTENT_TYPE = '"text/plain"'
+BINARY_CONTENT_TYPE = '"application/octet-stream"'
+
+# Map from Swagger Types / Formats to multipart MIME content types
+SWAGGER_CONTENT_TYPE = {
+    # Swagger types
+    "array": TEXT_CONTENT_TYPE,
+    "boolean": TEXT_CONTENT_TYPE,
+    "integer": TEXT_CONTENT_TYPE,
+    "number": TEXT_CONTENT_TYPE,
+    "object": TEXT_CONTENT_TYPE,
+    "string": TEXT_CONTENT_TYPE,
+    "file": BINARY_CONTENT_TYPE,
+    # Swagger formats (specialisation of types)
+    "byte": BINARY_CONTENT_TYPE,
+    "binary": BINARY_CONTENT_TYPE,
+    "date-time": TEXT_CONTENT_TYPE,
+    "date": TEXT_CONTENT_TYPE,
+    # Custom filter field is used the standard API filter builder
+    "filter": TEXT_CONTENT_TYPE,
+}
+
 
 def map_python_field_types(fields):
     """Add Python types and Foundation field types to definition file."""
@@ -245,6 +267,10 @@ def map_python_field_types(fields):
         swagger_format = field.get("format")
         field["python_type"] = SWAGGER_TYPE_MAP.get(swagger_format) or SWAGGER_TYPE_MAP.get(swagger_type)
         field["python_field"] = SWAGGER_FIELD_MAP.get(swagger_format) or SWAGGER_FIELD_MAP.get(swagger_type)
+        # The content type is required is the field is part of a multipart upload
+        field["content_type"] = SWAGGER_CONTENT_TYPE.get(swagger_format) or SWAGGER_CONTENT_TYPE.get(swagger_type)
+        # The file name is also required for the multipart upload for file fields
+        field["file_name"] = '"%s.bin"' % field["_key"] if field["content_type"] == BINARY_CONTENT_TYPE else None
 
 
 @functools.lru_cache()
@@ -574,6 +600,13 @@ def post_process_definition_file(sdk_def_filename):
                 # Convert the return type to a Python type or assume it is an entity if not known
                 return_type = method["return_type"]
                 method["python_return_type"] = SWAGGER_TYPE_MAP.get(return_type, to_pascal_case(return_type))
+
+                # Find file parameters
+                method["file_fields"] = []
+                for field in method["fields"]:
+                    if field["python_type"] == "file":
+                        method["file_fields"].append(field["_key"])
+                        entity["file_field_in_method"] = True
 
     return sdk_gen_dict
 

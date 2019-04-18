@@ -384,7 +384,7 @@ class DeviceEvents(Entity):
         +--------------+------+------+------+------+------+------+------+
         | id           | Y    | Y    |      |      | Y    | Y    |      |
         +--------------+------+------+------+------+------+------+------+
-        | state_change | Y    | Y    |      |      | Y    | Y    |      |
+        | state_change | Y    | Y    |      |      |      |      |      |
         +--------------+------+------+------+------+------+------+------+
 
         **Example Usage**
@@ -500,7 +500,7 @@ class DeviceEvents(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/device-events/{device_event_id}/",
-            content_type=None,
+            content_type="application/json",
             path_params={"device_event_id": self._id.to_api()},
             unpack=self,
         )

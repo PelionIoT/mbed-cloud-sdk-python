@@ -359,7 +359,7 @@ class ApiKey(Entity):
         return self._client.call_api(
             method="post",
             path="/v3/api-keys",
-            content_type=None,
+            content_type="application/json",
             body_params={
                 "name": self._name.to_api(),
                 "owner": self._owner.to_api(),
@@ -379,7 +379,7 @@ class ApiKey(Entity):
         return self._client.call_api(
             method="delete",
             path="/v3/api-keys/{apikey_id}",
-            content_type=None,
+            content_type="application/json",
             path_params={"apikey_id": self._id.to_api()},
             unpack=self,
         )
@@ -473,7 +473,10 @@ class ApiKey(Entity):
         """
 
         return self._client.call_api(
-            method="get", path="/v3/api-keys/me", content_type=None, unpack=self
+            method="get",
+            path="/v3/api-keys/me",
+            content_type="application/json",
+            unpack=self,
         )
 
     def _paginate_list(self, after=None, filter=None, order="ASC", limit=50, include=None):
@@ -524,7 +527,7 @@ class ApiKey(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/api-keys/{apikey_id}",
-            content_type=None,
+            content_type="application/json",
             path_params={"apikey_id": self._id.to_api()},
             unpack=self,
         )
@@ -540,7 +543,7 @@ class ApiKey(Entity):
         return self._client.call_api(
             method="put",
             path="/v3/api-keys/{apikey_id}",
-            content_type=None,
+            content_type="application/json",
             path_params={"apikey_id": self._id.to_api()},
             body_params={
                 "name": self._name.to_api(),

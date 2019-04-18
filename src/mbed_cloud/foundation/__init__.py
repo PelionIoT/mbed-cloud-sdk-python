@@ -25,6 +25,14 @@ Accounts
 - :mod:`mbed_cloud.foundation.entities.accounts.user`
 - :mod:`mbed_cloud.foundation.entities.accounts.user_invitation`
 
+Device_Update
+-------------
+
+- :mod:`mbed_cloud.foundation.entities.device_update.campaign_device_metadata`
+- :mod:`mbed_cloud.foundation.entities.device_update.firmware_image`
+- :mod:`mbed_cloud.foundation.entities.device_update.firmware_manifest`
+- :mod:`mbed_cloud.foundation.entities.device_update.update_campaign`
+
 Devices
 -------
 
@@ -77,6 +85,10 @@ will share the same context as other Entities. There is more information in the 
     subtenant_user_invitations = pelion_dm_sdk.foundation.subtenant_user_invitation()
     users = pelion_dm_sdk.foundation.user()
     user_invitations = pelion_dm_sdk.foundation.user_invitation()
+    campaign_device_metadatas = pelion_dm_sdk.foundation.campaign_device_metadata()
+    firmware_images = pelion_dm_sdk.foundation.firmware_image()
+    firmware_manifests = pelion_dm_sdk.foundation.firmware_manifest()
+    update_campaigns = pelion_dm_sdk.foundation.update_campaign()
     devices = pelion_dm_sdk.foundation.device()
     device_enrollments = pelion_dm_sdk.foundation.device_enrollment()
     device_enrollment_bulk_creates = pelion_dm_sdk.foundation.device_enrollment_bulk_create()
@@ -108,6 +120,10 @@ How to import Entities directly:
     from mbed_cloud.foundation import SubtenantUserInvitation
     from mbed_cloud.foundation import User
     from mbed_cloud.foundation import UserInvitation
+    from mbed_cloud.foundation import CampaignDeviceMetadata
+    from mbed_cloud.foundation import FirmwareImage
+    from mbed_cloud.foundation import FirmwareManifest
+    from mbed_cloud.foundation import UpdateCampaign
     from mbed_cloud.foundation import Device
     from mbed_cloud.foundation import DeviceEnrollment
     from mbed_cloud.foundation import DeviceEnrollmentBulkCreate
@@ -140,6 +156,12 @@ from mbed_cloud.foundation.entities.accounts.subtenant_user_invitation import (
 )
 from mbed_cloud.foundation.entities.accounts.user import User
 from mbed_cloud.foundation.entities.accounts.user_invitation import UserInvitation
+from mbed_cloud.foundation.entities.device_update.campaign_device_metadata import (
+    CampaignDeviceMetadata,
+)
+from mbed_cloud.foundation.entities.device_update.firmware_image import FirmwareImage
+from mbed_cloud.foundation.entities.device_update.firmware_manifest import FirmwareManifest
+from mbed_cloud.foundation.entities.device_update.update_campaign import UpdateCampaign
 from mbed_cloud.foundation.entities.devices.device import Device
 from mbed_cloud.foundation.entities.devices.device_enrollment import DeviceEnrollment
 from mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create import (
@@ -176,6 +198,7 @@ __all__ = [
     "Account",
     "ActiveSession",
     "ApiKey",
+    "CampaignDeviceMetadata",
     "CertificateEnrollment",
     "CertificateIssuer",
     "CertificateIssuerConfig",
@@ -186,6 +209,8 @@ __all__ = [
     "DeviceEnrollmentBulkDelete",
     "DeviceEnrollmentDenial",
     "DeviceEvents",
+    "FirmwareImage",
+    "FirmwareManifest",
     "LoginHistory",
     "LoginProfile",
     "ParentAccount",
@@ -196,6 +221,7 @@ __all__ = [
     "SubtenantUser",
     "SubtenantUserInvitation",
     "TrustedCertificate",
+    "UpdateCampaign",
     "User",
     "UserInvitation",
     "VerificationResponse",
