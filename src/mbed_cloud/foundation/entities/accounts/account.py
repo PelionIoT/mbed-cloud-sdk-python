@@ -167,21 +167,21 @@ class Account(Entity):
         :param address_line2: Postal address line 2.
         :type address_line2: str
         :param admin_email: The email address of the admin user created for this account.
-            Present only in the response for the account creation.
+            Present only in the response for account creation.
         :type admin_email: str
         :param admin_full_name: The full name of the admin user created for this account. Present
-            only in the response for the account creation.
+            only in the response for account creation.
         :type admin_full_name: str
         :param admin_id: The ID of the admin user created for this account.
         :type admin_id: str
         :param admin_key: The admin API key created for this account. Present only in the
-            response for the account creation.
+            response for account creation.
         :type admin_key: str
         :param admin_name: The username of the admin user created for this account. Present
-            only in the response for the account creation.
+            only in the response for account creation.
         :type admin_name: str
         :param admin_password: The password of the admin user created for this account. Present
-            only in the response for the account creation.
+            only in the response for account creation.
         :type admin_password: str
         :param aliases: An array of aliases.
         :type aliases: list
@@ -210,38 +210,37 @@ class Account(Entity):
         :param expiration: Expiration time of the account, as UTC time RFC3339.
         :type expiration: datetime
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
-            notification email should be sent.
+            notification email is sent.
         :type expiration_warning_threshold: str
         :param id: (Required) Account ID.
         :type id: str
-        :param idle_timeout: The reference token expiration time in minutes for this account.
+        :param idle_timeout: The reference token expiration time, in minutes, for this account.
         :type idle_timeout: str
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
-        :param mfa_status: The enforcement status of the multi-factor authentication, either
-            'enforced' or 'optional'.
+        :param mfa_status: The enforcement status of multi-factor authentication, either
+            `enforced` or `optional`.
         :type mfa_status: str
         :param notification_emails: A list of notification email addresses.
         :type notification_emails: list
-        :param parent_account: This object represents parent account contact details in
-            responses.
+        :param parent_account: Represents parent account contact details in responses.
         :type parent_account: dict
-        :param parent_id: The ID of the parent account, if it has any.
+        :param parent_id: The ID of the parent account, if any.
         :type parent_id: str
         :param password_policy: 
         :type password_policy: dict
-        :param password_recovery_expiration: Indicates how many minutes a password recovery email for users of
-            this account is valid for. Valid range is: 1-45.
+        :param password_recovery_expiration: Indicates for how many minutes a password recovery email is valid
+            (1-45).
         :type password_recovery_expiration: int
-        :param phone_number: The phone number of a representative of the company.
+        :param phone_number: The phone number of a company representative.
         :type phone_number: str
         :param policies: List of policies if requested.
         :type policies: list
         :param postal_code: The postal code part of the postal address.
         :type postal_code: str
-        :param reason: A reason note for updating the status of the account
+        :param reason: A note with the reason for account status update.
         :type reason: str
-        :param reference_note: A reference note for updating the status of the account
+        :param reference_note: A reference note for updating the status of the account.
         :type reference_note: str
         :param sales_contact: Email address of the sales contact.
         :type sales_contact: str
@@ -251,8 +250,8 @@ class Account(Entity):
         :type status: str
         :param template_id: Account template ID.
         :type template_id: str
-        :param tier: The tier level of the account; '0': free tier, '1': commercial
-            account, '2': partner tier. Other values are reserved for the
+        :param tier: The tier level of the account; `0`: free tier, `1`: commercial
+            account, `2`: partner tier. Other values are reserved for the
             future.
         :type tier: str
         :param updated_at: Last update UTC time RFC3339.
@@ -367,7 +366,7 @@ class Account(Entity):
     @property
     def admin_email(self):
         """The email address of the admin user created for this account. Present only in
-        the response for the account creation.
+        the response for account creation.
         
         api example: 'admin@arm.com'
         
@@ -389,7 +388,7 @@ class Account(Entity):
     @property
     def admin_full_name(self):
         """The full name of the admin user created for this account. Present only in the
-        response for the account creation.
+        response for account creation.
         
         api example: 'Admin Doe'
         
@@ -432,7 +431,7 @@ class Account(Entity):
     @property
     def admin_key(self):
         """The admin API key created for this account. Present only in the response for
-        the account creation.
+        account creation.
         
         api example: 'ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac120006000000
             00B40IkJADMANmAscAj0Ot0n2yeQnyt9tT'
@@ -455,7 +454,7 @@ class Account(Entity):
     @property
     def admin_name(self):
         """The username of the admin user created for this account. Present only in the
-        response for the account creation.
+        response for account creation.
         
         api example: 'admin'
         
@@ -477,7 +476,7 @@ class Account(Entity):
     @property
     def admin_password(self):
         """The password of the admin user created for this account. Present only in the
-        response for the account creation.
+        response for account creation.
         
         api example: 'PZf9eEUH43DAPE9ULINFeuj'
         
@@ -768,7 +767,7 @@ class Account(Entity):
     @property
     def expiration_warning_threshold(self):
         """Indicates how many days (1-180) before account expiration a notification email
-        should be sent.
+        is sent.
         
         api example: '180'
         
@@ -812,7 +811,7 @@ class Account(Entity):
 
     @property
     def idle_timeout(self):
-        """The reference token expiration time in minutes for this account.
+        """The reference token expiration time, in minutes, for this account.
         
         api example: '30'
         
@@ -852,8 +851,8 @@ class Account(Entity):
 
     @property
     def mfa_status(self):
-        """The enforcement status of the multi-factor authentication, either 'enforced'
-        or 'optional'.
+        """The enforcement status of multi-factor authentication, either `enforced` or
+        `optional`.
         
         :rtype: str
         """
@@ -891,7 +890,7 @@ class Account(Entity):
 
     @property
     def parent_account(self):
-        """This object represents parent account contact details in responses.
+        """Represents parent account contact details in responses.
         
         :rtype: dict[ParentAccount]
         """
@@ -910,7 +909,7 @@ class Account(Entity):
 
     @property
     def parent_id(self):
-        """The ID of the parent account, if it has any.
+        """The ID of the parent account, if any.
         
         api example: '01619571dad80242ac12000600000000'
         
@@ -950,8 +949,7 @@ class Account(Entity):
 
     @property
     def password_recovery_expiration(self):
-        """Indicates how many minutes a password recovery email for users of this account
-        is valid for. Valid range is: 1-45.
+        """Indicates for how many minutes a password recovery email is valid (1-45).
         
         :rtype: int
         """
@@ -970,7 +968,7 @@ class Account(Entity):
 
     @property
     def phone_number(self):
-        """The phone number of a representative of the company.
+        """The phone number of a company representative.
         
         api example: '+44 (1223) 400 400'
         
@@ -1031,7 +1029,7 @@ class Account(Entity):
 
     @property
     def reason(self):
-        """A reason note for updating the status of the account
+        """A note with the reason for account status update.
         
         api example: 'Subscription paid.'
         
@@ -1052,7 +1050,7 @@ class Account(Entity):
 
     @property
     def reference_note(self):
-        """A reference note for updating the status of the account
+        """A reference note for updating the status of the account.
         
         api example: 'ARM-INT-0001'
         
@@ -1157,7 +1155,7 @@ class Account(Entity):
 
     @property
     def tier(self):
-        """The tier level of the account; '0': free tier, '1': commercial account, '2':
+        """The tier level of the account; `0`: free tier, `1`: commercial account, `2`:
         partner tier. Other values are reserved for the future.
         
         api example: '1'
@@ -1224,15 +1222,16 @@ class Account(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts>`_.
         
-        :param action: Action, either 'create' or 'enroll'. <ul><li>'create' creates the
-            account where its admin user has ACTIVE status if admin_password was
-            defined in the request, or RESET status if no admin_password was
-            defined. If the user already exists, its status is not modified.
-            </li><li>'enroll' creates the account where its admin user has
-            ENROLLING status. If the user already exists, its status is not
-            modified. Email to finish the enrollment or to notify the existing
-            user about the new account is sent to the admin_email defined in the
-            request. </li></ul>
+        :param action: Action, either `create` or `enroll`.
+            <ul>
+            <li>`create` creates the
+            account where its admin user has ACTIVE status if `admin_password` was
+            defined in the request, or RESET status if no `admin_password` was
+            defined. If the user already exists, its status is not modified. </li>
+            <li>`enroll` creates the account where its admin user has ENROLLING
+            status. If the user already exists, its status is not modified. Email
+            to finish enrollment or notify the existing user about the new account
+            is sent to the `admin_email` defined in the request. </li></ul>
         :type action: str
         
         :rtype: Account
@@ -1315,25 +1314,24 @@ class Account(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC. Default
-            value is ASC
+        :param order: Record order. Acceptable values: ASC, DESC. Default: ASC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: The number of results to return (2-1000), default is 1000.
+        :param page_size: The number of results to return (2-1000). Default 1000.
         :type page_size: int
         
-        :param include: Comma separated additional data to return. Currently supported:
-            limits, policies, sub_accounts
+        :param include: Comma-separated additional data to return. Currently supported:
+            limits, policies, sub_accounts.
         :type include: str
         
-        :param format: Format information for the response to the query, supported:
+        :param format: Format information for the query response. Supported:
             format=breakdown.
         :type format: str
         
-        :param properties: Property name to be returned from account specific properties.
+        :param properties: Property name returned from account-specific properties.
         :type properties: str
         
         :return: An iterator object which yields instances of an entity.
@@ -1374,11 +1372,11 @@ class Account(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/me>`_.
         
-        :param include: Comma separated additional data to return. Currently supported:
+        :param include: Comma-separated additional data to return. Currently supported:
             limits, policies, sub_accounts.
         :type include: str
         
-        :param properties: Property name to be returned from account specific properties.
+        :param properties: Property name to return from account-specific properties.
         :type properties: str
         
         :rtype: Account
@@ -1413,22 +1411,21 @@ class Account(Entity):
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC. Default
-            value is ASC
+        :param order: Record order. Acceptable values: ASC, DESC. Default: ASC.
         :type order: str
         
-        :param limit: The number of results to return (2-1000), default is 1000.
+        :param limit: The number of results to return (2-1000). Default 1000.
         :type limit: int
         
-        :param include: Comma separated additional data to return. Currently supported:
-            limits, policies, sub_accounts
+        :param include: Comma-separated additional data to return. Currently supported:
+            limits, policies, sub_accounts.
         :type include: str
         
-        :param format: Format information for the response to the query, supported:
+        :param format: Format information for the query response. Supported:
             format=breakdown.
         :type format: str
         
-        :param properties: Property name to be returned from account specific properties.
+        :param properties: Property name returned from account-specific properties.
         :type properties: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse
@@ -1461,15 +1458,15 @@ class Account(Entity):
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
+        :param limit: The number of results to return (2-1000). Default 50.
         :type limit: int
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
         :type include: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse
@@ -1495,7 +1492,7 @@ class Account(Entity):
     def _paginate_user_invitations(
         self, after=None, filter=None, order="ASC", limit=50, include=None
     ):
-        """Get the details of all the user invitations.
+        """Get the details of all user invitations.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1503,11 +1500,11 @@ class Account(Entity):
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
+        :param limit: The number of results to return (2-1000). Default 50.
         :type limit: int
         
         :param include: Not supported by the API.
@@ -1534,7 +1531,7 @@ class Account(Entity):
         )
 
     def _paginate_users(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get all user details.
+        """Get the details of all users.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1542,15 +1539,15 @@ class Account(Entity):
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
+        :param limit: The number of results to return (2-1000). Default 50.
         :type limit: int
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
         :type include: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse
@@ -1578,11 +1575,11 @@ class Account(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}>`_.
         
-        :param include: Comma separated additional data to return. Currently supported:
-            limits, policies, sub_accounts
+        :param include: Comma-separated additional data to return. Currently supported:
+            limits, policies, sub_accounts.
         :type include: str
         
-        :param properties: Property name to be returned from account specific properties.
+        :param properties: Property name to return from account-specific properties.
         :type properties: str
         
         :rtype: Account
@@ -1651,18 +1648,18 @@ class Account(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: The number of results to return (2-1000), default is 50.
+        :param page_size: The number of results to return (2-1000). Default 50.
         :type page_size: int
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
         :type include: str
         
         :return: An iterator object which yields instances of an entity.
@@ -1743,7 +1740,7 @@ class Account(Entity):
     def user_invitations(
         self, filter=None, order="ASC", max_results=None, page_size=50, include=None
     ):
-        """Get the details of all the user invitations.
+        """Get the details of all user invitations.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations>`_.
 
@@ -1773,14 +1770,14 @@ class Account(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: The number of results to return (2-1000), default is 50.
+        :param page_size: The number of results to return (2-1000). Default 50.
         :type page_size: int
         
         :param include: Comma separated additional data to return.
@@ -1821,7 +1818,7 @@ class Account(Entity):
         )
 
     def users(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get all user details.
+        """Get the details of all users.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users>`_.
 
@@ -1855,18 +1852,18 @@ class Account(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: The number of results to return (2-1000), default is 50.
+        :param page_size: The number of results to return (2-1000). Default 50.
         :type page_size: int
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
         :type include: str
         
         :return: An iterator object which yields instances of an entity.

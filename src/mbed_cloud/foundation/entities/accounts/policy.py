@@ -70,7 +70,7 @@ class Policy(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param action: Comma separated list of actions, empty string represents all
+        :param action: Comma-separated list of actions, empty string represents all
             actions.
         :type action: str
         :param allow: True or false controlling whether an action is allowed or not.
@@ -97,7 +97,7 @@ class Policy(Entity):
 
     @property
     def action(self):
-        """Comma separated list of actions, empty string represents all actions.
+        """Comma-separated list of actions, empty string represents all actions.
         
         api example: 'GET'
         

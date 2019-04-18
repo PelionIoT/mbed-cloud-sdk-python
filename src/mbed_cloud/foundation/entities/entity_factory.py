@@ -26,6 +26,7 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.parent_account`
 - :meth:`EntityFactory.password_policy`
 - :meth:`EntityFactory.policy`
+- :meth:`EntityFactory.pre_shared_key`
 - :meth:`EntityFactory.server_credentials`
 - :meth:`EntityFactory.subtenant_trusted_certificate`
 - :meth:`EntityFactory.subtenant_user`
@@ -104,21 +105,21 @@ class EntityFactory:
         :param address_line2: Postal address line 2.
         :type address_line2: str
         :param admin_email: The email address of the admin user created for this account.
-            Present only in the response for the account creation.
+            Present only in the response for account creation.
         :type admin_email: str
         :param admin_full_name: The full name of the admin user created for this account. Present
-            only in the response for the account creation.
+            only in the response for account creation.
         :type admin_full_name: str
         :param admin_id: The ID of the admin user created for this account.
         :type admin_id: str
         :param admin_key: The admin API key created for this account. Present only in the
-            response for the account creation.
+            response for account creation.
         :type admin_key: str
         :param admin_name: The username of the admin user created for this account. Present
-            only in the response for the account creation.
+            only in the response for account creation.
         :type admin_name: str
         :param admin_password: The password of the admin user created for this account. Present
-            only in the response for the account creation.
+            only in the response for account creation.
         :type admin_password: str
         :param aliases: An array of aliases.
         :type aliases: list
@@ -147,38 +148,37 @@ class EntityFactory:
         :param expiration: Expiration time of the account, as UTC time RFC3339.
         :type expiration: datetime
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
-            notification email should be sent.
+            notification email is sent.
         :type expiration_warning_threshold: str
         :param id: Account ID.
         :type id: str
-        :param idle_timeout: The reference token expiration time in minutes for this account.
+        :param idle_timeout: The reference token expiration time, in minutes, for this account.
         :type idle_timeout: str
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
-        :param mfa_status: The enforcement status of the multi-factor authentication, either
-            'enforced' or 'optional'.
+        :param mfa_status: The enforcement status of multi-factor authentication, either
+            `enforced` or `optional`.
         :type mfa_status: str
         :param notification_emails: A list of notification email addresses.
         :type notification_emails: list
-        :param parent_account: This object represents parent account contact details in
-            responses.
+        :param parent_account: Represents parent account contact details in responses.
         :type parent_account: dict
-        :param parent_id: The ID of the parent account, if it has any.
+        :param parent_id: The ID of the parent account, if any.
         :type parent_id: str
         :param password_policy: 
         :type password_policy: dict
-        :param password_recovery_expiration: Indicates how many minutes a password recovery email for users of
-            this account is valid for. Valid range is: 1-45.
+        :param password_recovery_expiration: Indicates for how many minutes a password recovery email is valid
+            (1-45).
         :type password_recovery_expiration: int
-        :param phone_number: The phone number of a representative of the company.
+        :param phone_number: The phone number of a company representative.
         :type phone_number: str
         :param policies: List of policies if requested.
         :type policies: list
         :param postal_code: The postal code part of the postal address.
         :type postal_code: str
-        :param reason: A reason note for updating the status of the account
+        :param reason: A note with the reason for account status update.
         :type reason: str
-        :param reference_note: A reference note for updating the status of the account
+        :param reference_note: A reference note for updating the status of the account.
         :type reference_note: str
         :param sales_contact: Email address of the sales contact.
         :type sales_contact: str
@@ -188,8 +188,8 @@ class EntityFactory:
         :type status: str
         :param template_id: Account template ID.
         :type template_id: str
-        :param tier: The tier level of the account; '0': free tier, '1': commercial
-            account, '2': partner tier. Other values are reserved for the
+        :param tier: The tier level of the account; `0`: free tier, `1`: commercial
+            account, `2`: partner tier. Other values are reserved for the
             future.
         :type tier: str
         :param updated_at: Last update UTC time RFC3339.
@@ -342,7 +342,7 @@ class EntityFactory:
 
     def campaign_device_metadata(
         self,
-        campaign=None,
+        campaign_id=None,
         created_at=None,
         deployment_state=None,
         description=None,
@@ -355,8 +355,8 @@ class EntityFactory:
     ):
         """Creates a local `CampaignDeviceMetadata` instance, using the shared SDK context.
 
-        :param campaign: The device's campaign ID
-        :type campaign: str
+        :param campaign_id: The device's campaign ID
+        :type campaign_id: str
         :param created_at: The time the campaign was created
         :type created_at: datetime
         :param deployment_state: The state of the update campaign on the device
@@ -383,7 +383,7 @@ class EntityFactory:
 
         return CampaignDeviceMetadata(
             _client=self._client,
-            campaign=campaign,
+            campaign_id=campaign_id,
             created_at=created_at,
             deployment_state=deployment_state,
             description=description,
@@ -581,7 +581,6 @@ class EntityFactory:
         account_id=None,
         auto_update=None,
         bootstrap_expiration_date=None,
-        bootstrapped_timestamp=None,
         ca_id=None,
         connector_expiration_date=None,
         created_at=None,
@@ -595,7 +594,6 @@ class EntityFactory:
         endpoint_name=None,
         endpoint_type=None,
         enrolment_list_timestamp=None,
-        firmware_checksum=None,
         host_gateway=None,
         id=None,
         issuer_fingerprint=None,
@@ -618,8 +616,6 @@ class EntityFactory:
         :param bootstrap_expiration_date: The expiration date of the certificate used to connect to
             bootstrap server.
         :type bootstrap_expiration_date: date
-        :param bootstrapped_timestamp: The timestamp of the device's most recent bootstrap process.
-        :type bootstrapped_timestamp: datetime
         :param ca_id: The certificate issuer's ID.
         :type ca_id: str
         :param connector_expiration_date: The expiration date of the certificate used to connect to LwM2M
@@ -658,8 +654,6 @@ class EntityFactory:
         :type endpoint_type: str
         :param enrolment_list_timestamp: The claim date/time.
         :type enrolment_list_timestamp: datetime
-        :param firmware_checksum: The SHA256 checksum of the current firmware image.
-        :type firmware_checksum: str
         :param host_gateway: The ID of the host gateway, if appropriate.
         :type host_gateway: str
         :param id: The ID of the device. The device ID is used across all Device
@@ -697,7 +691,6 @@ class EntityFactory:
             account_id=account_id,
             auto_update=auto_update,
             bootstrap_expiration_date=bootstrap_expiration_date,
-            bootstrapped_timestamp=bootstrapped_timestamp,
             ca_id=ca_id,
             connector_expiration_date=connector_expiration_date,
             created_at=created_at,
@@ -711,7 +704,6 @@ class EntityFactory:
             endpoint_name=endpoint_name,
             endpoint_type=endpoint_type,
             enrolment_list_timestamp=enrolment_list_timestamp,
-            firmware_checksum=firmware_checksum,
             host_gateway=host_gateway,
             id=id,
             issuer_fingerprint=issuer_fingerprint,
@@ -740,18 +732,18 @@ class EntityFactory:
 
         :param account_id: ID
         :type account_id: str
-        :param claimed_at: The time of claiming the device to be assigned to the account.
+        :param claimed_at: The time the device was claimed.
         :type claimed_at: datetime
         :param created_at: The time of the enrollment identity creation.
         :type created_at: datetime
-        :param enrolled_device_id: The ID of the device in the Device Directory once it has been
+        :param enrolled_device_id: The ID of the device in the Device Directory once it is
             registered.
         :type enrolled_device_id: str
         :param enrollment_identity: Enrollment identity.
         :type enrollment_identity: str
         :param expires_at: The enrollment claim expiration time. If the device does not
-            connect to Device Management before the expiration, the claim is
-            removed without a separate notice
+            connect to Device Management before expiration, the claim is
+            removed without separate notice.
         :type expires_at: datetime
         :param id: Enrollment identity.
         :type id: str
@@ -789,7 +781,7 @@ class EntityFactory:
 
         :param account_id: ID
         :type account_id: str
-        :param completed_at: The time of completing the bulk creation task.
+        :param completed_at: The time the bulk creation task was completed.
             Null when creating
             bulk upload or delete.
         :type completed_at: datetime
@@ -809,9 +801,9 @@ class EntityFactory:
         :type id: str
         :param processed_count: The number of enrollment identities processed until now.
         :type processed_count: int
-        :param status: The state of the process is 'new' at the time of creation. If the
-            creation is still in progress, the state is shown as 'processing'.
-            When the request has been fully processed, the state changes to
+        :param status: The state of the process is 'new' at the time of creation. If
+            creation is still in progress, the state shows as 'processing'.
+            When the request is fully processed, the state changes to
             'completed'.
         :type status: str
         :param total_count: Total number of enrollment identities found in the input CSV.
@@ -853,7 +845,7 @@ class EntityFactory:
 
         :param account_id: ID
         :type account_id: str
-        :param completed_at: The time of completing the bulk creation task.
+        :param completed_at: The time the bulk creation task was completed.
             Null when creating
             bulk upload or delete.
         :type completed_at: datetime
@@ -873,9 +865,9 @@ class EntityFactory:
         :type id: str
         :param processed_count: The number of enrollment identities processed until now.
         :type processed_count: int
-        :param status: The state of the process is 'new' at the time of creation. If the
-            creation is still in progress, the state is shown as 'processing'.
-            When the request has been fully processed, the state changes to
+        :param status: The state of the process is 'new' at the time of creation. If
+            creation is still in progress, the state shows as 'processing'.
+            When the request is fully processed, the state changes to
             'completed'.
         :type status: str
         :param total_count: Total number of enrollment identities found in the input CSV.
@@ -1173,7 +1165,7 @@ class EntityFactory:
     def policy(self, action=None, allow=None, feature=None, inherited=None, resource=None):
         """Creates a local `Policy` instance, using the shared SDK context.
 
-        :param action: Comma separated list of actions, empty string represents all
+        :param action: Comma-separated list of actions, empty string represents all
             actions.
         :type action: str
         :param allow: True or false controlling whether an action is allowed or not.
@@ -1198,6 +1190,26 @@ class EntityFactory:
             feature=feature,
             inherited=inherited,
             resource=resource,
+        )
+
+    def pre_shared_key(self, created_at=None, endpoint_name=None):
+        """Creates a local `PreSharedKey` instance, using the shared SDK context.
+
+        :param created_at: The date-time (RFC3339) when this PSK was uploaded to Device
+            Management.
+        :type created_at: datetime
+        :param endpoint_name: The unique endpoint identifier that this PSK applies to. 16-64 [pr
+            intable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
+            (non-control) ASCII characters.
+        :type endpoint_name: str
+        
+        :return: A new instance of a PreSharedKey Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.security.pre_shared_key.PreSharedKey
+        """
+        from mbed_cloud.foundation import PreSharedKey
+
+        return PreSharedKey(
+            _client=self._client, created_at=created_at, endpoint_name=endpoint_name
         )
 
     def server_credentials(
@@ -1273,7 +1285,7 @@ class EntityFactory:
         :type name: str
         :param owner_id: The ID of the owner.
         :type owner_id: str
-        :param service: Service name where the certificate is to be used.
+        :param service: Service name where the certificate is used.
         :type service: str
         :param status: Status of the certificate.
         :type status: str
@@ -1351,7 +1363,7 @@ class EntityFactory:
         :type created_at: datetime
         :param creation_time: A timestamp of the user creation in the storage, in milliseconds.
         :type creation_time: int
-        :param custom_fields: User's account specific custom properties. The value is a string.
+        :param custom_fields: User's account-specific custom properties. The value is a string.
         :type custom_fields: dict
         :param email: The email address.
         :type email: str
@@ -1371,8 +1383,8 @@ class EntityFactory:
         :param login_profiles: A list of login profiles for the user. Specified as the identity
             providers the user is associated with.
         :type login_profiles: list
-        :param marketing_accepted: A flag indicating that receiving marketing information has been
-            accepted.
+        :param marketing_accepted: A flag indicating that the user has consented to receive marketing
+            information.
         :type marketing_accepted: bool
         :param password: The password when creating a new user. It will be generated when
             not present in the request.
@@ -1388,14 +1400,14 @@ class EntityFactory:
             password must be changed immediately. INACTIVE users are locked
             out and not permitted to use the system.
         :type status: str
-        :param terms_accepted: A flag indicating that the General Terms and Conditions has been
-            accepted.
+        :param terms_accepted: A flag indicating that the user has accepted General Terms and
+            Conditions.
         :type terms_accepted: bool
-        :param totp_scratch_codes: A list of scratch codes for the 2-factor authentication. Visible
+        :param totp_scratch_codes: A list of scratch codes for the two-factor authentication. Visible
             only when 2FA is requested to be enabled or the codes regenerated.
         :type totp_scratch_codes: list
-        :param two_factor_authentication: A flag indicating whether 2-factor authentication (TOTP) has been
-            enabled.
+        :param two_factor_authentication: A flag indicating whether two-factor authentication (TOTP) has
+            been enabled.
         :type two_factor_authentication: bool
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
@@ -1527,7 +1539,7 @@ class EntityFactory:
         :type name: str
         :param owner_id: The ID of the owner.
         :type owner_id: str
-        :param service: Service name where the certificate is to be used.
+        :param service: Service name where the certificate is used.
         :type service: str
         :param status: Status of the certificate.
         :type status: str
@@ -1678,7 +1690,7 @@ class EntityFactory:
         :type created_at: datetime
         :param creation_time: A timestamp of the user creation in the storage, in milliseconds.
         :type creation_time: int
-        :param custom_fields: User's account specific custom properties. The value is a string.
+        :param custom_fields: User's account-specific custom properties. The value is a string.
         :type custom_fields: dict
         :param email: The email address.
         :type email: str
@@ -1698,8 +1710,8 @@ class EntityFactory:
         :param login_profiles: A list of login profiles for the user. Specified as the identity
             providers the user is associated with.
         :type login_profiles: list
-        :param marketing_accepted: A flag indicating that receiving marketing information has been
-            accepted.
+        :param marketing_accepted: A flag indicating that the user has consented to receive marketing
+            information.
         :type marketing_accepted: bool
         :param password: The password when creating a new user. It will be generated when
             not present in the request.
@@ -1715,14 +1727,14 @@ class EntityFactory:
             password must be changed immediately. INACTIVE users are locked
             out and not permitted to use the system.
         :type status: str
-        :param terms_accepted: A flag indicating that the General Terms and Conditions has been
-            accepted.
+        :param terms_accepted: A flag indicating that the user has accepted General Terms and
+            Conditions.
         :type terms_accepted: bool
-        :param totp_scratch_codes: A list of scratch codes for the 2-factor authentication. Visible
+        :param totp_scratch_codes: A list of scratch codes for the two-factor authentication. Visible
             only when 2FA is requested to be enabled or the codes regenerated.
         :type totp_scratch_codes: list
-        :param two_factor_authentication: A flag indicating whether 2-factor authentication (TOTP) has been
-            enabled.
+        :param two_factor_authentication: A flag indicating whether two-factor authentication (TOTP) has
+            been enabled.
         :type two_factor_authentication: bool
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime

@@ -50,6 +50,7 @@ Security
 - :mod:`mbed_cloud.foundation.entities.security.certificate_issuer`
 - :mod:`mbed_cloud.foundation.entities.security.certificate_issuer_config`
 - :mod:`mbed_cloud.foundation.entities.security.developer_certificate`
+- :mod:`mbed_cloud.foundation.entities.security.pre_shared_key`
 - :mod:`mbed_cloud.foundation.entities.security.server_credentials`
 - :mod:`mbed_cloud.foundation.entities.security.subtenant_trusted_certificate`
 - :mod:`mbed_cloud.foundation.entities.security.trusted_certificate`
@@ -99,6 +100,7 @@ will share the same context as other Entities. There is more information in the 
     certificate_issuers = pelion_dm_sdk.foundation.certificate_issuer()
     certificate_issuer_configs = pelion_dm_sdk.foundation.certificate_issuer_config()
     developer_certificates = pelion_dm_sdk.foundation.developer_certificate()
+    pre_shared_keys = pelion_dm_sdk.foundation.pre_shared_key()
     server_credentialss = pelion_dm_sdk.foundation.server_credentials()
     subtenant_trusted_certificates = pelion_dm_sdk.foundation.subtenant_trusted_certificate()
     trusted_certificates = pelion_dm_sdk.foundation.trusted_certificate()
@@ -134,6 +136,7 @@ How to import Entities directly:
     from mbed_cloud.foundation import CertificateIssuer
     from mbed_cloud.foundation import CertificateIssuerConfig
     from mbed_cloud.foundation import DeveloperCertificate
+    from mbed_cloud.foundation import PreSharedKey
     from mbed_cloud.foundation import ServerCredentials
     from mbed_cloud.foundation import SubtenantTrustedCertificate
     from mbed_cloud.foundation import TrustedCertificate
@@ -184,6 +187,7 @@ from mbed_cloud.foundation.entities.security.certificate_issuer_config import (
 from mbed_cloud.foundation.entities.security.developer_certificate import (
     DeveloperCertificate,
 )
+from mbed_cloud.foundation.entities.security.pre_shared_key import PreSharedKey
 from mbed_cloud.foundation.entities.security.server_credentials import ServerCredentials
 from mbed_cloud.foundation.entities.security.subtenant_trusted_certificate import (
     SubtenantTrustedCertificate,
@@ -216,6 +220,7 @@ __all__ = [
     "ParentAccount",
     "PasswordPolicy",
     "Policy",
+    "PreSharedKey",
     "ServerCredentials",
     "SubtenantTrustedCertificate",
     "SubtenantUser",

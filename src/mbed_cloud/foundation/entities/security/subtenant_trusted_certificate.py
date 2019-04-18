@@ -130,7 +130,7 @@ class SubtenantTrustedCertificate(Entity):
         :type name: str
         :param owner_id: The ID of the owner.
         :type owner_id: str
-        :param service: (Required) Service name where the certificate is to be used.
+        :param service: (Required) Service name where the certificate is used.
         :type service: str
         :param status: Status of the certificate.
         :type status: str
@@ -416,7 +416,7 @@ class SubtenantTrustedCertificate(Entity):
 
     @property
     def service(self):
-        """Service name where the certificate is to be used.
+        """Service name where the certificate is used.
 
         This field must be set when creating a new SubtenantTrustedCertificate Entity.
         

@@ -137,7 +137,7 @@ class User(Entity):
         :type created_at: datetime
         :param creation_time: A timestamp of the user creation in the storage, in milliseconds.
         :type creation_time: int
-        :param custom_fields: User's account specific custom properties. The value is a string.
+        :param custom_fields: User's account-specific custom properties. The value is a string.
         :type custom_fields: dict
         :param email: (Required) The email address.
         :type email: str
@@ -157,8 +157,8 @@ class User(Entity):
         :param login_profiles: A list of login profiles for the user. Specified as the identity
             providers the user is associated with.
         :type login_profiles: list
-        :param marketing_accepted: A flag indicating that receiving marketing information has been
-            accepted.
+        :param marketing_accepted: A flag indicating that the user has consented to receive marketing
+            information.
         :type marketing_accepted: bool
         :param password: The password when creating a new user. It will be generated when
             not present in the request.
@@ -174,14 +174,14 @@ class User(Entity):
             password must be changed immediately. INACTIVE users are locked
             out and not permitted to use the system.
         :type status: str
-        :param terms_accepted: A flag indicating that the General Terms and Conditions has been
-            accepted.
+        :param terms_accepted: A flag indicating that the user has accepted General Terms and
+            Conditions.
         :type terms_accepted: bool
-        :param totp_scratch_codes: A list of scratch codes for the 2-factor authentication. Visible
+        :param totp_scratch_codes: A list of scratch codes for the two-factor authentication. Visible
             only when 2FA is requested to be enabled or the codes regenerated.
         :type totp_scratch_codes: list
-        :param two_factor_authentication: A flag indicating whether 2-factor authentication (TOTP) has been
-            enabled.
+        :param two_factor_authentication: A flag indicating whether two-factor authentication (TOTP) has
+            been enabled.
         :type two_factor_authentication: bool
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
@@ -332,7 +332,7 @@ class User(Entity):
 
     @property
     def custom_fields(self):
-        """User's account specific custom properties. The value is a string.
+        """User's account-specific custom properties. The value is a string.
         
         :rtype: dict
         """
@@ -500,7 +500,8 @@ class User(Entity):
 
     @property
     def marketing_accepted(self):
-        """A flag indicating that receiving marketing information has been accepted.
+        """A flag indicating that the user has consented to receive marketing
+        information.
         
         api example: True
         
@@ -610,7 +611,7 @@ class User(Entity):
 
     @property
     def terms_accepted(self):
-        """A flag indicating that the General Terms and Conditions has been accepted.
+        """A flag indicating that the user has accepted General Terms and Conditions.
         
         api example: True
         
@@ -631,8 +632,8 @@ class User(Entity):
 
     @property
     def totp_scratch_codes(self):
-        """A list of scratch codes for the 2-factor authentication. Visible only when 2FA
-        is requested to be enabled or the codes regenerated.
+        """A list of scratch codes for the two-factor authentication. Visible only when
+        2FA is requested to be enabled or the codes regenerated.
         
         :rtype: list
         """
@@ -651,7 +652,7 @@ class User(Entity):
 
     @property
     def two_factor_authentication(self):
-        """A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+        """A flag indicating whether two-factor authentication (TOTP) has been enabled.
         
         api example: True
         
@@ -717,7 +718,7 @@ class User(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users>`_.
         
-        :param action: Action, either 'create' or 'invite'.
+        :param action: Action, either `create` or `invite`.
         :type action: str
         
         :rtype: User
@@ -793,18 +794,18 @@ class User(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: The number of results to return (2-1000), default is 50.
+        :param page_size: The number of results to return (2-1000). Default 50.
         :type page_size: int
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
         :type include: str
         
         :return: An iterator object which yields instances of an entity.
@@ -847,15 +848,15 @@ class User(Entity):
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
+        :param limit: The number of results to return (2-1000). Default 50.
         :type limit: int
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
         :type include: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse

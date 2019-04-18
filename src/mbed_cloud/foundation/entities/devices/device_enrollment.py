@@ -88,18 +88,18 @@ class DeviceEnrollment(Entity):
 
         :param account_id: ID
         :type account_id: str
-        :param claimed_at: The time of claiming the device to be assigned to the account.
+        :param claimed_at: The time the device was claimed.
         :type claimed_at: datetime
         :param created_at: The time of the enrollment identity creation.
         :type created_at: datetime
-        :param enrolled_device_id: The ID of the device in the Device Directory once it has been
+        :param enrolled_device_id: The ID of the device in the Device Directory once it is
             registered.
         :type enrolled_device_id: str
         :param enrollment_identity: (Required) Enrollment identity.
         :type enrollment_identity: str
         :param expires_at: The enrollment claim expiration time. If the device does not
-            connect to Device Management before the expiration, the claim is
-            removed without a separate notice
+            connect to Device Management before expiration, the claim is
+            removed without separate notice.
         :type expires_at: datetime
         :param id: (Required) Enrollment identity.
         :type id: str
@@ -141,7 +141,7 @@ class DeviceEnrollment(Entity):
 
     @property
     def claimed_at(self):
-        """The time of claiming the device to be assigned to the account.
+        """The time the device was claimed.
         
         :rtype: datetime
         """
@@ -179,7 +179,7 @@ class DeviceEnrollment(Entity):
 
     @property
     def enrolled_device_id(self):
-        """The ID of the device in the Device Directory once it has been registered.
+        """The ID of the device in the Device Directory once it is registered.
         
         api example: '00005a4e027f0a580a01081c00000000'
         
@@ -225,8 +225,7 @@ class DeviceEnrollment(Entity):
     @property
     def expires_at(self):
         """The enrollment claim expiration time. If the device does not connect to Device
-        Management before the expiration, the claim is removed without a separate
-        notice
+        Management before expiration, the claim is removed without separate notice.
         
         :rtype: datetime
         """
@@ -315,7 +314,7 @@ class DeviceEnrollment(Entity):
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: Number of results to be returned. Between 2 and 1000, inclusive.
+        :param page_size: Number of results to return (2-1000).
         :type page_size: int
         
         :param include: Comma-separated additional data to return. Currently supported:
@@ -369,7 +368,7 @@ class DeviceEnrollment(Entity):
         :param order: ASC or DESC
         :type order: str
         
-        :param limit: Number of results to be returned. Between 2 and 1000, inclusive.
+        :param limit: Number of results to return (2-1000).
         :type limit: int
         
         :param include: Comma-separated additional data to return. Currently supported:
