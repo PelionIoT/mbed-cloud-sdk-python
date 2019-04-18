@@ -50,7 +50,7 @@ class PreSharedKey(Entity):
     """Represents the `PreSharedKey` entity in Pelion Device Management"""
 
     # all fields available on this entity
-    _fieldnames = ["created_at", "endpoint_name"]
+    _fieldnames = ["created_at", "endpoint_name", "id"]
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
@@ -58,7 +58,7 @@ class PreSharedKey(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(self, _client=None, created_at=None, endpoint_name=None):
+    def __init__(self, _client=None, created_at=None, endpoint_name=None, id=None):
         """Creates a local `PreSharedKey` instance
 
         Parameters can be supplied on creation of the instance or given by
@@ -71,10 +71,12 @@ class PreSharedKey(Entity):
         :param created_at: The date-time (RFC3339) when this PSK was uploaded to Device
             Management.
         :type created_at: datetime
-        :param endpoint_name: (Required) The unique endpoint identifier that this PSK applies to. 16-64 [pr
+        :param endpoint_name: The unique endpoint identifier that this PSK applies to. 16-64 [pr
             intable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
             (non-control) ASCII characters.
         :type endpoint_name: str
+        :param id: The Id of the pre_shared_key, shadows the endpoint_name
+        :type id: str
         """
 
         super().__init__(_client=_client)
@@ -84,6 +86,7 @@ class PreSharedKey(Entity):
         # fields
         self._created_at = fields.DateTimeField(value=created_at)
         self._endpoint_name = fields.StringField(value=endpoint_name)
+        self._id = fields.StringField(value=id)
 
     @property
     def created_at(self):
@@ -111,8 +114,6 @@ class PreSharedKey(Entity):
         """The unique endpoint identifier that this PSK applies to. 16-64
         [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-
         control) ASCII characters.
-
-        This field must be set when creating a new PreSharedKey Entity.
         
         api example: 'my-endpoint-0001'
         
@@ -130,6 +131,29 @@ class PreSharedKey(Entity):
         """
 
         self._endpoint_name.set(value)
+
+    @property
+    def id(self):
+        """The Id of the pre_shared_key, shadows the endpoint_name
+        
+        :rtype: str
+        """
+
+        from mbed_cloud.foundation._custom_methods import pre_shared_key_id_getter
+
+        return pre_shared_key_id_getter(self=self)
+
+    @id.setter
+    def id(self, value):
+        """Set value of `id`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        from mbed_cloud.foundation._custom_methods import pre_shared_key_id_setter
+
+        pre_shared_key_id_setter(self=self, value=value)
 
     def create(self, secret_hex):
         """Upload a PSK to Pelion Device Management.
@@ -149,7 +173,7 @@ class PreSharedKey(Entity):
             path="/v2/device-shared-keys",
             content_type="application/json",
             body_params={
-                "endpoint_name": self._endpoint_name.to_api(),
+                "": self._id.to_api(),
                 "secret_hex": fields.StringField(secret_hex).to_api(),
             },
             unpack=self,
@@ -167,7 +191,7 @@ class PreSharedKey(Entity):
             method="delete",
             path="/v2/device-shared-keys/{endpoint_name}",
             content_type="application/json",
-            path_params={"endpoint_name": self._endpoint_name.to_api()},
+            path_params={"": self._id.to_api()},
             unpack=self,
         )
 
@@ -274,6 +298,6 @@ class PreSharedKey(Entity):
             method="get",
             path="/v2/device-shared-keys/{endpoint_name}",
             content_type="application/json",
-            path_params={"endpoint_name": self._endpoint_name.to_api()},
+            path_params={"": self._id.to_api()},
             unpack=self,
         )
