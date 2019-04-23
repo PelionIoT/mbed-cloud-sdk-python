@@ -173,7 +173,7 @@ class PreSharedKey(Entity):
             path="/v2/device-shared-keys",
             content_type="application/json",
             body_params={
-                "": self._id.to_api(),
+                "endpoint_name": self._id.to_api(),
                 "secret_hex": fields.StringField(secret_hex).to_api(),
             },
             unpack=self,
@@ -191,7 +191,7 @@ class PreSharedKey(Entity):
             method="delete",
             path="/v2/device-shared-keys/{endpoint_name}",
             content_type="application/json",
-            path_params={"": self._id.to_api()},
+            path_params={"endpoint_name": self._id.to_api()},
             unpack=self,
         )
 
@@ -298,6 +298,6 @@ class PreSharedKey(Entity):
             method="get",
             path="/v2/device-shared-keys/{endpoint_name}",
             content_type="application/json",
-            path_params={"": self._id.to_api()},
+            path_params={"endpoint_name": self._id.to_api()},
             unpack=self,
         )
