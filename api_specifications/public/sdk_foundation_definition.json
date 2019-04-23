@@ -30070,6 +30070,8 @@
           "field_renames": [],
           "fields": [
             {
+              "getter_custom_method": "pre_shared_key_id_getter",
+              "setter_custom_method": "pre_shared_key_id_setter",
               "readOnly": false,
               "_override": true,
               "type": "string",
@@ -30172,6 +30174,8 @@
           "field_renames": [],
           "fields": [
             {
+              "getter_custom_method": "pre_shared_key_id_getter",
+              "setter_custom_method": "pre_shared_key_id_setter",
               "readOnly": false,
               "_override": true,
               "type": "string",
@@ -30259,6 +30263,8 @@
               "_key": "after"
             },
             {
+              "getter_custom_method": "pre_shared_key_id_getter",
+              "setter_custom_method": "pre_shared_key_id_setter",
               "readOnly": false,
               "_override": true,
               "type": "string",
@@ -30343,6 +30349,8 @@
                           "pattern": "^[ -~]{16,64}$",
                           "description": "The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.",
                           "example": "my-endpoint-0001",
+                          "getter_custom_method": "pre_shared_key_id_getter",
+                          "setter_custom_method": "pre_shared_key_id_setter",
                           "readOnly": false,
                           "_override": true,
                           "_key": "endpoint_name"
@@ -30450,6 +30458,8 @@
               "pattern": "^[ -~]{16,64}$",
               "description": "The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.",
               "example": "my-endpoint-0001",
+              "getter_custom_method": "pre_shared_key_id_getter",
+              "setter_custom_method": "pre_shared_key_id_setter",
               "readOnly": false,
               "_override": true,
               "api_fieldname": "endpoint_name",
@@ -30495,6 +30505,8 @@
                     "pattern": "^[ -~]{16,64}$",
                     "description": "The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.",
                     "example": "my-endpoint-0001",
+                    "getter_custom_method": "pre_shared_key_id_getter",
+                    "setter_custom_method": "pre_shared_key_id_setter",
                     "readOnly": false,
                     "_override": true,
                     "api_fieldname": "endpoint_name",
@@ -30568,6 +30580,8 @@
           "_key": "created_at"
         },
         {
+          "getter_custom_method": "pre_shared_key_id_getter",
+          "setter_custom_method": "pre_shared_key_id_setter",
           "readOnly": false,
           "_override": true,
           "type": "string",

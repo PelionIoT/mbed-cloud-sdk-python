@@ -23221,9 +23221,11 @@ entities:
     description: The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
       (non-control) ASCII characters.
     example: my-endpoint-0001
+    getter_custom_method: pre_shared_key_id_getter
     pattern: ^[ -~]{16,64}$
     readOnly: false
     required: false
+    setter_custom_method: pre_shared_key_id_setter
     type: string
   - _key: id
     _override: true
@@ -23258,7 +23260,9 @@ entities:
       _override: true
       api_fieldname: endpoint_name
       entity_fieldname: endpoint_name
+      getter_custom_method: pre_shared_key_id_getter
       readOnly: false
+      setter_custom_method: pre_shared_key_id_setter
       type: string
     - _key: id
       _override: true
@@ -23353,7 +23357,9 @@ entities:
       _override: true
       api_fieldname: endpoint_name
       entity_fieldname: endpoint_name
+      getter_custom_method: pre_shared_key_id_getter
       readOnly: false
+      setter_custom_method: pre_shared_key_id_setter
       type: string
     - _key: id
       _override: true
@@ -23438,7 +23444,9 @@ entities:
       _override: true
       api_fieldname: endpoint_name
       entity_fieldname: endpoint_name
+      getter_custom_method: pre_shared_key_id_getter
       readOnly: false
+      setter_custom_method: pre_shared_key_id_setter
       type: string
     - _key: id
       _override: true
@@ -23518,8 +23526,10 @@ entities:
                 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters)
                 (non-control) ASCII characters.
               example: my-endpoint-0001
+              getter_custom_method: pre_shared_key_id_getter
               pattern: ^[ -~]{16,64}$
               readOnly: false
+              setter_custom_method: pre_shared_key_id_setter
               type: string
             required:
             - endpoint_name
@@ -23604,8 +23614,10 @@ entities:
         ASCII characters.
       entity_fieldname: endpoint_name
       example: my-endpoint-0001
+      getter_custom_method: pre_shared_key_id_getter
       pattern: ^[ -~]{16,64}$
       readOnly: false
+      setter_custom_method: pre_shared_key_id_setter
       type: string
     - _key: id
       _override: true
@@ -23652,8 +23664,10 @@ entities:
             (non-control) ASCII characters.
           entity_fieldname: endpoint_name
           example: my-endpoint-0001
+          getter_custom_method: pre_shared_key_id_getter
           pattern: ^[ -~]{16,64}$
           readOnly: false
+          setter_custom_method: pre_shared_key_id_setter
           type: string
         required:
         - endpoint_name
