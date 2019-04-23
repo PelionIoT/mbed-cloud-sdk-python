@@ -120,7 +120,9 @@ class PreSharedKey(Entity):
         :rtype: str
         """
 
-        return self._endpoint_name.value
+        from mbed_cloud.foundation._custom_methods import pre_shared_key_id_getter
+
+        return pre_shared_key_id_getter(self=self)
 
     @endpoint_name.setter
     def endpoint_name(self, value):
@@ -130,7 +132,9 @@ class PreSharedKey(Entity):
         :type value: str
         """
 
-        self._endpoint_name.set(value)
+        from mbed_cloud.foundation._custom_methods import pre_shared_key_id_setter
+
+        pre_shared_key_id_setter(self=self, value=value)
 
     @property
     def id(self):
