@@ -22,3 +22,27 @@ def is_developer_certificate_getter(self):
     :rtype: bool
     """
     return self._device_execution_mode.value == 1
+
+
+def pre_shared_key_id_setter(self, value):
+    """Set both the endpoint_name and ID fields
+
+    :param self: Instance of the entity for which this is a custom method.
+    :type self: mbed_cloud.foundation.PreSharedKey
+    :param value: endpoint_name / ID of entity
+    :type value: str
+    """
+    self._endpoint_name.set(value)
+    self._id.set(value)
+
+
+def pre_shared_key_id_getter(self):
+    """Return the ID field / endpoint_name field
+
+    :param self: Instance of the entity for which this is a custom method.
+    :type self: mbed_cloud.foundation.PreSharedKey
+
+    :return: Entity ID (which shadows the endpoint name)
+    :rtype: str
+    """
+    return self._id.value
