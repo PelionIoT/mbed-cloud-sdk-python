@@ -10,10 +10,10 @@ Entities normally contain methods to create, read, update, delete and list resou
 actions may also be possible on the entity depending on the capabilities present in the API.
 This entity has the following methods:
 
+- :meth:`FirmwareImage.create`
 - :meth:`FirmwareImage.delete`
 - :meth:`FirmwareImage.list`
 - :meth:`FirmwareImage.read`
-- :meth:`FirmwareImage.upload`
 
 Entity Usage and Importing
 --------------------------
@@ -285,6 +285,46 @@ class FirmwareImage(Entity):
 
         self._updated_at.set(value)
 
+    def create(self, firmware_image_file):
+        """Create an image
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images/>`_.
+        
+        :param firmware_image_file: The firmware image file to upload Files can be provided as a file
+            object or a path to an existing file on disk.
+        :type firmware_image_file: file
+        
+        :rtype: FirmwareImage
+        """
+
+        auto_close_firmware_image_file = False
+
+        # If firmware_image_file is a string rather than a file, treat as a path and attempt to open the file.
+        if firmware_image_file and isinstance(firmware_image_file, six.string_types):
+            firmware_image_file = open(firmware_image_file, "rb")
+            auto_close_firmware_image_file = True
+
+        try:
+            return self._client.call_api(
+                method="post",
+                path="/v3/firmware-images/",
+                stream_params={
+                    "description": (None, self._description.to_api(), "text/plain"),
+                    "datafile": (
+                        "firmware_image_file.bin",
+                        firmware_image_file,
+                        "application/octet-stream",
+                    ),
+                    "name": (None, self._name.to_api(), "text/plain"),
+                },
+                unpack=self,
+            )
+        finally:
+            # Calling the API may result in an exception being raised so close the files in a finally statement.
+            # Note: Files are only closed if they were opened by the method.
+            if auto_close_firmware_image_file:
+                firmware_image_file.close()
+
     def delete(self):
         """Delete an image
 
@@ -450,43 +490,3 @@ class FirmwareImage(Entity):
             path_params={"image_id": self._id.to_api()},
             unpack=self,
         )
-
-    def upload(self, firmware_image_file):
-        """Create an image
-
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images/>`_.
-        
-        :param firmware_image_file: The firmware image file to upload Files can be provided as a file
-            object or a path to an existing file on disk.
-        :type firmware_image_file: file
-        
-        :rtype: FirmwareImage
-        """
-
-        auto_close_firmware_image_file = False
-
-        # If firmware_image_file is a string rather than a file, treat as a path and attempt to open the file.
-        if firmware_image_file and isinstance(firmware_image_file, six.string_types):
-            firmware_image_file = open(firmware_image_file, "rb")
-            auto_close_firmware_image_file = True
-
-        try:
-            return self._client.call_api(
-                method="post",
-                path="/v3/firmware-images/",
-                stream_params={
-                    "description": (None, self._description.to_api(), "text/plain"),
-                    "datafile": (
-                        "firmware_image_file.bin",
-                        firmware_image_file,
-                        "application/octet-stream",
-                    ),
-                    "name": (None, self._name.to_api(), "text/plain"),
-                },
-                unpack=self,
-            )
-        finally:
-            # Calling the API may result in an exception being raised so close the files in a finally statement.
-            # Note: Files are only closed if they were opened by the method.
-            if auto_close_firmware_image_file:
-                firmware_image_file.close()

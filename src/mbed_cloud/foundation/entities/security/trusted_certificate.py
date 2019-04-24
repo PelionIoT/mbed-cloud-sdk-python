@@ -131,7 +131,7 @@ class TrustedCertificate(Entity):
         :type name: str
         :param owner_id: The ID of the owner.
         :type owner_id: str
-        :param service: (Required) Service name where the certificate is to be used.
+        :param service: (Required) Service name where the certificate is used.
         :type service: str
         :param status: Status of the certificate.
         :type status: str
@@ -415,7 +415,7 @@ class TrustedCertificate(Entity):
 
     @property
     def service(self):
-        """Service name where the certificate is to be used.
+        """Service name where the certificate is used.
 
         This field must be set when creating a new TrustedCertificate Entity.
         
@@ -645,18 +645,18 @@ class TrustedCertificate(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: The number of results to return (2-1000), default is 50.
+        :param page_size: The number of results to return (2-1000). Default 50.
         :type page_size: int
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
         :type include: str
         
         :return: An iterator object which yields instances of an entity.
@@ -701,15 +701,15 @@ class TrustedCertificate(Entity):
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
+        :param limit: The number of results to return (2-1000). Default 50.
         :type limit: int
         
-        :param include: Comma separated additional data to return. Currently supported:
-            total_count
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
         :type include: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse

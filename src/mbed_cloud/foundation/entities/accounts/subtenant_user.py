@@ -137,7 +137,7 @@ class SubtenantUser(Entity):
         :type created_at: datetime
         :param creation_time: A timestamp of the user creation in the storage, in milliseconds.
         :type creation_time: int
-        :param custom_fields: User's account specific custom properties. The value is a string.
+        :param custom_fields: User's account-specific custom properties. The value is a string.
         :type custom_fields: dict
         :param email: (Required) The email address.
         :type email: str
@@ -157,8 +157,8 @@ class SubtenantUser(Entity):
         :param login_profiles: A list of login profiles for the user. Specified as the identity
             providers the user is associated with.
         :type login_profiles: list
-        :param marketing_accepted: A flag indicating that receiving marketing information has been
-            accepted.
+        :param marketing_accepted: A flag indicating that the user has consented to receive marketing
+            information.
         :type marketing_accepted: bool
         :param password: The password when creating a new user. It will be generated when
             not present in the request.
@@ -174,14 +174,14 @@ class SubtenantUser(Entity):
             password must be changed immediately. INACTIVE users are locked
             out and not permitted to use the system.
         :type status: str
-        :param terms_accepted: A flag indicating that the General Terms and Conditions has been
-            accepted.
+        :param terms_accepted: A flag indicating that the user has accepted General Terms and
+            Conditions.
         :type terms_accepted: bool
-        :param totp_scratch_codes: A list of scratch codes for the 2-factor authentication. Visible
+        :param totp_scratch_codes: A list of scratch codes for the two-factor authentication. Visible
             only when 2FA is requested to be enabled or the codes regenerated.
         :type totp_scratch_codes: list
-        :param two_factor_authentication: A flag indicating whether 2-factor authentication (TOTP) has been
-            enabled.
+        :param two_factor_authentication: A flag indicating whether two-factor authentication (TOTP) has
+            been enabled.
         :type two_factor_authentication: bool
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
@@ -334,7 +334,7 @@ class SubtenantUser(Entity):
 
     @property
     def custom_fields(self):
-        """User's account specific custom properties. The value is a string.
+        """User's account-specific custom properties. The value is a string.
         
         :rtype: dict
         """
@@ -502,7 +502,8 @@ class SubtenantUser(Entity):
 
     @property
     def marketing_accepted(self):
-        """A flag indicating that receiving marketing information has been accepted.
+        """A flag indicating that the user has consented to receive marketing
+        information.
         
         api example: True
         
@@ -612,7 +613,7 @@ class SubtenantUser(Entity):
 
     @property
     def terms_accepted(self):
-        """A flag indicating that the General Terms and Conditions has been accepted.
+        """A flag indicating that the user has accepted General Terms and Conditions.
         
         api example: True
         
@@ -633,8 +634,8 @@ class SubtenantUser(Entity):
 
     @property
     def totp_scratch_codes(self):
-        """A list of scratch codes for the 2-factor authentication. Visible only when 2FA
-        is requested to be enabled or the codes regenerated.
+        """A list of scratch codes for the two-factor authentication. Visible only when
+        2FA is requested to be enabled or the codes regenerated.
         
         :rtype: list
         """
@@ -653,7 +654,7 @@ class SubtenantUser(Entity):
 
     @property
     def two_factor_authentication(self):
-        """A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+        """A flag indicating whether two-factor authentication (TOTP) has been enabled.
         
         api example: True
         

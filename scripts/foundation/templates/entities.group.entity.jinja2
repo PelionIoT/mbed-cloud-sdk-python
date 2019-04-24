@@ -320,7 +320,7 @@ return self._client.call_api(
         {{ param_in }}_params = {% raw %}{{% endraw %}
             {% for field in method.fields %}
             {% if field['in'] == param_in %}
-                '{{field.parameter_fieldname}}':
+                '{{field.parameter_fieldname or field.name}}':
                 {% if field.external_param %}
                     {% if param_in == "stream" %}
                     {# For multi-part uploads the stream parameters need to be defined with content type, note a field is not used to take the stream directly #}

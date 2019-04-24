@@ -95,7 +95,7 @@ class DeviceEnrollmentBulkCreate(Entity):
 
         :param account_id: ID
         :type account_id: str
-        :param completed_at: The time of completing the bulk creation task.
+        :param completed_at: The time the bulk creation task was completed.
             Null when creating
             bulk upload or delete.
         :type completed_at: datetime
@@ -115,9 +115,9 @@ class DeviceEnrollmentBulkCreate(Entity):
         :type id: str
         :param processed_count: The number of enrollment identities processed until now.
         :type processed_count: int
-        :param status: The state of the process is 'new' at the time of creation. If the
-            creation is still in progress, the state is shown as 'processing'.
-            When the request has been fully processed, the state changes to
+        :param status: The state of the process is 'new' at the time of creation. If
+            creation is still in progress, the state shows as 'processing'.
+            When the request is fully processed, the state changes to
             'completed'.
         :type status: str
         :param total_count: Total number of enrollment identities found in the input CSV.
@@ -165,7 +165,7 @@ class DeviceEnrollmentBulkCreate(Entity):
 
     @property
     def completed_at(self):
-        """The time of completing the bulk creation task.
+        """The time the bulk creation task was completed.
         Null when creating bulk upload
         or delete.
         
@@ -310,9 +310,9 @@ class DeviceEnrollmentBulkCreate(Entity):
 
     @property
     def status(self):
-        """The state of the process is 'new' at the time of creation. If the creation is
-        still in progress, the state is shown as 'processing'. When the request has
-        been fully processed, the state changes to 'completed'.
+        """The state of the process is 'new' at the time of creation. If creation is
+        still in progress, the state shows as 'processing'. When the request is fully
+        processed, the state changes to 'completed'.
         
         api example: 'new'
         
@@ -353,12 +353,12 @@ class DeviceEnrollmentBulkCreate(Entity):
         self._total_count.set(value)
 
     def create(self, enrollment_identities):
-        """Bulk upload
+        """Bulk upload.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments-bulk-uploads>`_.
         
         :param enrollment_identities: The `CSV` file containing the enrollment IDs. The maximum file size is
-            10MB. Files can be provided as a file object or a path to an existing
+            10 MB. Files can be provided as a file object or a path to an existing
             file on disk.
         :type enrollment_identities: file
         
@@ -412,7 +412,7 @@ class DeviceEnrollmentBulkCreate(Entity):
         return download_full_report_file(self=self, foreign_key=self.__class__)
 
     def read(self):
-        """Get bulk upload entity
+        """Get bulk upload entity.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments-bulk-uploads/{id}>`_.
         

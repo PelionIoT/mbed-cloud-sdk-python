@@ -10,10 +10,10 @@ Entities normally contain methods to create, read, update, delete and list resou
 actions may also be possible on the entity depending on the capabilities present in the API.
 This entity has the following methods:
 
+- :meth:`FirmwareManifest.create`
 - :meth:`FirmwareManifest.delete`
 - :meth:`FirmwareManifest.list`
 - :meth:`FirmwareManifest.read`
-- :meth:`FirmwareManifest.upload`
 
 Entity Usage and Importing
 --------------------------
@@ -337,6 +337,65 @@ class FirmwareManifest(Entity):
 
         self._updated_at.set(value)
 
+    def create(self, firmware_manifest_file, key_table_file=None):
+        """Upload a manifest
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-manifests/>`_.
+        
+        :param firmware_manifest_file: The manifest file to create. The API gateway enforces the account-
+            specific file size. Files can be provided as a file object or a path
+            to an existing file on disk.
+        :type firmware_manifest_file: file
+        
+        :param key_table_file: The key table of pre-shared keys for devices Files can be provided as
+            a file object or a path to an existing file on disk.
+        :type key_table_file: file
+        
+        :rtype: FirmwareManifest
+        """
+
+        auto_close_firmware_manifest_file = False
+        auto_close_key_table_file = False
+
+        # If firmware_manifest_file is a string rather than a file, treat as a path and attempt to open the file.
+        if firmware_manifest_file and isinstance(firmware_manifest_file, six.string_types):
+            firmware_manifest_file = open(firmware_manifest_file, "rb")
+            auto_close_firmware_manifest_file = True
+
+        # If key_table_file is a string rather than a file, treat as a path and attempt to open the file.
+        if key_table_file and isinstance(key_table_file, six.string_types):
+            key_table_file = open(key_table_file, "rb")
+            auto_close_key_table_file = True
+
+        try:
+            return self._client.call_api(
+                method="post",
+                path="/v3/firmware-manifests/",
+                stream_params={
+                    "description": (None, self._description.to_api(), "text/plain"),
+                    "datafile": (
+                        "firmware_manifest_file.bin",
+                        firmware_manifest_file,
+                        "application/octet-stream",
+                    ),
+                    "key_table": (
+                        "key_table_file.bin",
+                        key_table_file,
+                        "application/octet-stream",
+                    ),
+                    "name": (None, self._name.to_api(), "text/plain"),
+                },
+                unpack=self,
+            )
+        finally:
+            # Calling the API may result in an exception being raised so close the files in a finally statement.
+            # Note: Files are only closed if they were opened by the method.
+            if auto_close_firmware_manifest_file:
+                firmware_manifest_file.close()
+
+            if auto_close_key_table_file:
+                key_table_file.close()
+
     def delete(self):
         """Delete a manifest
 
@@ -504,62 +563,3 @@ class FirmwareManifest(Entity):
             path_params={"manifest_id": self._id.to_api()},
             unpack=self,
         )
-
-    def upload(self, firmware_manifest_file, key_table_file=None):
-        """Upload a manifest
-
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-manifests/>`_.
-        
-        :param firmware_manifest_file: The manifest file to create. The API gateway enforces the account-
-            specific file size. Files can be provided as a file object or a path
-            to an existing file on disk.
-        :type firmware_manifest_file: file
-        
-        :param key_table_file: The key table of pre-shared keys for devices Files can be provided as
-            a file object or a path to an existing file on disk.
-        :type key_table_file: file
-        
-        :rtype: FirmwareManifest
-        """
-
-        auto_close_firmware_manifest_file = False
-        auto_close_key_table_file = False
-
-        # If firmware_manifest_file is a string rather than a file, treat as a path and attempt to open the file.
-        if firmware_manifest_file and isinstance(firmware_manifest_file, six.string_types):
-            firmware_manifest_file = open(firmware_manifest_file, "rb")
-            auto_close_firmware_manifest_file = True
-
-        # If key_table_file is a string rather than a file, treat as a path and attempt to open the file.
-        if key_table_file and isinstance(key_table_file, six.string_types):
-            key_table_file = open(key_table_file, "rb")
-            auto_close_key_table_file = True
-
-        try:
-            return self._client.call_api(
-                method="post",
-                path="/v3/firmware-manifests/",
-                stream_params={
-                    "description": (None, self._description.to_api(), "text/plain"),
-                    "datafile": (
-                        "firmware_manifest_file.bin",
-                        firmware_manifest_file,
-                        "application/octet-stream",
-                    ),
-                    "key_table": (
-                        "key_table_file.bin",
-                        key_table_file,
-                        "application/octet-stream",
-                    ),
-                    "name": (None, self._name.to_api(), "text/plain"),
-                },
-                unpack=self,
-            )
-        finally:
-            # Calling the API may result in an exception being raised so close the files in a finally statement.
-            # Note: Files are only closed if they were opened by the method.
-            if auto_close_firmware_manifest_file:
-                firmware_manifest_file.close()
-
-            if auto_close_key_table_file:
-                key_table_file.close()

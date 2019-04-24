@@ -48,7 +48,7 @@ class CampaignDeviceMetadata(Entity):
 
     # all fields available on this entity
     _fieldnames = [
-        "campaign",
+        "campaign_id",
         "created_at",
         "deployment_state",
         "description",
@@ -61,15 +61,15 @@ class CampaignDeviceMetadata(Entity):
     ]
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {}
+    _renames = {"campaign": "campaign_id"}
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {}
+    _renames_to_api = {"campaign_id": "campaign"}
 
     def __init__(
         self,
         _client=None,
-        campaign=None,
+        campaign_id=None,
         created_at=None,
         deployment_state=None,
         description=None,
@@ -89,8 +89,8 @@ class CampaignDeviceMetadata(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param campaign: (Required) The device's campaign ID
-        :type campaign: str
+        :param campaign_id: (Required) The device's campaign ID
+        :type campaign_id: str
         :param created_at: The time the campaign was created
         :type created_at: datetime
         :param deployment_state: The state of the update campaign on the device
@@ -116,7 +116,7 @@ class CampaignDeviceMetadata(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         # fields
-        self._campaign = fields.StringField(value=campaign)
+        self._campaign_id = fields.StringField(value=campaign_id)
         self._created_at = fields.DateTimeField(value=created_at)
         self._deployment_state = fields.StringField(
             value=deployment_state, enum=enums.CampaignDeviceMetadataDeploymentStateEnum
@@ -130,7 +130,7 @@ class CampaignDeviceMetadata(Entity):
         self._updated_at = fields.DateTimeField(value=updated_at)
 
     @property
-    def campaign(self):
+    def campaign_id(self):
         """The device's campaign ID
 
         This field must be set when creating a new CampaignDeviceMetadata Entity.
@@ -140,17 +140,17 @@ class CampaignDeviceMetadata(Entity):
         :rtype: str
         """
 
-        return self._campaign.value
+        return self._campaign_id.value
 
-    @campaign.setter
-    def campaign(self, value):
-        """Set value of `campaign`
+    @campaign_id.setter
+    def campaign_id(self, value):
+        """Set value of `campaign_id`
 
         :param value: value to set
         :type value: str
         """
 
-        self._campaign.set(value)
+        self._campaign_id.set(value)
 
     @property
     def created_at(self):
@@ -350,7 +350,7 @@ class CampaignDeviceMetadata(Entity):
             path="/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/",
             content_type="application/json",
             path_params={
-                "campaign_id": self._campaign.to_api(),
+                "campaign_id": self._campaign_id.to_api(),
                 "campaign_device_metadata_id": self._id.to_api(),
             },
             unpack=self,

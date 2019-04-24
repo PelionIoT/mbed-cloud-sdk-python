@@ -12,6 +12,7 @@ This module contains the Foundation Entities that are grouped together under the
 - :mod:`mbed_cloud.foundation.entities.security.certificate_issuer`
 - :mod:`mbed_cloud.foundation.entities.security.certificate_issuer_config`
 - :mod:`mbed_cloud.foundation.entities.security.developer_certificate`
+- :mod:`mbed_cloud.foundation.entities.security.pre_shared_key`
 - :mod:`mbed_cloud.foundation.entities.security.server_credentials`
 - :mod:`mbed_cloud.foundation.entities.security.subtenant_trusted_certificate`
 - :mod:`mbed_cloud.foundation.entities.security.trusted_certificate`
@@ -27,6 +28,7 @@ How to import Security Entities:
     from mbed_cloud.foundation import CertificateIssuer
     from mbed_cloud.foundation import CertificateIssuerConfig
     from mbed_cloud.foundation import DeveloperCertificate
+    from mbed_cloud.foundation import PreSharedKey
     from mbed_cloud.foundation import ServerCredentials
     from mbed_cloud.foundation import SubtenantTrustedCertificate
     from mbed_cloud.foundation import TrustedCertificate

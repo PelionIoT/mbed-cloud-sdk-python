@@ -334,7 +334,7 @@ class UserInvitation(Entity):
         )
 
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get the details of all the user invitations.
+        """Get the details of all user invitations.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations>`_.
 
@@ -364,14 +364,14 @@ class UserInvitation(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: The number of results to return (2-1000), default is 50.
+        :param page_size: The number of results to return (2-1000). Default 50.
         :type page_size: int
         
         :param include: Comma separated additional data to return.
@@ -411,7 +411,7 @@ class UserInvitation(Entity):
         )
 
     def _paginate_list(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get the details of all the user invitations.
+        """Get the details of all user invitations.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -419,11 +419,11 @@ class UserInvitation(Entity):
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, ASC or DESC; by
-            default ASC
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
         :type order: str
         
-        :param limit: The number of results to return (2-1000), default is 50.
+        :param limit: The number of results to return (2-1000). Default 50.
         :type limit: int
         
         :param include: Not supported by the API.
