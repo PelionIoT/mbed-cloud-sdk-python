@@ -7401,8 +7401,9 @@ paths:
         \ as PUT messages to the HTTP server defined by the client with a subscription\n\
         server message. The given URL should be accessible and respond to the PUT\
         \ request with response code of 200 or 204.\nDevice Management Connect tests\
-        \ the callback URL with an empty payload when the URL is registered. For more\
-        \ information on\nnotification messages, see [NotificationMessage](#NotificationMessage).\n\
+        \ the callback URL with an empty payload when the URL is registered. Callback\
+        \ implementation \ndoes not support URL redirection. For more information\
+        \ on notification messages, see [NotificationMessage](#NotificationMessage).\n\
         \n**Optional headers in a callback message:**\n\nYou can set optional headers\
         \ to a callback in a **Webhook** object.\nDevice Management Connect will include\
         \ the header and key pairs to the notification messages send them to callback\
@@ -7494,8 +7495,8 @@ paths:
         \ a batch of event notifications are delivered to the client or the request\
         \ times out\n(response code 204). In both cases, the client should open a\
         \ new polling connection after the previous one closes.\nOnly a single long\
-        \ polling connection per API key can be ongoing at any given time.\nYou must\
-        \ have a persistent connection (Connection keep-alive header in the request)\
+        \ polling connection per API key can be ongoing at any given time.\nWe recommend\
+        \ using a persistent connection (Connection keep-alive header in the request)\
         \ to avoid excess\nTLS handshakes.\n\nThe pull channel is implicitly created\
         \ by the first GET call to `/v2/notification/pull`. It is refreshed on each\
         \ GET call.\nIf the channel is not polled for a long time (10 minutes) - it\
