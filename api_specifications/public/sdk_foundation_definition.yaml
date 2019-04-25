@@ -1505,7 +1505,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: 'Retrieve an array of account objects, optionally filtered by status
+    description: 'Returns an array of account objects, optionally filtered by status
       and tier level.
 
 
@@ -6954,8 +6954,11 @@ entities:
   - UserInfoRespList
   - UserInvitationRespList
   tags:
-  - Developer
-  - Aggregator Account Admin
+  - Account - profile
+  - Tenant accounts - accounts
+  - Tenant accounts - users
+  - Tenant accounts - user invitations
+  - Tenant device security - certificates
 - _key: active_session
   field_renames: []
   fields:
@@ -8908,7 +8911,7 @@ entities:
   - ApiKeyInfoRespList
   - ApiKeyUpdateReq
   tags:
-  - Developer
+  - Account - API keys
 - _key: campaign_device_metadata
   field_renames:
   - _key: campaign_id
@@ -15368,7 +15371,7 @@ entities:
   - TrustedCertificateResp
   tags:
   - Developer certificate
-  - Developer
+  - Device security - certificates
 - _key: device
   field_renames: []
   fields:
@@ -26443,7 +26446,7 @@ entities:
   - TrustedCertificateResp
   - TrustedCertificateUpdateReq
   tags:
-  - Aggregator Account Admin
+  - Tenant device security - certificates
   - Developer certificate
 - _key: subtenant_user
   field_renames:
@@ -29501,7 +29504,7 @@ entities:
   - UserInfoResp
   - UserUpdateReq
   tags:
-  - Aggregator Account Admin
+  - Tenant accounts - users
 - _key: subtenant_user_invitation
   field_renames: []
   fields:
@@ -30580,7 +30583,7 @@ entities:
   - UserInvitationReq
   - UserInvitationResp
   tags:
-  - Aggregator Account Admin
+  - Tenant accounts - user invitations
 - _key: trusted_certificate
   field_renames: []
   fields:
@@ -33251,8 +33254,7 @@ entities:
   - TrustedCertificateRespList
   - TrustedCertificateUpdateReq
   tags:
-  - Developer
-  - Account Admin
+  - Device security - certificates
   - Developer certificate
 - _key: update_campaign
   field_renames: []
@@ -37410,7 +37412,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
-    description: 'Update user details.
+    description: 'Update user details
 
 
       **Example:**
@@ -38167,7 +38169,7 @@ entities:
   - UserInfoRespList
   - UserUpdateReq
   tags:
-  - Account Admin
+  - Account - users
 - _key: user_invitation
   field_renames: []
   fields:
@@ -39531,7 +39533,7 @@ entities:
   - UserInvitationResp
   - UserInvitationRespList
   tags:
-  - Account Admin
+  - Account - user invitations
 - _key: verification_response
   field_renames: []
   fields:

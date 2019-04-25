@@ -1871,7 +1871,7 @@
           "_key": "create"
         },
         {
-          "description": "Retrieve an array of account objects, optionally filtered by status and tier level.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Returns an array of account objects, optionally filtered by status and tier level.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -9545,8 +9545,11 @@
       ],
       "field_renames": [],
       "tags": [
-        "Developer",
-        "Aggregator Account Admin"
+        "Account - profile",
+        "Tenant accounts - accounts",
+        "Tenant accounts - users",
+        "Tenant accounts - user invitations",
+        "Tenant device security - certificates"
       ],
       "group_id": "Accounts",
       "_key": "account"
@@ -12163,7 +12166,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Developer"
+        "Account - API keys"
       ],
       "group_id": "Accounts",
       "_key": "api_key"
@@ -20320,7 +20323,7 @@
       ],
       "tags": [
         "Developer certificate",
-        "Developer"
+        "Device security - certificates"
       ],
       "group_id": "Security",
       "_key": "developer_certificate"
@@ -34005,7 +34008,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Aggregator Account Admin",
+        "Tenant device security - certificates",
         "Developer certificate"
       ],
       "group_id": "Security",
@@ -37992,7 +37995,7 @@
         }
       ],
       "tags": [
-        "Aggregator Account Admin"
+        "Tenant accounts - users"
       ],
       "group_id": "Accounts",
       "_key": "subtenant_user"
@@ -39416,7 +39419,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Aggregator Account Admin"
+        "Tenant accounts - user invitations"
       ],
       "group_id": "Accounts",
       "_key": "subtenant_user_invitation"
@@ -42728,8 +42731,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Developer",
-        "Account Admin",
+        "Device security - certificates",
         "Developer certificate"
       ],
       "group_id": "Security",
@@ -47609,7 +47611,7 @@
           "_key": "read"
         },
         {
-          "description": "Update user details.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{\"username\": \"myusername\"}'\n```",
+          "description": "Update user details\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{\"username\": \"myusername\"}'\n```",
           "field_renames": [
             {
               "api_fieldname": "is_marketing_accepted",
@@ -49008,7 +49010,7 @@
         }
       ],
       "tags": [
-        "Account Admin"
+        "Account - users"
       ],
       "group_id": "Accounts",
       "_key": "user"
@@ -50827,7 +50829,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Account Admin"
+        "Account - user invitations"
       ],
       "group_id": "Accounts",
       "_key": "user_invitation"

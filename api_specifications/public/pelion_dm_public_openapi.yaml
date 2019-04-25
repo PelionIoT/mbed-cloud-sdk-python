@@ -7974,7 +7974,7 @@ paths:
       - Subscriptions
   /v3/accounts:
     get:
-      description: 'Retrieve an array of account objects, optionally filtered by status
+      description: 'Returns an array of account objects, optionally filtered by status
         and tier level.
 
 
@@ -8081,7 +8081,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all accounts.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - accounts
       x-filter:
         country:
         - like
@@ -8163,7 +8163,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new account.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - accounts
   /v3/accounts/me:
     get:
       description: 'Retrieve detailed information about the account.
@@ -8209,7 +8209,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get account info.
       tags:
-      - Developer
+      - Account - profile
     put:
       consumes:
       - application/json
@@ -8258,7 +8258,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates attributes of the account.
       tags:
-      - Account Admin
+      - Account - profile
   /v3/accounts/me/notifications:
     get:
       description: Retrieve notifications for an account.
@@ -8304,7 +8304,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get notification events for an account.
       tags:
-      - Account Admin
+      - Account - email notification logs
   /v3/accounts/{account_id}:
     get:
       description: 'Retrieve detailed information about an account.
@@ -8359,7 +8359,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get account info.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - accounts
     put:
       consumes:
       - application/json
@@ -8418,7 +8418,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update attributes of an existing account.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - accounts
   /v3/accounts/{account_id}/api-keys:
     get:
       description: 'Retrieve API keys in an array, optionally filtered by the owner.
@@ -8498,7 +8498,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all API keys.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
       x-filter:
         key:
         - eq
@@ -8563,7 +8563,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new API key.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
   /v3/accounts/{account_id}/api-keys/{apikey_id}:
     delete:
       description: 'Delete an API key.
@@ -8610,7 +8610,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete the API key.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
     get:
       description: "Retrieve API key details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
         \ \\\n -H 'Authorization: Bearer <api_key>'\n```"
@@ -8647,7 +8647,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get API key details.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
     put:
       description: 'Update API key details.
 
@@ -8709,7 +8709,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update API key details.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
   /v3/accounts/{account_id}/api-keys/{apikey_id}/groups:
     delete:
       consumes:
@@ -8776,7 +8776,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove API key from groups.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
     get:
       description: 'Retrieve groups associated with the API key.
 
@@ -8849,7 +8849,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get groups associated with the API key.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
     post:
       consumes:
       - application/json
@@ -8919,7 +8919,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add API key to a list of groups.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
   /v3/accounts/{account_id}/api-keys/{apikey_id}/reset-secret:
     post:
       description: 'Reset the secret key of the API key.
@@ -8968,10 +8968,10 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Reset the secret key.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
   /v3/accounts/{account_id}/branding-colors/dark:
     get:
-      description: 'Retrieve dark theme branding colors.
+      description: 'Retrieve dark theme branding colors for an account.
 
 
         **Example:**
@@ -9012,12 +9012,12 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get dark theme branding colors.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     put:
       consumes:
       - application/json
-      description: "Update an array of dark theme branding colors.\n\n**Example:**\n\
-        ```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark\
+      description: "Update an array of dark theme branding colors of a tenant account.\n\
+        \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
         \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"#f3f93e\" }]'\n```"
       operationId: bulkSetAccountDarkColors
@@ -9058,17 +9058,18 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates an array of dark theme branding colors.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
   /v3/accounts/{account_id}/branding-colors/dark/{reference}:
     delete:
-      description: 'Resets the branding color to its dark theme default.
+      description: 'Resets the branding color of a tenant account to its dark theme
+        default.
 
 
         **Example:**
 
         ```
 
-        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}
         \
 
         -H ''Authorization: Bearer <api_key>''
@@ -9108,21 +9109,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Reset branding color to default.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     get:
-      description: 'Retrieve the requested dark theme branding color.
-
-
-        **Example:**
-
-        ```
-
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}
-        \
-
-        -H ''Authorization: Bearer <api_key>''
-
-        ```'
+      description: "Retrieve the requested dark theme branding color. \n\n**Example:**\n\
+        ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}\
+        \ \\\n-H 'Authorization: Bearer <api_key>'\n```"
       operationId: getAccountDarkColor
       parameters:
       - description: Account ID.
@@ -9157,11 +9148,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get dark theme branding color.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     put:
       consumes:
       - application/json
-      description: 'Update a dark theme branding color.
+      description: 'Update a dark theme branding color of a tenant account.
 
 
         **Example:**
@@ -9222,10 +9213,10 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates a dark theme branding color.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
   /v3/accounts/{account_id}/branding-colors/light:
     get:
-      description: 'Retrieve light theme branding colors.
+      description: 'Retrieve light theme branding colors for an account.
 
 
         **Example:**
@@ -9266,12 +9257,12 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get light theme branding colors.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     put:
       consumes:
       - application/json
-      description: "Updates an array of light theme branding colors.\n\n**Example:**\n\
-        ```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light\
+      description: "Update an array of light theme branding colors of a tenant account.\n\
+        \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
         \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"purple\" }]'\n```"
       operationId: bulkSetAccountLightColors
@@ -9312,10 +9303,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates an array of light theme branding colors.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
   /v3/accounts/{account_id}/branding-colors/light/{reference}:
     delete:
-      description: 'Resets the branding color to its light theme default.
+      description: 'Resets the branding color of a tenant account to its light theme
+        default.
 
 
         **Example:**
@@ -9362,7 +9354,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Reset branding color to default.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     get:
       description: 'Retrieve the requested light theme branding color.
 
@@ -9410,11 +9402,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get light theme branding color.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     put:
       consumes:
       - application/json
-      description: 'Update light theme branding color.
+      description: 'Update a light theme branding color of a tenant account.
 
 
         **Example:**
@@ -9475,7 +9467,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates light theme branding color.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
   /v3/accounts/{account_id}/branding-images/dark:
     get:
       description: 'Retrieve the metadata of all dark theme branding images.
@@ -9519,7 +9511,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of all dark theme images.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/dark/{reference}:
     get:
       description: 'Retrieve metadata of one account dark theme branding image.
@@ -9569,7 +9561,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of a dark theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/dark/{reference}/clear:
     post:
       description: 'Revert an account branding image to dark theme default.
@@ -9617,7 +9609,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Revert an image to dark theme default.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/dark/{reference}/upload:
     post:
       consumes:
@@ -9690,7 +9682,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a dark theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart:
     post:
       consumes:
@@ -9747,7 +9739,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a dark theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/light:
     get:
       description: 'Retrieve the metadata of all light theme branding images.
@@ -9791,7 +9783,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of all light theme images.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/light/{reference}:
     get:
       description: 'Retrieve metadata for one account light theme branding image.
@@ -9841,7 +9833,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of a light theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/light/{reference}/clear:
     post:
       description: 'Revert an account branding image to light theme default.
@@ -9887,7 +9879,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Revert an image to light theme default.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/light/{reference}/upload:
     post:
       consumes:
@@ -9960,7 +9952,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a light theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/light/{reference}/upload-multipart:
     post:
       consumes:
@@ -10017,7 +10009,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a light theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/identity-providers:
     get:
       consumes:
@@ -10076,7 +10068,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all identity providers.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
     post:
       consumes:
       - application/json
@@ -10126,7 +10118,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new identity provider.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
   /v3/accounts/{account_id}/identity-providers/{identity_provider_id}:
     delete:
       description: Delete an identity provider by ID.
@@ -10161,9 +10153,9 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete an identity provider by ID.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
     get:
-      description: Retrieve identity provider by ID.
+      description: Manage identity providers of a tenant account.
       operationId: getAccountIdentityProvider
       parameters:
       - description: Account ID.
@@ -10195,9 +10187,9 @@ paths:
           description: Account or identity provider not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get identity provider by ID.
+      summary: Retrieve identity provider by ID.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
     put:
       consumes:
       - application/json
@@ -10245,7 +10237,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update an existing identity provider.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
   /v3/accounts/{account_id}/identity-providers/{identity_provider_id}/delete-sp-certificate:
     post:
       consumes:
@@ -10288,7 +10280,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete the service provider certificate.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
   /v3/accounts/{account_id}/identity-providers/{identity_provider_id}/generate-sp-certificate:
     post:
       consumes:
@@ -10342,7 +10334,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Generate a new service provider certificate.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
   /v3/accounts/{account_id}/notifications:
     get:
       description: Retrieve notifications.
@@ -10397,7 +10389,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the notification events of an account.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - email notification logs
   /v3/accounts/{account_id}/policy-groups:
     get:
       description: 'Retrieve all group information.
@@ -10471,7 +10463,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all group information.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
       x-filter:
         name:
         - eq
@@ -10537,7 +10529,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
   /v3/accounts/{account_id}/policy-groups/{group_id}:
     delete:
       description: 'Delete a group.
@@ -10584,7 +10576,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
     get:
       description: 'Retrieve general information about the group.
 
@@ -10632,7 +10624,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get group information.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
     post:
       consumes:
       - application/json
@@ -10701,7 +10693,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add members to a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
     put:
       consumes:
       - application/json
@@ -10765,7 +10757,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update the group name.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
   /v3/accounts/{account_id}/policy-groups/{group_id}/api-keys:
     delete:
       consumes:
@@ -10831,7 +10823,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove API keys from a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
     get:
       description: 'List the API keys of the group with details.
 
@@ -10904,7 +10896,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get API keys of a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
   /v3/accounts/{account_id}/policy-groups/{group_id}/users:
     delete:
       consumes:
@@ -10958,7 +10950,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove users from a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
     get:
       description: 'List users of the group with details.
 
@@ -11047,7 +11039,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get users of a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
       x-filter:
         status:
         - eq
@@ -11184,7 +11176,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all trusted certificates.
       tags:
-      - Aggregator Account Admin
+      - Tenant device security - certificates
       x-filter:
         device_execution_mode:
         - eq
@@ -11267,7 +11259,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload new trusted certificate.
       tags:
-      - Aggregator Account Admin
+      - Tenant device security - certificates
   /v3/accounts/{account_id}/trusted-certificates/{cert_id}:
     delete:
       description: 'Delete the trusted certificate.
@@ -11314,7 +11306,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete trusted certificate by ID.
       tags:
-      - Aggregator Account Admin
+      - Tenant device security - certificates
     get:
       description: 'Retrieve a trusted certificate by ID.
 
@@ -11362,7 +11354,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get trusted certificate by ID.
       tags:
-      - Aggregator Account Admin
+      - Tenant device security - certificates
     put:
       consumes:
       - application/json
@@ -11414,7 +11406,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update trusted certificate.
       tags:
-      - Aggregator Account Admin
+      - Tenant device security - certificates
   /v3/accounts/{account_id}/user-invitations:
     get:
       description: 'Retrieve details of all active user invitations sent for new or
@@ -11483,7 +11475,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the details of all user invitations.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - user invitations
       x-filter:
         login_profile:
         - eq
@@ -11541,7 +11533,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a user invitation.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - user invitations
   /v3/accounts/{account_id}/user-invitations/{invitation_id}:
     delete:
       description: 'Delete an active user invitation sent to a new or existing user.
@@ -11588,7 +11580,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a user invitation.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - user invitations
     get:
       description: 'Retrieve details of an active user invitation sent for a new or
         existing user.
@@ -11637,7 +11629,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Details of a user invitation.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - user invitations
   /v3/accounts/{account_id}/users:
     get:
       description: 'Retrieve details of all users.
@@ -11732,7 +11724,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the details of all users.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
       x-filter:
         email:
         - eq
@@ -11811,7 +11803,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new user.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
   /v3/accounts/{account_id}/users/{user_id}:
     delete:
       description: 'Delete a user.
@@ -11862,7 +11854,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a user.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
     get:
       description: 'Retrieve user details.
 
@@ -11910,7 +11902,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Details of the user.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
     put:
       consumes:
       - application/json
@@ -11978,7 +11970,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update user details.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
   /v3/accounts/{account_id}/users/{user_id}/groups:
     delete:
       consumes:
@@ -12045,7 +12037,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove user from groups.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
     get:
       description: 'Retrieve user''s groups.
 
@@ -12118,7 +12110,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get user's groups.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
     post:
       consumes:
       - application/json
@@ -12188,7 +12180,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add user to a list of groups.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
   /v3/accounts/{account_id}/users/{user_id}/validate-email:
     post:
       description: 'Validate user email.
@@ -12235,7 +12227,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Validate the user email.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
   /v3/api-keys:
     get:
       description: 'Retrieve API keys in an array, optionally filtered by the owner.
@@ -12305,7 +12297,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all API keys.
       tags:
-      - Developer
+      - Account - API keys
       x-filter:
         key:
         - eq
@@ -12358,7 +12350,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new API key.
       tags:
-      - Developer
+      - Account - API keys
   /v3/api-keys/me:
     get:
       description: 'Retrieve API key details.
@@ -12392,7 +12384,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get API key details.
       tags:
-      - Developer
+      - Account - API keys
     put:
       description: 'Update API key details.
 
@@ -12439,7 +12431,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update API key details.
       tags:
-      - Developer
+      - Account - API keys
   /v3/api-keys/me/groups:
     delete:
       consumes:
@@ -12491,7 +12483,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove API key from groups.
       tags:
-      - Developer
+      - Account - API keys
     get:
       description: 'Retrieve groups associated with the API key.
 
@@ -12549,7 +12541,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get groups of the API key.
       tags:
-      - Developer
+      - Account - API keys
     post:
       consumes:
       - application/json
@@ -12604,7 +12596,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add API key to a list of groups.
       tags:
-      - Developer
+      - Account - API keys
   /v3/api-keys/{apikey_id}:
     delete:
       description: 'Delete the API key.
@@ -12646,7 +12638,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete API key.
       tags:
-      - Developer
+      - Account - API keys
     get:
       description: 'Retrieve API key details.
 
@@ -12688,7 +12680,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get API key details.
       tags:
-      - Developer
+      - Account - API keys
     put:
       description: 'Update API key details.
 
@@ -12742,7 +12734,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update API key details.
       tags:
-      - Developer
+      - Account - API keys
   /v3/api-keys/{apikey_id}/groups:
     delete:
       consumes:
@@ -12804,7 +12796,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove API key from groups.
       tags:
-      - Account Admin
+      - Account - API keys
     get:
       description: 'Retrieve groups associated with the API key.
 
@@ -12872,7 +12864,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get groups of the API key.
       tags:
-      - Account Admin
+      - Account - API keys
     post:
       consumes:
       - application/json
@@ -12937,7 +12929,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add API key to a list of groups.
       tags:
-      - Account Admin
+      - Account - API keys
   /v3/billing-report:
     get:
       description: 'Fetch the billing report generated for the currently authenticated
@@ -13388,7 +13380,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get dark theme branding colors.
       tags:
-      - Developer
+      - User interface configuration - colors
     put:
       consumes:
       - application/json
@@ -13425,7 +13417,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates an array of dark theme branding colors.
       tags:
-      - Account Admin
+      - User interface configuration - colors
   /v3/branding-colors/dark/{reference}:
     delete:
       description: 'Resets the branding color to its dark theme default.
@@ -13470,7 +13462,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Reset branding color to default.
       tags:
-      - Account Admin
+      - User interface configuration - colors
     get:
       description: 'Retrieve the requested dark theme branding color.
 
@@ -13514,7 +13506,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get dark theme branding color.
       tags:
-      - Developer
+      - User interface configuration - colors
     put:
       consumes:
       - application/json
@@ -13574,7 +13566,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates a dark theme branding color.
       tags:
-      - Account Admin
+      - User interface configuration - colors
   /v3/branding-colors/light:
     get:
       description: 'Retrieve the light theme branding colors.
@@ -13608,7 +13600,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get light theme branding colors.
       tags:
-      - Developer
+      - User interface configuration - colors
     put:
       consumes:
       - application/json
@@ -13645,7 +13637,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates an array of light theme branding colors.
       tags:
-      - Account Admin
+      - User interface configuration - colors
   /v3/branding-colors/light/{reference}:
     delete:
       description: 'Resets the branding color to its light theme default.
@@ -13690,7 +13682,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Reset branding color to default.
       tags:
-      - Account Admin
+      - User interface configuration - colors
     get:
       description: 'Retrieve the requested light theme branding color.
 
@@ -13734,7 +13726,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get light theme branding color.
       tags:
-      - Developer
+      - User interface configuration - colors
     put:
       consumes:
       - application/json
@@ -13794,7 +13786,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates light theme branding color.
       tags:
-      - Account Admin
+      - User interface configuration - colors
   /v3/branding-images/dark:
     get:
       description: 'Retrieve metadata for all dark theme branding images.
@@ -13826,7 +13818,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of all dark theme images.
       tags:
-      - Developer
+      - User interface configuration - images
   /v3/branding-images/dark/{reference}:
     get:
       description: 'Retrieve metadata for one account dark theme branding image.
@@ -13871,7 +13863,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of a dark theme image.
       tags:
-      - Developer
+      - User interface configuration - images
   /v3/branding-images/dark/{reference}/clear:
     post:
       description: 'Revert an account branding image to dark theme default.
@@ -13914,7 +13906,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Revert an image to dark theme default.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/branding-images/dark/{reference}/upload:
     post:
       consumes:
@@ -13982,7 +13974,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a dark theme image.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/branding-images/dark/{reference}/upload-multipart:
     post:
       consumes:
@@ -14034,7 +14026,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a dark theme image.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/branding-images/light:
     get:
       description: 'Retrieve the metadata of all light theme branding images.
@@ -14068,7 +14060,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of all light theme images.
       tags:
-      - Developer
+      - User interface configuration - images
   /v3/branding-images/light/{reference}:
     get:
       description: 'Retrieve metadata for one account light theme branding image.
@@ -14113,7 +14105,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of a light theme image.
       tags:
-      - Developer
+      - User interface configuration - images
   /v3/branding-images/light/{reference}/clear:
     post:
       description: 'Revert an account branding image to light theme default.
@@ -14156,7 +14148,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Revert an image to light theme default.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/branding-images/light/{reference}/upload:
     post:
       consumes:
@@ -14224,7 +14216,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a light theme image.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/branding-images/light/{reference}/upload-multipart:
     post:
       consumes:
@@ -14276,7 +14268,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a light theme image.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/certificate-enrollments:
     get:
       description: 'Get certificate enrollments list, optionally filtered.
@@ -19845,7 +19837,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all identity providers.
       tags:
-      - Account Admin
+      - Account - identity providers
     post:
       consumes:
       - application/json
@@ -19886,7 +19878,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new identity provider.
       tags:
-      - Account Admin
+      - Account - identity providers
   /v3/identity-providers/{identity_provider_id}:
     delete:
       description: Delete an identity provider by ID.
@@ -19916,7 +19908,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete an identity provider by ID.
       tags:
-      - Account Admin
+      - Account - identity providers
     get:
       description: Retrieve by ID.
       operationId: getIdentityProvider
@@ -19947,7 +19939,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get identity provider by ID.
       tags:
-      - Account Admin
+      - Account - identity providers
     put:
       consumes:
       - application/json
@@ -19990,7 +19982,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update an existing identity provider.
       tags:
-      - Account Admin
+      - Account - identity providers
   /v3/identity-providers/{identity_provider_id}/delete-sp-certificate:
     post:
       consumes:
@@ -20028,7 +20020,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete the service provider certificate.
       tags:
-      - Account Admin
+      - Account - identity providers
   /v3/identity-providers/{identity_provider_id}/generate-sp-certificate:
     post:
       consumes:
@@ -20077,7 +20069,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Generate a new service provider certificate.
       tags:
-      - Account Admin
+      - Account - identity providers
   /v3/metrics:
     get:
       description: This REST API is used to get account-specific statistics.
@@ -20284,7 +20276,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all group information.
       tags:
-      - Developer
+      - Account - policy groups
       x-filter:
         name:
         - eq
@@ -20338,7 +20330,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new group.
       tags:
-      - Account Admin
+      - Account - policy groups
   /v3/policy-groups/{group_id}:
     delete:
       description: 'Delete a group.
@@ -20380,7 +20372,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a group.
       tags:
-      - Account Admin
+      - Account - policy groups
     get:
       description: 'Retrieve general information about a group.
 
@@ -20423,7 +20415,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get group information.
       tags:
-      - Developer
+      - Account - policy groups
     post:
       consumes:
       - application/json
@@ -20487,7 +20479,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add members to a group.
       tags:
-      - Account Admin
+      - Account - policy groups
     put:
       consumes:
       - application/json
@@ -20546,7 +20538,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update the group name.
       tags:
-      - Account Admin
+      - Account - policy groups
   /v3/policy-groups/{group_id}/api-keys:
     delete:
       consumes:
@@ -20607,9 +20599,9 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove API keys from a group.
       tags:
-      - Developer
+      - Account - policy groups
     get:
-      description: 'List the API keys of the group with details.
+      description: 'Manage policy groups.
 
 
         **Example:**
@@ -20675,12 +20667,12 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the API keys of a group.
       tags:
-      - Developer
+      - Account - policy groups
   /v3/policy-groups/{group_id}/users:
     delete:
       consumes:
       - application/json
-      description: 'Remove users from groups.
+      description: 'Manage policy groups.
 
 
         **Example:**
@@ -20736,7 +20728,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove users from a group.
       tags:
-      - Account Admin
+      - Account - policy groups
     get:
       description: 'Retrieve users of a group with details.
 
@@ -20820,7 +20812,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get users of a group.
       tags:
-      - Account Admin
+      - Account - policy groups
       x-filter:
         status:
         - eq
@@ -21362,7 +21354,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all trusted certificates.
       tags:
-      - Developer
+      - Device security - certificates
       x-filter:
         device_execution_mode:
         - eq
@@ -21438,7 +21430,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a new trusted certificate.
       tags:
-      - Account Admin
+      - Device security - certificates
   /v3/trusted-certificates/{cert_id}:
     delete:
       description: 'Delete a trusted certificate.
@@ -21480,7 +21472,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a trusted certificate by ID.
       tags:
-      - Developer
+      - Device security - certificates
     get:
       description: 'Retrieve a trusted certificate by ID.
 
@@ -21523,7 +21515,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get trusted certificate by ID.
       tags:
-      - Developer
+      - Device security - certificates
     put:
       consumes:
       - application/json
@@ -21586,7 +21578,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update trusted certificate.
       tags:
-      - Developer
+      - Device security - certificates
   /v3/update-campaigns/:
     get:
       description: Get update campaigns for devices specified by a filter.
@@ -22356,7 +22348,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the details of all user invitations.
       tags:
-      - Account Admin
+      - Account - user invitations
       x-filter:
         login_profile:
         - eq
@@ -22408,7 +22400,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a user invitation.
       tags:
-      - Account Admin
+      - Account - user invitations
   /v3/user-invitations/{invitation_id}:
     delete:
       description: 'Delete an active user invitation sent to a new or existing user.
@@ -22450,7 +22442,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a user invitation.
       tags:
-      - Account Admin
+      - Account - user invitations
     get:
       description: 'Retrieve the details of an active user invitation.
 
@@ -22493,7 +22485,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Details of a user invitation.
       tags:
-      - Account Admin
+      - Account - user invitations
   /v3/users:
     get:
       description: 'Retrieve the details of all users.
@@ -22578,7 +22570,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the details of all users.
       tags:
-      - Account Admin
+      - Account - users
       x-filter:
         email:
         - eq
@@ -22647,7 +22639,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new user.
       tags:
-      - Account Admin
+      - Account - users
   /v3/users/me:
     get:
       description: Retrieve the details of the logged-in user.
@@ -22687,7 +22679,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Details of the current user.
       tags:
-      - Developer
+      - Account - users
   /v3/users/{user_id}:
     delete:
       description: 'Delete a user.
@@ -22732,7 +22724,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a user.
       tags:
-      - Account Admin
+      - Account - users
     get:
       description: 'Retrieve the details of a user.
 
@@ -22774,11 +22766,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Details of a user.
       tags:
-      - Account Admin
+      - Account - users
     put:
       consumes:
       - application/json
-      description: 'Update user details.
+      description: 'Update user details
 
 
         **Example:**
@@ -22836,7 +22828,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update user details.
       tags:
-      - Account Admin
+      - Account - users
   /v3/users/{user_id}/groups:
     delete:
       consumes:
@@ -22898,7 +22890,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove user from groups.
       tags:
-      - Account Admin
+      - Account - users
     get:
       description: 'Retrieve groups of the user.
 
@@ -22966,7 +22958,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get groups of the user.
       tags:
-      - Account Admin
+      - Account - users
     post:
       consumes:
       - application/json
@@ -23031,7 +23023,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add user to a list of groups.
       tags:
-      - Account Admin
+      - Account - users
 produces:
 - application/json
 schemes:
