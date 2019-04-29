@@ -6383,11 +6383,11 @@ definitions:
     type: object
   WebsocketChannel:
     properties:
-      channelId:
+      channel_id:
         description: Unique identifier of the channel
         example: 9e3931e0-3549-40bd-92cc-565cad74ef31
         type: string
-      queueSize:
+      queue_size:
         default: 0
         description: Number of events in the channel's event queue waiting to be delivered.
         example: 0
