@@ -1875,11 +1875,11 @@ definitions:
   CredentialsResponseData:
     properties:
       certificate:
-        description: PEM format X.509 server certificate that will be used to validate
-          the server certificate that will be received during the TLS/DTLS handshake.
+        description: PEM-format X.509 server certificate used to validate the server
+          certificate received during the TLS/DTLS handshake.
         type: string
       url:
-        description: Server URI to which the client needs to connect to.
+        description: Server URI that the client connects to.
         type: string
     type: object
   DenialAttemptsResponse:
@@ -1925,12 +1925,14 @@ definitions:
   DeveloperCertificateRequestData:
     properties:
       description:
-        description: Description for the developer certificate. There is a limit on
-          the length of the description. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
+        description: Description for the developer certificate. Maximum 500 characters.
+          Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
+        maxLength: 500
         type: string
       name:
-        description: Name of the developer certificate, must be unique. There is a
-          limit on the length of the name. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
+        description: Name of the developer certificate. Must be unique. Maximum 100
+          characters. Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
+        maxLength: 100
         type: string
     required:
     - name
@@ -1938,7 +1940,7 @@ definitions:
   DeveloperCertificateResponseData:
     properties:
       account_id:
-        description: account to which the developer certificate belongs
+        description: Account to which the developer certificate belongs.
         type: string
       created_at:
         description: Creation UTC time RFC3339.
@@ -1948,10 +1950,10 @@ definitions:
         description: Description for the developer certificate.
         type: string
       developer_certificate:
-        description: PEM format X.509 developer certificate.
+        description: PEM-format X.509 developer certificate.
         type: string
       developer_private_key:
-        description: PEM format developer private key associated to the certificate.
+        description: PEM-format developer private key associated with the certificate.
         type: string
       etag:
         description: API resource entity version.
@@ -1963,11 +1965,11 @@ definitions:
         description: Name of the developer certificate.
         type: string
       object:
-        description: Entity name, always 'trusted-cert'
+        description: 'Entity name: always `trusted-cert`.'
         type: string
       security_file_content:
-        description: Content of the security.c file that will be flashed into the
-          device to provide the security credentials
+        description: Content of the `security.c` file flashed to the device to provide
+          security credentials.
         type: string
     type: object
   DeviceData:
@@ -4861,17 +4863,17 @@ definitions:
         description: API resource entity version.
         type: string
       id:
-        description: ID that uniquely identifies the entity.
+        description: Unique entity ID.
         type: string
       object:
-        description: Entity name, always 'server-credentials'
+        description: 'Entity name: always `server-credentials`.'
         type: string
       server_certificate:
-        description: PEM format X.509 server certificate that will be used to validate
-          the server certificate that will be received during the TLS/DTLS handshake.
+        description: PEM-format X.509 server certificate used to validate the server
+          certificate received during the TLS/DTLS handshake.
         type: string
       server_uri:
-        description: Server URI to which the client needs to connect to.
+        description: Server URI that the client connects to.
         type: string
     type: object
   ServicePackageMetadata:
@@ -15144,23 +15146,29 @@ paths:
       - Certificate Issuers
   /v3/developer-certificates:
     post:
-      description: 'This REST API is intended to be used by customers to get a developer
-        certificate (a certificate that can be flashed into multiple devices to connect
-        to bootstrap server).
+      description: 'Create a developer certificate (a certificate that can be flashed
+        to multiple devices to connect to the bootstrap server).
 
 
         **Note:** The number of developer certificates allowed per account is limited.
-        Please see [Using your own certificate authority](/docs/current/mbed-cloud-deploy/instructions-for-factory-setup-and-device-provision.html#using-your-own-certificate-authority-with-mbed-cloud).
+        Please see [Using your own certificate authority](../provisioning-process/using-CA.html).
 
 
-        **Example usage:**
+        **Example:**
 
-        curl -X POST "http://api.us-east-1.mbedcloud.com/v3/developer-certificates"
-        -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
-        -H "content-type: application/json" -d "{ \"name\": \"THE_CERTIFICATE_NAME\",
-        \"description\": \"THE_CERTIFICATE_DESCRIPTION\"}"
+        ```
 
-        '
+        curl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates
+        \
+
+        -H "Authorization: Bearer <api_key>" \
+
+        -H "content-type: application/json" \
+
+        -d { "name": "<certificate_name>", "description": "<certificate_description>"
+        }
+
+        ```'
       operationId: createDeveloperCertificate
       parameters:
       - in: body
@@ -15177,7 +15185,7 @@ paths:
             Success:
               account_id: 015fee5d9b3538c98640fbfb00000000
               created_at: '2017-12-11T14:22:20.009Z'
-              description: This certificate will be used with multiple developer devices
+              description: This certificate will be used with multiple developer devices.
               developer_certificate: '-----BEGIN CERTIFICATE-----\nMIICcDCCAhWgAwIBAgIRAPSBbBtLUE/ekQcWE4GzPJEwCgYIKoZIzj0EAwIwgaIx\nCzAJBgNVBAYTAkdCMRcwFQYDVQQIDA5DYW1icmlkZ2VzaGlyZTESMBAGA1UEBwwJ\nQ2FtYnJpZGdlMRAwDgYDVQQKDAdBUk0gTHRkMSkwJwYDVQQLDCAwMTU4NDNlMzJl\nYzkwMjQyMGEwMTVlMDcwMDAwMDAwMDEpMCcGA1UEAwwgMDE2MWRiYmNkZDY2MGE1\nODBhMDEwYzM0MDNjMDAwMDAwHhcNMTgwMjI4MDkyNzIzWhcNMjgwMjI4MDkyNzIz\nWjCBojELMAkGA1UEBhMCR0IxFzAVBgNVBAgMDkNhbWJyaWRnZXNoaXJlMRIwEAYD\nVQQHDAlDYW1icmlkZ2UxEDAOBgNVBAoMB0FSTSBMdGQxKTAnBgNVBAsMIDAxNTg0\nM2UzMmVjOTAyNDIwYTAxNWUwNzAwMDAwMDAwMSkwJwYDVQQDDCAwMTYxZGJiY2Rk\nNjYwYTU4MGEwMTBjMzQwM2MwMDAwMDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IA\nBEScLDbOXvOb903AYlI9ow8E4hbLSHJPt5E2BO4Q4bHOpuWH2Oh6P+CDPte9pAv3\nE6g90Xk/ZcZpQ+xBO6qci/ajKjAoMBIGCSsGAQQBoCCBSQQFAgNAAJEwEgYDVR0T\nAQH/BAgwBgEB/wIBADAKBggqhkjOPQQDAgNJADBGAiEAsi9zSK8Njl22GoEHrsg8\nQlwFnrkkP9d6FyLFtmqndt4CIQCmVHwisYNcCkqD2SWctG1xQHo0HZePAQW8PstM\nzhNupQ==\n-----END
                 CERTIFICATE-----\n'
               developer_private_key: '-----BEGIN PRIVATE KEY-----\nMIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgeKc97aC1Z4aniXVG\njNSvvXw2hl6zwACYIs88OKQx61GgCgYIKoZIzj0DAQehRANCAAREnCw2zl7zm/dN\nwGJSPaMPBOIWy0hyT7eRNgTuEOGxzqblh9joej/ggz7XvaQL9xOoPdF5P2XGaUPs\nQTuqnIv2\n-----END
@@ -15396,20 +15404,20 @@ paths:
             Bad Request Error:
               code: 400
               fields:
-                message: Missing certificate name
+                message: Missing certificate name.
                 name: name
-              message: Bad Request. Missing certificate name
+              message: Bad Request. Missing certificate name.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: validation_error
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
-          description: The provided access token is not valid.
+          description: Invalid access token.
           examples:
             Authentication Error:
               code: 401
-              message: Provided access token is not valid.
+              message: Invalid access token.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: invalid_auth
@@ -15436,7 +15444,7 @@ paths:
             Duplicate Error:
               code: 409
               fields:
-                message: Certificate already exists
+                message: Certificate already exists.
                 name: certificate
               message: Conflict. Certificate already exists.
               object: error
@@ -15449,22 +15457,23 @@ paths:
       - Developer certificate
   /v3/developer-certificates/{developerCertificateId}:
     get:
-      description: 'This REST API is intended to be used by customers to fetch an
-        existing developer certificate (a certificate that can be flashed into multiple
-        devices to connect to bootstrap server).
+      description: 'Return an existing developer certificate (a certificate that can
+        be flashed to multiple devices to connect to bootstrap server).
 
 
-        **Example usage:**
+        **Example:**
 
-        curl -X GET "http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID"
-        -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+        ```
 
-        '
+        curl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID
+        \
+
+        -H "Authorization: Bearer <api_key>"
+
+        ```'
       operationId: getDeveloperCertificate
       parameters:
-      - description: 'A unique identifier for the developer certificate.
-
-          '
+      - description: A unique identifier for the developer certificate.
         in: path
         name: developerCertificateId
         required: true
@@ -15473,12 +15482,12 @@ paths:
       - application/json
       responses:
         200:
-          description: Developer certificate fetched successfully.
+          description: Developer certificate returned successfully.
           examples:
             Success:
               account_id: 015fee5d9b3538c98640fbfb00000000
               created_at: '2017-12-11T14:22:20.009Z'
-              description: This certificate will be used with multiple developer devices
+              description: This certificate applies to multiple developer devices.
               developer_certificate: '-----BEGIN CERTIFICATE-----\nMIICcDCCAhWgAwIBAgIRAPSBbBtLUE/ekQcWE4GzPJEwCgYIKoZIzj0EAwIwgaIx\nCzAJBgNVBAYTAkdCMRcwFQYDVQQIDA5DYW1icmlkZ2VzaGlyZTESMBAGA1UEBwwJ\nQ2FtYnJpZGdlMRAwDgYDVQQKDAdBUk0gTHRkMSkwJwYDVQQLDCAwMTU4NDNlMzJl\nYzkwMjQyMGEwMTVlMDcwMDAwMDAwMDEpMCcGA1UEAwwgMDE2MWRiYmNkZDY2MGE1\nODBhMDEwYzM0MDNjMDAwMDAwHhcNMTgwMjI4MDkyNzIzWhcNMjgwMjI4MDkyNzIz\nWjCBojELMAkGA1UEBhMCR0IxFzAVBgNVBAgMDkNhbWJyaWRnZXNoaXJlMRIwEAYD\nVQQHDAlDYW1icmlkZ2UxEDAOBgNVBAoMB0FSTSBMdGQxKTAnBgNVBAsMIDAxNTg0\nM2UzMmVjOTAyNDIwYTAxNWUwNzAwMDAwMDAwMSkwJwYDVQQDDCAwMTYxZGJiY2Rk\nNjYwYTU4MGEwMTBjMzQwM2MwMDAwMDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IA\nBEScLDbOXvOb903AYlI9ow8E4hbLSHJPt5E2BO4Q4bHOpuWH2Oh6P+CDPte9pAv3\nE6g90Xk/ZcZpQ+xBO6qci/ajKjAoMBIGCSsGAQQBoCCBSQQFAgNAAJEwEgYDVR0T\nAQH/BAgwBgEB/wIBADAKBggqhkjOPQQDAgNJADBGAiEAsi9zSK8Njl22GoEHrsg8\nQlwFnrkkP9d6FyLFtmqndt4CIQCmVHwisYNcCkqD2SWctG1xQHo0HZePAQW8PstM\nzhNupQ==\n-----END
                 CERTIFICATE-----\n'
               developer_private_key: '-----BEGIN PRIVATE KEY-----\nMIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgeKc97aC1Z4aniXVG\njNSvvXw2hl6zwACYIs88OKQx61GgCgYIKoZIzj0DAQehRANCAAREnCw2zl7zm/dN\nwGJSPaMPBOIWy0hyT7eRNgTuEOGxzqblh9joej/ggz7XvaQL9xOoPdF5P2XGaUPs\nQTuqnIv2\n-----END
@@ -15696,18 +15705,18 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
-          description: The provided access token is not valid.
+          description: Invalid access token.
           examples:
             Authentication Error:
               code: 401
-              message: Provided access token is not valid.
+              message: Invalid access token.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
         404:
-          description: Developer certificate not found with given id.
+          description: Developer certificate not found with given ID.
           examples:
             Authentication Error:
               code: 404
@@ -20831,23 +20840,25 @@ paths:
         - nin
   /v3/server-credentials:
     get:
-      description: 'This REST API is intended to be used by customers to fetch all
-        (Bootstrap and LwM2M) server credentials that they will need to use with their
-        clients to connect to bootstrap or LwM2M server.
+      description: 'Return all (bootstrap and LwM2M) server credentials for client
+        to connect to bootstrap or LwM2M server.
 
 
-        **Example usage:**
+        **Example:**
 
-        curl -X GET "http://api.us-east-1.mbedcloud.com/v3/server-credentials" -H
-        "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+        ```
 
-        '
+        curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials \
+
+        -H "Authorization: Bearer <api_key>"
+
+        ```'
       operationId: getAllServerCredentials
       produces:
       - application/json
       responses:
         200:
-          description: all server credentials fetched successfully.
+          description: All server credentials fetched successfully.
           examples:
             Success:
               bootstrap:
@@ -20865,11 +20876,11 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
-          description: The provided access token is not valid.
+          description: Invalid access token.
           examples:
             Authentication Error:
               code: 401
-              message: Provided access token is not valid.
+              message: Invalid access token.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: invalid_auth
@@ -20881,17 +20892,20 @@ paths:
   /v3/server-credentials/bootstrap:
     get:
       deprecated: true
-      description: 'This REST API is intended to be used by customers to fetch bootstrap
-        server credentials that they will need to use with their clients to connect
-        to bootstrap server.
+      description: 'Return bootstrap server credentials for client to connect to bootstrap
+        server.
 
 
-        **Example usage:**
+        **Example:**
 
-        curl -X GET "http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap"
-        -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+        ```
 
-        '
+        curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap
+        \
+
+        -H "Authorization: Bearer <api_key>"
+
+        ```'
       operationId: getBootstrapServerCredentials
       produces:
       - application/json
@@ -20914,11 +20928,11 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
-          description: The provided access token is not valid.
+          description: Invalid access token.
           examples:
             Authentication Error:
               code: 401
-              message: Provided access token is not valid.
+              message: Invalid access token.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: invalid_auth
@@ -20930,17 +20944,20 @@ paths:
   /v3/server-credentials/lwm2m:
     get:
       deprecated: true
-      description: 'This REST API is intended to be used by customers to fetch LwM2M
-        server credentials that they will need to use with their clients to connect
-        to LwM2M server.
+      description: 'Return LwM2M server credentials for client to connect to LwM2M
+        server.
 
 
-        **Example usage:**
+        **Example:**
 
-        curl -X GET "http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m"
-        -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+        ```
 
-        '
+        curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m
+        \
+
+        -H "Authorization: Bearer <api_key>"
+
+        ```'
       operationId: getL2M2MServerCredentials
       produces:
       - application/json
@@ -20963,11 +20980,11 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
-          description: The provided access token is not valid.
+          description: Invalid access token.
           examples:
             Authentication Error:
               code: 401
-              message: Provided access token is not valid.
+              message: Invalid access token.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: invalid_auth
