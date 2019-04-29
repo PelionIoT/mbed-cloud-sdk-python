@@ -3202,6 +3202,10 @@ definitions:
     type: object
   EventType:
     properties:
+      campaign_id:
+        description: ID of the associated campaign.
+        example: '00000000000000000000000000000000'
+        type: string
       count:
         example: 10
         type: integer
@@ -3223,6 +3227,9 @@ definitions:
         type: string
       summary_status:
         example: FAIL
+        type: string
+      summary_status_id:
+        example: fail
         type: string
     type: object
   EventTypeList:
@@ -3264,6 +3271,10 @@ definitions:
     type: object
   EventTypeSummary:
     properties:
+      campaign_id:
+        description: ID of the associated campaign.
+        example: '00000000000000000000000000000000'
+        type: string
       count:
         example: 10
         type: integer
