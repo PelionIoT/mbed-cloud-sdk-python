@@ -9,6 +9,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: address_line2
     api_fieldname: address_line2
     description: Postal address line 2.
@@ -16,6 +17,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: admin_email
     api_fieldname: admin_email
     description: The email address of the admin user created for this account. Present
@@ -24,6 +26,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: admin_full_name
     api_fieldname: admin_full_name
     description: The full name of the admin user created for this account. Present
@@ -32,6 +35,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: admin_id
     api_fieldname: admin_id
     description: The ID of the admin user created for this account.
@@ -39,6 +43,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: admin_key
     api_fieldname: admin_key
     description: The admin API key created for this account. Present only in the response
@@ -47,6 +52,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: admin_name
     api_fieldname: admin_name
     description: The username of the admin user created for this account. Present
@@ -55,6 +61,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: admin_password
     api_fieldname: admin_password
     description: The password of the admin user created for this account. Present
@@ -63,6 +70,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: aliases
     api_fieldname: aliases
     description: An array of aliases.
@@ -78,6 +86,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: company
     api_fieldname: company
     description: The name of the company.
@@ -85,6 +94,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: contact
     api_fieldname: contact
     description: The name of the contact person for this account.
@@ -92,6 +102,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: contract_number
     api_fieldname: contract_number
     description: Contract number of the customer.
@@ -99,6 +110,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: country
     api_fieldname: country
     description: The country part of the postal address.
@@ -106,6 +118,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
@@ -122,6 +135,7 @@ entities:
     readOnly: false
     required: false
     type: object
+    x-nullable: true
   - _key: customer_number
     api_fieldname: customer_number
     description: Customer number of the customer.
@@ -129,6 +143,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: display_name
     api_fieldname: display_name
     description: The display name for the account.
@@ -136,6 +151,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: email
     api_fieldname: email
     description: The company email address for this account.
@@ -143,6 +159,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: end_market
     api_fieldname: end_market
     description: Account end market.
@@ -157,6 +174,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: expiration_warning_threshold
     api_fieldname: expiration_warning_threshold
     description: Indicates how many days (1-180) before account expiration a notification
@@ -165,6 +183,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: id
     api_fieldname: id
     description: Account ID.
@@ -179,6 +198,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: limits
     additionalProperties:
       type: string
@@ -187,6 +207,7 @@ entities:
     readOnly: true
     required: false
     type: object
+    x-nullable: true
   - _key: mfa_status
     api_fieldname: mfa_status
     description: The enforcement status of multi-factor authentication, either `enforced`
@@ -198,6 +219,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: notification_emails
     api_fieldname: notification_emails
     description: A list of notification email addresses.
@@ -206,6 +228,7 @@ entities:
     readOnly: false
     required: false
     type: array
+    x-nullable: true
   - _key: parent_account
     api_fieldname: parent_account
     description: Represents parent account contact details in responses.
@@ -243,6 +266,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: password_policy
     api_fieldname: password_policy
     foreign_key:
@@ -275,6 +299,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: policies
     api_fieldname: policies
     description: List of policies if requested.
@@ -321,6 +346,7 @@ entities:
     readOnly: true
     required: false
     type: array
+    x-nullable: true
   - _key: postal_code
     api_fieldname: postal_code
     description: The postal code part of the postal address.
@@ -328,6 +354,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: reason
     api_fieldname: reason
     description: A note with the reason for account status update.
@@ -335,6 +362,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: reference_note
     api_fieldname: reference_note
     description: A reference note for updating the status of the account.
@@ -342,6 +370,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: sales_contact
     api_fieldname: sales_contact
     description: Email address of the sales contact.
@@ -349,6 +378,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: state
     api_fieldname: state
     description: The state part of the postal address.
@@ -356,6 +386,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: status
     api_fieldname: status
     description: The status of the account.
@@ -376,6 +407,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: tier
     api_fieldname: tier
     description: 'The tier level of the account; `0`: free tier, `1`: commercial account,
@@ -488,6 +520,7 @@ entities:
       parameter_fieldname: address_line1
       required: false
       type: string
+      x-nullable: true
     - _key: address_line2
       api_fieldname: address_line2
       description: Postal address line 2.
@@ -497,6 +530,7 @@ entities:
       parameter_fieldname: address_line2
       required: false
       type: string
+      x-nullable: true
     - _key: admin_email
       api_fieldname: admin_email
       description: The email address of the admin user created for this account. Present
@@ -507,6 +541,7 @@ entities:
       parameter_fieldname: admin_email
       required: false
       type: string
+      x-nullable: true
     - _key: admin_full_name
       api_fieldname: admin_full_name
       description: The full name of the admin user created for this account. Present
@@ -517,6 +552,7 @@ entities:
       parameter_fieldname: admin_full_name
       required: false
       type: string
+      x-nullable: true
     - _key: admin_name
       api_fieldname: admin_name
       description: The username of the admin user created for this account. Present
@@ -527,6 +563,7 @@ entities:
       parameter_fieldname: admin_name
       required: false
       type: string
+      x-nullable: true
     - _key: admin_password
       api_fieldname: admin_password
       description: The password of the admin user created for this account. Present
@@ -537,6 +574,7 @@ entities:
       parameter_fieldname: admin_password
       required: false
       type: string
+      x-nullable: true
     - _key: aliases
       api_fieldname: aliases
       description: An array of aliases.
@@ -556,6 +594,7 @@ entities:
       parameter_fieldname: city
       required: false
       type: string
+      x-nullable: true
     - _key: company
       api_fieldname: company
       description: The name of the company.
@@ -565,6 +604,7 @@ entities:
       parameter_fieldname: company
       required: false
       type: string
+      x-nullable: true
     - _key: contact
       api_fieldname: contact
       description: The name of the contact person for this account.
@@ -574,6 +614,7 @@ entities:
       parameter_fieldname: contact
       required: false
       type: string
+      x-nullable: true
     - _key: contract_number
       api_fieldname: contract_number
       description: Contract number of the customer.
@@ -583,6 +624,7 @@ entities:
       parameter_fieldname: contract_number
       required: false
       type: string
+      x-nullable: true
     - _key: country
       api_fieldname: country
       description: The country part of the postal address.
@@ -592,6 +634,7 @@ entities:
       parameter_fieldname: country
       required: false
       type: string
+      x-nullable: true
     - _key: customer_number
       api_fieldname: customer_number
       description: Customer number of the customer.
@@ -601,6 +644,7 @@ entities:
       parameter_fieldname: customer_number
       required: false
       type: string
+      x-nullable: true
     - _key: display_name
       api_fieldname: display_name
       description: The display name for the account.
@@ -610,6 +654,7 @@ entities:
       parameter_fieldname: display_name
       required: false
       type: string
+      x-nullable: true
     - _key: email
       api_fieldname: email
       description: The company email address for this account.
@@ -619,6 +664,7 @@ entities:
       parameter_fieldname: email
       required: false
       type: string
+      x-nullable: true
     - _key: end_market
       api_fieldname: end_market
       description: Account end market.
@@ -637,6 +683,7 @@ entities:
       parameter_fieldname: phone_number
       required: false
       type: string
+      x-nullable: true
     - _key: postal_code
       api_fieldname: postal_code
       description: The postal code part of the postal address.
@@ -646,6 +693,7 @@ entities:
       parameter_fieldname: postal_code
       required: false
       type: string
+      x-nullable: true
     - _key: state
       api_fieldname: state
       description: The state part of the postal address.
@@ -655,6 +703,7 @@ entities:
       parameter_fieldname: state
       required: false
       type: string
+      x-nullable: true
     group_id: Accounts
     method: post
     mode: create
@@ -677,12 +726,14 @@ entities:
           entity_fieldname: address_line1
           example: 110 Fulbourn Rd
           type: string
+          x-nullable: true
         - _key: address_line2
           api_fieldname: address_line2
           description: Postal address line 2.
           entity_fieldname: address_line2
           example: ' '
           type: string
+          x-nullable: true
         - _key: admin_email
           api_fieldname: admin_email
           description: The email address of the admin user created for this account.
@@ -690,6 +741,7 @@ entities:
           entity_fieldname: admin_email
           example: admin@arm.com
           type: string
+          x-nullable: true
         - _key: admin_full_name
           api_fieldname: admin_full_name
           description: The full name of the admin user created for this account. Present
@@ -697,12 +749,14 @@ entities:
           entity_fieldname: admin_full_name
           example: Admin Doe
           type: string
+          x-nullable: true
         - _key: admin_id
           api_fieldname: admin_id
           description: The ID of the admin user created for this account.
           entity_fieldname: admin_id
           example: 01619571e2e89242ac12000600000000
           type: string
+          x-nullable: true
         - _key: admin_key
           api_fieldname: admin_key
           description: The admin API key created for this account. Present only in
@@ -711,6 +765,7 @@ entities:
           example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
           readOnly: true
           type: string
+          x-nullable: true
         - _key: admin_name
           api_fieldname: admin_name
           description: The username of the admin user created for this account. Present
@@ -718,6 +773,7 @@ entities:
           entity_fieldname: admin_name
           example: admin
           type: string
+          x-nullable: true
         - _key: admin_password
           api_fieldname: admin_password
           description: The password of the admin user created for this account. Present
@@ -725,6 +781,7 @@ entities:
           entity_fieldname: admin_password
           example: PZf9eEUH43DAPE9ULINFeuj
           type: string
+          x-nullable: true
         - _key: aliases
           api_fieldname: aliases
           description: An array of aliases.
@@ -738,30 +795,35 @@ entities:
           entity_fieldname: city
           example: Cambridge
           type: string
+          x-nullable: true
         - _key: company
           api_fieldname: company
           description: The name of the company.
           entity_fieldname: company
           example: ARM Holdings Plc
           type: string
+          x-nullable: true
         - _key: contact
           api_fieldname: contact
           description: The name of the contact person for this account.
           entity_fieldname: contact
           example: J. Doe
           type: string
+          x-nullable: true
         - _key: contract_number
           api_fieldname: contract_number
           description: Contract number of the customer.
           entity_fieldname: contract_number
           example: 1NX25_0001
           type: string
+          x-nullable: true
         - _key: country
           api_fieldname: country
           description: The country part of the postal address.
           entity_fieldname: country
           example: United Kingdom
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -776,24 +838,28 @@ entities:
           description: Account's custom properties as key-value pairs.
           entity_fieldname: custom_fields
           type: object
+          x-nullable: true
         - _key: customer_number
           api_fieldname: customer_number
           description: Customer number of the customer.
           entity_fieldname: customer_number
           example: 1NC25_0001
           type: string
+          x-nullable: true
         - _key: display_name
           api_fieldname: display_name
           description: The display name for the account.
           entity_fieldname: display_name
           example: ARM
           type: string
+          x-nullable: true
         - _key: email
           api_fieldname: email
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
           type: string
+          x-nullable: true
         - _key: end_market
           api_fieldname: end_market
           description: Account end market.
@@ -812,6 +878,7 @@ entities:
           entity_fieldname: expiration
           format: date-time
           type: string
+          x-nullable: true
         - _key: expiration_warning_threshold
           api_fieldname: expiration_warning_threshold
           description: Indicates how many days (1-180) before account expiration a
@@ -819,6 +886,7 @@ entities:
           entity_fieldname: expiration_warning_threshold
           example: '180'
           type: string
+          x-nullable: true
         - _key: id
           api_fieldname: id
           description: Account ID.
@@ -831,6 +899,7 @@ entities:
           entity_fieldname: idle_timeout
           example: '30'
           type: string
+          x-nullable: true
         - _key: limits
           additionalProperties:
             type: string
@@ -838,6 +907,7 @@ entities:
           description: List of limits as key-value pairs if requested.
           entity_fieldname: limits
           type: object
+          x-nullable: true
         - _key: mfa_status
           api_fieldname: mfa_status
           description: The enforcement status of multi-factor authentication, either
@@ -847,6 +917,7 @@ entities:
           - enforced
           - optional
           type: string
+          x-nullable: true
         - _key: notification_emails
           api_fieldname: notification_emails
           description: A list of notification email addresses.
@@ -854,6 +925,7 @@ entities:
           items:
             type: string
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always `account`.'
@@ -896,6 +968,7 @@ entities:
           entity_fieldname: parent_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
           entity_fieldname: password_policy
@@ -927,6 +1000,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           type: string
+          x-nullable: true
         - _key: policies
           api_fieldname: policies
           description: List of policies if requested.
@@ -973,36 +1047,42 @@ entities:
               type: string
             type: object
           type: array
+          x-nullable: true
         - _key: postal_code
           api_fieldname: postal_code
           description: The postal code part of the postal address.
           entity_fieldname: postal_code
           example: CB1 9NJ
           type: string
+          x-nullable: true
         - _key: reason
           api_fieldname: reason
           description: A note with the reason for account status update.
           entity_fieldname: reason
           example: Subscription paid.
           type: string
+          x-nullable: true
         - _key: reference_note
           api_fieldname: reference_note
           description: A reference note for updating the status of the account.
           entity_fieldname: reference_note
           example: ARM-INT-0001
           type: string
+          x-nullable: true
         - _key: sales_contact
           api_fieldname: sales_contact
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
           type: string
+          x-nullable: true
         - _key: state
           api_fieldname: state
           description: The state part of the postal address.
           entity_fieldname: state
           example: ' '
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the account.
@@ -1025,40 +1105,48 @@ entities:
               description: Postal address line 1.
               example: 110 Fulbourn Rd
               type: string
+              x-nullable: true
             - _key: address_line2
               description: Postal address line 2.
               example: ' '
               type: string
+              x-nullable: true
             - _key: admin_email
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
               type: string
+              x-nullable: true
             - _key: admin_full_name
               description: The full name of the admin user created for this account.
                 Present only in the response for account creation.
               example: Admin Doe
               type: string
+              x-nullable: true
             - _key: admin_id
               description: The ID of the admin user created for this account.
               example: 01619571e2e89242ac12000600000000
               type: string
+              x-nullable: true
             - _key: admin_key
               description: The admin API key created for this account. Present only
                 in the response for account creation.
               example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
               readOnly: true
               type: string
+              x-nullable: true
             - _key: admin_name
               description: The username of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin
               type: string
+              x-nullable: true
             - _key: admin_password
               description: The password of the admin user created for this account.
                 Present only in the response for account creation.
               example: PZf9eEUH43DAPE9ULINFeuj
               type: string
+              x-nullable: true
             - _key: aliases
               description: An array of aliases.
               items:
@@ -1068,22 +1156,27 @@ entities:
               description: The city part of the postal address.
               example: Cambridge
               type: string
+              x-nullable: true
             - _key: company
               description: The name of the company.
               example: ARM Holdings Plc
               type: string
+              x-nullable: true
             - _key: contact
               description: The name of the contact person for this account.
               example: J. Doe
               type: string
+              x-nullable: true
             - _key: contract_number
               description: Contract number of the customer.
               example: 1NX25_0001
               type: string
+              x-nullable: true
             - _key: country
               description: The country part of the postal address.
               example: United Kingdom
               type: string
+              x-nullable: true
             - _key: created_at
               description: Creation UTC time RFC3339.
               example: '2018-02-13T09:35:20Z'
@@ -1094,18 +1187,22 @@ entities:
                 type: string
               description: Account's custom properties as key-value pairs.
               type: object
+              x-nullable: true
             - _key: customer_number
               description: Customer number of the customer.
               example: 1NC25_0001
               type: string
+              x-nullable: true
             - _key: display_name
               description: The display name for the account.
               example: ARM
               type: string
+              x-nullable: true
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
               type: string
+              x-nullable: true
             - _key: end_market
               description: Account end market.
               example: IT
@@ -1118,11 +1215,13 @@ entities:
               description: Expiration time of the account, as UTC time RFC3339.
               format: date-time
               type: string
+              x-nullable: true
             - _key: expiration_warning_threshold
               description: Indicates how many days (1-180) before account expiration
                 a notification email is sent.
               example: '180'
               type: string
+              x-nullable: true
             - _key: id
               description: Account ID.
               example: 01619571e2e90242ac12000600000000
@@ -1132,11 +1231,13 @@ entities:
                 account.
               example: '30'
               type: string
+              x-nullable: true
             - _key: limits
               additionalProperties:
                 type: string
               description: List of limits as key-value pairs if requested.
               type: object
+              x-nullable: true
             - _key: mfa_status
               description: The enforcement status of multi-factor authentication,
                 either `enforced` or `optional`.
@@ -1144,11 +1245,13 @@ entities:
               - enforced
               - optional
               type: string
+              x-nullable: true
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
                 type: string
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always `account`.'
               enum:
@@ -1185,6 +1288,7 @@ entities:
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
+              x-nullable: true
             - _key: password_policy
               foreign_key:
                 entity: password_policy
@@ -1211,6 +1315,7 @@ entities:
               description: The phone number of a company representative.
               example: +44 (1223) 400 400
               type: string
+              x-nullable: true
             - _key: policies
               description: List of policies if requested.
               items:
@@ -1255,26 +1360,32 @@ entities:
                   type: string
                 type: object
               type: array
+              x-nullable: true
             - _key: postal_code
               description: The postal code part of the postal address.
               example: CB1 9NJ
               type: string
+              x-nullable: true
             - _key: reason
               description: A note with the reason for account status update.
               example: Subscription paid.
               type: string
+              x-nullable: true
             - _key: reference_note
               description: A reference note for updating the status of the account.
               example: ARM-INT-0001
               type: string
+              x-nullable: true
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
               type: string
+              x-nullable: true
             - _key: state
               description: The state part of the postal address.
               example: ' '
               type: string
+              x-nullable: true
             - _key: status
               description: The status of the account.
               enum:
@@ -1288,10 +1399,12 @@ entities:
               description: List of sub accounts. Not available for developer users.
               items: []
               type: array
+              x-nullable: true
             - _key: template_id
               description: Account template ID.
               example: 01619571e7160242ac12000600000000
               type: string
+              x-nullable: true
             - _key: tier
               description: 'The tier level of the account; `0`: free tier, `1`: commercial
                 account, `2`: partner tier. Other values are reserved for the future.'
@@ -1317,12 +1430,14 @@ entities:
             - tier
             type: object
           type: array
+          x-nullable: true
         - _key: template_id
           api_fieldname: template_id
           description: Account template ID.
           entity_fieldname: template_id
           example: 01619571e7160242ac12000600000000
           type: string
+          x-nullable: true
         - _key: tier
           api_fieldname: tier
           description: 'The tier level of the account; `0`: free tier, `1`: commercial
@@ -1646,40 +1761,48 @@ entities:
               description: Postal address line 1.
               example: 110 Fulbourn Rd
               type: string
+              x-nullable: true
             - _key: address_line2
               description: Postal address line 2.
               example: ' '
               type: string
+              x-nullable: true
             - _key: admin_email
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
               type: string
+              x-nullable: true
             - _key: admin_full_name
               description: The full name of the admin user created for this account.
                 Present only in the response for account creation.
               example: Admin Doe
               type: string
+              x-nullable: true
             - _key: admin_id
               description: The ID of the admin user created for this account.
               example: 01619571e2e89242ac12000600000000
               type: string
+              x-nullable: true
             - _key: admin_key
               description: The admin API key created for this account. Present only
                 in the response for account creation.
               example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
               readOnly: true
               type: string
+              x-nullable: true
             - _key: admin_name
               description: The username of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin
               type: string
+              x-nullable: true
             - _key: admin_password
               description: The password of the admin user created for this account.
                 Present only in the response for account creation.
               example: PZf9eEUH43DAPE9ULINFeuj
               type: string
+              x-nullable: true
             - _key: aliases
               description: An array of aliases.
               items:
@@ -1689,22 +1812,27 @@ entities:
               description: The city part of the postal address.
               example: Cambridge
               type: string
+              x-nullable: true
             - _key: company
               description: The name of the company.
               example: ARM Holdings Plc
               type: string
+              x-nullable: true
             - _key: contact
               description: The name of the contact person for this account.
               example: J. Doe
               type: string
+              x-nullable: true
             - _key: contract_number
               description: Contract number of the customer.
               example: 1NX25_0001
               type: string
+              x-nullable: true
             - _key: country
               description: The country part of the postal address.
               example: United Kingdom
               type: string
+              x-nullable: true
             - _key: created_at
               description: Creation UTC time RFC3339.
               example: '2018-02-13T09:35:20Z'
@@ -1715,18 +1843,22 @@ entities:
                 type: string
               description: Account's custom properties as key-value pairs.
               type: object
+              x-nullable: true
             - _key: customer_number
               description: Customer number of the customer.
               example: 1NC25_0001
               type: string
+              x-nullable: true
             - _key: display_name
               description: The display name for the account.
               example: ARM
               type: string
+              x-nullable: true
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
               type: string
+              x-nullable: true
             - _key: end_market
               description: Account end market.
               example: IT
@@ -1739,11 +1871,13 @@ entities:
               description: Expiration time of the account, as UTC time RFC3339.
               format: date-time
               type: string
+              x-nullable: true
             - _key: expiration_warning_threshold
               description: Indicates how many days (1-180) before account expiration
                 a notification email is sent.
               example: '180'
               type: string
+              x-nullable: true
             - _key: id
               description: Account ID.
               example: 01619571e2e90242ac12000600000000
@@ -1753,11 +1887,13 @@ entities:
                 account.
               example: '30'
               type: string
+              x-nullable: true
             - _key: limits
               additionalProperties:
                 type: string
               description: List of limits as key-value pairs if requested.
               type: object
+              x-nullable: true
             - _key: mfa_status
               description: The enforcement status of multi-factor authentication,
                 either `enforced` or `optional`.
@@ -1765,11 +1901,13 @@ entities:
               - enforced
               - optional
               type: string
+              x-nullable: true
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
                 type: string
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always `account`.'
               enum:
@@ -1806,6 +1944,7 @@ entities:
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
+              x-nullable: true
             - _key: password_policy
               foreign_key:
                 entity: password_policy
@@ -1832,6 +1971,7 @@ entities:
               description: The phone number of a company representative.
               example: +44 (1223) 400 400
               type: string
+              x-nullable: true
             - _key: policies
               description: List of policies if requested.
               items:
@@ -1876,26 +2016,32 @@ entities:
                   type: string
                 type: object
               type: array
+              x-nullable: true
             - _key: postal_code
               description: The postal code part of the postal address.
               example: CB1 9NJ
               type: string
+              x-nullable: true
             - _key: reason
               description: A note with the reason for account status update.
               example: Subscription paid.
               type: string
+              x-nullable: true
             - _key: reference_note
               description: A reference note for updating the status of the account.
               example: ARM-INT-0001
               type: string
+              x-nullable: true
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
               type: string
+              x-nullable: true
             - _key: state
               description: The state part of the postal address.
               example: ' '
               type: string
+              x-nullable: true
             - _key: status
               description: The status of the account.
               enum:
@@ -1914,40 +2060,48 @@ entities:
                   description: Postal address line 1.
                   example: 110 Fulbourn Rd
                   type: string
+                  x-nullable: true
                 - _key: address_line2
                   description: Postal address line 2.
                   example: ' '
                   type: string
+                  x-nullable: true
                 - _key: admin_email
                   description: The email address of the admin user created for this
                     account. Present only in the response for account creation.
                   example: admin@arm.com
                   type: string
+                  x-nullable: true
                 - _key: admin_full_name
                   description: The full name of the admin user created for this account.
                     Present only in the response for account creation.
                   example: Admin Doe
                   type: string
+                  x-nullable: true
                 - _key: admin_id
                   description: The ID of the admin user created for this account.
                   example: 01619571e2e89242ac12000600000000
                   type: string
+                  x-nullable: true
                 - _key: admin_key
                   description: The admin API key created for this account. Present
                     only in the response for account creation.
                   example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
                   readOnly: true
                   type: string
+                  x-nullable: true
                 - _key: admin_name
                   description: The username of the admin user created for this account.
                     Present only in the response for account creation.
                   example: admin
                   type: string
+                  x-nullable: true
                 - _key: admin_password
                   description: The password of the admin user created for this account.
                     Present only in the response for account creation.
                   example: PZf9eEUH43DAPE9ULINFeuj
                   type: string
+                  x-nullable: true
                 - _key: aliases
                   description: An array of aliases.
                   items:
@@ -1957,22 +2111,27 @@ entities:
                   description: The city part of the postal address.
                   example: Cambridge
                   type: string
+                  x-nullable: true
                 - _key: company
                   description: The name of the company.
                   example: ARM Holdings Plc
                   type: string
+                  x-nullable: true
                 - _key: contact
                   description: The name of the contact person for this account.
                   example: J. Doe
                   type: string
+                  x-nullable: true
                 - _key: contract_number
                   description: Contract number of the customer.
                   example: 1NX25_0001
                   type: string
+                  x-nullable: true
                 - _key: country
                   description: The country part of the postal address.
                   example: United Kingdom
                   type: string
+                  x-nullable: true
                 - _key: created_at
                   description: Creation UTC time RFC3339.
                   example: '2018-02-13T09:35:20Z'
@@ -1983,18 +2142,22 @@ entities:
                     type: string
                   description: Account's custom properties as key-value pairs.
                   type: object
+                  x-nullable: true
                 - _key: customer_number
                   description: Customer number of the customer.
                   example: 1NC25_0001
                   type: string
+                  x-nullable: true
                 - _key: display_name
                   description: The display name for the account.
                   example: ARM
                   type: string
+                  x-nullable: true
                 - _key: email
                   description: The company email address for this account.
                   example: info@arm.com
                   type: string
+                  x-nullable: true
                 - _key: end_market
                   description: Account end market.
                   example: IT
@@ -2007,11 +2170,13 @@ entities:
                   description: Expiration time of the account, as UTC time RFC3339.
                   format: date-time
                   type: string
+                  x-nullable: true
                 - _key: expiration_warning_threshold
                   description: Indicates how many days (1-180) before account expiration
                     a notification email is sent.
                   example: '180'
                   type: string
+                  x-nullable: true
                 - _key: id
                   description: Account ID.
                   example: 01619571e2e90242ac12000600000000
@@ -2021,11 +2186,13 @@ entities:
                     this account.
                   example: '30'
                   type: string
+                  x-nullable: true
                 - _key: limits
                   additionalProperties:
                     type: string
                   description: List of limits as key-value pairs if requested.
                   type: object
+                  x-nullable: true
                 - _key: mfa_status
                   description: The enforcement status of multi-factor authentication,
                     either `enforced` or `optional`.
@@ -2033,11 +2200,13 @@ entities:
                   - enforced
                   - optional
                   type: string
+                  x-nullable: true
                 - _key: notification_emails
                   description: A list of notification email addresses.
                   items:
                     type: string
                   type: array
+                  x-nullable: true
                 - _key: object
                   description: 'Entity name: always `account`.'
                   enum:
@@ -2074,6 +2243,7 @@ entities:
                   description: The ID of the parent account, if any.
                   example: 01619571dad80242ac12000600000000
                   type: string
+                  x-nullable: true
                 - _key: password_policy
                   foreign_key:
                     entity: password_policy
@@ -2100,6 +2270,7 @@ entities:
                   description: The phone number of a company representative.
                   example: +44 (1223) 400 400
                   type: string
+                  x-nullable: true
                 - _key: policies
                   description: List of policies if requested.
                   items:
@@ -2144,26 +2315,32 @@ entities:
                       type: string
                     type: object
                   type: array
+                  x-nullable: true
                 - _key: postal_code
                   description: The postal code part of the postal address.
                   example: CB1 9NJ
                   type: string
+                  x-nullable: true
                 - _key: reason
                   description: A note with the reason for account status update.
                   example: Subscription paid.
                   type: string
+                  x-nullable: true
                 - _key: reference_note
                   description: A reference note for updating the status of the account.
                   example: ARM-INT-0001
                   type: string
+                  x-nullable: true
                 - _key: sales_contact
                   description: Email address of the sales contact.
                   example: sales@arm.com
                   type: string
+                  x-nullable: true
                 - _key: state
                   description: The state part of the postal address.
                   example: ' '
                   type: string
+                  x-nullable: true
                 - _key: status
                   description: The status of the account.
                   enum:
@@ -2177,10 +2354,12 @@ entities:
                   description: List of sub accounts. Not available for developer users.
                   items: []
                   type: array
+                  x-nullable: true
                 - _key: template_id
                   description: Account template ID.
                   example: 01619571e7160242ac12000600000000
                   type: string
+                  x-nullable: true
                 - _key: tier
                   description: 'The tier level of the account; `0`: free tier, `1`:
                     commercial account, `2`: partner tier. Other values are reserved
@@ -2207,10 +2386,12 @@ entities:
                 - tier
                 type: object
               type: array
+              x-nullable: true
             - _key: template_id
               description: Account template ID.
               example: 01619571e7160242ac12000600000000
               type: string
+              x-nullable: true
             - _key: tier
               description: 'The tier level of the account; `0`: free tier, `1`: commercial
                 account, `2`: partner tier. Other values are reserved for the future.'
@@ -2508,12 +2689,14 @@ entities:
           entity_fieldname: address_line1
           example: 110 Fulbourn Rd
           type: string
+          x-nullable: true
         - _key: address_line2
           api_fieldname: address_line2
           description: Postal address line 2.
           entity_fieldname: address_line2
           example: ' '
           type: string
+          x-nullable: true
         - _key: admin_email
           api_fieldname: admin_email
           description: The email address of the admin user created for this account.
@@ -2521,6 +2704,7 @@ entities:
           entity_fieldname: admin_email
           example: admin@arm.com
           type: string
+          x-nullable: true
         - _key: admin_full_name
           api_fieldname: admin_full_name
           description: The full name of the admin user created for this account. Present
@@ -2528,12 +2712,14 @@ entities:
           entity_fieldname: admin_full_name
           example: Admin Doe
           type: string
+          x-nullable: true
         - _key: admin_id
           api_fieldname: admin_id
           description: The ID of the admin user created for this account.
           entity_fieldname: admin_id
           example: 01619571e2e89242ac12000600000000
           type: string
+          x-nullable: true
         - _key: admin_key
           api_fieldname: admin_key
           description: The admin API key created for this account. Present only in
@@ -2542,6 +2728,7 @@ entities:
           example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
           readOnly: true
           type: string
+          x-nullable: true
         - _key: admin_name
           api_fieldname: admin_name
           description: The username of the admin user created for this account. Present
@@ -2549,6 +2736,7 @@ entities:
           entity_fieldname: admin_name
           example: admin
           type: string
+          x-nullable: true
         - _key: admin_password
           api_fieldname: admin_password
           description: The password of the admin user created for this account. Present
@@ -2556,6 +2744,7 @@ entities:
           entity_fieldname: admin_password
           example: PZf9eEUH43DAPE9ULINFeuj
           type: string
+          x-nullable: true
         - _key: aliases
           api_fieldname: aliases
           description: An array of aliases.
@@ -2569,30 +2758,35 @@ entities:
           entity_fieldname: city
           example: Cambridge
           type: string
+          x-nullable: true
         - _key: company
           api_fieldname: company
           description: The name of the company.
           entity_fieldname: company
           example: ARM Holdings Plc
           type: string
+          x-nullable: true
         - _key: contact
           api_fieldname: contact
           description: The name of the contact person for this account.
           entity_fieldname: contact
           example: J. Doe
           type: string
+          x-nullable: true
         - _key: contract_number
           api_fieldname: contract_number
           description: Contract number of the customer.
           entity_fieldname: contract_number
           example: 1NX25_0001
           type: string
+          x-nullable: true
         - _key: country
           api_fieldname: country
           description: The country part of the postal address.
           entity_fieldname: country
           example: United Kingdom
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -2607,24 +2801,28 @@ entities:
           description: Account's custom properties as key-value pairs.
           entity_fieldname: custom_fields
           type: object
+          x-nullable: true
         - _key: customer_number
           api_fieldname: customer_number
           description: Customer number of the customer.
           entity_fieldname: customer_number
           example: 1NC25_0001
           type: string
+          x-nullable: true
         - _key: display_name
           api_fieldname: display_name
           description: The display name for the account.
           entity_fieldname: display_name
           example: ARM
           type: string
+          x-nullable: true
         - _key: email
           api_fieldname: email
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
           type: string
+          x-nullable: true
         - _key: end_market
           api_fieldname: end_market
           description: Account end market.
@@ -2643,6 +2841,7 @@ entities:
           entity_fieldname: expiration
           format: date-time
           type: string
+          x-nullable: true
         - _key: expiration_warning_threshold
           api_fieldname: expiration_warning_threshold
           description: Indicates how many days (1-180) before account expiration a
@@ -2650,6 +2849,7 @@ entities:
           entity_fieldname: expiration_warning_threshold
           example: '180'
           type: string
+          x-nullable: true
         - _key: id
           api_fieldname: id
           description: Account ID.
@@ -2662,6 +2862,7 @@ entities:
           entity_fieldname: idle_timeout
           example: '30'
           type: string
+          x-nullable: true
         - _key: limits
           additionalProperties:
             type: string
@@ -2669,6 +2870,7 @@ entities:
           description: List of limits as key-value pairs if requested.
           entity_fieldname: limits
           type: object
+          x-nullable: true
         - _key: mfa_status
           api_fieldname: mfa_status
           description: The enforcement status of multi-factor authentication, either
@@ -2678,6 +2880,7 @@ entities:
           - enforced
           - optional
           type: string
+          x-nullable: true
         - _key: notification_emails
           api_fieldname: notification_emails
           description: A list of notification email addresses.
@@ -2685,6 +2888,7 @@ entities:
           items:
             type: string
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always `account`.'
@@ -2727,6 +2931,7 @@ entities:
           entity_fieldname: parent_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
           entity_fieldname: password_policy
@@ -2758,6 +2963,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           type: string
+          x-nullable: true
         - _key: policies
           api_fieldname: policies
           description: List of policies if requested.
@@ -2804,36 +3010,42 @@ entities:
               type: string
             type: object
           type: array
+          x-nullable: true
         - _key: postal_code
           api_fieldname: postal_code
           description: The postal code part of the postal address.
           entity_fieldname: postal_code
           example: CB1 9NJ
           type: string
+          x-nullable: true
         - _key: reason
           api_fieldname: reason
           description: A note with the reason for account status update.
           entity_fieldname: reason
           example: Subscription paid.
           type: string
+          x-nullable: true
         - _key: reference_note
           api_fieldname: reference_note
           description: A reference note for updating the status of the account.
           entity_fieldname: reference_note
           example: ARM-INT-0001
           type: string
+          x-nullable: true
         - _key: sales_contact
           api_fieldname: sales_contact
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
           type: string
+          x-nullable: true
         - _key: state
           api_fieldname: state
           description: The state part of the postal address.
           entity_fieldname: state
           example: ' '
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the account.
@@ -2856,40 +3068,48 @@ entities:
               description: Postal address line 1.
               example: 110 Fulbourn Rd
               type: string
+              x-nullable: true
             - _key: address_line2
               description: Postal address line 2.
               example: ' '
               type: string
+              x-nullable: true
             - _key: admin_email
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
               type: string
+              x-nullable: true
             - _key: admin_full_name
               description: The full name of the admin user created for this account.
                 Present only in the response for account creation.
               example: Admin Doe
               type: string
+              x-nullable: true
             - _key: admin_id
               description: The ID of the admin user created for this account.
               example: 01619571e2e89242ac12000600000000
               type: string
+              x-nullable: true
             - _key: admin_key
               description: The admin API key created for this account. Present only
                 in the response for account creation.
               example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
               readOnly: true
               type: string
+              x-nullable: true
             - _key: admin_name
               description: The username of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin
               type: string
+              x-nullable: true
             - _key: admin_password
               description: The password of the admin user created for this account.
                 Present only in the response for account creation.
               example: PZf9eEUH43DAPE9ULINFeuj
               type: string
+              x-nullable: true
             - _key: aliases
               description: An array of aliases.
               items:
@@ -2899,22 +3119,27 @@ entities:
               description: The city part of the postal address.
               example: Cambridge
               type: string
+              x-nullable: true
             - _key: company
               description: The name of the company.
               example: ARM Holdings Plc
               type: string
+              x-nullable: true
             - _key: contact
               description: The name of the contact person for this account.
               example: J. Doe
               type: string
+              x-nullable: true
             - _key: contract_number
               description: Contract number of the customer.
               example: 1NX25_0001
               type: string
+              x-nullable: true
             - _key: country
               description: The country part of the postal address.
               example: United Kingdom
               type: string
+              x-nullable: true
             - _key: created_at
               description: Creation UTC time RFC3339.
               example: '2018-02-13T09:35:20Z'
@@ -2925,18 +3150,22 @@ entities:
                 type: string
               description: Account's custom properties as key-value pairs.
               type: object
+              x-nullable: true
             - _key: customer_number
               description: Customer number of the customer.
               example: 1NC25_0001
               type: string
+              x-nullable: true
             - _key: display_name
               description: The display name for the account.
               example: ARM
               type: string
+              x-nullable: true
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
               type: string
+              x-nullable: true
             - _key: end_market
               description: Account end market.
               example: IT
@@ -2949,11 +3178,13 @@ entities:
               description: Expiration time of the account, as UTC time RFC3339.
               format: date-time
               type: string
+              x-nullable: true
             - _key: expiration_warning_threshold
               description: Indicates how many days (1-180) before account expiration
                 a notification email is sent.
               example: '180'
               type: string
+              x-nullable: true
             - _key: id
               description: Account ID.
               example: 01619571e2e90242ac12000600000000
@@ -2963,11 +3194,13 @@ entities:
                 account.
               example: '30'
               type: string
+              x-nullable: true
             - _key: limits
               additionalProperties:
                 type: string
               description: List of limits as key-value pairs if requested.
               type: object
+              x-nullable: true
             - _key: mfa_status
               description: The enforcement status of multi-factor authentication,
                 either `enforced` or `optional`.
@@ -2975,11 +3208,13 @@ entities:
               - enforced
               - optional
               type: string
+              x-nullable: true
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
                 type: string
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always `account`.'
               enum:
@@ -3016,6 +3251,7 @@ entities:
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
+              x-nullable: true
             - _key: password_policy
               foreign_key:
                 entity: password_policy
@@ -3042,6 +3278,7 @@ entities:
               description: The phone number of a company representative.
               example: +44 (1223) 400 400
               type: string
+              x-nullable: true
             - _key: policies
               description: List of policies if requested.
               items:
@@ -3086,26 +3323,32 @@ entities:
                   type: string
                 type: object
               type: array
+              x-nullable: true
             - _key: postal_code
               description: The postal code part of the postal address.
               example: CB1 9NJ
               type: string
+              x-nullable: true
             - _key: reason
               description: A note with the reason for account status update.
               example: Subscription paid.
               type: string
+              x-nullable: true
             - _key: reference_note
               description: A reference note for updating the status of the account.
               example: ARM-INT-0001
               type: string
+              x-nullable: true
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
               type: string
+              x-nullable: true
             - _key: state
               description: The state part of the postal address.
               example: ' '
               type: string
+              x-nullable: true
             - _key: status
               description: The status of the account.
               enum:
@@ -3119,10 +3362,12 @@ entities:
               description: List of sub accounts. Not available for developer users.
               items: []
               type: array
+              x-nullable: true
             - _key: template_id
               description: Account template ID.
               example: 01619571e7160242ac12000600000000
               type: string
+              x-nullable: true
             - _key: tier
               description: 'The tier level of the account; `0`: free tier, `1`: commercial
                 account, `2`: partner tier. Other values are reserved for the future.'
@@ -3148,12 +3393,14 @@ entities:
             - tier
             type: object
           type: array
+          x-nullable: true
         - _key: template_id
           api_fieldname: template_id
           description: Account template ID.
           entity_fieldname: template_id
           example: 01619571e7160242ac12000600000000
           type: string
+          x-nullable: true
         - _key: tier
           api_fieldname: tier
           description: 'The tier level of the account; `0`: free tier, `1`: commercial
@@ -3406,12 +3653,14 @@ entities:
           entity_fieldname: address_line1
           example: 110 Fulbourn Rd
           type: string
+          x-nullable: true
         - _key: address_line2
           api_fieldname: address_line2
           description: Postal address line 2.
           entity_fieldname: address_line2
           example: ' '
           type: string
+          x-nullable: true
         - _key: admin_email
           api_fieldname: admin_email
           description: The email address of the admin user created for this account.
@@ -3419,6 +3668,7 @@ entities:
           entity_fieldname: admin_email
           example: admin@arm.com
           type: string
+          x-nullable: true
         - _key: admin_full_name
           api_fieldname: admin_full_name
           description: The full name of the admin user created for this account. Present
@@ -3426,12 +3676,14 @@ entities:
           entity_fieldname: admin_full_name
           example: Admin Doe
           type: string
+          x-nullable: true
         - _key: admin_id
           api_fieldname: admin_id
           description: The ID of the admin user created for this account.
           entity_fieldname: admin_id
           example: 01619571e2e89242ac12000600000000
           type: string
+          x-nullable: true
         - _key: admin_key
           api_fieldname: admin_key
           description: The admin API key created for this account. Present only in
@@ -3440,6 +3692,7 @@ entities:
           example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
           readOnly: true
           type: string
+          x-nullable: true
         - _key: admin_name
           api_fieldname: admin_name
           description: The username of the admin user created for this account. Present
@@ -3447,6 +3700,7 @@ entities:
           entity_fieldname: admin_name
           example: admin
           type: string
+          x-nullable: true
         - _key: admin_password
           api_fieldname: admin_password
           description: The password of the admin user created for this account. Present
@@ -3454,6 +3708,7 @@ entities:
           entity_fieldname: admin_password
           example: PZf9eEUH43DAPE9ULINFeuj
           type: string
+          x-nullable: true
         - _key: aliases
           api_fieldname: aliases
           description: An array of aliases.
@@ -3467,30 +3722,35 @@ entities:
           entity_fieldname: city
           example: Cambridge
           type: string
+          x-nullable: true
         - _key: company
           api_fieldname: company
           description: The name of the company.
           entity_fieldname: company
           example: ARM Holdings Plc
           type: string
+          x-nullable: true
         - _key: contact
           api_fieldname: contact
           description: The name of the contact person for this account.
           entity_fieldname: contact
           example: J. Doe
           type: string
+          x-nullable: true
         - _key: contract_number
           api_fieldname: contract_number
           description: Contract number of the customer.
           entity_fieldname: contract_number
           example: 1NX25_0001
           type: string
+          x-nullable: true
         - _key: country
           api_fieldname: country
           description: The country part of the postal address.
           entity_fieldname: country
           example: United Kingdom
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -3505,24 +3765,28 @@ entities:
           description: Account's custom properties as key-value pairs.
           entity_fieldname: custom_fields
           type: object
+          x-nullable: true
         - _key: customer_number
           api_fieldname: customer_number
           description: Customer number of the customer.
           entity_fieldname: customer_number
           example: 1NC25_0001
           type: string
+          x-nullable: true
         - _key: display_name
           api_fieldname: display_name
           description: The display name for the account.
           entity_fieldname: display_name
           example: ARM
           type: string
+          x-nullable: true
         - _key: email
           api_fieldname: email
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
           type: string
+          x-nullable: true
         - _key: end_market
           api_fieldname: end_market
           description: Account end market.
@@ -3541,6 +3805,7 @@ entities:
           entity_fieldname: expiration
           format: date-time
           type: string
+          x-nullable: true
         - _key: expiration_warning_threshold
           api_fieldname: expiration_warning_threshold
           description: Indicates how many days (1-180) before account expiration a
@@ -3548,6 +3813,7 @@ entities:
           entity_fieldname: expiration_warning_threshold
           example: '180'
           type: string
+          x-nullable: true
         - _key: id
           api_fieldname: id
           description: Account ID.
@@ -3560,6 +3826,7 @@ entities:
           entity_fieldname: idle_timeout
           example: '30'
           type: string
+          x-nullable: true
         - _key: limits
           additionalProperties:
             type: string
@@ -3567,6 +3834,7 @@ entities:
           description: List of limits as key-value pairs if requested.
           entity_fieldname: limits
           type: object
+          x-nullable: true
         - _key: mfa_status
           api_fieldname: mfa_status
           description: The enforcement status of multi-factor authentication, either
@@ -3576,6 +3844,7 @@ entities:
           - enforced
           - optional
           type: string
+          x-nullable: true
         - _key: notification_emails
           api_fieldname: notification_emails
           description: A list of notification email addresses.
@@ -3583,6 +3852,7 @@ entities:
           items:
             type: string
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always `account`.'
@@ -3625,6 +3895,7 @@ entities:
           entity_fieldname: parent_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
           entity_fieldname: password_policy
@@ -3656,6 +3927,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           type: string
+          x-nullable: true
         - _key: policies
           api_fieldname: policies
           description: List of policies if requested.
@@ -3702,36 +3974,42 @@ entities:
               type: string
             type: object
           type: array
+          x-nullable: true
         - _key: postal_code
           api_fieldname: postal_code
           description: The postal code part of the postal address.
           entity_fieldname: postal_code
           example: CB1 9NJ
           type: string
+          x-nullable: true
         - _key: reason
           api_fieldname: reason
           description: A note with the reason for account status update.
           entity_fieldname: reason
           example: Subscription paid.
           type: string
+          x-nullable: true
         - _key: reference_note
           api_fieldname: reference_note
           description: A reference note for updating the status of the account.
           entity_fieldname: reference_note
           example: ARM-INT-0001
           type: string
+          x-nullable: true
         - _key: sales_contact
           api_fieldname: sales_contact
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
           type: string
+          x-nullable: true
         - _key: state
           api_fieldname: state
           description: The state part of the postal address.
           entity_fieldname: state
           example: ' '
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the account.
@@ -3754,40 +4032,48 @@ entities:
               description: Postal address line 1.
               example: 110 Fulbourn Rd
               type: string
+              x-nullable: true
             - _key: address_line2
               description: Postal address line 2.
               example: ' '
               type: string
+              x-nullable: true
             - _key: admin_email
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
               type: string
+              x-nullable: true
             - _key: admin_full_name
               description: The full name of the admin user created for this account.
                 Present only in the response for account creation.
               example: Admin Doe
               type: string
+              x-nullable: true
             - _key: admin_id
               description: The ID of the admin user created for this account.
               example: 01619571e2e89242ac12000600000000
               type: string
+              x-nullable: true
             - _key: admin_key
               description: The admin API key created for this account. Present only
                 in the response for account creation.
               example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
               readOnly: true
               type: string
+              x-nullable: true
             - _key: admin_name
               description: The username of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin
               type: string
+              x-nullable: true
             - _key: admin_password
               description: The password of the admin user created for this account.
                 Present only in the response for account creation.
               example: PZf9eEUH43DAPE9ULINFeuj
               type: string
+              x-nullable: true
             - _key: aliases
               description: An array of aliases.
               items:
@@ -3797,22 +4083,27 @@ entities:
               description: The city part of the postal address.
               example: Cambridge
               type: string
+              x-nullable: true
             - _key: company
               description: The name of the company.
               example: ARM Holdings Plc
               type: string
+              x-nullable: true
             - _key: contact
               description: The name of the contact person for this account.
               example: J. Doe
               type: string
+              x-nullable: true
             - _key: contract_number
               description: Contract number of the customer.
               example: 1NX25_0001
               type: string
+              x-nullable: true
             - _key: country
               description: The country part of the postal address.
               example: United Kingdom
               type: string
+              x-nullable: true
             - _key: created_at
               description: Creation UTC time RFC3339.
               example: '2018-02-13T09:35:20Z'
@@ -3823,18 +4114,22 @@ entities:
                 type: string
               description: Account's custom properties as key-value pairs.
               type: object
+              x-nullable: true
             - _key: customer_number
               description: Customer number of the customer.
               example: 1NC25_0001
               type: string
+              x-nullable: true
             - _key: display_name
               description: The display name for the account.
               example: ARM
               type: string
+              x-nullable: true
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
               type: string
+              x-nullable: true
             - _key: end_market
               description: Account end market.
               example: IT
@@ -3847,11 +4142,13 @@ entities:
               description: Expiration time of the account, as UTC time RFC3339.
               format: date-time
               type: string
+              x-nullable: true
             - _key: expiration_warning_threshold
               description: Indicates how many days (1-180) before account expiration
                 a notification email is sent.
               example: '180'
               type: string
+              x-nullable: true
             - _key: id
               description: Account ID.
               example: 01619571e2e90242ac12000600000000
@@ -3861,11 +4158,13 @@ entities:
                 account.
               example: '30'
               type: string
+              x-nullable: true
             - _key: limits
               additionalProperties:
                 type: string
               description: List of limits as key-value pairs if requested.
               type: object
+              x-nullable: true
             - _key: mfa_status
               description: The enforcement status of multi-factor authentication,
                 either `enforced` or `optional`.
@@ -3873,11 +4172,13 @@ entities:
               - enforced
               - optional
               type: string
+              x-nullable: true
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
                 type: string
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always `account`.'
               enum:
@@ -3914,6 +4215,7 @@ entities:
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
+              x-nullable: true
             - _key: password_policy
               foreign_key:
                 entity: password_policy
@@ -3940,6 +4242,7 @@ entities:
               description: The phone number of a company representative.
               example: +44 (1223) 400 400
               type: string
+              x-nullable: true
             - _key: policies
               description: List of policies if requested.
               items:
@@ -3984,26 +4287,32 @@ entities:
                   type: string
                 type: object
               type: array
+              x-nullable: true
             - _key: postal_code
               description: The postal code part of the postal address.
               example: CB1 9NJ
               type: string
+              x-nullable: true
             - _key: reason
               description: A note with the reason for account status update.
               example: Subscription paid.
               type: string
+              x-nullable: true
             - _key: reference_note
               description: A reference note for updating the status of the account.
               example: ARM-INT-0001
               type: string
+              x-nullable: true
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
               type: string
+              x-nullable: true
             - _key: state
               description: The state part of the postal address.
               example: ' '
               type: string
+              x-nullable: true
             - _key: status
               description: The status of the account.
               enum:
@@ -4017,10 +4326,12 @@ entities:
               description: List of sub accounts. Not available for developer users.
               items: []
               type: array
+              x-nullable: true
             - _key: template_id
               description: Account template ID.
               example: 01619571e7160242ac12000600000000
               type: string
+              x-nullable: true
             - _key: tier
               description: 'The tier level of the account; `0`: free tier, `1`: commercial
                 account, `2`: partner tier. Other values are reserved for the future.'
@@ -4046,12 +4357,14 @@ entities:
             - tier
             type: object
           type: array
+          x-nullable: true
         - _key: template_id
           api_fieldname: template_id
           description: Account template ID.
           entity_fieldname: template_id
           example: 01619571e7160242ac12000600000000
           type: string
+          x-nullable: true
         - _key: tier
           api_fieldname: tier
           description: 'The tier level of the account; `0`: free tier, `1`: commercial
@@ -4771,6 +5084,7 @@ entities:
       parameter_fieldname: address_line1
       required: false
       type: string
+      x-nullable: true
     - _key: address_line2
       api_fieldname: address_line2
       description: Postal address line 2.
@@ -4780,6 +5094,7 @@ entities:
       parameter_fieldname: address_line2
       required: false
       type: string
+      x-nullable: true
     - _key: aliases
       api_fieldname: aliases
       description: An array of aliases.
@@ -4799,6 +5114,7 @@ entities:
       parameter_fieldname: city
       required: false
       type: string
+      x-nullable: true
     - _key: company
       api_fieldname: company
       description: The name of the company.
@@ -4808,6 +5124,7 @@ entities:
       parameter_fieldname: company
       required: false
       type: string
+      x-nullable: true
     - _key: contact
       api_fieldname: contact
       description: The name of the contact person for this account.
@@ -4817,6 +5134,7 @@ entities:
       parameter_fieldname: contact
       required: false
       type: string
+      x-nullable: true
     - _key: contract_number
       api_fieldname: contract_number
       description: Contract number of the customer.
@@ -4826,6 +5144,7 @@ entities:
       parameter_fieldname: contract_number
       required: false
       type: string
+      x-nullable: true
     - _key: country
       api_fieldname: country
       description: The country part of the postal address.
@@ -4835,6 +5154,7 @@ entities:
       parameter_fieldname: country
       required: false
       type: string
+      x-nullable: true
     - _key: custom_fields
       additionalProperties:
         type: string
@@ -4845,6 +5165,7 @@ entities:
       parameter_fieldname: custom_fields
       required: false
       type: object
+      x-nullable: true
     - _key: customer_number
       api_fieldname: customer_number
       description: Customer number of the customer.
@@ -4854,6 +5175,7 @@ entities:
       parameter_fieldname: customer_number
       required: false
       type: string
+      x-nullable: true
     - _key: display_name
       api_fieldname: display_name
       description: The display name for the account.
@@ -4863,6 +5185,7 @@ entities:
       parameter_fieldname: display_name
       required: false
       type: string
+      x-nullable: true
     - _key: email
       api_fieldname: email
       description: The company email address for this account.
@@ -4872,6 +5195,7 @@ entities:
       parameter_fieldname: email
       required: false
       type: string
+      x-nullable: true
     - _key: end_market
       api_fieldname: end_market
       description: Account end market.
@@ -4891,6 +5215,7 @@ entities:
       parameter_fieldname: expiration_warning_threshold
       required: false
       type: string
+      x-nullable: true
     - _key: id
       api_fieldname: id
       description: Account ID.
@@ -4909,6 +5234,7 @@ entities:
       parameter_fieldname: idle_timeout
       required: false
       type: string
+      x-nullable: true
     - _key: mfa_status
       api_fieldname: mfa_status
       description: The enforcement status of multi-factor authentication, either `enforced`
@@ -4922,6 +5248,7 @@ entities:
       parameter_fieldname: mfa_status
       required: false
       type: string
+      x-nullable: true
     - _key: notification_emails
       api_fieldname: notification_emails
       description: A list of notification email addresses.
@@ -4932,6 +5259,7 @@ entities:
       parameter_fieldname: notification_emails
       required: false
       type: array
+      x-nullable: true
     - _key: password_policy
       api_fieldname: password_policy
       entity_fieldname: password_policy
@@ -4970,6 +5298,7 @@ entities:
       parameter_fieldname: phone_number
       required: false
       type: string
+      x-nullable: true
     - _key: postal_code
       api_fieldname: postal_code
       description: The postal code part of the postal address.
@@ -4979,6 +5308,7 @@ entities:
       parameter_fieldname: postal_code
       required: false
       type: string
+      x-nullable: true
     - _key: sales_contact
       api_fieldname: sales_contact
       description: Email address of the sales contact.
@@ -4988,6 +5318,7 @@ entities:
       parameter_fieldname: sales_contact
       required: false
       type: string
+      x-nullable: true
     - _key: state
       api_fieldname: state
       description: The state part of the postal address.
@@ -4997,6 +5328,7 @@ entities:
       parameter_fieldname: state
       required: false
       type: string
+      x-nullable: true
     group_id: Accounts
     method: put
     mode: update
@@ -5019,12 +5351,14 @@ entities:
           entity_fieldname: address_line1
           example: 110 Fulbourn Rd
           type: string
+          x-nullable: true
         - _key: address_line2
           api_fieldname: address_line2
           description: Postal address line 2.
           entity_fieldname: address_line2
           example: ' '
           type: string
+          x-nullable: true
         - _key: admin_email
           api_fieldname: admin_email
           description: The email address of the admin user created for this account.
@@ -5032,6 +5366,7 @@ entities:
           entity_fieldname: admin_email
           example: admin@arm.com
           type: string
+          x-nullable: true
         - _key: admin_full_name
           api_fieldname: admin_full_name
           description: The full name of the admin user created for this account. Present
@@ -5039,12 +5374,14 @@ entities:
           entity_fieldname: admin_full_name
           example: Admin Doe
           type: string
+          x-nullable: true
         - _key: admin_id
           api_fieldname: admin_id
           description: The ID of the admin user created for this account.
           entity_fieldname: admin_id
           example: 01619571e2e89242ac12000600000000
           type: string
+          x-nullable: true
         - _key: admin_key
           api_fieldname: admin_key
           description: The admin API key created for this account. Present only in
@@ -5053,6 +5390,7 @@ entities:
           example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
           readOnly: true
           type: string
+          x-nullable: true
         - _key: admin_name
           api_fieldname: admin_name
           description: The username of the admin user created for this account. Present
@@ -5060,6 +5398,7 @@ entities:
           entity_fieldname: admin_name
           example: admin
           type: string
+          x-nullable: true
         - _key: admin_password
           api_fieldname: admin_password
           description: The password of the admin user created for this account. Present
@@ -5067,6 +5406,7 @@ entities:
           entity_fieldname: admin_password
           example: PZf9eEUH43DAPE9ULINFeuj
           type: string
+          x-nullable: true
         - _key: aliases
           api_fieldname: aliases
           description: An array of aliases.
@@ -5080,30 +5420,35 @@ entities:
           entity_fieldname: city
           example: Cambridge
           type: string
+          x-nullable: true
         - _key: company
           api_fieldname: company
           description: The name of the company.
           entity_fieldname: company
           example: ARM Holdings Plc
           type: string
+          x-nullable: true
         - _key: contact
           api_fieldname: contact
           description: The name of the contact person for this account.
           entity_fieldname: contact
           example: J. Doe
           type: string
+          x-nullable: true
         - _key: contract_number
           api_fieldname: contract_number
           description: Contract number of the customer.
           entity_fieldname: contract_number
           example: 1NX25_0001
           type: string
+          x-nullable: true
         - _key: country
           api_fieldname: country
           description: The country part of the postal address.
           entity_fieldname: country
           example: United Kingdom
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Creation UTC time RFC3339.
@@ -5118,24 +5463,28 @@ entities:
           description: Account's custom properties as key-value pairs.
           entity_fieldname: custom_fields
           type: object
+          x-nullable: true
         - _key: customer_number
           api_fieldname: customer_number
           description: Customer number of the customer.
           entity_fieldname: customer_number
           example: 1NC25_0001
           type: string
+          x-nullable: true
         - _key: display_name
           api_fieldname: display_name
           description: The display name for the account.
           entity_fieldname: display_name
           example: ARM
           type: string
+          x-nullable: true
         - _key: email
           api_fieldname: email
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
           type: string
+          x-nullable: true
         - _key: end_market
           api_fieldname: end_market
           description: Account end market.
@@ -5154,6 +5503,7 @@ entities:
           entity_fieldname: expiration
           format: date-time
           type: string
+          x-nullable: true
         - _key: expiration_warning_threshold
           api_fieldname: expiration_warning_threshold
           description: Indicates how many days (1-180) before account expiration a
@@ -5161,6 +5511,7 @@ entities:
           entity_fieldname: expiration_warning_threshold
           example: '180'
           type: string
+          x-nullable: true
         - _key: id
           api_fieldname: id
           description: Account ID.
@@ -5173,6 +5524,7 @@ entities:
           entity_fieldname: idle_timeout
           example: '30'
           type: string
+          x-nullable: true
         - _key: limits
           additionalProperties:
             type: string
@@ -5180,6 +5532,7 @@ entities:
           description: List of limits as key-value pairs if requested.
           entity_fieldname: limits
           type: object
+          x-nullable: true
         - _key: mfa_status
           api_fieldname: mfa_status
           description: The enforcement status of multi-factor authentication, either
@@ -5189,6 +5542,7 @@ entities:
           - enforced
           - optional
           type: string
+          x-nullable: true
         - _key: notification_emails
           api_fieldname: notification_emails
           description: A list of notification email addresses.
@@ -5196,6 +5550,7 @@ entities:
           items:
             type: string
           type: array
+          x-nullable: true
         - _key: object
           api_fieldname: object
           description: 'Entity name: always `account`.'
@@ -5238,6 +5593,7 @@ entities:
           entity_fieldname: parent_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
           entity_fieldname: password_policy
@@ -5269,6 +5625,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           type: string
+          x-nullable: true
         - _key: policies
           api_fieldname: policies
           description: List of policies if requested.
@@ -5315,36 +5672,42 @@ entities:
               type: string
             type: object
           type: array
+          x-nullable: true
         - _key: postal_code
           api_fieldname: postal_code
           description: The postal code part of the postal address.
           entity_fieldname: postal_code
           example: CB1 9NJ
           type: string
+          x-nullable: true
         - _key: reason
           api_fieldname: reason
           description: A note with the reason for account status update.
           entity_fieldname: reason
           example: Subscription paid.
           type: string
+          x-nullable: true
         - _key: reference_note
           api_fieldname: reference_note
           description: A reference note for updating the status of the account.
           entity_fieldname: reference_note
           example: ARM-INT-0001
           type: string
+          x-nullable: true
         - _key: sales_contact
           api_fieldname: sales_contact
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
           type: string
+          x-nullable: true
         - _key: state
           api_fieldname: state
           description: The state part of the postal address.
           entity_fieldname: state
           example: ' '
           type: string
+          x-nullable: true
         - _key: status
           api_fieldname: status
           description: The status of the account.
@@ -5367,40 +5730,48 @@ entities:
               description: Postal address line 1.
               example: 110 Fulbourn Rd
               type: string
+              x-nullable: true
             - _key: address_line2
               description: Postal address line 2.
               example: ' '
               type: string
+              x-nullable: true
             - _key: admin_email
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
               type: string
+              x-nullable: true
             - _key: admin_full_name
               description: The full name of the admin user created for this account.
                 Present only in the response for account creation.
               example: Admin Doe
               type: string
+              x-nullable: true
             - _key: admin_id
               description: The ID of the admin user created for this account.
               example: 01619571e2e89242ac12000600000000
               type: string
+              x-nullable: true
             - _key: admin_key
               description: The admin API key created for this account. Present only
                 in the response for account creation.
               example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
               readOnly: true
               type: string
+              x-nullable: true
             - _key: admin_name
               description: The username of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin
               type: string
+              x-nullable: true
             - _key: admin_password
               description: The password of the admin user created for this account.
                 Present only in the response for account creation.
               example: PZf9eEUH43DAPE9ULINFeuj
               type: string
+              x-nullable: true
             - _key: aliases
               description: An array of aliases.
               items:
@@ -5410,22 +5781,27 @@ entities:
               description: The city part of the postal address.
               example: Cambridge
               type: string
+              x-nullable: true
             - _key: company
               description: The name of the company.
               example: ARM Holdings Plc
               type: string
+              x-nullable: true
             - _key: contact
               description: The name of the contact person for this account.
               example: J. Doe
               type: string
+              x-nullable: true
             - _key: contract_number
               description: Contract number of the customer.
               example: 1NX25_0001
               type: string
+              x-nullable: true
             - _key: country
               description: The country part of the postal address.
               example: United Kingdom
               type: string
+              x-nullable: true
             - _key: created_at
               description: Creation UTC time RFC3339.
               example: '2018-02-13T09:35:20Z'
@@ -5436,18 +5812,22 @@ entities:
                 type: string
               description: Account's custom properties as key-value pairs.
               type: object
+              x-nullable: true
             - _key: customer_number
               description: Customer number of the customer.
               example: 1NC25_0001
               type: string
+              x-nullable: true
             - _key: display_name
               description: The display name for the account.
               example: ARM
               type: string
+              x-nullable: true
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
               type: string
+              x-nullable: true
             - _key: end_market
               description: Account end market.
               example: IT
@@ -5460,11 +5840,13 @@ entities:
               description: Expiration time of the account, as UTC time RFC3339.
               format: date-time
               type: string
+              x-nullable: true
             - _key: expiration_warning_threshold
               description: Indicates how many days (1-180) before account expiration
                 a notification email is sent.
               example: '180'
               type: string
+              x-nullable: true
             - _key: id
               description: Account ID.
               example: 01619571e2e90242ac12000600000000
@@ -5474,11 +5856,13 @@ entities:
                 account.
               example: '30'
               type: string
+              x-nullable: true
             - _key: limits
               additionalProperties:
                 type: string
               description: List of limits as key-value pairs if requested.
               type: object
+              x-nullable: true
             - _key: mfa_status
               description: The enforcement status of multi-factor authentication,
                 either `enforced` or `optional`.
@@ -5486,11 +5870,13 @@ entities:
               - enforced
               - optional
               type: string
+              x-nullable: true
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
                 type: string
               type: array
+              x-nullable: true
             - _key: object
               description: 'Entity name: always `account`.'
               enum:
@@ -5527,6 +5913,7 @@ entities:
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
+              x-nullable: true
             - _key: password_policy
               foreign_key:
                 entity: password_policy
@@ -5553,6 +5940,7 @@ entities:
               description: The phone number of a company representative.
               example: +44 (1223) 400 400
               type: string
+              x-nullable: true
             - _key: policies
               description: List of policies if requested.
               items:
@@ -5597,26 +5985,32 @@ entities:
                   type: string
                 type: object
               type: array
+              x-nullable: true
             - _key: postal_code
               description: The postal code part of the postal address.
               example: CB1 9NJ
               type: string
+              x-nullable: true
             - _key: reason
               description: A note with the reason for account status update.
               example: Subscription paid.
               type: string
+              x-nullable: true
             - _key: reference_note
               description: A reference note for updating the status of the account.
               example: ARM-INT-0001
               type: string
+              x-nullable: true
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
               type: string
+              x-nullable: true
             - _key: state
               description: The state part of the postal address.
               example: ' '
               type: string
+              x-nullable: true
             - _key: status
               description: The status of the account.
               enum:
@@ -5630,10 +6024,12 @@ entities:
               description: List of sub accounts. Not available for developer users.
               items: []
               type: array
+              x-nullable: true
             - _key: template_id
               description: Account template ID.
               example: 01619571e7160242ac12000600000000
               type: string
+              x-nullable: true
             - _key: tier
               description: 'The tier level of the account; `0`: free tier, `1`: commercial
                 account, `2`: partner tier. Other values are reserved for the future.'
@@ -5659,12 +6055,14 @@ entities:
             - tier
             type: object
           type: array
+          x-nullable: true
         - _key: template_id
           api_fieldname: template_id
           description: Account template ID.
           entity_fieldname: template_id
           example: 01619571e7160242ac12000600000000
           type: string
+          x-nullable: true
         - _key: tier
           api_fieldname: tier
           description: 'The tier level of the account; `0`: free tier, `1`: commercial
@@ -6538,6 +6936,7 @@ entities:
               description: User's account-specific custom properties. The value is
                 a string.
               type: object
+              x-nullable: true
             - _key: email
               description: The email address.
               example: user@arm.com
@@ -6555,6 +6954,7 @@ entities:
               description: The full name of the user.
               example: User Doe
               type: string
+              x-nullable: true
             - _key: groups
               description: A list of IDs of the groups this user belongs to.
               items:
@@ -6708,6 +7108,7 @@ entities:
               items:
                 type: string
               type: array
+              x-nullable: true
             - _key: updated_at
               description: Last update UTC time RFC3339.
               example: '2018-02-14T15:24:14Z'
@@ -26572,6 +26973,7 @@ entities:
     readOnly: true
     required: false
     type: object
+    x-nullable: true
   - _key: email
     api_fieldname: email
     description: The email address.
@@ -26598,6 +27000,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: id
     api_fieldname: id
     description: The ID of the user.
@@ -26780,6 +27183,7 @@ entities:
     readOnly: true
     required: false
     type: array
+    x-nullable: true
   - _key: two_factor_authentication
     api_fieldname: is_totp_enabled
     description: A flag indicating whether two-factor authentication (TOTP) has been
@@ -26906,6 +27310,7 @@ entities:
       parameter_fieldname: full_name
       required: false
       type: string
+      x-nullable: true
     - _key: login_profiles
       api_fieldname: login_profiles
       description: A list of login profiles for the user. Specified as the identity
@@ -27115,6 +27520,7 @@ entities:
           description: User's account-specific custom properties. The value is a string.
           entity_fieldname: custom_fields
           type: object
+          x-nullable: true
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -27146,6 +27552,7 @@ entities:
           parameter_fieldname: full_name
           required: false
           type: string
+          x-nullable: true
         - _key: groups
           api_fieldname: groups
           description: A list of group IDs this user belongs to. Can be updated by
@@ -27160,6 +27567,7 @@ entities:
           required: false
           schema_param: true
           type: array
+          x-nullable: true
         - _key: id
           api_fieldname: id
           description: The ID of the user.
@@ -27357,6 +27765,7 @@ entities:
           items:
             type: string
           type: array
+          x-nullable: true
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -28076,6 +28485,7 @@ entities:
           description: User's account-specific custom properties. The value is a string.
           entity_fieldname: custom_fields
           type: object
+          x-nullable: true
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -28107,6 +28517,7 @@ entities:
           parameter_fieldname: full_name
           required: false
           type: string
+          x-nullable: true
         - _key: groups
           api_fieldname: groups
           description: A list of group IDs this user belongs to. Can be updated by
@@ -28121,6 +28532,7 @@ entities:
           required: false
           schema_param: true
           type: array
+          x-nullable: true
         - _key: id
           api_fieldname: id
           description: The ID of the user.
@@ -28318,6 +28730,7 @@ entities:
           items:
             type: string
           type: array
+          x-nullable: true
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -28571,6 +28984,7 @@ entities:
       parameter_fieldname: full_name
       required: false
       type: string
+      x-nullable: true
     - _key: id
       api_fieldname: id
       description: The ID of the user.
@@ -28783,6 +29197,7 @@ entities:
           description: User's account-specific custom properties. The value is a string.
           entity_fieldname: custom_fields
           type: object
+          x-nullable: true
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -28814,6 +29229,7 @@ entities:
           parameter_fieldname: full_name
           required: false
           type: string
+          x-nullable: true
         - _key: groups
           api_fieldname: groups
           description: A list of group IDs this user belongs to. Can be updated by
@@ -28828,6 +29244,7 @@ entities:
           required: false
           schema_param: true
           type: array
+          x-nullable: true
         - _key: id
           api_fieldname: id
           description: The ID of the user.
@@ -29025,6 +29442,7 @@ entities:
           items:
             type: string
           type: array
+          x-nullable: true
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -35138,6 +35556,7 @@ entities:
     readOnly: true
     required: false
     type: object
+    x-nullable: true
   - _key: email
     api_fieldname: email
     description: The email address.
@@ -35160,6 +35579,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: id
     api_fieldname: id
     description: The ID of the user.
@@ -35328,6 +35748,7 @@ entities:
     readOnly: true
     required: false
     type: array
+    x-nullable: true
   - _key: two_factor_authentication
     api_fieldname: is_totp_enabled
     description: A flag indicating whether two-factor authentication (TOTP) has been
@@ -35441,6 +35862,7 @@ entities:
       parameter_fieldname: full_name
       required: false
       type: string
+      x-nullable: true
     - _key: login_profiles
       api_fieldname: login_profiles
       description: A list of login profiles for the user. Specified as the identity
@@ -35647,6 +36069,7 @@ entities:
           description: User's account-specific custom properties. The value is a string.
           entity_fieldname: custom_fields
           type: object
+          x-nullable: true
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -35672,6 +36095,7 @@ entities:
           entity_fieldname: full_name
           example: User Doe
           type: string
+          x-nullable: true
         - _key: groups
           api_fieldname: groups
           description: A list of IDs of the groups this user belongs to.
@@ -35852,6 +36276,7 @@ entities:
           items:
             type: string
           type: array
+          x-nullable: true
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -36534,6 +36959,7 @@ entities:
               description: User's account-specific custom properties. The value is
                 a string.
               type: object
+              x-nullable: true
             - _key: email
               description: The email address.
               example: user@arm.com
@@ -36551,6 +36977,7 @@ entities:
               description: The full name of the user.
               example: User Doe
               type: string
+              x-nullable: true
             - _key: groups
               description: A list of IDs of the groups this user belongs to.
               items:
@@ -36704,6 +37131,7 @@ entities:
               items:
                 type: string
               type: array
+              x-nullable: true
             - _key: updated_at
               description: Last update UTC time RFC3339.
               example: '2018-02-14T15:24:14Z'
@@ -37050,6 +37478,7 @@ entities:
           description: User's account-specific custom properties. The value is a string.
           entity_fieldname: custom_fields
           type: object
+          x-nullable: true
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -37075,6 +37504,7 @@ entities:
           entity_fieldname: full_name
           example: User Doe
           type: string
+          x-nullable: true
         - _key: groups
           api_fieldname: groups
           description: A list of IDs of the groups this user belongs to.
@@ -37255,6 +37685,7 @@ entities:
           items:
             type: string
           type: array
+          x-nullable: true
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -37496,6 +37927,7 @@ entities:
       parameter_fieldname: full_name
       required: false
       type: string
+      x-nullable: true
     - _key: id
       api_fieldname: id
       description: The ID of the user.
@@ -37705,6 +38137,7 @@ entities:
           description: User's account-specific custom properties. The value is a string.
           entity_fieldname: custom_fields
           type: object
+          x-nullable: true
         - _key: email
           api_fieldname: email
           description: The email address.
@@ -37730,6 +38163,7 @@ entities:
           entity_fieldname: full_name
           example: User Doe
           type: string
+          x-nullable: true
         - _key: groups
           api_fieldname: groups
           description: A list of IDs of the groups this user belongs to.
@@ -37910,6 +38344,7 @@ entities:
           items:
             type: string
           type: array
+          x-nullable: true
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
