@@ -1018,6 +1018,7 @@
                       "group": "Accounts",
                       "entity": "parent_account"
                     },
+                    "x-nullable": true,
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -1050,6 +1051,8 @@
                       "group": "Accounts",
                       "entity": "password_policy"
                     },
+                    "description": "The password policy for this account.",
+                    "x-nullable": true,
                     "api_fieldname": "password_policy",
                     "entity_fieldname": "password_policy",
                     "_key": "password_policy"
@@ -1450,6 +1453,7 @@
                             "group": "Accounts",
                             "entity": "parent_account"
                           },
+                          "x-nullable": true,
                           "_key": "parent_account"
                         },
                         {
@@ -1478,6 +1482,8 @@
                             "group": "Accounts",
                             "entity": "password_policy"
                           },
+                          "description": "The password policy for this account.",
+                          "x-nullable": true,
                           "_key": "password_policy"
                         },
                         {
@@ -1633,7 +1639,14 @@
                           "_key": "upgraded_at"
                         }
                       ],
-                      "description": "Represents an account in requests and responses."
+                      "description": "Represents an account in requests and responses.",
+                      "RECURSION_ERROR": "CIRCULAR_REFERENCE_BLOCKED",
+                      "recursion_depth": 3,
+                      "ref": "#/definitions/AccountInfo",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "account"
+                      }
                     },
                     "api_fieldname": "sub_accounts",
                     "entity_fieldname": "sub_accounts",
@@ -1675,7 +1688,14 @@
                     "_key": "upgraded_at"
                   }
                 ],
-                "description": "Represents an account in requests and responses."
+                "description": "Represents an account in requests and responses.",
+                "RECURSION_ERROR": "CIRCULAR_REFERENCE_BLOCKED",
+                "recursion_depth": 3,
+                "ref": "#/definitions/AccountInfo",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "account"
+                }
               },
               "_key": "201"
             },
@@ -2322,6 +2342,7 @@
                             "group": "Accounts",
                             "entity": "parent_account"
                           },
+                          "x-nullable": true,
                           "_key": "parent_account"
                         },
                         {
@@ -2350,6 +2371,8 @@
                             "group": "Accounts",
                             "entity": "password_policy"
                           },
+                          "description": "The password policy for this account.",
+                          "x-nullable": true,
                           "_key": "password_policy"
                         },
                         {
@@ -2730,6 +2753,7 @@
                                   "group": "Accounts",
                                   "entity": "parent_account"
                                 },
+                                "x-nullable": true,
                                 "_key": "parent_account"
                               },
                               {
@@ -2758,6 +2782,8 @@
                                   "group": "Accounts",
                                   "entity": "password_policy"
                                 },
+                                "description": "The password policy for this account.",
+                                "x-nullable": true,
                                 "_key": "password_policy"
                               },
                               {
@@ -2913,7 +2939,14 @@
                                 "_key": "upgraded_at"
                               }
                             ],
-                            "description": "Represents an account in requests and responses."
+                            "description": "Represents an account in requests and responses.",
+                            "RECURSION_ERROR": "CIRCULAR_REFERENCE_BLOCKED",
+                            "recursion_depth": 3,
+                            "ref": "#/definitions/AccountInfo",
+                            "foreign_key": {
+                              "group": "Accounts",
+                              "entity": "account"
+                            }
                           },
                           "_key": "sub_accounts"
                         },
@@ -2945,7 +2978,14 @@
                           "_key": "upgraded_at"
                         }
                       ],
-                      "description": "Represents an account in requests and responses."
+                      "description": "Represents an account in requests and responses.",
+                      "RECURSION_ERROR": "CIRCULAR_REFERENCE_BLOCKED",
+                      "recursion_depth": 3,
+                      "ref": "#/definitions/AccountInfo",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "account"
+                      }
                     },
                     "api_fieldname": "data",
                     "entity_fieldname": "data",
@@ -3209,6 +3249,10 @@
           },
           "operation_id": "getAllAccounts",
           "pagination": true,
+          "foreign_key": {
+            "group": "Accounts",
+            "entity": "account"
+          },
           "request_content_type": "application/json",
           "request_body": "json",
           "_key": "list"
@@ -3561,6 +3605,7 @@
                       "group": "Accounts",
                       "entity": "parent_account"
                     },
+                    "x-nullable": true,
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -3593,6 +3638,8 @@
                       "group": "Accounts",
                       "entity": "password_policy"
                     },
+                    "description": "The password policy for this account.",
+                    "x-nullable": true,
                     "api_fieldname": "password_policy",
                     "entity_fieldname": "password_policy",
                     "_key": "password_policy"
@@ -3993,6 +4040,7 @@
                             "group": "Accounts",
                             "entity": "parent_account"
                           },
+                          "x-nullable": true,
                           "_key": "parent_account"
                         },
                         {
@@ -4021,6 +4069,8 @@
                             "group": "Accounts",
                             "entity": "password_policy"
                           },
+                          "description": "The password policy for this account.",
+                          "x-nullable": true,
                           "_key": "password_policy"
                         },
                         {
@@ -4176,7 +4226,14 @@
                           "_key": "upgraded_at"
                         }
                       ],
-                      "description": "Represents an account in requests and responses."
+                      "description": "Represents an account in requests and responses.",
+                      "RECURSION_ERROR": "CIRCULAR_REFERENCE_BLOCKED",
+                      "recursion_depth": 3,
+                      "ref": "#/definitions/AccountInfo",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "account"
+                      }
                     },
                     "api_fieldname": "sub_accounts",
                     "entity_fieldname": "sub_accounts",
@@ -4218,7 +4275,14 @@
                     "_key": "upgraded_at"
                   }
                 ],
-                "description": "Represents an account in requests and responses."
+                "description": "Represents an account in requests and responses.",
+                "RECURSION_ERROR": "CIRCULAR_REFERENCE_BLOCKED",
+                "recursion_depth": 3,
+                "ref": "#/definitions/AccountInfo",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "account"
+                }
               },
               "_key": "200"
             },
@@ -4802,6 +4866,7 @@
                       "group": "Accounts",
                       "entity": "parent_account"
                     },
+                    "x-nullable": true,
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -4834,6 +4899,8 @@
                       "group": "Accounts",
                       "entity": "password_policy"
                     },
+                    "description": "The password policy for this account.",
+                    "x-nullable": true,
                     "api_fieldname": "password_policy",
                     "entity_fieldname": "password_policy",
                     "_key": "password_policy"
@@ -5234,6 +5301,7 @@
                             "group": "Accounts",
                             "entity": "parent_account"
                           },
+                          "x-nullable": true,
                           "_key": "parent_account"
                         },
                         {
@@ -5262,6 +5330,8 @@
                             "group": "Accounts",
                             "entity": "password_policy"
                           },
+                          "description": "The password policy for this account.",
+                          "x-nullable": true,
                           "_key": "password_policy"
                         },
                         {
@@ -5417,7 +5487,14 @@
                           "_key": "upgraded_at"
                         }
                       ],
-                      "description": "Represents an account in requests and responses."
+                      "description": "Represents an account in requests and responses.",
+                      "RECURSION_ERROR": "CIRCULAR_REFERENCE_BLOCKED",
+                      "recursion_depth": 3,
+                      "ref": "#/definitions/AccountInfo",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "account"
+                      }
                     },
                     "api_fieldname": "sub_accounts",
                     "entity_fieldname": "sub_accounts",
@@ -5459,7 +5536,14 @@
                     "_key": "upgraded_at"
                   }
                 ],
-                "description": "Represents an account in requests and responses."
+                "description": "Represents an account in requests and responses.",
+                "RECURSION_ERROR": "CIRCULAR_REFERENCE_BLOCKED",
+                "recursion_depth": 3,
+                "ref": "#/definitions/AccountInfo",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "account"
+                }
               },
               "_key": "200"
             },
@@ -6631,6 +6715,8 @@
                 "group": "Accounts",
                 "entity": "password_policy"
               },
+              "description": "The password policy for this account.",
+              "x-nullable": true,
               "api_fieldname": "password_policy",
               "entity_fieldname": "password_policy",
               "parameter_fieldname": "password_policy",
@@ -7018,6 +7104,7 @@
                       "group": "Accounts",
                       "entity": "parent_account"
                     },
+                    "x-nullable": true,
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -7050,6 +7137,8 @@
                       "group": "Accounts",
                       "entity": "password_policy"
                     },
+                    "description": "The password policy for this account.",
+                    "x-nullable": true,
                     "api_fieldname": "password_policy",
                     "entity_fieldname": "password_policy",
                     "_key": "password_policy"
@@ -7450,6 +7539,7 @@
                             "group": "Accounts",
                             "entity": "parent_account"
                           },
+                          "x-nullable": true,
                           "_key": "parent_account"
                         },
                         {
@@ -7478,6 +7568,8 @@
                             "group": "Accounts",
                             "entity": "password_policy"
                           },
+                          "description": "The password policy for this account.",
+                          "x-nullable": true,
                           "_key": "password_policy"
                         },
                         {
@@ -7633,7 +7725,14 @@
                           "_key": "upgraded_at"
                         }
                       ],
-                      "description": "Represents an account in requests and responses."
+                      "description": "Represents an account in requests and responses.",
+                      "RECURSION_ERROR": "CIRCULAR_REFERENCE_BLOCKED",
+                      "recursion_depth": 3,
+                      "ref": "#/definitions/AccountInfo",
+                      "foreign_key": {
+                        "group": "Accounts",
+                        "entity": "account"
+                      }
                     },
                     "api_fieldname": "sub_accounts",
                     "entity_fieldname": "sub_accounts",
@@ -7675,7 +7774,14 @@
                     "_key": "upgraded_at"
                   }
                 ],
-                "description": "Represents an account in requests and responses."
+                "description": "Represents an account in requests and responses.",
+                "RECURSION_ERROR": "CIRCULAR_REFERENCE_BLOCKED",
+                "recursion_depth": 3,
+                "ref": "#/definitions/AccountInfo",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "account"
+                }
               },
               "_key": "200"
             },
@@ -9721,6 +9827,7 @@
             "group": "Accounts",
             "entity": "parent_account"
           },
+          "x-nullable": true,
           "api_fieldname": "parent_account",
           "readOnly": true,
           "required": false,
@@ -9753,6 +9860,8 @@
             "group": "Accounts",
             "entity": "password_policy"
           },
+          "description": "The password policy for this account.",
+          "x-nullable": true,
           "api_fieldname": "password_policy",
           "readOnly": false,
           "_key": "password_policy"

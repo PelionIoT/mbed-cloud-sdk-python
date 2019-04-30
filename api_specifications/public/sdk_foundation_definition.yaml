@@ -259,6 +259,7 @@ entities:
     readOnly: true
     required: false
     type: object
+    x-nullable: true
   - _key: parent_id
     api_fieldname: parent_id
     description: The ID of the parent account, if any.
@@ -269,6 +270,7 @@ entities:
     x-nullable: true
   - _key: password_policy
     api_fieldname: password_policy
+    description: The password policy for this account.
     foreign_key:
       entity: password_policy
       group: Accounts
@@ -282,6 +284,7 @@ entities:
     readOnly: false
     required: false
     type: object
+    x-nullable: true
   - _key: password_recovery_expiration
     api_fieldname: password_recovery_expiration
     description: Indicates for how many minutes a password recovery email is valid
@@ -718,7 +721,11 @@ entities:
     - _key: '201'
       description: Successful operation.
       schema:
+        RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
         description: Represents an account in requests and responses.
+        foreign_key:
+          entity: account
+          group: Accounts
         properties:
         - _key: address_line1
           api_fieldname: address_line1
@@ -962,6 +969,7 @@ entities:
             example: 01619571dad80242ac12000600000000
             type: string
           type: object
+          x-nullable: true
         - _key: parent_id
           api_fieldname: parent_id
           description: The ID of the parent account, if any.
@@ -971,6 +979,7 @@ entities:
           x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
+          description: The password policy for this account.
           entity_fieldname: password_policy
           foreign_key:
             entity: password_policy
@@ -985,6 +994,7 @@ entities:
           required:
           - minimum_length
           type: object
+          x-nullable: true
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
@@ -1099,7 +1109,11 @@ entities:
           description: List of sub accounts. Not available for developer users.
           entity_fieldname: sub_accounts
           items:
+            RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
             description: Represents an account in requests and responses.
+            foreign_key:
+              entity: account
+              group: Accounts
             properties:
             - _key: address_line1
               description: Postal address line 1.
@@ -1284,12 +1298,14 @@ entities:
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
+              x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
               x-nullable: true
             - _key: password_policy
+              description: The password policy for this account.
               foreign_key:
                 entity: password_policy
                 group: Accounts
@@ -1304,6 +1320,7 @@ entities:
               required:
               - minimum_length
               type: object
+              x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
                 is valid (1-45).
@@ -1421,6 +1438,8 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
+            recursion_depth: 3
+            ref: '#/definitions/AccountInfo'
             required:
             - end_market
             - etag
@@ -1459,6 +1478,8 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
+        recursion_depth: 3
+        ref: '#/definitions/AccountInfo'
         required:
         - end_market
         - etag
@@ -1724,6 +1745,9 @@ entities:
       parameter_fieldname: properties
       required: false
       type: string
+    foreign_key:
+      entity: account
+      group: Accounts
     foreign_key_priority: self
     group_id: Accounts
     method: get
@@ -1755,7 +1779,11 @@ entities:
           description: A list of entities.
           entity_fieldname: data
           items:
+            RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
             description: Represents an account in requests and responses.
+            foreign_key:
+              entity: account
+              group: Accounts
             properties:
             - _key: address_line1
               description: Postal address line 1.
@@ -1940,12 +1968,14 @@ entities:
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
+              x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
               x-nullable: true
             - _key: password_policy
+              description: The password policy for this account.
               foreign_key:
                 entity: password_policy
                 group: Accounts
@@ -1960,6 +1990,7 @@ entities:
               required:
               - minimum_length
               type: object
+              x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
                 is valid (1-45).
@@ -2054,7 +2085,11 @@ entities:
             - _key: sub_accounts
               description: List of sub accounts. Not available for developer users.
               items:
+                RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
                 description: Represents an account in requests and responses.
+                foreign_key:
+                  entity: account
+                  group: Accounts
                 properties:
                 - _key: address_line1
                   description: Postal address line 1.
@@ -2239,12 +2274,14 @@ entities:
                     example: 01619571dad80242ac12000600000000
                     type: string
                   type: object
+                  x-nullable: true
                 - _key: parent_id
                   description: The ID of the parent account, if any.
                   example: 01619571dad80242ac12000600000000
                   type: string
                   x-nullable: true
                 - _key: password_policy
+                  description: The password policy for this account.
                   foreign_key:
                     entity: password_policy
                     group: Accounts
@@ -2259,6 +2296,7 @@ entities:
                   required:
                   - minimum_length
                   type: object
+                  x-nullable: true
                 - _key: password_recovery_expiration
                   description: Indicates for how many minutes a password recovery
                     email is valid (1-45).
@@ -2377,6 +2415,8 @@ entities:
                   example: '2018-02-14T15:24:14Z'
                   format: date-time
                   type: string
+                recursion_depth: 3
+                ref: '#/definitions/AccountInfo'
                 required:
                 - end_market
                 - etag
@@ -2408,6 +2448,8 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
+            recursion_depth: 3
+            ref: '#/definitions/AccountInfo'
             required:
             - end_market
             - etag
@@ -2681,7 +2723,11 @@ entities:
     - _key: '200'
       description: Successful operation.
       schema:
+        RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
         description: Represents an account in requests and responses.
+        foreign_key:
+          entity: account
+          group: Accounts
         properties:
         - _key: address_line1
           api_fieldname: address_line1
@@ -2925,6 +2971,7 @@ entities:
             example: 01619571dad80242ac12000600000000
             type: string
           type: object
+          x-nullable: true
         - _key: parent_id
           api_fieldname: parent_id
           description: The ID of the parent account, if any.
@@ -2934,6 +2981,7 @@ entities:
           x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
+          description: The password policy for this account.
           entity_fieldname: password_policy
           foreign_key:
             entity: password_policy
@@ -2948,6 +2996,7 @@ entities:
           required:
           - minimum_length
           type: object
+          x-nullable: true
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
@@ -3062,7 +3111,11 @@ entities:
           description: List of sub accounts. Not available for developer users.
           entity_fieldname: sub_accounts
           items:
+            RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
             description: Represents an account in requests and responses.
+            foreign_key:
+              entity: account
+              group: Accounts
             properties:
             - _key: address_line1
               description: Postal address line 1.
@@ -3247,12 +3300,14 @@ entities:
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
+              x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
               x-nullable: true
             - _key: password_policy
+              description: The password policy for this account.
               foreign_key:
                 entity: password_policy
                 group: Accounts
@@ -3267,6 +3322,7 @@ entities:
               required:
               - minimum_length
               type: object
+              x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
                 is valid (1-45).
@@ -3384,6 +3440,8 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
+            recursion_depth: 3
+            ref: '#/definitions/AccountInfo'
             required:
             - end_market
             - etag
@@ -3422,6 +3480,8 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
+        recursion_depth: 3
+        ref: '#/definitions/AccountInfo'
         required:
         - end_market
         - etag
@@ -3645,7 +3705,11 @@ entities:
     - _key: '200'
       description: Successful operation.
       schema:
+        RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
         description: Represents an account in requests and responses.
+        foreign_key:
+          entity: account
+          group: Accounts
         properties:
         - _key: address_line1
           api_fieldname: address_line1
@@ -3889,6 +3953,7 @@ entities:
             example: 01619571dad80242ac12000600000000
             type: string
           type: object
+          x-nullable: true
         - _key: parent_id
           api_fieldname: parent_id
           description: The ID of the parent account, if any.
@@ -3898,6 +3963,7 @@ entities:
           x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
+          description: The password policy for this account.
           entity_fieldname: password_policy
           foreign_key:
             entity: password_policy
@@ -3912,6 +3978,7 @@ entities:
           required:
           - minimum_length
           type: object
+          x-nullable: true
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
@@ -4026,7 +4093,11 @@ entities:
           description: List of sub accounts. Not available for developer users.
           entity_fieldname: sub_accounts
           items:
+            RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
             description: Represents an account in requests and responses.
+            foreign_key:
+              entity: account
+              group: Accounts
             properties:
             - _key: address_line1
               description: Postal address line 1.
@@ -4211,12 +4282,14 @@ entities:
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
+              x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
               x-nullable: true
             - _key: password_policy
+              description: The password policy for this account.
               foreign_key:
                 entity: password_policy
                 group: Accounts
@@ -4231,6 +4304,7 @@ entities:
               required:
               - minimum_length
               type: object
+              x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
                 is valid (1-45).
@@ -4348,6 +4422,8 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
+            recursion_depth: 3
+            ref: '#/definitions/AccountInfo'
             required:
             - end_market
             - etag
@@ -4386,6 +4462,8 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
+        recursion_depth: 3
+        ref: '#/definitions/AccountInfo'
         required:
         - end_market
         - etag
@@ -5261,6 +5339,7 @@ entities:
       x-nullable: true
     - _key: password_policy
       api_fieldname: password_policy
+      description: The password policy for this account.
       entity_fieldname: password_policy
       foreign_key:
         entity: password_policy
@@ -5276,6 +5355,7 @@ entities:
         type: string
       required: false
       type: object
+      x-nullable: true
     - _key: password_recovery_expiration
       api_fieldname: password_recovery_expiration
       description: Indicates for how many minutes a password recovery email is valid
@@ -5342,7 +5422,11 @@ entities:
     - _key: '200'
       description: Successful operation.
       schema:
+        RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
         description: Represents an account in requests and responses.
+        foreign_key:
+          entity: account
+          group: Accounts
         properties:
         - _key: address_line1
           api_fieldname: address_line1
@@ -5586,6 +5670,7 @@ entities:
             example: 01619571dad80242ac12000600000000
             type: string
           type: object
+          x-nullable: true
         - _key: parent_id
           api_fieldname: parent_id
           description: The ID of the parent account, if any.
@@ -5595,6 +5680,7 @@ entities:
           x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
+          description: The password policy for this account.
           entity_fieldname: password_policy
           foreign_key:
             entity: password_policy
@@ -5609,6 +5695,7 @@ entities:
           required:
           - minimum_length
           type: object
+          x-nullable: true
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
@@ -5723,7 +5810,11 @@ entities:
           description: List of sub accounts. Not available for developer users.
           entity_fieldname: sub_accounts
           items:
+            RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
             description: Represents an account in requests and responses.
+            foreign_key:
+              entity: account
+              group: Accounts
             properties:
             - _key: address_line1
               description: Postal address line 1.
@@ -5908,12 +5999,14 @@ entities:
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
+              x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
               x-nullable: true
             - _key: password_policy
+              description: The password policy for this account.
               foreign_key:
                 entity: password_policy
                 group: Accounts
@@ -5928,6 +6021,7 @@ entities:
               required:
               - minimum_length
               type: object
+              x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
                 is valid (1-45).
@@ -6045,6 +6139,8 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
+            recursion_depth: 3
+            ref: '#/definitions/AccountInfo'
             required:
             - end_market
             - etag
@@ -6083,6 +6179,8 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
+        recursion_depth: 3
+        ref: '#/definitions/AccountInfo'
         required:
         - end_market
         - etag
