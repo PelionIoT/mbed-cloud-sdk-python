@@ -22831,6 +22831,63 @@ paths:
       summary: Details of the current user.
       tags:
       - Account - users
+    put:
+      consumes:
+      - application/json
+      description: 'Update user details.
+
+
+        **Example:**
+
+        ```
+
+        curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me \
+
+        -H ''Authorization: Bearer <token>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''{"full_name": "fullname"}''
+
+        ```'
+      operationId: updateMyUser
+      parameters:
+      - description: A user object with attributes.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserUpdateReq'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/UserInfoResp'
+        '400':
+          description: Error in input data, for example, an invalid email address.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A user with the given ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: A user with the given username or email already exists.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Update user details.
+      tags:
+      - Account - users
   /v3/users/{user_id}:
     delete:
       description: 'Delete a user.
