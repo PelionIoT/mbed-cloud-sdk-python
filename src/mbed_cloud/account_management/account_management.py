@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # --------------------------------------------------------------------------
-"""Functionality for Account Management related actions in Mbed Cloud."""
+"""Functionality for Account Management related actions in Pelion Device Management."""
 from __future__ import absolute_import
 from __future__ import unicode_literals
 

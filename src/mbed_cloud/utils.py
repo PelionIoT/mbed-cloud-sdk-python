@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +28,7 @@ USERAGENT = None
 
 
 def logging_check():
-    """As an mbed cloud sub-module, iterate and log at each verbosity level"""
+    """As an Pelion Device Management sub-module, iterate and log at each verbosity level"""
     text = 'logging check "%s"'
     for level in ['debug', 'info', 'warning', 'critical']:
         getattr(LOG, level)(text, level)

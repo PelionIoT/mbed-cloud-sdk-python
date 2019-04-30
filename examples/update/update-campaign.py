@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,7 +51,7 @@ def _main():
     mobj = update_api.add_firmware_manifest(
         name="Auto manifest %s" % _rand_id(),
         datafile=filename,
-        description="Manifest uploaded using Mbed Cloud SDK")
+        description="Manifest uploaded using Pelion Device Management SDK")
     print("Successfully uploaded manifest %r\n\tURL: %s\nProperties:" % (mobj.name, mobj.url))
 
     # List all manifests currently uploaded
