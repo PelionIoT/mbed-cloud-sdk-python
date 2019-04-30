@@ -2025,6 +2025,7 @@ definitions:
           Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
         maxLength: 500
         type: string
+        x-nullable: true
       name:
         description: Name of the developer certificate. Must be unique. Maximum 100
           characters. Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
@@ -2045,6 +2046,7 @@ definitions:
       description:
         description: Description for the developer certificate.
         type: string
+        x-nullable: true
       developer_certificate:
         description: PEM-format X.509 developer certificate.
         type: string
@@ -2082,6 +2084,7 @@ definitions:
           server.
         format: date
         type: string
+        x-nullable: true
       ca_id:
         description: The certificate issuer's ID.
         example: '00000000000000000000000000000000'
@@ -2092,6 +2095,7 @@ definitions:
           server.
         format: date
         type: string
+        x-nullable: true
       created_at:
         description: The timestamp of when the device was created in the device directory.
         example: '2017-05-22T12:37:55.576563Z'
@@ -2181,6 +2185,7 @@ definitions:
         example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
         pattern: '[A-Fa-f0-9]{64}'
         type: string
+        x-nullable: true
       manifest:
         description: 'DEPRECATED: The URL for the current device manifest.'
         example: ''
@@ -2239,14 +2244,16 @@ definitions:
       bootstrap_expiration_date:
         description: The expiration date of the certificate used to connect to bootstrap
           server.
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
+        x-nullable: true
       bootstrapped_timestamp:
         description: The timestamp of the device's most recent bootstrap process.
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
+        x-nullable: true
       ca_id:
         description: The certificate issuer's ID.
         example: '00000000000000000000000000000000'
@@ -2255,9 +2262,10 @@ definitions:
       connector_expiration_date:
         description: The expiration date of the certificate used to connect to the
           LwM2M server.
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
+        x-nullable: true
       custom_attributes:
         additionalProperties:
           maxLength: 128
@@ -5927,6 +5935,10 @@ definitions:
         description: The time the entity was updated
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
+        type: string
+      upload_job_id:
+        description: The upload job ID.
+        example: '00000000000000000000000000000000'
         type: string
     type: object
   UploadChunkInfoPage:
