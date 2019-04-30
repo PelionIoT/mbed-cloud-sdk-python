@@ -15577,7 +15577,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new developer certificate to connect to the bootstrap server.
       tags:
-      - Developer certificate
+      - Device security - developer class certificates
   /v3/developer-certificates/{developerCertificateId}:
     get:
       description: 'Return an existing developer certificate (a certificate that can
@@ -15852,7 +15852,7 @@ paths:
       summary: Fetch an existing developer certificate to connect to the bootstrap
         server.
       tags:
-      - Developer certificate
+      - Device security - developer class certificates
   /v3/device-enrollment-denials:
     get:
       description: 'This produces a list of failed attempts to bootstrap using a particular
@@ -21011,7 +21011,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch all (Bootstrap and LwM2M) server credentials.
       tags:
-      - Server credentials
+      - Service security - server credentials
   /v3/server-credentials/bootstrap:
     get:
       deprecated: true
@@ -21063,7 +21063,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch bootstrap server credentials.
       tags:
-      - Server credentials
+      - Service security - server credentials
   /v3/server-credentials/lwm2m:
     get:
       deprecated: true
@@ -21115,7 +21115,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch LwM2M server credentials.
       tags:
-      - Server credentials
+      - Service security - server credentials
   /v3/service-packages:
     get:
       description: 'Get information for all service packages for the current authenticated

@@ -15772,7 +15772,7 @@ entities:
   - DeveloperCertificateResponseData
   - TrustedCertificateResp
   tags:
-  - Developer certificate
+  - Device security - developer class certificates
   - Device security - certificates
 - _key: device
   field_renames: []
@@ -24556,7 +24556,7 @@ entities:
   swagger_models:
   - ServerCredentialsResponseData
   tags:
-  - Server credentials
+  - Service security - server credentials
 - _key: subtenant_trusted_certificate
   field_renames: []
   fields:
@@ -26833,7 +26833,7 @@ entities:
   - TrustedCertificateUpdateReq
   tags:
   - Tenant device security - certificates
-  - Developer certificate
+  - Device security - developer class certificates
 - _key: subtenant_user
   field_renames:
   - _key: marketing_accepted
@@ -33611,7 +33611,7 @@ entities:
   - TrustedCertificateUpdateReq
   tags:
   - Device security - certificates
-  - Developer certificate
+  - Device security - developer class certificates
 - _key: update_campaign
   field_renames: []
   fields:

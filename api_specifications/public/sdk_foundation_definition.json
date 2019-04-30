@@ -20714,7 +20714,7 @@
         }
       ],
       "tags": [
-        "Developer certificate",
+        "Device security - developer class certificates",
         "Device security - certificates"
       ],
       "group_id": "Security",
@@ -31603,7 +31603,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Server credentials"
+        "Service security - server credentials"
       ],
       "group_id": "Security",
       "_key": "server_credentials"
@@ -34368,7 +34368,7 @@
       "field_renames": [],
       "tags": [
         "Tenant device security - certificates",
-        "Developer certificate"
+        "Device security - developer class certificates"
       ],
       "group_id": "Security",
       "_key": "subtenant_trusted_certificate"
@@ -43046,7 +43046,7 @@
       "field_renames": [],
       "tags": [
         "Device security - certificates",
-        "Developer certificate"
+        "Device security - developer class certificates"
       ],
       "group_id": "Security",
       "_key": "trusted_certificate"
