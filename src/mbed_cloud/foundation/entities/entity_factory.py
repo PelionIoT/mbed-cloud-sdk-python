@@ -165,7 +165,7 @@ class EntityFactory:
         :type parent_account: dict
         :param parent_id: The ID of the parent account, if any.
         :type parent_id: str
-        :param password_policy: 
+        :param password_policy: The password policy for this account.
         :type password_policy: dict
         :param password_recovery_expiration: Indicates for how many minutes a password recovery email is valid
             (1-45).

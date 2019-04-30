@@ -227,7 +227,7 @@ class Account(Entity):
         :type parent_account: dict
         :param parent_id: The ID of the parent account, if any.
         :type parent_id: str
-        :param password_policy: 
+        :param password_policy: The password policy for this account.
         :type password_policy: dict
         :param password_recovery_expiration: Indicates for how many minutes a password recovery email is valid
             (1-45).
@@ -930,7 +930,7 @@ class Account(Entity):
 
     @property
     def password_policy(self):
-        """
+        """The password policy for this account.
         
         :rtype: dict[PasswordPolicy]
         """
@@ -1339,24 +1339,26 @@ class Account(Entity):
         """
 
         from mbed_cloud.foundation._custom_methods import paginate
-
+        from mbed_cloud.foundation import Account
         from mbed_cloud import ApiFilter
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
+            filter = ApiFilter(
+                filter_definition=filter, field_renames=Account._renames_to_api
+            )
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
             if filter.field_renames is None:
-                filter.field_renames = self._renames_to_api
+                filter.field_renames = Account._renames_to_api
         elif filter is not None:
             raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
-            foreign_key=self.__class__,
+            foreign_key=Account,
             filter=filter,
             order=order,
             max_results=max_results,
