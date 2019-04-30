@@ -721,11 +721,7 @@ entities:
     - _key: '201'
       description: Successful operation.
       schema:
-        RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
         description: Represents an account in requests and responses.
-        foreign_key:
-          entity: account
-          group: Accounts
         properties:
         - _key: address_line1
           api_fieldname: address_line1
@@ -1109,11 +1105,7 @@ entities:
           description: List of sub accounts. Not available for developer users.
           entity_fieldname: sub_accounts
           items:
-            RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
             description: Represents an account in requests and responses.
-            foreign_key:
-              entity: account
-              group: Accounts
             properties:
             - _key: address_line1
               description: Postal address line 1.
@@ -1438,8 +1430,6 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
-            recursion_depth: 3
-            ref: '#/definitions/AccountInfo'
             required:
             - end_market
             - etag
@@ -1478,8 +1468,6 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
-        recursion_depth: 3
-        ref: '#/definitions/AccountInfo'
         required:
         - end_market
         - etag
@@ -1745,9 +1733,6 @@ entities:
       parameter_fieldname: properties
       required: false
       type: string
-    foreign_key:
-      entity: account
-      group: Accounts
     foreign_key_priority: self
     group_id: Accounts
     method: get
@@ -1779,11 +1764,7 @@ entities:
           description: A list of entities.
           entity_fieldname: data
           items:
-            RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
             description: Represents an account in requests and responses.
-            foreign_key:
-              entity: account
-              group: Accounts
             properties:
             - _key: address_line1
               description: Postal address line 1.
@@ -2085,11 +2066,7 @@ entities:
             - _key: sub_accounts
               description: List of sub accounts. Not available for developer users.
               items:
-                RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
                 description: Represents an account in requests and responses.
-                foreign_key:
-                  entity: account
-                  group: Accounts
                 properties:
                 - _key: address_line1
                   description: Postal address line 1.
@@ -2415,8 +2392,6 @@ entities:
                   example: '2018-02-14T15:24:14Z'
                   format: date-time
                   type: string
-                recursion_depth: 3
-                ref: '#/definitions/AccountInfo'
                 required:
                 - end_market
                 - etag
@@ -2448,8 +2423,6 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
-            recursion_depth: 3
-            ref: '#/definitions/AccountInfo'
             required:
             - end_market
             - etag
@@ -2723,11 +2696,7 @@ entities:
     - _key: '200'
       description: Successful operation.
       schema:
-        RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
         description: Represents an account in requests and responses.
-        foreign_key:
-          entity: account
-          group: Accounts
         properties:
         - _key: address_line1
           api_fieldname: address_line1
@@ -3111,11 +3080,7 @@ entities:
           description: List of sub accounts. Not available for developer users.
           entity_fieldname: sub_accounts
           items:
-            RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
             description: Represents an account in requests and responses.
-            foreign_key:
-              entity: account
-              group: Accounts
             properties:
             - _key: address_line1
               description: Postal address line 1.
@@ -3440,8 +3405,6 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
-            recursion_depth: 3
-            ref: '#/definitions/AccountInfo'
             required:
             - end_market
             - etag
@@ -3480,8 +3443,6 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
-        recursion_depth: 3
-        ref: '#/definitions/AccountInfo'
         required:
         - end_market
         - etag
@@ -3705,11 +3666,7 @@ entities:
     - _key: '200'
       description: Successful operation.
       schema:
-        RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
         description: Represents an account in requests and responses.
-        foreign_key:
-          entity: account
-          group: Accounts
         properties:
         - _key: address_line1
           api_fieldname: address_line1
@@ -4093,11 +4050,7 @@ entities:
           description: List of sub accounts. Not available for developer users.
           entity_fieldname: sub_accounts
           items:
-            RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
             description: Represents an account in requests and responses.
-            foreign_key:
-              entity: account
-              group: Accounts
             properties:
             - _key: address_line1
               description: Postal address line 1.
@@ -4422,8 +4375,6 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
-            recursion_depth: 3
-            ref: '#/definitions/AccountInfo'
             required:
             - end_market
             - etag
@@ -4462,8 +4413,6 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
-        recursion_depth: 3
-        ref: '#/definitions/AccountInfo'
         required:
         - end_market
         - etag
@@ -5422,11 +5371,7 @@ entities:
     - _key: '200'
       description: Successful operation.
       schema:
-        RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
         description: Represents an account in requests and responses.
-        foreign_key:
-          entity: account
-          group: Accounts
         properties:
         - _key: address_line1
           api_fieldname: address_line1
@@ -5810,11 +5755,7 @@ entities:
           description: List of sub accounts. Not available for developer users.
           entity_fieldname: sub_accounts
           items:
-            RECURSION_ERROR: CIRCULAR_REFERENCE_BLOCKED
             description: Represents an account in requests and responses.
-            foreign_key:
-              entity: account
-              group: Accounts
             properties:
             - _key: address_line1
               description: Postal address line 1.
@@ -6139,8 +6080,6 @@ entities:
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
-            recursion_depth: 3
-            ref: '#/definitions/AccountInfo'
             required:
             - end_market
             - etag
@@ -6179,8 +6118,6 @@ entities:
           example: '2018-02-14T15:24:14Z'
           format: date-time
           type: string
-        recursion_depth: 3
-        ref: '#/definitions/AccountInfo'
         required:
         - end_market
         - etag
