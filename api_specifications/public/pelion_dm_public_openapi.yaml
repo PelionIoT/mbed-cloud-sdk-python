@@ -1944,6 +1944,17 @@ definitions:
     required:
     - hmac_hex_key
     type: object
+  ChannelMetadata:
+    properties:
+      delivery_mechanism:
+        description: Channel delivery mechanism.
+        enum:
+        - CALLBACK
+        - LONG_POLLING
+        - WEB_SOCKET
+        example: CALLBACK
+        type: string
+    type: object
   CreateCertificateIssuerConfig:
     properties:
       certificate_issuer_id:
@@ -7594,6 +7605,22 @@ paths:
         415:
           description: Unsupported Media Type.
       summary: Register a callback URL
+      tags:
+      - Notifications
+  /v2/notification/channel:
+    get:
+      description: "Get channel delivery mechanism.\n\n**Example:**\n\n    curl -X\
+        \ GET https://api.us-east-1.mbedcloud.com/v2/notification/channel \\\n   \
+        \ -H 'Authorization: Bearer <api_key>' \\\n"
+      operationId: getChannelMetadata
+      responses:
+        200:
+          description: Success.
+          schema:
+            $ref: '#/definitions/ChannelMetadata'
+        404:
+          description: Channel was not found.
+      summary: Get channel metadata.
       tags:
       - Notifications
   /v2/notification/pull:
