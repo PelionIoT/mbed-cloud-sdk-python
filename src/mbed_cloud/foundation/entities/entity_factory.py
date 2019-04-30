@@ -544,9 +544,9 @@ class EntityFactory:
     ):
         """Creates a local `DeveloperCertificate` instance, using the shared SDK context.
 
-        :param account_id: account to which the developer certificate belongs
+        :param account_id: Account to which the developer certificate belongs.
         :type account_id: str
-        :param certificate: PEM format X.509 developer certificate.
+        :param certificate: PEM-format X.509 developer certificate.
         :type certificate: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
@@ -556,8 +556,8 @@ class EntityFactory:
         :type id: str
         :param name: Name of the developer certificate.
         :type name: str
-        :param security_file_content: Content of the security.c file that will be flashed into the
-            device to provide the security credentials
+        :param security_file_content: Content of the `security.c` file flashed to the device to provide
+            security credentials.
         :type security_file_content: str
         
         :return: A new instance of a DeveloperCertificate Foundation Entity.
@@ -1221,13 +1221,12 @@ class EntityFactory:
 
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
-        :param id: ID that uniquely identifies the entity.
+        :param id: Unique entity ID.
         :type id: str
-        :param server_certificate: PEM format X.509 server certificate that will be used to validate
-            the server certificate that will be received during the TLS/DTLS
-            handshake.
+        :param server_certificate: PEM-format X.509 server certificate used to validate the server
+            certificate received during the TLS/DTLS handshake.
         :type server_certificate: str
-        :param server_uri: Server URI to which the client needs to connect to.
+        :param server_uri: Server URI that the client connects to.
         :type server_uri: str
         
         :return: A new instance of a ServerCredentials Foundation Entity.

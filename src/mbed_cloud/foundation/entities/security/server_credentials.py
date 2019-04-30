@@ -75,13 +75,12 @@ class ServerCredentials(Entity):
 
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
-        :param id: ID that uniquely identifies the entity.
+        :param id: Unique entity ID.
         :type id: str
-        :param server_certificate: PEM format X.509 server certificate that will be used to validate
-            the server certificate that will be received during the TLS/DTLS
-            handshake.
+        :param server_certificate: PEM-format X.509 server certificate used to validate the server
+            certificate received during the TLS/DTLS handshake.
         :type server_certificate: str
-        :param server_uri: Server URI to which the client needs to connect to.
+        :param server_uri: Server URI that the client connects to.
         :type server_uri: str
         """
 
@@ -116,7 +115,7 @@ class ServerCredentials(Entity):
 
     @property
     def id(self):
-        """ID that uniquely identifies the entity.
+        """Unique entity ID.
         
         :rtype: str
         """
@@ -135,8 +134,8 @@ class ServerCredentials(Entity):
 
     @property
     def server_certificate(self):
-        """PEM format X.509 server certificate that will be used to validate the server
-        certificate that will be received during the TLS/DTLS handshake.
+        """PEM-format X.509 server certificate used to validate the server certificate
+        received during the TLS/DTLS handshake.
         
         :rtype: str
         """
@@ -155,7 +154,7 @@ class ServerCredentials(Entity):
 
     @property
     def server_uri(self):
-        """Server URI to which the client needs to connect to.
+        """Server URI that the client connects to.
         
         :rtype: str
         """

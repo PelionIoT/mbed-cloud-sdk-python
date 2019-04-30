@@ -92,9 +92,9 @@ class DeveloperCertificate(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param account_id: account to which the developer certificate belongs
+        :param account_id: Account to which the developer certificate belongs.
         :type account_id: str
-        :param certificate: PEM format X.509 developer certificate.
+        :param certificate: PEM-format X.509 developer certificate.
         :type certificate: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
@@ -104,8 +104,8 @@ class DeveloperCertificate(Entity):
         :type id: str
         :param name: (Required) Name of the developer certificate.
         :type name: str
-        :param security_file_content: Content of the security.c file that will be flashed into the
-            device to provide the security credentials
+        :param security_file_content: Content of the `security.c` file flashed to the device to provide
+            security credentials.
         :type security_file_content: str
         """
 
@@ -124,7 +124,7 @@ class DeveloperCertificate(Entity):
 
     @property
     def account_id(self):
-        """account to which the developer certificate belongs
+        """Account to which the developer certificate belongs.
         
         :rtype: str
         """
@@ -143,7 +143,7 @@ class DeveloperCertificate(Entity):
 
     @property
     def certificate(self):
-        """PEM format X.509 developer certificate.
+        """PEM-format X.509 developer certificate.
         
         :rtype: str
         """
@@ -242,8 +242,8 @@ class DeveloperCertificate(Entity):
 
     @property
     def security_file_content(self):
-        """Content of the security.c file that will be flashed into the device to provide
-        the security credentials
+        """Content of the `security.c` file flashed to the device to provide security
+        credentials.
         
         :rtype: str
         """
