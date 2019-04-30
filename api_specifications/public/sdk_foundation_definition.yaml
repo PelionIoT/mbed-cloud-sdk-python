@@ -4710,6 +4710,7 @@ entities:
               description: Human readable description of this certificate.
               example: Certificate created by me.
               type: string
+              x-nullable: true
             - _key: device_execution_mode
               description: Device execution mode where 1 means a developer certificate.
               example: 1
@@ -4744,6 +4745,7 @@ entities:
               description: The ID of the owner.
               example: 01619571dad80242ac12000600000000
               type: string
+              x-nullable: true
             - _key: service
               description: Service name where the certificate is used.
               enum:
@@ -15021,6 +15023,7 @@ entities:
           entity_fieldname: description
           example: Certificate created by me.
           type: string
+          x-nullable: true
         - _key: device_execution_mode
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
@@ -15071,6 +15074,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -24596,6 +24600,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: device_execution_mode
     api_fieldname: device_execution_mode
     description: Device execution mode where 1 means a developer certificate.
@@ -24654,6 +24659,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: service
     api_fieldname: service
     description: Service name where the certificate is used.
@@ -24779,6 +24785,7 @@ entities:
       parameter_fieldname: description
       required: false
       type: string
+      x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
       description: If true, signature is not required. Default value false.
@@ -24886,6 +24893,7 @@ entities:
           parameter_fieldname: description
           required: false
           type: string
+          x-nullable: true
         - _key: device_execution_mode
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
@@ -24945,6 +24953,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -26042,6 +26051,7 @@ entities:
           parameter_fieldname: description
           required: false
           type: string
+          x-nullable: true
         - _key: device_execution_mode
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
@@ -26101,6 +26111,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -26371,6 +26382,7 @@ entities:
       parameter_fieldname: description
       required: false
       type: string
+      x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
       description: If true, signature is not required. Default value false.
@@ -26485,6 +26497,7 @@ entities:
           parameter_fieldname: description
           required: false
           type: string
+          x-nullable: true
         - _key: device_execution_mode
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
@@ -26544,6 +26557,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -31012,6 +31026,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: device_execution_mode
     api_fieldname: device_execution_mode
     description: Device execution mode where 1 means a developer certificate.
@@ -31064,6 +31079,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: service
     api_fieldname: service
     description: Service name where the certificate is used.
@@ -31176,6 +31192,7 @@ entities:
       parameter_fieldname: description
       required: false
       type: string
+      x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
       description: If true, signature is not required. Default value false.
@@ -31277,6 +31294,7 @@ entities:
           entity_fieldname: description
           example: Certificate created by me.
           type: string
+          x-nullable: true
         - _key: device_execution_mode
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
@@ -31327,6 +31345,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -32438,6 +32457,7 @@ entities:
               description: Human readable description of this certificate.
               example: Certificate created by me.
               type: string
+              x-nullable: true
             - _key: device_execution_mode
               description: Device execution mode where 1 means a developer certificate.
               example: 1
@@ -32472,6 +32492,7 @@ entities:
               description: The ID of the owner.
               example: 01619571dad80242ac12000600000000
               type: string
+              x-nullable: true
             - _key: service
               description: Service name where the certificate is used.
               enum:
@@ -32795,6 +32816,7 @@ entities:
           entity_fieldname: description
           example: Certificate created by me.
           type: string
+          x-nullable: true
         - _key: device_execution_mode
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
@@ -32845,6 +32867,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -33112,6 +33135,7 @@ entities:
       parameter_fieldname: description
       required: false
       type: string
+      x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
       description: If true, signature is not required. Default value false.
@@ -33220,6 +33244,7 @@ entities:
           entity_fieldname: description
           example: Certificate created by me.
           type: string
+          x-nullable: true
         - _key: device_execution_mode
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
@@ -33270,6 +33295,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.

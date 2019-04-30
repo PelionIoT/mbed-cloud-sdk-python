@@ -5904,6 +5904,7 @@
                         },
                         {
                           "type": "string",
+                          "x-nullable": true,
                           "example": "Certificate created by me.",
                           "description": "Human readable description of this certificate.",
                           "_key": "description"
@@ -5954,6 +5955,7 @@
                           "_key": "object"
                         },
                         {
+                          "x-nullable": true,
                           "type": "string",
                           "example": "01619571dad80242ac12000600000000",
                           "description": "The ID of the owner.",
@@ -19823,6 +19825,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -19889,6 +19892,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -31641,6 +31645,7 @@
             },
             {
               "type": "string",
+              "x-nullable": true,
               "example": "Certificate created by me.",
               "description": "Human readable description of this certificate.",
               "api_fieldname": "description",
@@ -31774,6 +31779,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -31852,6 +31858,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -33068,6 +33075,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -33146,6 +33154,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -33520,6 +33529,7 @@
             },
             {
               "type": "string",
+              "x-nullable": true,
               "example": "Certificate created by me.",
               "description": "Human readable description of this certificate.",
               "api_fieldname": "description",
@@ -33664,6 +33674,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -33742,6 +33753,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -34200,6 +34212,7 @@
         },
         {
           "type": "string",
+          "x-nullable": true,
           "example": "Certificate created by me.",
           "description": "Human readable description of this certificate.",
           "api_fieldname": "description",
@@ -34273,6 +34286,7 @@
           "_key": "name"
         },
         {
+          "x-nullable": true,
           "type": "string",
           "example": "01619571dad80242ac12000600000000",
           "description": "The ID of the owner.",
@@ -39813,6 +39827,7 @@
             },
             {
               "type": "string",
+              "x-nullable": true,
               "example": "Certificate created by me.",
               "description": "Human readable description of this certificate.",
               "api_fieldname": "description",
@@ -39943,6 +39958,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -40009,6 +40025,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -41252,6 +41269,7 @@
                         },
                         {
                           "type": "string",
+                          "x-nullable": true,
                           "example": "Certificate created by me.",
                           "description": "Human readable description of this certificate.",
                           "_key": "description"
@@ -41302,6 +41320,7 @@
                           "_key": "object"
                         },
                         {
+                          "x-nullable": true,
                           "type": "string",
                           "example": "01619571dad80242ac12000600000000",
                           "description": "The ID of the owner.",
@@ -41727,6 +41746,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -41793,6 +41813,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -42149,6 +42170,7 @@
             },
             {
               "type": "string",
+              "x-nullable": true,
               "example": "Certificate created by me.",
               "description": "Human readable description of this certificate.",
               "api_fieldname": "description",
@@ -42290,6 +42312,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -42356,6 +42379,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -42878,6 +42902,7 @@
         },
         {
           "type": "string",
+          "x-nullable": true,
           "example": "Certificate created by me.",
           "description": "Human readable description of this certificate.",
           "api_fieldname": "description",
@@ -42943,6 +42968,7 @@
           "_key": "name"
         },
         {
+          "x-nullable": true,
           "type": "string",
           "example": "01619571dad80242ac12000600000000",
           "description": "The ID of the owner.",

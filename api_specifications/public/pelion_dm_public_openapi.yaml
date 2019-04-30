@@ -5292,6 +5292,7 @@ definitions:
         description: Human readable description of this certificate, no longer than
           500 characters.
         type: string
+        x-nullable: true
       enrollment_mode:
         description: Certificate is used in enrollment mode. Default value is false.
         type: boolean
@@ -5343,6 +5344,7 @@ definitions:
         description: Human readable description of this certificate.
         example: Certificate created by me.
         type: string
+        x-nullable: true
       device_execution_mode:
         description: Device execution mode where 1 means a developer certificate.
         example: 1
@@ -5377,6 +5379,7 @@ definitions:
         description: The ID of the owner.
         example: 01619571dad80242ac12000600000000
         type: string
+        x-nullable: true
       service:
         description: Service name where the certificate is used.
         enum:
@@ -5479,6 +5482,7 @@ definitions:
         description: Human readable description of this certificate, no longer than
           500 characters.
         type: string
+        x-nullable: true
       enrollment_mode:
         description: Certificate is used in enrollment mode. Default value is false.
         type: boolean
