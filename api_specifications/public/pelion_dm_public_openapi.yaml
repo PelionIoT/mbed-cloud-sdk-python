@@ -19502,7 +19502,7 @@ paths:
         name: chunk
         required: false
         schema:
-          format: byte
+          format: binary
           type: string
       responses:
         201:
