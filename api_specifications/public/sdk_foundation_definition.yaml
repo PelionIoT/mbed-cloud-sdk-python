@@ -6353,7 +6353,7 @@ entities:
     - total_count
     - has_more
     - data
-    - login_profile__eq
+    - login_profiles__eq
     field_renames: []
     fields:
     - _key: after
@@ -6750,7 +6750,7 @@ entities:
     summary: Get the details of all user invitations.
     x_deprecation: null
     x_filter:
-      login_profile:
+      login_profiles:
       - eq
   - _key: users
     description: 'Retrieve details of all users.
@@ -6782,7 +6782,7 @@ entities:
     - status__eq
     - status__in
     - status__nin
-    - login_profile__eq
+    - login_profiles__eq
     field_renames: []
     fields:
     - _key: after
@@ -7373,7 +7373,7 @@ entities:
     x_filter:
       email:
       - eq
-      login_profile:
+      login_profiles:
       - eq
       status:
       - eq
@@ -36749,7 +36749,7 @@ entities:
     - status__eq
     - status__in
     - status__nin
-    - login_profile__eq
+    - login_profiles__eq
     field_renames:
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
@@ -37271,7 +37271,7 @@ entities:
     x_filter:
       email:
       - eq
-      login_profile:
+      login_profiles:
       - eq
       status:
       - eq
@@ -39301,7 +39301,7 @@ entities:
     - total_count
     - has_more
     - data
-    - login_profile__eq
+    - login_profiles__eq
     field_renames: []
     fields:
     - _key: after
@@ -39623,7 +39623,7 @@ entities:
     summary: Get the details of all user invitations.
     x_deprecation: null
     x_filter:
-      login_profile:
+      login_profiles:
       - eq
   - _key: read
     description: 'Retrieve the details of an active user invitation.

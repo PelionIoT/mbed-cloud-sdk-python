@@ -8591,7 +8591,7 @@
             "type": "subtenant_user_invitation"
           },
           "x_filter": {
-            "login_profile": [
+            "login_profiles": [
               "eq"
             ]
           },
@@ -8608,7 +8608,7 @@
             "total_count",
             "has_more",
             "data",
-            "login_profile__eq"
+            "login_profiles__eq"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -9402,7 +9402,7 @@
               "in",
               "nin"
             ],
-            "login_profile": [
+            "login_profiles": [
               "eq"
             ]
           },
@@ -9423,7 +9423,7 @@
             "status__eq",
             "status__in",
             "status__nin",
-            "login_profile__eq"
+            "login_profiles__eq"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -47226,7 +47226,7 @@
               "in",
               "nin"
             ],
-            "login_profile": [
+            "login_profiles": [
               "eq"
             ]
           },
@@ -47246,7 +47246,7 @@
             "status__eq",
             "status__in",
             "status__nin",
-            "login_profile__eq"
+            "login_profiles__eq"
           ],
           "foreign_key_priority": "self",
           "group_id": "Accounts",
@@ -50615,7 +50615,7 @@
             "type": "user_invitation"
           },
           "x_filter": {
-            "login_profile": [
+            "login_profiles": [
               "eq"
             ]
           },
@@ -50631,7 +50631,7 @@
             "total_count",
             "has_more",
             "data",
-            "login_profile__eq"
+            "login_profiles__eq"
           ],
           "foreign_key_priority": "self",
           "group_id": "Accounts",

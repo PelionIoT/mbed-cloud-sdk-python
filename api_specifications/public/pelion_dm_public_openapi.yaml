@@ -11619,7 +11619,7 @@ paths:
         type: string
       - description: Filter to retrieve user invitations by a specified login profile.
         in: query
-        name: login_profile__eq
+        name: login_profiles__eq
         required: false
         type: string
       produces:
@@ -11645,7 +11645,7 @@ paths:
       tags:
       - Tenant accounts - user invitations
       x-filter:
-        login_profile:
+        login_profiles:
         - eq
     post:
       consumes:
@@ -11868,7 +11868,7 @@ paths:
         type: string
       - description: An optional filter to retrieve users with a specified login profile.
         in: query
-        name: login_profile__eq
+        name: login_profiles__eq
         required: false
         type: string
       produces:
@@ -11896,7 +11896,7 @@ paths:
       x-filter:
         email:
         - eq
-        login_profile:
+        login_profiles:
         - eq
         status:
         - eq
@@ -22511,7 +22511,7 @@ paths:
         type: string
       - description: Filter to retrieve user invitations by a specified login profile.
         in: query
-        name: login_profile__eq
+        name: login_profiles__eq
         required: false
         type: string
       produces:
@@ -22533,7 +22533,7 @@ paths:
       tags:
       - Account - user invitations
       x-filter:
-        login_profile:
+        login_profiles:
         - eq
     post:
       consumes:
@@ -22733,7 +22733,7 @@ paths:
         type: string
       - description: An optional filter to retrieve users with a specified login profile.
         in: query
-        name: login_profile__eq
+        name: login_profiles__eq
         required: false
         type: string
       produces:
@@ -22757,7 +22757,7 @@ paths:
       x-filter:
         email:
         - eq
-        login_profile:
+        login_profiles:
         - eq
         status:
         - eq
