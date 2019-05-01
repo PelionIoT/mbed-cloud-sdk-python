@@ -1665,14 +1665,13 @@ definitions:
   CertificateIssuerConfigRequest:
     properties:
       certificate_issuer_id:
-        description: 'The ID of the certificate issuer.
+        description: 'Certificate issuer ID.
 
-          For LwM2M, it may be null if Device Management internal certificate issuer
-          is used.
-
-          '
+          For LwM2M, may be null if Device Management internal certificate issuer
+          is used.'
         example: 01648415a2a30242ac18000500000000
         type: string
+        x-nullable: true
     type: object
   CertificateIssuerConfigResponse:
     properties:
@@ -1684,6 +1683,7 @@ definitions:
           '
         example: 01648415a2a30242ac18000500000000
         type: string
+        x-nullable: true
       created_at:
         description: Created UTC time RFC3339.
         example: '2017-01-01T00:00:00Z'
@@ -1729,6 +1729,7 @@ definitions:
         example: GlobalSign sample issuer
         maxLength: 100
         type: string
+        x-nullable: true
       etag:
         description: Entity instance signature.
         example: '1'
@@ -1805,9 +1806,10 @@ definitions:
       name: GS Issuer
     properties:
       description:
-        description: General description for the certificate issuer.
+        description: General description of the certificate issuer.
         maxLength: 100
         type: string
+        x-nullable: true
       issuer_attributes:
         additionalProperties: *id007
         description: 'General attributes for connecting the certificate issuer.
@@ -1848,6 +1850,7 @@ definitions:
     required:
     - name
     - issuer_type
+    - issuer_credentials
     type: object
   CertificateIssuerUpdateRequest:
     example:
@@ -1855,9 +1858,10 @@ definitions:
       name: GlobalSign Issuer
     properties:
       description:
-        description: General description for the certificate issuer.
+        description: General description of the certificate issuer.
         maxLength: 100
         type: string
+        x-nullable: true
       issuer_attributes:
         additionalProperties: *id007
         description: 'General attributes for connecting the certificate issuer.
@@ -1964,6 +1968,7 @@ definitions:
         example: 01648415a2a30242ac18000500000000
         maxLength: 32
         type: string
+        x-nullable: true
       reference:
         description: 'The certificate name, as created in the factory, to which the
           certificate issuer configuration applies.

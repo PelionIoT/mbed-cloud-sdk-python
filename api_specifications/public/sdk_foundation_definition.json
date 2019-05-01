@@ -14006,6 +14006,7 @@
               "maxLength": 100,
               "description": "General description for the certificate issuer.",
               "example": "GlobalSign sample issuer",
+              "x-nullable": true,
               "api_fieldname": "description",
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
@@ -14041,7 +14042,7 @@
               "api_fieldname": "issuer_credentials",
               "external_param": true,
               "parameter_fieldname": "issuer_credentials",
-              "required": false,
+              "required": true,
               "_key": "issuer_credentials"
             },
             {
@@ -14095,6 +14096,7 @@
                     "maxLength": 100,
                     "description": "General description for the certificate issuer.",
                     "example": "GlobalSign sample issuer",
+                    "x-nullable": true,
                     "api_fieldname": "description",
                     "entity_fieldname": "description",
                     "_key": "description"
@@ -14916,6 +14918,7 @@
                           "maxLength": 100,
                           "description": "General description for the certificate issuer.",
                           "example": "GlobalSign sample issuer",
+                          "x-nullable": true,
                           "_key": "description"
                         },
                         {
@@ -15240,6 +15243,7 @@
                     "maxLength": 100,
                     "description": "General description for the certificate issuer.",
                     "example": "GlobalSign sample issuer",
+                    "x-nullable": true,
                     "api_fieldname": "description",
                     "entity_fieldname": "description",
                     "_key": "description"
@@ -15608,6 +15612,7 @@
               "maxLength": 100,
               "description": "General description for the certificate issuer.",
               "example": "GlobalSign sample issuer",
+              "x-nullable": true,
               "api_fieldname": "description",
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
@@ -15692,6 +15697,7 @@
                     "maxLength": 100,
                     "description": "General description for the certificate issuer.",
                     "example": "GlobalSign sample issuer",
+                    "x-nullable": true,
                     "api_fieldname": "description",
                     "entity_fieldname": "description",
                     "_key": "description"
@@ -16592,6 +16598,7 @@
           "maxLength": 100,
           "description": "General description for the certificate issuer.",
           "example": "GlobalSign sample issuer",
+          "x-nullable": true,
           "api_fieldname": "description",
           "readOnly": false,
           "required": false,
@@ -16669,6 +16676,7 @@
           ],
           "fields": [
             {
+              "x-nullable": true,
               "type": "string",
               "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
               "example": "01648415a2a30242ac18000500000000",
@@ -16700,6 +16708,7 @@
                 "type": "object",
                 "properties": [
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
                     "example": "01648415a2a30242ac18000500000000",
@@ -17387,6 +17396,7 @@
                 "type": "object",
                 "properties": [
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
                     "example": "01648415a2a30242ac18000500000000",
@@ -17769,6 +17779,7 @@
                       "type": "object",
                       "properties": [
                         {
+                          "x-nullable": true,
                           "type": "string",
                           "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
                           "example": "01648415a2a30242ac18000500000000",
@@ -18142,6 +18153,7 @@
                 "type": "object",
                 "properties": [
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
                     "example": "01648415a2a30242ac18000500000000",
@@ -18511,6 +18523,7 @@
           ],
           "fields": [
             {
+              "x-nullable": true,
               "type": "string",
               "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
               "example": "01648415a2a30242ac18000500000000",
@@ -18542,6 +18555,7 @@
                 "type": "object",
                 "properties": [
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
                     "example": "01648415a2a30242ac18000500000000",
@@ -18909,6 +18923,7 @@
       ],
       "fields": [
         {
+          "x-nullable": true,
           "type": "string",
           "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
           "example": "01648415a2a30242ac18000500000000",

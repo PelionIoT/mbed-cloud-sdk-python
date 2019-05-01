@@ -10410,6 +10410,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: id
     api_fieldname: id
     description: The ID of the certificate issuer.
@@ -10506,6 +10507,7 @@ entities:
       parameter_fieldname: description
       required: false
       type: string
+      x-nullable: true
     - _key: issuer_attributes
       additionalProperties:
         type: string
@@ -10540,7 +10542,7 @@ entities:
       in: body
       name: issuer_credentials
       parameter_fieldname: issuer_credentials
-      required: false
+      required: true
       schema_param: true
       type: object
     - _key: issuer_type
@@ -10602,6 +10604,7 @@ entities:
           example: GlobalSign sample issuer
           maxLength: 100
           type: string
+          x-nullable: true
         - _key: etag
           api_fieldname: etag
           description: Entity instance signature.
@@ -11218,6 +11221,7 @@ entities:
               example: GlobalSign sample issuer
               maxLength: 100
               type: string
+              x-nullable: true
             - _key: etag
               description: Entity instance signature.
               example: '1'
@@ -11454,6 +11458,7 @@ entities:
           example: GlobalSign sample issuer
           maxLength: 100
           type: string
+          x-nullable: true
         - _key: etag
           api_fieldname: etag
           description: Entity instance signature.
@@ -11708,6 +11713,7 @@ entities:
       parameter_fieldname: description
       required: false
       type: string
+      x-nullable: true
     - _key: id
       api_fieldname: id
       description: The ID of the certificate issuer.
@@ -11796,6 +11802,7 @@ entities:
           example: GlobalSign sample issuer
           maxLength: 100
           type: string
+          x-nullable: true
         - _key: etag
           api_fieldname: etag
           description: Entity instance signature.
@@ -12437,6 +12444,7 @@ entities:
     readOnly: false
     required: true
     type: string
+    x-nullable: true
   - _key: certificate_reference
     api_fieldname: reference
     description: The certificate name to which the certificate issuer configuration
@@ -12507,6 +12515,7 @@ entities:
       parameter_fieldname: certificate_issuer_id
       required: false
       type: string
+      x-nullable: true
     - _key: certificate_reference
       api_fieldname: reference
       description: The certificate name to which the certificate issuer configuration
@@ -12545,6 +12554,7 @@ entities:
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Created UTC time RFC3339.
@@ -13026,6 +13036,7 @@ entities:
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Created UTC time RFC3339.
@@ -13349,6 +13360,7 @@ entities:
                 '
               example: 01648415a2a30242ac18000500000000
               type: string
+              x-nullable: true
             - _key: created_at
               description: Created UTC time RFC3339.
               example: '2017-01-01T00:00:00Z'
@@ -13607,6 +13619,7 @@ entities:
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Created UTC time RFC3339.
@@ -13858,6 +13871,7 @@ entities:
       parameter_fieldname: certificate_issuer_id
       required: false
       type: string
+      x-nullable: true
     - _key: id
       api_fieldname: id
       description: 'The ID of the certificate issuer configuration.
@@ -13897,6 +13911,7 @@ entities:
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
+          x-nullable: true
         - _key: created_at
           api_fieldname: created_at
           description: Created UTC time RFC3339.
