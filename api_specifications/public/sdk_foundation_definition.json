@@ -13982,7 +13982,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Certificate Enrollments"
+        "Device security - device certificate renewals"
       ],
       "group_id": "Security",
       "_key": "certificate_enrollment"
@@ -23781,7 +23781,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Certificate Renewal"
+        "Device security - device certificate renewals"
       ],
       "group_id": "Devices",
       "_key": "device"

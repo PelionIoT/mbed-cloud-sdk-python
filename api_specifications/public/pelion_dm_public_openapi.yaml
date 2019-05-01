@@ -14579,7 +14579,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Get certificate enrollments list.
       tags:
-      - Certificate Enrollments
+      - Device security - device certificate renewals
       x-filter:
         certificate_name:
         - eq
@@ -14644,7 +14644,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Get a certificate enrollment by ID.
       tags:
-      - Certificate Enrollments
+      - Device security - device certificate renewals
   /v3/certificate-issuer-configurations:
     get:
       description: 'Get certificate issuer configurations, optionally filtered by
@@ -18562,7 +18562,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Request certificate renewal.
       tags:
-      - Certificate Renewal
+      - Device security - device certificate renewals
   /v3/devices/{id}/:
     delete:
       description: Delete device. Only available for devices with a developer certificate.

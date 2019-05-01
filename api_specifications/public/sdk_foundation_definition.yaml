@@ -10390,7 +10390,7 @@ entities:
   - CertificateEnrollment
   - CertificateEnrollmentListResponse
   tags:
-  - Certificate Enrollments
+  - Device security - device certificate renewals
 - _key: certificate_issuer
   field_renames: []
   fields:
@@ -18321,7 +18321,7 @@ entities:
   - DeviceDataPutRequest
   - DevicePage
   tags:
-  - Certificate Renewal
+  - Device security - device certificate renewals
 - _key: device_enrollment
   field_renames: []
   fields:
