@@ -2101,6 +2101,11 @@ definitions:
         format: date
         type: string
         x-nullable: true
+      bootstrapped_timestamp:
+        description: The timestamp of the device's most recent bootstrap process.
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
       ca_id:
         description: The certificate issuer's ID.
         example: '00000000000000000000000000000000'
@@ -2186,6 +2191,16 @@ definitions:
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
+      firmware_checksum:
+        description: The SHA256 checksum of the current firmware image.
+        example: '0000000000000000000000000000000000000000000000000000000000000000'
+        type: string
+      groups:
+        description: An array containing an ID of each group this device belongs to.
+        items:
+          example: '00000000000000000000000000000000'
+          type: string
+        type: array
       host_gateway:
         description: The ID of the host gateway, if appropriate.
         example: ''
@@ -2264,12 +2279,6 @@ definitions:
         format: date
         type: string
         x-nullable: true
-      bootstrapped_timestamp:
-        description: The timestamp of the device's most recent bootstrap process.
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
-        type: string
-        x-nullable: true
       ca_id:
         description: The certificate issuer's ID.
         example: '00000000000000000000000000000000'
@@ -2328,17 +2337,6 @@ definitions:
         example: ''
         maxLength: 64
         type: string
-      firmware_checksum:
-        description: The SHA256 checksum of the current firmware image.
-        example: '0000000000000000000000000000000000000000000000000000000000000000'
-        maxLength: 64
-        type: string
-      groups:
-        description: An array containing an ID of each group this device belongs to.
-        items:
-          example: '00000000000000000000000000000000'
-          type: string
-        type: array
       host_gateway:
         description: The ID of the host gateway, if appropriate.
         example: ''
@@ -18054,10 +18052,12 @@ paths:
         name: bootstrapped_timestamp__nin
         type: string
       - description: lte filter for the bootstrapped_timestamp field
+        format: date-time
         in: query
         name: bootstrapped_timestamp__lte
         type: string
       - description: gte filter for the bootstrapped_timestamp field
+        format: date-time
         in: query
         name: bootstrapped_timestamp__gte
         type: string

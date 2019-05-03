@@ -20807,22 +20807,6 @@
               "_key": "bootstrap_expiration_date"
             },
             {
-              "format": "date-time",
-              "x-nullable": true,
-              "example": "2017-05-22T12:37:55.576563Z",
-              "type": "string",
-              "description": "The timestamp of the device's most recent bootstrap process.",
-              "name": "bootstrapped_timestamp",
-              "in": "body",
-              "schema_param": true,
-              "entity_fieldname": "bootstrapped_timestamp",
-              "api_fieldname": "bootstrapped_timestamp",
-              "external_param": true,
-              "parameter_fieldname": "bootstrapped_timestamp",
-              "required": false,
-              "_key": "bootstrapped_timestamp"
-            },
-            {
               "type": "string",
               "maxLength": 500,
               "description": "The certificate issuer's ID.",
@@ -20954,21 +20938,6 @@
             },
             {
               "type": "string",
-              "maxLength": 64,
-              "description": "The SHA256 checksum of the current firmware image.",
-              "example": "0000000000000000000000000000000000000000000000000000000000000000",
-              "name": "firmware_checksum",
-              "in": "body",
-              "schema_param": true,
-              "entity_fieldname": "firmware_checksum",
-              "api_fieldname": "firmware_checksum",
-              "external_param": true,
-              "parameter_fieldname": "firmware_checksum",
-              "required": false,
-              "_key": "firmware_checksum"
-            },
-            {
-              "type": "string",
               "description": "The ID of the host gateway, if appropriate.",
               "example": "",
               "api_fieldname": "host_gateway",
@@ -21093,6 +21062,16 @@
                   "_key": "foreign_key"
                 },
                 {
+                  "groups": {
+                    "description": "An array containing an ID of each group this device belongs to.",
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "example": "00000000000000000000000000000000"
+                    },
+                    "api_fieldname": "groups",
+                    "entity_fieldname": "groups"
+                  },
                   "issuer_fingerprint": {
                     "type": "string",
                     "pattern": "[A-Fa-f0-9]{64}",
@@ -21134,6 +21113,14 @@
                     "description": "The expiration date of the certificate used to connect to bootstrap server.",
                     "api_fieldname": "bootstrap_expiration_date",
                     "entity_fieldname": "bootstrap_expiration_date"
+                  },
+                  "bootstrapped_timestamp": {
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "description": "The timestamp of the device's most recent bootstrap process.",
+                    "api_fieldname": "bootstrapped_timestamp",
+                    "entity_fieldname": "bootstrapped_timestamp"
                   },
                   "ca_id": {
                     "type": "string",
@@ -21245,6 +21232,13 @@
                     "description": "The entity instance signature.",
                     "api_fieldname": "etag",
                     "entity_fieldname": "etag"
+                  },
+                  "firmware_checksum": {
+                    "type": "string",
+                    "description": "The SHA256 checksum of the current firmware image.",
+                    "example": "0000000000000000000000000000000000000000000000000000000000000000",
+                    "api_fieldname": "firmware_checksum",
+                    "entity_fieldname": "firmware_checksum"
                   },
                   "host_gateway": {
                     "type": "string",
@@ -21384,9 +21378,11 @@
             "is_custom",
             "private_key",
             "account_id",
+            "bootstrapped_timestamp",
             "created_at",
             "deployed_state",
             "id",
+            "firmware_checksum",
             "manifest_timestamp",
             "updated_at",
             "enrolment_list_timestamp"
@@ -21541,6 +21537,14 @@
                         "_key": "foreign_key"
                       },
                       {
+                        "groups": {
+                          "description": "An array containing an ID of each group this device belongs to.",
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "00000000000000000000000000000000"
+                          }
+                        },
                         "issuer_fingerprint": {
                           "type": "string",
                           "pattern": "[A-Fa-f0-9]{64}",
@@ -21572,6 +21576,12 @@
                           "type": "string",
                           "x-nullable": true,
                           "description": "The expiration date of the certificate used to connect to bootstrap server."
+                        },
+                        "bootstrapped_timestamp": {
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "description": "The timestamp of the device's most recent bootstrap process."
                         },
                         "ca_id": {
                           "type": "string",
@@ -21657,6 +21667,11 @@
                           "example": "2017-05-22T12:37:55.576563Z",
                           "type": "string",
                           "description": "The entity instance signature."
+                        },
+                        "firmware_checksum": {
+                          "type": "string",
+                          "description": "The SHA256 checksum of the current firmware image.",
+                          "example": "0000000000000000000000000000000000000000000000000000000000000000"
                         },
                         "host_gateway": {
                           "type": "string",
@@ -22143,6 +22158,16 @@
                   "_key": "foreign_key"
                 },
                 {
+                  "groups": {
+                    "description": "An array containing an ID of each group this device belongs to.",
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "example": "00000000000000000000000000000000"
+                    },
+                    "api_fieldname": "groups",
+                    "entity_fieldname": "groups"
+                  },
                   "issuer_fingerprint": {
                     "type": "string",
                     "pattern": "[A-Fa-f0-9]{64}",
@@ -22184,6 +22209,14 @@
                     "description": "The expiration date of the certificate used to connect to bootstrap server.",
                     "api_fieldname": "bootstrap_expiration_date",
                     "entity_fieldname": "bootstrap_expiration_date"
+                  },
+                  "bootstrapped_timestamp": {
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "description": "The timestamp of the device's most recent bootstrap process.",
+                    "api_fieldname": "bootstrapped_timestamp",
+                    "entity_fieldname": "bootstrapped_timestamp"
                   },
                   "ca_id": {
                     "type": "string",
@@ -22295,6 +22328,13 @@
                     "description": "The entity instance signature.",
                     "api_fieldname": "etag",
                     "entity_fieldname": "etag"
+                  },
+                  "firmware_checksum": {
+                    "type": "string",
+                    "description": "The SHA256 checksum of the current firmware image.",
+                    "example": "0000000000000000000000000000000000000000000000000000000000000000",
+                    "api_fieldname": "firmware_checksum",
+                    "entity_fieldname": "firmware_checksum"
                   },
                   "host_gateway": {
                     "type": "string",
@@ -22434,6 +22474,7 @@
             "device_execution_mode",
             "auto_update",
             "bootstrap_expiration_date",
+            "bootstrapped_timestamp",
             "ca_id",
             "connector_expiration_date",
             "created_at",
@@ -22445,6 +22486,7 @@
             "device_key",
             "endpoint_name",
             "endpoint_type",
+            "firmware_checksum",
             "host_gateway",
             "manifest",
             "manifest_timestamp",
@@ -23171,6 +23213,16 @@
                   "_key": "foreign_key"
                 },
                 {
+                  "groups": {
+                    "description": "An array containing an ID of each group this device belongs to.",
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "example": "00000000000000000000000000000000"
+                    },
+                    "api_fieldname": "groups",
+                    "entity_fieldname": "groups"
+                  },
                   "issuer_fingerprint": {
                     "type": "string",
                     "pattern": "[A-Fa-f0-9]{64}",
@@ -23212,6 +23264,14 @@
                     "description": "The expiration date of the certificate used to connect to bootstrap server.",
                     "api_fieldname": "bootstrap_expiration_date",
                     "entity_fieldname": "bootstrap_expiration_date"
+                  },
+                  "bootstrapped_timestamp": {
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "description": "The timestamp of the device's most recent bootstrap process.",
+                    "api_fieldname": "bootstrapped_timestamp",
+                    "entity_fieldname": "bootstrapped_timestamp"
                   },
                   "ca_id": {
                     "type": "string",
@@ -23323,6 +23383,13 @@
                     "description": "The entity instance signature.",
                     "api_fieldname": "etag",
                     "entity_fieldname": "etag"
+                  },
+                  "firmware_checksum": {
+                    "type": "string",
+                    "description": "The SHA256 checksum of the current firmware image.",
+                    "example": "0000000000000000000000000000000000000000000000000000000000000000",
+                    "api_fieldname": "firmware_checksum",
+                    "entity_fieldname": "firmware_checksum"
                   },
                   "host_gateway": {
                     "type": "string",
@@ -23461,11 +23528,13 @@
             "account_id",
             "device_execution_mode",
             "bootstrap_expiration_date",
+            "bootstrapped_timestamp",
             "connector_expiration_date",
             "created_at",
             "deployed_state",
             "deployment",
             "device_class",
+            "firmware_checksum",
             "manifest",
             "manifest_timestamp",
             "mechanism",
@@ -23511,6 +23580,16 @@
           "readOnly": false,
           "required": false,
           "_key": "bootstrap_expiration_date"
+        },
+        {
+          "format": "date-time",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "type": "string",
+          "description": "The timestamp of the device's most recent bootstrap process.",
+          "api_fieldname": "bootstrapped_timestamp",
+          "readOnly": true,
+          "required": false,
+          "_key": "bootstrapped_timestamp"
         },
         {
           "type": "string",
@@ -23653,6 +23732,15 @@
           "readOnly": true,
           "required": false,
           "_key": "enrolment_list_timestamp"
+        },
+        {
+          "type": "string",
+          "description": "The SHA256 checksum of the current firmware image.",
+          "example": "0000000000000000000000000000000000000000000000000000000000000000",
+          "api_fieldname": "firmware_checksum",
+          "readOnly": true,
+          "required": false,
+          "_key": "firmware_checksum"
         },
         {
           "type": "string",
