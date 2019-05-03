@@ -581,6 +581,7 @@ class EntityFactory:
         account_id=None,
         auto_update=None,
         bootstrap_expiration_date=None,
+        bootstrapped_timestamp=None,
         ca_id=None,
         connector_expiration_date=None,
         created_at=None,
@@ -594,6 +595,7 @@ class EntityFactory:
         endpoint_name=None,
         endpoint_type=None,
         enrolment_list_timestamp=None,
+        firmware_checksum=None,
         host_gateway=None,
         id=None,
         issuer_fingerprint=None,
@@ -616,6 +618,8 @@ class EntityFactory:
         :param bootstrap_expiration_date: The expiration date of the certificate used to connect to
             bootstrap server.
         :type bootstrap_expiration_date: date
+        :param bootstrapped_timestamp: The timestamp of the device's most recent bootstrap process.
+        :type bootstrapped_timestamp: datetime
         :param ca_id: The certificate issuer's ID.
         :type ca_id: str
         :param connector_expiration_date: The expiration date of the certificate used to connect to LwM2M
@@ -654,6 +658,8 @@ class EntityFactory:
         :type endpoint_type: str
         :param enrolment_list_timestamp: The claim date/time.
         :type enrolment_list_timestamp: datetime
+        :param firmware_checksum: The SHA256 checksum of the current firmware image.
+        :type firmware_checksum: str
         :param host_gateway: The ID of the host gateway, if appropriate.
         :type host_gateway: str
         :param id: The ID of the device. The device ID is used across all Device
@@ -691,6 +697,7 @@ class EntityFactory:
             account_id=account_id,
             auto_update=auto_update,
             bootstrap_expiration_date=bootstrap_expiration_date,
+            bootstrapped_timestamp=bootstrapped_timestamp,
             ca_id=ca_id,
             connector_expiration_date=connector_expiration_date,
             created_at=created_at,
@@ -704,6 +711,7 @@ class EntityFactory:
             endpoint_name=endpoint_name,
             endpoint_type=endpoint_type,
             enrolment_list_timestamp=enrolment_list_timestamp,
+            firmware_checksum=firmware_checksum,
             host_gateway=host_gateway,
             id=id,
             issuer_fingerprint=issuer_fingerprint,
