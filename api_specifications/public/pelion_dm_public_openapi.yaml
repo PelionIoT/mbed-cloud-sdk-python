@@ -483,11 +483,15 @@ definitions:
       expiration_warning_threshold:
         description: Indicates how many days before account expiration a notification
           email is sent (1-180).
-        type: string
+        maximum: 180
+        minimum: 1
+        type: integer
         x-nullable: true
       idle_timeout:
         description: Reference token expiration time in minutes (1-120).
-        type: string
+        maximum: 120
+        minimum: 1
+        type: integer
         x-nullable: true
       mfa_status:
         description: The enforcement status of multi-factor authentication, either
