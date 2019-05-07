@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -56,7 +56,7 @@ def _main():
     nf = api.add_firmware_image(
         name="Auto firmware %s" % _rand_id(),
         datafile=filename,
-        description="Uploaded using the Mbed Cloud Python SDK"
+        description="Uploaded using the Pelion Device Management Python SDK"
     )
     print("Created firmware %r at %s" % (nf.name, nf.created_at.strftime(DATE_FMT)))
 

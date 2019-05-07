@@ -11,7 +11,7 @@ from mbed_cloud.foundation.common import fields
 
 
 class SimpleEntity(Entity):
-    """Represents the `User` entity in Mbed Cloud"""
+    """Represents the `User` entity in Pelion Device Management"""
 
     # all fields available on this entity
     _fieldnames = [

@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,7 +89,7 @@ class Metric(BaseObject):
 
         The SSL or TLS handshake enables the SSL or TLS client and server to establish the
         secret keys with which they communicate. A successful TLS handshake is required
-        for establishing a connection with Mbed Cloud Connect for any operaton such as registration,
+        for establishing a connection with Pelion Device Management for any operaton such as registration,
         registration update and deregistration.
 
         :rtype: int
@@ -100,9 +100,9 @@ class Metric(BaseObject):
     def transactions(self):
         """The number of transaction events from or to devices linked to the account.
 
-        A transaction is a 512-byte block of data processed by Mbed Cloud.
-        It can be either sent by the device (device --> Mbed Cloud) or received by the device
-        (Mbed Cloud --> device). A transaction does not include
+        A transaction is a 512-byte block of data processed by Pelion Device Management.
+        It can be either sent by the device (device --> Pelion Device Management) or received by the device
+        (Pelion Device Management --> device). A transaction does not include
         IP, TCP or UDP, TLS or DTLS packet overhead.
         It only contains the packet payload (full CoAP packet including CoAP headers).
 
@@ -112,9 +112,9 @@ class Metric(BaseObject):
 
     @property
     def observations(self):
-        """The number of observations received by Mbed Cloud Connect from the devices.
+        """The number of observations received by Pelion Device Management from the devices.
 
-        The observations are pushed from the devices linked to the account to Mbed Cloud Connect
+        The observations are pushed from the devices linked to the account to Pelion Device Management
         when you have successfully subscribed to the device resources using Connect API endpoints.
 
         :rtype: int
@@ -139,9 +139,9 @@ class Metric(BaseObject):
 
     @property
     def successful_proxy_requests(self):
-        """The number of successful proxy requests from Mbed Cloud Connect to devices.
+        """The number of successful proxy requests from Pelion Device Management to devices.
 
-        The proxy requests are made from Mbed Cloud Connect to devices linked to
+        The proxy requests are made from Pelion Device Management to devices linked to
         the account when you try to read or write values to device resources
         using Connect API endpoints.
 
@@ -151,9 +151,9 @@ class Metric(BaseObject):
 
     @property
     def failed_proxy_requests(self):
-        """The number of failed proxy requests from Mbed Cloud Connect to devices.
+        """The number of failed proxy requests from Pelion Device Management to devices.
 
-        The proxy requests are made from Mbed Cloud Connect to devices linked to
+        The proxy requests are made from Pelion Device Management to devices linked to
         the account when you try to read or write values to device resources
         using Connect API endpoints.
 
@@ -163,9 +163,9 @@ class Metric(BaseObject):
 
     @property
     def successful_subscription_requests(self):
-        """The number of successful subscription requests from Mbed Cloud Connect to devices.
+        """The number of successful subscription requests from Pelion Device Management to devices.
 
-        The subscription requests are made from Mbed Cloud Connect to devices linked to
+        The subscription requests are made from Pelion Device Management to devices linked to
         the account when you try to subscribe to a resource path using Connect API endpoints.
 
         :rtype: int
@@ -174,9 +174,9 @@ class Metric(BaseObject):
 
     @property
     def failed_subscription_requests(self):
-        """The number of failed subscription requests from Mbed Cloud Connect to devices.
+        """The number of failed subscription requests from Pelion Device Management to devices.
 
-        The subscription requests are made from Mbed Cloud Connect to devices linked to
+        The subscription requests are made from Pelion Device Management to devices linked to
         the account when you try to subscribe to a resource path using Connect API endpoints.
 
         :rtype: int
@@ -223,7 +223,7 @@ class Metric(BaseObject):
     def full_registrations(self):
         """The number of full registrations linked to the account.
 
-        Full registration is the process of registering a device with the Mbed Cloud Connect
+        Full registration is the process of registering a device with the Pelion Device Management
         by providing its lifetime and capabilities such as the resource structure.
         The registered status of the device does not guarantee that the device is active
         and accessible from Mebd Cloud Connect at any point of time.
@@ -237,7 +237,7 @@ class Metric(BaseObject):
         """The number of registration updates linked to the account.
 
         Registration update is the process of updating the registration status with
-        the Mbed Cloud Connect to update or extend the lifetime of the device.
+        the Pelion Device Management to update or extend the lifetime of the device.
 
         :rtype: int
         """
@@ -247,8 +247,8 @@ class Metric(BaseObject):
     def expired_registrations(self):
         """The number of expired registrations linked to the account.
 
-        Mbed Cloud Connect removes the device registrations when the devices cannot update
-        their registration before the expiry of the lifetime. Mbed Cloud Connect
+        Pelion Device Management removes the device registrations when the devices cannot update
+        their registration before the expiry of the lifetime. Pelion Device Management
         no longer handles requests for a device whose registration has expired already.
 
         :rtype: int
@@ -260,8 +260,8 @@ class Metric(BaseObject):
         """The number of deleted registrations (deregistrations) linked to the account.
 
         Deregistration is the process of removing the device registration from the
-        Mbed Cloud Connect registry. The deregistration is usually initiated by the device.
-        Mbed Cloud Connect no longer handles requests for a deregistered device.
+        Pelion Device Management registry. The deregistration is usually initiated by the device.
+        Pelion Device Management no longer handles requests for a deregistered device.
 
         :rtype: int
         """

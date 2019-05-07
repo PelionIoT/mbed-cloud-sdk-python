@@ -39,7 +39,7 @@ class TestExamples(BaseCase):
             from mbed_cloud import AccountManagementAPI
             config = dict(api_key='ak_1234abc')
             # alternatively, configuration can be loaded from json files or environment variables
-            # if the host is not the default Mbed Cloud, it needs to be specified
+            # if the host is not the default Pelion Device Management, it needs to be specified
             config['host'] = 'https://custom-mbed-cloud-host.com'
             # create an instance of one of the SDK modules
             api = AccountManagementAPI(params=config)
@@ -48,7 +48,7 @@ class TestExamples(BaseCase):
             # end of example
 
     def test_list_connected(self):
-        # an example: list devices in mbed cloud
+        # an example: list devices in Pelion Device Management
         from mbed_cloud import ConnectAPI
         api = ConnectAPI()
 
@@ -58,7 +58,7 @@ class TestExamples(BaseCase):
         # end of example
 
     def test_list_disconnected(self):
-        # an example: list deregistered devices in mbed cloud
+        # an example: list deregistered devices in Pelion Device Management
         from mbed_cloud import DeviceDirectoryAPI
         api = DeviceDirectoryAPI()
 

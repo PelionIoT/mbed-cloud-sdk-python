@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -168,7 +168,7 @@ class EnrollmentClaim(BaseObject):
     def expires_at(self):
         """Gets the expires_at of this EnrollmentIdentity.
 
-        The enrollment claim expiration time. If the device does not connect to Mbed Cloud
+        The enrollment claim expiration time. If the device does not connect to Pelion Device Management
         before the expiration, the claim is removed without a separate notice
 
         :return: The expires_at of this EnrollmentIdentity.
