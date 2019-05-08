@@ -102,7 +102,7 @@ python_versions = dict(
         'mbed_sdk_py3:latest',
         'py3.Dockerfile',
         'py3-compose.yml',
-        '',
+        py2_openssl_install,
         '',
     ),
 )

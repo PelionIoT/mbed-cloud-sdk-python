@@ -23,6 +23,12 @@ WORKDIR /build
 RUN apk update
 RUN apk add git
 
+# openssl install
+RUN apk add g++
+RUN apk add libffi-dev
+RUN apk add openssl-dev
+RUN apk add openssl
+
 RUN python -m pip install -U setuptools pip pipenv
 
 # add bare minimum files to survive a pip install
