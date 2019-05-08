@@ -871,7 +871,11 @@ class User(Entity):
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
-            method="get", path="/v3/users", query_params=query_params, unpack=False
+            method="get",
+            path="/v3/users",
+            content_type="application/json",
+            query_params=query_params,
+            unpack=False,
         )
 
     def read(self):

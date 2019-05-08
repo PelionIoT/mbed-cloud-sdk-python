@@ -390,6 +390,7 @@ class CertificateIssuerConfig(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/certificate-issuer-configurations",
+            content_type="application/json",
             query_params=query_params,
             unpack=False,
         )

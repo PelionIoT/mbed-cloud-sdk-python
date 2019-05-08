@@ -391,6 +391,7 @@ class DeviceEnrollment(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/device-enrollments",
+            content_type="application/json",
             query_params=query_params,
             unpack=False,
         )

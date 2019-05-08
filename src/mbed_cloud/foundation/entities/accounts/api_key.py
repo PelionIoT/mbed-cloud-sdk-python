@@ -513,7 +513,11 @@ class ApiKey(Entity):
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
-            method="get", path="/v3/api-keys", query_params=query_params, unpack=False
+            method="get",
+            path="/v3/api-keys",
+            content_type="application/json",
+            query_params=query_params,
+            unpack=False,
         )
 
     def read(self):

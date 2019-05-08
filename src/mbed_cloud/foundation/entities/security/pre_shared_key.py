@@ -286,6 +286,7 @@ class PreSharedKey(Entity):
         return self._client.call_api(
             method="get",
             path="/v2/device-shared-keys",
+            content_type="application/json",
             query_params=query_params,
             unpack=False,
         )

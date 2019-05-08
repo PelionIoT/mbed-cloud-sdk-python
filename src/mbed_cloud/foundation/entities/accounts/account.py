@@ -1444,7 +1444,11 @@ class Account(Entity):
         query_params["properties"] = fields.StringField(properties).to_api()
 
         return self._client.call_api(
-            method="get", path="/v3/accounts", query_params=query_params, unpack=False
+            method="get",
+            path="/v3/accounts",
+            content_type="application/json",
+            query_params=query_params,
+            unpack=False,
         )
 
     def _paginate_trusted_certificates(
@@ -1485,7 +1489,9 @@ class Account(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/trusted-certificates",
+            content_type="application/json",
             query_params=query_params,
+            path_params={"account_id": self._id.to_api()},
             unpack=False,
         )
 
@@ -1526,7 +1532,9 @@ class Account(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/user-invitations",
+            content_type="application/json",
             query_params=query_params,
+            path_params={"account_id": self._id.to_api()},
             unpack=False,
         )
 
@@ -1566,7 +1574,9 @@ class Account(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/users",
+            content_type="application/json",
             query_params=query_params,
+            path_params={"account_id": self._id.to_api()},
             unpack=False,
         )
 

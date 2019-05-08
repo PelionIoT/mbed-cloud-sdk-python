@@ -712,7 +712,9 @@ class UpdateCampaign(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/update-campaigns/{campaign_id}/campaign-device-metadata/",
+            content_type="application/json",
             query_params=query_params,
+            path_params={"campaign_id": self._id.to_api()},
             unpack=False,
         )
 
@@ -753,6 +755,7 @@ class UpdateCampaign(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/update-campaigns/",
+            content_type="application/json",
             query_params=query_params,
             unpack=False,
         )

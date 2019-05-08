@@ -413,6 +413,7 @@ class CertificateEnrollment(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/certificate-enrollments",
+            content_type="application/json",
             query_params=query_params,
             unpack=False,
         )

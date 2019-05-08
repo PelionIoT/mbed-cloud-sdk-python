@@ -445,6 +445,7 @@ class UserInvitation(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/user-invitations",
+            content_type="application/json",
             query_params=query_params,
             unpack=False,
         )

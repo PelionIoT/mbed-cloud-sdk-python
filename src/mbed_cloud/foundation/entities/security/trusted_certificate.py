@@ -728,6 +728,7 @@ class TrustedCertificate(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/trusted-certificates",
+            content_type="application/json",
             query_params=query_params,
             unpack=False,
         )
