@@ -146,4 +146,6 @@ class ApiFilter(object):
 
     def to_query_string(self):
         """Generate a query string (not percent encoded."""
-        return "&".join(["%s=%s" % (key, value) for key, value in self.to_api().items()])
+        key_value_strings = ["%s=%s" % (key, value) for key, value in self.to_api().items()]
+        key_value_strings.sort()
+        return "&".join(key_value_strings)
