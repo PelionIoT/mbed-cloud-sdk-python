@@ -12,6 +12,8 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.certificate_enrollment`
 - :meth:`EntityFactory.certificate_issuer`
 - :meth:`EntityFactory.certificate_issuer_config`
+- :meth:`EntityFactory.dark_theme_color`
+- :meth:`EntityFactory.dark_theme_image`
 - :meth:`EntityFactory.developer_certificate`
 - :meth:`EntityFactory.device`
 - :meth:`EntityFactory.device_enrollment`
@@ -21,6 +23,8 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.device_events`
 - :meth:`EntityFactory.firmware_image`
 - :meth:`EntityFactory.firmware_manifest`
+- :meth:`EntityFactory.light_theme_color`
+- :meth:`EntityFactory.light_theme_image`
 - :meth:`EntityFactory.login_history`
 - :meth:`EntityFactory.login_profile`
 - :meth:`EntityFactory.parent_account`
@@ -529,6 +533,47 @@ class EntityFactory:
             certificate_reference=certificate_reference,
             created_at=created_at,
             id=id,
+            updated_at=updated_at,
+        )
+
+    def dark_theme_color(self, color=None, reference=None, updated_at=None):
+        """Creates a local `DarkThemeColor` instance, using the shared SDK context.
+
+        :param color: The color given as name (purple) or as a hex code.
+        :type color: str
+        :param reference: Color name.
+        :type reference: str
+        :param updated_at: Last update time in UTC.
+        :type updated_at: datetime
+        
+        :return: A new instance of a DarkThemeColor Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.branding.dark_theme_color.DarkThemeColor
+        """
+        from mbed_cloud.foundation import DarkThemeColor
+
+        return DarkThemeColor(
+            _client=self._client, color=color, reference=reference, updated_at=updated_at
+        )
+
+    def dark_theme_image(self, reference=None, static_uri=None, updated_at=None):
+        """Creates a local `DarkThemeImage` instance, using the shared SDK context.
+
+        :param reference: Name of the image.
+        :type reference: str
+        :param static_uri: The static link to the image.
+        :type static_uri: str
+        :param updated_at: Last update time in UTC.
+        :type updated_at: datetime
+        
+        :return: A new instance of a DarkThemeImage Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.branding.dark_theme_image.DarkThemeImage
+        """
+        from mbed_cloud.foundation import DarkThemeImage
+
+        return DarkThemeImage(
+            _client=self._client,
+            reference=reference,
+            static_uri=static_uri,
             updated_at=updated_at,
         )
 
@@ -1093,6 +1138,47 @@ class EntityFactory:
             key_table_url=key_table_url,
             name=name,
             timestamp=timestamp,
+            updated_at=updated_at,
+        )
+
+    def light_theme_color(self, color=None, reference=None, updated_at=None):
+        """Creates a local `LightThemeColor` instance, using the shared SDK context.
+
+        :param color: The color given as name (purple) or as a hex code.
+        :type color: str
+        :param reference: Color name.
+        :type reference: str
+        :param updated_at: Last update time in UTC.
+        :type updated_at: datetime
+        
+        :return: A new instance of a LightThemeColor Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.branding.light_theme_color.LightThemeColor
+        """
+        from mbed_cloud.foundation import LightThemeColor
+
+        return LightThemeColor(
+            _client=self._client, color=color, reference=reference, updated_at=updated_at
+        )
+
+    def light_theme_image(self, reference=None, static_uri=None, updated_at=None):
+        """Creates a local `LightThemeImage` instance, using the shared SDK context.
+
+        :param reference: Name of the image.
+        :type reference: str
+        :param static_uri: The static link to the image.
+        :type static_uri: str
+        :param updated_at: Last update time in UTC.
+        :type updated_at: datetime
+        
+        :return: A new instance of a LightThemeImage Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.branding.light_theme_image.LightThemeImage
+        """
+        from mbed_cloud.foundation import LightThemeImage
+
+        return LightThemeImage(
+            _client=self._client,
+            reference=reference,
+            static_uri=static_uri,
             updated_at=updated_at,
         )
 
