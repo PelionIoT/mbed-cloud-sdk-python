@@ -25,7 +25,7 @@ entities:
     description: The email address of the admin user created for this account. Present
       only in the response for account creation.
     example: admin@arm.com
-    pattern: .+\@.+{3,254}
+    pattern: ^(?=.{3,254}$).+\@.+
     readOnly: false
     required: false
     type: string
@@ -169,7 +169,7 @@ entities:
     api_fieldname: email
     description: The company email address for this account.
     example: info@arm.com
-    pattern: .+\@.+{3,254}
+    pattern: ^(?=.{3,254}$).+\@.+
     readOnly: false
     required: false
     type: string
@@ -243,7 +243,7 @@ entities:
     api_fieldname: notification_emails
     description: A list of notification email addresses.
     items:
-      pattern: .+\@.+{3,254}
+      pattern: ^(?=.{3,254}$).+\@.+
       type: string
     readOnly: false
     required: false
@@ -262,7 +262,7 @@ entities:
         the parent account.
       entity_fieldname: admin_email
       example: info@arm.com
-      pattern: .+\@.+{3,254}
+      pattern: ^(?=.{3,254}$).+\@.+
       type: string
     - _key: admin_name
       api_fieldname: admin_name
@@ -405,7 +405,7 @@ entities:
     api_fieldname: sales_contact
     description: Email address of the sales contact.
     example: sales@arm.com
-    pattern: .+\@.+{3,254}
+    pattern: ^(?=.{3,254}$).+\@.+
     readOnly: false
     required: false
     type: string
@@ -992,7 +992,7 @@ entities:
       example: admin@arm.com
       in: body
       parameter_fieldname: admin_email
-      pattern: .+\@.+{3,254}
+      pattern: ^(?=.{3,254}$).+\@.+
       required: false
       type: string
       x-nullable: true
@@ -1125,7 +1125,7 @@ entities:
       example: info@arm.com
       in: body
       parameter_fieldname: email
-      pattern: .+\@.+{3,254}
+      pattern: ^(?=.{3,254}$).+\@.+
       required: false
       type: string
       x-nullable: true
@@ -1209,7 +1209,7 @@ entities:
             Present only in the response for account creation.
           entity_fieldname: admin_email
           example: admin@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: admin_full_name
@@ -1338,7 +1338,7 @@ entities:
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: end_market
@@ -1409,7 +1409,7 @@ entities:
           description: A list of notification email addresses.
           entity_fieldname: notification_emails
           items:
-            pattern: .+\@.+{3,254}
+            pattern: ^(?=.{3,254}$).+\@.+
             type: string
           type: array
           x-nullable: true
@@ -1434,7 +1434,7 @@ entities:
               of the parent account.
             entity_fieldname: admin_email
             example: info@arm.com
-            pattern: .+\@.+{3,254}
+            pattern: ^(?=.{3,254}$).+\@.+
             type: string
           - _key: admin_name
             api_fieldname: admin_name
@@ -1572,7 +1572,7 @@ entities:
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: state
@@ -1617,7 +1617,7 @@ entities:
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: admin_full_name
@@ -1714,7 +1714,7 @@ entities:
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: end_market
@@ -1768,7 +1768,7 @@ entities:
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
-                pattern: .+\@.+{3,254}
+                pattern: ^(?=.{3,254}$).+\@.+
                 type: string
               type: array
               x-nullable: true
@@ -1789,7 +1789,7 @@ entities:
                   person of the parent account.
                 entity_fieldname: admin_email
                 example: info@arm.com
-                pattern: .+\@.+{3,254}
+                pattern: ^(?=.{3,254}$).+\@.+
                 type: string
               - _key: admin_name
                 api_fieldname: admin_name
@@ -1909,7 +1909,7 @@ entities:
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: state
@@ -2307,7 +2307,7 @@ entities:
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: admin_full_name
@@ -2404,7 +2404,7 @@ entities:
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: end_market
@@ -2458,7 +2458,7 @@ entities:
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
-                pattern: .+\@.+{3,254}
+                pattern: ^(?=.{3,254}$).+\@.+
                 type: string
               type: array
               x-nullable: true
@@ -2479,7 +2479,7 @@ entities:
                   person of the parent account.
                 entity_fieldname: admin_email
                 example: info@arm.com
-                pattern: .+\@.+{3,254}
+                pattern: ^(?=.{3,254}$).+\@.+
                 type: string
               - _key: admin_name
                 api_fieldname: admin_name
@@ -2599,7 +2599,7 @@ entities:
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: state
@@ -2638,7 +2638,7 @@ entities:
                   description: The email address of the admin user created for this
                     account. Present only in the response for account creation.
                   example: admin@arm.com
-                  pattern: .+\@.+{3,254}
+                  pattern: ^(?=.{3,254}$).+\@.+
                   type: string
                   x-nullable: true
                 - _key: admin_full_name
@@ -2735,7 +2735,7 @@ entities:
                 - _key: email
                   description: The company email address for this account.
                   example: info@arm.com
-                  pattern: .+\@.+{3,254}
+                  pattern: ^(?=.{3,254}$).+\@.+
                   type: string
                   x-nullable: true
                 - _key: end_market
@@ -2789,7 +2789,7 @@ entities:
                 - _key: notification_emails
                   description: A list of notification email addresses.
                   items:
-                    pattern: .+\@.+{3,254}
+                    pattern: ^(?=.{3,254}$).+\@.+
                     type: string
                   type: array
                   x-nullable: true
@@ -2810,7 +2810,7 @@ entities:
                       person of the parent account.
                     entity_fieldname: admin_email
                     example: info@arm.com
-                    pattern: .+\@.+{3,254}
+                    pattern: ^(?=.{3,254}$).+\@.+
                     type: string
                   - _key: admin_name
                     api_fieldname: admin_name
@@ -2930,7 +2930,7 @@ entities:
                 - _key: sales_contact
                   description: Email address of the sales contact.
                   example: sales@arm.com
-                  pattern: .+\@.+{3,254}
+                  pattern: ^(?=.{3,254}$).+\@.+
                   type: string
                   x-nullable: true
                 - _key: state
@@ -3303,7 +3303,7 @@ entities:
             Present only in the response for account creation.
           entity_fieldname: admin_email
           example: admin@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: admin_full_name
@@ -3432,7 +3432,7 @@ entities:
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: end_market
@@ -3503,7 +3503,7 @@ entities:
           description: A list of notification email addresses.
           entity_fieldname: notification_emails
           items:
-            pattern: .+\@.+{3,254}
+            pattern: ^(?=.{3,254}$).+\@.+
             type: string
           type: array
           x-nullable: true
@@ -3528,7 +3528,7 @@ entities:
               of the parent account.
             entity_fieldname: admin_email
             example: info@arm.com
-            pattern: .+\@.+{3,254}
+            pattern: ^(?=.{3,254}$).+\@.+
             type: string
           - _key: admin_name
             api_fieldname: admin_name
@@ -3666,7 +3666,7 @@ entities:
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: state
@@ -3711,7 +3711,7 @@ entities:
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: admin_full_name
@@ -3808,7 +3808,7 @@ entities:
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: end_market
@@ -3862,7 +3862,7 @@ entities:
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
-                pattern: .+\@.+{3,254}
+                pattern: ^(?=.{3,254}$).+\@.+
                 type: string
               type: array
               x-nullable: true
@@ -3883,7 +3883,7 @@ entities:
                   person of the parent account.
                 entity_fieldname: admin_email
                 example: info@arm.com
-                pattern: .+\@.+{3,254}
+                pattern: ^(?=.{3,254}$).+\@.+
                 type: string
               - _key: admin_name
                 api_fieldname: admin_name
@@ -4003,7 +4003,7 @@ entities:
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: state
@@ -4333,7 +4333,7 @@ entities:
             Present only in the response for account creation.
           entity_fieldname: admin_email
           example: admin@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: admin_full_name
@@ -4462,7 +4462,7 @@ entities:
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: end_market
@@ -4533,7 +4533,7 @@ entities:
           description: A list of notification email addresses.
           entity_fieldname: notification_emails
           items:
-            pattern: .+\@.+{3,254}
+            pattern: ^(?=.{3,254}$).+\@.+
             type: string
           type: array
           x-nullable: true
@@ -4558,7 +4558,7 @@ entities:
               of the parent account.
             entity_fieldname: admin_email
             example: info@arm.com
-            pattern: .+\@.+{3,254}
+            pattern: ^(?=.{3,254}$).+\@.+
             type: string
           - _key: admin_name
             api_fieldname: admin_name
@@ -4696,7 +4696,7 @@ entities:
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: state
@@ -4741,7 +4741,7 @@ entities:
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: admin_full_name
@@ -4838,7 +4838,7 @@ entities:
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: end_market
@@ -4892,7 +4892,7 @@ entities:
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
-                pattern: .+\@.+{3,254}
+                pattern: ^(?=.{3,254}$).+\@.+
                 type: string
               type: array
               x-nullable: true
@@ -4913,7 +4913,7 @@ entities:
                   person of the parent account.
                 entity_fieldname: admin_email
                 example: info@arm.com
-                pattern: .+\@.+{3,254}
+                pattern: ^(?=.{3,254}$).+\@.+
                 type: string
               - _key: admin_name
                 api_fieldname: admin_name
@@ -5033,7 +5033,7 @@ entities:
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: state
@@ -5935,7 +5935,7 @@ entities:
       example: info@arm.com
       in: body
       parameter_fieldname: email
-      pattern: .+\@.+{3,254}
+      pattern: ^(?=.{3,254}$).+\@.+
       required: false
       type: string
       x-nullable: true
@@ -6003,7 +6003,7 @@ entities:
       entity_fieldname: notification_emails
       in: body
       items:
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       parameter_fieldname: notification_emails
       required: false
@@ -6070,7 +6070,7 @@ entities:
       example: sales@arm.com
       in: body
       parameter_fieldname: sales_contact
-      pattern: .+\@.+{3,254}
+      pattern: ^(?=.{3,254}$).+\@.+
       required: false
       type: string
       x-nullable: true
@@ -6123,7 +6123,7 @@ entities:
             Present only in the response for account creation.
           entity_fieldname: admin_email
           example: admin@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: admin_full_name
@@ -6252,7 +6252,7 @@ entities:
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: end_market
@@ -6323,7 +6323,7 @@ entities:
           description: A list of notification email addresses.
           entity_fieldname: notification_emails
           items:
-            pattern: .+\@.+{3,254}
+            pattern: ^(?=.{3,254}$).+\@.+
             type: string
           type: array
           x-nullable: true
@@ -6348,7 +6348,7 @@ entities:
               of the parent account.
             entity_fieldname: admin_email
             example: info@arm.com
-            pattern: .+\@.+{3,254}
+            pattern: ^(?=.{3,254}$).+\@.+
             type: string
           - _key: admin_name
             api_fieldname: admin_name
@@ -6486,7 +6486,7 @@ entities:
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
           x-nullable: true
         - _key: state
@@ -6531,7 +6531,7 @@ entities:
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: admin_full_name
@@ -6628,7 +6628,7 @@ entities:
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: end_market
@@ -6682,7 +6682,7 @@ entities:
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
-                pattern: .+\@.+{3,254}
+                pattern: ^(?=.{3,254}$).+\@.+
                 type: string
               type: array
               x-nullable: true
@@ -6703,7 +6703,7 @@ entities:
                   person of the parent account.
                 entity_fieldname: admin_email
                 example: info@arm.com
-                pattern: .+\@.+{3,254}
+                pattern: ^(?=.{3,254}$).+\@.+
                 type: string
               - _key: admin_name
                 api_fieldname: admin_name
@@ -6823,7 +6823,7 @@ entities:
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
               x-nullable: true
             - _key: state
@@ -7251,7 +7251,7 @@ entities:
             - _key: email
               description: Email address of the invited user.
               example: friend@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
             - _key: etag
               description: API resource entity version.
@@ -7769,7 +7769,7 @@ entities:
             - _key: email
               description: The email address.
               example: user@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
             - _key: email_verified
               description: A flag indicating whether the user's email address has
@@ -30082,7 +30082,7 @@ entities:
     description: The email address of the admin user who is the contact person of
       the parent account.
     example: info@arm.com
-    pattern: .+\@.+{3,254}
+    pattern: ^(?=.{3,254}$).+\@.+
     readOnly: true
     required: false
     type: string
@@ -34966,7 +34966,7 @@ entities:
     example: user@arm.com
     in: body
     parameter_fieldname: email
-    pattern: .+\@.+{3,254}
+    pattern: ^(?=.{3,254}$).+\@.+
     readOnly: false
     required: true
     type: string
@@ -35284,7 +35284,7 @@ entities:
       example: user@arm.com
       in: body
       parameter_fieldname: email
-      pattern: .+\@.+{3,254}
+      pattern: ^(?=.{3,254}$).+\@.+
       required: false
       type: string
     - _key: full_name
@@ -35519,7 +35519,7 @@ entities:
           example: user@arm.com
           in: body
           parameter_fieldname: email
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           required: false
           type: string
         - _key: email_verified
@@ -36478,7 +36478,7 @@ entities:
           example: user@arm.com
           in: body
           parameter_fieldname: email
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           required: false
           type: string
         - _key: email_verified
@@ -37195,7 +37195,7 @@ entities:
           example: user@arm.com
           in: body
           parameter_fieldname: email
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           required: false
           type: string
         - _key: email_verified
@@ -37951,7 +37951,7 @@ entities:
     example: friend@arm.com
     in: body
     parameter_fieldname: email
-    pattern: .+\@.+{3,254}
+    pattern: ^(?=.{3,254}$).+\@.+
     readOnly: false
     required: true
     type: string
@@ -38083,7 +38083,7 @@ entities:
       example: friend@arm.com
       in: body
       parameter_fieldname: email
-      pattern: .+\@.+{3,254}
+      pattern: ^(?=.{3,254}$).+\@.+
       required: true
       type: string
     - _key: login_profiles
@@ -38185,7 +38185,7 @@ entities:
           example: friend@arm.com
           in: body
           parameter_fieldname: email
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           required: true
           type: string
         - _key: etag
@@ -38745,7 +38745,7 @@ entities:
           example: friend@arm.com
           in: body
           parameter_fieldname: email
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           required: true
           type: string
         - _key: etag
@@ -43512,7 +43512,7 @@ entities:
     api_fieldname: email
     description: The email address.
     example: user@arm.com
-    pattern: .+\@.+{3,254}
+    pattern: ^(?=.{3,254}$).+\@.+
     readOnly: false
     required: true
     type: string
@@ -43800,7 +43800,7 @@ entities:
       example: user@arm.com
       in: body
       parameter_fieldname: email
-      pattern: .+\@.+{3,254}
+      pattern: ^(?=.{3,254}$).+\@.+
       required: false
       type: string
     - _key: full_name
@@ -44030,7 +44030,7 @@ entities:
           description: The email address.
           entity_fieldname: email
           example: user@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
         - _key: email_verified
           api_fieldname: email_verified
@@ -44912,7 +44912,7 @@ entities:
             - _key: email
               description: The email address.
               example: user@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
             - _key: email_verified
               description: A flag indicating whether the user's email address has
@@ -45433,7 +45433,7 @@ entities:
           description: The email address.
           entity_fieldname: email
           example: user@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
         - _key: email_verified
           api_fieldname: email_verified
@@ -46096,7 +46096,7 @@ entities:
           description: The email address.
           entity_fieldname: email
           example: user@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
         - _key: email_verified
           api_fieldname: email_verified
@@ -46605,7 +46605,7 @@ entities:
     api_fieldname: email
     description: Email address of the invited user.
     example: friend@arm.com
-    pattern: .+\@.+{3,254}
+    pattern: ^(?=.{3,254}$).+\@.+
     readOnly: false
     required: true
     type: string
@@ -46723,7 +46723,7 @@ entities:
       example: friend@arm.com
       in: body
       parameter_fieldname: email
-      pattern: .+\@.+{3,254}
+      pattern: ^(?=.{3,254}$).+\@.+
       required: true
       type: string
     - _key: login_profiles
@@ -46823,7 +46823,7 @@ entities:
           description: Email address of the invited user.
           entity_fieldname: email
           example: friend@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
         - _key: etag
           api_fieldname: etag
@@ -47390,7 +47390,7 @@ entities:
             - _key: email
               description: Email address of the invited user.
               example: friend@arm.com
-              pattern: .+\@.+{3,254}
+              pattern: ^(?=.{3,254}$).+\@.+
               type: string
             - _key: etag
               description: API resource entity version.
@@ -47700,7 +47700,7 @@ entities:
           description: Email address of the invited user.
           entity_fieldname: email
           example: friend@arm.com
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
         - _key: etag
           api_fieldname: etag

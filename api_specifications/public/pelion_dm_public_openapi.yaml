@@ -17,7 +17,7 @@ definitions:
       admin_email:
         description: The email address of the account admin
         example: admin@arm.com
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
         x-nullable: true
       admin_full_name:
@@ -95,7 +95,7 @@ definitions:
         description: The company email address for this account. Required for commercial
           accounts only.
         example: info@arm.com
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
         x-nullable: true
       end_market:
@@ -142,7 +142,7 @@ definitions:
         description: The email address of the admin user created for this account.
           Present only in the response for account creation.
         example: admin@arm.com
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
         x-nullable: true
       admin_full_name:
@@ -239,7 +239,7 @@ definitions:
       email:
         description: The company email address for this account.
         example: info@arm.com
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
         x-nullable: true
       end_market:
@@ -292,7 +292,7 @@ definitions:
       notification_emails:
         description: A list of notification email addresses.
         items:
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
         type: array
         x-nullable: true
@@ -352,7 +352,7 @@ definitions:
       sales_contact:
         description: Email address of the sales contact.
         example: sales@arm.com
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
         x-nullable: true
       state:
@@ -517,7 +517,7 @@ definitions:
         description: The company email address for this account. Required for commercial
           accounts only.
         example: info@arm.com
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
         x-nullable: true
       end_market:
@@ -550,7 +550,7 @@ definitions:
       notification_emails:
         description: A list of notification email addresses.
         items:
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
         type: array
         x-nullable: true
@@ -661,7 +661,7 @@ definitions:
         description: The company email address for this account. Required for commercial
           accounts only.
         example: info@arm.com
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
         x-nullable: true
       end_market:
@@ -696,7 +696,7 @@ definitions:
       notification_emails:
         description: A list of notification email addresses.
         items:
-          pattern: .+\@.+{3,254}
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
         type: array
         x-nullable: true
@@ -725,7 +725,7 @@ definitions:
         x-nullable: true
       sales_contact:
         description: Email address of the sales contact.
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
         x-nullable: true
       state:
@@ -4492,7 +4492,7 @@ definitions:
       receiver:
         description: The receiver this account notification entry.
         example: example@email-receiver.test
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       subject:
         description: The subject of this account notification entry.
@@ -4594,7 +4594,7 @@ definitions:
         description: The email address of the admin user who is the contact person
           of the parent account.
         example: info@arm.com
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       admin_name:
         description: The name of the admin user who is the contact person of the parent
@@ -6169,7 +6169,7 @@ definitions:
         x-nullable: true
       email:
         description: The email address.
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       full_name:
         description: The full name of the user.
@@ -6251,7 +6251,7 @@ definitions:
       email:
         description: The email address.
         example: user@arm.com
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       email_verified:
         description: A flag indicating whether the user's email address has been verified
@@ -6424,7 +6424,7 @@ definitions:
     properties:
       email:
         description: The email address.
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       groups:
         description: A list of IDs of the groups this user has been invited to.
@@ -6464,7 +6464,7 @@ definitions:
       email:
         description: Email address of the invited user.
         example: friend@arm.com
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       etag:
         description: API resource entity version.
@@ -6570,7 +6570,7 @@ definitions:
         x-nullable: true
       email:
         description: The email address. Not allowed to update other user's email address.
-        pattern: .+\@.+{3,254}
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
         x-nullable: true
       full_name:

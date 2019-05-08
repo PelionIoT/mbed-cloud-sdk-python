@@ -1254,11 +1254,11 @@
               "_key": "address_line2"
             },
             {
+              "pattern": "^(?=.{3,254}$).+\\@.+",
               "type": "string",
               "x-nullable": true,
               "example": "admin@arm.com",
               "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-              "pattern": ".+\\@.+{3,254}",
               "api_fieldname": "admin_email",
               "entity_fieldname": "admin_email",
               "parameter_fieldname": "admin_email",
@@ -1409,11 +1409,11 @@
               "_key": "display_name"
             },
             {
+              "pattern": "^(?=.{3,254}$).+\\@.+",
               "type": "string",
               "x-nullable": true,
               "example": "info@arm.com",
               "description": "The company email address for this account.",
-              "pattern": ".+\\@.+{3,254}",
               "api_fieldname": "email",
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
@@ -1509,11 +1509,11 @@
                     "_key": "address_line2"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "x-nullable": true,
                     "example": "admin@arm.com",
                     "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "admin_email",
                     "entity_fieldname": "admin_email",
                     "_key": "admin_email"
@@ -1668,11 +1668,11 @@
                     "_key": "display_name"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "x-nullable": true,
                     "example": "info@arm.com",
                     "description": "The company email address for this account.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "_key": "email"
@@ -1761,8 +1761,8 @@
                     "x-nullable": true,
                     "description": "A list of notification email addresses.",
                     "items": {
-                      "type": "string",
-                      "pattern": ".+\\@.+{3,254}"
+                      "pattern": "^(?=.{3,254}$).+\\@.+",
+                      "type": "string"
                     },
                     "api_fieldname": "notification_emails",
                     "entity_fieldname": "notification_emails",
@@ -1782,10 +1782,10 @@
                     "type": "object",
                     "properties": [
                       {
+                        "pattern": "^(?=.{3,254}$).+\\@.+",
                         "type": "string",
                         "example": "info@arm.com",
                         "description": "The email address of the admin user who is the contact person of the parent account.",
-                        "pattern": ".+\\@.+{3,254}",
                         "api_fieldname": "admin_email",
                         "entity_fieldname": "admin_email",
                         "_key": "admin_email"
@@ -1963,11 +1963,11 @@
                     "_key": "reference_note"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "sales@arm.com",
                     "x-nullable": true,
                     "description": "Email address of the sales contact.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "sales_contact",
                     "entity_fieldname": "sales_contact",
                     "_key": "sales_contact"
@@ -2028,11 +2028,11 @@
                           "_key": "address_line2"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "x-nullable": true,
                           "example": "admin@arm.com",
                           "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "admin_email"
                         },
                         {
@@ -2155,11 +2155,11 @@
                           "_key": "display_name"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "x-nullable": true,
                           "example": "info@arm.com",
                           "description": "The company email address for this account.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "email"
                         },
                         {
@@ -2230,8 +2230,8 @@
                           "x-nullable": true,
                           "description": "A list of notification email addresses.",
                           "items": {
-                            "type": "string",
-                            "pattern": ".+\\@.+{3,254}"
+                            "pattern": "^(?=.{3,254}$).+\\@.+",
+                            "type": "string"
                           },
                           "_key": "notification_emails"
                         },
@@ -2247,10 +2247,10 @@
                           "type": "object",
                           "properties": [
                             {
+                              "pattern": "^(?=.{3,254}$).+\\@.+",
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
-                              "pattern": ".+\\@.+{3,254}",
                               "api_fieldname": "admin_email",
                               "entity_fieldname": "admin_email",
                               "_key": "admin_email"
@@ -2410,11 +2410,11 @@
                           "_key": "reference_note"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "example": "sales@arm.com",
                           "x-nullable": true,
                           "description": "Email address of the sales contact.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "sales_contact"
                         },
                         {
@@ -2935,11 +2935,11 @@
                           "_key": "address_line2"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "x-nullable": true,
                           "example": "admin@arm.com",
                           "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "admin_email"
                         },
                         {
@@ -3062,11 +3062,11 @@
                           "_key": "display_name"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "x-nullable": true,
                           "example": "info@arm.com",
                           "description": "The company email address for this account.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "email"
                         },
                         {
@@ -3137,8 +3137,8 @@
                           "x-nullable": true,
                           "description": "A list of notification email addresses.",
                           "items": {
-                            "type": "string",
-                            "pattern": ".+\\@.+{3,254}"
+                            "pattern": "^(?=.{3,254}$).+\\@.+",
+                            "type": "string"
                           },
                           "_key": "notification_emails"
                         },
@@ -3154,10 +3154,10 @@
                           "type": "object",
                           "properties": [
                             {
+                              "pattern": "^(?=.{3,254}$).+\\@.+",
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
-                              "pattern": ".+\\@.+{3,254}",
                               "api_fieldname": "admin_email",
                               "entity_fieldname": "admin_email",
                               "_key": "admin_email"
@@ -3317,11 +3317,11 @@
                           "_key": "reference_note"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "example": "sales@arm.com",
                           "x-nullable": true,
                           "description": "Email address of the sales contact.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "sales_contact"
                         },
                         {
@@ -3376,11 +3376,11 @@
                                 "_key": "address_line2"
                               },
                               {
+                                "pattern": "^(?=.{3,254}$).+\\@.+",
                                 "type": "string",
                                 "x-nullable": true,
                                 "example": "admin@arm.com",
                                 "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                                "pattern": ".+\\@.+{3,254}",
                                 "_key": "admin_email"
                               },
                               {
@@ -3503,11 +3503,11 @@
                                 "_key": "display_name"
                               },
                               {
+                                "pattern": "^(?=.{3,254}$).+\\@.+",
                                 "type": "string",
                                 "x-nullable": true,
                                 "example": "info@arm.com",
                                 "description": "The company email address for this account.",
-                                "pattern": ".+\\@.+{3,254}",
                                 "_key": "email"
                               },
                               {
@@ -3578,8 +3578,8 @@
                                 "x-nullable": true,
                                 "description": "A list of notification email addresses.",
                                 "items": {
-                                  "type": "string",
-                                  "pattern": ".+\\@.+{3,254}"
+                                  "pattern": "^(?=.{3,254}$).+\\@.+",
+                                  "type": "string"
                                 },
                                 "_key": "notification_emails"
                               },
@@ -3595,10 +3595,10 @@
                                 "type": "object",
                                 "properties": [
                                   {
+                                    "pattern": "^(?=.{3,254}$).+\\@.+",
                                     "type": "string",
                                     "example": "info@arm.com",
                                     "description": "The email address of the admin user who is the contact person of the parent account.",
-                                    "pattern": ".+\\@.+{3,254}",
                                     "api_fieldname": "admin_email",
                                     "entity_fieldname": "admin_email",
                                     "_key": "admin_email"
@@ -3758,11 +3758,11 @@
                                 "_key": "reference_note"
                               },
                               {
+                                "pattern": "^(?=.{3,254}$).+\\@.+",
                                 "type": "string",
                                 "example": "sales@arm.com",
                                 "x-nullable": true,
                                 "description": "Email address of the sales contact.",
-                                "pattern": ".+\\@.+{3,254}",
                                 "_key": "sales_contact"
                               },
                               {
@@ -4186,11 +4186,11 @@
                     "_key": "address_line2"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "x-nullable": true,
                     "example": "admin@arm.com",
                     "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "admin_email",
                     "entity_fieldname": "admin_email",
                     "_key": "admin_email"
@@ -4345,11 +4345,11 @@
                     "_key": "display_name"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "x-nullable": true,
                     "example": "info@arm.com",
                     "description": "The company email address for this account.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "_key": "email"
@@ -4438,8 +4438,8 @@
                     "x-nullable": true,
                     "description": "A list of notification email addresses.",
                     "items": {
-                      "type": "string",
-                      "pattern": ".+\\@.+{3,254}"
+                      "pattern": "^(?=.{3,254}$).+\\@.+",
+                      "type": "string"
                     },
                     "api_fieldname": "notification_emails",
                     "entity_fieldname": "notification_emails",
@@ -4459,10 +4459,10 @@
                     "type": "object",
                     "properties": [
                       {
+                        "pattern": "^(?=.{3,254}$).+\\@.+",
                         "type": "string",
                         "example": "info@arm.com",
                         "description": "The email address of the admin user who is the contact person of the parent account.",
-                        "pattern": ".+\\@.+{3,254}",
                         "api_fieldname": "admin_email",
                         "entity_fieldname": "admin_email",
                         "_key": "admin_email"
@@ -4640,11 +4640,11 @@
                     "_key": "reference_note"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "sales@arm.com",
                     "x-nullable": true,
                     "description": "Email address of the sales contact.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "sales_contact",
                     "entity_fieldname": "sales_contact",
                     "_key": "sales_contact"
@@ -4705,11 +4705,11 @@
                           "_key": "address_line2"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "x-nullable": true,
                           "example": "admin@arm.com",
                           "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "admin_email"
                         },
                         {
@@ -4832,11 +4832,11 @@
                           "_key": "display_name"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "x-nullable": true,
                           "example": "info@arm.com",
                           "description": "The company email address for this account.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "email"
                         },
                         {
@@ -4907,8 +4907,8 @@
                           "x-nullable": true,
                           "description": "A list of notification email addresses.",
                           "items": {
-                            "type": "string",
-                            "pattern": ".+\\@.+{3,254}"
+                            "pattern": "^(?=.{3,254}$).+\\@.+",
+                            "type": "string"
                           },
                           "_key": "notification_emails"
                         },
@@ -4924,10 +4924,10 @@
                           "type": "object",
                           "properties": [
                             {
+                              "pattern": "^(?=.{3,254}$).+\\@.+",
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
-                              "pattern": ".+\\@.+{3,254}",
                               "api_fieldname": "admin_email",
                               "entity_fieldname": "admin_email",
                               "_key": "admin_email"
@@ -5087,11 +5087,11 @@
                           "_key": "reference_note"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "example": "sales@arm.com",
                           "x-nullable": true,
                           "description": "Email address of the sales contact.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "sales_contact"
                         },
                         {
@@ -5494,11 +5494,11 @@
                     "_key": "address_line2"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "x-nullable": true,
                     "example": "admin@arm.com",
                     "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "admin_email",
                     "entity_fieldname": "admin_email",
                     "_key": "admin_email"
@@ -5653,11 +5653,11 @@
                     "_key": "display_name"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "x-nullable": true,
                     "example": "info@arm.com",
                     "description": "The company email address for this account.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "_key": "email"
@@ -5746,8 +5746,8 @@
                     "x-nullable": true,
                     "description": "A list of notification email addresses.",
                     "items": {
-                      "type": "string",
-                      "pattern": ".+\\@.+{3,254}"
+                      "pattern": "^(?=.{3,254}$).+\\@.+",
+                      "type": "string"
                     },
                     "api_fieldname": "notification_emails",
                     "entity_fieldname": "notification_emails",
@@ -5767,10 +5767,10 @@
                     "type": "object",
                     "properties": [
                       {
+                        "pattern": "^(?=.{3,254}$).+\\@.+",
                         "type": "string",
                         "example": "info@arm.com",
                         "description": "The email address of the admin user who is the contact person of the parent account.",
-                        "pattern": ".+\\@.+{3,254}",
                         "api_fieldname": "admin_email",
                         "entity_fieldname": "admin_email",
                         "_key": "admin_email"
@@ -5948,11 +5948,11 @@
                     "_key": "reference_note"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "sales@arm.com",
                     "x-nullable": true,
                     "description": "Email address of the sales contact.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "sales_contact",
                     "entity_fieldname": "sales_contact",
                     "_key": "sales_contact"
@@ -6013,11 +6013,11 @@
                           "_key": "address_line2"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "x-nullable": true,
                           "example": "admin@arm.com",
                           "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "admin_email"
                         },
                         {
@@ -6140,11 +6140,11 @@
                           "_key": "display_name"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "x-nullable": true,
                           "example": "info@arm.com",
                           "description": "The company email address for this account.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "email"
                         },
                         {
@@ -6215,8 +6215,8 @@
                           "x-nullable": true,
                           "description": "A list of notification email addresses.",
                           "items": {
-                            "type": "string",
-                            "pattern": ".+\\@.+{3,254}"
+                            "pattern": "^(?=.{3,254}$).+\\@.+",
+                            "type": "string"
                           },
                           "_key": "notification_emails"
                         },
@@ -6232,10 +6232,10 @@
                           "type": "object",
                           "properties": [
                             {
+                              "pattern": "^(?=.{3,254}$).+\\@.+",
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
-                              "pattern": ".+\\@.+{3,254}",
                               "api_fieldname": "admin_email",
                               "entity_fieldname": "admin_email",
                               "_key": "admin_email"
@@ -6395,11 +6395,11 @@
                           "_key": "reference_note"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "example": "sales@arm.com",
                           "x-nullable": true,
                           "description": "Email address of the sales contact.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "sales_contact"
                         },
                         {
@@ -7581,11 +7581,11 @@
               "_key": "display_name"
             },
             {
+              "pattern": "^(?=.{3,254}$).+\\@.+",
               "type": "string",
               "x-nullable": true,
               "example": "info@arm.com",
               "description": "The company email address for this account.",
-              "pattern": ".+\\@.+{3,254}",
               "api_fieldname": "email",
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
@@ -7665,8 +7665,8 @@
               "x-nullable": true,
               "description": "A list of notification email addresses.",
               "items": {
-                "type": "string",
-                "pattern": ".+\\@.+{3,254}"
+                "pattern": "^(?=.{3,254}$).+\\@.+",
+                "type": "string"
               },
               "api_fieldname": "notification_emails",
               "entity_fieldname": "notification_emails",
@@ -7742,11 +7742,11 @@
               "_key": "postal_code"
             },
             {
+              "pattern": "^(?=.{3,254}$).+\\@.+",
               "type": "string",
               "example": "sales@arm.com",
               "x-nullable": true,
               "description": "Email address of the sales contact.",
-              "pattern": ".+\\@.+{3,254}",
               "api_fieldname": "sales_contact",
               "entity_fieldname": "sales_contact",
               "parameter_fieldname": "sales_contact",
@@ -7805,11 +7805,11 @@
                     "_key": "address_line2"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "x-nullable": true,
                     "example": "admin@arm.com",
                     "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "admin_email",
                     "entity_fieldname": "admin_email",
                     "_key": "admin_email"
@@ -7964,11 +7964,11 @@
                     "_key": "display_name"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "x-nullable": true,
                     "example": "info@arm.com",
                     "description": "The company email address for this account.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "_key": "email"
@@ -8057,8 +8057,8 @@
                     "x-nullable": true,
                     "description": "A list of notification email addresses.",
                     "items": {
-                      "type": "string",
-                      "pattern": ".+\\@.+{3,254}"
+                      "pattern": "^(?=.{3,254}$).+\\@.+",
+                      "type": "string"
                     },
                     "api_fieldname": "notification_emails",
                     "entity_fieldname": "notification_emails",
@@ -8078,10 +8078,10 @@
                     "type": "object",
                     "properties": [
                       {
+                        "pattern": "^(?=.{3,254}$).+\\@.+",
                         "type": "string",
                         "example": "info@arm.com",
                         "description": "The email address of the admin user who is the contact person of the parent account.",
-                        "pattern": ".+\\@.+{3,254}",
                         "api_fieldname": "admin_email",
                         "entity_fieldname": "admin_email",
                         "_key": "admin_email"
@@ -8259,11 +8259,11 @@
                     "_key": "reference_note"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "sales@arm.com",
                     "x-nullable": true,
                     "description": "Email address of the sales contact.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "sales_contact",
                     "entity_fieldname": "sales_contact",
                     "_key": "sales_contact"
@@ -8324,11 +8324,11 @@
                           "_key": "address_line2"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "x-nullable": true,
                           "example": "admin@arm.com",
                           "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "admin_email"
                         },
                         {
@@ -8451,11 +8451,11 @@
                           "_key": "display_name"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "x-nullable": true,
                           "example": "info@arm.com",
                           "description": "The company email address for this account.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "email"
                         },
                         {
@@ -8526,8 +8526,8 @@
                           "x-nullable": true,
                           "description": "A list of notification email addresses.",
                           "items": {
-                            "type": "string",
-                            "pattern": ".+\\@.+{3,254}"
+                            "pattern": "^(?=.{3,254}$).+\\@.+",
+                            "type": "string"
                           },
                           "_key": "notification_emails"
                         },
@@ -8543,10 +8543,10 @@
                           "type": "object",
                           "properties": [
                             {
+                              "pattern": "^(?=.{3,254}$).+\\@.+",
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
-                              "pattern": ".+\\@.+{3,254}",
                               "api_fieldname": "admin_email",
                               "entity_fieldname": "admin_email",
                               "_key": "admin_email"
@@ -8706,11 +8706,11 @@
                           "_key": "reference_note"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "example": "sales@arm.com",
                           "x-nullable": true,
                           "description": "Email address of the sales contact.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "sales_contact"
                         },
                         {
@@ -9284,10 +9284,10 @@
                           "_key": "created_at"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "example": "friend@arm.com",
                           "description": "Email address of the invited user.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "email"
                         },
                         {
@@ -9963,10 +9963,10 @@
                           "_key": "custom_fields"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "example": "user@arm.com",
                           "description": "The email address.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "email"
                         },
                         {
@@ -10579,11 +10579,11 @@
           "_key": "address_line2"
         },
         {
+          "pattern": "^(?=.{3,254}$).+\\@.+",
           "type": "string",
           "x-nullable": true,
           "example": "admin@arm.com",
           "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-          "pattern": ".+\\@.+{3,254}",
           "api_fieldname": "admin_email",
           "readOnly": false,
           "required": false,
@@ -10753,11 +10753,11 @@
           "_key": "display_name"
         },
         {
+          "pattern": "^(?=.{3,254}$).+\\@.+",
           "type": "string",
           "x-nullable": true,
           "example": "info@arm.com",
           "description": "The company email address for this account.",
-          "pattern": ".+\\@.+{3,254}",
           "api_fieldname": "email",
           "readOnly": false,
           "required": false,
@@ -10847,8 +10847,8 @@
           "x-nullable": true,
           "description": "A list of notification email addresses.",
           "items": {
-            "type": "string",
-            "pattern": ".+\\@.+{3,254}"
+            "pattern": "^(?=.{3,254}$).+\\@.+",
+            "type": "string"
           },
           "api_fieldname": "notification_emails",
           "readOnly": false,
@@ -10859,10 +10859,10 @@
           "type": "object",
           "properties": [
             {
+              "pattern": "^(?=.{3,254}$).+\\@.+",
               "type": "string",
               "example": "info@arm.com",
               "description": "The email address of the admin user who is the contact person of the parent account.",
-              "pattern": ".+\\@.+{3,254}",
               "api_fieldname": "admin_email",
               "entity_fieldname": "admin_email",
               "_key": "admin_email"
@@ -11046,11 +11046,11 @@
           "_key": "reference_note"
         },
         {
+          "pattern": "^(?=.{3,254}$).+\\@.+",
           "type": "string",
           "example": "sales@arm.com",
           "x-nullable": true,
           "description": "Email address of the sales contact.",
-          "pattern": ".+\\@.+{3,254}",
           "api_fieldname": "sales_contact",
           "readOnly": false,
           "required": false,
@@ -39371,10 +39371,10 @@
       "methods": [],
       "fields": [
         {
+          "pattern": "^(?=.{3,254}$).+\\@.+",
           "type": "string",
           "example": "info@arm.com",
           "description": "The email address of the admin user who is the contact person of the parent account.",
-          "pattern": ".+\\@.+{3,254}",
           "api_fieldname": "admin_email",
           "readOnly": true,
           "required": false,
@@ -45412,10 +45412,10 @@
               "_key": "address"
             },
             {
+              "pattern": "^(?=.{3,254}$).+\\@.+",
               "type": "string",
               "example": "user@arm.com",
               "description": "The email address.",
-              "pattern": ".+\\@.+{3,254}",
               "api_fieldname": "email",
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
@@ -45697,10 +45697,10 @@
                     "_key": "custom_fields"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "user@arm.com",
                     "description": "The email address.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "parameter_fieldname": "email",
@@ -46960,10 +46960,10 @@
                     "_key": "custom_fields"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "user@arm.com",
                     "description": "The email address.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "parameter_fieldname": "email",
@@ -47869,10 +47869,10 @@
                     "_key": "custom_fields"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "user@arm.com",
                     "description": "The email address.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "parameter_fieldname": "email",
@@ -49022,10 +49022,10 @@
           "_key": "custom_fields"
         },
         {
+          "pattern": "^(?=.{3,254}$).+\\@.+",
           "type": "string",
           "example": "user@arm.com",
           "description": "The email address.",
-          "pattern": ".+\\@.+{3,254}",
           "api_fieldname": "email",
           "parameter_fieldname": "email",
           "in": "body",
@@ -49345,10 +49345,10 @@
               "_key": "account_id"
             },
             {
+              "pattern": "^(?=.{3,254}$).+\\@.+",
               "type": "string",
               "example": "friend@arm.com",
               "description": "Email address of the invited user.",
-              "pattern": ".+\\@.+{3,254}",
               "api_fieldname": "email",
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
@@ -49465,10 +49465,10 @@
                     "_key": "created_at"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "friend@arm.com",
                     "description": "Email address of the invited user.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "parameter_fieldname": "email",
@@ -50213,10 +50213,10 @@
                     "_key": "created_at"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "friend@arm.com",
                     "description": "Email address of the invited user.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "parameter_fieldname": "email",
@@ -50638,10 +50638,10 @@
           "_key": "created_at"
         },
         {
+          "pattern": "^(?=.{3,254}$).+\\@.+",
           "type": "string",
           "example": "friend@arm.com",
           "description": "Email address of the invited user.",
-          "pattern": ".+\\@.+{3,254}",
           "api_fieldname": "email",
           "parameter_fieldname": "email",
           "in": "body",
@@ -56184,10 +56184,10 @@
               "_key": "address"
             },
             {
+              "pattern": "^(?=.{3,254}$).+\\@.+",
               "type": "string",
               "example": "user@arm.com",
               "description": "The email address.",
-              "pattern": ".+\\@.+{3,254}",
               "api_fieldname": "email",
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
@@ -56466,10 +56466,10 @@
                     "_key": "custom_fields"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "user@arm.com",
                     "description": "The email address.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "_key": "email"
@@ -57647,10 +57647,10 @@
                           "_key": "custom_fields"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "example": "user@arm.com",
                           "description": "The email address.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "email"
                         },
                         {
@@ -58310,10 +58310,10 @@
                     "_key": "custom_fields"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "user@arm.com",
                     "description": "The email address.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "_key": "email"
@@ -59165,10 +59165,10 @@
                     "_key": "custom_fields"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "user@arm.com",
                     "description": "The email address.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "_key": "email"
@@ -59994,10 +59994,10 @@
           "_key": "custom_fields"
         },
         {
+          "pattern": "^(?=.{3,254}$).+\\@.+",
           "type": "string",
           "example": "user@arm.com",
           "description": "The email address.",
-          "pattern": ".+\\@.+{3,254}",
           "api_fieldname": "email",
           "readOnly": false,
           "required": true,
@@ -60284,10 +60284,10 @@
           "field_renames": [],
           "fields": [
             {
+              "pattern": "^(?=.{3,254}$).+\\@.+",
               "type": "string",
               "example": "friend@arm.com",
               "description": "Email address of the invited user.",
-              "pattern": ".+\\@.+{3,254}",
               "api_fieldname": "email",
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
@@ -60404,10 +60404,10 @@
                     "_key": "created_at"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "friend@arm.com",
                     "description": "Email address of the invited user.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "_key": "email"
@@ -61167,10 +61167,10 @@
                           "_key": "created_at"
                         },
                         {
+                          "pattern": "^(?=.{3,254}$).+\\@.+",
                           "type": "string",
                           "example": "friend@arm.com",
                           "description": "Email address of the invited user.",
-                          "pattern": ".+\\@.+{3,254}",
                           "_key": "email"
                         },
                         {
@@ -61580,10 +61580,10 @@
                     "_key": "created_at"
                   },
                   {
+                    "pattern": "^(?=.{3,254}$).+\\@.+",
                     "type": "string",
                     "example": "friend@arm.com",
                     "description": "Email address of the invited user.",
-                    "pattern": ".+\\@.+{3,254}",
                     "api_fieldname": "email",
                     "entity_fieldname": "email",
                     "_key": "email"
@@ -61991,10 +61991,10 @@
           "_key": "created_at"
         },
         {
+          "pattern": "^(?=.{3,254}$).+\\@.+",
           "type": "string",
           "example": "friend@arm.com",
           "description": "Email address of the invited user.",
-          "pattern": ".+\\@.+{3,254}",
           "api_fieldname": "email",
           "readOnly": false,
           "required": true,
