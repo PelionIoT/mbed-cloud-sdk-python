@@ -24691,7 +24691,12 @@
       "methods": [
         {
           "description": "Create a developer certificate (a certificate that can be flashed to multiple devices to connect to the bootstrap server).\n\n**Note:** The number of developer certificates allowed per account is limited. Please see [Using your own certificate authority](../provisioning-process/using-CA.html).\n\n**Example:**\n```\ncurl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates \\\n-H \"Authorization: Bearer <api_key>\" \\\n-H \"content-type: application/json\" \\\n-d { \"name\": \"<certificate_name>\", \"description\": \"<certificate_description>\" }\n```",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "developer_certificate",
+              "_key": "certificate"
+            }
+          ],
           "fields": [
             {
               "type": "string",
@@ -24750,7 +24755,7 @@
                     "type": "string",
                     "description": "PEM-format X.509 developer certificate.",
                     "api_fieldname": "developer_certificate",
-                    "entity_fieldname": "developer_certificate",
+                    "entity_fieldname": "certificate",
                     "_key": "developer_certificate"
                   },
                   {
@@ -25185,9 +25190,9 @@
             "id",
             "created_at",
             "account_id",
-            "developer_certificate",
             "developer_private_key",
-            "security_file_content"
+            "security_file_content",
+            "certificate"
           ],
           "group_id": "Security",
           "parameter_map": {
@@ -25201,7 +25206,12 @@
         },
         {
           "description": "Delete a trusted certificate.\n\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "developer_certificate",
+              "_key": "certificate"
+            }
+          ],
           "fields": [
             {
               "name": "cert_id",
@@ -25473,7 +25483,12 @@
         },
         {
           "description": "Retrieve a trusted certificate by ID.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "developer_certificate",
+              "_key": "certificate"
+            }
+          ],
           "fields": [
             {
               "type": "string",
@@ -25962,7 +25977,12 @@
         },
         {
           "description": "Return an existing developer certificate (a certificate that can be flashed to multiple devices to connect to bootstrap server).\n\n**Example:**\n```\ncurl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID \\\n-H \"Authorization: Bearer <api_key>\"\n```",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "developer_certificate",
+              "_key": "certificate"
+            }
+          ],
           "fields": [
             {
               "type": "string",
@@ -26338,9 +26358,9 @@
             "account_id",
             "name",
             "description",
-            "developer_certificate",
             "developer_private_key",
-            "security_file_content"
+            "security_file_content",
+            "certificate"
           ],
           "group_id": "Security",
           "parameter_map": {
@@ -26364,6 +26384,14 @@
         },
         {
           "type": "string",
+          "description": "PEM-format X.509 developer certificate.",
+          "api_fieldname": "developer_certificate",
+          "readOnly": true,
+          "required": false,
+          "_key": "certificate"
+        },
+        {
+          "type": "string",
           "format": "date-time",
           "description": "Creation UTC time RFC3339.",
           "api_fieldname": "created_at",
@@ -26379,14 +26407,6 @@
           "readOnly": false,
           "required": false,
           "_key": "description"
-        },
-        {
-          "type": "string",
-          "description": "PEM-format X.509 developer certificate.",
-          "api_fieldname": "developer_certificate",
-          "readOnly": true,
-          "required": false,
-          "_key": "developer_certificate"
         },
         {
           "type": "string",
@@ -26423,7 +26443,12 @@
           "_key": "security_file_content"
         }
       ],
-      "field_renames": [],
+      "field_renames": [
+        {
+          "api_fieldname": "developer_certificate",
+          "_key": "certificate"
+        }
+      ],
       "tags": [
         "Device security - developer class certificates",
         "Device security - certificates"

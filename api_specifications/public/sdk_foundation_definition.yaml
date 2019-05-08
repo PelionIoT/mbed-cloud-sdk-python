@@ -18238,11 +18238,19 @@ entities:
   - User interface configuration - images
   - Tenant user interface configuration - images
 - _key: developer_certificate
-  field_renames: []
+  field_renames:
+  - _key: certificate
+    api_fieldname: developer_certificate
   fields:
   - _key: account_id
     api_fieldname: account_id
     description: Account to which the developer certificate belongs.
+    readOnly: true
+    required: false
+    type: string
+  - _key: certificate
+    api_fieldname: developer_certificate
+    description: PEM-format X.509 developer certificate.
     readOnly: true
     required: false
     type: string
@@ -18260,12 +18268,6 @@ entities:
     required: false
     type: string
     x-nullable: true
-  - _key: developer_certificate
-    api_fieldname: developer_certificate
-    description: PEM-format X.509 developer certificate.
-    readOnly: true
-    required: false
-    type: string
   - _key: developer_private_key
     api_fieldname: developer_private_key
     description: PEM-format developer private key associated with the certificate.
@@ -18327,10 +18329,12 @@ entities:
     - id
     - created_at
     - account_id
-    - developer_certificate
     - developer_private_key
     - security_file_content
-    field_renames: []
+    - certificate
+    field_renames:
+    - _key: certificate
+      api_fieldname: developer_certificate
     fields:
     - _key: description
       api_fieldname: description
@@ -18586,7 +18590,7 @@ entities:
         - _key: developer_certificate
           api_fieldname: developer_certificate
           description: PEM-format X.509 developer certificate.
-          entity_fieldname: developer_certificate
+          entity_fieldname: certificate
           type: string
         - _key: developer_private_key
           api_fieldname: developer_private_key
@@ -18881,7 +18885,9 @@ entities:
     - type
     - groups
     - filter
-    field_renames: []
+    field_renames:
+    - _key: certificate
+      api_fieldname: developer_certificate
     fields:
     - _key: id
       api_fieldname: cert_id
@@ -19095,7 +19101,9 @@ entities:
     - enrollment_mode
     - certificate_fingerprint
     - valid
-    field_renames: []
+    field_renames:
+    - _key: certificate
+      api_fieldname: developer_certificate
     fields:
     - _key: id
       api_fieldname: id
@@ -19454,10 +19462,12 @@ entities:
     - account_id
     - name
     - description
-    - developer_certificate
     - developer_private_key
     - security_file_content
-    field_renames: []
+    - certificate
+    field_renames:
+    - _key: certificate
+      api_fieldname: developer_certificate
     fields:
     - _key: id
       api_fieldname: id
