@@ -437,6 +437,421 @@ entities:
     type: string
   group_id: Accounts
   methods:
+  - _key: api_keys
+    description: 'Retrieve API keys in an array, optionally filtered by the owner.
+
+
+      **Example:**
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - sub_accounts
+    - total_count
+    - has_more
+    - data
+    - key__eq
+    - owner__eq
+    field_renames: []
+    fields:
+    - _key: after
+      api_fieldname: after
+      description: The entity ID to fetch after the given one.
+      entity_fieldname: after
+      example: 01619571f3c00242ac12000600000000
+      external_param: true
+      in: query
+      name: after
+      parameter_fieldname: after
+      required: false
+      type: string
+    - _key: id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: include
+      api_fieldname: include
+      description: 'Comma-separated additional data to return. Currently supported:
+        total_count.'
+      entity_fieldname: include
+      external_param: true
+      in: query
+      name: include
+      parameter_fieldname: include
+      required: false
+      type: string
+    - _key: limit
+      api_fieldname: limit
+      default: 50
+      description: The number of results to return (2-1000). Default 50.
+      entity_fieldname: limit
+      example: 50
+      external_param: true
+      format: int32
+      in: query
+      name: limit
+      parameter_fieldname: limit
+      required: false
+      type: integer
+    - _key: order
+      api_fieldname: order
+      default: ASC
+      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+        Default: ASC.'
+      entity_fieldname: order
+      enum:
+      - ASC
+      - DESC
+      enum_reference: account_order_enum
+      external_param: true
+      in: query
+      name: order
+      parameter_fieldname: order
+      required: false
+      type: string
+    foreign_key:
+      entity: subtenant_api_key
+    group_id: Accounts
+    method: get
+    mode: api_keys
+    notes: This lists the api keys of the subtenant account.
+    operation_id: getAllAccountApiKeys
+    pagination: true
+    parameter_map:
+      account_id: id
+    path: /v3/accounts/{account_id}/api-keys
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        foreign_key:
+          entity: api_key
+          group: Accounts
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: The entity ID to fetch after the given one.
+          entity_fieldname: after
+          example: 01619571f3c00242ac12000600000000
+          external_param: true
+          in: query
+          name: after
+          parameter_fieldname: after
+          required: false
+          type: string
+        - _key: data
+          api_fieldname: data
+          description: A list of entities.
+          entity_fieldname: data
+          items:
+            description: Represents an API key in Device Management.
+            foreign_key:
+              entity: api_key
+              group: Accounts
+            properties:
+            - _key: account_id
+              description: The ID of the account.
+              example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
+              type: string
+            - _key: created_at
+              description: Creation UTC time RFC3339.
+              example: '2018-02-13T09:35:20Z'
+              format: date-time
+              type: string
+            - _key: creation_time
+              description: The timestamp of the API key creation in the storage, in
+                milliseconds.
+              example: 1518630727683
+              format: int64
+              type: integer
+            - _key: etag
+              description: API resource entity version.
+              example: '1'
+              type: string
+            - _key: groups
+              description: A list of group IDs this API key belongs to.
+              items:
+                type: string
+              type: array
+            - _key: id
+              description: The ID of the API key.
+              example: 01619571f7020242ac12000600000000
+              type: string
+            - _key: key
+              description: The API key.
+              example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000
+              type: string
+            - _key: last_login_time
+              description: The timestamp of the latest API key usage, in milliseconds.
+              example: 1518630727688
+              format: int64
+              type: integer
+            - _key: name
+              description: The display name for the API key.
+              example: API key gorgon
+              type: string
+            - _key: object
+              description: 'Entity name: always ''api-key'''
+              enum:
+              - api-key
+              type: string
+            - _key: owner
+              description: The owner of this API key, who is the creator by default.
+              example: 01619571e2e89242ac12000600000000
+              type: string
+            - _key: status
+              description: The status of the API key.
+              enum:
+              - ACTIVE
+              - INACTIVE
+              example: ACTIVE
+              type: string
+            - _key: updated_at
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            required:
+            - etag
+            - id
+            - key
+            - name
+            - object
+            type: object
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: Flag indicating whether there are more results.
+          entity_fieldname: has_more
+          example: false
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          default: 50
+          description: The number of results to return (2-1000). Default 50.
+          entity_fieldname: limit
+          example: 50
+          external_param: true
+          format: int32
+          in: query
+          name: limit
+          parameter_fieldname: limit
+          required: false
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always `list`.'
+          entity_fieldname: object
+          enum:
+          - list
+          type: string
+        - _key: order
+          api_fieldname: order
+          default: ASC
+          description: 'Record order based on creation time. Acceptable values: ASC,
+            DESC. Default: ASC.'
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          enum_reference: api_key_order_enum
+          external_param: true
+          in: query
+          name: order
+          parameter_fieldname: order
+          required: false
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          description: The total number of records, if requested.
+          entity_fieldname: total_count
+          example: 20
+          format: int32
+          type: integer
+        required:
+        - data
+        - has_more
+        - limit
+        - object
+        - total_count
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: An account with the given ID does not exist.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: false
+      type: subtenant_api_key
+    return_type: paginated_response(subtenant_api_key)
+    summary: Get all API keys.
+    x_deprecation: null
+    x_filter:
+      key:
+      - eq
+      owner:
+      - eq
   - _key: create
     description: 'Create a new account.
 
@@ -463,8 +878,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - sub_accounts
     - id
     - created_at
@@ -1648,8 +2061,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - sub_accounts
     - total_count
     - has_more
@@ -2611,8 +3022,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - sub_accounts
     - id
     - created_at
@@ -3575,8 +3984,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - sub_accounts
     - created_at
     - updated_at
@@ -4593,8 +5000,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - sub_accounts
     - total_count
     - has_more
@@ -5077,8 +5482,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - sub_accounts
     - created_at
     - updated_at
@@ -6347,8 +6750,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - sub_accounts
     - total_count
     - has_more
@@ -6772,8 +7173,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - sub_accounts
     - total_count
     - has_more
@@ -7385,12 +7784,14 @@ entities:
   - AccountInfo
   - AccountInfoList
   - AccountUpdateRootReq
+  - ApiKeyInfoRespList
   - TrustedCertificateRespList
   - UserInfoRespList
   - UserInvitationRespList
   tags:
   - Account - profile
   - Tenant accounts - accounts
+  - Tenant accounts - API keys
   - Tenant accounts - users
   - Tenant accounts - user invitations
   - Tenant device security - certificates
@@ -7546,8 +7947,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - created_at
     - updated_at
@@ -7604,7 +8003,7 @@ entities:
       schema:
         description: Represents an API key in Device Management.
         foreign_key:
-          entity: api_key
+          entity: subtenant_api_key
           group: Accounts
         properties:
         - _key: account_id
@@ -7873,8 +8272,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: id
@@ -8071,8 +8468,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - total_count
     - has_more
     - data
@@ -8411,8 +8806,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - created_at
     - updated_at
@@ -8443,7 +8836,7 @@ entities:
       schema:
         description: Represents an API key in Device Management.
         foreign_key:
-          entity: api_key
+          entity: subtenant_api_key
           group: Accounts
         properties:
         - _key: account_id
@@ -8664,8 +9057,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - updated_at
     - key
@@ -8702,7 +9093,7 @@ entities:
       schema:
         description: Represents an API key in Device Management.
         foreign_key:
-          entity: api_key
+          entity: subtenant_api_key
           group: Accounts
         properties:
         - _key: account_id
@@ -8977,8 +9368,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - updated_at
     - key
@@ -9041,7 +9430,7 @@ entities:
       schema:
         description: Represents an API key in Device Management.
         foreign_key:
-          entity: api_key
+          entity: subtenant_api_key
           group: Accounts
         properties:
         - _key: account_id
@@ -9443,8 +9832,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - deployment_state
     - description
@@ -9592,6 +9979,1018 @@ entities:
   swagger_models:
   - CampaignDeviceMetadata
   tags: []
+- _key: campaign_statistics
+  field_renames: []
+  fields:
+  - _key: campaign_id
+    api_fieldname: campaign_id
+    description: ID of the associated campaign.
+    example: '00000000000000000000000000000000'
+    readOnly: false
+    required: true
+    type: string
+  - _key: count
+    api_fieldname: count
+    example: 10
+    readOnly: true
+    required: false
+    type: integer
+  - _key: created_at
+    api_fieldname: created_at
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: id
+    api_fieldname: id
+    description: ID of the event type description
+    enum:
+    - fail
+    - success
+    - info
+    - skipped
+    enum_reference: campaign_statistics_id_enum
+    example: fail
+    readOnly: false
+    required: true
+    type: string
+  - _key: summary_status
+    api_fieldname: summary_status
+    description: The event type description.
+    enum:
+    - FAIL
+    - SUCCESS
+    - INFO
+    - SKIPPED
+    enum_reference: campaign_statistics_summary_status_enum
+    example: FAIL
+    readOnly: true
+    required: false
+    type: string
+  group_id: Device_Update
+  methods:
+  - _key: events
+    description: Get a list of events grouped by summary
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - order
+    - limit
+    - after
+    - has_more
+    - total_count
+    - data
+    field_renames: []
+    fields:
+    - _key: campaign_id
+      api_fieldname: campaign_id
+      description: The campaign ID
+      entity_fieldname: campaign_id
+      external_param: false
+      in: path
+      name: campaign_id
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    - _key: id
+      api_fieldname: summary_status_id
+      description: The summary status. For example, fail
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: summary_status_id
+      parameter_fieldname: summary_status_id
+      required: true
+      type: string
+    foreign_key:
+      entity: campaign_statistics_events
+      group: Device_Update
+    group_id: Device_Update
+    method: get
+    mode: events
+    operation_id: Update_Campaign_event_types_list
+    pagination: true
+    parameter_map:
+      summary_status_id: id
+    path: /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: OK
+      schema:
+        foreign_key:
+          entity: campaign_statistics
+          group: Device_Update
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: The entity ID to fetch after the given one
+          entity_fieldname: after
+          example: 'null'
+          type: string
+        - _key: data
+          api_fieldname: data
+          entity_fieldname: data
+          items:
+            foreign_key:
+              entity: campaign_statistics_events
+              group: Device_Update
+            properties:
+            - _key: campaign_id
+              description: ID of the associated campaign.
+              example: '00000000000000000000000000000000'
+              type: string
+            - _key: count
+              example: 10
+              type: integer
+            - _key: created_at
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            - _key: description
+              example: Update error, nonspecific network error
+              type: string
+            - _key: event_type
+              example: UPD4_FAIL_101
+              type: string
+            - _key: id
+              example: upd_fail_101
+              type: string
+            - _key: object
+              example: event-type
+              type: string
+            - _key: summary_status
+              example: FAIL
+              type: string
+            - _key: summary_status_id
+              example: fail
+              type: string
+            type: object
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: A flag indicating whether there are more results
+          entity_fieldname: has_more
+          example: 'false'
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: 'The number of results to return, (range: 2-1000), or equals
+            to total_count'
+          entity_fieldname: limit
+          example: '50'
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: 'The entity name: always ''list'''
+          entity_fieldname: object
+          example: list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: 'The order of the records to return. Acceptable values: ASC,
+            DESC. Default: ASC'
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          description: The total number or records, if requested. It may be returned
+            also for small lists.
+          entity_fieldname: total_count
+          example: '1'
+          type: integer
+        type: object
+    - _key: '401'
+      description: Not Authenticated
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not Found
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: false
+      type: campaign_statistics_events
+    return_type: paginated_response(campaign_statistics_events)
+    summary: Get a list of events grouped by summary
+    x_deprecation: null
+    x_filter: {}
+  - _key: list
+    description: Get a list of statistics for a campaign
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - order
+    - limit
+    - after
+    - has_more
+    - total_count
+    - data
+    field_renames: []
+    fields:
+    - _key: campaign_id
+      api_fieldname: campaign_id
+      description: The campaign ID
+      entity_fieldname: campaign_id
+      external_param: false
+      in: path
+      name: campaign_id
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    foreign_key:
+      entity: campaign_statistics
+      group: Device_Update
+    foreign_key_priority: self
+    group_id: Device_Update
+    method: get
+    mode: list
+    operation_id: Update_Campaign_statistics_list
+    pagination: true
+    parameter_map:
+      summary_status_id: id
+    path: /v3/update-campaigns/{campaign_id}/statistics/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: OK
+      schema:
+        foreign_key:
+          entity: campaign_statistics
+          group: Device_Update
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: The entity ID to fetch after the given one
+          entity_fieldname: after
+          example: 'null'
+          type: string
+        - _key: data
+          api_fieldname: data
+          entity_fieldname: data
+          items:
+            foreign_key:
+              entity: campaign_statistics
+              group: Device_Update
+            properties:
+            - _key: campaign_id
+              description: ID of the associated campaign.
+              example: '00000000000000000000000000000000'
+              type: string
+            - _key: count
+              example: 10
+              type: integer
+            - _key: created_at
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            - _key: id
+              description: ID of the event type description
+              enum:
+              - fail
+              - success
+              - info
+              - skipped
+              example: fail
+              type: string
+            - _key: object
+              example: summary_status
+              type: string
+            - _key: summary_status
+              description: The event type description.
+              enum:
+              - FAIL
+              - SUCCESS
+              - INFO
+              - SKIPPED
+              example: FAIL
+              type: string
+            type: object
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: A flag indicating whether there are more results
+          entity_fieldname: has_more
+          example: 'false'
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: 'The number of results to return, (range: 2-1000), or equals
+            to total_count'
+          entity_fieldname: limit
+          example: '50'
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: 'The entity name: always ''list'''
+          entity_fieldname: object
+          example: list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: 'The order of the records to return. Acceptable values: ASC,
+            DESC. Default: ASC'
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          description: The total number or records, if requested. It may be returned
+            also for small lists.
+          entity_fieldname: total_count
+          example: '1'
+          type: integer
+        type: object
+    - _key: '401'
+      description: Not Authenticated
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not Found
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: campaign_statistics
+    return_type: paginated_response(campaign_statistics)
+    summary: Get a list of statistics for a campaign
+    x_deprecation: null
+    x_filter: {}
+  - _key: read
+    description: Get a summary status
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - summary_status
+    - count
+    - created_at
+    field_renames: []
+    fields:
+    - _key: campaign_id
+      api_fieldname: campaign_id
+      description: ID of the associated campaign.
+      entity_fieldname: campaign_id
+      example: '00000000000000000000000000000000'
+      in: path
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    - _key: id
+      api_fieldname: id
+      description: ID of the event type description
+      entity_fieldname: id
+      enum:
+      - fail
+      - success
+      - info
+      - skipped
+      enum_reference: campaign_statistics_id_enum
+      example: fail
+      in: path
+      parameter_fieldname: summary_status_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: get
+    mode: read
+    operation_id: Update_Campaign_statistics_retrieve
+    pagination: false
+    parameter_map:
+      summary_status_id: id
+    path: /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: OK
+      schema:
+        foreign_key:
+          entity: campaign_statistics
+          group: Device_Update
+        properties:
+        - _key: campaign_id
+          api_fieldname: campaign_id
+          description: ID of the associated campaign.
+          entity_fieldname: campaign_id
+          example: '00000000000000000000000000000000'
+          type: string
+        - _key: count
+          api_fieldname: count
+          entity_fieldname: count
+          example: 10
+          type: integer
+        - _key: created_at
+          api_fieldname: created_at
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: ID of the event type description
+          entity_fieldname: id
+          enum:
+          - fail
+          - success
+          - info
+          - skipped
+          example: fail
+          type: string
+        - _key: object
+          api_fieldname: object
+          entity_fieldname: object
+          example: summary_status
+          type: string
+        - _key: summary_status
+          api_fieldname: summary_status
+          description: The event type description.
+          entity_fieldname: summary_status
+          enum:
+          - FAIL
+          - SUCCESS
+          - INFO
+          - SKIPPED
+          example: FAIL
+          type: string
+        type: object
+    - _key: '401'
+      description: Not Authenticated
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not Found
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: campaign_statistics
+    return_type: campaign_statistics
+    summary: Get a summary status
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: id
+  swagger_models:
+  - EventTypeList
+  - EventTypeSummary
+  - EventTypeSummaryList
+  tags: []
+- _key: campaign_statistics_events
+  field_renames: []
+  fields:
+  - _key: campaign_id
+    api_fieldname: campaign_id
+    description: ID of the associated campaign.
+    example: '00000000000000000000000000000000'
+    readOnly: false
+    required: true
+    type: string
+  - _key: count
+    api_fieldname: count
+    example: 10
+    readOnly: true
+    required: false
+    type: integer
+  - _key: created_at
+    api_fieldname: created_at
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: description
+    api_fieldname: description
+    example: Update error, nonspecific network error
+    readOnly: true
+    required: false
+    type: string
+  - _key: event_type
+    api_fieldname: event_type
+    example: UPD4_FAIL_101
+    readOnly: true
+    required: false
+    type: string
+  - _key: id
+    api_fieldname: id
+    example: upd_fail_101
+    readOnly: false
+    required: true
+    type: string
+  - _key: summary_status
+    api_fieldname: summary_status
+    example: FAIL
+    readOnly: true
+    required: false
+    type: string
+  - _key: summary_status_id
+    api_fieldname: summary_status_id
+    example: fail
+    readOnly: false
+    required: true
+    type: string
+  group_id: Device_Update
+  methods:
+  - _key: read
+    description: Get an event type for a campaign
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - created_at
+    - event_type
+    - description
+    - summary_status
+    - count
+    field_renames: []
+    fields:
+    - _key: campaign_id
+      api_fieldname: campaign_id
+      description: ID of the associated campaign.
+      entity_fieldname: campaign_id
+      example: '00000000000000000000000000000000'
+      in: path
+      parameter_fieldname: campaign_id
+      required: true
+      type: string
+    - _key: id
+      api_fieldname: id
+      entity_fieldname: id
+      example: upd_fail_101
+      in: path
+      parameter_fieldname: event_type_id
+      required: true
+      type: string
+    - _key: summary_status_id
+      api_fieldname: summary_status_id
+      entity_fieldname: summary_status_id
+      example: fail
+      in: path
+      parameter_fieldname: summary_status_id
+      required: true
+      type: string
+    group_id: Device_Update
+    method: get
+    mode: read
+    operation_id: Update_Campaign_event_types_retrieve
+    pagination: false
+    parameter_map:
+      event_type_id: id
+    path: /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/{event_type_id}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: OK
+      schema:
+        foreign_key:
+          entity: campaign_statistics_events
+          group: Device_Update
+        properties:
+        - _key: campaign_id
+          api_fieldname: campaign_id
+          description: ID of the associated campaign.
+          entity_fieldname: campaign_id
+          example: '00000000000000000000000000000000'
+          type: string
+        - _key: count
+          api_fieldname: count
+          entity_fieldname: count
+          example: 10
+          type: integer
+        - _key: created_at
+          api_fieldname: created_at
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: description
+          api_fieldname: description
+          entity_fieldname: description
+          example: Update error, nonspecific network error
+          type: string
+        - _key: event_type
+          api_fieldname: event_type
+          entity_fieldname: event_type
+          example: UPD4_FAIL_101
+          type: string
+        - _key: id
+          api_fieldname: id
+          entity_fieldname: id
+          example: upd_fail_101
+          type: string
+        - _key: object
+          api_fieldname: object
+          entity_fieldname: object
+          example: event-type
+          type: string
+        - _key: summary_status
+          api_fieldname: summary_status
+          entity_fieldname: summary_status
+          example: FAIL
+          type: string
+        - _key: summary_status_id
+          api_fieldname: summary_status_id
+          entity_fieldname: summary_status_id
+          example: fail
+          type: string
+        type: object
+    - _key: '401'
+      description: Not Authenticated
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not Found
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: campaign_statistics_events
+    return_type: campaign_statistics_events
+    summary: Get an event type for a campaign
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: id
+  swagger_models:
+  - EventType
+  tags: []
 - _key: certificate_enrollment
   field_renames: []
   fields:
@@ -9702,8 +11101,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - total_count
     - has_more
     - data
@@ -10093,8 +11490,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - device_id
     - certificate_name
@@ -10491,8 +11886,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - id
     field_renames: []
@@ -10900,8 +12293,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: id
@@ -11112,8 +12503,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - has_more
     - total_count
     - data
@@ -11408,8 +12797,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - issuer_type
     - name
@@ -11697,8 +13084,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - issuer_type
     field_renames: []
@@ -12152,8 +13537,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - successful
     - message
     field_renames: []
@@ -12429,9 +13812,7 @@ entities:
   tags:
   - Certificate Issuers
 - _key: certificate_issuer_config
-  field_renames:
-  - _key: certificate_reference
-    api_fieldname: reference
+  field_renames: []
   fields:
   - _key: certificate_issuer_id
     api_fieldname: certificate_issuer_id
@@ -12445,14 +13826,6 @@ entities:
     required: true
     type: string
     x-nullable: true
-  - _key: certificate_reference
-    api_fieldname: reference
-    description: The certificate name to which the certificate issuer configuration
-      applies.
-    example: customer.dlms
-    readOnly: false
-    required: true
-    type: string
   - _key: created_at
     api_fieldname: created_at
     description: Created UTC time RFC3339.
@@ -12467,6 +13840,14 @@ entities:
 
       '
     example: 01648415a2a30242ac18000500000000
+    readOnly: false
+    required: true
+    type: string
+  - _key: reference
+    api_fieldname: reference
+    description: The certificate name to which the certificate issuer configuration
+      applies.
+    example: customer.dlms
     readOnly: false
     required: true
     type: string
@@ -12494,13 +13875,10 @@ entities:
     - groups
     - filter
     - is_custom
-    - private_key
     - id
     - created_at
     - updated_at
-    field_renames:
-    - _key: certificate_reference
-      api_fieldname: reference
+    field_renames: []
     fields:
     - _key: certificate_issuer_id
       api_fieldname: certificate_issuer_id
@@ -12516,11 +13894,11 @@ entities:
       required: false
       type: string
       x-nullable: true
-    - _key: certificate_reference
+    - _key: reference
       api_fieldname: reference
       description: The certificate name to which the certificate issuer configuration
         applies.
-      entity_fieldname: certificate_reference
+      entity_fieldname: reference
       example: customer.dlms
       in: body
       parameter_fieldname: reference
@@ -12591,7 +13969,7 @@ entities:
           api_fieldname: reference
           description: The certificate name to which the certificate issuer configuration
             applies.
-          entity_fieldname: certificate_reference
+          entity_fieldname: reference
           example: customer.dlms
           type: string
         - _key: updated_at
@@ -12786,10 +14164,7 @@ entities:
     - groups
     - filter
     - is_custom
-    - private_key
-    field_renames:
-    - _key: certificate_reference
-      api_fieldname: reference
+    field_renames: []
     fields:
     - _key: id
       api_fieldname: certificate-issuer-configuration-id
@@ -12998,15 +14373,12 @@ entities:
     - groups
     - filter
     - is_custom
-    - private_key
     - id
     - certificate_issuer_id
+    - reference
     - created_at
     - updated_at
-    - certificate_reference
-    field_renames:
-    - _key: certificate_reference
-      api_fieldname: reference
+    field_renames: []
     fields: []
     group_id: Security
     method: get
@@ -13073,7 +14445,7 @@ entities:
           api_fieldname: reference
           description: The certificate name to which the certificate issuer configuration
             applies.
-          entity_fieldname: certificate_reference
+          entity_fieldname: reference
           example: customer.dlms
           type: string
         - _key: updated_at
@@ -13256,14 +14628,11 @@ entities:
     - groups
     - filter
     - is_custom
-    - private_key
     - has_more
     - total_count
     - data
     - reference__eq
-    field_renames:
-    - _key: certificate_reference
-      api_fieldname: reference
+    field_renames: []
     fields:
     - _key: after
       api_fieldname: after
@@ -13558,7 +14927,7 @@ entities:
     summary: Get certificate issuer configurations.
     x_deprecation: null
     x_filter:
-      certificate_reference:
+      reference:
       - eq
   - _key: read
     description: 'Provides the configured certificate issuer.
@@ -13571,14 +14940,11 @@ entities:
     - groups
     - filter
     - is_custom
-    - private_key
     - certificate_issuer_id
+    - reference
     - created_at
     - updated_at
-    - certificate_reference
-    field_renames:
-    - _key: certificate_reference
-      api_fieldname: reference
+    field_renames: []
     fields:
     - _key: id
       api_fieldname: id
@@ -13656,7 +15022,7 @@ entities:
           api_fieldname: reference
           description: The certificate name to which the certificate issuer configuration
             applies.
-          entity_fieldname: certificate_reference
+          entity_fieldname: reference
           example: customer.dlms
           type: string
         - _key: updated_at
@@ -13850,13 +15216,10 @@ entities:
     - groups
     - filter
     - is_custom
-    - private_key
+    - reference
     - created_at
     - updated_at
-    - certificate_reference
-    field_renames:
-    - _key: certificate_reference
-      api_fieldname: reference
+    field_renames: []
     fields:
     - _key: certificate_issuer_id
       api_fieldname: certificate_issuer_id
@@ -13948,7 +15311,7 @@ entities:
           api_fieldname: reference
           description: The certificate name to which the certificate issuer configuration
             applies.
-          entity_fieldname: certificate_reference
+          entity_fieldname: reference
           example: customer.dlms
           type: string
         - _key: updated_at
@@ -14199,8 +15562,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - color
     - updated_at
     field_renames: []
@@ -14464,8 +15825,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - color
     - updated_at
     field_renames: []
@@ -14712,8 +16071,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - limit
     - after
     - order
@@ -14967,8 +16324,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: color
@@ -15347,8 +16702,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - static_uri
     - updated_at
     field_renames: []
@@ -15731,8 +17084,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: reference
@@ -15930,8 +17281,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - static_uri
     - updated_at
     field_renames: []
@@ -16199,8 +17548,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - limit
     - after
     - order
@@ -16461,21 +17808,11 @@ entities:
   - User interface configuration - images
   - Tenant user interface configuration - images
 - _key: developer_certificate
-  field_renames:
-  - _key: certificate
-    api_fieldname: developer_certificate
-  - _key: private_key
-    api_fieldname: developer_private_key
+  field_renames: []
   fields:
   - _key: account_id
     api_fieldname: account_id
     description: Account to which the developer certificate belongs.
-    readOnly: true
-    required: false
-    type: string
-  - _key: certificate
-    api_fieldname: developer_certificate
-    description: PEM-format X.509 developer certificate.
     readOnly: true
     required: false
     type: string
@@ -16493,6 +17830,18 @@ entities:
     required: false
     type: string
     x-nullable: true
+  - _key: developer_certificate
+    api_fieldname: developer_certificate
+    description: PEM-format X.509 developer certificate.
+    readOnly: true
+    required: false
+    type: string
+  - _key: developer_private_key
+    api_fieldname: developer_private_key
+    description: PEM-format developer private key associated with the certificate.
+    readOnly: true
+    required: false
+    type: string
   - _key: id
     api_fieldname: id
     description: ID that uniquely identifies the developer certificate.
@@ -16545,18 +17894,13 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - created_at
     - account_id
+    - developer_certificate
+    - developer_private_key
     - security_file_content
-    - certificate
-    field_renames:
-    - _key: certificate
-      api_fieldname: developer_certificate
-    - _key: private_key
-      api_fieldname: developer_private_key
+    field_renames: []
     fields:
     - _key: description
       api_fieldname: description
@@ -16812,12 +18156,12 @@ entities:
         - _key: developer_certificate
           api_fieldname: developer_certificate
           description: PEM-format X.509 developer certificate.
-          entity_fieldname: certificate
+          entity_fieldname: developer_certificate
           type: string
         - _key: developer_private_key
           api_fieldname: developer_private_key
           description: PEM-format developer private key associated with the certificate.
-          entity_fieldname: private_key
+          entity_fieldname: developer_private_key
           type: string
         - _key: etag
           api_fieldname: etag
@@ -17107,13 +18451,7 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
-    field_renames:
-    - _key: certificate
-      api_fieldname: developer_certificate
-    - _key: private_key
-      api_fieldname: developer_private_key
+    field_renames: []
     fields:
     - _key: id
       api_fieldname: cert_id
@@ -17311,8 +18649,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - updated_at
     - name
@@ -17329,11 +18665,7 @@ entities:
     - enrollment_mode
     - certificate_fingerprint
     - valid
-    field_renames:
-    - _key: certificate
-      api_fieldname: developer_certificate
-    - _key: private_key
-      api_fieldname: developer_private_key
+    field_renames: []
     fields:
     - _key: id
       api_fieldname: id
@@ -17682,19 +19014,14 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - account_id
     - name
     - description
+    - developer_certificate
+    - developer_private_key
     - security_file_content
-    - certificate
-    field_renames:
-    - _key: certificate
-      api_fieldname: developer_certificate
-    - _key: private_key
-      api_fieldname: developer_private_key
+    field_renames: []
     fields:
     - _key: id
       api_fieldname: id
@@ -18416,8 +19743,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - account_id
     - bootstrapped_timestamp
     - created_at
@@ -18945,8 +20270,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: id
@@ -18991,8 +20314,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - data
     - has_more
     - total_count
@@ -19571,8 +20892,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - issuer_fingerprint
     - account_id
     - device_execution_mode
@@ -19914,8 +21233,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - device_id
     - enroll_status
@@ -20307,8 +21624,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - issuer_fingerprint
     - account_id
     - device_execution_mode
@@ -20809,8 +22124,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - created_at
     - claimed_at
@@ -21094,8 +22407,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: id
@@ -21256,8 +22567,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - has_more
     - total_count
     - data
@@ -21577,8 +22886,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - claimed_at
     - enrollment_identity
@@ -21922,8 +23229,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - account_id
     - created_at
@@ -22178,8 +23483,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields: []
     group_id: Devices
@@ -22212,8 +23515,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields: []
     group_id: Devices
@@ -22292,8 +23593,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - account_id
     - created_at
     - status
@@ -22717,8 +24016,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - account_id
     - created_at
@@ -22976,8 +24273,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields: []
     group_id: Devices
@@ -23010,8 +24305,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields: []
     group_id: Devices
@@ -23090,8 +24383,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - account_id
     - created_at
     - status
@@ -23458,8 +24749,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - has_more
     - total_count
     - data
@@ -23747,8 +25036,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - account_id
     - endpoint_name
@@ -24034,8 +25321,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - data
     - has_more
     - total_count
@@ -24284,8 +25569,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - changes
     - data
@@ -24504,8 +25787,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - datafile_checksum
     - datafile_size
@@ -24668,8 +25949,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames:
     - _key: datafile_url
       api_fieldname: datafile
@@ -24719,8 +25998,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - data
     - has_more
     - total_count
@@ -24996,8 +26273,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - datafile_checksum
     - datafile_size
@@ -25224,8 +26499,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - datafile_size
     - device_class
@@ -25419,8 +26692,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames:
     - _key: datafile_url
       api_fieldname: datafile
@@ -25472,8 +26743,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - data
     - has_more
     - total_count
@@ -25771,8 +27040,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - datafile_size
     - description
@@ -25994,8 +27261,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - color
     - updated_at
     field_renames: []
@@ -26275,8 +27540,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - color
     - updated_at
     field_renames: []
@@ -26539,8 +27802,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - limit
     - after
     - order
@@ -26794,8 +28055,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: color
@@ -27190,8 +28449,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - static_uri
     - updated_at
     field_renames: []
@@ -27578,8 +28835,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: reference
@@ -27777,8 +29032,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - static_uri
     - updated_at
     field_renames: []
@@ -28052,8 +29305,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - limit
     - after
     - order
@@ -28516,8 +29767,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: endpoint_name
@@ -28613,8 +29862,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: endpoint_name
@@ -28685,8 +29932,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - order
     - has_more
     - continuation_marker
@@ -28865,8 +30110,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     field_renames: []
     fields:
@@ -29015,8 +30258,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - created_at
     - server_certificate
@@ -29215,8 +30456,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - created_at
     - server_certificate
@@ -29397,6 +30636,1454 @@ entities:
   - ServerCredentialsResponseData
   tags:
   - Service security - server credentials
+- _key: subtenant_api_key
+  field_renames: []
+  fields:
+  - _key: account_id
+    api_fieldname: account_id
+    description: The ID of the account.
+    example: 01619571e2e90242ac12000600000000
+    pattern: '[a-f0-9]{32}'
+    readOnly: false
+    required: true
+    type: string
+  - _key: created_at
+    api_fieldname: created_at
+    description: Creation UTC time RFC3339.
+    example: '2018-02-13T09:35:20Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: creation_time
+    api_fieldname: creation_time
+    description: The timestamp of the API key creation in the storage, in milliseconds.
+    example: 1518630727683
+    format: int64
+    readOnly: true
+    required: false
+    type: integer
+  - _key: id
+    api_fieldname: id
+    description: The ID of the API key.
+    example: 01619571f7020242ac12000600000000
+    in: path
+    parameter_fieldname: apikey_id
+    readOnly: false
+    required: true
+    type: string
+  - _key: key
+    api_fieldname: key
+    description: The API key.
+    example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_login_time
+    api_fieldname: last_login_time
+    description: The timestamp of the latest API key usage, in milliseconds.
+    example: 1518630727688
+    format: int64
+    readOnly: true
+    required: false
+    type: integer
+  - _key: name
+    api_fieldname: name
+    description: The display name for the API key.
+    example: API key gorgon
+    in: body
+    parameter_fieldname: name
+    readOnly: false
+    required: true
+    type: string
+  - _key: owner
+    api_fieldname: owner
+    description: The owner of this API key, who is the creator by default.
+    example: 01619571e2e89242ac12000600000000
+    in: body
+    parameter_fieldname: owner
+    readOnly: false
+    required: false
+    type: string
+  - _key: status
+    api_fieldname: status
+    description: The status of the API key.
+    enum:
+    - ACTIVE
+    - INACTIVE
+    enum_reference: subtenant_api_key_status_enum
+    example: ACTIVE
+    in: body
+    parameter_fieldname: status
+    readOnly: false
+    required: false
+    type: string
+  - _key: updated_at
+    api_fieldname: updated_at
+    description: Last update UTC time RFC3339.
+    example: '2018-02-14T15:24:14Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  group_id: Accounts
+  methods:
+  - _key: create
+    description: 'Create a new API key. There is no default value for the owner ID,
+      and it must be from the same account where the new API key is created.
+
+
+      **Example:**
+
+      ```
+
+      curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys
+      \
+
+      -H ''Authorization: Bearer <api_key>'' \
+
+      -H ''content-type: application/json'' \
+
+      -d ''{"name": "MyKey1"}''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - id
+    - created_at
+    - updated_at
+    - key
+    - creation_time
+    - last_login_time
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: The ID of the account.
+      entity_fieldname: account_id
+      example: 01619571e2e90242ac12000600000000
+      in: path
+      parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
+      required: true
+      type: string
+    - _key: name
+      api_fieldname: name
+      description: The display name for the API key.
+      entity_fieldname: name
+      example: API key gorgon
+      in: body
+      parameter_fieldname: name
+      required: true
+      type: string
+    - _key: owner
+      api_fieldname: owner
+      description: The owner of this API key, who is the creator by default.
+      entity_fieldname: owner
+      example: 01619571e2e89242ac12000600000000
+      in: body
+      parameter_fieldname: owner
+      required: false
+      type: string
+    - _key: status
+      api_fieldname: status
+      description: The status of the API key.
+      entity_fieldname: status
+      enum: &id006
+      - ACTIVE
+      - INACTIVE
+      enum_reference: subtenant_api_key_status_enum
+      example: ACTIVE
+      in: body
+      parameter_fieldname: status
+      required: false
+      type: string
+    group_id: Accounts
+    method: post
+    mode: create
+    operation_id: createAccountApiKey
+    pagination: false
+    parameter_map:
+      apikey_id: id
+    path: /v3/accounts/{account_id}/api-keys
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '201'
+      description: New entity created.
+      schema:
+        description: Represents an API key in Device Management.
+        foreign_key:
+          entity: api_key
+          group: Accounts
+        properties:
+        - _key: account_id
+          api_fieldname: account_id
+          description: The ID of the account.
+          entity_fieldname: account_id
+          example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: created_at
+          api_fieldname: created_at
+          description: Creation UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2018-02-13T09:35:20Z'
+          format: date-time
+          type: string
+        - _key: creation_time
+          api_fieldname: creation_time
+          description: The timestamp of the API key creation in the storage, in milliseconds.
+          entity_fieldname: creation_time
+          example: 1518630727683
+          format: int64
+          type: integer
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: groups
+          api_fieldname: groups
+          description: A list of group IDs this API key belongs to.
+          entity_fieldname: groups
+          external_param: true
+          in: body
+          items:
+            type: string
+          name: groups
+          parameter_fieldname: groups
+          required: false
+          schema_param: true
+          type: array
+        - _key: id
+          api_fieldname: id
+          description: The ID of the API key.
+          entity_fieldname: id
+          example: 01619571f7020242ac12000600000000
+          in: path
+          parameter_fieldname: apikey_id
+          required: true
+          type: string
+        - _key: key
+          api_fieldname: key
+          description: The API key.
+          entity_fieldname: key
+          example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000
+          type: string
+        - _key: last_login_time
+          api_fieldname: last_login_time
+          description: The timestamp of the latest API key usage, in milliseconds.
+          entity_fieldname: last_login_time
+          example: 1518630727688
+          format: int64
+          type: integer
+        - _key: name
+          api_fieldname: name
+          description: The display name for the API key.
+          entity_fieldname: name
+          example: API key gorgon
+          in: body
+          parameter_fieldname: name
+          required: true
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''api-key'''
+          entity_fieldname: object
+          enum:
+          - api-key
+          type: string
+        - _key: owner
+          api_fieldname: owner
+          description: The owner of this API key, who is the creator by default.
+          entity_fieldname: owner
+          example: 01619571e2e89242ac12000600000000
+          in: body
+          parameter_fieldname: owner
+          required: false
+          type: string
+        - _key: status
+          api_fieldname: status
+          description: The status of the API key.
+          entity_fieldname: status
+          enum:
+          - ACTIVE
+          - INACTIVE
+          enum_reference: api_key_status_enum
+          example: ACTIVE
+          in: body
+          parameter_fieldname: status
+          required: false
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        required:
+        - etag
+        - id
+        - key
+        - name
+        - object
+        type: object
+    - _key: '400'
+      description: Error in input data, for example, missing display name.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: An account with the given ID does not exist.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_api_key
+    return_type: subtenant_api_key
+    summary: Create a new API key.
+    x_deprecation: null
+    x_filter: {}
+  - _key: delete
+    description: 'Delete an API key.
+
+
+      **Example:**
+
+      ```
+
+      curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: false
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: id
+      api_fieldname: apikey_id
+      description: The ID of the API key to delete.
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: apikey_id
+      parameter_fieldname: apikey_id
+      required: true
+      type: string
+    group_id: Accounts
+    method: delete
+    mode: delete
+    operation_id: deleteAccountApiKey
+    pagination: false
+    parameter_map:
+      apikey_id: id
+    path: /v3/accounts/{account_id}/api-keys/{apikey_id}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Deleted successfully.
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: An account or API key with the specified ID does not exist.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_api_key
+    return_type: subtenant_api_key
+    summary: Delete the API key.
+    x_deprecation: null
+    x_filter: {}
+  - _key: read
+    description: "Retrieve API key details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
+      \ \\\n -H 'Authorization: Bearer <api_key>'\n```"
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - created_at
+    - updated_at
+    - key
+    - name
+    - owner
+    - status
+    - creation_time
+    - last_login_time
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: The ID of the account.
+      entity_fieldname: account_id
+      example: 01619571e2e90242ac12000600000000
+      in: path
+      parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
+      required: true
+      type: string
+    - _key: id
+      api_fieldname: id
+      description: The ID of the API key.
+      entity_fieldname: id
+      example: 01619571f7020242ac12000600000000
+      in: path
+      parameter_fieldname: apikey_id
+      required: true
+      type: string
+    group_id: Accounts
+    method: get
+    mode: read
+    operation_id: getAccountApiKey
+    pagination: false
+    parameter_map:
+      apikey_id: id
+    path: /v3/accounts/{account_id}/api-keys/{apikey_id}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        description: Represents an API key in Device Management.
+        foreign_key:
+          entity: api_key
+          group: Accounts
+        properties:
+        - _key: account_id
+          api_fieldname: account_id
+          description: The ID of the account.
+          entity_fieldname: account_id
+          example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: created_at
+          api_fieldname: created_at
+          description: Creation UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2018-02-13T09:35:20Z'
+          format: date-time
+          type: string
+        - _key: creation_time
+          api_fieldname: creation_time
+          description: The timestamp of the API key creation in the storage, in milliseconds.
+          entity_fieldname: creation_time
+          example: 1518630727683
+          format: int64
+          type: integer
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: groups
+          api_fieldname: groups
+          description: A list of group IDs this API key belongs to.
+          entity_fieldname: groups
+          external_param: true
+          in: body
+          items:
+            type: string
+          name: groups
+          parameter_fieldname: groups
+          required: false
+          schema_param: true
+          type: array
+        - _key: id
+          api_fieldname: id
+          description: The ID of the API key.
+          entity_fieldname: id
+          example: 01619571f7020242ac12000600000000
+          in: path
+          parameter_fieldname: apikey_id
+          required: true
+          type: string
+        - _key: key
+          api_fieldname: key
+          description: The API key.
+          entity_fieldname: key
+          example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000
+          type: string
+        - _key: last_login_time
+          api_fieldname: last_login_time
+          description: The timestamp of the latest API key usage, in milliseconds.
+          entity_fieldname: last_login_time
+          example: 1518630727688
+          format: int64
+          type: integer
+        - _key: name
+          api_fieldname: name
+          description: The display name for the API key.
+          entity_fieldname: name
+          example: API key gorgon
+          in: body
+          parameter_fieldname: name
+          required: true
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''api-key'''
+          entity_fieldname: object
+          enum:
+          - api-key
+          type: string
+        - _key: owner
+          api_fieldname: owner
+          description: The owner of this API key, who is the creator by default.
+          entity_fieldname: owner
+          example: 01619571e2e89242ac12000600000000
+          in: body
+          parameter_fieldname: owner
+          required: false
+          type: string
+        - _key: status
+          api_fieldname: status
+          description: The status of the API key.
+          entity_fieldname: status
+          enum:
+          - ACTIVE
+          - INACTIVE
+          enum_reference: api_key_status_enum
+          example: ACTIVE
+          in: body
+          parameter_fieldname: status
+          required: false
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        required:
+        - etag
+        - id
+        - key
+        - name
+        - object
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: An account or API key with the specified ID does not exist.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_api_key
+    return_type: subtenant_api_key
+    summary: Get API key details.
+    x_deprecation: null
+    x_filter: {}
+  - _key: update
+    description: 'Update API key details.
+
+
+      **Example:**
+
+      ```
+
+      curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}
+      \
+
+      -H ''Authorization: Bearer <api_key>'' \
+
+      -H ''content-type: application/json'' \
+
+      -d ''{"name": "TestApiKey25"}''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - created_at
+    - updated_at
+    - key
+    - creation_time
+    - last_login_time
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: The ID of the account.
+      entity_fieldname: account_id
+      example: 01619571e2e90242ac12000600000000
+      in: path
+      parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
+      required: true
+      type: string
+    - _key: id
+      api_fieldname: id
+      description: The ID of the API key.
+      entity_fieldname: id
+      example: 01619571f7020242ac12000600000000
+      in: path
+      parameter_fieldname: apikey_id
+      required: true
+      type: string
+    - _key: name
+      api_fieldname: name
+      description: The display name for the API key.
+      entity_fieldname: name
+      example: API key gorgon
+      in: body
+      parameter_fieldname: name
+      required: true
+      type: string
+    - _key: owner
+      api_fieldname: owner
+      description: The owner of this API key, who is the creator by default.
+      entity_fieldname: owner
+      example: 01619571e2e89242ac12000600000000
+      in: body
+      parameter_fieldname: owner
+      required: false
+      type: string
+    - _key: status
+      api_fieldname: status
+      description: The status of the API key.
+      entity_fieldname: status
+      enum: *id006
+      enum_reference: subtenant_api_key_status_enum
+      example: ACTIVE
+      in: body
+      parameter_fieldname: status
+      required: false
+      type: string
+    group_id: Accounts
+    method: put
+    mode: update
+    operation_id: updateAccountApiKey
+    pagination: false
+    parameter_map:
+      apikey_id: id
+    path: /v3/accounts/{account_id}/api-keys/{apikey_id}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        description: Represents an API key in Device Management.
+        foreign_key:
+          entity: api_key
+          group: Accounts
+        properties:
+        - _key: account_id
+          api_fieldname: account_id
+          description: The ID of the account.
+          entity_fieldname: account_id
+          example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: created_at
+          api_fieldname: created_at
+          description: Creation UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2018-02-13T09:35:20Z'
+          format: date-time
+          type: string
+        - _key: creation_time
+          api_fieldname: creation_time
+          description: The timestamp of the API key creation in the storage, in milliseconds.
+          entity_fieldname: creation_time
+          example: 1518630727683
+          format: int64
+          type: integer
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: groups
+          api_fieldname: groups
+          description: A list of group IDs this API key belongs to.
+          entity_fieldname: groups
+          external_param: true
+          in: body
+          items:
+            type: string
+          name: groups
+          parameter_fieldname: groups
+          required: false
+          schema_param: true
+          type: array
+        - _key: id
+          api_fieldname: id
+          description: The ID of the API key.
+          entity_fieldname: id
+          example: 01619571f7020242ac12000600000000
+          in: path
+          parameter_fieldname: apikey_id
+          required: true
+          type: string
+        - _key: key
+          api_fieldname: key
+          description: The API key.
+          entity_fieldname: key
+          example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000
+          type: string
+        - _key: last_login_time
+          api_fieldname: last_login_time
+          description: The timestamp of the latest API key usage, in milliseconds.
+          entity_fieldname: last_login_time
+          example: 1518630727688
+          format: int64
+          type: integer
+        - _key: name
+          api_fieldname: name
+          description: The display name for the API key.
+          entity_fieldname: name
+          example: API key gorgon
+          in: body
+          parameter_fieldname: name
+          required: true
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''api-key'''
+          entity_fieldname: object
+          enum:
+          - api-key
+          type: string
+        - _key: owner
+          api_fieldname: owner
+          description: The owner of this API key, who is the creator by default.
+          entity_fieldname: owner
+          example: 01619571e2e89242ac12000600000000
+          in: body
+          parameter_fieldname: owner
+          required: false
+          type: string
+        - _key: status
+          api_fieldname: status
+          description: The status of the API key.
+          entity_fieldname: status
+          enum:
+          - ACTIVE
+          - INACTIVE
+          enum_reference: api_key_status_enum
+          example: ACTIVE
+          in: body
+          parameter_fieldname: status
+          required: false
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        required:
+        - etag
+        - id
+        - key
+        - name
+        - object
+        type: object
+    - _key: '400'
+      description: Error in input data, for example, missing display name.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: An account ID or API key with the specified ID does not exist.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_api_key
+    return_type: subtenant_api_key
+    summary: Update API key details.
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: id
+  swagger_models:
+  - ApiKeyInfoReq
+  - ApiKeyInfoResp
+  - ApiKeyUpdateReq
+  tags:
+  - Tenant accounts - API keys
 - _key: subtenant_trusted_certificate
   field_renames: []
   fields:
@@ -29583,8 +32270,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - signature
     - id
     - created_at
@@ -29657,7 +32342,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: &id006
+      enum: &id007
       - lwm2m
       - bootstrap
       enum_reference: subtenant_trusted_certificate_service_enum
@@ -29669,7 +32354,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id007
+      enum: &id008
       - ACTIVE
       - INACTIVE
       enum_reference: subtenant_trusted_certificate_status_enum
@@ -30081,8 +32766,7 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
+    - signature
     field_renames: []
     fields:
     - _key: account_id
@@ -30300,8 +32984,7 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
+    - signature
     - created_at
     - account_id
     - name
@@ -30789,8 +33472,7 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
+    - signature
     - created_at
     - updated_at
     - name
@@ -31181,8 +33863,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - signature
     - created_at
     - updated_at
@@ -31263,7 +33943,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: *id006
+      enum: *id007
       enum_reference: subtenant_trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -31273,7 +33953,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id007
+      enum: *id008
       enum_reference: subtenant_trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -31675,13 +34355,7 @@ entities:
   - Tenant device security - certificates
   - Device security - developer class certificates
 - _key: subtenant_user
-  field_renames:
-  - _key: marketing_accepted
-    api_fieldname: is_marketing_accepted
-  - _key: terms_accepted
-    api_fieldname: is_gtc_accepted
-  - _key: two_factor_authentication
-    api_fieldname: is_totp_enabled
+  field_renames: []
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -31820,6 +34494,35 @@ entities:
     readOnly: false
     required: true
     type: string
+  - _key: is_gtc_accepted
+    api_fieldname: is_gtc_accepted
+    description: A flag indicating that the user has accepted General Terms and Conditions.
+    example: true
+    in: body
+    parameter_fieldname: is_gtc_accepted
+    readOnly: false
+    required: false
+    type: boolean
+  - _key: is_marketing_accepted
+    api_fieldname: is_marketing_accepted
+    description: A flag indicating that the user has consented to receive marketing
+      information.
+    example: true
+    in: body
+    parameter_fieldname: is_marketing_accepted
+    readOnly: false
+    required: false
+    type: boolean
+  - _key: is_totp_enabled
+    api_fieldname: is_totp_enabled
+    description: A flag indicating whether two-factor authentication (TOTP) has been
+      enabled.
+    example: true
+    in: body
+    parameter_fieldname: is_totp_enabled
+    readOnly: false
+    required: false
+    type: boolean
   - _key: last_login_time
     api_fieldname: last_login_time
     description: A timestamp of the latest login of the user, in milliseconds.
@@ -31917,16 +34620,6 @@ entities:
     required: false
     type: array
     x-nullable: true
-  - _key: marketing_accepted
-    api_fieldname: is_marketing_accepted
-    description: A flag indicating that the user has consented to receive marketing
-      information.
-    example: true
-    in: body
-    parameter_fieldname: is_marketing_accepted
-    readOnly: false
-    required: false
-    type: boolean
   - _key: password
     api_fieldname: password
     description: The password when creating a new user. It will be generated when
@@ -31975,15 +34668,6 @@ entities:
     readOnly: false
     required: false
     type: string
-  - _key: terms_accepted
-    api_fieldname: is_gtc_accepted
-    description: A flag indicating that the user has accepted General Terms and Conditions.
-    example: true
-    in: body
-    parameter_fieldname: is_gtc_accepted
-    readOnly: false
-    required: false
-    type: boolean
   - _key: totp_scratch_codes
     api_fieldname: totp_scratch_codes
     description: A list of scratch codes for the two-factor authentication. Visible
@@ -31994,16 +34678,6 @@ entities:
     required: false
     type: array
     x-nullable: true
-  - _key: two_factor_authentication
-    api_fieldname: is_totp_enabled
-    description: A flag indicating whether two-factor authentication (TOTP) has been
-      enabled.
-    example: true
-    in: body
-    parameter_fieldname: is_totp_enabled
-    readOnly: false
-    required: false
-    type: boolean
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
@@ -32049,8 +34723,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - created_at
     - updated_at
@@ -32060,17 +34732,11 @@ entities:
     - last_login_time
     - password_changed_time
     - login_history
+    - is_totp_enabled
     - totp_scratch_codes
     - custom_fields
     - active_sessions
-    - two_factor_authentication
-    field_renames:
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
+    field_renames: []
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -32121,6 +34787,26 @@ entities:
       required: false
       type: string
       x-nullable: true
+    - _key: is_gtc_accepted
+      api_fieldname: is_gtc_accepted
+      description: A flag indicating that the user has accepted General Terms and
+        Conditions.
+      entity_fieldname: is_gtc_accepted
+      example: true
+      in: body
+      parameter_fieldname: is_gtc_accepted
+      required: false
+      type: boolean
+    - _key: is_marketing_accepted
+      api_fieldname: is_marketing_accepted
+      description: A flag indicating that the user has consented to receive marketing
+        information.
+      entity_fieldname: is_marketing_accepted
+      example: true
+      in: body
+      parameter_fieldname: is_marketing_accepted
+      required: false
+      type: boolean
     - _key: login_profiles
       api_fieldname: login_profiles
       description: A list of login profiles for the user. Specified as the identity
@@ -32151,30 +34837,20 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: &id008
+          enum: &id009
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           readOnly: true
           type: string
-        required: &id009
+        required: &id010
         - id
         type: object
       parameter_fieldname: login_profiles
       required: false
       type: array
       x-nullable: true
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-      description: A flag indicating that the user has consented to receive marketing
-        information.
-      entity_fieldname: marketing_accepted
-      example: true
-      in: body
-      parameter_fieldname: is_marketing_accepted
-      required: false
-      type: boolean
     - _key: password
       api_fieldname: password
       description: The password when creating a new user. It will be generated when
@@ -32196,16 +34872,6 @@ entities:
       required: false
       type: string
       x-nullable: true
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-      description: A flag indicating that the user has accepted General Terms and
-        Conditions.
-      entity_fieldname: terms_accepted
-      example: true
-      in: body
-      parameter_fieldname: is_gtc_accepted
-      required: false
-      type: boolean
     - _key: username
       api_fieldname: username
       description: A username containing alphanumerical letters and -,._@+= characters.
@@ -32391,7 +35057,7 @@ entities:
           api_fieldname: is_gtc_accepted
           description: A flag indicating that the user has accepted General Terms
             and Conditions.
-          entity_fieldname: terms_accepted
+          entity_fieldname: is_gtc_accepted
           example: true
           in: body
           parameter_fieldname: is_gtc_accepted
@@ -32401,7 +35067,7 @@ entities:
           api_fieldname: is_marketing_accepted
           description: A flag indicating that the user has consented to receive marketing
             information.
-          entity_fieldname: marketing_accepted
+          entity_fieldname: is_marketing_accepted
           example: true
           in: body
           parameter_fieldname: is_marketing_accepted
@@ -32411,7 +35077,7 @@ entities:
           api_fieldname: is_totp_enabled
           description: A flag indicating whether two-factor authentication (TOTP)
             has been enabled.
-          entity_fieldname: two_factor_authentication
+          entity_fieldname: is_totp_enabled
           example: true
           in: body
           parameter_fieldname: is_totp_enabled
@@ -32869,15 +35535,7 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
-    field_renames:
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
+    field_renames: []
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -33132,8 +35790,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - updated_at
     - status
@@ -33143,25 +35799,19 @@ entities:
     - email
     - address
     - phone_number
+    - is_gtc_accepted
+    - is_marketing_accepted
     - email_verified
     - creation_time
     - last_login_time
     - password_changed_time
     - login_history
+    - is_totp_enabled
     - login_profiles
     - totp_scratch_codes
     - custom_fields
     - active_sessions
-    - two_factor_authentication
-    - terms_accepted
-    - marketing_accepted
-    field_renames:
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
+    field_renames: []
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -33356,7 +36006,7 @@ entities:
           api_fieldname: is_gtc_accepted
           description: A flag indicating that the user has accepted General Terms
             and Conditions.
-          entity_fieldname: terms_accepted
+          entity_fieldname: is_gtc_accepted
           example: true
           in: body
           parameter_fieldname: is_gtc_accepted
@@ -33366,7 +36016,7 @@ entities:
           api_fieldname: is_marketing_accepted
           description: A flag indicating that the user has consented to receive marketing
             information.
-          entity_fieldname: marketing_accepted
+          entity_fieldname: is_marketing_accepted
           example: true
           in: body
           parameter_fieldname: is_marketing_accepted
@@ -33376,7 +36026,7 @@ entities:
           api_fieldname: is_totp_enabled
           description: A flag indicating whether two-factor authentication (TOTP)
             has been enabled.
-          entity_fieldname: two_factor_authentication
+          entity_fieldname: is_totp_enabled
           example: true
           in: body
           parameter_fieldname: is_totp_enabled
@@ -33742,8 +36392,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - email
     - two_factor_auth_enabled
     - status
@@ -33758,13 +36406,7 @@ entities:
     - totp_scratch_codes
     - custom_fields
     - active_sessions
-    field_renames:
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
+    field_renames: []
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -33804,6 +36446,36 @@ entities:
       parameter_fieldname: user_id
       required: true
       type: string
+    - _key: is_gtc_accepted
+      api_fieldname: is_gtc_accepted
+      description: A flag indicating that the user has accepted General Terms and
+        Conditions.
+      entity_fieldname: is_gtc_accepted
+      example: true
+      in: body
+      parameter_fieldname: is_gtc_accepted
+      required: false
+      type: boolean
+    - _key: is_marketing_accepted
+      api_fieldname: is_marketing_accepted
+      description: A flag indicating that the user has consented to receive marketing
+        information.
+      entity_fieldname: is_marketing_accepted
+      example: true
+      in: body
+      parameter_fieldname: is_marketing_accepted
+      required: false
+      type: boolean
+    - _key: is_totp_enabled
+      api_fieldname: is_totp_enabled
+      description: A flag indicating whether two-factor authentication (TOTP) has
+        been enabled.
+      entity_fieldname: is_totp_enabled
+      example: true
+      in: body
+      parameter_fieldname: is_totp_enabled
+      required: false
+      type: boolean
     - _key: login_profiles
       api_fieldname: login_profiles
       description: A list of login profiles for the user. Specified as the identity
@@ -33834,25 +36506,15 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: *id008
+          enum: *id009
           readOnly: true
           type: string
-        required: *id009
+        required: *id010
         type: object
       parameter_fieldname: login_profiles
       required: false
       type: array
       x-nullable: true
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-      description: A flag indicating that the user has consented to receive marketing
-        information.
-      entity_fieldname: marketing_accepted
-      example: true
-      in: body
-      parameter_fieldname: is_marketing_accepted
-      required: false
-      type: boolean
     - _key: phone_number
       api_fieldname: phone_number
       description: Phone number.
@@ -33863,26 +36525,6 @@ entities:
       required: false
       type: string
       x-nullable: true
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-      description: A flag indicating that the user has accepted General Terms and
-        Conditions.
-      entity_fieldname: terms_accepted
-      example: true
-      in: body
-      parameter_fieldname: is_gtc_accepted
-      required: false
-      type: boolean
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
-      description: A flag indicating whether two-factor authentication (TOTP) has
-        been enabled.
-      entity_fieldname: two_factor_authentication
-      example: true
-      in: body
-      parameter_fieldname: is_totp_enabled
-      required: false
-      type: boolean
     - _key: username
       api_fieldname: username
       description: A username containing alphanumerical letters and -,._@+= characters.
@@ -34068,7 +36710,7 @@ entities:
           api_fieldname: is_gtc_accepted
           description: A flag indicating that the user has accepted General Terms
             and Conditions.
-          entity_fieldname: terms_accepted
+          entity_fieldname: is_gtc_accepted
           example: true
           in: body
           parameter_fieldname: is_gtc_accepted
@@ -34078,7 +36720,7 @@ entities:
           api_fieldname: is_marketing_accepted
           description: A flag indicating that the user has consented to receive marketing
             information.
-          entity_fieldname: marketing_accepted
+          entity_fieldname: is_marketing_accepted
           example: true
           in: body
           parameter_fieldname: is_marketing_accepted
@@ -34088,7 +36730,7 @@ entities:
           api_fieldname: is_totp_enabled
           description: A flag indicating whether two-factor authentication (TOTP)
             has been enabled.
-          entity_fieldname: two_factor_authentication
+          entity_fieldname: is_totp_enabled
           example: true
           in: body
           parameter_fieldname: is_totp_enabled
@@ -34546,15 +37188,7 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
-    field_renames:
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
+    field_renames: []
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -34877,8 +37511,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - created_at
     - updated_at
@@ -35283,8 +37915,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: account_id
@@ -35493,8 +38123,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - updated_at
     - email
@@ -35998,8 +38626,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - signature
     - id
     - created_at
@@ -36064,7 +38690,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: &id010
+      enum: &id011
       - lwm2m
       - bootstrap
       enum_reference: trusted_certificate_service_enum
@@ -36076,7 +38702,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id011
+      enum: &id012
       - ACTIVE
       - INACTIVE
       enum_reference: trusted_certificate_status_enum
@@ -36464,8 +39090,7 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
+    - signature
     field_renames: []
     fields:
     - _key: id
@@ -36673,8 +39298,7 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
+    - signature
     - created_at
     - account_id
     - name
@@ -37161,8 +39785,7 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
+    - signature
     - total_count
     - has_more
     - data
@@ -37568,8 +40191,7 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
+    - signature
     - created_at
     - updated_at
     - name
@@ -37942,8 +40564,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - signature
     - created_at
     - updated_at
@@ -38016,7 +40636,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: *id010
+      enum: *id011
       enum_reference: trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -38026,7 +40646,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id011
+      enum: *id012
       enum_reference: trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -38575,8 +41195,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - state
     field_renames: []
     fields:
@@ -38639,8 +41257,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - state
     - autostop_reason
     - phase
@@ -38881,8 +41497,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - state
     field_renames: []
     fields:
@@ -38994,8 +41608,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - state
     - has_more
     - data
@@ -39261,8 +41873,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - state
     - data
     - has_more
@@ -39618,8 +42228,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - state
     - autostop_reason
     - phase
@@ -39826,8 +42434,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - state
     field_renames: []
     fields:
@@ -39890,8 +42496,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - state
     field_renames: []
     fields:
@@ -39954,8 +42558,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - state
     - autostop_reason
     - phase
@@ -40210,13 +42812,7 @@ entities:
   - UpdateCampaignPutRequest
   tags: []
 - _key: user
-  field_renames:
-  - _key: marketing_accepted
-    api_fieldname: is_marketing_accepted
-  - _key: terms_accepted
-    api_fieldname: is_gtc_accepted
-  - _key: two_factor_authentication
-    api_fieldname: is_totp_enabled
+  field_renames: []
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -40347,6 +42943,29 @@ entities:
     readOnly: false
     required: true
     type: string
+  - _key: is_gtc_accepted
+    api_fieldname: is_gtc_accepted
+    description: A flag indicating that the user has accepted General Terms and Conditions.
+    example: true
+    readOnly: false
+    required: false
+    type: boolean
+  - _key: is_marketing_accepted
+    api_fieldname: is_marketing_accepted
+    description: A flag indicating that the user has consented to receive marketing
+      information.
+    example: true
+    readOnly: false
+    required: false
+    type: boolean
+  - _key: is_totp_enabled
+    api_fieldname: is_totp_enabled
+    description: A flag indicating whether two-factor authentication (TOTP) has been
+      enabled.
+    example: true
+    readOnly: false
+    required: false
+    type: boolean
   - _key: last_login_time
     api_fieldname: last_login_time
     description: A timestamp of the latest login of the user, in milliseconds.
@@ -40442,14 +43061,6 @@ entities:
     required: false
     type: array
     x-nullable: true
-  - _key: marketing_accepted
-    api_fieldname: is_marketing_accepted
-    description: A flag indicating that the user has consented to receive marketing
-      information.
-    example: true
-    readOnly: false
-    required: false
-    type: boolean
   - _key: password
     api_fieldname: password
     description: The password when creating a new user. It will be generated when
@@ -40492,13 +43103,6 @@ entities:
     readOnly: false
     required: false
     type: string
-  - _key: terms_accepted
-    api_fieldname: is_gtc_accepted
-    description: A flag indicating that the user has accepted General Terms and Conditions.
-    example: true
-    readOnly: false
-    required: false
-    type: boolean
   - _key: totp_scratch_codes
     api_fieldname: totp_scratch_codes
     description: A list of scratch codes for the two-factor authentication. Visible
@@ -40509,14 +43113,6 @@ entities:
     required: false
     type: array
     x-nullable: true
-  - _key: two_factor_authentication
-    api_fieldname: is_totp_enabled
-    description: A flag indicating whether two-factor authentication (TOTP) has been
-      enabled.
-    example: true
-    readOnly: false
-    required: false
-    type: boolean
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
@@ -40559,8 +43155,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - created_at
     - updated_at
@@ -40571,17 +43165,11 @@ entities:
     - password_changed_time
     - account_id
     - login_history
+    - is_totp_enabled
     - totp_scratch_codes
     - custom_fields
     - active_sessions
-    - two_factor_authentication
-    field_renames:
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
+    field_renames: []
     fields:
     - _key: action
       api_fieldname: action
@@ -40623,6 +43211,26 @@ entities:
       required: false
       type: string
       x-nullable: true
+    - _key: is_gtc_accepted
+      api_fieldname: is_gtc_accepted
+      description: A flag indicating that the user has accepted General Terms and
+        Conditions.
+      entity_fieldname: is_gtc_accepted
+      example: true
+      in: body
+      parameter_fieldname: is_gtc_accepted
+      required: false
+      type: boolean
+    - _key: is_marketing_accepted
+      api_fieldname: is_marketing_accepted
+      description: A flag indicating that the user has consented to receive marketing
+        information.
+      entity_fieldname: is_marketing_accepted
+      example: true
+      in: body
+      parameter_fieldname: is_marketing_accepted
+      required: false
+      type: boolean
     - _key: login_profiles
       api_fieldname: login_profiles
       description: A list of login profiles for the user. Specified as the identity
@@ -40653,30 +43261,20 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: &id012
+          enum: &id013
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           readOnly: true
           type: string
-        required: &id013
+        required: &id014
         - id
         type: object
       parameter_fieldname: login_profiles
       required: false
       type: array
       x-nullable: true
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-      description: A flag indicating that the user has consented to receive marketing
-        information.
-      entity_fieldname: marketing_accepted
-      example: true
-      in: body
-      parameter_fieldname: is_marketing_accepted
-      required: false
-      type: boolean
     - _key: password
       api_fieldname: password
       description: The password when creating a new user. It will be generated when
@@ -40698,16 +43296,6 @@ entities:
       required: false
       type: string
       x-nullable: true
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-      description: A flag indicating that the user has accepted General Terms and
-        Conditions.
-      entity_fieldname: terms_accepted
-      example: true
-      in: body
-      parameter_fieldname: is_gtc_accepted
-      required: false
-      type: boolean
     - _key: username
       api_fieldname: username
       description: A username containing alphanumerical letters and -,._@+= characters.
@@ -40873,21 +43461,21 @@ entities:
           api_fieldname: is_gtc_accepted
           description: A flag indicating that the user has accepted General Terms
             and Conditions.
-          entity_fieldname: terms_accepted
+          entity_fieldname: is_gtc_accepted
           example: true
           type: boolean
         - _key: is_marketing_accepted
           api_fieldname: is_marketing_accepted
           description: A flag indicating that the user has consented to receive marketing
             information.
-          entity_fieldname: marketing_accepted
+          entity_fieldname: is_marketing_accepted
           example: true
           type: boolean
         - _key: is_totp_enabled
           api_fieldname: is_totp_enabled
           description: A flag indicating whether two-factor authentication (TOTP)
             has been enabled.
-          entity_fieldname: two_factor_authentication
+          entity_fieldname: is_totp_enabled
           example: true
           type: boolean
         - _key: last_login_time
@@ -41278,15 +43866,7 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
-    field_renames:
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
+    field_renames: []
     fields:
     - _key: id
       api_fieldname: user_id
@@ -41530,8 +44110,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - total_count
     - has_more
     - data
@@ -41540,13 +44118,7 @@ entities:
     - status__in
     - status__nin
     - login_profiles__eq
-    field_renames:
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
+    field_renames: []
     fields:
     - _key: after
       api_fieldname: after
@@ -42086,8 +44658,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - updated_at
     - status
@@ -42097,26 +44667,20 @@ entities:
     - email
     - address
     - phone_number
+    - is_gtc_accepted
+    - is_marketing_accepted
     - email_verified
     - creation_time
     - last_login_time
     - password_changed_time
     - account_id
     - login_history
+    - is_totp_enabled
     - login_profiles
     - totp_scratch_codes
     - custom_fields
     - active_sessions
-    - two_factor_authentication
-    - terms_accepted
-    - marketing_accepted
-    field_renames:
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
+    field_renames: []
     fields:
     - _key: id
       api_fieldname: id
@@ -42282,21 +44846,21 @@ entities:
           api_fieldname: is_gtc_accepted
           description: A flag indicating that the user has accepted General Terms
             and Conditions.
-          entity_fieldname: terms_accepted
+          entity_fieldname: is_gtc_accepted
           example: true
           type: boolean
         - _key: is_marketing_accepted
           api_fieldname: is_marketing_accepted
           description: A flag indicating that the user has consented to receive marketing
             information.
-          entity_fieldname: marketing_accepted
+          entity_fieldname: is_marketing_accepted
           example: true
           type: boolean
         - _key: is_totp_enabled
           api_fieldname: is_totp_enabled
           description: A flag indicating whether two-factor authentication (TOTP)
             has been enabled.
-          entity_fieldname: two_factor_authentication
+          entity_fieldname: is_totp_enabled
           example: true
           type: boolean
         - _key: last_login_time
@@ -42643,8 +45207,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - email
     - two_factor_auth_enabled
     - status
@@ -42660,13 +45222,7 @@ entities:
     - totp_scratch_codes
     - custom_fields
     - active_sessions
-    field_renames:
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
+    field_renames: []
     fields:
     - _key: address
       api_fieldname: address
@@ -42697,6 +45253,36 @@ entities:
       parameter_fieldname: user_id
       required: true
       type: string
+    - _key: is_gtc_accepted
+      api_fieldname: is_gtc_accepted
+      description: A flag indicating that the user has accepted General Terms and
+        Conditions.
+      entity_fieldname: is_gtc_accepted
+      example: true
+      in: body
+      parameter_fieldname: is_gtc_accepted
+      required: false
+      type: boolean
+    - _key: is_marketing_accepted
+      api_fieldname: is_marketing_accepted
+      description: A flag indicating that the user has consented to receive marketing
+        information.
+      entity_fieldname: is_marketing_accepted
+      example: true
+      in: body
+      parameter_fieldname: is_marketing_accepted
+      required: false
+      type: boolean
+    - _key: is_totp_enabled
+      api_fieldname: is_totp_enabled
+      description: A flag indicating whether two-factor authentication (TOTP) has
+        been enabled.
+      entity_fieldname: is_totp_enabled
+      example: true
+      in: body
+      parameter_fieldname: is_totp_enabled
+      required: false
+      type: boolean
     - _key: login_profiles
       api_fieldname: login_profiles
       description: A list of login profiles for the user. Specified as the identity
@@ -42727,25 +45313,15 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: *id012
+          enum: *id013
           readOnly: true
           type: string
-        required: *id013
+        required: *id014
         type: object
       parameter_fieldname: login_profiles
       required: false
       type: array
       x-nullable: true
-    - _key: marketing_accepted
-      api_fieldname: is_marketing_accepted
-      description: A flag indicating that the user has consented to receive marketing
-        information.
-      entity_fieldname: marketing_accepted
-      example: true
-      in: body
-      parameter_fieldname: is_marketing_accepted
-      required: false
-      type: boolean
     - _key: phone_number
       api_fieldname: phone_number
       description: Phone number.
@@ -42756,26 +45332,6 @@ entities:
       required: false
       type: string
       x-nullable: true
-    - _key: terms_accepted
-      api_fieldname: is_gtc_accepted
-      description: A flag indicating that the user has accepted General Terms and
-        Conditions.
-      entity_fieldname: terms_accepted
-      example: true
-      in: body
-      parameter_fieldname: is_gtc_accepted
-      required: false
-      type: boolean
-    - _key: two_factor_authentication
-      api_fieldname: is_totp_enabled
-      description: A flag indicating whether two-factor authentication (TOTP) has
-        been enabled.
-      entity_fieldname: two_factor_authentication
-      example: true
-      in: body
-      parameter_fieldname: is_totp_enabled
-      required: false
-      type: boolean
     - _key: username
       api_fieldname: username
       description: A username containing alphanumerical letters and -,._@+= characters.
@@ -42941,21 +45497,21 @@ entities:
           api_fieldname: is_gtc_accepted
           description: A flag indicating that the user has accepted General Terms
             and Conditions.
-          entity_fieldname: terms_accepted
+          entity_fieldname: is_gtc_accepted
           example: true
           type: boolean
         - _key: is_marketing_accepted
           api_fieldname: is_marketing_accepted
           description: A flag indicating that the user has consented to receive marketing
             information.
-          entity_fieldname: marketing_accepted
+          entity_fieldname: is_marketing_accepted
           example: true
           type: boolean
         - _key: is_totp_enabled
           api_fieldname: is_totp_enabled
           description: A flag indicating whether two-factor authentication (TOTP)
             has been enabled.
-          entity_fieldname: two_factor_authentication
+          entity_fieldname: is_totp_enabled
           example: true
           type: boolean
         - _key: last_login_time
@@ -43505,8 +46061,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - id
     - created_at
     - updated_at
@@ -43888,8 +46442,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     field_renames: []
     fields:
     - _key: id
@@ -44086,8 +46638,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - total_count
     - has_more
     - data
@@ -44435,8 +46985,6 @@ entities:
     - type
     - groups
     - filter
-    - is_custom
-    - private_key
     - created_at
     - updated_at
     - email
@@ -44829,6 +47377,26 @@ enums:
   - manifestremoved
   - pending
   - updated_connector_channel
+- _key: campaign_statistics_id_enum
+  entity_name: campaign_statistics
+  enum_name: campaign_statistics_id_enum
+  field_name: id
+  group_id: Device_Update
+  values:
+  - fail
+  - info
+  - skipped
+  - success
+- _key: campaign_statistics_summary_status_enum
+  entity_name: campaign_statistics
+  enum_name: campaign_statistics_summary_status_enum
+  field_name: summary_status
+  group_id: Device_Update
+  values:
+  - FAIL
+  - INFO
+  - SKIPPED
+  - SUCCESS
 - _key: certificate_enrollment_enroll_result_enum
   entity_name: certificate_enrollment
   enum_name: certificate_enrollment_enroll_result_enum
@@ -45077,6 +47645,14 @@ enums:
   - desktop_background_landscape
   - desktop_background_portrait
   - desktop_background_square
+- _key: subtenant_api_key_status_enum
+  entity_name: subtenant_api_key
+  enum_name: subtenant_api_key_status_enum
+  field_name: status
+  group_id: Accounts
+  values:
+  - ACTIVE
+  - INACTIVE
 - _key: subtenant_trusted_certificate_service_enum
   entity_name: subtenant_trusted_certificate
   enum_name: subtenant_trusted_certificate_service_enum
@@ -45177,6 +47753,7 @@ groups:
   - user_invitation
   - subtenant_user_invitation
   - api_key
+  - subtenant_api_key
   - account
   enums:
   - user_status_enum
@@ -45185,6 +47762,7 @@ groups:
   - user_invitation_order_enum
   - api_key_status_enum
   - api_key_order_enum
+  - subtenant_api_key_status_enum
   - account_status_enum
   - account_mfa_status_enum
   - account_order_enum
@@ -45203,11 +47781,15 @@ groups:
   entities:
   - campaign_device_metadata
   - update_campaign
+  - campaign_statistics
+  - campaign_statistics_events
   - firmware_image
   - firmware_manifest
   enums:
   - campaign_device_metadata_deployment_state_enum
   - update_campaign_order_enum
+  - campaign_statistics_summary_status_enum
+  - campaign_statistics_id_enum
   - firmware_image_order_enum
   - firmware_manifest_order_enum
 - _key: Devices
