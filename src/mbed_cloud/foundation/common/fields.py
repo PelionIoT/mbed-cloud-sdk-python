@@ -94,8 +94,11 @@ class DateTimeField(Field):
 
     def to_api(self):
         if self.value:
-            # Convert to UTC timezone and clear the timezone so isoformat renders with offset
-            naive_datetime = self.value.astimezone(pytz.utc).replace(tzinfo=None)
+            if self.value.tzinfo:
+                # Convert to UTC timezone and clear the timezone so isoformat renders with offset
+                naive_datetime = self.value.astimezone(pytz.utc).replace(tzinfo=None)
+            else:
+                naive_datetime = self.value
             # Render date, manually appending `Z` UTC indicator
             return naive_datetime.isoformat() + "Z"
         else:
