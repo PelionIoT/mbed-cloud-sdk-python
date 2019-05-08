@@ -659,9 +659,9 @@ class EntityFactory:
     def developer_certificate(
         self,
         account_id=None,
+        certificate=None,
         created_at=None,
         description=None,
-        developer_certificate=None,
         developer_private_key=None,
         id=None,
         name=None,
@@ -671,12 +671,12 @@ class EntityFactory:
 
         :param account_id: Account to which the developer certificate belongs.
         :type account_id: str
+        :param certificate: PEM-format X.509 developer certificate.
+        :type certificate: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param description: Description for the developer certificate.
         :type description: str
-        :param developer_certificate: PEM-format X.509 developer certificate.
-        :type developer_certificate: str
         :param developer_private_key: PEM-format developer private key associated with the certificate.
         :type developer_private_key: str
         :param id: ID that uniquely identifies the developer certificate.
@@ -695,9 +695,9 @@ class EntityFactory:
         return DeveloperCertificate(
             _client=self._client,
             account_id=account_id,
+            certificate=certificate,
             created_at=created_at,
             description=description,
-            developer_certificate=developer_certificate,
             developer_private_key=developer_private_key,
             id=id,
             name=name,
