@@ -62,7 +62,7 @@ mbed_cloud_hosts = dict(
     production=CloudHost('PROD', 'production', 'MBED_CLOUD_API_HOST_PROD', 'MBED_CLOUD_API_KEY_PROD'),
 )
 
-py2_openssl_install = """
+openssl_install = """
 # openssl install
 RUN apk add g++
 RUN apk add libffi-dev
@@ -93,7 +93,7 @@ python_versions = dict(
         'mbed_sdk_py2:latest',
         'py2.Dockerfile',
         'py2-compose.yml',
-        py2_openssl_install,
+        openssl_install,
         py2_openssl_cp,
     ),
     three=PyVer(
@@ -102,7 +102,7 @@ python_versions = dict(
         'mbed_sdk_py3:latest',
         'py3.Dockerfile',
         'py3-compose.yml',
-        py2_openssl_install,
+        openssl_install,
         '',
     ),
 )
