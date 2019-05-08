@@ -8,6 +8,8 @@ name = "pypi"
 mbed_cloud_sdk = {editable = true, path = "."}
 
 [dev-packages]
+# lock cffi which is a sub-package dependency due to installation failure on Python 3
+cffi = "==1.12.2"
 codecov = "*"
 coverage = "*"
 flake8 = "==3.6.0"
