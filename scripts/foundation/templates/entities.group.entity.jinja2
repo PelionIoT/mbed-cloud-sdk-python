@@ -239,6 +239,63 @@ class {{ entity._key|to_pascal }}(Entity):
         :return: An iterator object which yields instances of an entity.{%- endif %}
         :rtype: {{ return_type }}
         """
+{% macro call_api(method, unpack_type, predefined_query_params=False) -%}
+return self._client.call_api(
+    method='{{method.method}}',
+    path='{{ method.path }}',
+    {% if "multipart" not in method.request_content_type %}
+    content_type={% if method.request_content_type %}'{{ method.request_content_type }}'{% else %}None{% endif %},
+    {% endif %}
+    {% for param_in, count in method.python_params_in.items() %}
+        {% if count %}
+        {# If the request body is binary then pass external parameters straight through to requests #}
+        {% if method.request_body == "binary" and param_in == "body" %}
+            binary_data =
+            {% for field in method.fields %}
+            {% if field['in'] == param_in %}
+                {% if field.external_param %}
+                    {{field._key|to_snake}}
+                {% else %}
+                    self._{{field._key|to_snake}}.to_api()
+                {% endif %}
+            ,
+            {% endif %}
+            {% endfor %}
+        {% else %}
+        {# To handle filters query parameters may be pre defined outside this call #}
+        {% if param_in == "query" and predefined_query_params %}
+        query_params=query_params,
+        {% else %}
+        {{ param_in }}_params = {% raw %}{{% endraw %}
+            {% for field in method.fields %}
+            {% if field['in'] == param_in %}
+                '{{field.parameter_fieldname or field.name}}':
+                {% if field.external_param %}
+                    {% if param_in == "stream" %}
+                    {# For multi-part uploads the stream parameters need to be defined with content type, note a field is not used to take the stream directly #}
+                    ({{ field.file_name }}, {{field._key|to_snake}}, {{ field.content_type }} )
+                    {% else %}
+                    fields.{{ field.python_field }}({{field._key|to_snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference|to_pascal }}{% endif %}).to_api()
+                    {% endif %}
+                {% else %}
+                    {% if param_in == "stream" %}
+                    {# For multi-part uploads the stream parameters need to be defined with content type. #}
+                    ({{ field.file_name }}, self._{{field._key|to_snake}}.to_api(), {{ field.content_type }} )
+                    {% else %}
+                    self._{{field._key|to_snake}}.to_api()
+                    {% endif %}
+                {% endif %}
+            ,
+            {% endif %}
+            {% endfor %}
+        {% raw %}}{% endraw %},
+        {% endif %}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    unpack = {{ unpack_type }},
+)
+{%- endmacro %}
     {% for field in method.fields %}
         {% if field.set_foreign_key_properties %}
             {% for set_on_other, set_from_self in field.set_foreign_key_properties.items() %}
@@ -258,12 +315,7 @@ class {{ entity._key|to_pascal }}(Entity):
             {%- endfor %}
         {%- endfor %}
 
-        return self._client.call_api(
-            method='{{method.method}}',
-            path='{{ method.path }}',
-            query_params=query_params,
-            unpack = {{ unpack_type }},
-        )
+        {{ call_api(method, unpack_type, predefined_query_params=True)|indent(8) }}
     {% elif method.custom_method %}
         from mbed_cloud.foundation._custom_methods import {{ method.custom_method }}
         {% if method.foreign_key %}from mbed_cloud.foundation import {{ method.foreign_key.entity|to_pascal }}{% endif %}
@@ -294,58 +346,6 @@ class {{ entity._key|to_pascal }}(Entity):
             {% if method.pagination %},wraps=self._{{ method.paginate_target }}{% endif %}
         )
     {% else %}
-{% macro call_api(method, unpack_type) -%}
-return self._client.call_api(
-    method='{{method.method}}',
-    path='{{ method.path }}',
-    {% if "multipart" not in method.request_content_type %}
-    content_type={% if method.request_content_type %}'{{ method.request_content_type }}'{% else %}None{% endif %},
-    {% endif %}
-    {% for param_in, count in method.python_params_in.items() %}
-        {% if count %}
-        {# If the request body is binary then pass external parameters straight through to requests #}
-        {% if method.request_body == "binary" and param_in == "body" %}
-            binary_data =
-            {% for field in method.fields %}
-            {% if field['in'] == param_in %}
-                {% if field.external_param %}
-                    {{field._key|to_snake}}
-                {% else %}
-                    self._{{field._key|to_snake}}.to_api()
-                {% endif %}
-            ,
-            {% endif %}
-            {% endfor %}
-        {% else %}
-        {{ param_in }}_params = {% raw %}{{% endraw %}
-            {% for field in method.fields %}
-            {% if field['in'] == param_in %}
-                '{{field.parameter_fieldname or field.name}}':
-                {% if field.external_param %}
-                    {% if param_in == "stream" %}
-                    {# For multi-part uploads the stream parameters need to be defined with content type, note a field is not used to take the stream directly #}
-                    ({{ field.file_name }}, {{field._key|to_snake}}, {{ field.content_type }} )
-                    {% else %}
-                    fields.{{ field.python_field }}({{field._key|to_snake}}{% if field.enum_reference %}, enum=enums.{{ field.enum_reference|to_pascal }}{% endif %}).to_api()
-                    {% endif %}
-                {% else %}
-                    {% if param_in == "stream" %}
-                    {# For multi-part uploads the stream parameters need to be defined with content type. #}
-                    ({{ field.file_name }}, self._{{field._key|to_snake}}.to_api(), {{ field.content_type }} )
-                    {% else %}
-                    self._{{field._key|to_snake}}.to_api()
-                    {% endif %}
-                {% endif %}
-            ,
-            {% endif %}
-            {% endfor %}
-        {% raw %}}{% endraw %},
-        {% endif %}
-        {% endif %}
-    {% endfor %}
-    unpack = {{ unpack_type }},
-)
-{%- endmacro %}
         {% if foreign_key_import %}from mbed_cloud.foundation import {{ return_type }}{% endif %}
 
         {# Special handling for file parameters #}
