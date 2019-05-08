@@ -177,8 +177,7 @@ class User(Entity):
         :type totp_scratch_codes: list
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
-        :param username: A username containing alphanumerical letters and -,._@+=
-            characters.
+        :param username: A username.
         :type username: str
         """
 
@@ -684,7 +683,7 @@ class User(Entity):
 
     @property
     def username(self):
-        """A username containing alphanumerical letters and -,._@+= characters.
+        """A username.
         
         api example: 'admin'
         

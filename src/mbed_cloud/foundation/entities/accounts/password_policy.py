@@ -62,8 +62,8 @@ class PasswordPolicy(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param minimum_length: Minimum length for the password. A number between 8 and 512.
-        :type minimum_length: str
+        :param minimum_length: Minimum length for the password.
+        :type minimum_length: int
         """
 
         super().__init__(_client=_client)
@@ -71,15 +71,15 @@ class PasswordPolicy(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         # fields
-        self._minimum_length = fields.StringField(value=minimum_length)
+        self._minimum_length = fields.IntegerField(value=minimum_length)
 
     @property
     def minimum_length(self):
-        """Minimum length for the password. A number between 8 and 512.
+        """Minimum length for the password.
         
         api example: '8'
         
-        :rtype: str
+        :rtype: int
         """
 
         return self._minimum_length.value
@@ -89,7 +89,7 @@ class PasswordPolicy(Entity):
         """Set value of `minimum_length`
 
         :param value: value to set
-        :type value: str
+        :type value: int
         """
 
         self._minimum_length.set(value)

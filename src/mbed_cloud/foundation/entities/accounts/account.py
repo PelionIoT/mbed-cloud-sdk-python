@@ -212,11 +212,11 @@ class Account(Entity):
         :type expiration: datetime
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
             notification email is sent.
-        :type expiration_warning_threshold: str
+        :type expiration_warning_threshold: int
         :param id: (Required) Account ID.
         :type id: str
         :param idle_timeout: The reference token expiration time, in minutes, for this account.
-        :type idle_timeout: str
+        :type idle_timeout: int
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
         :param mfa_status: The enforcement status of multi-factor authentication, either
@@ -230,8 +230,7 @@ class Account(Entity):
         :type parent_id: str
         :param password_policy: The password policy for this account.
         :type password_policy: dict
-        :param password_recovery_expiration: Indicates for how many minutes a password recovery email is valid
-            (1-45).
+        :param password_recovery_expiration: Indicates for how many minutes a password recovery email is valid.
         :type password_recovery_expiration: int
         :param phone_number: The phone number of a company representative.
         :type phone_number: str
@@ -291,11 +290,11 @@ class Account(Entity):
         self._email = fields.StringField(value=email)
         self._end_market = fields.StringField(value=end_market)
         self._expiration = fields.DateTimeField(value=expiration)
-        self._expiration_warning_threshold = fields.StringField(
+        self._expiration_warning_threshold = fields.IntegerField(
             value=expiration_warning_threshold
         )
         self._id = fields.StringField(value=id)
-        self._idle_timeout = fields.StringField(value=idle_timeout)
+        self._idle_timeout = fields.IntegerField(value=idle_timeout)
         self._limits = fields.DictField(value=limits)
         self._mfa_status = fields.StringField(
             value=mfa_status, enum=enums.AccountMfaStatusEnum
@@ -772,7 +771,7 @@ class Account(Entity):
         
         api example: '180'
         
-        :rtype: str
+        :rtype: int
         """
 
         return self._expiration_warning_threshold.value
@@ -782,7 +781,7 @@ class Account(Entity):
         """Set value of `expiration_warning_threshold`
 
         :param value: value to set
-        :type value: str
+        :type value: int
         """
 
         self._expiration_warning_threshold.set(value)
@@ -816,7 +815,7 @@ class Account(Entity):
         
         api example: '30'
         
-        :rtype: str
+        :rtype: int
         """
 
         return self._idle_timeout.value
@@ -826,7 +825,7 @@ class Account(Entity):
         """Set value of `idle_timeout`
 
         :param value: value to set
-        :type value: str
+        :type value: int
         """
 
         self._idle_timeout.set(value)
@@ -950,7 +949,7 @@ class Account(Entity):
 
     @property
     def password_recovery_expiration(self):
-        """Indicates for how many minutes a password recovery email is valid (1-45).
+        """Indicates for how many minutes a password recovery email is valid.
         
         :rtype: int
         """

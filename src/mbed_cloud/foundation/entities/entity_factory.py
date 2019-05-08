@@ -156,11 +156,11 @@ class EntityFactory:
         :type expiration: datetime
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
             notification email is sent.
-        :type expiration_warning_threshold: str
+        :type expiration_warning_threshold: int
         :param id: Account ID.
         :type id: str
         :param idle_timeout: The reference token expiration time, in minutes, for this account.
-        :type idle_timeout: str
+        :type idle_timeout: int
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
         :param mfa_status: The enforcement status of multi-factor authentication, either
@@ -174,8 +174,7 @@ class EntityFactory:
         :type parent_id: str
         :param password_policy: The password policy for this account.
         :type password_policy: dict
-        :param password_recovery_expiration: Indicates for how many minutes a password recovery email is valid
-            (1-45).
+        :param password_recovery_expiration: Indicates for how many minutes a password recovery email is valid.
         :type password_recovery_expiration: int
         :param phone_number: The phone number of a company representative.
         :type phone_number: str
@@ -1315,7 +1314,7 @@ class EntityFactory:
         :param admin_name: The name of the admin user who is the contact person of the parent
             account.
         :type admin_name: str
-        :param id: The ID of the parent account
+        :param id: The ID of the parent account.
         :type id: str
         
         :return: A new instance of a ParentAccount Foundation Entity.
@@ -1330,8 +1329,8 @@ class EntityFactory:
     def password_policy(self, minimum_length=None):
         """Creates a local `PasswordPolicy` instance, using the shared SDK context.
 
-        :param minimum_length: Minimum length for the password. A number between 8 and 512.
-        :type minimum_length: str
+        :param minimum_length: Minimum length for the password.
+        :type minimum_length: int
         
         :return: A new instance of a PasswordPolicy Foundation Entity.
         :rtype: mbed_cloud.foundation.entities.accounts.password_policy.PasswordPolicy
@@ -1650,8 +1649,7 @@ class EntityFactory:
         :type totp_scratch_codes: list
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
-        :param username: A username containing alphanumerical letters and -,._@+=
-            characters.
+        :param username: A username.
         :type username: str
         
         :return: A new instance of a SubtenantUser Foundation Entity.
@@ -1981,8 +1979,7 @@ class EntityFactory:
         :type totp_scratch_codes: list
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
-        :param username: A username containing alphanumerical letters and -,._@+=
-            characters.
+        :param username: A username.
         :type username: str
         
         :return: A new instance of a User Foundation Entity.
