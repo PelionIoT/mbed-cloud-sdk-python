@@ -129,6 +129,16 @@ class DictField(Field):
         """
         return json.dumps(self.value)
 
+    def set(self, value):
+        """Handle entities being provided as dictionaries."""
+        # If this is an entity field, the type is valid then handle being given a value which is not an entity
+        if self._entity and isinstance(value, self._valid_types) and not isinstance(value, self._entity):
+            # Pass the dict to the entity as kwargs for create a blank entity if the value is None
+            new_entity = self._entity(**value) if value else self._entity()
+            return super().set(new_entity)
+        # Revert to default behaviour if not handling an entity
+        return super().set(value)
+
 
 class IntegerField(Field):
     base_type = int
@@ -148,10 +158,10 @@ class FloatField(Field):
     def set(self, value):
         """Attempt to convert to a float if not already."""
         try:
-            int_value = float(value)
+            float_value = float(value)
         except TypeError:
-            int_value = value
-        return super().set(int_value)
+            float_value = value
+        return super().set(float_value)
 
 
 class StringField(Field):
