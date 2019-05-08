@@ -371,7 +371,7 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           command: docker load -i {cache_dir}/{testrunner_cache}
       - run:
           name: Get docker-compose
-          command: pip install docker-compose==1.21.0
+          command: pip install docker-compose==1.23.2
       - run:
           name: Set testrunner parameters
           command: |-
