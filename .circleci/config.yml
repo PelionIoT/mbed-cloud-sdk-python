@@ -12,7 +12,7 @@ jobs:
   build_py2:
     machine:
       docker_layer_caching: true
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - restore_cache:
@@ -57,7 +57,7 @@ jobs:
   build_py3:
     machine:
       docker_layer_caching: true
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - restore_cache:
@@ -101,7 +101,7 @@ jobs:
         path: built_docs
   deploy_py3_beta:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - attach_workspace:
         at: ~/caches
@@ -132,7 +132,7 @@ jobs:
         name: Start the release party!
   deploy_py3_production:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - attach_workspace:
         at: ~/caches
@@ -205,7 +205,7 @@ jobs:
     - run: python scripts/assert_news.py
   preload:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - run:
         command: 'login="$(aws ecr get-login --no-include-email)"
@@ -240,7 +240,7 @@ jobs:
         path: testrunner_version.txt
   reference_documentation:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - attach_workspace:
         at: ~/caches
@@ -262,7 +262,7 @@ jobs:
         name: Upload the documentation
   test_py2_OS2:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - attach_workspace:
@@ -274,7 +274,7 @@ jobs:
         command: docker load -i ~/caches/testrunner.tar
         name: Load docker image for TestRunner
     - run:
-        command: pip install docker-compose==1.21.0
+        command: pip install docker-compose==1.23.2
         name: Get docker-compose
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}''
@@ -301,7 +301,7 @@ jobs:
         name: Upload code coverage results
   test_py2_PROD:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - attach_workspace:
@@ -313,7 +313,7 @@ jobs:
         command: docker load -i ~/caches/testrunner.tar
         name: Load docker image for TestRunner
     - run:
-        command: pip install docker-compose==1.21.0
+        command: pip install docker-compose==1.23.2
         name: Get docker-compose
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}''
@@ -340,7 +340,7 @@ jobs:
         name: Upload code coverage results
   test_py3_OS2:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - attach_workspace:
@@ -352,7 +352,7 @@ jobs:
         command: docker load -i ~/caches/testrunner.tar
         name: Load docker image for TestRunner
     - run:
-        command: pip install docker-compose==1.21.0
+        command: pip install docker-compose==1.23.2
         name: Get docker-compose
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}''
@@ -379,7 +379,7 @@ jobs:
         name: Upload code coverage results
   test_py3_PROD:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - attach_workspace:
@@ -391,7 +391,7 @@ jobs:
         command: docker load -i ~/caches/testrunner.tar
         name: Load docker image for TestRunner
     - run:
-        command: pip install docker-compose==1.21.0
+        command: pip install docker-compose==1.23.2
         name: Get docker-compose
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}''

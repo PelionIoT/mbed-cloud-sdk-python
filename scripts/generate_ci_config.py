@@ -134,7 +134,7 @@ def new_preload():
     version_file = 'testrunner_version.txt'
     template = yaml.safe_load(f"""
     machine:
-      image: 'circleci/classic:201710-02'
+      image: 'circleci/classic:latest'
     steps:
       - run:
           name: AWS login
@@ -262,7 +262,7 @@ def upload_reference_documentation():
     cache_file = f'app_{py_ver.name}.tar'
     template = yaml.safe_load(f"""
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
       - attach_workspace:
           at: {cache_dir}
@@ -300,7 +300,7 @@ def new_build(py_ver: PyVer):
     cache_key = f'v3-{py_ver.name}-{{{{ .Branch }}}}'
     template = yaml.safe_load(f"""
     machine:
-      image: 'circleci/classic:201710-02'
+      image: 'circleci/classic:latest'
       docker_layer_caching: true
     steps:
       - checkout
@@ -358,7 +358,7 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
     sdk_docker_cache = f'app_{py_ver.name}.tar'
     template = yaml.safe_load(f"""
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
       - checkout
       - attach_workspace:
@@ -411,7 +411,7 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
     cache_file = f'app_{py_ver.name}.tar'
     template = yaml.safe_load(f"""
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
       - attach_workspace:
           at: {cache_dir}
