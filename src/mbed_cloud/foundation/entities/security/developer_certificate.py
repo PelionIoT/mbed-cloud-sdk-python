@@ -52,33 +52,29 @@ class DeveloperCertificate(Entity):
     # all fields available on this entity
     _fieldnames = [
         "account_id",
-        "certificate",
         "created_at",
         "description",
+        "developer_certificate",
+        "developer_private_key",
         "id",
         "name",
         "security_file_content",
     ]
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {
-        "developer_certificate": "certificate",
-        "developer_private_key": "private_key",
-    }
+    _renames = {}
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {
-        "certificate": "developer_certificate",
-        "private_key": "developer_private_key",
-    }
+    _renames_to_api = {}
 
     def __init__(
         self,
         _client=None,
         account_id=None,
-        certificate=None,
         created_at=None,
         description=None,
+        developer_certificate=None,
+        developer_private_key=None,
         id=None,
         name=None,
         security_file_content=None,
@@ -94,12 +90,14 @@ class DeveloperCertificate(Entity):
 
         :param account_id: Account to which the developer certificate belongs.
         :type account_id: str
-        :param certificate: PEM-format X.509 developer certificate.
-        :type certificate: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param description: Description for the developer certificate.
         :type description: str
+        :param developer_certificate: PEM-format X.509 developer certificate.
+        :type developer_certificate: str
+        :param developer_private_key: PEM-format developer private key associated with the certificate.
+        :type developer_private_key: str
         :param id: (Required) ID that uniquely identifies the developer certificate.
         :type id: str
         :param name: (Required) Name of the developer certificate.
@@ -115,9 +113,10 @@ class DeveloperCertificate(Entity):
 
         # fields
         self._account_id = fields.StringField(value=account_id)
-        self._certificate = fields.StringField(value=certificate)
         self._created_at = fields.DateTimeField(value=created_at)
         self._description = fields.StringField(value=description)
+        self._developer_certificate = fields.StringField(value=developer_certificate)
+        self._developer_private_key = fields.StringField(value=developer_private_key)
         self._id = fields.StringField(value=id)
         self._name = fields.StringField(value=name)
         self._security_file_content = fields.StringField(value=security_file_content)
@@ -140,25 +139,6 @@ class DeveloperCertificate(Entity):
         """
 
         self._account_id.set(value)
-
-    @property
-    def certificate(self):
-        """PEM-format X.509 developer certificate.
-        
-        :rtype: str
-        """
-
-        return self._certificate.value
-
-    @certificate.setter
-    def certificate(self, value):
-        """Set value of `certificate`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._certificate.set(value)
 
     @property
     def created_at(self):
@@ -197,6 +177,44 @@ class DeveloperCertificate(Entity):
         """
 
         self._description.set(value)
+
+    @property
+    def developer_certificate(self):
+        """PEM-format X.509 developer certificate.
+        
+        :rtype: str
+        """
+
+        return self._developer_certificate.value
+
+    @developer_certificate.setter
+    def developer_certificate(self, value):
+        """Set value of `developer_certificate`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._developer_certificate.set(value)
+
+    @property
+    def developer_private_key(self):
+        """PEM-format developer private key associated with the certificate.
+        
+        :rtype: str
+        """
+
+        return self._developer_private_key.value
+
+    @developer_private_key.setter
+    def developer_private_key(self, value):
+        """Set value of `developer_private_key`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._developer_private_key.set(value)
 
     @property
     def id(self):

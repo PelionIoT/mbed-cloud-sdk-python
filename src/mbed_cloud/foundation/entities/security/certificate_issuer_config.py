@@ -52,27 +52,21 @@ class CertificateIssuerConfig(Entity):
     """Represents the `CertificateIssuerConfig` entity in Pelion Device Management"""
 
     # all fields available on this entity
-    _fieldnames = [
-        "certificate_issuer_id",
-        "certificate_reference",
-        "created_at",
-        "id",
-        "updated_at",
-    ]
+    _fieldnames = ["certificate_issuer_id", "created_at", "id", "reference", "updated_at"]
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {"reference": "certificate_reference"}
+    _renames = {}
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {"certificate_reference": "reference"}
+    _renames_to_api = {}
 
     def __init__(
         self,
         _client=None,
         certificate_issuer_id=None,
-        certificate_reference=None,
         created_at=None,
         id=None,
+        reference=None,
         updated_at=None,
     ):
         """Creates a local `CertificateIssuerConfig` instance
@@ -88,13 +82,13 @@ class CertificateIssuerConfig(Entity):
             Null if Device Management
             internal HSM is used.
         :type certificate_issuer_id: str
-        :param certificate_reference: (Required) The certificate name to which the certificate issuer configuration
-            applies.
-        :type certificate_reference: str
         :param created_at: Created UTC time RFC3339.
         :type created_at: datetime
         :param id: (Required) The ID of the certificate issuer configuration.
         :type id: str
+        :param reference: (Required) The certificate name to which the certificate issuer configuration
+            applies.
+        :type reference: str
         :param updated_at: Updated UTC time RFC3339.
         :type updated_at: datetime
         """
@@ -105,9 +99,9 @@ class CertificateIssuerConfig(Entity):
 
         # fields
         self._certificate_issuer_id = fields.StringField(value=certificate_issuer_id)
-        self._certificate_reference = fields.StringField(value=certificate_reference)
         self._created_at = fields.DateTimeField(value=created_at)
         self._id = fields.StringField(value=id)
+        self._reference = fields.StringField(value=reference)
         self._updated_at = fields.DateTimeField(value=updated_at)
 
     @property
@@ -134,29 +128,6 @@ class CertificateIssuerConfig(Entity):
         """
 
         self._certificate_issuer_id.set(value)
-
-    @property
-    def certificate_reference(self):
-        """The certificate name to which the certificate issuer configuration applies.
-
-        This field must be set when creating a new CertificateIssuerConfig Entity.
-        
-        api example: 'customer.dlms'
-        
-        :rtype: str
-        """
-
-        return self._certificate_reference.value
-
-    @certificate_reference.setter
-    def certificate_reference(self, value):
-        """Set value of `certificate_reference`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._certificate_reference.set(value)
 
     @property
     def created_at(self):
@@ -203,6 +174,29 @@ class CertificateIssuerConfig(Entity):
         self._id.set(value)
 
     @property
+    def reference(self):
+        """The certificate name to which the certificate issuer configuration applies.
+
+        This field must be set when creating a new CertificateIssuerConfig Entity.
+        
+        api example: 'customer.dlms'
+        
+        :rtype: str
+        """
+
+        return self._reference.value
+
+    @reference.setter
+    def reference(self, value):
+        """Set value of `reference`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._reference.set(value)
+
+    @property
     def updated_at(self):
         """Updated UTC time RFC3339.
         
@@ -237,7 +231,7 @@ class CertificateIssuerConfig(Entity):
             content_type="application/json",
             body_params={
                 "certificate_issuer_id": self._certificate_issuer_id.to_api(),
-                "reference": self._certificate_reference.to_api(),
+                "reference": self._reference.to_api(),
             },
             unpack=self,
         )
@@ -282,11 +276,11 @@ class CertificateIssuerConfig(Entity):
 
         The following filters are supported by the API when listing CertificateIssuerConfig entities:
 
-        +-----------------------+------+------+------+------+------+------+------+
-        | Field                 | eq   | neq  | gte  | lte  | in   | nin  | like |
-        +=======================+======+======+======+======+======+======+======+
-        | certificate_reference | Y    |      |      |      |      |      |      |
-        +-----------------------+------+------+------+------+------+------+------+
+        +-----------+------+------+------+------+------+------+------+
+        | Field     | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +===========+======+======+======+======+======+======+======+
+        | reference | Y    |      |      |      |      |      |      |
+        +-----------+------+------+------+------+------+------+------+
 
         **Example Usage**
 
@@ -296,9 +290,9 @@ class CertificateIssuerConfig(Entity):
             from mbed_cloud import ApiFilter
 
             api_filter = ApiFilter()
-            api_filter.add_filter("certificate_reference", "eq", <filter value>)
+            api_filter.add_filter("reference", "eq", <filter value>)
             for certificate_issuer_config in CertificateIssuerConfig().list(filter=api_filter):
-                print(certificate_issuer_config.certificate_reference)
+                print(certificate_issuer_config.reference)
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.

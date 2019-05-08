@@ -9,6 +9,8 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.active_session`
 - :meth:`EntityFactory.api_key`
 - :meth:`EntityFactory.campaign_device_metadata`
+- :meth:`EntityFactory.campaign_statistics`
+- :meth:`EntityFactory.campaign_statistics_events`
 - :meth:`EntityFactory.certificate_enrollment`
 - :meth:`EntityFactory.certificate_issuer`
 - :meth:`EntityFactory.certificate_issuer_config`
@@ -32,6 +34,7 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.policy`
 - :meth:`EntityFactory.pre_shared_key`
 - :meth:`EntityFactory.server_credentials`
+- :meth:`EntityFactory.subtenant_api_key`
 - :meth:`EntityFactory.subtenant_trusted_certificate`
 - :meth:`EntityFactory.subtenant_user`
 - :meth:`EntityFactory.subtenant_user_invitation`
@@ -399,6 +402,83 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
+    def campaign_statistics(
+        self, campaign_id=None, count=None, created_at=None, id=None, summary_status=None
+    ):
+        """Creates a local `CampaignStatistics` instance, using the shared SDK context.
+
+        :param campaign_id: ID of the associated campaign.
+        :type campaign_id: str
+        :param count: 
+        :type count: int
+        :param created_at: 
+        :type created_at: datetime
+        :param id: ID of the event type description
+        :type id: str
+        :param summary_status: The event type description.
+        :type summary_status: str
+        
+        :return: A new instance of a CampaignStatistics Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.device_update.campaign_statistics.CampaignStatistics
+        """
+        from mbed_cloud.foundation import CampaignStatistics
+
+        return CampaignStatistics(
+            _client=self._client,
+            campaign_id=campaign_id,
+            count=count,
+            created_at=created_at,
+            id=id,
+            summary_status=summary_status,
+        )
+
+    def campaign_statistics_events(
+        self,
+        campaign_id=None,
+        count=None,
+        created_at=None,
+        description=None,
+        event_type=None,
+        id=None,
+        summary_status=None,
+        summary_status_id=None,
+    ):
+        """Creates a local `CampaignStatisticsEvents` instance, using the shared SDK context.
+
+        :param campaign_id: ID of the associated campaign.
+        :type campaign_id: str
+        :param count: 
+        :type count: int
+        :param created_at: 
+        :type created_at: datetime
+        :param description: 
+        :type description: str
+        :param event_type: 
+        :type event_type: str
+        :param id: 
+        :type id: str
+        :param summary_status: 
+        :type summary_status: str
+        :param summary_status_id: 
+        :type summary_status_id: str
+        
+        :return: A new instance of a CampaignStatisticsEvents Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.device_update.campaign_statistics_events.CampaignStatisticsEvents
+        """
+        from mbed_cloud.foundation import CampaignStatisticsEvents
+
+        return CampaignStatisticsEvents(
+            _client=self._client,
+            campaign_id=campaign_id,
+            count=count,
+            created_at=created_at,
+            description=description,
+            event_type=event_type,
+            id=id,
+            summary_status=summary_status,
+            summary_status_id=summary_status_id,
+        )
+
     def certificate_enrollment(
         self,
         certificate_name=None,
@@ -501,9 +581,9 @@ class EntityFactory:
     def certificate_issuer_config(
         self,
         certificate_issuer_id=None,
-        certificate_reference=None,
         created_at=None,
         id=None,
+        reference=None,
         updated_at=None,
     ):
         """Creates a local `CertificateIssuerConfig` instance, using the shared SDK context.
@@ -512,13 +592,13 @@ class EntityFactory:
             Null if Device Management
             internal HSM is used.
         :type certificate_issuer_id: str
-        :param certificate_reference: The certificate name to which the certificate issuer configuration
-            applies.
-        :type certificate_reference: str
         :param created_at: Created UTC time RFC3339.
         :type created_at: datetime
         :param id: The ID of the certificate issuer configuration.
         :type id: str
+        :param reference: The certificate name to which the certificate issuer configuration
+            applies.
+        :type reference: str
         :param updated_at: Updated UTC time RFC3339.
         :type updated_at: datetime
         
@@ -530,9 +610,9 @@ class EntityFactory:
         return CertificateIssuerConfig(
             _client=self._client,
             certificate_issuer_id=certificate_issuer_id,
-            certificate_reference=certificate_reference,
             created_at=created_at,
             id=id,
+            reference=reference,
             updated_at=updated_at,
         )
 
@@ -580,9 +660,10 @@ class EntityFactory:
     def developer_certificate(
         self,
         account_id=None,
-        certificate=None,
         created_at=None,
         description=None,
+        developer_certificate=None,
+        developer_private_key=None,
         id=None,
         name=None,
         security_file_content=None,
@@ -591,12 +672,14 @@ class EntityFactory:
 
         :param account_id: Account to which the developer certificate belongs.
         :type account_id: str
-        :param certificate: PEM-format X.509 developer certificate.
-        :type certificate: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param description: Description for the developer certificate.
         :type description: str
+        :param developer_certificate: PEM-format X.509 developer certificate.
+        :type developer_certificate: str
+        :param developer_private_key: PEM-format developer private key associated with the certificate.
+        :type developer_private_key: str
         :param id: ID that uniquely identifies the developer certificate.
         :type id: str
         :param name: Name of the developer certificate.
@@ -613,9 +696,10 @@ class EntityFactory:
         return DeveloperCertificate(
             _client=self._client,
             account_id=account_id,
-            certificate=certificate,
             created_at=created_at,
             description=description,
+            developer_certificate=developer_certificate,
+            developer_private_key=developer_private_key,
             id=id,
             name=name,
             security_file_content=security_file_content,
@@ -1336,6 +1420,62 @@ class EntityFactory:
             server_uri=server_uri,
         )
 
+    def subtenant_api_key(
+        self,
+        account_id=None,
+        created_at=None,
+        creation_time=None,
+        id=None,
+        key=None,
+        last_login_time=None,
+        name=None,
+        owner=None,
+        status=None,
+        updated_at=None,
+    ):
+        """Creates a local `SubtenantApiKey` instance, using the shared SDK context.
+
+        :param account_id: The ID of the account.
+        :type account_id: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param creation_time: The timestamp of the API key creation in the storage, in
+            milliseconds.
+        :type creation_time: int
+        :param id: The ID of the API key.
+        :type id: str
+        :param key: The API key.
+        :type key: str
+        :param last_login_time: The timestamp of the latest API key usage, in milliseconds.
+        :type last_login_time: int
+        :param name: The display name for the API key.
+        :type name: str
+        :param owner: The owner of this API key, who is the creator by default.
+        :type owner: str
+        :param status: The status of the API key.
+        :type status: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        
+        :return: A new instance of a SubtenantApiKey Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.subtenant_api_key.SubtenantApiKey
+        """
+        from mbed_cloud.foundation import SubtenantApiKey
+
+        return SubtenantApiKey(
+            _client=self._client,
+            account_id=account_id,
+            created_at=created_at,
+            creation_time=creation_time,
+            id=id,
+            key=key,
+            last_login_time=last_login_time,
+            name=name,
+            owner=owner,
+            status=status,
+            updated_at=updated_at,
+        )
+
     def subtenant_trusted_certificate(
         self,
         account_id=None,
@@ -1436,17 +1576,17 @@ class EntityFactory:
         email_verified=None,
         full_name=None,
         id=None,
+        is_gtc_accepted=None,
+        is_marketing_accepted=None,
+        is_totp_enabled=None,
         last_login_time=None,
         login_history=None,
         login_profiles=None,
-        marketing_accepted=None,
         password=None,
         password_changed_time=None,
         phone_number=None,
         status=None,
-        terms_accepted=None,
         totp_scratch_codes=None,
-        two_factor_authentication=None,
         updated_at=None,
         username=None,
     ):
@@ -1473,6 +1613,15 @@ class EntityFactory:
         :type full_name: str
         :param id: The ID of the user.
         :type id: str
+        :param is_gtc_accepted: A flag indicating that the user has accepted General Terms and
+            Conditions.
+        :type is_gtc_accepted: bool
+        :param is_marketing_accepted: A flag indicating that the user has consented to receive marketing
+            information.
+        :type is_marketing_accepted: bool
+        :param is_totp_enabled: A flag indicating whether two-factor authentication (TOTP) has
+            been enabled.
+        :type is_totp_enabled: bool
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
         :param login_history: Timestamps, succeedings, IP addresses and user agent information
@@ -1482,9 +1631,6 @@ class EntityFactory:
         :param login_profiles: A list of login profiles for the user. Specified as the identity
             providers the user is associated with.
         :type login_profiles: list
-        :param marketing_accepted: A flag indicating that the user has consented to receive marketing
-            information.
-        :type marketing_accepted: bool
         :param password: The password when creating a new user. It will be generated when
             not present in the request.
         :type password: str
@@ -1499,15 +1645,9 @@ class EntityFactory:
             password must be changed immediately. INACTIVE users are locked
             out and not permitted to use the system.
         :type status: str
-        :param terms_accepted: A flag indicating that the user has accepted General Terms and
-            Conditions.
-        :type terms_accepted: bool
         :param totp_scratch_codes: A list of scratch codes for the two-factor authentication. Visible
             only when 2FA is requested to be enabled or the codes regenerated.
         :type totp_scratch_codes: list
-        :param two_factor_authentication: A flag indicating whether two-factor authentication (TOTP) has
-            been enabled.
-        :type two_factor_authentication: bool
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
         :param username: A username containing alphanumerical letters and -,._@+=
@@ -1531,17 +1671,17 @@ class EntityFactory:
             email_verified=email_verified,
             full_name=full_name,
             id=id,
+            is_gtc_accepted=is_gtc_accepted,
+            is_marketing_accepted=is_marketing_accepted,
+            is_totp_enabled=is_totp_enabled,
             last_login_time=last_login_time,
             login_history=login_history,
             login_profiles=login_profiles,
-            marketing_accepted=marketing_accepted,
             password=password,
             password_changed_time=password_changed_time,
             phone_number=phone_number,
             status=status,
-            terms_accepted=terms_accepted,
             totp_scratch_codes=totp_scratch_codes,
-            two_factor_authentication=two_factor_authentication,
             updated_at=updated_at,
             username=username,
         )
@@ -1767,17 +1907,17 @@ class EntityFactory:
         email_verified=None,
         full_name=None,
         id=None,
+        is_gtc_accepted=None,
+        is_marketing_accepted=None,
+        is_totp_enabled=None,
         last_login_time=None,
         login_history=None,
         login_profiles=None,
-        marketing_accepted=None,
         password=None,
         password_changed_time=None,
         phone_number=None,
         status=None,
-        terms_accepted=None,
         totp_scratch_codes=None,
-        two_factor_authentication=None,
         updated_at=None,
         username=None,
     ):
@@ -1804,6 +1944,15 @@ class EntityFactory:
         :type full_name: str
         :param id: The ID of the user.
         :type id: str
+        :param is_gtc_accepted: A flag indicating that the user has accepted General Terms and
+            Conditions.
+        :type is_gtc_accepted: bool
+        :param is_marketing_accepted: A flag indicating that the user has consented to receive marketing
+            information.
+        :type is_marketing_accepted: bool
+        :param is_totp_enabled: A flag indicating whether two-factor authentication (TOTP) has
+            been enabled.
+        :type is_totp_enabled: bool
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
         :param login_history: Timestamps, succeedings, IP addresses and user agent information
@@ -1813,9 +1962,6 @@ class EntityFactory:
         :param login_profiles: A list of login profiles for the user. Specified as the identity
             providers the user is associated with.
         :type login_profiles: list
-        :param marketing_accepted: A flag indicating that the user has consented to receive marketing
-            information.
-        :type marketing_accepted: bool
         :param password: The password when creating a new user. It will be generated when
             not present in the request.
         :type password: str
@@ -1830,15 +1976,9 @@ class EntityFactory:
             password must be changed immediately. INACTIVE users are locked
             out and not permitted to use the system.
         :type status: str
-        :param terms_accepted: A flag indicating that the user has accepted General Terms and
-            Conditions.
-        :type terms_accepted: bool
         :param totp_scratch_codes: A list of scratch codes for the two-factor authentication. Visible
             only when 2FA is requested to be enabled or the codes regenerated.
         :type totp_scratch_codes: list
-        :param two_factor_authentication: A flag indicating whether two-factor authentication (TOTP) has
-            been enabled.
-        :type two_factor_authentication: bool
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
         :param username: A username containing alphanumerical letters and -,._@+=
@@ -1862,17 +2002,17 @@ class EntityFactory:
             email_verified=email_verified,
             full_name=full_name,
             id=id,
+            is_gtc_accepted=is_gtc_accepted,
+            is_marketing_accepted=is_marketing_accepted,
+            is_totp_enabled=is_totp_enabled,
             last_login_time=last_login_time,
             login_history=login_history,
             login_profiles=login_profiles,
-            marketing_accepted=marketing_accepted,
             password=password,
             password_changed_time=password_changed_time,
             phone_number=phone_number,
             status=status,
-            terms_accepted=terms_accepted,
             totp_scratch_codes=totp_scratch_codes,
-            two_factor_authentication=two_factor_authentication,
             updated_at=updated_at,
             username=username,
         )

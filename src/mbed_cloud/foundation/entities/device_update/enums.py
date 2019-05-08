@@ -9,6 +9,8 @@ DeviceUpdate Enums
 This module contains all Enums used by Foundation Entities in the DeviceUpdate category:
 
 - :class:`CampaignDeviceMetadataDeploymentStateEnum`
+- :class:`CampaignStatisticsIdEnum`
+- :class:`CampaignStatisticsSummaryStatusEnum`
 - :class:`FirmwareImageOrderEnum`
 - :class:`FirmwareManifestOrderEnum`
 - :class:`UpdateCampaignOrderEnum`
@@ -20,6 +22,8 @@ How to import Enums:
 .. code-block:: python
     
     from mbed_cloud.foundation.enums import CampaignDeviceMetadataDeploymentStateEnum
+    from mbed_cloud.foundation.enums import CampaignStatisticsIdEnum
+    from mbed_cloud.foundation.enums import CampaignStatisticsSummaryStatusEnum
     from mbed_cloud.foundation.enums import FirmwareImageOrderEnum
     from mbed_cloud.foundation.enums import FirmwareManifestOrderEnum
     from mbed_cloud.foundation.enums import UpdateCampaignOrderEnum
@@ -62,6 +66,42 @@ class CampaignDeviceMetadataDeploymentStateEnum(BaseEnum):
             "updated_connector_channel",
         )
     )
+
+
+class CampaignStatisticsIdEnum(BaseEnum):
+    """Represents expected values of `CampaignStatisticsIdEnum`
+
+    This is used by Entities in the "device_update" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    FAIL = "fail"
+    INFO = "info"
+    SKIPPED = "skipped"
+    SUCCESS = "success"
+
+    values = frozenset(("fail", "info", "skipped", "success"))
+
+
+class CampaignStatisticsSummaryStatusEnum(BaseEnum):
+    """Represents expected values of `CampaignStatisticsSummaryStatusEnum`
+
+    This is used by Entities in the "device_update" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    FAIL = "FAIL"
+    INFO = "INFO"
+    SKIPPED = "SKIPPED"
+    SUCCESS = "SUCCESS"
+
+    values = frozenset(("FAIL", "INFO", "SKIPPED", "SUCCESS"))
 
 
 class FirmwareImageOrderEnum(BaseEnum):
