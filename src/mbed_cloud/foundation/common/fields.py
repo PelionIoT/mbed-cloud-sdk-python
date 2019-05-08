@@ -10,6 +10,7 @@ from dateutil.parser import parse
 from io import BufferedIOBase
 import json
 import six
+import pytz
 
 import logging
 
@@ -92,10 +93,13 @@ class DateTimeField(Field):
         return self.value.isoformat() if self.value else None
 
     def to_api(self):
-        if self.value.tzinfo:
-            return self.to_literal()
+        if self.value:
+            # Convert to UTC timezone and clear the timezone so isoformat renders with offset
+            naive_datetime = self.value.astimezone(pytz.utc).replace(tzinfo=None)
+            # Render date, manually appending `Z` UTC indicator
+            return naive_datetime.isoformat() + "Z"
         else:
-            return self.value.isoformat() + "Z" if self.value else None
+            return None
 
     def from_api(self, value):
         return self.set(value)

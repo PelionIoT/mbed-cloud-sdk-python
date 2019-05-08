@@ -19,9 +19,9 @@ def device_filter_helper_setter(self, value):
     elif value is not None:
         raise TypeError("This field may be either 'dict' or 'ApiFilter'.")
     # Store the filter as a dictionary for later retrieval if needed
-    self._device_filter_helper = value.filter_definition
+    self._device_filter_helper.set(value.filter_definition)
     # Render the filter as a string for serialisation to the API
-    self._device_filter = value.to_api()
+    self.device_filter = value.to_query_string()
 
 
 def device_filter_helper_getter(self):
@@ -33,5 +33,5 @@ def device_filter_helper_getter(self):
     :rtype: mbed_cloud.client.api_filter.ApiFilter
     """
     return ApiFilter(
-        filter_definition=self._device_filter_helper, field_renames=Device._renames_to_api
+        filter_definition=self._device_filter_helper.value, field_renames=Device._renames_to_api
     )

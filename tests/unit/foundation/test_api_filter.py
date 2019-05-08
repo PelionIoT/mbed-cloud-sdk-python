@@ -12,9 +12,11 @@ class TestApiFilter(BaseCase):
     def test_string_type(self):
         filter_definition = {"name": {"eq": "Badger"}}
         expected_filter = {"name__eq": "Badger"}
+        expected_query_string = "name__eq=Badger"
 
         api_filter = ApiFilter(filter_definition)
         self.assertEqual(expected_filter, api_filter.to_api())
+        self.assertEqual(expected_query_string, api_filter.to_query_string())
 
     def test_integer_type(self):
         filter_definition = {"name": {"neq": -50}}
@@ -54,9 +56,11 @@ class TestApiFilter(BaseCase):
     def test_list_type(self):
         filter_definition = {"name": {"in": ["Badger", "Gopher"]}}
         expected_filter = {"name__in": "Badger,Gopher"}
+        expected_query_string = "name__in=Badger,Gopher"
 
         api_filter = ApiFilter(filter_definition)
         self.assertEqual(expected_filter, api_filter.to_api())
+        self.assertEqual(expected_query_string, api_filter.to_query_string())
 
     def test_dict_type(self):
         filter_definition = {"name": {"nin": {"Animal": "Badger"}}}
@@ -113,7 +117,9 @@ class TestApiFilter(BaseCase):
             "created_at__lte": "2019-12-31",
             "status__eq": "true"
         }
+        expected_query_string = "created_at__gte=2019-01-01T00:00:00Z&created_at__lte=2019-12-31&status__eq=true"
         self.assertEqual(expected_filter, api_filter.to_api())
+        self.assertEqual(expected_query_string, api_filter.to_query_string())
 
     def test_single_list_filter(self):
         filter_definition = {"name": {"in": ["Gopher"]}}

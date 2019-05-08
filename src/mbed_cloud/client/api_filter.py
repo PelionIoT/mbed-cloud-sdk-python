@@ -143,3 +143,7 @@ class ApiFilter(object):
                 api_filter[api_field + "__eq"] = api_value
 
         return api_filter
+
+    def to_query_string(self):
+        """Generate a query string (not percent encoded."""
+        return "&".join(["%s=%s" % (key, value) for key, value in self.to_api().items()])
