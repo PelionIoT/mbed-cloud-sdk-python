@@ -98,7 +98,7 @@ python_versions = dict(
     ),
     three=PyVer(
         'py3',
-        'python:3.7.0-alpine3.8',
+        'python:3.7.3-alpine3.8',
         'mbed_sdk_py3:latest',
         'py3.Dockerfile',
         'py3-compose.yml',
