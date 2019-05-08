@@ -3,30 +3,33 @@ definitions:
     description: Represents an account creation request.
     properties:
       address_line1:
-        description: Postal address line 1, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: Postal address line 1. Required for commercial accounts only.
         example: 110 Fulbourn Rd
+        maxLength: 100
         type: string
         x-nullable: true
       address_line2:
-        description: Postal address line 2, no longer than 100 characters.
+        description: Postal address line 2.
         example: ' '
+        maxLength: 100
         type: string
         x-nullable: true
       admin_email:
-        description: The email address of the account admin, no longer than 254 characters.
+        description: The email address of the account admin
         example: admin@arm.com
+        pattern: .+\@.+{3,254}
         type: string
         x-nullable: true
       admin_full_name:
         description: The full name of the admin user to create.
         example: Admin Doe
+        maxLength: 100
         type: string
         x-nullable: true
       admin_name:
-        description: The username of the admin user to create, containing alphanumerical
-          letters and -,._@+= characters. Must be 4-30 characters.
+        description: The username of the admin user to create.
         example: admin
+        pattern: '[\w\-,._@+=]{4,30}'
         type: string
         x-nullable: true
       admin_password:
@@ -36,55 +39,63 @@ definitions:
         type: string
         x-nullable: true
       aliases:
-        description: An array of aliases, no more than 10. Must be between 8 and 100
-          characters, inclusive.
+        description: An array of aliases.
         items:
+          pattern: '[\w\-._]{8,100}'
           type: string
+        maxItems: 10
         type: array
         x-nullable: true
       city:
-        description: The city part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The city part of the postal address. Required for commercial
+          accounts only.
         example: Cambridge
+        maxLength: 100
         type: string
         x-nullable: true
       company:
-        description: The name of the company, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: The name of the company. Required for commercial accounts only.
         example: ARM Holdings Plc
+        maxLength: 100
         type: string
         x-nullable: true
       contact:
-        description: The name of the contact person for this account, no longer than
-          100 characters. Required for commercial accounts only.
+        description: The name of the contact person for this account. Required for
+          commercial accounts only.
         example: J. Doe
+        maxLength: 100
         type: string
         x-nullable: true
       contract_number:
         description: Contract number of the customer.
         example: 1NX25_0001
+        maxLength: 100
         type: string
         x-nullable: true
       country:
-        description: The country part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The country part of the postal address. Required for commercial
+          accounts only.
         example: United Kingdom
+        maxLength: 100
         type: string
         x-nullable: true
       customer_number:
         description: Customer number of the customer.
         example: 1NC25_0001
+        maxLength: 100
         type: string
         x-nullable: true
       display_name:
-        description: The display name for the account, no longer than 100 characters.
+        description: The display name for the account.
         example: ARM
+        maxLength: 100
         type: string
         x-nullable: true
       email:
-        description: The company email address for this account, no longer than 254
-          characters. Required for commercial accounts only.
+        description: The company email address for this account. Required for commercial
+          accounts only.
         example: info@arm.com
+        pattern: .+\@.+{3,254}
         type: string
         x-nullable: true
       end_market:
@@ -92,20 +103,21 @@ definitions:
         example: IT
         type: string
       phone_number:
-        description: The phone number of a representative of the company, no longer
-          than 100 characters.
+        description: The phone number of a representative of the company.
         example: +44 (1223) 400 400
+        maxLength: 100
         type: string
         x-nullable: true
       postal_code:
-        description: The postal code part of the postal address, no longer than 100
-          characters.
+        description: The postal code part of the postal address.
         example: CB1 9NJ
+        maxLength: 100
         type: string
         x-nullable: true
       state:
-        description: The state part of the postal address, no longer than 100 characters.
+        description: The state part of the postal address.
         example: ' '
+        maxLength: 100
         type: string
         x-nullable: true
     required:
@@ -117,28 +129,33 @@ definitions:
       address_line1:
         description: Postal address line 1.
         example: 110 Fulbourn Rd
+        maxLength: 100
         type: string
         x-nullable: true
       address_line2:
         description: Postal address line 2.
         example: ' '
+        maxLength: 100
         type: string
         x-nullable: true
       admin_email:
         description: The email address of the admin user created for this account.
           Present only in the response for account creation.
         example: admin@arm.com
+        pattern: .+\@.+{3,254}
         type: string
         x-nullable: true
       admin_full_name:
         description: The full name of the admin user created for this account. Present
           only in the response for account creation.
         example: Admin Doe
+        maxLength: 100
         type: string
         x-nullable: true
       admin_id:
         description: The ID of the admin user created for this account.
         example: 01619571e2e89242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
         x-nullable: true
       admin_key:
@@ -152,6 +169,7 @@ definitions:
         description: The username of the admin user created for this account. Present
           only in the response for account creation.
         example: admin
+        maxLength: 100
         type: string
         x-nullable: true
       admin_password:
@@ -163,21 +181,26 @@ definitions:
       aliases:
         description: An array of aliases.
         items:
+          pattern: '[\w\-._]{8,100}'
           type: string
+        maxItems: 10
         type: array
       city:
         description: The city part of the postal address.
         example: Cambridge
+        maxLength: 100
         type: string
         x-nullable: true
       company:
         description: The name of the company.
         example: ARM Holdings Plc
+        maxLength: 100
         type: string
         x-nullable: true
       contact:
         description: The name of the contact person for this account.
         example: J. Doe
+        maxLength: 100
         type: string
         x-nullable: true
       contract_number:
@@ -188,6 +211,7 @@ definitions:
       country:
         description: The country part of the postal address.
         example: United Kingdom
+        maxLength: 100
         type: string
         x-nullable: true
       created_at:
@@ -209,11 +233,13 @@ definitions:
       display_name:
         description: The display name for the account.
         example: ARM
+        maxLength: 100
         type: string
         x-nullable: true
       email:
         description: The company email address for this account.
         example: info@arm.com
+        pattern: .+\@.+{3,254}
         type: string
         x-nullable: true
       end_market:
@@ -233,16 +259,21 @@ definitions:
         description: Indicates how many days (1-180) before account expiration a notification
           email is sent.
         example: '180'
-        type: string
+        maximum: 180
+        minimum: 1
+        type: integer
         x-nullable: true
       id:
         description: Account ID.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       idle_timeout:
         description: The reference token expiration time, in minutes, for this account.
         example: '30'
-        type: string
+        maximum: 120
+        minimum: 1
+        type: integer
         x-nullable: true
       limits:
         additionalProperties:
@@ -261,6 +292,7 @@ definitions:
       notification_emails:
         description: A list of notification email addresses.
         items:
+          pattern: .+\@.+{3,254}
           type: string
         type: array
         x-nullable: true
@@ -276,6 +308,7 @@ definitions:
       parent_id:
         description: The ID of the parent account, if any.
         example: 01619571dad80242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
         x-nullable: true
       password_policy:
@@ -283,8 +316,7 @@ definitions:
         description: The password policy for this account.
         x-nullable: true
       password_recovery_expiration:
-        description: Indicates for how many minutes a password recovery email is valid
-          (1-45).
+        description: Indicates for how many minutes a password recovery email is valid.
         format: int32
         maximum: 45
         minimum: 1
@@ -292,6 +324,7 @@ definitions:
       phone_number:
         description: The phone number of a company representative.
         example: +44 (1223) 400 400
+        maxLength: 100
         type: string
         x-nullable: true
       policies:
@@ -303,6 +336,7 @@ definitions:
       postal_code:
         description: The postal code part of the postal address.
         example: CB1 9NJ
+        maxLength: 100
         type: string
         x-nullable: true
       reason:
@@ -318,11 +352,13 @@ definitions:
       sales_contact:
         description: Email address of the sales contact.
         example: sales@arm.com
+        pattern: .+\@.+{3,254}
         type: string
         x-nullable: true
       state:
         description: The state part of the postal address.
         example: ' '
+        maxLength: 100
         type: string
         x-nullable: true
       status:
@@ -343,6 +379,7 @@ definitions:
       template_id:
         description: Account template ID.
         example: 01619571e7160242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
         x-nullable: true
       tier:
@@ -373,6 +410,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -416,79 +454,87 @@ definitions:
     description: Represents an account creation request.
     properties:
       address_line1:
-        description: Postal address line 1, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: Postal address line 1. Required for commercial accounts only.
         example: 110 Fulbourn Rd
+        maxLength: 100
         type: string
         x-nullable: true
       address_line2:
-        description: Postal address line 2, no longer than 100 characters.
+        description: Postal address line 2.
         example: ' '
+        maxLength: 100
         type: string
         x-nullable: true
       aliases:
-        description: An array of aliases, no more than 10. Aliases must be 8-120 characters,
-          inclusive.
+        description: An array of aliases.
         items:
+          pattern: '[\w\-._]{8,100}'
           type: string
+        maxItems: 10
         type: array
         x-nullable: true
       city:
-        description: The city part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The city part of the postal address. Required for commercial
+          accounts only.
         example: Cambridge
+        maxLength: 100
         type: string
         x-nullable: true
       company:
-        description: The name of the company, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: The name of the company. Required for commercial accounts only.
         example: ARM Holdings Plc
+        maxLength: 100
         type: string
         x-nullable: true
       contact:
-        description: The name of the contact person for this account, no longer than
-          100 characters. Required for commercial accounts only.
+        description: The name of the contact person for this account. Required for
+          commercial accounts only.
         example: J. Doe
+        maxLength: 100
         type: string
         x-nullable: true
       country:
-        description: The country part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The country part of the postal address. Required for commercial
+          accounts only.
         example: United Kingdom
+        maxLength: 100
         type: string
         x-nullable: true
       custom_fields:
         additionalProperties:
           type: string
-        description: Account's custom properties as key-value pairs, maximum 10. Maximum
-          key length 100 characters. Maximum value length 1000 characters.
+        description: Account's custom properties as key-value pairs.
+        maxItems: 10
         type: object
         x-nullable: true
       display_name:
-        description: The display name for the account, no longer than 100 characters.
+        description: The display name for the account.
         example: ARM
+        maxLength: 100
         type: string
         x-nullable: true
       email:
-        description: The company email address for this account, no longer than 254
-          characters. Required for commercial accounts only.
+        description: The company email address for this account. Required for commercial
+          accounts only.
         example: info@arm.com
+        pattern: .+\@.+{3,254}
         type: string
         x-nullable: true
       end_market:
-        description: The end market for this account, no longer than 100 characters.
+        description: The end market for this account.
         example: IT
+        maxLength: 100
         type: string
         x-nullable: true
       expiration_warning_threshold:
         description: Indicates how many days before account expiration a notification
-          email is sent (1-180).
+          email is sent.
         maximum: 180
         minimum: 1
         type: integer
         x-nullable: true
       idle_timeout:
-        description: Reference token expiration time in minutes (1-120).
+        description: Reference token expiration time in minutes.
         maximum: 120
         minimum: 1
         type: integer
@@ -504,6 +550,7 @@ definitions:
       notification_emails:
         description: A list of notification email addresses.
         items:
+          pattern: .+\@.+{3,254}
           type: string
         type: array
         x-nullable: true
@@ -512,28 +559,28 @@ definitions:
         description: Password policy for this account.
         x-nullable: true
       password_recovery_expiration:
-        description: Indicates for how many minutes a password recovery email is valid
-          (1-45).
+        description: Indicates for how many minutes a password recovery email is valid.
         format: int32
         maximum: 45
         minimum: 1
         type: integer
         x-nullable: true
       phone_number:
-        description: The phone number of a representative of the company, no longer
-          than 100 characters.
+        description: The phone number of a representative of the company.
         example: +44 (1223) 400 400
+        maxLength: 100
         type: string
         x-nullable: true
       postal_code:
-        description: The postal code part of the postal address, no longer than 100
-          characters.
+        description: The postal code part of the postal address.
         example: CB1 9NJ
+        maxLength: 100
         type: string
         x-nullable: true
       state:
-        description: The state part of the postal address, no longer than 100 characters.
+        description: The state part of the postal address.
         example: ' '
+        maxLength: 100
         type: string
         x-nullable: true
     type: object
@@ -541,39 +588,43 @@ definitions:
     description: Represents an account update request.
     properties:
       address_line1:
-        description: Postal address line 1, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: Postal address line 1. Required for commercial accounts only.
         example: 110 Fulbourn Rd
+        maxLength: 100
         type: string
         x-nullable: true
       address_line2:
-        description: Postal address line 2, no longer than 100 characters.
+        description: Postal address line 2.
         example: ' '
+        maxLength: 100
         type: string
         x-nullable: true
       aliases:
-        description: An array of aliases, no more than 10. An alias is not shorter
-          than 8 and no longer than 100 characters.
+        description: An array of aliases.
         items:
+          pattern: '[\w\-._]{8,100}'
           type: string
+        maxItems: 10
         type: array
         x-nullable: true
       city:
-        description: The city part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The city part of the postal address. Required for commercial
+          accounts only.
         example: Cambridge
+        maxLength: 100
         type: string
         x-nullable: true
       company:
-        description: The name of the company, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: The name of the company. Required for commercial accounts only.
         example: ARM Holdings Plc
+        maxLength: 100
         type: string
         x-nullable: true
       contact:
-        description: The name of the contact person for this account, no longer than
-          100 characters. Required for commercial accounts only.
+        description: The name of the contact person for this account. Required for
+          commercial accounts only.
         example: J. Doe
+        maxLength: 100
         type: string
         x-nullable: true
       contract_number:
@@ -581,9 +632,10 @@ definitions:
         type: string
         x-nullable: true
       country:
-        description: The country part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The country part of the postal address. Required for commercial
+          accounts only.
         example: United Kingdom
+        maxLength: 100
         type: string
         x-nullable: true
       custom_fields:
@@ -592,6 +644,7 @@ definitions:
         description: Account's custom properties as key-value pairs, with a maximum
           of 10 keys. The maximum length of a key is 100 characters. The values are
           handled as strings and the maximum length for a value is 1000 characters.
+        maxItems: 10
         type: object
         x-nullable: true
       customer_number:
@@ -599,30 +652,37 @@ definitions:
         type: string
         x-nullable: true
       display_name:
-        description: The display name for the account, no longer than 100 characters.
+        description: The display name for the account.
         example: ARM
+        maxLength: 100
         type: string
         x-nullable: true
       email:
-        description: The company email address for this account, no longer than 254
-          characters. Required for commercial accounts only.
+        description: The company email address for this account. Required for commercial
+          accounts only.
         example: info@arm.com
+        pattern: .+\@.+{3,254}
         type: string
         x-nullable: true
       end_market:
-        description: The end market for this account, no longer than 100 characters.
+        description: The end market for this account.
         example: IT
+        maxLength: 100
         type: string
         x-nullable: true
       expiration_warning_threshold:
         description: Indicates how many days before account expiration a notification
-          email is sent (1-180).
-        type: string
+          email is sent.
+        maximum: 180
+        minimum: 1
+        type: integer
         x-nullable: true
       idle_timeout:
         description: The reference token expiration time in minutes for this account.
           Between 1 and 120 minutes.
-        type: string
+        maximum: 120
+        minimum: 1
+        type: integer
         x-nullable: true
       mfa_status:
         description: The enforcement status of setting up the multi-factor authentication.
@@ -636,6 +696,7 @@ definitions:
       notification_emails:
         description: A list of notification email addresses.
         items:
+          pattern: .+\@.+{3,254}
           type: string
         type: array
         x-nullable: true
@@ -644,32 +705,33 @@ definitions:
         description: Password policy for this account.
         x-nullable: true
       password_recovery_expiration:
-        description: Indicates for how many minutes a password recovery email is valid
-          (1-45).
+        description: Indicates for how many minutes a password recovery email is valid.
         format: int32
         maximum: 45
         minimum: 1
         type: integer
         x-nullable: true
       phone_number:
-        description: The phone number of a representative of the company, no longer
-          than 100 characters.
+        description: The phone number of a representative of the company.
         example: +44 (1223) 400 400
+        maxLength: 100
         type: string
         x-nullable: true
       postal_code:
-        description: The postal code part of the postal address, no longer than 100
-          characters.
+        description: The postal code part of the postal address.
         example: CB1 9NJ
+        maxLength: 100
         type: string
         x-nullable: true
       sales_contact:
         description: Email address of the sales contact.
+        pattern: .+\@.+{3,254}
         type: string
         x-nullable: true
       state:
-        description: The state part of the postal address, no longer than 100 characters.
+        description: The state part of the postal address.
         example: ' '
+        maxLength: 100
         type: string
         x-nullable: true
     type: object
@@ -728,6 +790,7 @@ definitions:
       account_id:
         description: The UUID of the account.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       ip_address:
         description: IP address of the client.
@@ -811,7 +874,8 @@ definitions:
           type: string
         type: array
       name:
-        description: The display name for the API key, no longer than 100 characters.
+        description: The display name for the API key.
+        maxLength: 100
         type: string
       owner:
         description: The owner of this API key.
@@ -855,6 +919,7 @@ definitions:
       id:
         description: The ID of the API key.
         example: 01619571f7020242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       key:
         description: The API key.
@@ -868,6 +933,7 @@ definitions:
       name:
         description: The display name for the API key.
         example: API key gorgon
+        maxLength: 100
         type: string
       object:
         description: 'Entity name: always ''api-key'''
@@ -877,6 +943,7 @@ definitions:
       owner:
         description: The owner of this API key, who is the creator by default.
         example: 01619571e2e89242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       status:
         description: The status of the API key.
@@ -902,6 +969,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -913,7 +981,7 @@ definitions:
         example: false
         type: boolean
       limit:
-        description: The number of results to return (2-1000), or equal to `total_count`.
+        description: The number of results to return, or equal to `total_count`.
         example: 50
         format: int32
         type: integer
@@ -950,7 +1018,8 @@ definitions:
           type: string
         type: array
       name:
-        description: The display name for the API key, no longer than 100 characters.
+        description: The display name for the API key.
+        maxLength: 100
         type: string
       owner:
         description: The owner of this API key.
@@ -1149,6 +1218,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -1160,7 +1230,7 @@ definitions:
         example: false
         type: boolean
       limit:
-        description: The number of results to return (2-1000), or equal to `total_count`.
+        description: The number of results to return, or equal to `total_count`.
         example: 50
         format: int32
         type: integer
@@ -1255,6 +1325,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -1266,7 +1337,7 @@ definitions:
         example: false
         type: boolean
       limit:
-        description: The number of results to return (2-1000), or equal to `total_count`.
+        description: The number of results to return, or equal to `total_count`.
         example: 50
         format: int32
         type: integer
@@ -1625,8 +1696,7 @@ definitions:
         - ECDSA521
         type: string
       validity:
-        description: Validity for the certificate in days. Value can be in the range
-          of 1 to 3650. Defaults to 365 days.
+        description: Validity for the certificate in days.
         format: int32
         type: integer
     type: object
@@ -3946,7 +4016,8 @@ definitions:
         $ref: '#/definitions/SubjectList'
         description: The members of the group as arrays of user and API key IDs.
       name:
-        description: The group name, no longer than 100 characters.
+        description: The group name.
+        maxLength: 100
         type: string
     required:
     - name
@@ -3957,6 +4028,7 @@ definitions:
       account_id:
         description: The ID of the account this group belongs to.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       apikey_count:
         description: The number of API keys in this group.
@@ -3975,10 +4047,12 @@ definitions:
       id:
         description: The ID of the group.
         example: 01619571dec00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       name:
         description: The name of the group.
         example: Administrators
+        maxLength: 100
         type: string
       object:
         description: 'Entity name: always `group`.'
@@ -4009,6 +4083,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -4052,7 +4127,8 @@ definitions:
     description: This object is used when Update groups.
     properties:
       name:
-        description: The group name, no longer than 100 characters.
+        description: The group name.
+        maxLength: 100
         type: string
     required:
     - name
@@ -4062,10 +4138,12 @@ definitions:
       module.
     properties:
       description:
-        description: Description for the identity provider, no longer than 500 characters.
+        description: Description for the identity provider.
+        maxLength: 500
         type: string
       name:
-        description: Name of the identity provider, no longer than 100 characters.
+        description: Name of the identity provider.
+        maxLength: 100
         type: string
       saml2_attributes:
         $ref: '#/definitions/SAML2Req'
@@ -4090,6 +4168,7 @@ definitions:
       account_id:
         description: The ID of the account the identity provider belongs to.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       created_at:
         description: Creation UTC time RFC3339.
@@ -4097,7 +4176,8 @@ definitions:
         format: date-time
         type: string
       description:
-        description: Description for the identity provider, no longer than 500 characters.
+        description: Description for the identity provider.
+        maxLength: 500
         type: string
       etag:
         description: API resource entity version.
@@ -4106,9 +4186,11 @@ definitions:
       id:
         description: Entity ID.
         example: 01619571d01d0242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       name:
-        description: Name of the identity provider, no longer than 100 characters.
+        description: Name of the identity provider.
+        maxLength: 100
         type: string
       object:
         description: 'Entity name: always ''identity-provider'''
@@ -4149,6 +4231,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -4160,7 +4243,7 @@ definitions:
         example: false
         type: boolean
       limit:
-        description: The number of results to return (2-1000), or equal to `total_count`.
+        description: The number of results to return , or equal to `total_count`.
         example: 50
         format: int32
         type: integer
@@ -4192,10 +4275,12 @@ definitions:
     description: Update existing federated identity provider module.
     properties:
       description:
-        description: Description for the identity provider, no longer than 500 characters.
+        description: Description for the identity provider.
+        maxLength: 500
         type: string
       name:
-        description: Name of the identity provider, no longer than 100 characters.
+        description: Name of the identity provider.
+        maxLength: 100
         type: string
       saml2_attributes:
         $ref: '#/definitions/SAML2Req'
@@ -4374,6 +4459,7 @@ definitions:
       account_id:
         description: The ID of the account.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       created_at:
         description: Creation UTC time RFC3339.
@@ -4392,6 +4478,7 @@ definitions:
       id:
         description: Entity ID.
         example: 01619571d01d0242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       message:
         description: The message contained in this account notification entry.
@@ -4405,6 +4492,7 @@ definitions:
       receiver:
         description: The receiver this account notification entry.
         example: example@email-receiver.test
+        pattern: .+\@.+{3,254}
         type: string
       subject:
         description: The subject of this account notification entry.
@@ -4428,6 +4516,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -4439,7 +4528,7 @@ definitions:
         example: false
         type: boolean
       limit:
-        description: The number of results to return (2-1000), or equal to `total_count`.
+        description: The number of results to return, or equal to `total_count`.
         example: 50
         format: int32
         type: integer
@@ -4505,23 +4594,28 @@ definitions:
         description: The email address of the admin user who is the contact person
           of the parent account.
         example: info@arm.com
+        pattern: .+\@.+{3,254}
         type: string
       admin_name:
         description: The name of the admin user who is the contact person of the parent
           account.
         example: J. Doe
+        maxLength: 100
         type: string
       id:
-        description: The ID of the parent account
+        description: The ID of the parent account.
         example: 01619571dad80242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
     type: object
   PasswordPolicy:
     properties:
       minimum_length:
-        description: Minimum length for the password. A number between 8 and 512.
+        description: Minimum length for the password.
         example: '8'
-        type: string
+        maximum: 512
+        minimum: 8
+        type: integer
     required:
     - minimum_length
     type: object
@@ -4960,7 +5054,7 @@ definitions:
         type: string
       idp_x509_certs:
         description: List of public X509 certificates of the identity provider. Certificates
-          must be in PEM format. Limit of 100 certificates.
+          must be in PEM format.
         items:
           type: string
         type: array
@@ -5307,15 +5401,16 @@ definitions:
           parameter is required.
         type: string
       description:
-        description: Human readable description of this certificate, no longer than
-          500 characters.
+        description: Human readable description of this certificate.
+        maxLength: 500
         type: string
         x-nullable: true
       enrollment_mode:
         description: Certificate is used in enrollment mode. Default value is false.
         type: boolean
       name:
-        description: Certificate name, no longer than 100 characters.
+        description: Certificate name.
+        maxLength: 100
         type: string
       service:
         description: Service name where the certificate must be used.
@@ -5344,6 +5439,7 @@ definitions:
       account_id:
         description: The ID of the account.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       certificate:
         description: X509.v3 trusted certificate in PEM format.
@@ -5361,6 +5457,7 @@ definitions:
       description:
         description: Human readable description of this certificate.
         example: Certificate created by me.
+        maxLength: 500
         type: string
         x-nullable: true
       device_execution_mode:
@@ -5379,6 +5476,7 @@ definitions:
       id:
         description: Entity ID.
         example: 01619571d01d0242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       issuer:
         description: Issuer of the certificate.
@@ -5387,6 +5485,7 @@ definitions:
       name:
         description: Certificate name.
         example: My certificate
+        maxLength: 100
         type: string
       object:
         description: 'Entity name: always ''trusted-cert'''
@@ -5396,6 +5495,7 @@ definitions:
       owner_id:
         description: The ID of the owner.
         example: 01619571dad80242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
         x-nullable: true
       service:
@@ -5449,6 +5549,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -5497,15 +5598,16 @@ definitions:
           parameter is required.
         type: string
       description:
-        description: Human readable description of this certificate, no longer than
-          500 characters.
+        description: Human readable description of this certificate.
+        maxLength: 500
         type: string
         x-nullable: true
       enrollment_mode:
         description: Certificate is used in enrollment mode. Default value is false.
         type: boolean
       name:
-        description: Certificate name, no longer than 100 characters.
+        description: Certificate name.
+        maxLength: 100
         type: string
       service:
         description: Service name where the certificate must be used.
@@ -5894,6 +5996,7 @@ definitions:
       id:
         description: Entity ID.
         example: 01619571dad80242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       message:
         description: A human readable message with detailed info.
@@ -5912,6 +6015,7 @@ definitions:
       request_id:
         description: Request ID.
         example: 0161991d63150242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       type:
         description: 'Response type: success.'
@@ -6059,14 +6163,17 @@ definitions:
     description: Represents a user in requests towards Device Management.
     properties:
       address:
-        description: Address, no longer than 100 characters.
+        description: Address.
+        maxLength: 100
         type: string
         x-nullable: true
       email:
-        description: The email address, no longer than 254 characters.
+        description: The email address.
+        pattern: .+\@.+{3,254}
         type: string
       full_name:
-        description: The full name of the user, no longer than 100 characters.
+        description: The full name of the user.
+        maxLength: 100
         type: string
         x-nullable: true
       groups:
@@ -6085,8 +6192,7 @@ definitions:
       login_profiles:
         description: A list of login profiles for the user. Specified as the identity
           providers the user should be associated with. Only the ID attribute of the
-          login profile should be set in the request object. The list cannot be empty.
-          Limit 100 profiles.
+          login profile should be set in the request object.
         items:
           $ref: '#/definitions/LoginProfile'
         type: array
@@ -6096,12 +6202,13 @@ definitions:
         type: string
         x-nullable: true
       phone_number:
-        description: Phone number, no longer than 100 characters.
+        description: Phone number.
+        maxLength: 100
         type: string
         x-nullable: true
       username:
-        description: A username containing alphanumerical letters and -,._@+= characters.
-          It must be at least 4 but not more than 30 character long.
+        description: A username.
+        pattern: '[\w\-,._@+=]{4,30}'
         type: string
         x-nullable: true
     required:
@@ -6113,6 +6220,7 @@ definitions:
       account_id:
         description: The ID of the account.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       active_sessions:
         description: List of active user sessions.
@@ -6143,6 +6251,7 @@ definitions:
       email:
         description: The email address.
         example: user@arm.com
+        pattern: .+\@.+{3,254}
         type: string
       email_verified:
         description: A flag indicating whether the user's email address has been verified
@@ -6156,6 +6265,7 @@ definitions:
       full_name:
         description: The full name of the user.
         example: User Doe
+        maxLength: 100
         type: string
         x-nullable: true
       groups:
@@ -6166,6 +6276,7 @@ definitions:
       id:
         description: The ID of the user.
         example: 01619571e2e89242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       is_gtc_accepted:
         description: A flag indicating that the user has accepted General Terms and
@@ -6192,6 +6303,7 @@ definitions:
           of the last five logins of the user, with timestamps in RFC3339 format.
         items:
           $ref: '#/definitions/LoginHistory'
+        maxItems: 5
         type: array
       login_profiles:
         description: A list of login profiles for the user. Specified as the identity
@@ -6219,6 +6331,7 @@ definitions:
       phone_number:
         description: Phone number.
         example: +44 (1223) 400 400
+        maxLength: 100
         type: string
         x-nullable: true
       status:
@@ -6248,8 +6361,9 @@ definitions:
         format: date-time
         type: string
       username:
-        description: A username containing alphanumerical letters and -,._@+= characters.
+        description: A username.
         example: admin
+        pattern: '[\w\-,._@+=]'
         type: string
         x-nullable: true
     required:
@@ -6265,6 +6379,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -6308,7 +6423,8 @@ definitions:
     description: Represents a user invitation in requests towards Device Management.
     properties:
       email:
-        description: The email address, no longer than 254 characters.
+        description: The email address.
+        pattern: .+\@.+{3,254}
         type: string
       groups:
         description: A list of IDs of the groups this user has been invited to.
@@ -6318,8 +6434,7 @@ definitions:
       login_profiles:
         description: A list of login profiles for the user. Specified as the identity
           providers the user should be associated with. Only the ID attribute of the
-          login profile should be set in the request object. The list cannot be empty.
-          Limit 100 profiles.
+          login profile should be set in the request object.
         items:
           $ref: '#/definitions/LoginProfile'
         type: array
@@ -6339,6 +6454,7 @@ definitions:
       account_id:
         description: The ID of the account the user is invited to.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       created_at:
         description: Creation UTC time RFC3339.
@@ -6348,6 +6464,7 @@ definitions:
       email:
         description: Email address of the invited user.
         example: friend@arm.com
+        pattern: .+\@.+{3,254}
         type: string
       etag:
         description: API resource entity version.
@@ -6366,6 +6483,7 @@ definitions:
       id:
         description: The ID of the invitation.
         example: 01619571e2e89242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       login_profiles:
         description: A list of login profiles for the user. Specified as the identity
@@ -6387,6 +6505,7 @@ definitions:
       user_id:
         description: The ID of the invited user.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
     required:
     - account_id
@@ -6401,6 +6520,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -6444,16 +6564,18 @@ definitions:
     description: Represents a user in requests towards Device Management.
     properties:
       address:
-        description: Address, no longer than 100 characters.
+        description: Address.
+        maxLength: 100
         type: string
         x-nullable: true
       email:
-        description: The email address, no longer than 254 characters. Not allowed
-          to update other user's email address.
+        description: The email address. Not allowed to update other user's email address.
+        pattern: .+\@.+{3,254}
         type: string
         x-nullable: true
       full_name:
-        description: The full name of the user, no longer than 100 characters.
+        description: The full name of the user.
+        maxLength: 100
         type: string
         x-nullable: true
       groups:
@@ -6479,16 +6601,17 @@ definitions:
         type: boolean
         x-nullable: true
       login_profiles:
-        description: A list of login profiles for the user, specified as identity
+        description: '''A list of login profiles for the user, specified as identity
           providers associated with the user. Only the ID attribute of the login profile
-          should be set in the request object. The list cannot be empty. Limit 100
-          profiles. Only an account admin may update login profiles.
+          should be set in the request object. The list cannot be empty. Only an account
+          admin may update login profiles.'''
         items:
           $ref: '#/definitions/LoginProfile'
         type: array
         x-nullable: true
       phone_number:
-        description: Phone number, no longer than 100 characters.
+        description: Phone number.
+        maxLength: 100
         type: string
         x-nullable: true
       status:
@@ -6507,8 +6630,8 @@ definitions:
         type: string
         x-nullable: true
       username:
-        description: A username containing alphanumerical letters and -,._@+= characters.
-          Must be 4-30 characters.
+        description: A username.
+        pattern: '[\w\-,._@+=]{4,30}'
         type: string
         x-nullable: true
     type: object

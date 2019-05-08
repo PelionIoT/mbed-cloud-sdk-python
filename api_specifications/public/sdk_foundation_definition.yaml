@@ -6,6 +6,7 @@ entities:
     api_fieldname: address_line1
     description: Postal address line 1.
     example: 110 Fulbourn Rd
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -14,6 +15,7 @@ entities:
     api_fieldname: address_line2
     description: Postal address line 2.
     example: ' '
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -23,6 +25,7 @@ entities:
     description: The email address of the admin user created for this account. Present
       only in the response for account creation.
     example: admin@arm.com
+    pattern: .+\@.+{3,254}
     readOnly: false
     required: false
     type: string
@@ -32,6 +35,7 @@ entities:
     description: The full name of the admin user created for this account. Present
       only in the response for account creation.
     example: Admin Doe
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -40,6 +44,7 @@ entities:
     api_fieldname: admin_id
     description: The ID of the admin user created for this account.
     example: 01619571e2e89242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -58,6 +63,7 @@ entities:
     description: The username of the admin user created for this account. Present
       only in the response for account creation.
     example: admin
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -75,7 +81,9 @@ entities:
     api_fieldname: aliases
     description: An array of aliases.
     items:
+      pattern: '[\w\-._]{8,100}'
       type: string
+    maxItems: 10
     readOnly: false
     required: false
     type: array
@@ -83,6 +91,7 @@ entities:
     api_fieldname: city
     description: The city part of the postal address.
     example: Cambridge
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -91,6 +100,7 @@ entities:
     api_fieldname: company
     description: The name of the company.
     example: ARM Holdings Plc
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -99,6 +109,7 @@ entities:
     api_fieldname: contact
     description: The name of the contact person for this account.
     example: J. Doe
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -115,6 +126,7 @@ entities:
     api_fieldname: country
     description: The country part of the postal address.
     example: United Kingdom
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -148,6 +160,7 @@ entities:
     api_fieldname: display_name
     description: The display name for the account.
     example: ARM
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -156,6 +169,7 @@ entities:
     api_fieldname: email
     description: The company email address for this account.
     example: info@arm.com
+    pattern: .+\@.+{3,254}
     readOnly: false
     required: false
     type: string
@@ -180,14 +194,17 @@ entities:
     description: Indicates how many days (1-180) before account expiration a notification
       email is sent.
     example: '180'
+    maximum: 180
+    minimum: 1
     readOnly: false
     required: false
-    type: string
+    type: integer
     x-nullable: true
   - _key: id
     api_fieldname: id
     description: Account ID.
     example: 01619571e2e90242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -195,9 +212,11 @@ entities:
     api_fieldname: idle_timeout
     description: The reference token expiration time, in minutes, for this account.
     example: '30'
+    maximum: 120
+    minimum: 1
     readOnly: false
     required: false
-    type: string
+    type: integer
     x-nullable: true
   - _key: limits
     additionalProperties:
@@ -224,6 +243,7 @@ entities:
     api_fieldname: notification_emails
     description: A list of notification email addresses.
     items:
+      pattern: .+\@.+{3,254}
       type: string
     readOnly: false
     required: false
@@ -242,6 +262,7 @@ entities:
         the parent account.
       entity_fieldname: admin_email
       example: info@arm.com
+      pattern: .+\@.+{3,254}
       type: string
     - _key: admin_name
       api_fieldname: admin_name
@@ -249,12 +270,14 @@ entities:
         account.
       entity_fieldname: admin_name
       example: J. Doe
+      maxLength: 100
       type: string
     - _key: id
       api_fieldname: id
-      description: The ID of the parent account
+      description: The ID of the parent account.
       entity_fieldname: id
       example: 01619571dad80242ac12000600000000
+      pattern: '[a-f0-9]{32}'
       type: string
     readOnly: true
     required: false
@@ -264,6 +287,7 @@ entities:
     api_fieldname: parent_id
     description: The ID of the parent account, if any.
     example: 01619571dad80242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -277,18 +301,19 @@ entities:
     properties:
     - _key: minimum_length
       api_fieldname: minimum_length
-      description: Minimum length for the password. A number between 8 and 512.
+      description: Minimum length for the password.
       entity_fieldname: minimum_length
       example: '8'
-      type: string
+      maximum: 512
+      minimum: 8
+      type: integer
     readOnly: false
     required: false
     type: object
     x-nullable: true
   - _key: password_recovery_expiration
     api_fieldname: password_recovery_expiration
-    description: Indicates for how many minutes a password recovery email is valid
-      (1-45).
+    description: Indicates for how many minutes a password recovery email is valid.
     format: int32
     maximum: 45
     minimum: 1
@@ -299,6 +324,7 @@ entities:
     api_fieldname: phone_number
     description: The phone number of a company representative.
     example: +44 (1223) 400 400
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -354,6 +380,7 @@ entities:
     api_fieldname: postal_code
     description: The postal code part of the postal address.
     example: CB1 9NJ
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -378,6 +405,7 @@ entities:
     api_fieldname: sales_contact
     description: Email address of the sales contact.
     example: sales@arm.com
+    pattern: .+\@.+{3,254}
     readOnly: false
     required: false
     type: string
@@ -386,6 +414,7 @@ entities:
     api_fieldname: state
     description: The state part of the postal address.
     example: ' '
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -407,6 +436,7 @@ entities:
     api_fieldname: template_id
     description: Account template ID.
     example: 01619571e7160242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -474,6 +504,7 @@ entities:
       in: query
       name: after
       parameter_fieldname: after
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: id
@@ -557,6 +588,7 @@ entities:
           in: query
           name: after
           parameter_fieldname: after
+          pattern: '[a-f0-9]{32}'
           required: false
           type: string
         - _key: data
@@ -597,6 +629,7 @@ entities:
             - _key: id
               description: The ID of the API key.
               example: 01619571f7020242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: key
               description: The API key.
@@ -610,6 +643,7 @@ entities:
             - _key: name
               description: The display name for the API key.
               example: API key gorgon
+              maxLength: 100
               type: string
             - _key: object
               description: 'Entity name: always ''api-key'''
@@ -619,6 +653,7 @@ entities:
             - _key: owner
               description: The owner of this API key, who is the creator by default.
               example: 01619571e2e89242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: status
               description: The status of the API key.
@@ -933,6 +968,7 @@ entities:
       entity_fieldname: address_line1
       example: 110 Fulbourn Rd
       in: body
+      maxLength: 100
       parameter_fieldname: address_line1
       required: false
       type: string
@@ -943,6 +979,7 @@ entities:
       entity_fieldname: address_line2
       example: ' '
       in: body
+      maxLength: 100
       parameter_fieldname: address_line2
       required: false
       type: string
@@ -955,6 +992,7 @@ entities:
       example: admin@arm.com
       in: body
       parameter_fieldname: admin_email
+      pattern: .+\@.+{3,254}
       required: false
       type: string
       x-nullable: true
@@ -965,6 +1003,7 @@ entities:
       entity_fieldname: admin_full_name
       example: Admin Doe
       in: body
+      maxLength: 100
       parameter_fieldname: admin_full_name
       required: false
       type: string
@@ -976,6 +1015,7 @@ entities:
       entity_fieldname: admin_name
       example: admin
       in: body
+      maxLength: 100
       parameter_fieldname: admin_name
       required: false
       type: string
@@ -997,7 +1037,9 @@ entities:
       entity_fieldname: aliases
       in: body
       items:
+        pattern: '[\w\-._]{8,100}'
         type: string
+      maxItems: 10
       parameter_fieldname: aliases
       required: false
       type: array
@@ -1007,6 +1049,7 @@ entities:
       entity_fieldname: city
       example: Cambridge
       in: body
+      maxLength: 100
       parameter_fieldname: city
       required: false
       type: string
@@ -1017,6 +1060,7 @@ entities:
       entity_fieldname: company
       example: ARM Holdings Plc
       in: body
+      maxLength: 100
       parameter_fieldname: company
       required: false
       type: string
@@ -1027,6 +1071,7 @@ entities:
       entity_fieldname: contact
       example: J. Doe
       in: body
+      maxLength: 100
       parameter_fieldname: contact
       required: false
       type: string
@@ -1047,6 +1092,7 @@ entities:
       entity_fieldname: country
       example: United Kingdom
       in: body
+      maxLength: 100
       parameter_fieldname: country
       required: false
       type: string
@@ -1067,6 +1113,7 @@ entities:
       entity_fieldname: display_name
       example: ARM
       in: body
+      maxLength: 100
       parameter_fieldname: display_name
       required: false
       type: string
@@ -1078,6 +1125,7 @@ entities:
       example: info@arm.com
       in: body
       parameter_fieldname: email
+      pattern: .+\@.+{3,254}
       required: false
       type: string
       x-nullable: true
@@ -1096,6 +1144,7 @@ entities:
       entity_fieldname: phone_number
       example: +44 (1223) 400 400
       in: body
+      maxLength: 100
       parameter_fieldname: phone_number
       required: false
       type: string
@@ -1106,6 +1155,7 @@ entities:
       entity_fieldname: postal_code
       example: CB1 9NJ
       in: body
+      maxLength: 100
       parameter_fieldname: postal_code
       required: false
       type: string
@@ -1116,6 +1166,7 @@ entities:
       entity_fieldname: state
       example: ' '
       in: body
+      maxLength: 100
       parameter_fieldname: state
       required: false
       type: string
@@ -1141,6 +1192,7 @@ entities:
           description: Postal address line 1.
           entity_fieldname: address_line1
           example: 110 Fulbourn Rd
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: address_line2
@@ -1148,6 +1200,7 @@ entities:
           description: Postal address line 2.
           entity_fieldname: address_line2
           example: ' '
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_email
@@ -1156,6 +1209,7 @@ entities:
             Present only in the response for account creation.
           entity_fieldname: admin_email
           example: admin@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: admin_full_name
@@ -1164,6 +1218,7 @@ entities:
             only in the response for account creation.
           entity_fieldname: admin_full_name
           example: Admin Doe
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_id
@@ -1171,6 +1226,7 @@ entities:
           description: The ID of the admin user created for this account.
           entity_fieldname: admin_id
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: admin_key
@@ -1188,6 +1244,7 @@ entities:
             only in the response for account creation.
           entity_fieldname: admin_name
           example: admin
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_password
@@ -1203,13 +1260,16 @@ entities:
           description: An array of aliases.
           entity_fieldname: aliases
           items:
+            pattern: '[\w\-._]{8,100}'
             type: string
+          maxItems: 10
           type: array
         - _key: city
           api_fieldname: city
           description: The city part of the postal address.
           entity_fieldname: city
           example: Cambridge
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: company
@@ -1217,6 +1277,7 @@ entities:
           description: The name of the company.
           entity_fieldname: company
           example: ARM Holdings Plc
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: contact
@@ -1224,6 +1285,7 @@ entities:
           description: The name of the contact person for this account.
           entity_fieldname: contact
           example: J. Doe
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: contract_number
@@ -1238,6 +1300,7 @@ entities:
           description: The country part of the postal address.
           entity_fieldname: country
           example: United Kingdom
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: created_at
@@ -1267,6 +1330,7 @@ entities:
           description: The display name for the account.
           entity_fieldname: display_name
           example: ARM
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: email
@@ -1274,6 +1338,7 @@ entities:
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: end_market
@@ -1301,20 +1366,25 @@ entities:
             notification email is sent.
           entity_fieldname: expiration_warning_threshold
           example: '180'
-          type: string
+          maximum: 180
+          minimum: 1
+          type: integer
           x-nullable: true
         - _key: id
           api_fieldname: id
           description: Account ID.
           entity_fieldname: id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: idle_timeout
           api_fieldname: idle_timeout
           description: The reference token expiration time, in minutes, for this account.
           entity_fieldname: idle_timeout
           example: '30'
-          type: string
+          maximum: 120
+          minimum: 1
+          type: integer
           x-nullable: true
         - _key: limits
           additionalProperties:
@@ -1339,6 +1409,7 @@ entities:
           description: A list of notification email addresses.
           entity_fieldname: notification_emails
           items:
+            pattern: .+\@.+{3,254}
             type: string
           type: array
           x-nullable: true
@@ -1363,6 +1434,7 @@ entities:
               of the parent account.
             entity_fieldname: admin_email
             example: info@arm.com
+            pattern: .+\@.+{3,254}
             type: string
           - _key: admin_name
             api_fieldname: admin_name
@@ -1370,12 +1442,14 @@ entities:
               parent account.
             entity_fieldname: admin_name
             example: J. Doe
+            maxLength: 100
             type: string
           - _key: id
             api_fieldname: id
-            description: The ID of the parent account
+            description: The ID of the parent account.
             entity_fieldname: id
             example: 01619571dad80242ac12000600000000
+            pattern: '[a-f0-9]{32}'
             type: string
           type: object
           x-nullable: true
@@ -1384,6 +1458,7 @@ entities:
           description: The ID of the parent account, if any.
           entity_fieldname: parent_id
           example: 01619571dad80242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: password_policy
@@ -1396,10 +1471,12 @@ entities:
           properties:
           - _key: minimum_length
             api_fieldname: minimum_length
-            description: Minimum length for the password. A number between 8 and 512.
+            description: Minimum length for the password.
             entity_fieldname: minimum_length
             example: '8'
-            type: string
+            maximum: 512
+            minimum: 8
+            type: integer
           required:
           - minimum_length
           type: object
@@ -1407,7 +1484,7 @@ entities:
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
-            valid (1-45).
+            valid.
           entity_fieldname: password_recovery_expiration
           format: int32
           maximum: 45
@@ -1418,6 +1495,7 @@ entities:
           description: The phone number of a company representative.
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: policies
@@ -1472,6 +1550,7 @@ entities:
           description: The postal code part of the postal address.
           entity_fieldname: postal_code
           example: CB1 9NJ
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: reason
@@ -1493,6 +1572,7 @@ entities:
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: state
@@ -1500,6 +1580,7 @@ entities:
           description: The state part of the postal address.
           entity_fieldname: state
           example: ' '
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: status
@@ -1523,28 +1604,33 @@ entities:
             - _key: address_line1
               description: Postal address line 1.
               example: 110 Fulbourn Rd
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: address_line2
               description: Postal address line 2.
               example: ' '
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_email
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: admin_full_name
               description: The full name of the admin user created for this account.
                 Present only in the response for account creation.
               example: Admin Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_id
               description: The ID of the admin user created for this account.
               example: 01619571e2e89242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: admin_key
@@ -1558,6 +1644,7 @@ entities:
               description: The username of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_password
@@ -1569,21 +1656,26 @@ entities:
             - _key: aliases
               description: An array of aliases.
               items:
+                pattern: '[\w\-._]{8,100}'
                 type: string
+              maxItems: 10
               type: array
             - _key: city
               description: The city part of the postal address.
               example: Cambridge
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: company
               description: The name of the company.
               example: ARM Holdings Plc
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: contact
               description: The name of the contact person for this account.
               example: J. Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: contract_number
@@ -1594,6 +1686,7 @@ entities:
             - _key: country
               description: The country part of the postal address.
               example: United Kingdom
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: created_at
@@ -1615,11 +1708,13 @@ entities:
             - _key: display_name
               description: The display name for the account.
               example: ARM
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: end_market
@@ -1639,17 +1734,22 @@ entities:
               description: Indicates how many days (1-180) before account expiration
                 a notification email is sent.
               example: '180'
-              type: string
+              maximum: 180
+              minimum: 1
+              type: integer
               x-nullable: true
             - _key: id
               description: Account ID.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: idle_timeout
               description: The reference token expiration time, in minutes, for this
                 account.
               example: '30'
-              type: string
+              maximum: 120
+              minimum: 1
+              type: integer
               x-nullable: true
             - _key: limits
               additionalProperties:
@@ -1668,6 +1768,7 @@ entities:
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
+                pattern: .+\@.+{3,254}
                 type: string
               type: array
               x-nullable: true
@@ -1688,6 +1789,7 @@ entities:
                   person of the parent account.
                 entity_fieldname: admin_email
                 example: info@arm.com
+                pattern: .+\@.+{3,254}
                 type: string
               - _key: admin_name
                 api_fieldname: admin_name
@@ -1695,18 +1797,21 @@ entities:
                   of the parent account.
                 entity_fieldname: admin_name
                 example: J. Doe
+                maxLength: 100
                 type: string
               - _key: id
                 api_fieldname: id
-                description: The ID of the parent account
+                description: The ID of the parent account.
                 entity_fieldname: id
                 example: 01619571dad80242ac12000600000000
+                pattern: '[a-f0-9]{32}'
                 type: string
               type: object
               x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: password_policy
@@ -1717,18 +1822,19 @@ entities:
               properties:
               - _key: minimum_length
                 api_fieldname: minimum_length
-                description: Minimum length for the password. A number between 8 and
-                  512.
+                description: Minimum length for the password.
                 entity_fieldname: minimum_length
                 example: '8'
-                type: string
+                maximum: 512
+                minimum: 8
+                type: integer
               required:
               - minimum_length
               type: object
               x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
-                is valid (1-45).
+                is valid.
               format: int32
               maximum: 45
               minimum: 1
@@ -1736,6 +1842,7 @@ entities:
             - _key: phone_number
               description: The phone number of a company representative.
               example: +44 (1223) 400 400
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: policies
@@ -1786,6 +1893,7 @@ entities:
             - _key: postal_code
               description: The postal code part of the postal address.
               example: CB1 9NJ
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: reason
@@ -1801,11 +1909,13 @@ entities:
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: state
               description: The state part of the postal address.
               example: ' '
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: status
@@ -1825,6 +1935,7 @@ entities:
             - _key: template_id
               description: Account template ID.
               example: 01619571e7160242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: tier
@@ -1858,6 +1969,7 @@ entities:
           description: Account template ID.
           entity_fieldname: template_id
           example: 01619571e7160242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: tier
@@ -2083,6 +2195,7 @@ entities:
       in: query
       name: after
       parameter_fieldname: after
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: format
@@ -2169,6 +2282,7 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: data
           api_fieldname: data
@@ -2180,28 +2294,33 @@ entities:
             - _key: address_line1
               description: Postal address line 1.
               example: 110 Fulbourn Rd
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: address_line2
               description: Postal address line 2.
               example: ' '
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_email
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: admin_full_name
               description: The full name of the admin user created for this account.
                 Present only in the response for account creation.
               example: Admin Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_id
               description: The ID of the admin user created for this account.
               example: 01619571e2e89242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: admin_key
@@ -2215,6 +2334,7 @@ entities:
               description: The username of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_password
@@ -2226,21 +2346,26 @@ entities:
             - _key: aliases
               description: An array of aliases.
               items:
+                pattern: '[\w\-._]{8,100}'
                 type: string
+              maxItems: 10
               type: array
             - _key: city
               description: The city part of the postal address.
               example: Cambridge
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: company
               description: The name of the company.
               example: ARM Holdings Plc
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: contact
               description: The name of the contact person for this account.
               example: J. Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: contract_number
@@ -2251,6 +2376,7 @@ entities:
             - _key: country
               description: The country part of the postal address.
               example: United Kingdom
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: created_at
@@ -2272,11 +2398,13 @@ entities:
             - _key: display_name
               description: The display name for the account.
               example: ARM
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: end_market
@@ -2296,17 +2424,22 @@ entities:
               description: Indicates how many days (1-180) before account expiration
                 a notification email is sent.
               example: '180'
-              type: string
+              maximum: 180
+              minimum: 1
+              type: integer
               x-nullable: true
             - _key: id
               description: Account ID.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: idle_timeout
               description: The reference token expiration time, in minutes, for this
                 account.
               example: '30'
-              type: string
+              maximum: 120
+              minimum: 1
+              type: integer
               x-nullable: true
             - _key: limits
               additionalProperties:
@@ -2325,6 +2458,7 @@ entities:
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
+                pattern: .+\@.+{3,254}
                 type: string
               type: array
               x-nullable: true
@@ -2345,6 +2479,7 @@ entities:
                   person of the parent account.
                 entity_fieldname: admin_email
                 example: info@arm.com
+                pattern: .+\@.+{3,254}
                 type: string
               - _key: admin_name
                 api_fieldname: admin_name
@@ -2352,18 +2487,21 @@ entities:
                   of the parent account.
                 entity_fieldname: admin_name
                 example: J. Doe
+                maxLength: 100
                 type: string
               - _key: id
                 api_fieldname: id
-                description: The ID of the parent account
+                description: The ID of the parent account.
                 entity_fieldname: id
                 example: 01619571dad80242ac12000600000000
+                pattern: '[a-f0-9]{32}'
                 type: string
               type: object
               x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: password_policy
@@ -2374,18 +2512,19 @@ entities:
               properties:
               - _key: minimum_length
                 api_fieldname: minimum_length
-                description: Minimum length for the password. A number between 8 and
-                  512.
+                description: Minimum length for the password.
                 entity_fieldname: minimum_length
                 example: '8'
-                type: string
+                maximum: 512
+                minimum: 8
+                type: integer
               required:
               - minimum_length
               type: object
               x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
-                is valid (1-45).
+                is valid.
               format: int32
               maximum: 45
               minimum: 1
@@ -2393,6 +2532,7 @@ entities:
             - _key: phone_number
               description: The phone number of a company representative.
               example: +44 (1223) 400 400
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: policies
@@ -2443,6 +2583,7 @@ entities:
             - _key: postal_code
               description: The postal code part of the postal address.
               example: CB1 9NJ
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: reason
@@ -2458,11 +2599,13 @@ entities:
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: state
               description: The state part of the postal address.
               example: ' '
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: status
@@ -2482,28 +2625,33 @@ entities:
                 - _key: address_line1
                   description: Postal address line 1.
                   example: 110 Fulbourn Rd
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: address_line2
                   description: Postal address line 2.
                   example: ' '
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: admin_email
                   description: The email address of the admin user created for this
                     account. Present only in the response for account creation.
                   example: admin@arm.com
+                  pattern: .+\@.+{3,254}
                   type: string
                   x-nullable: true
                 - _key: admin_full_name
                   description: The full name of the admin user created for this account.
                     Present only in the response for account creation.
                   example: Admin Doe
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: admin_id
                   description: The ID of the admin user created for this account.
                   example: 01619571e2e89242ac12000600000000
+                  pattern: '[a-f0-9]{32}'
                   type: string
                   x-nullable: true
                 - _key: admin_key
@@ -2517,6 +2665,7 @@ entities:
                   description: The username of the admin user created for this account.
                     Present only in the response for account creation.
                   example: admin
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: admin_password
@@ -2528,21 +2677,26 @@ entities:
                 - _key: aliases
                   description: An array of aliases.
                   items:
+                    pattern: '[\w\-._]{8,100}'
                     type: string
+                  maxItems: 10
                   type: array
                 - _key: city
                   description: The city part of the postal address.
                   example: Cambridge
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: company
                   description: The name of the company.
                   example: ARM Holdings Plc
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: contact
                   description: The name of the contact person for this account.
                   example: J. Doe
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: contract_number
@@ -2553,6 +2707,7 @@ entities:
                 - _key: country
                   description: The country part of the postal address.
                   example: United Kingdom
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: created_at
@@ -2574,11 +2729,13 @@ entities:
                 - _key: display_name
                   description: The display name for the account.
                   example: ARM
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: email
                   description: The company email address for this account.
                   example: info@arm.com
+                  pattern: .+\@.+{3,254}
                   type: string
                   x-nullable: true
                 - _key: end_market
@@ -2598,17 +2755,22 @@ entities:
                   description: Indicates how many days (1-180) before account expiration
                     a notification email is sent.
                   example: '180'
-                  type: string
+                  maximum: 180
+                  minimum: 1
+                  type: integer
                   x-nullable: true
                 - _key: id
                   description: Account ID.
                   example: 01619571e2e90242ac12000600000000
+                  pattern: '[a-f0-9]{32}'
                   type: string
                 - _key: idle_timeout
                   description: The reference token expiration time, in minutes, for
                     this account.
                   example: '30'
-                  type: string
+                  maximum: 120
+                  minimum: 1
+                  type: integer
                   x-nullable: true
                 - _key: limits
                   additionalProperties:
@@ -2627,6 +2789,7 @@ entities:
                 - _key: notification_emails
                   description: A list of notification email addresses.
                   items:
+                    pattern: .+\@.+{3,254}
                     type: string
                   type: array
                   x-nullable: true
@@ -2647,6 +2810,7 @@ entities:
                       person of the parent account.
                     entity_fieldname: admin_email
                     example: info@arm.com
+                    pattern: .+\@.+{3,254}
                     type: string
                   - _key: admin_name
                     api_fieldname: admin_name
@@ -2654,18 +2818,21 @@ entities:
                       of the parent account.
                     entity_fieldname: admin_name
                     example: J. Doe
+                    maxLength: 100
                     type: string
                   - _key: id
                     api_fieldname: id
-                    description: The ID of the parent account
+                    description: The ID of the parent account.
                     entity_fieldname: id
                     example: 01619571dad80242ac12000600000000
+                    pattern: '[a-f0-9]{32}'
                     type: string
                   type: object
                   x-nullable: true
                 - _key: parent_id
                   description: The ID of the parent account, if any.
                   example: 01619571dad80242ac12000600000000
+                  pattern: '[a-f0-9]{32}'
                   type: string
                   x-nullable: true
                 - _key: password_policy
@@ -2676,18 +2843,19 @@ entities:
                   properties:
                   - _key: minimum_length
                     api_fieldname: minimum_length
-                    description: Minimum length for the password. A number between
-                      8 and 512.
+                    description: Minimum length for the password.
                     entity_fieldname: minimum_length
                     example: '8'
-                    type: string
+                    maximum: 512
+                    minimum: 8
+                    type: integer
                   required:
                   - minimum_length
                   type: object
                   x-nullable: true
                 - _key: password_recovery_expiration
                   description: Indicates for how many minutes a password recovery
-                    email is valid (1-45).
+                    email is valid.
                   format: int32
                   maximum: 45
                   minimum: 1
@@ -2695,6 +2863,7 @@ entities:
                 - _key: phone_number
                   description: The phone number of a company representative.
                   example: +44 (1223) 400 400
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: policies
@@ -2745,6 +2914,7 @@ entities:
                 - _key: postal_code
                   description: The postal code part of the postal address.
                   example: CB1 9NJ
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: reason
@@ -2760,11 +2930,13 @@ entities:
                 - _key: sales_contact
                   description: Email address of the sales contact.
                   example: sales@arm.com
+                  pattern: .+\@.+{3,254}
                   type: string
                   x-nullable: true
                 - _key: state
                   description: The state part of the postal address.
                   example: ' '
+                  maxLength: 100
                   type: string
                   x-nullable: true
                 - _key: status
@@ -2784,6 +2956,7 @@ entities:
                 - _key: template_id
                   description: Account template ID.
                   example: 01619571e7160242ac12000600000000
+                  pattern: '[a-f0-9]{32}'
                   type: string
                   x-nullable: true
                 - _key: tier
@@ -2816,6 +2989,7 @@ entities:
             - _key: template_id
               description: Account template ID.
               example: 01619571e7160242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: tier
@@ -3112,6 +3286,7 @@ entities:
           description: Postal address line 1.
           entity_fieldname: address_line1
           example: 110 Fulbourn Rd
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: address_line2
@@ -3119,6 +3294,7 @@ entities:
           description: Postal address line 2.
           entity_fieldname: address_line2
           example: ' '
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_email
@@ -3127,6 +3303,7 @@ entities:
             Present only in the response for account creation.
           entity_fieldname: admin_email
           example: admin@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: admin_full_name
@@ -3135,6 +3312,7 @@ entities:
             only in the response for account creation.
           entity_fieldname: admin_full_name
           example: Admin Doe
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_id
@@ -3142,6 +3320,7 @@ entities:
           description: The ID of the admin user created for this account.
           entity_fieldname: admin_id
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: admin_key
@@ -3159,6 +3338,7 @@ entities:
             only in the response for account creation.
           entity_fieldname: admin_name
           example: admin
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_password
@@ -3174,13 +3354,16 @@ entities:
           description: An array of aliases.
           entity_fieldname: aliases
           items:
+            pattern: '[\w\-._]{8,100}'
             type: string
+          maxItems: 10
           type: array
         - _key: city
           api_fieldname: city
           description: The city part of the postal address.
           entity_fieldname: city
           example: Cambridge
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: company
@@ -3188,6 +3371,7 @@ entities:
           description: The name of the company.
           entity_fieldname: company
           example: ARM Holdings Plc
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: contact
@@ -3195,6 +3379,7 @@ entities:
           description: The name of the contact person for this account.
           entity_fieldname: contact
           example: J. Doe
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: contract_number
@@ -3209,6 +3394,7 @@ entities:
           description: The country part of the postal address.
           entity_fieldname: country
           example: United Kingdom
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: created_at
@@ -3238,6 +3424,7 @@ entities:
           description: The display name for the account.
           entity_fieldname: display_name
           example: ARM
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: email
@@ -3245,6 +3432,7 @@ entities:
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: end_market
@@ -3272,20 +3460,25 @@ entities:
             notification email is sent.
           entity_fieldname: expiration_warning_threshold
           example: '180'
-          type: string
+          maximum: 180
+          minimum: 1
+          type: integer
           x-nullable: true
         - _key: id
           api_fieldname: id
           description: Account ID.
           entity_fieldname: id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: idle_timeout
           api_fieldname: idle_timeout
           description: The reference token expiration time, in minutes, for this account.
           entity_fieldname: idle_timeout
           example: '30'
-          type: string
+          maximum: 120
+          minimum: 1
+          type: integer
           x-nullable: true
         - _key: limits
           additionalProperties:
@@ -3310,6 +3503,7 @@ entities:
           description: A list of notification email addresses.
           entity_fieldname: notification_emails
           items:
+            pattern: .+\@.+{3,254}
             type: string
           type: array
           x-nullable: true
@@ -3334,6 +3528,7 @@ entities:
               of the parent account.
             entity_fieldname: admin_email
             example: info@arm.com
+            pattern: .+\@.+{3,254}
             type: string
           - _key: admin_name
             api_fieldname: admin_name
@@ -3341,12 +3536,14 @@ entities:
               parent account.
             entity_fieldname: admin_name
             example: J. Doe
+            maxLength: 100
             type: string
           - _key: id
             api_fieldname: id
-            description: The ID of the parent account
+            description: The ID of the parent account.
             entity_fieldname: id
             example: 01619571dad80242ac12000600000000
+            pattern: '[a-f0-9]{32}'
             type: string
           type: object
           x-nullable: true
@@ -3355,6 +3552,7 @@ entities:
           description: The ID of the parent account, if any.
           entity_fieldname: parent_id
           example: 01619571dad80242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: password_policy
@@ -3367,10 +3565,12 @@ entities:
           properties:
           - _key: minimum_length
             api_fieldname: minimum_length
-            description: Minimum length for the password. A number between 8 and 512.
+            description: Minimum length for the password.
             entity_fieldname: minimum_length
             example: '8'
-            type: string
+            maximum: 512
+            minimum: 8
+            type: integer
           required:
           - minimum_length
           type: object
@@ -3378,7 +3578,7 @@ entities:
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
-            valid (1-45).
+            valid.
           entity_fieldname: password_recovery_expiration
           format: int32
           maximum: 45
@@ -3389,6 +3589,7 @@ entities:
           description: The phone number of a company representative.
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: policies
@@ -3443,6 +3644,7 @@ entities:
           description: The postal code part of the postal address.
           entity_fieldname: postal_code
           example: CB1 9NJ
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: reason
@@ -3464,6 +3666,7 @@ entities:
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: state
@@ -3471,6 +3674,7 @@ entities:
           description: The state part of the postal address.
           entity_fieldname: state
           example: ' '
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: status
@@ -3494,28 +3698,33 @@ entities:
             - _key: address_line1
               description: Postal address line 1.
               example: 110 Fulbourn Rd
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: address_line2
               description: Postal address line 2.
               example: ' '
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_email
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: admin_full_name
               description: The full name of the admin user created for this account.
                 Present only in the response for account creation.
               example: Admin Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_id
               description: The ID of the admin user created for this account.
               example: 01619571e2e89242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: admin_key
@@ -3529,6 +3738,7 @@ entities:
               description: The username of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_password
@@ -3540,21 +3750,26 @@ entities:
             - _key: aliases
               description: An array of aliases.
               items:
+                pattern: '[\w\-._]{8,100}'
                 type: string
+              maxItems: 10
               type: array
             - _key: city
               description: The city part of the postal address.
               example: Cambridge
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: company
               description: The name of the company.
               example: ARM Holdings Plc
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: contact
               description: The name of the contact person for this account.
               example: J. Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: contract_number
@@ -3565,6 +3780,7 @@ entities:
             - _key: country
               description: The country part of the postal address.
               example: United Kingdom
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: created_at
@@ -3586,11 +3802,13 @@ entities:
             - _key: display_name
               description: The display name for the account.
               example: ARM
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: end_market
@@ -3610,17 +3828,22 @@ entities:
               description: Indicates how many days (1-180) before account expiration
                 a notification email is sent.
               example: '180'
-              type: string
+              maximum: 180
+              minimum: 1
+              type: integer
               x-nullable: true
             - _key: id
               description: Account ID.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: idle_timeout
               description: The reference token expiration time, in minutes, for this
                 account.
               example: '30'
-              type: string
+              maximum: 120
+              minimum: 1
+              type: integer
               x-nullable: true
             - _key: limits
               additionalProperties:
@@ -3639,6 +3862,7 @@ entities:
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
+                pattern: .+\@.+{3,254}
                 type: string
               type: array
               x-nullable: true
@@ -3659,6 +3883,7 @@ entities:
                   person of the parent account.
                 entity_fieldname: admin_email
                 example: info@arm.com
+                pattern: .+\@.+{3,254}
                 type: string
               - _key: admin_name
                 api_fieldname: admin_name
@@ -3666,18 +3891,21 @@ entities:
                   of the parent account.
                 entity_fieldname: admin_name
                 example: J. Doe
+                maxLength: 100
                 type: string
               - _key: id
                 api_fieldname: id
-                description: The ID of the parent account
+                description: The ID of the parent account.
                 entity_fieldname: id
                 example: 01619571dad80242ac12000600000000
+                pattern: '[a-f0-9]{32}'
                 type: string
               type: object
               x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: password_policy
@@ -3688,18 +3916,19 @@ entities:
               properties:
               - _key: minimum_length
                 api_fieldname: minimum_length
-                description: Minimum length for the password. A number between 8 and
-                  512.
+                description: Minimum length for the password.
                 entity_fieldname: minimum_length
                 example: '8'
-                type: string
+                maximum: 512
+                minimum: 8
+                type: integer
               required:
               - minimum_length
               type: object
               x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
-                is valid (1-45).
+                is valid.
               format: int32
               maximum: 45
               minimum: 1
@@ -3707,6 +3936,7 @@ entities:
             - _key: phone_number
               description: The phone number of a company representative.
               example: +44 (1223) 400 400
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: policies
@@ -3757,6 +3987,7 @@ entities:
             - _key: postal_code
               description: The postal code part of the postal address.
               example: CB1 9NJ
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: reason
@@ -3772,11 +4003,13 @@ entities:
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: state
               description: The state part of the postal address.
               example: ' '
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: status
@@ -3796,6 +4029,7 @@ entities:
             - _key: template_id
               description: Account template ID.
               example: 01619571e7160242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: tier
@@ -3829,6 +4063,7 @@ entities:
           description: Account template ID.
           entity_fieldname: template_id
           example: 01619571e7160242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: tier
@@ -4036,6 +4271,7 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: include
@@ -4080,6 +4316,7 @@ entities:
           description: Postal address line 1.
           entity_fieldname: address_line1
           example: 110 Fulbourn Rd
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: address_line2
@@ -4087,6 +4324,7 @@ entities:
           description: Postal address line 2.
           entity_fieldname: address_line2
           example: ' '
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_email
@@ -4095,6 +4333,7 @@ entities:
             Present only in the response for account creation.
           entity_fieldname: admin_email
           example: admin@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: admin_full_name
@@ -4103,6 +4342,7 @@ entities:
             only in the response for account creation.
           entity_fieldname: admin_full_name
           example: Admin Doe
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_id
@@ -4110,6 +4350,7 @@ entities:
           description: The ID of the admin user created for this account.
           entity_fieldname: admin_id
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: admin_key
@@ -4127,6 +4368,7 @@ entities:
             only in the response for account creation.
           entity_fieldname: admin_name
           example: admin
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_password
@@ -4142,13 +4384,16 @@ entities:
           description: An array of aliases.
           entity_fieldname: aliases
           items:
+            pattern: '[\w\-._]{8,100}'
             type: string
+          maxItems: 10
           type: array
         - _key: city
           api_fieldname: city
           description: The city part of the postal address.
           entity_fieldname: city
           example: Cambridge
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: company
@@ -4156,6 +4401,7 @@ entities:
           description: The name of the company.
           entity_fieldname: company
           example: ARM Holdings Plc
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: contact
@@ -4163,6 +4409,7 @@ entities:
           description: The name of the contact person for this account.
           entity_fieldname: contact
           example: J. Doe
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: contract_number
@@ -4177,6 +4424,7 @@ entities:
           description: The country part of the postal address.
           entity_fieldname: country
           example: United Kingdom
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: created_at
@@ -4206,6 +4454,7 @@ entities:
           description: The display name for the account.
           entity_fieldname: display_name
           example: ARM
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: email
@@ -4213,6 +4462,7 @@ entities:
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: end_market
@@ -4240,20 +4490,25 @@ entities:
             notification email is sent.
           entity_fieldname: expiration_warning_threshold
           example: '180'
-          type: string
+          maximum: 180
+          minimum: 1
+          type: integer
           x-nullable: true
         - _key: id
           api_fieldname: id
           description: Account ID.
           entity_fieldname: id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: idle_timeout
           api_fieldname: idle_timeout
           description: The reference token expiration time, in minutes, for this account.
           entity_fieldname: idle_timeout
           example: '30'
-          type: string
+          maximum: 120
+          minimum: 1
+          type: integer
           x-nullable: true
         - _key: limits
           additionalProperties:
@@ -4278,6 +4533,7 @@ entities:
           description: A list of notification email addresses.
           entity_fieldname: notification_emails
           items:
+            pattern: .+\@.+{3,254}
             type: string
           type: array
           x-nullable: true
@@ -4302,6 +4558,7 @@ entities:
               of the parent account.
             entity_fieldname: admin_email
             example: info@arm.com
+            pattern: .+\@.+{3,254}
             type: string
           - _key: admin_name
             api_fieldname: admin_name
@@ -4309,12 +4566,14 @@ entities:
               parent account.
             entity_fieldname: admin_name
             example: J. Doe
+            maxLength: 100
             type: string
           - _key: id
             api_fieldname: id
-            description: The ID of the parent account
+            description: The ID of the parent account.
             entity_fieldname: id
             example: 01619571dad80242ac12000600000000
+            pattern: '[a-f0-9]{32}'
             type: string
           type: object
           x-nullable: true
@@ -4323,6 +4582,7 @@ entities:
           description: The ID of the parent account, if any.
           entity_fieldname: parent_id
           example: 01619571dad80242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: password_policy
@@ -4335,10 +4595,12 @@ entities:
           properties:
           - _key: minimum_length
             api_fieldname: minimum_length
-            description: Minimum length for the password. A number between 8 and 512.
+            description: Minimum length for the password.
             entity_fieldname: minimum_length
             example: '8'
-            type: string
+            maximum: 512
+            minimum: 8
+            type: integer
           required:
           - minimum_length
           type: object
@@ -4346,7 +4608,7 @@ entities:
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
-            valid (1-45).
+            valid.
           entity_fieldname: password_recovery_expiration
           format: int32
           maximum: 45
@@ -4357,6 +4619,7 @@ entities:
           description: The phone number of a company representative.
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: policies
@@ -4411,6 +4674,7 @@ entities:
           description: The postal code part of the postal address.
           entity_fieldname: postal_code
           example: CB1 9NJ
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: reason
@@ -4432,6 +4696,7 @@ entities:
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: state
@@ -4439,6 +4704,7 @@ entities:
           description: The state part of the postal address.
           entity_fieldname: state
           example: ' '
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: status
@@ -4462,28 +4728,33 @@ entities:
             - _key: address_line1
               description: Postal address line 1.
               example: 110 Fulbourn Rd
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: address_line2
               description: Postal address line 2.
               example: ' '
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_email
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: admin_full_name
               description: The full name of the admin user created for this account.
                 Present only in the response for account creation.
               example: Admin Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_id
               description: The ID of the admin user created for this account.
               example: 01619571e2e89242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: admin_key
@@ -4497,6 +4768,7 @@ entities:
               description: The username of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_password
@@ -4508,21 +4780,26 @@ entities:
             - _key: aliases
               description: An array of aliases.
               items:
+                pattern: '[\w\-._]{8,100}'
                 type: string
+              maxItems: 10
               type: array
             - _key: city
               description: The city part of the postal address.
               example: Cambridge
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: company
               description: The name of the company.
               example: ARM Holdings Plc
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: contact
               description: The name of the contact person for this account.
               example: J. Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: contract_number
@@ -4533,6 +4810,7 @@ entities:
             - _key: country
               description: The country part of the postal address.
               example: United Kingdom
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: created_at
@@ -4554,11 +4832,13 @@ entities:
             - _key: display_name
               description: The display name for the account.
               example: ARM
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: end_market
@@ -4578,17 +4858,22 @@ entities:
               description: Indicates how many days (1-180) before account expiration
                 a notification email is sent.
               example: '180'
-              type: string
+              maximum: 180
+              minimum: 1
+              type: integer
               x-nullable: true
             - _key: id
               description: Account ID.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: idle_timeout
               description: The reference token expiration time, in minutes, for this
                 account.
               example: '30'
-              type: string
+              maximum: 120
+              minimum: 1
+              type: integer
               x-nullable: true
             - _key: limits
               additionalProperties:
@@ -4607,6 +4892,7 @@ entities:
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
+                pattern: .+\@.+{3,254}
                 type: string
               type: array
               x-nullable: true
@@ -4627,6 +4913,7 @@ entities:
                   person of the parent account.
                 entity_fieldname: admin_email
                 example: info@arm.com
+                pattern: .+\@.+{3,254}
                 type: string
               - _key: admin_name
                 api_fieldname: admin_name
@@ -4634,18 +4921,21 @@ entities:
                   of the parent account.
                 entity_fieldname: admin_name
                 example: J. Doe
+                maxLength: 100
                 type: string
               - _key: id
                 api_fieldname: id
-                description: The ID of the parent account
+                description: The ID of the parent account.
                 entity_fieldname: id
                 example: 01619571dad80242ac12000600000000
+                pattern: '[a-f0-9]{32}'
                 type: string
               type: object
               x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: password_policy
@@ -4656,18 +4946,19 @@ entities:
               properties:
               - _key: minimum_length
                 api_fieldname: minimum_length
-                description: Minimum length for the password. A number between 8 and
-                  512.
+                description: Minimum length for the password.
                 entity_fieldname: minimum_length
                 example: '8'
-                type: string
+                maximum: 512
+                minimum: 8
+                type: integer
               required:
               - minimum_length
               type: object
               x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
-                is valid (1-45).
+                is valid.
               format: int32
               maximum: 45
               minimum: 1
@@ -4675,6 +4966,7 @@ entities:
             - _key: phone_number
               description: The phone number of a company representative.
               example: +44 (1223) 400 400
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: policies
@@ -4725,6 +5017,7 @@ entities:
             - _key: postal_code
               description: The postal code part of the postal address.
               example: CB1 9NJ
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: reason
@@ -4740,11 +5033,13 @@ entities:
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: state
               description: The state part of the postal address.
               example: ' '
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: status
@@ -4764,6 +5059,7 @@ entities:
             - _key: template_id
               description: Account template ID.
               example: 01619571e7160242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: tier
@@ -4797,6 +5093,7 @@ entities:
           description: Account template ID.
           entity_fieldname: template_id
           example: 01619571e7160242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: tier
@@ -5026,6 +5323,7 @@ entities:
       in: query
       name: after
       parameter_fieldname: after
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: id
@@ -5109,6 +5407,7 @@ entities:
           in: query
           name: after
           parameter_fieldname: after
+          pattern: '[a-f0-9]{32}'
           required: false
           type: string
         - _key: data
@@ -5124,6 +5423,7 @@ entities:
             - _key: account_id
               description: The ID of the account.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: certificate
               description: X509.v3 trusted certificate in PEM format.
@@ -5141,6 +5441,7 @@ entities:
             - _key: description
               description: Human readable description of this certificate.
               example: Certificate created by me.
+              maxLength: 500
               type: string
               x-nullable: true
             - _key: device_execution_mode
@@ -5159,6 +5460,7 @@ entities:
             - _key: id
               description: Entity ID.
               example: 01619571d01d0242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: issuer
               description: Issuer of the certificate.
@@ -5167,6 +5469,7 @@ entities:
             - _key: name
               description: Certificate name.
               example: My certificate
+              maxLength: 100
               type: string
             - _key: object
               description: 'Entity name: always ''trusted-cert'''
@@ -5176,6 +5479,7 @@ entities:
             - _key: owner_id
               description: The ID of the owner.
               example: 01619571dad80242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: service
@@ -5510,6 +5814,7 @@ entities:
       entity_fieldname: address_line1
       example: 110 Fulbourn Rd
       in: body
+      maxLength: 100
       parameter_fieldname: address_line1
       required: false
       type: string
@@ -5520,6 +5825,7 @@ entities:
       entity_fieldname: address_line2
       example: ' '
       in: body
+      maxLength: 100
       parameter_fieldname: address_line2
       required: false
       type: string
@@ -5530,7 +5836,9 @@ entities:
       entity_fieldname: aliases
       in: body
       items:
+        pattern: '[\w\-._]{8,100}'
         type: string
+      maxItems: 10
       parameter_fieldname: aliases
       required: false
       type: array
@@ -5540,6 +5848,7 @@ entities:
       entity_fieldname: city
       example: Cambridge
       in: body
+      maxLength: 100
       parameter_fieldname: city
       required: false
       type: string
@@ -5550,6 +5859,7 @@ entities:
       entity_fieldname: company
       example: ARM Holdings Plc
       in: body
+      maxLength: 100
       parameter_fieldname: company
       required: false
       type: string
@@ -5560,6 +5870,7 @@ entities:
       entity_fieldname: contact
       example: J. Doe
       in: body
+      maxLength: 100
       parameter_fieldname: contact
       required: false
       type: string
@@ -5580,6 +5891,7 @@ entities:
       entity_fieldname: country
       example: United Kingdom
       in: body
+      maxLength: 100
       parameter_fieldname: country
       required: false
       type: string
@@ -5611,6 +5923,7 @@ entities:
       entity_fieldname: display_name
       example: ARM
       in: body
+      maxLength: 100
       parameter_fieldname: display_name
       required: false
       type: string
@@ -5622,6 +5935,7 @@ entities:
       example: info@arm.com
       in: body
       parameter_fieldname: email
+      pattern: .+\@.+{3,254}
       required: false
       type: string
       x-nullable: true
@@ -5641,9 +5955,11 @@ entities:
       entity_fieldname: expiration_warning_threshold
       example: '180'
       in: body
+      maximum: 180
+      minimum: 1
       parameter_fieldname: expiration_warning_threshold
       required: false
-      type: string
+      type: integer
       x-nullable: true
     - _key: id
       api_fieldname: id
@@ -5652,6 +5968,7 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: idle_timeout
@@ -5660,9 +5977,11 @@ entities:
       entity_fieldname: idle_timeout
       example: '30'
       in: body
+      maximum: 120
+      minimum: 1
       parameter_fieldname: idle_timeout
       required: false
-      type: string
+      type: integer
       x-nullable: true
     - _key: mfa_status
       api_fieldname: mfa_status
@@ -5684,6 +6003,7 @@ entities:
       entity_fieldname: notification_emails
       in: body
       items:
+        pattern: .+\@.+{3,254}
         type: string
       parameter_fieldname: notification_emails
       required: false
@@ -5701,17 +6021,18 @@ entities:
       properties:
       - _key: minimum_length
         api_fieldname: minimum_length
-        description: Minimum length for the password. A number between 8 and 512.
+        description: Minimum length for the password.
         entity_fieldname: minimum_length
         example: '8'
-        type: string
+        maximum: 512
+        minimum: 8
+        type: integer
       required: false
       type: object
       x-nullable: true
     - _key: password_recovery_expiration
       api_fieldname: password_recovery_expiration
-      description: Indicates for how many minutes a password recovery email is valid
-        (1-45).
+      description: Indicates for how many minutes a password recovery email is valid.
       entity_fieldname: password_recovery_expiration
       format: int32
       in: body
@@ -5726,6 +6047,7 @@ entities:
       entity_fieldname: phone_number
       example: +44 (1223) 400 400
       in: body
+      maxLength: 100
       parameter_fieldname: phone_number
       required: false
       type: string
@@ -5736,6 +6058,7 @@ entities:
       entity_fieldname: postal_code
       example: CB1 9NJ
       in: body
+      maxLength: 100
       parameter_fieldname: postal_code
       required: false
       type: string
@@ -5747,6 +6070,7 @@ entities:
       example: sales@arm.com
       in: body
       parameter_fieldname: sales_contact
+      pattern: .+\@.+{3,254}
       required: false
       type: string
       x-nullable: true
@@ -5756,6 +6080,7 @@ entities:
       entity_fieldname: state
       example: ' '
       in: body
+      maxLength: 100
       parameter_fieldname: state
       required: false
       type: string
@@ -5781,6 +6106,7 @@ entities:
           description: Postal address line 1.
           entity_fieldname: address_line1
           example: 110 Fulbourn Rd
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: address_line2
@@ -5788,6 +6114,7 @@ entities:
           description: Postal address line 2.
           entity_fieldname: address_line2
           example: ' '
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_email
@@ -5796,6 +6123,7 @@ entities:
             Present only in the response for account creation.
           entity_fieldname: admin_email
           example: admin@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: admin_full_name
@@ -5804,6 +6132,7 @@ entities:
             only in the response for account creation.
           entity_fieldname: admin_full_name
           example: Admin Doe
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_id
@@ -5811,6 +6140,7 @@ entities:
           description: The ID of the admin user created for this account.
           entity_fieldname: admin_id
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: admin_key
@@ -5828,6 +6158,7 @@ entities:
             only in the response for account creation.
           entity_fieldname: admin_name
           example: admin
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: admin_password
@@ -5843,13 +6174,16 @@ entities:
           description: An array of aliases.
           entity_fieldname: aliases
           items:
+            pattern: '[\w\-._]{8,100}'
             type: string
+          maxItems: 10
           type: array
         - _key: city
           api_fieldname: city
           description: The city part of the postal address.
           entity_fieldname: city
           example: Cambridge
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: company
@@ -5857,6 +6191,7 @@ entities:
           description: The name of the company.
           entity_fieldname: company
           example: ARM Holdings Plc
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: contact
@@ -5864,6 +6199,7 @@ entities:
           description: The name of the contact person for this account.
           entity_fieldname: contact
           example: J. Doe
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: contract_number
@@ -5878,6 +6214,7 @@ entities:
           description: The country part of the postal address.
           entity_fieldname: country
           example: United Kingdom
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: created_at
@@ -5907,6 +6244,7 @@ entities:
           description: The display name for the account.
           entity_fieldname: display_name
           example: ARM
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: email
@@ -5914,6 +6252,7 @@ entities:
           description: The company email address for this account.
           entity_fieldname: email
           example: info@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: end_market
@@ -5941,20 +6280,25 @@ entities:
             notification email is sent.
           entity_fieldname: expiration_warning_threshold
           example: '180'
-          type: string
+          maximum: 180
+          minimum: 1
+          type: integer
           x-nullable: true
         - _key: id
           api_fieldname: id
           description: Account ID.
           entity_fieldname: id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: idle_timeout
           api_fieldname: idle_timeout
           description: The reference token expiration time, in minutes, for this account.
           entity_fieldname: idle_timeout
           example: '30'
-          type: string
+          maximum: 120
+          minimum: 1
+          type: integer
           x-nullable: true
         - _key: limits
           additionalProperties:
@@ -5979,6 +6323,7 @@ entities:
           description: A list of notification email addresses.
           entity_fieldname: notification_emails
           items:
+            pattern: .+\@.+{3,254}
             type: string
           type: array
           x-nullable: true
@@ -6003,6 +6348,7 @@ entities:
               of the parent account.
             entity_fieldname: admin_email
             example: info@arm.com
+            pattern: .+\@.+{3,254}
             type: string
           - _key: admin_name
             api_fieldname: admin_name
@@ -6010,12 +6356,14 @@ entities:
               parent account.
             entity_fieldname: admin_name
             example: J. Doe
+            maxLength: 100
             type: string
           - _key: id
             api_fieldname: id
-            description: The ID of the parent account
+            description: The ID of the parent account.
             entity_fieldname: id
             example: 01619571dad80242ac12000600000000
+            pattern: '[a-f0-9]{32}'
             type: string
           type: object
           x-nullable: true
@@ -6024,6 +6372,7 @@ entities:
           description: The ID of the parent account, if any.
           entity_fieldname: parent_id
           example: 01619571dad80242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: password_policy
@@ -6036,10 +6385,12 @@ entities:
           properties:
           - _key: minimum_length
             api_fieldname: minimum_length
-            description: Minimum length for the password. A number between 8 and 512.
+            description: Minimum length for the password.
             entity_fieldname: minimum_length
             example: '8'
-            type: string
+            maximum: 512
+            minimum: 8
+            type: integer
           required:
           - minimum_length
           type: object
@@ -6047,7 +6398,7 @@ entities:
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
-            valid (1-45).
+            valid.
           entity_fieldname: password_recovery_expiration
           format: int32
           maximum: 45
@@ -6058,6 +6409,7 @@ entities:
           description: The phone number of a company representative.
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: policies
@@ -6112,6 +6464,7 @@ entities:
           description: The postal code part of the postal address.
           entity_fieldname: postal_code
           example: CB1 9NJ
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: reason
@@ -6133,6 +6486,7 @@ entities:
           description: Email address of the sales contact.
           entity_fieldname: sales_contact
           example: sales@arm.com
+          pattern: .+\@.+{3,254}
           type: string
           x-nullable: true
         - _key: state
@@ -6140,6 +6494,7 @@ entities:
           description: The state part of the postal address.
           entity_fieldname: state
           example: ' '
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: status
@@ -6163,28 +6518,33 @@ entities:
             - _key: address_line1
               description: Postal address line 1.
               example: 110 Fulbourn Rd
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: address_line2
               description: Postal address line 2.
               example: ' '
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_email
               description: The email address of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: admin_full_name
               description: The full name of the admin user created for this account.
                 Present only in the response for account creation.
               example: Admin Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_id
               description: The ID of the admin user created for this account.
               example: 01619571e2e89242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: admin_key
@@ -6198,6 +6558,7 @@ entities:
               description: The username of the admin user created for this account.
                 Present only in the response for account creation.
               example: admin
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: admin_password
@@ -6209,21 +6570,26 @@ entities:
             - _key: aliases
               description: An array of aliases.
               items:
+                pattern: '[\w\-._]{8,100}'
                 type: string
+              maxItems: 10
               type: array
             - _key: city
               description: The city part of the postal address.
               example: Cambridge
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: company
               description: The name of the company.
               example: ARM Holdings Plc
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: contact
               description: The name of the contact person for this account.
               example: J. Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: contract_number
@@ -6234,6 +6600,7 @@ entities:
             - _key: country
               description: The country part of the postal address.
               example: United Kingdom
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: created_at
@@ -6255,11 +6622,13 @@ entities:
             - _key: display_name
               description: The display name for the account.
               example: ARM
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: email
               description: The company email address for this account.
               example: info@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: end_market
@@ -6279,17 +6648,22 @@ entities:
               description: Indicates how many days (1-180) before account expiration
                 a notification email is sent.
               example: '180'
-              type: string
+              maximum: 180
+              minimum: 1
+              type: integer
               x-nullable: true
             - _key: id
               description: Account ID.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: idle_timeout
               description: The reference token expiration time, in minutes, for this
                 account.
               example: '30'
-              type: string
+              maximum: 120
+              minimum: 1
+              type: integer
               x-nullable: true
             - _key: limits
               additionalProperties:
@@ -6308,6 +6682,7 @@ entities:
             - _key: notification_emails
               description: A list of notification email addresses.
               items:
+                pattern: .+\@.+{3,254}
                 type: string
               type: array
               x-nullable: true
@@ -6328,6 +6703,7 @@ entities:
                   person of the parent account.
                 entity_fieldname: admin_email
                 example: info@arm.com
+                pattern: .+\@.+{3,254}
                 type: string
               - _key: admin_name
                 api_fieldname: admin_name
@@ -6335,18 +6711,21 @@ entities:
                   of the parent account.
                 entity_fieldname: admin_name
                 example: J. Doe
+                maxLength: 100
                 type: string
               - _key: id
                 api_fieldname: id
-                description: The ID of the parent account
+                description: The ID of the parent account.
                 entity_fieldname: id
                 example: 01619571dad80242ac12000600000000
+                pattern: '[a-f0-9]{32}'
                 type: string
               type: object
               x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: password_policy
@@ -6357,18 +6736,19 @@ entities:
               properties:
               - _key: minimum_length
                 api_fieldname: minimum_length
-                description: Minimum length for the password. A number between 8 and
-                  512.
+                description: Minimum length for the password.
                 entity_fieldname: minimum_length
                 example: '8'
-                type: string
+                maximum: 512
+                minimum: 8
+                type: integer
               required:
               - minimum_length
               type: object
               x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
-                is valid (1-45).
+                is valid.
               format: int32
               maximum: 45
               minimum: 1
@@ -6376,6 +6756,7 @@ entities:
             - _key: phone_number
               description: The phone number of a company representative.
               example: +44 (1223) 400 400
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: policies
@@ -6426,6 +6807,7 @@ entities:
             - _key: postal_code
               description: The postal code part of the postal address.
               example: CB1 9NJ
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: reason
@@ -6441,11 +6823,13 @@ entities:
             - _key: sales_contact
               description: Email address of the sales contact.
               example: sales@arm.com
+              pattern: .+\@.+{3,254}
               type: string
               x-nullable: true
             - _key: state
               description: The state part of the postal address.
               example: ' '
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: status
@@ -6465,6 +6849,7 @@ entities:
             - _key: template_id
               description: Account template ID.
               example: 01619571e7160242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: tier
@@ -6498,6 +6883,7 @@ entities:
           description: Account template ID.
           entity_fieldname: template_id
           example: 01619571e7160242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: tier
@@ -6766,6 +7152,7 @@ entities:
       in: query
       name: after
       parameter_fieldname: after
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: id
@@ -6838,6 +7225,7 @@ entities:
           in: query
           name: after
           parameter_fieldname: after
+          pattern: '[a-f0-9]{32}'
           required: false
           type: string
         - _key: data
@@ -6853,6 +7241,7 @@ entities:
             - _key: account_id
               description: The ID of the account the user is invited to.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: created_at
               description: Creation UTC time RFC3339.
@@ -6862,6 +7251,7 @@ entities:
             - _key: email
               description: Email address of the invited user.
               example: friend@arm.com
+              pattern: .+\@.+{3,254}
               type: string
             - _key: etag
               description: API resource entity version.
@@ -6880,6 +7270,7 @@ entities:
             - _key: id
               description: The ID of the invitation.
               example: 01619571e2e89242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: login_profiles
               description: A list of login profiles for the user. Specified as the
@@ -6933,6 +7324,7 @@ entities:
             - _key: user_id
               description: The ID of the invited user.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             required:
             - account_id
@@ -7193,6 +7585,7 @@ entities:
       in: query
       name: after
       parameter_fieldname: after
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: id
@@ -7276,6 +7669,7 @@ entities:
           in: query
           name: after
           parameter_fieldname: after
+          pattern: '[a-f0-9]{32}'
           required: false
           type: string
         - _key: data
@@ -7291,6 +7685,7 @@ entities:
             - _key: account_id
               description: The ID of the account.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: active_sessions
               description: List of active user sessions.
@@ -7305,6 +7700,7 @@ entities:
                   description: The UUID of the account.
                   entity_fieldname: account_id
                   example: 01619571e2e90242ac12000600000000
+                  pattern: '[a-f0-9]{32}'
                   type: string
                 - _key: ip_address
                   api_fieldname: ip_address
@@ -7373,6 +7769,7 @@ entities:
             - _key: email
               description: The email address.
               example: user@arm.com
+              pattern: .+\@.+{3,254}
               type: string
             - _key: email_verified
               description: A flag indicating whether the user's email address has
@@ -7386,6 +7783,7 @@ entities:
             - _key: full_name
               description: The full name of the user.
               example: User Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: groups
@@ -7396,6 +7794,7 @@ entities:
             - _key: id
               description: The ID of the user.
               example: 01619571e2e89242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: is_gtc_accepted
               description: A flag indicating that the user has accepted General Terms
@@ -7459,6 +7858,7 @@ entities:
                 - success
                 - user_agent
                 type: object
+              maxItems: 5
               type: array
             - _key: login_profiles
               description: A list of login profiles for the user. Specified as the
@@ -7519,6 +7919,7 @@ entities:
             - _key: phone_number
               description: Phone number.
               example: +44 (1223) 400 400
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: status
@@ -7548,9 +7949,9 @@ entities:
               format: date-time
               type: string
             - _key: username
-              description: A username containing alphanumerical letters and -,._@+=
-                characters.
+              description: A username.
               example: admin
+              pattern: '[\w\-,._@+=]'
               type: string
               x-nullable: true
             required:
@@ -7802,6 +8203,7 @@ entities:
     api_fieldname: account_id
     description: The UUID of the account.
     example: 01619571e2e90242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -7872,6 +8274,7 @@ entities:
     api_fieldname: id
     description: The ID of the API key.
     example: 01619571f7020242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -7894,6 +8297,7 @@ entities:
     api_fieldname: name
     description: The display name for the API key.
     example: API key gorgon
+    maxLength: 100
     readOnly: false
     required: true
     type: string
@@ -7901,6 +8305,7 @@ entities:
     api_fieldname: owner
     description: The owner of this API key, who is the creator by default.
     example: 01619571e2e89242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: false
     type: string
@@ -7962,6 +8367,7 @@ entities:
       entity_fieldname: name
       example: API key gorgon
       in: body
+      maxLength: 100
       parameter_fieldname: name
       required: true
       type: string
@@ -7972,6 +8378,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: body
       parameter_fieldname: owner
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: status
@@ -8045,6 +8452,7 @@ entities:
           description: The ID of the API key.
           entity_fieldname: id
           example: 01619571f7020242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: key
           api_fieldname: key
@@ -8064,6 +8472,7 @@ entities:
           description: The display name for the API key.
           entity_fieldname: name
           example: API key gorgon
+          maxLength: 100
           type: string
         - _key: object
           api_fieldname: object
@@ -8077,6 +8486,7 @@ entities:
           description: The owner of this API key, who is the creator by default.
           entity_fieldname: owner
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: status
           api_fieldname: status
@@ -8484,6 +8894,7 @@ entities:
       in: query
       name: after
       parameter_fieldname: after
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: include
@@ -8554,6 +8965,7 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: data
           api_fieldname: data
@@ -8593,6 +9005,7 @@ entities:
             - _key: id
               description: The ID of the API key.
               example: 01619571f7020242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: key
               description: The API key.
@@ -8606,6 +9019,7 @@ entities:
             - _key: name
               description: The display name for the API key.
               example: API key gorgon
+              maxLength: 100
               type: string
             - _key: object
               description: 'Entity name: always ''api-key'''
@@ -8615,6 +9029,7 @@ entities:
             - _key: owner
               description: The owner of this API key, who is the creator by default.
               example: 01619571e2e89242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: status
               description: The status of the API key.
@@ -8644,7 +9059,7 @@ entities:
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: The number of results to return (2-1000), or equal to `total_count`.
+          description: The number of results to return, or equal to `total_count`.
           entity_fieldname: limit
           example: 50
           format: int32
@@ -8878,6 +9293,7 @@ entities:
           description: The ID of the API key.
           entity_fieldname: id
           example: 01619571f7020242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: key
           api_fieldname: key
@@ -8897,6 +9313,7 @@ entities:
           description: The display name for the API key.
           entity_fieldname: name
           example: API key gorgon
+          maxLength: 100
           type: string
         - _key: object
           api_fieldname: object
@@ -8910,6 +9327,7 @@ entities:
           description: The owner of this API key, who is the creator by default.
           entity_fieldname: owner
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: status
           api_fieldname: status
@@ -9075,6 +9493,7 @@ entities:
       example: 01619571f7020242ac12000600000000
       in: path
       parameter_fieldname: apikey_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     group_id: Accounts
@@ -9135,6 +9554,7 @@ entities:
           description: The ID of the API key.
           entity_fieldname: id
           example: 01619571f7020242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: key
           api_fieldname: key
@@ -9154,6 +9574,7 @@ entities:
           description: The display name for the API key.
           entity_fieldname: name
           example: API key gorgon
+          maxLength: 100
           type: string
         - _key: object
           api_fieldname: object
@@ -9167,6 +9588,7 @@ entities:
           description: The owner of this API key, who is the creator by default.
           entity_fieldname: owner
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: status
           api_fieldname: status
@@ -9383,6 +9805,7 @@ entities:
       example: 01619571f7020242ac12000600000000
       in: path
       parameter_fieldname: apikey_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: name
@@ -9391,6 +9814,7 @@ entities:
       entity_fieldname: name
       example: API key gorgon
       in: body
+      maxLength: 100
       parameter_fieldname: name
       required: true
       type: string
@@ -9401,6 +9825,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: body
       parameter_fieldname: owner
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: status
@@ -9472,6 +9897,7 @@ entities:
           description: The ID of the API key.
           entity_fieldname: id
           example: 01619571f7020242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: key
           api_fieldname: key
@@ -9491,6 +9917,7 @@ entities:
           description: The display name for the API key.
           entity_fieldname: name
           example: API key gorgon
+          maxLength: 100
           type: string
         - _key: object
           api_fieldname: object
@@ -9504,6 +9931,7 @@ entities:
           description: The owner of this API key, who is the creator by default.
           entity_fieldname: owner
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: status
           api_fieldname: status
@@ -16105,6 +16533,7 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: data
           api_fieldname: data
@@ -16161,7 +16590,7 @@ entities:
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: The number of results to return (2-1000), or equal to `total_count`.
+          description: The number of results to return, or equal to `total_count`.
           entity_fieldname: limit
           example: 50
           format: int32
@@ -17582,6 +18011,7 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: data
           api_fieldname: data
@@ -17661,7 +18091,7 @@ entities:
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: The number of results to return (2-1000), or equal to `total_count`.
+          description: The number of results to return, or equal to `total_count`.
           entity_fieldname: limit
           example: 50
           format: int32
@@ -18674,6 +19104,7 @@ entities:
       example: 01619571d01d0242ac12000600000000
       in: path
       parameter_fieldname: cert_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     foreign_key:
@@ -18704,6 +19135,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: certificate
           api_fieldname: certificate
@@ -18729,6 +19161,7 @@ entities:
           description: Human readable description of this certificate.
           entity_fieldname: description
           example: Certificate created by me.
+          maxLength: 500
           type: string
           x-nullable: true
         - _key: device_execution_mode
@@ -18755,6 +19188,7 @@ entities:
           description: Entity ID.
           entity_fieldname: id
           example: 01619571d01d0242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: issuer
           api_fieldname: issuer
@@ -18767,6 +19201,7 @@ entities:
           description: Certificate name.
           entity_fieldname: name
           example: My certificate
+          maxLength: 100
           type: string
         - _key: object
           api_fieldname: object
@@ -18780,6 +19215,7 @@ entities:
           description: The ID of the owner.
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: service
@@ -27836,6 +28272,7 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: data
           api_fieldname: data
@@ -27892,7 +28329,7 @@ entities:
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: The number of results to return (2-1000), or equal to `total_count`.
+          description: The number of results to return, or equal to `total_count`.
           entity_fieldname: limit
           example: 50
           format: int32
@@ -29339,6 +29776,7 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: data
           api_fieldname: data
@@ -29418,7 +29856,7 @@ entities:
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: The number of results to return (2-1000), or equal to `total_count`.
+          description: The number of results to return, or equal to `total_count`.
           entity_fieldname: limit
           example: 50
           format: int32
@@ -29634,6 +30072,7 @@ entities:
     description: The email address of the admin user who is the contact person of
       the parent account.
     example: info@arm.com
+    pattern: .+\@.+{3,254}
     readOnly: true
     required: false
     type: string
@@ -29642,13 +30081,15 @@ entities:
     description: The name of the admin user who is the contact person of the parent
       account.
     example: J. Doe
+    maxLength: 100
     readOnly: true
     required: false
     type: string
   - _key: id
     api_fieldname: id
-    description: The ID of the parent account
+    description: The ID of the parent account.
     example: 01619571dad80242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -29663,11 +30104,13 @@ entities:
   fields:
   - _key: minimum_length
     api_fieldname: minimum_length
-    description: Minimum length for the password. A number between 8 and 512.
+    description: Minimum length for the password.
     example: '8'
+    maximum: 512
+    minimum: 8
     readOnly: true
     required: false
-    type: string
+    type: integer
   group_id: Accounts
   methods: []
   primary_key_field: null
@@ -30669,6 +31112,7 @@ entities:
     example: 01619571f7020242ac12000600000000
     in: path
     parameter_fieldname: apikey_id
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -30692,6 +31136,7 @@ entities:
     description: The display name for the API key.
     example: API key gorgon
     in: body
+    maxLength: 100
     parameter_fieldname: name
     readOnly: false
     required: true
@@ -30702,6 +31147,7 @@ entities:
     example: 01619571e2e89242ac12000600000000
     in: body
     parameter_fieldname: owner
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: false
     type: string
@@ -30777,6 +31223,7 @@ entities:
       entity_fieldname: name
       example: API key gorgon
       in: body
+      maxLength: 100
       parameter_fieldname: name
       required: true
       type: string
@@ -30787,6 +31234,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: body
       parameter_fieldname: owner
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: status
@@ -30868,6 +31316,7 @@ entities:
           example: 01619571f7020242ac12000600000000
           in: path
           parameter_fieldname: apikey_id
+          pattern: '[a-f0-9]{32}'
           required: true
           type: string
         - _key: key
@@ -30889,6 +31338,7 @@ entities:
           entity_fieldname: name
           example: API key gorgon
           in: body
+          maxLength: 100
           parameter_fieldname: name
           required: true
           type: string
@@ -30906,6 +31356,7 @@ entities:
           example: 01619571e2e89242ac12000600000000
           in: body
           parameter_fieldname: owner
+          pattern: '[a-f0-9]{32}'
           required: false
           type: string
         - _key: status
@@ -31378,6 +31829,7 @@ entities:
       example: 01619571f7020242ac12000600000000
       in: path
       parameter_fieldname: apikey_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     group_id: Accounts
@@ -31446,6 +31898,7 @@ entities:
           example: 01619571f7020242ac12000600000000
           in: path
           parameter_fieldname: apikey_id
+          pattern: '[a-f0-9]{32}'
           required: true
           type: string
         - _key: key
@@ -31467,6 +31920,7 @@ entities:
           entity_fieldname: name
           example: API key gorgon
           in: body
+          maxLength: 100
           parameter_fieldname: name
           required: true
           type: string
@@ -31484,6 +31938,7 @@ entities:
           example: 01619571e2e89242ac12000600000000
           in: body
           parameter_fieldname: owner
+          pattern: '[a-f0-9]{32}'
           required: false
           type: string
         - _key: status
@@ -31713,6 +32168,7 @@ entities:
       example: 01619571f7020242ac12000600000000
       in: path
       parameter_fieldname: apikey_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: name
@@ -31721,6 +32177,7 @@ entities:
       entity_fieldname: name
       example: API key gorgon
       in: body
+      maxLength: 100
       parameter_fieldname: name
       required: true
       type: string
@@ -31731,6 +32188,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: body
       parameter_fieldname: owner
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: status
@@ -31810,6 +32268,7 @@ entities:
           example: 01619571f7020242ac12000600000000
           in: path
           parameter_fieldname: apikey_id
+          pattern: '[a-f0-9]{32}'
           required: true
           type: string
         - _key: key
@@ -31831,6 +32290,7 @@ entities:
           entity_fieldname: name
           example: API key gorgon
           in: body
+          maxLength: 100
           parameter_fieldname: name
           required: true
           type: string
@@ -31848,6 +32308,7 @@ entities:
           example: 01619571e2e89242ac12000600000000
           in: body
           parameter_fieldname: owner
+          pattern: '[a-f0-9]{32}'
           required: false
           type: string
         - _key: status
@@ -32091,6 +32552,7 @@ entities:
     api_fieldname: account_id
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -32123,6 +32585,7 @@ entities:
     description: Human readable description of this certificate.
     example: Certificate created by me.
     in: body
+    maxLength: 500
     parameter_fieldname: description
     readOnly: false
     required: false
@@ -32151,6 +32614,7 @@ entities:
     example: 01619571d01d0242ac12000600000000
     in: path
     parameter_fieldname: cert_id
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -32175,6 +32639,7 @@ entities:
     description: Certificate name.
     example: My certificate
     in: body
+    maxLength: 100
     parameter_fieldname: name
     readOnly: false
     required: true
@@ -32183,6 +32648,7 @@ entities:
     api_fieldname: owner_id
     description: The ID of the owner.
     example: 01619571dad80242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -32290,6 +32756,7 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: certificate
@@ -32307,6 +32774,7 @@ entities:
       entity_fieldname: description
       example: Certificate created by me.
       in: body
+      maxLength: 500
       parameter_fieldname: description
       required: false
       type: string
@@ -32335,6 +32803,7 @@ entities:
       entity_fieldname: name
       example: My certificate
       in: body
+      maxLength: 100
       parameter_fieldname: name
       required: false
       type: string
@@ -32386,6 +32855,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: certificate
           api_fieldname: certificate
@@ -32415,6 +32885,7 @@ entities:
           entity_fieldname: description
           example: Certificate created by me.
           in: body
+          maxLength: 500
           parameter_fieldname: description
           required: false
           type: string
@@ -32448,6 +32919,7 @@ entities:
           example: 01619571d01d0242ac12000600000000
           in: path
           parameter_fieldname: cert_id
+          pattern: '[a-f0-9]{32}'
           required: true
           type: string
         - _key: issuer
@@ -32462,6 +32934,7 @@ entities:
           entity_fieldname: name
           example: My certificate
           in: body
+          maxLength: 100
           parameter_fieldname: name
           required: false
           type: string
@@ -32477,6 +32950,7 @@ entities:
           description: The ID of the owner.
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: service
@@ -33497,6 +33971,7 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: id
@@ -33506,6 +33981,7 @@ entities:
       example: 01619571d01d0242ac12000600000000
       in: path
       parameter_fieldname: cert_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: is_developer_certificate
@@ -33541,6 +34017,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: certificate
           api_fieldname: certificate
@@ -33570,6 +34047,7 @@ entities:
           entity_fieldname: description
           example: Certificate created by me.
           in: body
+          maxLength: 500
           parameter_fieldname: description
           required: false
           type: string
@@ -33603,6 +34081,7 @@ entities:
           example: 01619571d01d0242ac12000600000000
           in: path
           parameter_fieldname: cert_id
+          pattern: '[a-f0-9]{32}'
           required: true
           type: string
         - _key: issuer
@@ -33617,6 +34096,7 @@ entities:
           entity_fieldname: name
           example: My certificate
           in: body
+          maxLength: 100
           parameter_fieldname: name
           required: false
           type: string
@@ -33632,6 +34112,7 @@ entities:
           description: The ID of the owner.
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: service
@@ -33882,6 +34363,7 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: certificate
@@ -33899,6 +34381,7 @@ entities:
       entity_fieldname: description
       example: Certificate created by me.
       in: body
+      maxLength: 500
       parameter_fieldname: description
       required: false
       type: string
@@ -33919,6 +34402,7 @@ entities:
       example: 01619571d01d0242ac12000600000000
       in: path
       parameter_fieldname: cert_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: is_developer_certificate
@@ -33936,6 +34420,7 @@ entities:
       entity_fieldname: name
       example: My certificate
       in: body
+      maxLength: 100
       parameter_fieldname: name
       required: false
       type: string
@@ -33985,6 +34470,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: certificate
           api_fieldname: certificate
@@ -34014,6 +34500,7 @@ entities:
           entity_fieldname: description
           example: Certificate created by me.
           in: body
+          maxLength: 500
           parameter_fieldname: description
           required: false
           type: string
@@ -34047,6 +34534,7 @@ entities:
           example: 01619571d01d0242ac12000600000000
           in: path
           parameter_fieldname: cert_id
+          pattern: '[a-f0-9]{32}'
           required: true
           type: string
         - _key: issuer
@@ -34061,6 +34549,7 @@ entities:
           entity_fieldname: name
           example: My certificate
           in: body
+          maxLength: 100
           parameter_fieldname: name
           required: false
           type: string
@@ -34076,6 +34565,7 @@ entities:
           description: The ID of the owner.
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: service
@@ -34361,6 +34851,7 @@ entities:
     api_fieldname: account_id
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -34378,6 +34869,7 @@ entities:
         description: The UUID of the account.
         entity_fieldname: account_id
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       - _key: ip_address
         api_fieldname: ip_address
@@ -34464,6 +34956,7 @@ entities:
     example: user@arm.com
     in: body
     parameter_fieldname: email
+    pattern: .+\@.+{3,254}
     readOnly: false
     required: true
     type: string
@@ -34480,6 +34973,7 @@ entities:
     description: The full name of the user.
     example: User Doe
     in: body
+    maxLength: 100
     parameter_fieldname: full_name
     readOnly: false
     required: false
@@ -34491,6 +34985,7 @@ entities:
     example: 01619571e2e89242ac12000600000000
     in: path
     parameter_fieldname: user_id
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -34573,6 +35068,7 @@ entities:
       - success
       - user_agent
       type: object
+    maxItems: 5
     readOnly: true
     required: false
     type: array
@@ -34644,6 +35140,7 @@ entities:
     description: Phone number.
     example: +44 (1223) 400 400
     in: body
+    maxLength: 100
     parameter_fieldname: phone_number
     readOnly: false
     required: false
@@ -34688,10 +35185,11 @@ entities:
     type: string
   - _key: username
     api_fieldname: username
-    description: A username containing alphanumerical letters and -,._@+= characters.
+    description: A username.
     example: admin
     in: body
     parameter_fieldname: username
+    pattern: '[\w\-,._@+=]'
     readOnly: false
     required: false
     type: string
@@ -34745,6 +35243,7 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: action
@@ -34775,6 +35274,7 @@ entities:
       example: user@arm.com
       in: body
       parameter_fieldname: email
+      pattern: .+\@.+{3,254}
       required: false
       type: string
     - _key: full_name
@@ -34783,6 +35283,7 @@ entities:
       entity_fieldname: full_name
       example: User Doe
       in: body
+      maxLength: 100
       parameter_fieldname: full_name
       required: false
       type: string
@@ -34868,17 +35369,19 @@ entities:
       entity_fieldname: phone_number
       example: +44 (1223) 400 400
       in: body
+      maxLength: 100
       parameter_fieldname: phone_number
       required: false
       type: string
       x-nullable: true
     - _key: username
       api_fieldname: username
-      description: A username containing alphanumerical letters and -,._@+= characters.
+      description: A username.
       entity_fieldname: username
       example: admin
       in: body
       parameter_fieldname: username
+      pattern: '[\w\-,._@+=]'
       required: false
       type: string
       x-nullable: true
@@ -34906,6 +35409,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: active_sessions
           api_fieldname: active_sessions
@@ -34922,6 +35426,7 @@ entities:
               description: The UUID of the account.
               entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: ip_address
               api_fieldname: ip_address
@@ -35004,6 +35509,7 @@ entities:
           example: user@arm.com
           in: body
           parameter_fieldname: email
+          pattern: .+\@.+{3,254}
           required: false
           type: string
         - _key: email_verified
@@ -35025,6 +35531,7 @@ entities:
           entity_fieldname: full_name
           example: User Doe
           in: body
+          maxLength: 100
           parameter_fieldname: full_name
           required: false
           type: string
@@ -35051,6 +35558,7 @@ entities:
           example: 01619571e2e89242ac12000600000000
           in: path
           parameter_fieldname: user_id
+          pattern: '[a-f0-9]{32}'
           required: true
           type: string
         - _key: is_gtc_accepted
@@ -35134,6 +35642,7 @@ entities:
             - success
             - user_agent
             type: object
+          maxItems: 5
           type: array
         - _key: login_profiles
           api_fieldname: login_profiles
@@ -35210,6 +35719,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           in: body
+          maxLength: 100
           parameter_fieldname: phone_number
           required: false
           type: string
@@ -35251,11 +35761,12 @@ entities:
           type: string
         - _key: username
           api_fieldname: username
-          description: A username containing alphanumerical letters and -,._@+= characters.
+          description: A username.
           entity_fieldname: username
           example: admin
           in: body
           parameter_fieldname: username
+          pattern: '[\w\-,._@+=]'
           required: false
           type: string
           x-nullable: true
@@ -35820,6 +36331,7 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: id
@@ -35829,6 +36341,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: path
       parameter_fieldname: user_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     group_id: Accounts
@@ -35855,6 +36368,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: active_sessions
           api_fieldname: active_sessions
@@ -35871,6 +36385,7 @@ entities:
               description: The UUID of the account.
               entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: ip_address
               api_fieldname: ip_address
@@ -35953,6 +36468,7 @@ entities:
           example: user@arm.com
           in: body
           parameter_fieldname: email
+          pattern: .+\@.+{3,254}
           required: false
           type: string
         - _key: email_verified
@@ -35974,6 +36490,7 @@ entities:
           entity_fieldname: full_name
           example: User Doe
           in: body
+          maxLength: 100
           parameter_fieldname: full_name
           required: false
           type: string
@@ -36000,6 +36517,7 @@ entities:
           example: 01619571e2e89242ac12000600000000
           in: path
           parameter_fieldname: user_id
+          pattern: '[a-f0-9]{32}'
           required: true
           type: string
         - _key: is_gtc_accepted
@@ -36083,6 +36601,7 @@ entities:
             - success
             - user_agent
             type: object
+          maxItems: 5
           type: array
         - _key: login_profiles
           api_fieldname: login_profiles
@@ -36159,6 +36678,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           in: body
+          maxLength: 100
           parameter_fieldname: phone_number
           required: false
           type: string
@@ -36200,11 +36720,12 @@ entities:
           type: string
         - _key: username
           api_fieldname: username
-          description: A username containing alphanumerical letters and -,._@+= characters.
+          description: A username.
           entity_fieldname: username
           example: admin
           in: body
           parameter_fieldname: username
+          pattern: '[\w\-,._@+=]'
           required: false
           type: string
           x-nullable: true
@@ -36415,6 +36936,7 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: address
@@ -36433,6 +36955,7 @@ entities:
       entity_fieldname: full_name
       example: User Doe
       in: body
+      maxLength: 100
       parameter_fieldname: full_name
       required: false
       type: string
@@ -36444,6 +36967,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: path
       parameter_fieldname: user_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: is_gtc_accepted
@@ -36521,17 +37045,19 @@ entities:
       entity_fieldname: phone_number
       example: +44 (1223) 400 400
       in: body
+      maxLength: 100
       parameter_fieldname: phone_number
       required: false
       type: string
       x-nullable: true
     - _key: username
       api_fieldname: username
-      description: A username containing alphanumerical letters and -,._@+= characters.
+      description: A username.
       entity_fieldname: username
       example: admin
       in: body
       parameter_fieldname: username
+      pattern: '[\w\-,._@+=]'
       required: false
       type: string
       x-nullable: true
@@ -36559,6 +37085,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: active_sessions
           api_fieldname: active_sessions
@@ -36575,6 +37102,7 @@ entities:
               description: The UUID of the account.
               entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: ip_address
               api_fieldname: ip_address
@@ -36657,6 +37185,7 @@ entities:
           example: user@arm.com
           in: body
           parameter_fieldname: email
+          pattern: .+\@.+{3,254}
           required: false
           type: string
         - _key: email_verified
@@ -36678,6 +37207,7 @@ entities:
           entity_fieldname: full_name
           example: User Doe
           in: body
+          maxLength: 100
           parameter_fieldname: full_name
           required: false
           type: string
@@ -36704,6 +37234,7 @@ entities:
           example: 01619571e2e89242ac12000600000000
           in: path
           parameter_fieldname: user_id
+          pattern: '[a-f0-9]{32}'
           required: true
           type: string
         - _key: is_gtc_accepted
@@ -36787,6 +37318,7 @@ entities:
             - success
             - user_agent
             type: object
+          maxItems: 5
           type: array
         - _key: login_profiles
           api_fieldname: login_profiles
@@ -36863,6 +37395,7 @@ entities:
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
           in: body
+          maxLength: 100
           parameter_fieldname: phone_number
           required: false
           type: string
@@ -36904,11 +37437,12 @@ entities:
           type: string
         - _key: username
           api_fieldname: username
-          description: A username containing alphanumerical letters and -,._@+= characters.
+          description: A username.
           entity_fieldname: username
           example: admin
           in: body
           parameter_fieldname: username
+          pattern: '[\w\-,._@+=]'
           required: false
           type: string
           x-nullable: true
@@ -37389,6 +37923,7 @@ entities:
     api_fieldname: account_id
     description: The ID of the account the user is invited to.
     example: 01619571e2e90242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -37406,6 +37941,7 @@ entities:
     example: friend@arm.com
     in: body
     parameter_fieldname: email
+    pattern: .+\@.+{3,254}
     readOnly: false
     required: true
     type: string
@@ -37423,6 +37959,7 @@ entities:
     example: 01619571e2e89242ac12000600000000
     in: path
     parameter_fieldname: invitation_id
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -37482,6 +38019,7 @@ entities:
     api_fieldname: user_id
     description: The ID of the invited user.
     example: 01619571e2e90242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -37525,6 +38063,7 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: email
@@ -37534,6 +38073,7 @@ entities:
       example: friend@arm.com
       in: body
       parameter_fieldname: email
+      pattern: .+\@.+{3,254}
       required: true
       type: string
     - _key: login_profiles
@@ -37619,6 +38159,7 @@ entities:
           description: The ID of the account the user is invited to.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -37634,6 +38175,7 @@ entities:
           example: friend@arm.com
           in: body
           parameter_fieldname: email
+          pattern: .+\@.+{3,254}
           required: true
           type: string
         - _key: etag
@@ -37669,6 +38211,7 @@ entities:
           example: 01619571e2e89242ac12000600000000
           in: path
           parameter_fieldname: invitation_id
+          pattern: '[a-f0-9]{32}'
           required: true
           type: string
         - _key: login_profiles
@@ -37734,6 +38277,7 @@ entities:
           description: The ID of the invited user.
           entity_fieldname: user_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         required:
         - account_id
@@ -38138,6 +38682,7 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: id
@@ -38147,6 +38692,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: path
       parameter_fieldname: invitation_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     group_id: Accounts
@@ -38173,6 +38719,7 @@ entities:
           description: The ID of the account the user is invited to.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -38188,6 +38735,7 @@ entities:
           example: friend@arm.com
           in: body
           parameter_fieldname: email
+          pattern: .+\@.+{3,254}
           required: true
           type: string
         - _key: etag
@@ -38223,6 +38771,7 @@ entities:
           example: 01619571e2e89242ac12000600000000
           in: path
           parameter_fieldname: invitation_id
+          pattern: '[a-f0-9]{32}'
           required: true
           type: string
         - _key: login_profiles
@@ -38288,6 +38837,7 @@ entities:
           description: The ID of the invited user.
           entity_fieldname: user_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         required:
         - account_id
@@ -38462,6 +39012,7 @@ entities:
     api_fieldname: account_id
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -38491,6 +39042,7 @@ entities:
     api_fieldname: description
     description: Human readable description of this certificate.
     example: Certificate created by me.
+    maxLength: 500
     readOnly: false
     required: false
     type: string
@@ -38514,6 +39066,7 @@ entities:
     api_fieldname: id
     description: Entity ID.
     example: 01619571d01d0242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -38537,6 +39090,7 @@ entities:
     api_fieldname: name
     description: Certificate name.
     example: My certificate
+    maxLength: 100
     readOnly: false
     required: true
     type: string
@@ -38544,6 +39098,7 @@ entities:
     api_fieldname: owner_id
     description: The ID of the owner.
     example: 01619571dad80242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -38655,6 +39210,7 @@ entities:
       entity_fieldname: description
       example: Certificate created by me.
       in: body
+      maxLength: 500
       parameter_fieldname: description
       required: false
       type: string
@@ -38683,6 +39239,7 @@ entities:
       entity_fieldname: name
       example: My certificate
       in: body
+      maxLength: 100
       parameter_fieldname: name
       required: false
       type: string
@@ -38734,6 +39291,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: certificate
           api_fieldname: certificate
@@ -38759,6 +39317,7 @@ entities:
           description: Human readable description of this certificate.
           entity_fieldname: description
           example: Certificate created by me.
+          maxLength: 500
           type: string
           x-nullable: true
         - _key: device_execution_mode
@@ -38785,6 +39344,7 @@ entities:
           description: Entity ID.
           entity_fieldname: id
           example: 01619571d01d0242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: issuer
           api_fieldname: issuer
@@ -38797,6 +39357,7 @@ entities:
           description: Certificate name.
           entity_fieldname: name
           example: My certificate
+          maxLength: 100
           type: string
         - _key: object
           api_fieldname: object
@@ -38810,6 +39371,7 @@ entities:
           description: The ID of the owner.
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: service
@@ -39811,6 +40373,7 @@ entities:
       in: query
       name: after
       parameter_fieldname: after
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: include
@@ -39888,6 +40451,7 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: data
           api_fieldname: data
@@ -39902,6 +40466,7 @@ entities:
             - _key: account_id
               description: The ID of the account.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: certificate
               description: X509.v3 trusted certificate in PEM format.
@@ -39919,6 +40484,7 @@ entities:
             - _key: description
               description: Human readable description of this certificate.
               example: Certificate created by me.
+              maxLength: 500
               type: string
               x-nullable: true
             - _key: device_execution_mode
@@ -39937,6 +40503,7 @@ entities:
             - _key: id
               description: Entity ID.
               example: 01619571d01d0242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: issuer
               description: Issuer of the certificate.
@@ -39945,6 +40512,7 @@ entities:
             - _key: name
               description: Certificate name.
               example: My certificate
+              maxLength: 100
               type: string
             - _key: object
               description: 'Entity name: always ''trusted-cert'''
@@ -39954,6 +40522,7 @@ entities:
             - _key: owner_id
               description: The ID of the owner.
               example: 01619571dad80242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
               x-nullable: true
             - _key: service
@@ -40217,6 +40786,7 @@ entities:
       example: 01619571d01d0242ac12000600000000
       in: path
       parameter_fieldname: cert_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: is_developer_certificate
@@ -40252,6 +40822,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: certificate
           api_fieldname: certificate
@@ -40277,6 +40848,7 @@ entities:
           description: Human readable description of this certificate.
           entity_fieldname: description
           example: Certificate created by me.
+          maxLength: 500
           type: string
           x-nullable: true
         - _key: device_execution_mode
@@ -40303,6 +40875,7 @@ entities:
           description: Entity ID.
           entity_fieldname: id
           example: 01619571d01d0242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: issuer
           api_fieldname: issuer
@@ -40315,6 +40888,7 @@ entities:
           description: Certificate name.
           entity_fieldname: name
           example: My certificate
+          maxLength: 100
           type: string
         - _key: object
           api_fieldname: object
@@ -40328,6 +40902,7 @@ entities:
           description: The ID of the owner.
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: service
@@ -40592,6 +41167,7 @@ entities:
       entity_fieldname: description
       example: Certificate created by me.
       in: body
+      maxLength: 500
       parameter_fieldname: description
       required: false
       type: string
@@ -40612,6 +41188,7 @@ entities:
       example: 01619571d01d0242ac12000600000000
       in: path
       parameter_fieldname: cert_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: is_developer_certificate
@@ -40629,6 +41206,7 @@ entities:
       entity_fieldname: name
       example: My certificate
       in: body
+      maxLength: 100
       parameter_fieldname: name
       required: false
       type: string
@@ -40678,6 +41256,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: certificate
           api_fieldname: certificate
@@ -40703,6 +41282,7 @@ entities:
           description: Human readable description of this certificate.
           entity_fieldname: description
           example: Certificate created by me.
+          maxLength: 500
           type: string
           x-nullable: true
         - _key: device_execution_mode
@@ -40729,6 +41309,7 @@ entities:
           description: Entity ID.
           entity_fieldname: id
           example: 01619571d01d0242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: issuer
           api_fieldname: issuer
@@ -40741,6 +41322,7 @@ entities:
           description: Certificate name.
           entity_fieldname: name
           example: My certificate
+          maxLength: 100
           type: string
         - _key: object
           api_fieldname: object
@@ -40754,6 +41336,7 @@ entities:
           description: The ID of the owner.
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
           x-nullable: true
         - _key: service
@@ -42818,6 +43401,7 @@ entities:
     api_fieldname: account_id
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -42835,6 +43419,7 @@ entities:
         description: The UUID of the account.
         entity_fieldname: account_id
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       - _key: ip_address
         api_fieldname: ip_address
@@ -42917,6 +43502,7 @@ entities:
     api_fieldname: email
     description: The email address.
     example: user@arm.com
+    pattern: .+\@.+{3,254}
     readOnly: false
     required: true
     type: string
@@ -42932,6 +43518,7 @@ entities:
     api_fieldname: full_name
     description: The full name of the user.
     example: User Doe
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -42940,6 +43527,7 @@ entities:
     api_fieldname: id
     description: The ID of the user.
     example: 01619571e2e89242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -43016,6 +43604,7 @@ entities:
       - success
       - user_agent
       type: object
+    maxItems: 5
     readOnly: true
     required: false
     type: array
@@ -43082,6 +43671,7 @@ entities:
     api_fieldname: phone_number
     description: Phone number.
     example: +44 (1223) 400 400
+    maxLength: 100
     readOnly: false
     required: false
     type: string
@@ -43123,8 +43713,9 @@ entities:
     type: string
   - _key: username
     api_fieldname: username
-    description: A username containing alphanumerical letters and -,._@+= characters.
+    description: A username.
     example: admin
+    pattern: '[\w\-,._@+=]'
     readOnly: false
     required: false
     type: string
@@ -43199,6 +43790,7 @@ entities:
       example: user@arm.com
       in: body
       parameter_fieldname: email
+      pattern: .+\@.+{3,254}
       required: false
       type: string
     - _key: full_name
@@ -43207,6 +43799,7 @@ entities:
       entity_fieldname: full_name
       example: User Doe
       in: body
+      maxLength: 100
       parameter_fieldname: full_name
       required: false
       type: string
@@ -43292,17 +43885,19 @@ entities:
       entity_fieldname: phone_number
       example: +44 (1223) 400 400
       in: body
+      maxLength: 100
       parameter_fieldname: phone_number
       required: false
       type: string
       x-nullable: true
     - _key: username
       api_fieldname: username
-      description: A username containing alphanumerical letters and -,._@+= characters.
+      description: A username.
       entity_fieldname: username
       example: admin
       in: body
       parameter_fieldname: username
+      pattern: '[\w\-,._@+=]'
       required: false
       type: string
       x-nullable: true
@@ -43330,6 +43925,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: active_sessions
           api_fieldname: active_sessions
@@ -43346,6 +43942,7 @@ entities:
               description: The UUID of the account.
               entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: ip_address
               api_fieldname: ip_address
@@ -43423,6 +44020,7 @@ entities:
           description: The email address.
           entity_fieldname: email
           example: user@arm.com
+          pattern: .+\@.+{3,254}
           type: string
         - _key: email_verified
           api_fieldname: email_verified
@@ -43442,6 +44040,7 @@ entities:
           description: The full name of the user.
           entity_fieldname: full_name
           example: User Doe
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: groups
@@ -43456,6 +44055,7 @@ entities:
           description: The ID of the user.
           entity_fieldname: id
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: is_gtc_accepted
           api_fieldname: is_gtc_accepted
@@ -43529,6 +44129,7 @@ entities:
             - success
             - user_agent
             type: object
+          maxItems: 5
           type: array
         - _key: login_profiles
           api_fieldname: login_profiles
@@ -43598,6 +44199,7 @@ entities:
           description: Phone number.
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: status
@@ -43634,9 +44236,10 @@ entities:
           type: string
         - _key: username
           api_fieldname: username
-          description: A username containing alphanumerical letters and -,._@+= characters.
+          description: A username.
           entity_fieldname: username
           example: admin
+          pattern: '[\w\-,._@+=]'
           type: string
           x-nullable: true
         required:
@@ -44129,6 +44732,7 @@ entities:
       in: query
       name: after
       parameter_fieldname: after
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: include
@@ -44199,6 +44803,7 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: data
           api_fieldname: data
@@ -44213,6 +44818,7 @@ entities:
             - _key: account_id
               description: The ID of the account.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: active_sessions
               description: List of active user sessions.
@@ -44227,6 +44833,7 @@ entities:
                   description: The UUID of the account.
                   entity_fieldname: account_id
                   example: 01619571e2e90242ac12000600000000
+                  pattern: '[a-f0-9]{32}'
                   type: string
                 - _key: ip_address
                   api_fieldname: ip_address
@@ -44295,6 +44902,7 @@ entities:
             - _key: email
               description: The email address.
               example: user@arm.com
+              pattern: .+\@.+{3,254}
               type: string
             - _key: email_verified
               description: A flag indicating whether the user's email address has
@@ -44308,6 +44916,7 @@ entities:
             - _key: full_name
               description: The full name of the user.
               example: User Doe
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: groups
@@ -44318,6 +44927,7 @@ entities:
             - _key: id
               description: The ID of the user.
               example: 01619571e2e89242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: is_gtc_accepted
               description: A flag indicating that the user has accepted General Terms
@@ -44381,6 +44991,7 @@ entities:
                 - success
                 - user_agent
                 type: object
+              maxItems: 5
               type: array
             - _key: login_profiles
               description: A list of login profiles for the user. Specified as the
@@ -44441,6 +45052,7 @@ entities:
             - _key: phone_number
               description: Phone number.
               example: +44 (1223) 400 400
+              maxLength: 100
               type: string
               x-nullable: true
             - _key: status
@@ -44470,9 +45082,9 @@ entities:
               format: date-time
               type: string
             - _key: username
-              description: A username containing alphanumerical letters and -,._@+=
-                characters.
+              description: A username.
               example: admin
+              pattern: '[\w\-,._@+=]'
               type: string
               x-nullable: true
             required:
@@ -44689,6 +45301,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: path
       parameter_fieldname: user_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     group_id: Accounts
@@ -44715,6 +45328,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: active_sessions
           api_fieldname: active_sessions
@@ -44731,6 +45345,7 @@ entities:
               description: The UUID of the account.
               entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: ip_address
               api_fieldname: ip_address
@@ -44808,6 +45423,7 @@ entities:
           description: The email address.
           entity_fieldname: email
           example: user@arm.com
+          pattern: .+\@.+{3,254}
           type: string
         - _key: email_verified
           api_fieldname: email_verified
@@ -44827,6 +45443,7 @@ entities:
           description: The full name of the user.
           entity_fieldname: full_name
           example: User Doe
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: groups
@@ -44841,6 +45458,7 @@ entities:
           description: The ID of the user.
           entity_fieldname: id
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: is_gtc_accepted
           api_fieldname: is_gtc_accepted
@@ -44914,6 +45532,7 @@ entities:
             - success
             - user_agent
             type: object
+          maxItems: 5
           type: array
         - _key: login_profiles
           api_fieldname: login_profiles
@@ -44983,6 +45602,7 @@ entities:
           description: Phone number.
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: status
@@ -45019,9 +45639,10 @@ entities:
           type: string
         - _key: username
           api_fieldname: username
-          description: A username containing alphanumerical letters and -,._@+= characters.
+          description: A username.
           entity_fieldname: username
           example: admin
+          pattern: '[\w\-,._@+=]'
           type: string
           x-nullable: true
         required:
@@ -45240,6 +45861,7 @@ entities:
       entity_fieldname: full_name
       example: User Doe
       in: body
+      maxLength: 100
       parameter_fieldname: full_name
       required: false
       type: string
@@ -45251,6 +45873,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: path
       parameter_fieldname: user_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     - _key: is_gtc_accepted
@@ -45328,17 +45951,19 @@ entities:
       entity_fieldname: phone_number
       example: +44 (1223) 400 400
       in: body
+      maxLength: 100
       parameter_fieldname: phone_number
       required: false
       type: string
       x-nullable: true
     - _key: username
       api_fieldname: username
-      description: A username containing alphanumerical letters and -,._@+= characters.
+      description: A username.
       entity_fieldname: username
       example: admin
       in: body
       parameter_fieldname: username
+      pattern: '[\w\-,._@+=]'
       required: false
       type: string
       x-nullable: true
@@ -45366,6 +45991,7 @@ entities:
           description: The ID of the account.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: active_sessions
           api_fieldname: active_sessions
@@ -45382,6 +46008,7 @@ entities:
               description: The UUID of the account.
               entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: ip_address
               api_fieldname: ip_address
@@ -45459,6 +46086,7 @@ entities:
           description: The email address.
           entity_fieldname: email
           example: user@arm.com
+          pattern: .+\@.+{3,254}
           type: string
         - _key: email_verified
           api_fieldname: email_verified
@@ -45478,6 +46106,7 @@ entities:
           description: The full name of the user.
           entity_fieldname: full_name
           example: User Doe
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: groups
@@ -45492,6 +46121,7 @@ entities:
           description: The ID of the user.
           entity_fieldname: id
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: is_gtc_accepted
           api_fieldname: is_gtc_accepted
@@ -45565,6 +46195,7 @@ entities:
             - success
             - user_agent
             type: object
+          maxItems: 5
           type: array
         - _key: login_profiles
           api_fieldname: login_profiles
@@ -45634,6 +46265,7 @@ entities:
           description: Phone number.
           entity_fieldname: phone_number
           example: +44 (1223) 400 400
+          maxLength: 100
           type: string
           x-nullable: true
         - _key: status
@@ -45670,9 +46302,10 @@ entities:
           type: string
         - _key: username
           api_fieldname: username
-          description: A username containing alphanumerical letters and -,._@+= characters.
+          description: A username.
           entity_fieldname: username
           example: admin
+          pattern: '[\w\-,._@+=]'
           type: string
           x-nullable: true
         required:
@@ -45946,6 +46579,7 @@ entities:
     api_fieldname: account_id
     description: The ID of the account the user is invited to.
     example: 01619571e2e90242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -45961,6 +46595,7 @@ entities:
     api_fieldname: email
     description: Email address of the invited user.
     example: friend@arm.com
+    pattern: .+\@.+{3,254}
     readOnly: false
     required: true
     type: string
@@ -45976,6 +46611,7 @@ entities:
     api_fieldname: id
     description: The ID of the invitation.
     example: 01619571e2e89242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -46033,6 +46669,7 @@ entities:
     api_fieldname: user_id
     description: The ID of the invited user.
     example: 01619571e2e90242ac12000600000000
+    pattern: '[a-f0-9]{32}'
     readOnly: true
     required: false
     type: string
@@ -46076,6 +46713,7 @@ entities:
       example: friend@arm.com
       in: body
       parameter_fieldname: email
+      pattern: .+\@.+{3,254}
       required: true
       type: string
     - _key: login_profiles
@@ -46161,6 +46799,7 @@ entities:
           description: The ID of the account the user is invited to.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -46174,6 +46813,7 @@ entities:
           description: Email address of the invited user.
           entity_fieldname: email
           example: friend@arm.com
+          pattern: .+\@.+{3,254}
           type: string
         - _key: etag
           api_fieldname: etag
@@ -46200,6 +46840,7 @@ entities:
           description: The ID of the invitation.
           entity_fieldname: id
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: login_profiles
           api_fieldname: login_profiles
@@ -46261,6 +46902,7 @@ entities:
           description: The ID of the invited user.
           entity_fieldname: user_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         required:
         - account_id
@@ -46653,6 +47295,7 @@ entities:
       in: query
       name: after
       parameter_fieldname: after
+      pattern: '[a-f0-9]{32}'
       required: false
       type: string
     - _key: limit
@@ -46712,6 +47355,7 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: data
           api_fieldname: data
@@ -46726,6 +47370,7 @@ entities:
             - _key: account_id
               description: The ID of the account the user is invited to.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: created_at
               description: Creation UTC time RFC3339.
@@ -46735,6 +47380,7 @@ entities:
             - _key: email
               description: Email address of the invited user.
               example: friend@arm.com
+              pattern: .+\@.+{3,254}
               type: string
             - _key: etag
               description: API resource entity version.
@@ -46753,6 +47399,7 @@ entities:
             - _key: id
               description: The ID of the invitation.
               example: 01619571e2e89242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             - _key: login_profiles
               description: A list of login profiles for the user. Specified as the
@@ -46806,6 +47453,7 @@ entities:
             - _key: user_id
               description: The ID of the invited user.
               example: 01619571e2e90242ac12000600000000
+              pattern: '[a-f0-9]{32}'
               type: string
             required:
             - account_id
@@ -47001,6 +47649,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: path
       parameter_fieldname: invitation_id
+      pattern: '[a-f0-9]{32}'
       required: true
       type: string
     group_id: Accounts
@@ -47027,6 +47676,7 @@ entities:
           description: The ID of the account the user is invited to.
           entity_fieldname: account_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -47040,6 +47690,7 @@ entities:
           description: Email address of the invited user.
           entity_fieldname: email
           example: friend@arm.com
+          pattern: .+\@.+{3,254}
           type: string
         - _key: etag
           api_fieldname: etag
@@ -47066,6 +47717,7 @@ entities:
           description: The ID of the invitation.
           entity_fieldname: id
           example: 01619571e2e89242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         - _key: login_profiles
           api_fieldname: login_profiles
@@ -47127,6 +47779,7 @@ entities:
           description: The ID of the invited user.
           entity_fieldname: user_id
           example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
           type: string
         required:
         - account_id
