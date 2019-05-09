@@ -380,9 +380,9 @@ class DeviceEnrollmentBulkCreate(Entity):
                 path="/v3/device-enrollments-bulk-uploads",
                 stream_params={
                     "enrollment_identities": (
-                        "enrollment_identities.bin",
+                        "enrollment_identities.csv",
                         enrollment_identities,
-                        "application/octet-stream",
+                        "text/csv",
                     )
                 },
                 unpack=self,

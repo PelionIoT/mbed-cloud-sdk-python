@@ -380,9 +380,9 @@ class DeviceEnrollmentBulkDelete(Entity):
                 path="/v3/device-enrollments-bulk-deletes",
                 stream_params={
                     "enrollment_identities": (
-                        "enrollment_identities.bin",
+                        "enrollment_identities.csv",
                         enrollment_identities,
-                        "application/octet-stream",
+                        "test/csv",
                     )
                 },
                 unpack=self,
