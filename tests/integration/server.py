@@ -156,8 +156,8 @@ def serialise_entity(field):
 
     try:
         return field.to_dict()
-    except AttributeError:
-        pass
+    except AttributeError as e:
+        LOG.error("Unable to serialise: %s", e)
 
     raise TypeError("Entity/field of type '%s' is not JSON serializable" % field.__class__.__name__)
 
