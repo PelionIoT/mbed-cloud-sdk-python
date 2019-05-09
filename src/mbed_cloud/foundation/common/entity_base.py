@@ -5,8 +5,17 @@ from mbed_cloud.foundation.common import fields
 class Entity(object):
     """Base Class for Foundation Entities"""
 
-    _fieldnames = []
+    # List of fields that are serialised between the API and SDK
+    _sdk_fieldnames = []
+
+    # List of fields that are available for the user of the SDK
+    _api_fieldnames = []
+
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(self, _client, **kwargs):
         """Create a new Entity
@@ -66,19 +75,17 @@ class Entity(object):
 
     def to_literal(self):
         """Return all fields from object in a format suitable for serialisation"""
-        return {
-            field: getattr(self, "_" + field).to_literal() for field in self._fieldnames
-        }
+        return {field: getattr(self, "_" + field).to_literal() for field in self._sdk_fieldnames}
 
     def to_dict(self):
         """Return all fields as key-value pairs"""
-        return {field: getattr(self, "_" + field).value for field in self._fieldnames}
+        return {field: getattr(self, field) for field in self._sdk_fieldnames}
 
     def to_api(self):
         """Return all fields in API format"""
         return {
             self._renames.get(sdk_field, sdk_field): getattr(self, "_" + sdk_field).to_api()
-            for sdk_field in self._fieldnames
+            for sdk_field in self._api_fieldnames
         }
 
     def from_literal(self, **kwargs):

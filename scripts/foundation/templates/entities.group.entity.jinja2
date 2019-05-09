@@ -64,12 +64,12 @@ from mbed_cloud.foundation import enums
 class {{ entity._key|to_pascal }}(Entity):
     """Represents the `{{entity._key|to_pascal}}` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
-        {% for field in entity.fields %}
-        '{{field._key|to_snake}}',
-        {% endfor %}
-    ]
+    {#- TODO Exclude SDK only fields - definition currently doesn't allow this to be identified #}
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = {{entity.api_fieldnames}}
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = {{entity.sdk_fieldnames}}
 
     # Renames to be performed by the SDK when receiving data {% raw %}{<API Field Name>: <SDK Field Name>}{% endraw %}
     _renames = {
