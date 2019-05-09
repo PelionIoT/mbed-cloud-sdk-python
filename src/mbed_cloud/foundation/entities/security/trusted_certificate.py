@@ -51,14 +51,34 @@ from mbed_cloud.foundation import enums
 class TrustedCertificate(Entity):
     """Represents the `TrustedCertificate` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = [
         "account_id",
         "certificate",
         "certificate_fingerprint",
         "created_at",
         "description",
         "device_execution_mode",
+        "enrollment_mode",
+        "id",
+        "issuer",
+        "name",
+        "owner_id",
+        "service",
+        "status",
+        "subject",
+        "updated_at",
+        "valid",
+        "validity",
+    ]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = [
+        "account_id",
+        "certificate",
+        "certificate_fingerprint",
+        "created_at",
+        "description",
         "enrollment_mode",
         "id",
         "is_developer_certificate",

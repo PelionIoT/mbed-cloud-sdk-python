@@ -49,8 +49,11 @@ from mbed_cloud.foundation import enums
 class PreSharedKey(Entity):
     """Represents the `PreSharedKey` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = ["created_at", "endpoint_name", "id"]
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = ["created_at", "endpoint_name"]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = ["created_at", "endpoint_name", "id"]
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
