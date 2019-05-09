@@ -59,10 +59,7 @@ class Entity(object):
             isinstance(other, self.__class__)
             and (
                 # pretty fast - they have the same id [state may be different though ...]
-                (
-                    getattr(self, "id", None) is not None
-                    and getattr(self, "id", None) == getattr(other, "id", None)
-                )
+                (getattr(self, "id", None) is not None and getattr(self, "id", None) == getattr(other, "id", None))
                 or
                 # much slower - deep comparison of dictionaries
                 (
@@ -98,9 +95,7 @@ class Entity(object):
                 field and field.from_literal(value)
             except Exception:
                 # we don't care why loading the field fails. maybe it's bad data? log it.
-                self._logger.exception(
-                    "unable to deserialise literal field: %s %s %s", self, field_name, value
-                )
+                self._logger.exception("unable to deserialise literal field: %s %s %s", self, field_name, value)
         return self
 
     def from_dict(self, *args, **kwargs):
@@ -120,17 +115,10 @@ class Entity(object):
     def from_api(self, **kwargs):
         """Load values into object from an API response"""
         for api_field_name, value in kwargs.items():
-            field = getattr(
-                self, "_" + self._renames.get(api_field_name, api_field_name), None
-            )
+            field = getattr(self, "_" + self._renames.get(api_field_name, api_field_name), None)
             try:
                 field and field.from_api(value)
             except Exception:  # noqa
                 # we don't care why loading the field fails. maybe the API changed? log it.
-                self._logger.exception(
-                    "unable to deserialise received field: %s %s %r",
-                    self,
-                    api_field_name,
-                    value,
-                )
+                self._logger.exception("unable to deserialise received field: %s %s %r", self, api_field_name, value)
         return self

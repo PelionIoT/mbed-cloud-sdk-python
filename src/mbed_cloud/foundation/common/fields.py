@@ -44,13 +44,9 @@ class Field(object):
 
     def set(self, value):
         if not isinstance(value, self._valid_types):
-            raise TypeError(
-                "%r is not one of the valid types %s" % (value, self._valid_types)
-            )
+            raise TypeError("%r is not one of the valid types %s" % (value, self._valid_types))
         if value is not None and self._enum and value not in self._enum.values:
-            LOG.warning(
-                "Unknown enum value '%s' received from API for %s", value, self._enum
-            )
+            LOG.warning("Unknown enum value '%s' received from API for %s", value, self._enum)
         self._val = value
         self.value_set = True
         return self
@@ -69,11 +65,7 @@ class Field(object):
             return self.set(value)
 
     def from_literal(self, value):
-        return (
-            self.set(self._entity().from_literal(**value))
-            if value and self._entity
-            else self.set(value)
-        )
+        return self.set(self._entity().from_literal(**value)) if value and self._entity else self.set(value)
 
     def to_query_param(self):
         """Generate a format which is appropriate to representing a a query param
@@ -147,11 +139,7 @@ class DictField(Field):
     def set(self, value):
         """Handle entities being provided as dictionaries."""
         # If this is an entity field, the type is valid then handle being given a value which is not an entity
-        if (
-            self._entity
-            and isinstance(value, self._valid_types)
-            and not isinstance(value, self._entity)
-        ):
+        if self._entity and isinstance(value, self._valid_types) and not isinstance(value, self._entity):
             # Pass the dict to the entity as kwargs for create a blank entity if the value is None
             new_entity = self._entity(**value) if value else self._entity()
             return super().set(new_entity)
@@ -210,9 +198,7 @@ class ListField(Field):
     def set(self, value):
         if isinstance(value, list) and self._entity:
             # Convert a list of dictionaries into a list of entities
-            self._val = [
-                self._entity(**item) if isinstance(item, dict) else item for item in value
-            ]
+            self._val = [self._entity(**item) if isinstance(item, dict) else item for item in value]
             self.value_set = True
         else:
             return super().set(value)
@@ -232,17 +218,13 @@ class ListField(Field):
 
     def from_api(self, value):
         if self._entity:
-            return self.set(
-                [self._entity().from_api(**item) for item in value] if value else None
-            )
+            return self.set([self._entity().from_api(**item) for item in value] if value else None)
         else:
             return super().from_api(value)
 
     def from_literal(self, value):
         if self._entity:
-            return self.set(
-                [self._entity().from_literal(**item) for item in value] if value else None
-            )
+            return self.set([self._entity().from_literal(**item) for item in value] if value else None)
         else:
             return super().from_api(value)
 

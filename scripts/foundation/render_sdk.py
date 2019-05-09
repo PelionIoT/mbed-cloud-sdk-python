@@ -686,7 +686,7 @@ def main():
     render_foundation_sdk(python_sdk_def_dict, arguments.output_dir)
 
     logger.info("Reformatting generated source files in directory '%s'", arguments.output_dir)
-    subprocess.run(['black', arguments.output_dir, '--fast', '--line-length=92'])
+    subprocess.run(['black', arguments.output_dir, '--fast', '--line-length=120'])
 
     return 0
 

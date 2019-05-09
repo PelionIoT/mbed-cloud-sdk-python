@@ -32,6 +32,4 @@ def device_filter_helper_getter(self):
 
     :rtype: mbed_cloud.client.api_filter.ApiFilter
     """
-    return ApiFilter(
-        filter_definition=self._device_filter_helper.value, field_renames=Device._renames_to_api
-    )
+    return ApiFilter(filter_definition=self._device_filter_helper.value, field_renames=Device._renames_to_api)

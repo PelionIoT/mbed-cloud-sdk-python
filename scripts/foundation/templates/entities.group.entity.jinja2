@@ -256,7 +256,7 @@ if self._{{field._key|to_snake}}.value_set:
                 {%- endif %}
             {%- endif %}
         {%- endfor %}
-    {%- endif %}
+    {% endif %}
 {%- endfor %}
 return self._client.call_api(
     method='{{method.method}}',
