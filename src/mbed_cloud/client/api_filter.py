@@ -144,6 +144,10 @@ class ApiFilter(object):
 
         return api_filter
 
+    def to_dict(self):
+        """Support standard field interface, equivalent to `to_api`."""
+        return self.to_api()
+
     def to_query_string(self):
         """Generate a query string (not percent encoded."""
         key_value_strings = ["%s=%s" % (key, value) for key, value in self.to_api().items()]
