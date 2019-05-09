@@ -500,6 +500,7 @@ class UpdateCampaign(Entity):
             body_params["root_manifest_id"] = self._root_manifest_id.to_api()
         if self._when.value_set:
             body_params["when"] = self._when.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/update-campaigns/",
@@ -524,9 +525,7 @@ class UpdateCampaign(Entity):
             unpack=self,
         )
 
-    def device_metadata(
-        self, filter=None, order=None, max_results=None, page_size=None, include=None
-    ):
+    def device_metadata(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """List all campaign device metadata
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/update-campaigns/{campaign_id}/campaign-device-metadata/>`_.
@@ -560,10 +559,7 @@ class UpdateCampaign(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter,
-                field_renames=CampaignDeviceMetadata._renames_to_api,
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=CampaignDeviceMetadata._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -660,9 +656,7 @@ class UpdateCampaign(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=UpdateCampaign._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=UpdateCampaign._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -683,9 +677,7 @@ class UpdateCampaign(Entity):
             wraps=self._paginate_list,
         )
 
-    def _paginate_device_metadata(
-        self, after=None, filter=None, order=None, limit=None, include=None
-    ):
+    def _paginate_device_metadata(self, after=None, filter=None, order=None, limit=None, include=None):
         """List all campaign device metadata
         
         :param after: The ID of the the item after which to retrieve the next page
@@ -713,9 +705,7 @@ class UpdateCampaign(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.UpdateCampaignOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.UpdateCampaignOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 
@@ -756,9 +746,7 @@ class UpdateCampaign(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.UpdateCampaignOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.UpdateCampaignOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 
@@ -839,6 +827,7 @@ class UpdateCampaign(Entity):
             body_params["root_manifest_id"] = self._root_manifest_id.to_api()
         if self._when.value_set:
             body_params["when"] = self._when.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/update-campaigns/{campaign_id}/",

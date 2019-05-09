@@ -50,30 +50,16 @@ class DeveloperCertificate(Entity):
     """Represents the `DeveloperCertificate` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
-    _api_fieldnames = [
-        "account_id",
-        "certificate",
-        "created_at",
-        "description",
-        "id",
-        "name",
-        "security_file_content",
-    ]
+    _api_fieldnames = ["account_id", "certificate", "created_at", "description", "id", "name", "security_file_content"]
 
     # List of fields that are available for the user of the SDK
     _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {
-        "developer_certificate": "certificate",
-        "developer_private_key": "private_key",
-    }
+    _renames = {"developer_certificate": "certificate", "developer_private_key": "private_key"}
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {
-        "certificate": "developer_certificate",
-        "private_key": "developer_private_key",
-    }
+    _renames_to_api = {"certificate": "developer_certificate", "private_key": "developer_private_key"}
 
     def __init__(
         self,
@@ -278,6 +264,7 @@ class DeveloperCertificate(Entity):
             body_params["description"] = self._description.to_api()
         if self._name.value_set:
             body_params["name"] = self._name.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/developer-certificates",

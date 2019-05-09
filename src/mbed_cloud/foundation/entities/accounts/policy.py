@@ -55,15 +55,7 @@ class Policy(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(
-        self,
-        _client=None,
-        action=None,
-        allow=None,
-        feature=None,
-        inherited=None,
-        resource=None,
-    ):
+    def __init__(self, _client=None, action=None, allow=None, feature=None, inherited=None, resource=None):
         """Creates a local `Policy` instance
 
         Parameters can be supplied on creation of the instance or given by

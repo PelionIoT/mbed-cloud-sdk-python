@@ -183,12 +183,8 @@ class SubtenantTrustedCertificate(Entity):
         self._issuer = fields.StringField(value=issuer)
         self._name = fields.StringField(value=name)
         self._owner_id = fields.StringField(value=owner_id)
-        self._service = fields.StringField(
-            value=service, enum=enums.SubtenantTrustedCertificateServiceEnum
-        )
-        self._status = fields.StringField(
-            value=status, enum=enums.SubtenantTrustedCertificateStatusEnum
-        )
+        self._service = fields.StringField(value=service, enum=enums.SubtenantTrustedCertificateServiceEnum)
+        self._status = fields.StringField(value=status, enum=enums.SubtenantTrustedCertificateStatusEnum)
         self._subject = fields.StringField(value=subject)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._valid = fields.BooleanField(value=valid)
@@ -584,6 +580,7 @@ class SubtenantTrustedCertificate(Entity):
             body_params["service"] = self._service.to_api()
         if self._status.value_set:
             body_params["status"] = self._status.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/accounts/{account_id}/trusted-certificates",
@@ -605,10 +602,7 @@ class SubtenantTrustedCertificate(Entity):
             method="delete",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "cert_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "cert_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -642,10 +636,7 @@ class SubtenantTrustedCertificate(Entity):
             method="get",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "cert_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "cert_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -672,14 +663,12 @@ class SubtenantTrustedCertificate(Entity):
             body_params["service"] = self._service.to_api()
         if self._status.value_set:
             body_params["status"] = self._status.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "cert_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "cert_id": self._id.to_api()},
             body_params=body_params,
             unpack=self,
         )

@@ -140,9 +140,7 @@ class DeviceEnrollmentBulkDelete(Entity):
         self._full_report_file = fields.StringField(value=full_report_file)
         self._id = fields.StringField(value=id)
         self._processed_count = fields.IntegerField(value=processed_count)
-        self._status = fields.StringField(
-            value=status, enum=enums.DeviceEnrollmentBulkDeleteStatusEnum
-        )
+        self._status = fields.StringField(value=status, enum=enums.DeviceEnrollmentBulkDeleteStatusEnum)
         self._total_count = fields.IntegerField(value=total_count)
 
     @property

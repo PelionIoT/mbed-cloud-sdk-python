@@ -368,12 +368,9 @@ class ApiKey(Entity):
             body_params["owner"] = self._owner.to_api()
         if self._status.value_set:
             body_params["status"] = self._status.to_api()
+
         return self._client.call_api(
-            method="post",
-            path="/v3/api-keys",
-            content_type="application/json",
-            body_params=body_params,
-            unpack=self,
+            method="post", path="/v3/api-keys", content_type="application/json", body_params=body_params, unpack=self
         )
 
     def delete(self):
@@ -449,9 +446,7 @@ class ApiKey(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=ApiKey._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=ApiKey._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -480,12 +475,7 @@ class ApiKey(Entity):
         :rtype: ApiKey
         """
 
-        return self._client.call_api(
-            method="get",
-            path="/v3/api-keys/me",
-            content_type="application/json",
-            unpack=self,
-        )
+        return self._client.call_api(method="get", path="/v3/api-keys/me", content_type="application/json", unpack=self)
 
     def _paginate_list(self, after=None, filter=None, order="ASC", limit=50, include=None):
         """Get all API keys.
@@ -514,18 +504,12 @@ class ApiKey(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.ApiKeyOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.ApiKeyOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
-            method="get",
-            path="/v3/api-keys",
-            content_type="application/json",
-            query_params=query_params,
-            unpack=False,
+            method="get", path="/v3/api-keys", content_type="application/json", query_params=query_params, unpack=False
         )
 
     def read(self):
@@ -561,6 +545,7 @@ class ApiKey(Entity):
             body_params["owner"] = self._owner.to_api()
         if self._status.value_set:
             body_params["status"] = self._status.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/api-keys/{apikey_id}",

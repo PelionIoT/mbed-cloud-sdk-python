@@ -281,6 +281,7 @@ class DeviceEnrollment(Entity):
         body_params = {}
         if self._enrollment_identity.value_set:
             body_params["enrollment_identity"] = self._enrollment_identity.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/device-enrollments",
@@ -305,9 +306,7 @@ class DeviceEnrollment(Entity):
             unpack=self,
         )
 
-    def list(
-        self, filter=None, order="ASC", max_results=None, page_size=None, include=None
-    ):
+    def list(self, filter=None, order="ASC", max_results=None, page_size=None, include=None):
         """Get a list of enrollments per account.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-enrollments>`_.
@@ -339,9 +338,7 @@ class DeviceEnrollment(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=DeviceEnrollment._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=DeviceEnrollment._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -362,9 +359,7 @@ class DeviceEnrollment(Entity):
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(
-        self, after=None, filter=None, order="ASC", limit=None, include=None
-    ):
+    def _paginate_list(self, after=None, filter=None, order="ASC", limit=None, include=None):
         """Get a list of enrollments per account.
         
         :param after: Entity ID to fetch after.
@@ -390,9 +385,7 @@ class DeviceEnrollment(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.DeviceEnrollmentOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.DeviceEnrollmentOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 

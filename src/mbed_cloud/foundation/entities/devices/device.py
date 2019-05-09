@@ -218,9 +218,7 @@ class Device(Entity):
         self._connector_expiration_date = fields.DateField(value=connector_expiration_date)
         self._created_at = fields.DateTimeField(value=created_at)
         self._custom_attributes = fields.DictField(value=custom_attributes)
-        self._deployed_state = fields.StringField(
-            value=deployed_state, enum=enums.DeviceDeployedStateEnum
-        )
+        self._deployed_state = fields.StringField(value=deployed_state, enum=enums.DeviceDeployedStateEnum)
         self._deployment = fields.StringField(value=deployment)
         self._description = fields.StringField(value=description)
         self._device_class = fields.StringField(value=device_class)
@@ -228,17 +226,13 @@ class Device(Entity):
         self._device_key = fields.StringField(value=device_key)
         self._endpoint_name = fields.StringField(value=endpoint_name)
         self._endpoint_type = fields.StringField(value=endpoint_type)
-        self._enrolment_list_timestamp = fields.DateTimeField(
-            value=enrolment_list_timestamp
-        )
+        self._enrolment_list_timestamp = fields.DateTimeField(value=enrolment_list_timestamp)
         self._host_gateway = fields.StringField(value=host_gateway)
         self._id = fields.StringField(value=id)
         self._issuer_fingerprint = fields.StringField(value=issuer_fingerprint)
         self._manifest = fields.StringField(value=manifest)
         self._manifest_timestamp = fields.DateTimeField(value=manifest_timestamp)
-        self._mechanism = fields.StringField(
-            value=mechanism, enum=enums.DeviceMechanismEnum
-        )
+        self._mechanism = fields.StringField(value=mechanism, enum=enums.DeviceMechanismEnum)
         self._mechanism_url = fields.StringField(value=mechanism_url)
         self._name = fields.StringField(value=name)
         self._serial_number = fields.StringField(value=serial_number)
@@ -841,19 +835,13 @@ class Device(Entity):
         if self._auto_update.value_set:
             body_params["auto_update"] = self._auto_update.to_api()
         if self._bootstrap_expiration_date.value_set:
-            body_params[
-                "bootstrap_expiration_date"
-            ] = self._bootstrap_expiration_date.to_api()
+            body_params["bootstrap_expiration_date"] = self._bootstrap_expiration_date.to_api()
         # Method parameters are unconditionally sent even if set to None
-        body_params["bootstrapped_timestamp"] = fields.DateTimeField(
-            bootstrapped_timestamp
-        ).to_api()
+        body_params["bootstrapped_timestamp"] = fields.DateTimeField(bootstrapped_timestamp).to_api()
         if self._ca_id.value_set:
             body_params["ca_id"] = self._ca_id.to_api()
         if self._connector_expiration_date.value_set:
-            body_params[
-                "connector_expiration_date"
-            ] = self._connector_expiration_date.to_api()
+            body_params["connector_expiration_date"] = self._connector_expiration_date.to_api()
         if self._custom_attributes.value_set:
             body_params["custom_attributes"] = self._custom_attributes.to_api()
         if self._deployment.value_set:
@@ -890,12 +878,9 @@ class Device(Entity):
             body_params["state"] = self._state.to_api()
         if self._vendor_id.value_set:
             body_params["vendor_id"] = self._vendor_id.to_api()
+
         return self._client.call_api(
-            method="post",
-            path="/v3/devices/",
-            content_type="application/json",
-            body_params=body_params,
-            unpack=self,
+            method="post", path="/v3/devices/", content_type="application/json", body_params=body_params, unpack=self
         )
 
     def delete(self):
@@ -1025,9 +1010,7 @@ class Device(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=Device._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=Device._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -1082,11 +1065,7 @@ class Device(Entity):
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
-            method="get",
-            path="/v3/devices/",
-            content_type="application/json",
-            query_params=query_params,
-            unpack=False,
+            method="get", path="/v3/devices/", content_type="application/json", query_params=query_params, unpack=False
         )
 
     def read(self):
@@ -1158,6 +1137,7 @@ class Device(Entity):
             body_params["host_gateway"] = self._host_gateway.to_api()
         if self._name.value_set:
             body_params["name"] = self._name.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/devices/{id}/",

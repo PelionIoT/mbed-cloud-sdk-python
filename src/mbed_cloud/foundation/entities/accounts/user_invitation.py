@@ -317,6 +317,7 @@ class UserInvitation(Entity):
             body_params["login_profiles"] = self._login_profiles.to_api()
         # Method parameters are unconditionally sent even if set to None
         body_params["valid_for_days"] = fields.IntegerField(valid_for_days).to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/user-invitations",
@@ -395,9 +396,7 @@ class UserInvitation(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=UserInvitation._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=UserInvitation._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -444,9 +443,7 @@ class UserInvitation(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.UserInvitationOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.UserInvitationOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 

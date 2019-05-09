@@ -44,13 +44,7 @@ class ActiveSession(Entity):
     """Represents the `ActiveSession` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
-    _api_fieldnames = [
-        "account_id",
-        "ip_address",
-        "login_time",
-        "reference_token",
-        "user_agent",
-    ]
+    _api_fieldnames = ["account_id", "ip_address", "login_time", "reference_token", "user_agent"]
 
     # List of fields that are available for the user of the SDK
     _sdk_fieldnames = _api_fieldnames
@@ -62,13 +56,7 @@ class ActiveSession(Entity):
     _renames_to_api = {}
 
     def __init__(
-        self,
-        _client=None,
-        account_id=None,
-        ip_address=None,
-        login_time=None,
-        reference_token=None,
-        user_agent=None,
+        self, _client=None, account_id=None, ip_address=None, login_time=None, reference_token=None, user_agent=None
     ):
         """Creates a local `ActiveSession` instance
 

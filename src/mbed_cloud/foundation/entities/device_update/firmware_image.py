@@ -314,11 +314,7 @@ class FirmwareImage(Entity):
                 path="/v3/firmware-images/",
                 stream_params={
                     "description": (None, self._description.to_api(), "text/plain"),
-                    "datafile": (
-                        "firmware_image_file.bin",
-                        firmware_image_file,
-                        "application/octet-stream",
-                    ),
+                    "datafile": ("firmware_image_file.bin", firmware_image_file, "application/octet-stream"),
                     "name": (None, self._name.to_api(), "text/plain"),
                 },
                 unpack=self,
@@ -415,9 +411,7 @@ class FirmwareImage(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=FirmwareImage._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=FirmwareImage._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -466,9 +460,7 @@ class FirmwareImage(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.FirmwareImageOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.FirmwareImageOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 

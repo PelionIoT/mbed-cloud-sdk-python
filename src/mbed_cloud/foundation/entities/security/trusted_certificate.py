@@ -184,12 +184,8 @@ class TrustedCertificate(Entity):
         self._issuer = fields.StringField(value=issuer)
         self._name = fields.StringField(value=name)
         self._owner_id = fields.StringField(value=owner_id)
-        self._service = fields.StringField(
-            value=service, enum=enums.TrustedCertificateServiceEnum
-        )
-        self._status = fields.StringField(
-            value=status, enum=enums.TrustedCertificateStatusEnum
-        )
+        self._service = fields.StringField(value=service, enum=enums.TrustedCertificateServiceEnum)
+        self._status = fields.StringField(value=status, enum=enums.TrustedCertificateStatusEnum)
         self._subject = fields.StringField(value=subject)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._valid = fields.BooleanField(value=valid)
@@ -583,6 +579,7 @@ class TrustedCertificate(Entity):
             body_params["service"] = self._service.to_api()
         if self._status.value_set:
             body_params["status"] = self._status.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/trusted-certificates",
@@ -698,9 +695,7 @@ class TrustedCertificate(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=TrustedCertificate._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=TrustedCertificate._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -748,9 +743,7 @@ class TrustedCertificate(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.TrustedCertificateOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.TrustedCertificateOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 
@@ -801,6 +794,7 @@ class TrustedCertificate(Entity):
             body_params["service"] = self._service.to_api()
         if self._status.value_set:
             body_params["status"] = self._status.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/trusted-certificates/{cert_id}",

@@ -203,9 +203,7 @@ class SubtenantUser(Entity):
 
         # fields
         self._account_id = fields.StringField(value=account_id)
-        self._active_sessions = fields.ListField(
-            value=active_sessions, entity=ActiveSession
-        )
+        self._active_sessions = fields.ListField(value=active_sessions, entity=ActiveSession)
         self._address = fields.StringField(value=address)
         self._created_at = fields.DateTimeField(value=created_at)
         self._creation_time = fields.IntegerField(value=creation_time)
@@ -224,9 +222,7 @@ class SubtenantUser(Entity):
         self._status = fields.StringField(value=status, enum=enums.SubtenantUserStatusEnum)
         self._terms_accepted = fields.BooleanField(value=terms_accepted)
         self._totp_scratch_codes = fields.ListField(value=totp_scratch_codes)
-        self._two_factor_authentication = fields.BooleanField(
-            value=two_factor_authentication
-        )
+        self._two_factor_authentication = fields.BooleanField(value=two_factor_authentication)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._username = fields.StringField(value=username)
 
@@ -750,6 +746,7 @@ class SubtenantUser(Entity):
             body_params["is_gtc_accepted"] = self._terms_accepted.to_api()
         if self._username.value_set:
             body_params["username"] = self._username.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/accounts/{account_id}/users",
@@ -772,10 +769,7 @@ class SubtenantUser(Entity):
             method="delete",
             path="/v3/accounts/{account_id}/users/{user_id}",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "user_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "user_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -791,10 +785,7 @@ class SubtenantUser(Entity):
             method="get",
             path="/v3/accounts/{account_id}/users/{user_id}",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "user_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "user_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -825,14 +816,12 @@ class SubtenantUser(Entity):
             body_params["is_totp_enabled"] = self._two_factor_authentication.to_api()
         if self._username.value_set:
             body_params["username"] = self._username.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/accounts/{account_id}/users/{user_id}",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "user_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "user_id": self._id.to_api()},
             body_params=body_params,
             unpack=self,
         )
@@ -849,9 +838,6 @@ class SubtenantUser(Entity):
             method="post",
             path="/v3/accounts/{account_id}/users/{user_id}/validate-email",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "user_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "user_id": self._id.to_api()},
             unpack=self,
         )

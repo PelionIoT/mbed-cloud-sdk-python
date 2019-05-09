@@ -249,14 +249,7 @@ class EntityFactory:
             upgraded_at=upgraded_at,
         )
 
-    def active_session(
-        self,
-        account_id=None,
-        ip_address=None,
-        login_time=None,
-        reference_token=None,
-        user_agent=None,
-    ):
+    def active_session(self, account_id=None, ip_address=None, login_time=None, reference_token=None, user_agent=None):
         """Creates a local `ActiveSession` instance, using the shared SDK context.
 
         :param account_id: The UUID of the account.
@@ -443,13 +436,7 @@ class EntityFactory:
         )
 
     def certificate_issuer(
-        self,
-        created_at=None,
-        description=None,
-        id=None,
-        issuer_attributes=None,
-        issuer_type=None,
-        name=None,
+        self, created_at=None, description=None, id=None, issuer_attributes=None, issuer_type=None, name=None
     ):
         """Creates a local `CertificateIssuer` instance, using the shared SDK context.
 
@@ -495,12 +482,7 @@ class EntityFactory:
         )
 
     def certificate_issuer_config(
-        self,
-        certificate_issuer_id=None,
-        certificate_reference=None,
-        created_at=None,
-        id=None,
-        updated_at=None,
+        self, certificate_issuer_id=None, certificate_reference=None, created_at=None, id=None, updated_at=None
     ):
         """Creates a local `CertificateIssuerConfig` instance, using the shared SDK context.
 
@@ -893,12 +875,7 @@ class EntityFactory:
         )
 
     def device_enrollment_denial(
-        self,
-        account_id=None,
-        created_at=None,
-        endpoint_name=None,
-        id=None,
-        trusted_certificate_id=None,
+        self, account_id=None, created_at=None, endpoint_name=None, id=None, trusted_certificate_id=None
     ):
         """Creates a local `DeviceEnrollmentDenial` instance, using the shared SDK context.
 
@@ -1106,11 +1083,7 @@ class EntityFactory:
         from mbed_cloud.foundation import LoginHistory
 
         return LoginHistory(
-            _client=self._client,
-            date=date,
-            ip_address=ip_address,
-            success=success,
-            user_agent=user_agent,
+            _client=self._client, date=date, ip_address=ip_address, success=success, user_agent=user_agent
         )
 
     def login_profile(self, id=None, name=None):
@@ -1145,9 +1118,7 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import ParentAccount
 
-        return ParentAccount(
-            _client=self._client, admin_email=admin_email, admin_name=admin_name, id=id
-        )
+        return ParentAccount(_client=self._client, admin_email=admin_email, admin_name=admin_name, id=id)
 
     def password_policy(self, minimum_length=None):
         """Creates a local `PasswordPolicy` instance, using the shared SDK context.
@@ -1184,12 +1155,7 @@ class EntityFactory:
         from mbed_cloud.foundation import Policy
 
         return Policy(
-            _client=self._client,
-            action=action,
-            allow=allow,
-            feature=feature,
-            inherited=inherited,
-            resource=resource,
+            _client=self._client, action=action, allow=allow, feature=feature, inherited=inherited, resource=resource
         )
 
     def pre_shared_key(self, created_at=None, endpoint_name=None, id=None):
@@ -1210,13 +1176,9 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import PreSharedKey
 
-        return PreSharedKey(
-            _client=self._client, created_at=created_at, endpoint_name=endpoint_name, id=id
-        )
+        return PreSharedKey(_client=self._client, created_at=created_at, endpoint_name=endpoint_name, id=id)
 
-    def server_credentials(
-        self, created_at=None, id=None, server_certificate=None, server_uri=None
-    ):
+    def server_credentials(self, created_at=None, id=None, server_certificate=None, server_uri=None):
         """Creates a local `ServerCredentials` instance, using the shared SDK context.
 
         :param created_at: Creation UTC time RFC3339.
@@ -1838,6 +1800,4 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import VerificationResponse
 
-        return VerificationResponse(
-            _client=self._client, message=message, successful=successful
-        )
+        return VerificationResponse(_client=self._client, message=message, successful=successful)

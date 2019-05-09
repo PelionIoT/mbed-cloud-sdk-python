@@ -182,6 +182,7 @@ class PreSharedKey(Entity):
             body_params["endpoint_name"] = self._id.to_api()
         # Method parameters are unconditionally sent even if set to None
         body_params["secret_hex"] = fields.StringField(secret_hex).to_api()
+
         return self._client.call_api(
             method="post",
             path="/v2/device-shared-keys",
@@ -238,9 +239,7 @@ class PreSharedKey(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=PreSharedKey._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=PreSharedKey._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames

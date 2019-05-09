@@ -52,13 +52,7 @@ class CertificateIssuerConfig(Entity):
     """Represents the `CertificateIssuerConfig` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
-    _api_fieldnames = [
-        "certificate_issuer_id",
-        "certificate_reference",
-        "created_at",
-        "id",
-        "updated_at",
-    ]
+    _api_fieldnames = ["certificate_issuer_id", "certificate_reference", "created_at", "id", "updated_at"]
 
     # List of fields that are available for the user of the SDK
     _sdk_fieldnames = _api_fieldnames
@@ -241,6 +235,7 @@ class CertificateIssuerConfig(Entity):
             body_params["certificate_issuer_id"] = self._certificate_issuer_id.to_api()
         if self._certificate_reference.value_set:
             body_params["reference"] = self._certificate_reference.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/certificate-issuer-configurations",
@@ -337,10 +332,7 @@ class CertificateIssuerConfig(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter,
-                field_renames=CertificateIssuerConfig._renames_to_api,
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=CertificateIssuerConfig._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -431,6 +423,7 @@ class CertificateIssuerConfig(Entity):
         body_params = {}
         if self._certificate_issuer_id.value_set:
             body_params["certificate_issuer_id"] = self._certificate_issuer_id.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",

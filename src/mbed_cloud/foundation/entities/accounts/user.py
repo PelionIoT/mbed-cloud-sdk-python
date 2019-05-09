@@ -203,9 +203,7 @@ class User(Entity):
 
         # fields
         self._account_id = fields.StringField(value=account_id)
-        self._active_sessions = fields.ListField(
-            value=active_sessions, entity=ActiveSession
-        )
+        self._active_sessions = fields.ListField(value=active_sessions, entity=ActiveSession)
         self._address = fields.StringField(value=address)
         self._created_at = fields.DateTimeField(value=created_at)
         self._creation_time = fields.IntegerField(value=creation_time)
@@ -224,9 +222,7 @@ class User(Entity):
         self._status = fields.StringField(value=status, enum=enums.UserStatusEnum)
         self._terms_accepted = fields.BooleanField(value=terms_accepted)
         self._totp_scratch_codes = fields.ListField(value=totp_scratch_codes)
-        self._two_factor_authentication = fields.BooleanField(
-            value=two_factor_authentication
-        )
+        self._two_factor_authentication = fields.BooleanField(value=two_factor_authentication)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._username = fields.StringField(value=username)
 
@@ -748,6 +744,7 @@ class User(Entity):
             body_params["is_gtc_accepted"] = self._terms_accepted.to_api()
         if self._username.value_set:
             body_params["username"] = self._username.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/users",
@@ -885,11 +882,7 @@ class User(Entity):
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
-            method="get",
-            path="/v3/users",
-            content_type="application/json",
-            query_params=query_params,
-            unpack=False,
+            method="get", path="/v3/users", content_type="application/json", query_params=query_params, unpack=False
         )
 
     def read(self):
@@ -935,6 +928,7 @@ class User(Entity):
             body_params["is_totp_enabled"] = self._two_factor_authentication.to_api()
         if self._username.value_set:
             body_params["username"] = self._username.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/users/{user_id}",

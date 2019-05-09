@@ -293,24 +293,16 @@ class Account(Entity):
         self._email = fields.StringField(value=email)
         self._end_market = fields.StringField(value=end_market)
         self._expiration = fields.DateTimeField(value=expiration)
-        self._expiration_warning_threshold = fields.StringField(
-            value=expiration_warning_threshold
-        )
+        self._expiration_warning_threshold = fields.StringField(value=expiration_warning_threshold)
         self._id = fields.StringField(value=id)
         self._idle_timeout = fields.StringField(value=idle_timeout)
         self._limits = fields.DictField(value=limits)
-        self._mfa_status = fields.StringField(
-            value=mfa_status, enum=enums.AccountMfaStatusEnum
-        )
+        self._mfa_status = fields.StringField(value=mfa_status, enum=enums.AccountMfaStatusEnum)
         self._notification_emails = fields.ListField(value=notification_emails)
         self._parent_account = fields.DictField(value=parent_account, entity=ParentAccount)
         self._parent_id = fields.StringField(value=parent_id)
-        self._password_policy = fields.DictField(
-            value=password_policy, entity=PasswordPolicy
-        )
-        self._password_recovery_expiration = fields.IntegerField(
-            value=password_recovery_expiration
-        )
+        self._password_policy = fields.DictField(value=password_policy, entity=PasswordPolicy)
+        self._password_recovery_expiration = fields.IntegerField(value=password_recovery_expiration)
         self._phone_number = fields.StringField(value=phone_number)
         self._policies = fields.ListField(value=policies, entity=Policy)
         self._postal_code = fields.StringField(value=postal_code)
@@ -1281,6 +1273,7 @@ class Account(Entity):
             body_params["postal_code"] = self._postal_code.to_api()
         if self._state.value_set:
             body_params["state"] = self._state.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/accounts",
@@ -1291,14 +1284,7 @@ class Account(Entity):
         )
 
     def list(
-        self,
-        filter=None,
-        order="ASC",
-        max_results=None,
-        page_size=1000,
-        include=None,
-        format=None,
-        properties=None,
+        self, filter=None, order="ASC", max_results=None, page_size=1000, include=None, format=None, properties=None
     ):
         """Get all accounts.
 
@@ -1418,14 +1404,7 @@ class Account(Entity):
         )
 
     def _paginate_list(
-        self,
-        after=None,
-        filter=None,
-        order="ASC",
-        limit=1000,
-        include=None,
-        format=None,
-        properties=None,
+        self, after=None, filter=None, order="ASC", limit=1000, include=None, format=None, properties=None
     ):
         """Get all accounts.
         
@@ -1459,25 +1438,17 @@ class Account(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.AccountOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.AccountOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
         query_params["format"] = fields.StringField(format).to_api()
         query_params["properties"] = fields.StringField(properties).to_api()
 
         return self._client.call_api(
-            method="get",
-            path="/v3/accounts",
-            content_type="application/json",
-            query_params=query_params,
-            unpack=False,
+            method="get", path="/v3/accounts", content_type="application/json", query_params=query_params, unpack=False
         )
 
-    def _paginate_trusted_certificates(
-        self, after=None, filter=None, order="ASC", limit=50, include=None
-    ):
+    def _paginate_trusted_certificates(self, after=None, filter=None, order="ASC", limit=50, include=None):
         """Get all trusted certificates.
         
         :param after: The entity ID to fetch after the given one.
@@ -1504,9 +1475,7 @@ class Account(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.AccountOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.AccountOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 
@@ -1519,9 +1488,7 @@ class Account(Entity):
             unpack=False,
         )
 
-    def _paginate_user_invitations(
-        self, after=None, filter=None, order="ASC", limit=50, include=None
-    ):
+    def _paginate_user_invitations(self, after=None, filter=None, order="ASC", limit=50, include=None):
         """Get the details of all user invitations.
         
         :param after: The entity ID to fetch after the given one.
@@ -1547,9 +1514,7 @@ class Account(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.AccountOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.AccountOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 
@@ -1589,9 +1554,7 @@ class Account(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.AccountOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.AccountOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 
@@ -1631,9 +1594,7 @@ class Account(Entity):
             unpack=self,
         )
 
-    def trusted_certificates(
-        self, filter=None, order="ASC", max_results=None, page_size=50, include=None
-    ):
+    def trusted_certificates(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all trusted certificates.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates>`_.
@@ -1706,10 +1667,7 @@ class Account(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter,
-                field_renames=SubtenantTrustedCertificate._renames_to_api,
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantTrustedCertificate._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -1768,9 +1726,7 @@ class Account(Entity):
         if self._end_market.value_set:
             body_params["end_market"] = self._end_market.to_api()
         if self._expiration_warning_threshold.value_set:
-            body_params[
-                "expiration_warning_threshold"
-            ] = self._expiration_warning_threshold.to_api()
+            body_params["expiration_warning_threshold"] = self._expiration_warning_threshold.to_api()
         if self._idle_timeout.value_set:
             body_params["idle_timeout"] = self._idle_timeout.to_api()
         if self._mfa_status.value_set:
@@ -1780,9 +1736,7 @@ class Account(Entity):
         if self._password_policy.value_set:
             body_params["password_policy"] = self._password_policy.to_api()
         if self._password_recovery_expiration.value_set:
-            body_params[
-                "password_recovery_expiration"
-            ] = self._password_recovery_expiration.to_api()
+            body_params["password_recovery_expiration"] = self._password_recovery_expiration.to_api()
         if self._phone_number.value_set:
             body_params["phone_number"] = self._phone_number.to_api()
         if self._postal_code.value_set:
@@ -1791,6 +1745,7 @@ class Account(Entity):
             body_params["sales_contact"] = self._sales_contact.to_api()
         if self._state.value_set:
             body_params["state"] = self._state.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/accounts/{account_id}",
@@ -1800,9 +1755,7 @@ class Account(Entity):
             unpack=self,
         )
 
-    def user_invitations(
-        self, filter=None, order="ASC", max_results=None, page_size=50, include=None
-    ):
+    def user_invitations(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get the details of all user invitations.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations>`_.
@@ -1856,10 +1809,7 @@ class Account(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter,
-                field_renames=SubtenantUserInvitation._renames_to_api,
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantUserInvitation._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -1939,9 +1889,7 @@ class Account(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=SubtenantUser._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantUser._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames

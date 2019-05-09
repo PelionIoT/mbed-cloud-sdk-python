@@ -432,9 +432,7 @@ class DeviceEvents(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=DeviceEvents._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=DeviceEvents._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
