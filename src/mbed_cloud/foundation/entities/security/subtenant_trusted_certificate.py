@@ -60,6 +60,7 @@ class SubtenantTrustedCertificate(Entity):
         "device_execution_mode",
         "enrollment_mode",
         "id",
+        "is_developer_certificate",
         "issuer",
         "name",
         "owner_id",

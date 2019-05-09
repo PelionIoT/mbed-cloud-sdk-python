@@ -47,8 +47,11 @@ from mbed_cloud.foundation import enums
 class ServerCredentials(Entity):
     """Represents the `ServerCredentials` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = ["created_at", "id", "server_certificate", "server_uri"]
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = ["created_at", "id", "server_certificate", "server_uri"]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}

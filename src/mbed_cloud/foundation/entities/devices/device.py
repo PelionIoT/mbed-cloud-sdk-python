@@ -51,8 +51,8 @@ from mbed_cloud.foundation import enums
 class Device(Entity):
     """Represents the `Device` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = [
         "account_id",
         "auto_update",
         "bootstrap_expiration_date",
@@ -82,6 +82,9 @@ class Device(Entity):
         "updated_at",
         "vendor_id",
     ]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}

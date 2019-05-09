@@ -50,8 +50,8 @@ from mbed_cloud.foundation import enums
 class DeviceEnrollmentBulkDelete(Entity):
     """Represents the `DeviceEnrollmentBulkDelete` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = [
         "account_id",
         "completed_at",
         "created_at",
@@ -63,6 +63,9 @@ class DeviceEnrollmentBulkDelete(Entity):
         "status",
         "total_count",
     ]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}

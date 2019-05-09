@@ -50,10 +50,10 @@ class PreSharedKey(Entity):
     """Represents the `PreSharedKey` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
-    _api_fieldnames = ["created_at", "endpoint_name"]
+    _api_fieldnames = ["created_at", "endpoint_name", "id"]
 
     # List of fields that are available for the user of the SDK
-    _sdk_fieldnames = ["created_at", "endpoint_name", "id"]
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
