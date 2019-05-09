@@ -371,6 +371,7 @@ class FirmwareManifest(Entity):
             auto_close_key_table_file = True
 
         try:
+
             return self._client.call_api(
                 method="post",
                 path="/v3/firmware-manifests/",

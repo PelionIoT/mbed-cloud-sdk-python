@@ -1240,32 +1240,53 @@ class Account(Entity):
         :rtype: Account
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._address_line1.value_set:
+            body_params["address_line1"] = self._address_line1.to_api()
+        if self._address_line2.value_set:
+            body_params["address_line2"] = self._address_line2.to_api()
+        if self._admin_email.value_set:
+            body_params["admin_email"] = self._admin_email.to_api()
+        if self._admin_full_name.value_set:
+            body_params["admin_full_name"] = self._admin_full_name.to_api()
+        if self._admin_name.value_set:
+            body_params["admin_name"] = self._admin_name.to_api()
+        if self._admin_password.value_set:
+            body_params["admin_password"] = self._admin_password.to_api()
+        if self._aliases.value_set:
+            body_params["aliases"] = self._aliases.to_api()
+        if self._city.value_set:
+            body_params["city"] = self._city.to_api()
+        if self._company.value_set:
+            body_params["company"] = self._company.to_api()
+        if self._contact.value_set:
+            body_params["contact"] = self._contact.to_api()
+        if self._contract_number.value_set:
+            body_params["contract_number"] = self._contract_number.to_api()
+        if self._country.value_set:
+            body_params["country"] = self._country.to_api()
+        if self._customer_number.value_set:
+            body_params["customer_number"] = self._customer_number.to_api()
+        if self._display_name.value_set:
+            body_params["display_name"] = self._display_name.to_api()
+        if self._email.value_set:
+            body_params["email"] = self._email.to_api()
+        if self._end_market.value_set:
+            body_params["end_market"] = self._end_market.to_api()
+        if self._phone_number.value_set:
+            body_params["phone_number"] = self._phone_number.to_api()
+        if self._postal_code.value_set:
+            body_params["postal_code"] = self._postal_code.to_api()
+        if self._state.value_set:
+            body_params["state"] = self._state.to_api()
         return self._client.call_api(
             method="post",
             path="/v3/accounts",
             content_type="application/json",
             query_params={"action": fields.StringField(action).to_api()},
-            body_params={
-                "address_line1": self._address_line1.to_api(),
-                "address_line2": self._address_line2.to_api(),
-                "admin_email": self._admin_email.to_api(),
-                "admin_full_name": self._admin_full_name.to_api(),
-                "admin_name": self._admin_name.to_api(),
-                "admin_password": self._admin_password.to_api(),
-                "aliases": self._aliases.to_api(),
-                "city": self._city.to_api(),
-                "company": self._company.to_api(),
-                "contact": self._contact.to_api(),
-                "contract_number": self._contract_number.to_api(),
-                "country": self._country.to_api(),
-                "customer_number": self._customer_number.to_api(),
-                "display_name": self._display_name.to_api(),
-                "email": self._email.to_api(),
-                "end_market": self._end_market.to_api(),
-                "phone_number": self._phone_number.to_api(),
-                "postal_code": self._postal_code.to_api(),
-                "state": self._state.to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )
 
@@ -1717,35 +1738,64 @@ class Account(Entity):
         :rtype: Account
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._address_line1.value_set:
+            body_params["address_line1"] = self._address_line1.to_api()
+        if self._address_line2.value_set:
+            body_params["address_line2"] = self._address_line2.to_api()
+        if self._aliases.value_set:
+            body_params["aliases"] = self._aliases.to_api()
+        if self._city.value_set:
+            body_params["city"] = self._city.to_api()
+        if self._company.value_set:
+            body_params["company"] = self._company.to_api()
+        if self._contact.value_set:
+            body_params["contact"] = self._contact.to_api()
+        if self._contract_number.value_set:
+            body_params["contract_number"] = self._contract_number.to_api()
+        if self._country.value_set:
+            body_params["country"] = self._country.to_api()
+        if self._custom_fields.value_set:
+            body_params["custom_fields"] = self._custom_fields.to_api()
+        if self._customer_number.value_set:
+            body_params["customer_number"] = self._customer_number.to_api()
+        if self._display_name.value_set:
+            body_params["display_name"] = self._display_name.to_api()
+        if self._email.value_set:
+            body_params["email"] = self._email.to_api()
+        if self._end_market.value_set:
+            body_params["end_market"] = self._end_market.to_api()
+        if self._expiration_warning_threshold.value_set:
+            body_params[
+                "expiration_warning_threshold"
+            ] = self._expiration_warning_threshold.to_api()
+        if self._idle_timeout.value_set:
+            body_params["idle_timeout"] = self._idle_timeout.to_api()
+        if self._mfa_status.value_set:
+            body_params["mfa_status"] = self._mfa_status.to_api()
+        if self._notification_emails.value_set:
+            body_params["notification_emails"] = self._notification_emails.to_api()
+        if self._password_policy.value_set:
+            body_params["password_policy"] = self._password_policy.to_api()
+        if self._password_recovery_expiration.value_set:
+            body_params[
+                "password_recovery_expiration"
+            ] = self._password_recovery_expiration.to_api()
+        if self._phone_number.value_set:
+            body_params["phone_number"] = self._phone_number.to_api()
+        if self._postal_code.value_set:
+            body_params["postal_code"] = self._postal_code.to_api()
+        if self._sales_contact.value_set:
+            body_params["sales_contact"] = self._sales_contact.to_api()
+        if self._state.value_set:
+            body_params["state"] = self._state.to_api()
         return self._client.call_api(
             method="put",
             path="/v3/accounts/{account_id}",
             content_type="application/json",
-            body_params={
-                "address_line1": self._address_line1.to_api(),
-                "address_line2": self._address_line2.to_api(),
-                "aliases": self._aliases.to_api(),
-                "city": self._city.to_api(),
-                "company": self._company.to_api(),
-                "contact": self._contact.to_api(),
-                "contract_number": self._contract_number.to_api(),
-                "country": self._country.to_api(),
-                "custom_fields": self._custom_fields.to_api(),
-                "customer_number": self._customer_number.to_api(),
-                "display_name": self._display_name.to_api(),
-                "email": self._email.to_api(),
-                "end_market": self._end_market.to_api(),
-                "expiration_warning_threshold": self._expiration_warning_threshold.to_api(),
-                "idle_timeout": self._idle_timeout.to_api(),
-                "mfa_status": self._mfa_status.to_api(),
-                "notification_emails": self._notification_emails.to_api(),
-                "password_policy": self._password_policy.to_api(),
-                "password_recovery_expiration": self._password_recovery_expiration.to_api(),
-                "phone_number": self._phone_number.to_api(),
-                "postal_code": self._postal_code.to_api(),
-                "sales_contact": self._sales_contact.to_api(),
-                "state": self._state.to_api(),
-            },
+            body_params=body_params,
             path_params={"account_id": self._id.to_api()},
             unpack=self,
         )

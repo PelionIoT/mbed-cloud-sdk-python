@@ -376,6 +376,7 @@ class DeviceEnrollmentBulkDelete(Entity):
             auto_close_enrollment_identities = True
 
         try:
+
             return self._client.call_api(
                 method="post",
                 path="/v3/device-enrollments-bulk-deletes",

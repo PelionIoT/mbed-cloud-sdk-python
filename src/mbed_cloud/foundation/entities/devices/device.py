@@ -835,37 +835,66 @@ class Device(Entity):
         :rtype: Device
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._auto_update.value_set:
+            body_params["auto_update"] = self._auto_update.to_api()
+        if self._bootstrap_expiration_date.value_set:
+            body_params[
+                "bootstrap_expiration_date"
+            ] = self._bootstrap_expiration_date.to_api()
+        # Method parameters are unconditionally sent even if set to None
+        body_params["bootstrapped_timestamp"] = fields.DateTimeField(
+            bootstrapped_timestamp
+        ).to_api()
+        if self._ca_id.value_set:
+            body_params["ca_id"] = self._ca_id.to_api()
+        if self._connector_expiration_date.value_set:
+            body_params[
+                "connector_expiration_date"
+            ] = self._connector_expiration_date.to_api()
+        if self._custom_attributes.value_set:
+            body_params["custom_attributes"] = self._custom_attributes.to_api()
+        if self._deployment.value_set:
+            body_params["deployment"] = self._deployment.to_api()
+        if self._description.value_set:
+            body_params["description"] = self._description.to_api()
+        if self._device_class.value_set:
+            body_params["device_class"] = self._device_class.to_api()
+        if self._device_execution_mode.value_set:
+            body_params["device_execution_mode"] = self._device_execution_mode.to_api()
+        if self._device_key.value_set:
+            body_params["device_key"] = self._device_key.to_api()
+        if self._endpoint_name.value_set:
+            body_params["endpoint_name"] = self._endpoint_name.to_api()
+        if self._endpoint_type.value_set:
+            body_params["endpoint_type"] = self._endpoint_type.to_api()
+        # Method parameters are unconditionally sent even if set to None
+        body_params["firmware_checksum"] = fields.StringField(firmware_checksum).to_api()
+        if self._host_gateway.value_set:
+            body_params["host_gateway"] = self._host_gateway.to_api()
+        if self._issuer_fingerprint.value_set:
+            body_params["issuer_fingerprint"] = self._issuer_fingerprint.to_api()
+        if self._manifest.value_set:
+            body_params["manifest"] = self._manifest.to_api()
+        if self._mechanism.value_set:
+            body_params["mechanism"] = self._mechanism.to_api()
+        if self._mechanism_url.value_set:
+            body_params["mechanism_url"] = self._mechanism_url.to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
+        if self._serial_number.value_set:
+            body_params["serial_number"] = self._serial_number.to_api()
+        if self._state.value_set:
+            body_params["state"] = self._state.to_api()
+        if self._vendor_id.value_set:
+            body_params["vendor_id"] = self._vendor_id.to_api()
         return self._client.call_api(
             method="post",
             path="/v3/devices/",
             content_type="application/json",
-            body_params={
-                "auto_update": self._auto_update.to_api(),
-                "bootstrap_expiration_date": self._bootstrap_expiration_date.to_api(),
-                "bootstrapped_timestamp": fields.DateTimeField(
-                    bootstrapped_timestamp
-                ).to_api(),
-                "ca_id": self._ca_id.to_api(),
-                "connector_expiration_date": self._connector_expiration_date.to_api(),
-                "custom_attributes": self._custom_attributes.to_api(),
-                "deployment": self._deployment.to_api(),
-                "description": self._description.to_api(),
-                "device_class": self._device_class.to_api(),
-                "device_execution_mode": self._device_execution_mode.to_api(),
-                "device_key": self._device_key.to_api(),
-                "endpoint_name": self._endpoint_name.to_api(),
-                "endpoint_type": self._endpoint_type.to_api(),
-                "firmware_checksum": fields.StringField(firmware_checksum).to_api(),
-                "host_gateway": self._host_gateway.to_api(),
-                "issuer_fingerprint": self._issuer_fingerprint.to_api(),
-                "manifest": self._manifest.to_api(),
-                "mechanism": self._mechanism.to_api(),
-                "mechanism_url": self._mechanism_url.to_api(),
-                "name": self._name.to_api(),
-                "serial_number": self._serial_number.to_api(),
-                "state": self._state.to_api(),
-                "vendor_id": self._vendor_id.to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )
 
@@ -1108,21 +1137,32 @@ class Device(Entity):
         :rtype: Device
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._auto_update.value_set:
+            body_params["auto_update"] = self._auto_update.to_api()
+        if self._ca_id.value_set:
+            body_params["ca_id"] = self._ca_id.to_api()
+        if self._custom_attributes.value_set:
+            body_params["custom_attributes"] = self._custom_attributes.to_api()
+        if self._description.value_set:
+            body_params["description"] = self._description.to_api()
+        if self._device_key.value_set:
+            body_params["device_key"] = self._device_key.to_api()
+        if self._endpoint_name.value_set:
+            body_params["endpoint_name"] = self._endpoint_name.to_api()
+        if self._endpoint_type.value_set:
+            body_params["endpoint_type"] = self._endpoint_type.to_api()
+        if self._host_gateway.value_set:
+            body_params["host_gateway"] = self._host_gateway.to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
         return self._client.call_api(
             method="put",
             path="/v3/devices/{id}/",
             content_type="application/json",
-            body_params={
-                "auto_update": self._auto_update.to_api(),
-                "ca_id": self._ca_id.to_api(),
-                "custom_attributes": self._custom_attributes.to_api(),
-                "description": self._description.to_api(),
-                "device_key": self._device_key.to_api(),
-                "endpoint_name": self._endpoint_name.to_api(),
-                "endpoint_type": self._endpoint_type.to_api(),
-                "host_gateway": self._host_gateway.to_api(),
-                "name": self._name.to_api(),
-            },
+            body_params=body_params,
             path_params={"id": self._id.to_api()},
             unpack=self,
         )

@@ -308,6 +308,7 @@ class FirmwareImage(Entity):
             auto_close_firmware_image_file = True
 
         try:
+
             return self._client.call_api(
                 method="post",
                 path="/v3/firmware-images/",

@@ -359,15 +359,20 @@ class ApiKey(Entity):
         :rtype: ApiKey
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
+        if self._owner.value_set:
+            body_params["owner"] = self._owner.to_api()
+        if self._status.value_set:
+            body_params["status"] = self._status.to_api()
         return self._client.call_api(
             method="post",
             path="/v3/api-keys",
             content_type="application/json",
-            body_params={
-                "name": self._name.to_api(),
-                "owner": self._owner.to_api(),
-                "status": self._status.to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )
 
@@ -547,15 +552,20 @@ class ApiKey(Entity):
         :rtype: ApiKey
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
+        if self._owner.value_set:
+            body_params["owner"] = self._owner.to_api()
+        if self._status.value_set:
+            body_params["status"] = self._status.to_api()
         return self._client.call_api(
             method="put",
             path="/v3/api-keys/{apikey_id}",
             content_type="application/json",
             path_params={"apikey_id": self._id.to_api()},
-            body_params={
-                "name": self._name.to_api(),
-                "owner": self._owner.to_api(),
-                "status": self._status.to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )

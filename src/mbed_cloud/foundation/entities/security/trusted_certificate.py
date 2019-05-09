@@ -568,18 +568,26 @@ class TrustedCertificate(Entity):
         :rtype: TrustedCertificate
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._certificate.value_set:
+            body_params["certificate"] = self._certificate.to_api()
+        if self._description.value_set:
+            body_params["description"] = self._description.to_api()
+        if self._enrollment_mode.value_set:
+            body_params["enrollment_mode"] = self._enrollment_mode.to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
+        if self._service.value_set:
+            body_params["service"] = self._service.to_api()
+        if self._status.value_set:
+            body_params["status"] = self._status.to_api()
         return self._client.call_api(
             method="post",
             path="/v3/trusted-certificates",
             content_type="application/json",
-            body_params={
-                "certificate": self._certificate.to_api(),
-                "description": self._description.to_api(),
-                "enrollment_mode": self._enrollment_mode.to_api(),
-                "name": self._name.to_api(),
-                "service": self._service.to_api(),
-                "status": self._status.to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )
 
@@ -778,18 +786,26 @@ class TrustedCertificate(Entity):
         :rtype: TrustedCertificate
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._certificate.value_set:
+            body_params["certificate"] = self._certificate.to_api()
+        if self._description.value_set:
+            body_params["description"] = self._description.to_api()
+        if self._enrollment_mode.value_set:
+            body_params["enrollment_mode"] = self._enrollment_mode.to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
+        if self._service.value_set:
+            body_params["service"] = self._service.to_api()
+        if self._status.value_set:
+            body_params["status"] = self._status.to_api()
         return self._client.call_api(
             method="put",
             path="/v3/trusted-certificates/{cert_id}",
             content_type="application/json",
-            body_params={
-                "certificate": self._certificate.to_api(),
-                "description": self._description.to_api(),
-                "enrollment_mode": self._enrollment_mode.to_api(),
-                "name": self._name.to_api(),
-                "service": self._service.to_api(),
-                "status": self._status.to_api(),
-            },
+            body_params=body_params,
             path_params={"cert_id": self._id.to_api()},
             unpack=self,
         )

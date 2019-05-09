@@ -175,14 +175,18 @@ class PreSharedKey(Entity):
         :rtype: PreSharedKey
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._id.value_set:
+            body_params["endpoint_name"] = self._id.to_api()
+        # Method parameters are unconditionally sent even if set to None
+        body_params["secret_hex"] = fields.StringField(secret_hex).to_api()
         return self._client.call_api(
             method="post",
             path="/v2/device-shared-keys",
             content_type="application/json",
-            body_params={
-                "endpoint_name": self._id.to_api(),
-                "secret_hex": fields.StringField(secret_hex).to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )
 

@@ -288,17 +288,24 @@ class CertificateIssuer(Entity):
         :rtype: CertificateIssuer
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._description.value_set:
+            body_params["description"] = self._description.to_api()
+        if self._issuer_attributes.value_set:
+            body_params["issuer_attributes"] = self._issuer_attributes.to_api()
+        # Method parameters are unconditionally sent even if set to None
+        body_params["issuer_credentials"] = fields.DictField(issuer_credentials).to_api()
+        if self._issuer_type.value_set:
+            body_params["issuer_type"] = self._issuer_type.to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
         return self._client.call_api(
             method="post",
             path="/v3/certificate-issuers",
             content_type="application/json",
-            body_params={
-                "description": self._description.to_api(),
-                "issuer_attributes": self._issuer_attributes.to_api(),
-                "issuer_credentials": fields.DictField(issuer_credentials).to_api(),
-                "issuer_type": self._issuer_type.to_api(),
-                "name": self._name.to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )
 
@@ -448,16 +455,22 @@ class CertificateIssuer(Entity):
         :rtype: CertificateIssuer
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._description.value_set:
+            body_params["description"] = self._description.to_api()
+        if self._issuer_attributes.value_set:
+            body_params["issuer_attributes"] = self._issuer_attributes.to_api()
+        # Method parameters are unconditionally sent even if set to None
+        body_params["issuer_credentials"] = fields.DictField(issuer_credentials).to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
         return self._client.call_api(
             method="put",
             path="/v3/certificate-issuers/{certificate-issuer-id}",
             content_type="application/json",
-            body_params={
-                "description": self._description.to_api(),
-                "issuer_attributes": self._issuer_attributes.to_api(),
-                "issuer_credentials": fields.DictField(issuer_credentials).to_api(),
-                "name": self._name.to_api(),
-            },
+            body_params=body_params,
             path_params={"certificate-issuer-id": self._id.to_api()},
             unpack=self,
         )

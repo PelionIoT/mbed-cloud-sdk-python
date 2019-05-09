@@ -271,14 +271,18 @@ class DeveloperCertificate(Entity):
         :rtype: DeveloperCertificate
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._description.value_set:
+            body_params["description"] = self._description.to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
         return self._client.call_api(
             method="post",
             path="/v3/developer-certificates",
             content_type="application/json",
-            body_params={
-                "description": self._description.to_api(),
-                "name": self._name.to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )
 

@@ -276,11 +276,16 @@ class DeviceEnrollment(Entity):
         :rtype: DeviceEnrollment
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._enrollment_identity.value_set:
+            body_params["enrollment_identity"] = self._enrollment_identity.to_api()
         return self._client.call_api(
             method="post",
             path="/v3/device-enrollments",
             content_type="application/json",
-            body_params={"enrollment_identity": self._enrollment_identity.to_api()},
+            body_params=body_params,
             unpack=self,
         )
 
