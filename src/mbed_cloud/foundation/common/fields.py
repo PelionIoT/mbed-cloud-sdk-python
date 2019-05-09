@@ -24,6 +24,7 @@ class Field(object):
         self._val = None
         self._enum = enum
         self._entity = entity
+        self.value_set = False
 
         # Work out the valid valid types that the set method can use
         if self._entity:
@@ -32,6 +33,10 @@ class Field(object):
             self._valid_types = (self.base_type, type(None))
 
         self.set(value)
+
+        # If the initial value provided was not None and was accepted then flag that the value has been set.
+        if self._val is None:
+            self.value_set = False
 
     @property
     def value(self):
@@ -47,6 +52,7 @@ class Field(object):
                 "Unknown enum value '%s' received from API for %s", value, self._enum
             )
         self._val = value
+        self.value_set = True
         return self
 
     def to_literal(self):
@@ -85,6 +91,7 @@ class DateTimeField(Field):
         if isinstance(value, six.string_types):
             # Use dateutil.parser to accept various input
             self._val = parse(value)
+            self.value_set = True
         else:
             return super().set(value)
         return self
@@ -123,6 +130,7 @@ class DateField(DateTimeField):
         # Use dateutil.parser to accept various input if a string is passed in but then convert to a date object
         if isinstance(self._val, datetime):
             self._val = self._val.date()
+            self.value_set = True
         return self
 
 
@@ -139,7 +147,11 @@ class DictField(Field):
     def set(self, value):
         """Handle entities being provided as dictionaries."""
         # If this is an entity field, the type is valid then handle being given a value which is not an entity
-        if self._entity and isinstance(value, self._valid_types) and not isinstance(value, self._entity):
+        if (
+            self._entity
+            and isinstance(value, self._valid_types)
+            and not isinstance(value, self._entity)
+        ):
             # Pass the dict to the entity as kwargs for create a blank entity if the value is None
             new_entity = self._entity(**value) if value else self._entity()
             return super().set(new_entity)
@@ -201,6 +213,7 @@ class ListField(Field):
             self._val = [
                 self._entity(**item) if isinstance(item, dict) else item for item in value
             ]
+            self.value_set = True
         else:
             return super().set(value)
         return self

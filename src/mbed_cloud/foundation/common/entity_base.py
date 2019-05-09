@@ -83,10 +83,12 @@ class Entity(object):
 
     def to_api(self):
         """Return all fields in API format"""
-        return {
-            self._renames.get(sdk_field, sdk_field): getattr(self, "_" + sdk_field).to_api()
-            for sdk_field in self._api_fieldnames
-        }
+        body_params = {}
+        for sdk_field in self._api_fieldnames:
+            api_fieldname = self._renames.get(sdk_field, sdk_field)
+            if getattr(self, "_" + sdk_field).value_set:
+                body_params[api_fieldname] = getattr(self, "_" + sdk_field).to_api()
+        return body_params
 
     def from_literal(self, **kwargs):
         """Load values into object from pure literals"""
