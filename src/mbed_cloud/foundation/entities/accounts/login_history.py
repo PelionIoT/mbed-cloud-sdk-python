@@ -96,16 +96,6 @@ class LoginHistory(Entity):
 
         return self._date.value
 
-    @date.setter
-    def date(self, value):
-        """Set value of `date`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._date.set(value)
-
     @property
     def ip_address(self):
         """IP address of the client.
@@ -116,16 +106,6 @@ class LoginHistory(Entity):
         """
 
         return self._ip_address.value
-
-    @ip_address.setter
-    def ip_address(self, value):
-        """Set value of `ip_address`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._ip_address.set(value)
 
     @property
     def success(self):
@@ -138,16 +118,6 @@ class LoginHistory(Entity):
 
         return self._success.value
 
-    @success.setter
-    def success(self, value):
-        """Set value of `success`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._success.set(value)
-
     @property
     def user_agent(self):
         """User Agent header from the login request.
@@ -159,13 +129,3 @@ class LoginHistory(Entity):
         """
 
         return self._user_agent.value
-
-    @user_agent.setter
-    def user_agent(self, value):
-        """Set value of `user_agent`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._user_agent.set(value)

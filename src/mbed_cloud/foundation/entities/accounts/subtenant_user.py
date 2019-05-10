@@ -62,17 +62,17 @@ class SubtenantUser(Entity):
         "email_verified",
         "full_name",
         "id",
+        "is_gtc_accepted",
+        "is_marketing_accepted",
+        "is_totp_enabled",
         "last_login_time",
         "login_history",
         "login_profiles",
-        "marketing_accepted",
         "password",
         "password_changed_time",
         "phone_number",
         "status",
-        "terms_accepted",
         "totp_scratch_codes",
-        "two_factor_authentication",
         "updated_at",
         "username",
     ]
@@ -81,18 +81,10 @@ class SubtenantUser(Entity):
     _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {
-        "is_marketing_accepted": "marketing_accepted",
-        "is_gtc_accepted": "terms_accepted",
-        "is_totp_enabled": "two_factor_authentication",
-    }
+    _renames = {}
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {
-        "marketing_accepted": "is_marketing_accepted",
-        "terms_accepted": "is_gtc_accepted",
-        "two_factor_authentication": "is_totp_enabled",
-    }
+    _renames_to_api = {}
 
     def __init__(
         self,
@@ -107,17 +99,17 @@ class SubtenantUser(Entity):
         email_verified=None,
         full_name=None,
         id=None,
+        is_gtc_accepted=None,
+        is_marketing_accepted=None,
+        is_totp_enabled=None,
         last_login_time=None,
         login_history=None,
         login_profiles=None,
-        marketing_accepted=None,
         password=None,
         password_changed_time=None,
         phone_number=None,
         status=None,
-        terms_accepted=None,
         totp_scratch_codes=None,
-        two_factor_authentication=None,
         updated_at=None,
         username=None,
     ):
@@ -151,6 +143,15 @@ class SubtenantUser(Entity):
         :type full_name: str
         :param id: (Required) The ID of the user.
         :type id: str
+        :param is_gtc_accepted: A flag indicating that the user has accepted General Terms and
+            Conditions.
+        :type is_gtc_accepted: bool
+        :param is_marketing_accepted: A flag indicating that the user has consented to receive marketing
+            information.
+        :type is_marketing_accepted: bool
+        :param is_totp_enabled: A flag indicating whether two-factor authentication (TOTP) has
+            been enabled.
+        :type is_totp_enabled: bool
         :param last_login_time: A timestamp of the latest login of the user, in milliseconds.
         :type last_login_time: int
         :param login_history: Timestamps, succeedings, IP addresses and user agent information
@@ -160,9 +161,6 @@ class SubtenantUser(Entity):
         :param login_profiles: A list of login profiles for the user. Specified as the identity
             providers the user is associated with.
         :type login_profiles: list
-        :param marketing_accepted: A flag indicating that the user has consented to receive marketing
-            information.
-        :type marketing_accepted: bool
         :param password: The password when creating a new user. It will be generated when
             not present in the request.
         :type password: str
@@ -177,19 +175,12 @@ class SubtenantUser(Entity):
             password must be changed immediately. INACTIVE users are locked
             out and not permitted to use the system.
         :type status: str
-        :param terms_accepted: A flag indicating that the user has accepted General Terms and
-            Conditions.
-        :type terms_accepted: bool
         :param totp_scratch_codes: A list of scratch codes for the two-factor authentication. Visible
             only when 2FA is requested to be enabled or the codes regenerated.
         :type totp_scratch_codes: list
-        :param two_factor_authentication: A flag indicating whether two-factor authentication (TOTP) has
-            been enabled.
-        :type two_factor_authentication: bool
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
-        :param username: A username containing alphanumerical letters and -,._@+=
-            characters.
+        :param username: A username.
         :type username: str
         """
 
@@ -212,17 +203,17 @@ class SubtenantUser(Entity):
         self._email_verified = fields.BooleanField(value=email_verified)
         self._full_name = fields.StringField(value=full_name)
         self._id = fields.StringField(value=id)
+        self._is_gtc_accepted = fields.BooleanField(value=is_gtc_accepted)
+        self._is_marketing_accepted = fields.BooleanField(value=is_marketing_accepted)
+        self._is_totp_enabled = fields.BooleanField(value=is_totp_enabled)
         self._last_login_time = fields.IntegerField(value=last_login_time)
         self._login_history = fields.ListField(value=login_history, entity=LoginHistory)
         self._login_profiles = fields.ListField(value=login_profiles, entity=LoginProfile)
-        self._marketing_accepted = fields.BooleanField(value=marketing_accepted)
         self._password = fields.StringField(value=password)
         self._password_changed_time = fields.IntegerField(value=password_changed_time)
         self._phone_number = fields.StringField(value=phone_number)
         self._status = fields.StringField(value=status, enum=enums.SubtenantUserStatusEnum)
-        self._terms_accepted = fields.BooleanField(value=terms_accepted)
         self._totp_scratch_codes = fields.ListField(value=totp_scratch_codes)
-        self._two_factor_authentication = fields.BooleanField(value=two_factor_authentication)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._username = fields.StringField(value=username)
 
@@ -258,16 +249,6 @@ class SubtenantUser(Entity):
 
         return self._active_sessions.value
 
-    @active_sessions.setter
-    def active_sessions(self, value):
-        """Set value of `active_sessions`
-
-        :param value: value to set
-        :type value: list[ActiveSession]
-        """
-
-        self._active_sessions.set(value)
-
     @property
     def address(self):
         """Address.
@@ -300,16 +281,6 @@ class SubtenantUser(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def creation_time(self):
         """A timestamp of the user creation in the storage, in milliseconds.
@@ -321,16 +292,6 @@ class SubtenantUser(Entity):
 
         return self._creation_time.value
 
-    @creation_time.setter
-    def creation_time(self, value):
-        """Set value of `creation_time`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._creation_time.set(value)
-
     @property
     def custom_fields(self):
         """User's account-specific custom properties. The value is a string.
@@ -339,16 +300,6 @@ class SubtenantUser(Entity):
         """
 
         return self._custom_fields.value
-
-    @custom_fields.setter
-    def custom_fields(self, value):
-        """Set value of `custom_fields`
-
-        :param value: value to set
-        :type value: dict
-        """
-
-        self._custom_fields.set(value)
 
     @property
     def email(self):
@@ -383,16 +334,6 @@ class SubtenantUser(Entity):
         """
 
         return self._email_verified.value
-
-    @email_verified.setter
-    def email_verified(self, value):
-        """Set value of `email_verified`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._email_verified.set(value)
 
     @property
     def full_name(self):
@@ -439,6 +380,70 @@ class SubtenantUser(Entity):
         self._id.set(value)
 
     @property
+    def is_gtc_accepted(self):
+        """A flag indicating that the user has accepted General Terms and Conditions.
+        
+        api example: True
+        
+        :rtype: bool
+        """
+
+        return self._is_gtc_accepted.value
+
+    @is_gtc_accepted.setter
+    def is_gtc_accepted(self, value):
+        """Set value of `is_gtc_accepted`
+
+        :param value: value to set
+        :type value: bool
+        """
+
+        self._is_gtc_accepted.set(value)
+
+    @property
+    def is_marketing_accepted(self):
+        """A flag indicating that the user has consented to receive marketing
+        information.
+        
+        api example: True
+        
+        :rtype: bool
+        """
+
+        return self._is_marketing_accepted.value
+
+    @is_marketing_accepted.setter
+    def is_marketing_accepted(self, value):
+        """Set value of `is_marketing_accepted`
+
+        :param value: value to set
+        :type value: bool
+        """
+
+        self._is_marketing_accepted.set(value)
+
+    @property
+    def is_totp_enabled(self):
+        """A flag indicating whether two-factor authentication (TOTP) has been enabled.
+        
+        api example: True
+        
+        :rtype: bool
+        """
+
+        return self._is_totp_enabled.value
+
+    @is_totp_enabled.setter
+    def is_totp_enabled(self, value):
+        """Set value of `is_totp_enabled`
+
+        :param value: value to set
+        :type value: bool
+        """
+
+        self._is_totp_enabled.set(value)
+
+    @property
     def last_login_time(self):
         """A timestamp of the latest login of the user, in milliseconds.
         
@@ -449,16 +454,6 @@ class SubtenantUser(Entity):
 
         return self._last_login_time.value
 
-    @last_login_time.setter
-    def last_login_time(self, value):
-        """Set value of `last_login_time`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._last_login_time.set(value)
-
     @property
     def login_history(self):
         """Timestamps, succeedings, IP addresses and user agent information of the last
@@ -468,16 +463,6 @@ class SubtenantUser(Entity):
         """
 
         return self._login_history.value
-
-    @login_history.setter
-    def login_history(self, value):
-        """Set value of `login_history`
-
-        :param value: value to set
-        :type value: list[LoginHistory]
-        """
-
-        self._login_history.set(value)
 
     @property
     def login_profiles(self):
@@ -498,28 +483,6 @@ class SubtenantUser(Entity):
         """
 
         self._login_profiles.set(value)
-
-    @property
-    def marketing_accepted(self):
-        """A flag indicating that the user has consented to receive marketing
-        information.
-        
-        api example: True
-        
-        :rtype: bool
-        """
-
-        return self._marketing_accepted.value
-
-    @marketing_accepted.setter
-    def marketing_accepted(self, value):
-        """Set value of `marketing_accepted`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._marketing_accepted.set(value)
 
     @property
     def password(self):
@@ -553,16 +516,6 @@ class SubtenantUser(Entity):
         """
 
         return self._password_changed_time.value
-
-    @password_changed_time.setter
-    def password_changed_time(self, value):
-        """Set value of `password_changed_time`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._password_changed_time.set(value)
 
     @property
     def phone_number(self):
@@ -611,27 +564,6 @@ class SubtenantUser(Entity):
         self._status.set(value)
 
     @property
-    def terms_accepted(self):
-        """A flag indicating that the user has accepted General Terms and Conditions.
-        
-        api example: True
-        
-        :rtype: bool
-        """
-
-        return self._terms_accepted.value
-
-    @terms_accepted.setter
-    def terms_accepted(self, value):
-        """Set value of `terms_accepted`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._terms_accepted.set(value)
-
-    @property
     def totp_scratch_codes(self):
         """A list of scratch codes for the two-factor authentication. Visible only when
         2FA is requested to be enabled or the codes regenerated.
@@ -640,37 +572,6 @@ class SubtenantUser(Entity):
         """
 
         return self._totp_scratch_codes.value
-
-    @totp_scratch_codes.setter
-    def totp_scratch_codes(self, value):
-        """Set value of `totp_scratch_codes`
-
-        :param value: value to set
-        :type value: list
-        """
-
-        self._totp_scratch_codes.set(value)
-
-    @property
-    def two_factor_authentication(self):
-        """A flag indicating whether two-factor authentication (TOTP) has been enabled.
-        
-        api example: True
-        
-        :rtype: bool
-        """
-
-        return self._two_factor_authentication.value
-
-    @two_factor_authentication.setter
-    def two_factor_authentication(self, value):
-        """Set value of `two_factor_authentication`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._two_factor_authentication.set(value)
 
     @property
     def updated_at(self):
@@ -683,19 +584,9 @@ class SubtenantUser(Entity):
 
         return self._updated_at.value
 
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
-
     @property
     def username(self):
-        """A username containing alphanumerical letters and -,._@+= characters.
+        """A username.
         
         api example: 'admin'
         
@@ -734,16 +625,16 @@ class SubtenantUser(Entity):
             body_params["email"] = self._email.to_api()
         if self._full_name.value_set:
             body_params["full_name"] = self._full_name.to_api()
+        if self._is_gtc_accepted.value_set:
+            body_params["is_gtc_accepted"] = self._is_gtc_accepted.to_api()
+        if self._is_marketing_accepted.value_set:
+            body_params["is_marketing_accepted"] = self._is_marketing_accepted.to_api()
         if self._login_profiles.value_set:
             body_params["login_profiles"] = self._login_profiles.to_api()
-        if self._marketing_accepted.value_set:
-            body_params["is_marketing_accepted"] = self._marketing_accepted.to_api()
         if self._password.value_set:
             body_params["password"] = self._password.to_api()
         if self._phone_number.value_set:
             body_params["phone_number"] = self._phone_number.to_api()
-        if self._terms_accepted.value_set:
-            body_params["is_gtc_accepted"] = self._terms_accepted.to_api()
         if self._username.value_set:
             body_params["username"] = self._username.to_api()
 
@@ -804,16 +695,16 @@ class SubtenantUser(Entity):
             body_params["address"] = self._address.to_api()
         if self._full_name.value_set:
             body_params["full_name"] = self._full_name.to_api()
+        if self._is_gtc_accepted.value_set:
+            body_params["is_gtc_accepted"] = self._is_gtc_accepted.to_api()
+        if self._is_marketing_accepted.value_set:
+            body_params["is_marketing_accepted"] = self._is_marketing_accepted.to_api()
+        if self._is_totp_enabled.value_set:
+            body_params["is_totp_enabled"] = self._is_totp_enabled.to_api()
         if self._login_profiles.value_set:
             body_params["login_profiles"] = self._login_profiles.to_api()
-        if self._marketing_accepted.value_set:
-            body_params["is_marketing_accepted"] = self._marketing_accepted.to_api()
         if self._phone_number.value_set:
             body_params["phone_number"] = self._phone_number.to_api()
-        if self._terms_accepted.value_set:
-            body_params["is_gtc_accepted"] = self._terms_accepted.to_api()
-        if self._two_factor_authentication.value_set:
-            body_params["is_totp_enabled"] = self._two_factor_authentication.to_api()
         if self._username.value_set:
             body_params["username"] = self._username.to_api()
 

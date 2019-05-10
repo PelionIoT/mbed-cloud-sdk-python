@@ -91,16 +91,6 @@ class VerificationResponse(Entity):
 
         return self._message.value
 
-    @message.setter
-    def message(self, value):
-        """Set value of `message`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._message.set(value)
-
     @property
     def successful(self):
         """Indicates whether the certificate issuer was verified successfully.
@@ -109,13 +99,3 @@ class VerificationResponse(Entity):
         """
 
         return self._successful.value
-
-    @successful.setter
-    def successful(self, value):
-        """Set value of `successful`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._successful.set(value)

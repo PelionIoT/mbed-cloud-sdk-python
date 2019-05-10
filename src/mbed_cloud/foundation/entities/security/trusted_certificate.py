@@ -74,25 +74,7 @@ class TrustedCertificate(Entity):
     ]
 
     # List of fields that are available for the user of the SDK
-    _sdk_fieldnames = [
-        "account_id",
-        "certificate",
-        "certificate_fingerprint",
-        "created_at",
-        "description",
-        "enrollment_mode",
-        "id",
-        "is_developer_certificate",
-        "issuer",
-        "name",
-        "owner_id",
-        "service",
-        "status",
-        "subject",
-        "updated_at",
-        "valid",
-        "validity",
-    ]
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
@@ -108,6 +90,7 @@ class TrustedCertificate(Entity):
         certificate_fingerprint=None,
         created_at=None,
         description=None,
+        device_execution_mode=None,
         enrollment_mode=None,
         id=None,
         is_developer_certificate=None,
@@ -140,6 +123,8 @@ class TrustedCertificate(Entity):
         :type created_at: datetime
         :param description: Human readable description of this certificate.
         :type description: str
+        :param device_execution_mode: Device execution mode where 1 means a developer certificate.
+        :type device_execution_mode: int
         :param enrollment_mode: If true, signature is not required. Default value false.
         :type enrollment_mode: bool
         :param id: (Required) Entity ID.
@@ -177,7 +162,7 @@ class TrustedCertificate(Entity):
         self._certificate_fingerprint = fields.StringField(value=certificate_fingerprint)
         self._created_at = fields.DateTimeField(value=created_at)
         self._description = fields.StringField(value=description)
-        self._device_execution_mode = fields.IntegerField(value=None)
+        self._device_execution_mode = fields.IntegerField(value=device_execution_mode)
         self._enrollment_mode = fields.BooleanField(value=enrollment_mode)
         self._id = fields.StringField(value=id)
         self._is_developer_certificate = fields.BooleanField(value=is_developer_certificate)
@@ -201,16 +186,6 @@ class TrustedCertificate(Entity):
         """
 
         return self._account_id.value
-
-    @account_id.setter
-    def account_id(self, value):
-        """Set value of `account_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._account_id.set(value)
 
     @property
     def certificate(self):
@@ -246,16 +221,6 @@ class TrustedCertificate(Entity):
 
         return self._certificate_fingerprint.value
 
-    @certificate_fingerprint.setter
-    def certificate_fingerprint(self, value):
-        """Set value of `certificate_fingerprint`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._certificate_fingerprint.set(value)
-
     @property
     def created_at(self):
         """Creation UTC time RFC3339.
@@ -266,16 +231,6 @@ class TrustedCertificate(Entity):
         """
 
         return self._created_at.value
-
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
 
     @property
     def description(self):
@@ -297,6 +252,17 @@ class TrustedCertificate(Entity):
         """
 
         self._description.set(value)
+
+    @property
+    def device_execution_mode(self):
+        """Device execution mode where 1 means a developer certificate.
+        
+        api example: 1
+        
+        :rtype: int
+        """
+
+        return self._device_execution_mode.value
 
     @property
     def enrollment_mode(self):
@@ -353,18 +319,6 @@ class TrustedCertificate(Entity):
 
         return is_developer_certificate_getter(self=self)
 
-    @is_developer_certificate.setter
-    def is_developer_certificate(self, value):
-        """Set value of `is_developer_certificate`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        from mbed_cloud.foundation._custom_methods import is_developer_certificate_setter
-
-        is_developer_certificate_setter(self=self, value=value)
-
     @property
     def issuer(self):
         """Issuer of the certificate.
@@ -375,16 +329,6 @@ class TrustedCertificate(Entity):
         """
 
         return self._issuer.value
-
-    @issuer.setter
-    def issuer(self, value):
-        """Set value of `issuer`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._issuer.set(value)
 
     @property
     def name(self):
@@ -419,16 +363,6 @@ class TrustedCertificate(Entity):
         """
 
         return self._owner_id.value
-
-    @owner_id.setter
-    def owner_id(self, value):
-        """Set value of `owner_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._owner_id.set(value)
 
     @property
     def service(self):
@@ -483,16 +417,6 @@ class TrustedCertificate(Entity):
 
         return self._subject.value
 
-    @subject.setter
-    def subject(self, value):
-        """Set value of `subject`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._subject.set(value)
-
     @property
     def updated_at(self):
         """Last update UTC time RFC3339.
@@ -503,16 +427,6 @@ class TrustedCertificate(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     @property
     def valid(self):
@@ -525,16 +439,6 @@ class TrustedCertificate(Entity):
 
         return self._valid.value
 
-    @valid.setter
-    def valid(self, value):
-        """Set value of `valid`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._valid.set(value)
-
     @property
     def validity(self):
         """Expiration time in UTC formatted as RFC3339.
@@ -545,16 +449,6 @@ class TrustedCertificate(Entity):
         """
 
         return self._validity.value
-
-    @validity.setter
-    def validity(self, value):
-        """Set value of `validity`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._validity.set(value)
 
     def create(self):
         """Upload a new trusted certificate.

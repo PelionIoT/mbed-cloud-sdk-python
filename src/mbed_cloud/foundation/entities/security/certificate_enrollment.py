@@ -132,16 +132,6 @@ class CertificateEnrollment(Entity):
 
         return self._certificate_name.value
 
-    @certificate_name.setter
-    def certificate_name(self, value):
-        """Set value of `certificate_name`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._certificate_name.set(value)
-
     @property
     def created_at(self):
         """Creation UTC time RFC3339.
@@ -152,16 +142,6 @@ class CertificateEnrollment(Entity):
         """
 
         return self._created_at.value
-
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
 
     @property
     def device_id(self):
@@ -174,16 +154,6 @@ class CertificateEnrollment(Entity):
 
         return self._device_id.value
 
-    @device_id.setter
-    def device_id(self, value):
-        """Set value of `device_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._device_id.set(value)
-
     @property
     def enroll_result(self):
         """The result of certificate enrollment request.
@@ -194,16 +164,6 @@ class CertificateEnrollment(Entity):
         """
 
         return self._enroll_result.value
-
-    @enroll_result.setter
-    def enroll_result(self, value):
-        """Set value of `enroll_result`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._enroll_result.set(value)
 
     @property
     def enroll_result_detail(self):
@@ -216,16 +176,6 @@ class CertificateEnrollment(Entity):
 
         return self._enroll_result_detail.value
 
-    @enroll_result_detail.setter
-    def enroll_result_detail(self, value):
-        """Set value of `enroll_result_detail`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._enroll_result_detail.set(value)
-
     @property
     def enroll_status(self):
         """The status of certificate enrollment request.
@@ -234,16 +184,6 @@ class CertificateEnrollment(Entity):
         """
 
         return self._enroll_status.value
-
-    @enroll_status.setter
-    def enroll_status(self, value):
-        """Set value of `enroll_status`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._enroll_status.set(value)
 
     @property
     def id(self):
@@ -278,16 +218,6 @@ class CertificateEnrollment(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get certificate enrollments list.

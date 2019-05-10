@@ -154,16 +154,6 @@ class DeviceEnrollmentBulkCreate(Entity):
 
         return self._account_id.value
 
-    @account_id.setter
-    def account_id(self, value):
-        """Set value of `account_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._account_id.set(value)
-
     @property
     def completed_at(self):
         """The time the bulk creation task was completed.
@@ -175,16 +165,6 @@ class DeviceEnrollmentBulkCreate(Entity):
 
         return self._completed_at.value
 
-    @completed_at.setter
-    def completed_at(self, value):
-        """Set value of `completed_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._completed_at.set(value)
-
     @property
     def created_at(self):
         """The time of receiving the bulk creation task.
@@ -194,16 +174,6 @@ class DeviceEnrollmentBulkCreate(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def errors_count(self):
         """The number of enrollment identities with failed processing.
@@ -212,16 +182,6 @@ class DeviceEnrollmentBulkCreate(Entity):
         """
 
         return self._errors_count.value
-
-    @errors_count.setter
-    def errors_count(self, value):
-        """Set value of `errors_count`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._errors_count.set(value)
 
     @property
     def errors_report_file(self):
@@ -236,16 +196,6 @@ class DeviceEnrollmentBulkCreate(Entity):
 
         return self._errors_report_file.value
 
-    @errors_report_file.setter
-    def errors_report_file(self, value):
-        """Set value of `errors_report_file`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._errors_report_file.set(value)
-
     @property
     def full_report_file(self):
         """Link to full report file.
@@ -258,16 +208,6 @@ class DeviceEnrollmentBulkCreate(Entity):
         """
 
         return self._full_report_file.value
-
-    @full_report_file.setter
-    def full_report_file(self, value):
-        """Set value of `full_report_file`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._full_report_file.set(value)
 
     @property
     def id(self):
@@ -299,16 +239,6 @@ class DeviceEnrollmentBulkCreate(Entity):
 
         return self._processed_count.value
 
-    @processed_count.setter
-    def processed_count(self, value):
-        """Set value of `processed_count`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._processed_count.set(value)
-
     @property
     def status(self):
         """The state of the process is 'new' at the time of creation. If creation is
@@ -322,16 +252,6 @@ class DeviceEnrollmentBulkCreate(Entity):
 
         return self._status.value
 
-    @status.setter
-    def status(self, value):
-        """Set value of `status`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._status.set(value)
-
     @property
     def total_count(self):
         """Total number of enrollment identities found in the input CSV.
@@ -342,16 +262,6 @@ class DeviceEnrollmentBulkCreate(Entity):
         """
 
         return self._total_count.value
-
-    @total_count.setter
-    def total_count(self, value):
-        """Set value of `total_count`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._total_count.set(value)
 
     def create(self, enrollment_identities):
         """Bulk upload.

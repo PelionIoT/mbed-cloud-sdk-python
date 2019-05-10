@@ -101,16 +101,6 @@ class Policy(Entity):
 
         return self._action.value
 
-    @action.setter
-    def action(self, value):
-        """Set value of `action`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._action.set(value)
-
     @property
     def allow(self):
         """True or false controlling whether an action is allowed or not.
@@ -121,16 +111,6 @@ class Policy(Entity):
         """
 
         return self._allow.value
-
-    @allow.setter
-    def allow(self, value):
-        """Set value of `allow`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._allow.set(value)
 
     @property
     def feature(self):
@@ -143,16 +123,6 @@ class Policy(Entity):
 
         return self._feature.value
 
-    @feature.setter
-    def feature(self, value):
-        """Set value of `feature`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._feature.set(value)
-
     @property
     def inherited(self):
         """Flag indicating whether this feature is inherited or overwritten specifically.
@@ -161,16 +131,6 @@ class Policy(Entity):
         """
 
         return self._inherited.value
-
-    @inherited.setter
-    def inherited(self, value):
-        """Set value of `inherited`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._inherited.set(value)
 
     @property
     def resource(self):
@@ -182,13 +142,3 @@ class Policy(Entity):
         """
 
         return self._resource.value
-
-    @resource.setter
-    def resource(self, value):
-        """Set value of `resource`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._resource.set(value)

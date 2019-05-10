@@ -159,16 +159,6 @@ class SubtenantUserInvitation(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def email(self):
         """Email address of the invited user.
@@ -202,16 +192,6 @@ class SubtenantUserInvitation(Entity):
         """
 
         return self._expiration.value
-
-    @expiration.setter
-    def expiration(self, value):
-        """Set value of `expiration`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._expiration.set(value)
 
     @property
     def id(self):
@@ -267,16 +247,6 @@ class SubtenantUserInvitation(Entity):
 
         return self._updated_at.value
 
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
-
     @property
     def user_id(self):
         """The ID of the invited user.
@@ -287,16 +257,6 @@ class SubtenantUserInvitation(Entity):
         """
 
         return self._user_id.value
-
-    @user_id.setter
-    def user_id(self, value):
-        """Set value of `user_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._user_id.set(value)
 
     def create(self, valid_for_days=30):
         """Create a user invitation.

@@ -149,7 +149,7 @@ class {{ entity._key|to_pascal }}(Entity):
         {% else %}
         return self._{{field._key|to_snake}}.value
         {% endif %}
-    {% if not field.read_only and not field=='id' %}
+    {% if not field.readOnly and not field=='id' %}
     @{{ field._key|to_snake }}.setter
     def {{field._key|to_snake}}(self, value):
         """Set value of `{{ field._key|to_snake }}`

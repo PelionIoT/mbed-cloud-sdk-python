@@ -3,93 +3,123 @@ definitions:
     description: Represents an account creation request.
     properties:
       address_line1:
-        description: Postal address line 1, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: Postal address line 1. Required for commercial accounts only.
         example: 110 Fulbourn Rd
+        maxLength: 100
         type: string
+        x-nullable: true
       address_line2:
-        description: Postal address line 2, no longer than 100 characters.
+        description: Postal address line 2.
         example: ' '
+        maxLength: 100
         type: string
+        x-nullable: true
       admin_email:
-        description: The email address of the account admin, no longer than 254 characters.
+        description: The email address of the account admin
         example: admin@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
+        x-nullable: true
       admin_full_name:
         description: The full name of the admin user to create.
         example: Admin Doe
+        maxLength: 100
         type: string
+        x-nullable: true
       admin_name:
-        description: The username of the admin user to create, containing alphanumerical
-          letters and -,._@+= characters. Must be 4-30 characters.
+        description: The username of the admin user to create.
         example: admin
+        pattern: '[\w\-,._@+=]{4,30}'
         type: string
+        x-nullable: true
       admin_password:
         description: The password when creating a new user. Generated when not present
           in the request.
         example: PZf9eEUH43DAPE9ULINFeuj
         type: string
+        x-nullable: true
       aliases:
-        description: An array of aliases, no more than 10. Must be between 8 and 100
-          characters, inclusive.
+        description: An array of aliases.
         items:
+          pattern: '[\w\-._]{8,100}'
           type: string
+        maxItems: 10
         type: array
+        x-nullable: true
       city:
-        description: The city part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The city part of the postal address. Required for commercial
+          accounts only.
         example: Cambridge
+        maxLength: 100
         type: string
+        x-nullable: true
       company:
-        description: The name of the company, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: The name of the company. Required for commercial accounts only.
         example: ARM Holdings Plc
+        maxLength: 100
         type: string
+        x-nullable: true
       contact:
-        description: The name of the contact person for this account, no longer than
-          100 characters. Required for commercial accounts only.
+        description: The name of the contact person for this account. Required for
+          commercial accounts only.
         example: J. Doe
+        maxLength: 100
         type: string
+        x-nullable: true
       contract_number:
         description: Contract number of the customer.
         example: 1NX25_0001
+        maxLength: 100
         type: string
+        x-nullable: true
       country:
-        description: The country part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The country part of the postal address. Required for commercial
+          accounts only.
         example: United Kingdom
+        maxLength: 100
         type: string
+        x-nullable: true
       customer_number:
         description: Customer number of the customer.
         example: 1NC25_0001
+        maxLength: 100
         type: string
+        x-nullable: true
       display_name:
-        description: The display name for the account, no longer than 100 characters.
+        description: The display name for the account.
         example: ARM
+        maxLength: 100
         type: string
+        x-nullable: true
       email:
-        description: The company email address for this account, no longer than 254
-          characters. Required for commercial accounts only.
+        description: The company email address for this account. Required for commercial
+          accounts only.
         example: info@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
+        x-nullable: true
       end_market:
         description: The end market of the account to create.
         example: IT
         type: string
       phone_number:
-        description: The phone number of a representative of the company, no longer
-          than 100 characters.
+        description: The phone number of a representative of the company.
         example: +44 (1223) 400 400
+        maxLength: 100
         type: string
+        x-nullable: true
       postal_code:
-        description: The postal code part of the postal address, no longer than 100
-          characters.
+        description: The postal code part of the postal address.
         example: CB1 9NJ
+        maxLength: 100
         type: string
+        x-nullable: true
       state:
-        description: The state part of the postal address, no longer than 100 characters.
+        description: The state part of the postal address.
         example: ' '
+        maxLength: 100
         type: string
+        x-nullable: true
     required:
     - end_market
     type: object
@@ -99,66 +129,91 @@ definitions:
       address_line1:
         description: Postal address line 1.
         example: 110 Fulbourn Rd
+        maxLength: 100
         type: string
+        x-nullable: true
       address_line2:
         description: Postal address line 2.
         example: ' '
+        maxLength: 100
         type: string
+        x-nullable: true
       admin_email:
         description: The email address of the admin user created for this account.
           Present only in the response for account creation.
         example: admin@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
+        x-nullable: true
       admin_full_name:
         description: The full name of the admin user created for this account. Present
           only in the response for account creation.
         example: Admin Doe
+        maxLength: 100
         type: string
+        x-nullable: true
       admin_id:
         description: The ID of the admin user created for this account.
         example: 01619571e2e89242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
+        x-nullable: true
       admin_key:
         description: The admin API key created for this account. Present only in the
           response for account creation.
         example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
         readOnly: true
         type: string
+        x-nullable: true
       admin_name:
         description: The username of the admin user created for this account. Present
           only in the response for account creation.
         example: admin
+        maxLength: 100
         type: string
+        x-nullable: true
       admin_password:
         description: The password of the admin user created for this account. Present
           only in the response for account creation.
         example: PZf9eEUH43DAPE9ULINFeuj
         type: string
+        x-nullable: true
       aliases:
         description: An array of aliases.
         items:
+          pattern: '[\w\-._]{8,100}'
           type: string
+        maxItems: 10
         type: array
       city:
         description: The city part of the postal address.
         example: Cambridge
+        maxLength: 100
         type: string
+        x-nullable: true
       company:
         description: The name of the company.
         example: ARM Holdings Plc
+        maxLength: 100
         type: string
+        x-nullable: true
       contact:
         description: The name of the contact person for this account.
         example: J. Doe
+        maxLength: 100
         type: string
+        x-nullable: true
       contract_number:
         description: Contract number of the customer.
         example: 1NX25_0001
         type: string
+        x-nullable: true
       country:
         description: The country part of the postal address.
         example: United Kingdom
+        maxLength: 100
         type: string
+        x-nullable: true
       created_at:
         description: Creation UTC time RFC3339.
         example: '2018-02-13T09:35:20Z'
@@ -169,18 +224,24 @@ definitions:
           type: string
         description: Account's custom properties as key-value pairs.
         type: object
+        x-nullable: true
       customer_number:
         description: Customer number of the customer.
         example: 1NC25_0001
         type: string
+        x-nullable: true
       display_name:
         description: The display name for the account.
         example: ARM
+        maxLength: 100
         type: string
+        x-nullable: true
       email:
         description: The company email address for this account.
         example: info@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
+        x-nullable: true
       end_market:
         description: Account end market.
         example: IT
@@ -193,24 +254,33 @@ definitions:
         description: Expiration time of the account, as UTC time RFC3339.
         format: date-time
         type: string
+        x-nullable: true
       expiration_warning_threshold:
         description: Indicates how many days (1-180) before account expiration a notification
           email is sent.
         example: '180'
-        type: string
+        maximum: 180
+        minimum: 1
+        type: integer
+        x-nullable: true
       id:
         description: Account ID.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       idle_timeout:
         description: The reference token expiration time, in minutes, for this account.
         example: '30'
-        type: string
+        maximum: 120
+        minimum: 1
+        type: integer
+        x-nullable: true
       limits:
         additionalProperties:
           type: string
         description: List of limits as key-value pairs if requested.
         type: object
+        x-nullable: true
       mfa_status:
         description: The enforcement status of multi-factor authentication, either
           `enforced` or `optional`.
@@ -218,11 +288,14 @@ definitions:
         - enforced
         - optional
         type: string
+        x-nullable: true
       notification_emails:
         description: A list of notification email addresses.
         items:
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
         type: array
+        x-nullable: true
       object:
         description: 'Entity name: always `account`.'
         enum:
@@ -231,16 +304,19 @@ definitions:
       parent_account:
         $ref: '#/definitions/ParentAccountInfo'
         description: Contact details of the parent account.
+        x-nullable: true
       parent_id:
         description: The ID of the parent account, if any.
         example: 01619571dad80242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
+        x-nullable: true
       password_policy:
         $ref: '#/definitions/PasswordPolicy'
         description: The password policy for this account.
+        x-nullable: true
       password_recovery_expiration:
-        description: Indicates for how many minutes a password recovery email is valid
-          (1-45).
+        description: Indicates for how many minutes a password recovery email is valid.
         format: int32
         maximum: 45
         minimum: 1
@@ -248,32 +324,43 @@ definitions:
       phone_number:
         description: The phone number of a company representative.
         example: +44 (1223) 400 400
+        maxLength: 100
         type: string
+        x-nullable: true
       policies:
         description: List of policies if requested.
         items:
           $ref: '#/definitions/FeaturePolicy'
         type: array
+        x-nullable: true
       postal_code:
         description: The postal code part of the postal address.
         example: CB1 9NJ
+        maxLength: 100
         type: string
+        x-nullable: true
       reason:
         description: A note with the reason for account status update.
         example: Subscription paid.
         type: string
+        x-nullable: true
       reference_note:
         description: A reference note for updating the status of the account.
         example: ARM-INT-0001
         type: string
+        x-nullable: true
       sales_contact:
         description: Email address of the sales contact.
         example: sales@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
+        x-nullable: true
       state:
         description: The state part of the postal address.
         example: ' '
+        maxLength: 100
         type: string
+        x-nullable: true
       status:
         description: The status of the account.
         enum:
@@ -288,10 +375,13 @@ definitions:
         items:
           $ref: '#/definitions/AccountInfo'
         type: array
+        x-nullable: true
       template_id:
         description: Account template ID.
         example: 01619571e7160242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
+        x-nullable: true
       tier:
         description: 'The tier level of the account; `0`: free tier, `1`: commercial
           account, `2`: partner tier. Other values are reserved for the future.'
@@ -320,6 +410,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -363,66 +454,91 @@ definitions:
     description: Represents an account creation request.
     properties:
       address_line1:
-        description: Postal address line 1, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: Postal address line 1. Required for commercial accounts only.
         example: 110 Fulbourn Rd
+        maxLength: 100
         type: string
+        x-nullable: true
       address_line2:
-        description: Postal address line 2, no longer than 100 characters.
+        description: Postal address line 2.
         example: ' '
+        maxLength: 100
         type: string
+        x-nullable: true
       aliases:
-        description: An array of aliases, no more than 10. Aliases must be 8-120 characters,
-          inclusive.
+        description: An array of aliases.
         items:
+          pattern: '[\w\-._]{8,100}'
           type: string
+        maxItems: 10
         type: array
+        x-nullable: true
       city:
-        description: The city part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The city part of the postal address. Required for commercial
+          accounts only.
         example: Cambridge
+        maxLength: 100
         type: string
+        x-nullable: true
       company:
-        description: The name of the company, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: The name of the company. Required for commercial accounts only.
         example: ARM Holdings Plc
+        maxLength: 100
         type: string
+        x-nullable: true
       contact:
-        description: The name of the contact person for this account, no longer than
-          100 characters. Required for commercial accounts only.
+        description: The name of the contact person for this account. Required for
+          commercial accounts only.
         example: J. Doe
+        maxLength: 100
         type: string
+        x-nullable: true
       country:
-        description: The country part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The country part of the postal address. Required for commercial
+          accounts only.
         example: United Kingdom
+        maxLength: 100
         type: string
+        x-nullable: true
       custom_fields:
         additionalProperties:
           type: string
-        description: Account's custom properties as key-value pairs, maximum 10. Maximum
-          key length 100 characters. Maximum value length 1000 characters.
+        description: Account's custom properties as key-value pairs.
+        maxItems: 10
         type: object
+        x-nullable: true
       display_name:
-        description: The display name for the account, no longer than 100 characters.
+        description: The display name for the account.
         example: ARM
+        maxLength: 100
         type: string
+        x-nullable: true
       email:
-        description: The company email address for this account, no longer than 254
-          characters. Required for commercial accounts only.
+        description: The company email address for this account. Required for commercial
+          accounts only.
         example: info@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
+        x-nullable: true
       end_market:
-        description: The end market for this account, no longer than 100 characters.
+        description: The end market for this account.
         example: IT
+        maxLength: 100
         type: string
+        x-nullable: true
       expiration_warning_threshold:
         description: Indicates how many days before account expiration a notification
-          email is sent (1-180).
-        type: string
+          email is sent.
+        maximum: 180
+        minimum: 1
+        type: integer
+        x-nullable: true
       idle_timeout:
-        description: Reference token expiration time in minutes (1-120).
-        type: string
+        description: Reference token expiration time in minutes.
+        maximum: 120
+        minimum: 1
+        type: integer
+        x-nullable: true
       mfa_status:
         description: The enforcement status of multi-factor authentication, either
           `enforced` or `optional`.
@@ -430,108 +546,142 @@ definitions:
         - enforced
         - optional
         type: string
+        x-nullable: true
       notification_emails:
         description: A list of notification email addresses.
         items:
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
         type: array
+        x-nullable: true
       password_policy:
         $ref: '#/definitions/PasswordPolicy'
         description: Password policy for this account.
+        x-nullable: true
       password_recovery_expiration:
-        description: Indicates for how many minutes a password recovery email is valid
-          (1-45).
+        description: Indicates for how many minutes a password recovery email is valid.
         format: int32
         maximum: 45
         minimum: 1
         type: integer
+        x-nullable: true
       phone_number:
-        description: The phone number of a representative of the company, no longer
-          than 100 characters.
+        description: The phone number of a representative of the company.
         example: +44 (1223) 400 400
+        maxLength: 100
         type: string
+        x-nullable: true
       postal_code:
-        description: The postal code part of the postal address, no longer than 100
-          characters.
+        description: The postal code part of the postal address.
         example: CB1 9NJ
+        maxLength: 100
         type: string
+        x-nullable: true
       state:
-        description: The state part of the postal address, no longer than 100 characters.
+        description: The state part of the postal address.
         example: ' '
+        maxLength: 100
         type: string
+        x-nullable: true
     type: object
   AccountUpdateRootReq:
     description: Represents an account update request.
     properties:
       address_line1:
-        description: Postal address line 1, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: Postal address line 1. Required for commercial accounts only.
         example: 110 Fulbourn Rd
+        maxLength: 100
         type: string
+        x-nullable: true
       address_line2:
-        description: Postal address line 2, no longer than 100 characters.
+        description: Postal address line 2.
         example: ' '
+        maxLength: 100
         type: string
+        x-nullable: true
       aliases:
-        description: An array of aliases, no more than 10. An alias is not shorter
-          than 8 and no longer than 100 characters.
+        description: An array of aliases.
         items:
+          pattern: '[\w\-._]{8,100}'
           type: string
+        maxItems: 10
         type: array
+        x-nullable: true
       city:
-        description: The city part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The city part of the postal address. Required for commercial
+          accounts only.
         example: Cambridge
+        maxLength: 100
         type: string
+        x-nullable: true
       company:
-        description: The name of the company, no longer than 100 characters. Required
-          for commercial accounts only.
+        description: The name of the company. Required for commercial accounts only.
         example: ARM Holdings Plc
+        maxLength: 100
         type: string
+        x-nullable: true
       contact:
-        description: The name of the contact person for this account, no longer than
-          100 characters. Required for commercial accounts only.
+        description: The name of the contact person for this account. Required for
+          commercial accounts only.
         example: J. Doe
+        maxLength: 100
         type: string
+        x-nullable: true
       contract_number:
         description: Contract number of the customer.
         type: string
+        x-nullable: true
       country:
-        description: The country part of the postal address, no longer than 100 characters.
-          Required for commercial accounts only.
+        description: The country part of the postal address. Required for commercial
+          accounts only.
         example: United Kingdom
+        maxLength: 100
         type: string
+        x-nullable: true
       custom_fields:
         additionalProperties:
           type: string
-        description: Account's custom properties as key-value pairs, with a maximum
-          of 10 keys. The maximum length of a key is 100 characters. The values are
-          handled as strings and the maximum length for a value is 1000 characters.
+        description: Account's custom properties as key-value pairs.
+        maxItems: 10
         type: object
+        x-nullable: true
       customer_number:
         description: Customer number of the customer.
         type: string
+        x-nullable: true
       display_name:
-        description: The display name for the account, no longer than 100 characters.
+        description: The display name for the account.
         example: ARM
+        maxLength: 100
         type: string
+        x-nullable: true
       email:
-        description: The company email address for this account, no longer than 254
-          characters. Required for commercial accounts only.
+        description: The company email address for this account. Required for commercial
+          accounts only.
         example: info@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
+        x-nullable: true
       end_market:
-        description: The end market for this account, no longer than 100 characters.
+        description: The end market for this account.
         example: IT
+        maxLength: 100
         type: string
+        x-nullable: true
       expiration_warning_threshold:
         description: Indicates how many days before account expiration a notification
-          email is sent (1-180).
-        type: string
+          email is sent.
+        maximum: 180
+        minimum: 1
+        type: integer
+        x-nullable: true
       idle_timeout:
         description: The reference token expiration time in minutes for this account.
           Between 1 and 120 minutes.
-        type: string
+        maximum: 120
+        minimum: 1
+        type: integer
+        x-nullable: true
       mfa_status:
         description: The enforcement status of setting up the multi-factor authentication.
           'Enforced' means that setting up the MFA is required after login. 'Optional'
@@ -540,38 +690,48 @@ definitions:
         - enforced
         - optional
         type: string
+        x-nullable: true
       notification_emails:
         description: A list of notification email addresses.
         items:
+          pattern: ^(?=.{3,254}$).+\@.+
           type: string
         type: array
+        x-nullable: true
       password_policy:
         $ref: '#/definitions/PasswordPolicy'
         description: Password policy for this account.
+        x-nullable: true
       password_recovery_expiration:
-        description: Indicates for how many minutes a password recovery email is valid
-          (1-45).
+        description: Indicates for how many minutes a password recovery email is valid.
         format: int32
         maximum: 45
         minimum: 1
         type: integer
+        x-nullable: true
       phone_number:
-        description: The phone number of a representative of the company, no longer
-          than 100 characters.
+        description: The phone number of a representative of the company.
         example: +44 (1223) 400 400
+        maxLength: 100
         type: string
+        x-nullable: true
       postal_code:
-        description: The postal code part of the postal address, no longer than 100
-          characters.
+        description: The postal code part of the postal address.
         example: CB1 9NJ
+        maxLength: 100
         type: string
+        x-nullable: true
       sales_contact:
         description: Email address of the sales contact.
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
+        x-nullable: true
       state:
-        description: The state part of the postal address, no longer than 100 characters.
+        description: The state part of the postal address.
         example: ' '
+        maxLength: 100
         type: string
+        x-nullable: true
     type: object
   ActiveServicePackage:
     description: An active service package.
@@ -628,6 +788,7 @@ definitions:
       account_id:
         description: The UUID of the account.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       ip_address:
         description: IP address of the client.
@@ -711,7 +872,8 @@ definitions:
           type: string
         type: array
       name:
-        description: The display name for the API key, no longer than 100 characters.
+        description: The display name for the API key.
+        maxLength: 100
         type: string
       owner:
         description: The owner of this API key.
@@ -755,6 +917,7 @@ definitions:
       id:
         description: The ID of the API key.
         example: 01619571f7020242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       key:
         description: The API key.
@@ -768,6 +931,7 @@ definitions:
       name:
         description: The display name for the API key.
         example: API key gorgon
+        maxLength: 100
         type: string
       object:
         description: 'Entity name: always ''api-key'''
@@ -777,6 +941,7 @@ definitions:
       owner:
         description: The owner of this API key, who is the creator by default.
         example: 01619571e2e89242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       status:
         description: The status of the API key.
@@ -802,6 +967,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -813,7 +979,7 @@ definitions:
         example: false
         type: boolean
       limit:
-        description: The number of results to return (2-1000), or equal to `total_count`.
+        description: The number of results to return, or equal to `total_count`.
         example: 50
         format: int32
         type: integer
@@ -850,7 +1016,8 @@ definitions:
           type: string
         type: array
       name:
-        description: The display name for the API key, no longer than 100 characters.
+        description: The display name for the API key.
+        maxLength: 100
         type: string
       owner:
         description: The owner of this API key.
@@ -1049,6 +1216,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -1060,7 +1228,7 @@ definitions:
         example: false
         type: boolean
       limit:
-        description: The number of results to return (2-1000), or equal to `total_count`.
+        description: The number of results to return, or equal to `total_count`.
         example: 50
         format: int32
         type: integer
@@ -1155,6 +1323,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -1166,7 +1335,7 @@ definitions:
         example: false
         type: boolean
       limit:
-        description: The number of results to return (2-1000), or equal to `total_count`.
+        description: The number of results to return, or equal to `total_count`.
         example: 50
         format: int32
         type: integer
@@ -1525,8 +1694,7 @@ definitions:
         - ECDSA521
         type: string
       validity:
-        description: Validity for the certificate in days. Value can be in the range
-          of 1 to 3650. Defaults to 365 days.
+        description: Validity for the certificate in days.
         format: int32
         type: integer
     type: object
@@ -1569,14 +1737,13 @@ definitions:
   CertificateIssuerConfigRequest:
     properties:
       certificate_issuer_id:
-        description: 'The ID of the certificate issuer.
+        description: 'Certificate issuer ID.
 
-          For LwM2M, it may be null if Device Management internal certificate issuer
-          is used.
-
-          '
+          For LwM2M, may be null if Device Management internal certificate issuer
+          is used.'
         example: 01648415a2a30242ac18000500000000
         type: string
+        x-nullable: true
     type: object
   CertificateIssuerConfigResponse:
     properties:
@@ -1588,6 +1755,7 @@ definitions:
           '
         example: 01648415a2a30242ac18000500000000
         type: string
+        x-nullable: true
       created_at:
         description: Created UTC time RFC3339.
         example: '2017-01-01T00:00:00Z'
@@ -1633,6 +1801,7 @@ definitions:
         example: GlobalSign sample issuer
         maxLength: 100
         type: string
+        x-nullable: true
       etag:
         description: Entity instance signature.
         example: '1'
@@ -1709,9 +1878,10 @@ definitions:
       name: GS Issuer
     properties:
       description:
-        description: General description for the certificate issuer.
+        description: General description of the certificate issuer.
         maxLength: 100
         type: string
+        x-nullable: true
       issuer_attributes:
         additionalProperties: *id007
         description: 'General attributes for connecting the certificate issuer.
@@ -1752,6 +1922,7 @@ definitions:
     required:
     - name
     - issuer_type
+    - issuer_credentials
     type: object
   CertificateIssuerUpdateRequest:
     example:
@@ -1759,9 +1930,10 @@ definitions:
       name: GlobalSign Issuer
     properties:
       description:
-        description: General description for the certificate issuer.
+        description: General description of the certificate issuer.
         maxLength: 100
         type: string
+        x-nullable: true
       issuer_attributes:
         additionalProperties: *id007
         description: 'General attributes for connecting the certificate issuer.
@@ -1848,6 +2020,17 @@ definitions:
     required:
     - hmac_hex_key
     type: object
+  ChannelMetadata:
+    properties:
+      delivery_mechanism:
+        description: Channel delivery mechanism.
+        enum:
+        - CALLBACK
+        - LONG_POLLING
+        - WEB_SOCKET
+        example: CALLBACK
+        type: string
+    type: object
   CreateCertificateIssuerConfig:
     properties:
       certificate_issuer_id:
@@ -1857,6 +2040,7 @@ definitions:
         example: 01648415a2a30242ac18000500000000
         maxLength: 32
         type: string
+        x-nullable: true
       reference:
         description: 'The certificate name, as created in the factory, to which the
           certificate issuer configuration applies.
@@ -1875,11 +2059,11 @@ definitions:
   CredentialsResponseData:
     properties:
       certificate:
-        description: PEM format X.509 server certificate that will be used to validate
-          the server certificate that will be received during the TLS/DTLS handshake.
+        description: PEM-format X.509 server certificate used to validate the server
+          certificate received during the TLS/DTLS handshake.
         type: string
       url:
-        description: Server URI to which the client needs to connect to.
+        description: Server URI that the client connects to.
         type: string
     type: object
   DenialAttemptsResponse:
@@ -1925,12 +2109,15 @@ definitions:
   DeveloperCertificateRequestData:
     properties:
       description:
-        description: Description for the developer certificate. There is a limit on
-          the length of the description. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
+        description: Description for the developer certificate. Maximum 500 characters.
+          Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
+        maxLength: 500
         type: string
+        x-nullable: true
       name:
-        description: Name of the developer certificate, must be unique. There is a
-          limit on the length of the name. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
+        description: Name of the developer certificate. Must be unique. Maximum 100
+          characters. Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
+        maxLength: 100
         type: string
     required:
     - name
@@ -1938,7 +2125,7 @@ definitions:
   DeveloperCertificateResponseData:
     properties:
       account_id:
-        description: account to which the developer certificate belongs
+        description: Account to which the developer certificate belongs.
         type: string
       created_at:
         description: Creation UTC time RFC3339.
@@ -1947,11 +2134,12 @@ definitions:
       description:
         description: Description for the developer certificate.
         type: string
+        x-nullable: true
       developer_certificate:
-        description: PEM format X.509 developer certificate.
+        description: PEM-format X.509 developer certificate.
         type: string
       developer_private_key:
-        description: PEM format developer private key associated to the certificate.
+        description: PEM-format developer private key associated with the certificate.
         type: string
       etag:
         description: API resource entity version.
@@ -1963,11 +2151,11 @@ definitions:
         description: Name of the developer certificate.
         type: string
       object:
-        description: Entity name, always 'trusted-cert'
+        description: 'Entity name: always `trusted-cert`.'
         type: string
       security_file_content:
-        description: Content of the security.c file that will be flashed into the
-          device to provide the security credentials
+        description: Content of the `security.c` file flashed to the device to provide
+          security credentials.
         type: string
     type: object
   DeviceData:
@@ -1984,6 +2172,12 @@ definitions:
           server.
         format: date
         type: string
+        x-nullable: true
+      bootstrapped_timestamp:
+        description: The timestamp of the device's most recent bootstrap process.
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
       ca_id:
         description: The certificate issuer's ID.
         example: '00000000000000000000000000000000'
@@ -1994,6 +2188,7 @@ definitions:
           server.
         format: date
         type: string
+        x-nullable: true
       created_at:
         description: The timestamp of when the device was created in the device directory.
         example: '2017-05-22T12:37:55.576563Z'
@@ -2068,6 +2263,16 @@ definitions:
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
+      firmware_checksum:
+        description: The SHA256 checksum of the current firmware image.
+        example: '0000000000000000000000000000000000000000000000000000000000000000'
+        type: string
+      groups:
+        description: An array containing an ID of each group this device belongs to.
+        items:
+          example: '00000000000000000000000000000000'
+          type: string
+        type: array
       host_gateway:
         description: The ID of the host gateway, if appropriate.
         example: ''
@@ -2083,6 +2288,7 @@ definitions:
         example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
         pattern: '[A-Fa-f0-9]{64}'
         type: string
+        x-nullable: true
       manifest:
         description: 'DEPRECATED: The URL for the current device manifest.'
         example: ''
@@ -2141,14 +2347,10 @@ definitions:
       bootstrap_expiration_date:
         description: The expiration date of the certificate used to connect to bootstrap
           server.
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
-      bootstrapped_timestamp:
-        description: The timestamp of the device's most recent bootstrap process.
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
-        type: string
+        x-nullable: true
       ca_id:
         description: The certificate issuer's ID.
         example: '00000000000000000000000000000000'
@@ -2157,9 +2359,10 @@ definitions:
       connector_expiration_date:
         description: The expiration date of the certificate used to connect to the
           LwM2M server.
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
+        x-nullable: true
       custom_attributes:
         additionalProperties:
           maxLength: 128
@@ -2206,17 +2409,6 @@ definitions:
         example: ''
         maxLength: 64
         type: string
-      firmware_checksum:
-        description: The SHA256 checksum of the current firmware image.
-        example: '0000000000000000000000000000000000000000000000000000000000000000'
-        maxLength: 64
-        type: string
-      groups:
-        description: An array containing an ID of each group this device belongs to.
-        items:
-          example: '00000000000000000000000000000000'
-          type: string
-        type: array
       host_gateway:
         description: The ID of the host gateway, if appropriate.
         example: ''
@@ -3202,6 +3394,10 @@ definitions:
     type: object
   EventType:
     properties:
+      campaign_id:
+        description: ID of the associated campaign.
+        example: '00000000000000000000000000000000'
+        type: string
       count:
         example: 10
         type: integer
@@ -3223,6 +3419,9 @@ definitions:
         type: string
       summary_status:
         example: FAIL
+        type: string
+      summary_status_id:
+        example: fail
         type: string
     type: object
   EventTypeList:
@@ -3264,6 +3463,10 @@ definitions:
     type: object
   EventTypeSummary:
     properties:
+      campaign_id:
+        description: ID of the associated campaign.
+        example: '00000000000000000000000000000000'
+        type: string
       count:
         example: 10
         type: integer
@@ -3811,7 +4014,8 @@ definitions:
         $ref: '#/definitions/SubjectList'
         description: The members of the group as arrays of user and API key IDs.
       name:
-        description: The group name, no longer than 100 characters.
+        description: The group name.
+        maxLength: 100
         type: string
     required:
     - name
@@ -3822,6 +4026,7 @@ definitions:
       account_id:
         description: The ID of the account this group belongs to.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       apikey_count:
         description: The number of API keys in this group.
@@ -3840,10 +4045,12 @@ definitions:
       id:
         description: The ID of the group.
         example: 01619571dec00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       name:
         description: The name of the group.
         example: Administrators
+        maxLength: 100
         type: string
       object:
         description: 'Entity name: always `group`.'
@@ -3874,6 +4081,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -3917,7 +4125,8 @@ definitions:
     description: This object is used when Update groups.
     properties:
       name:
-        description: The group name, no longer than 100 characters.
+        description: The group name.
+        maxLength: 100
         type: string
     required:
     - name
@@ -3927,10 +4136,12 @@ definitions:
       module.
     properties:
       description:
-        description: Description for the identity provider, no longer than 500 characters.
+        description: Description for the identity provider.
+        maxLength: 500
         type: string
       name:
-        description: Name of the identity provider, no longer than 100 characters.
+        description: Name of the identity provider.
+        maxLength: 100
         type: string
       saml2_attributes:
         $ref: '#/definitions/SAML2Req'
@@ -3955,6 +4166,7 @@ definitions:
       account_id:
         description: The ID of the account the identity provider belongs to.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       created_at:
         description: Creation UTC time RFC3339.
@@ -3962,7 +4174,8 @@ definitions:
         format: date-time
         type: string
       description:
-        description: Description for the identity provider, no longer than 500 characters.
+        description: Description for the identity provider.
+        maxLength: 500
         type: string
       etag:
         description: API resource entity version.
@@ -3971,9 +4184,11 @@ definitions:
       id:
         description: Entity ID.
         example: 01619571d01d0242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       name:
-        description: Name of the identity provider, no longer than 100 characters.
+        description: Name of the identity provider.
+        maxLength: 100
         type: string
       object:
         description: 'Entity name: always ''identity-provider'''
@@ -4014,6 +4229,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -4025,7 +4241,7 @@ definitions:
         example: false
         type: boolean
       limit:
-        description: The number of results to return (2-1000), or equal to `total_count`.
+        description: The number of results to return , or equal to `total_count`.
         example: 50
         format: int32
         type: integer
@@ -4057,10 +4273,12 @@ definitions:
     description: Update existing federated identity provider module.
     properties:
       description:
-        description: Description for the identity provider, no longer than 500 characters.
+        description: Description for the identity provider.
+        maxLength: 500
         type: string
       name:
-        description: Name of the identity provider, no longer than 100 characters.
+        description: Name of the identity provider.
+        maxLength: 100
         type: string
       saml2_attributes:
         $ref: '#/definitions/SAML2Req'
@@ -4239,6 +4457,7 @@ definitions:
       account_id:
         description: The ID of the account.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       created_at:
         description: Creation UTC time RFC3339.
@@ -4257,6 +4476,7 @@ definitions:
       id:
         description: Entity ID.
         example: 01619571d01d0242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       message:
         description: The message contained in this account notification entry.
@@ -4270,6 +4490,7 @@ definitions:
       receiver:
         description: The receiver this account notification entry.
         example: example@email-receiver.test
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       subject:
         description: The subject of this account notification entry.
@@ -4293,6 +4514,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -4304,7 +4526,7 @@ definitions:
         example: false
         type: boolean
       limit:
-        description: The number of results to return (2-1000), or equal to `total_count`.
+        description: The number of results to return, or equal to `total_count`.
         example: 50
         format: int32
         type: integer
@@ -4370,23 +4592,28 @@ definitions:
         description: The email address of the admin user who is the contact person
           of the parent account.
         example: info@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       admin_name:
         description: The name of the admin user who is the contact person of the parent
           account.
         example: J. Doe
+        maxLength: 100
         type: string
       id:
-        description: The ID of the parent account
+        description: The ID of the parent account.
         example: 01619571dad80242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
     type: object
   PasswordPolicy:
     properties:
       minimum_length:
-        description: Minimum length for the password. A number between 8 and 512.
+        description: Minimum length for the password.
         example: '8'
-        type: string
+        maximum: 512
+        minimum: 8
+        type: integer
     required:
     - minimum_length
     type: object
@@ -4825,7 +5052,7 @@ definitions:
         type: string
       idp_x509_certs:
         description: List of public X509 certificates of the identity provider. Certificates
-          must be in PEM format. Limit of 100 certificates.
+          must be in PEM format.
         items:
           type: string
         type: array
@@ -4850,17 +5077,17 @@ definitions:
         description: API resource entity version.
         type: string
       id:
-        description: ID that uniquely identifies the entity.
+        description: Unique entity ID.
         type: string
       object:
-        description: Entity name, always 'server-credentials'
+        description: 'Entity name: always `server-credentials`.'
         type: string
       server_certificate:
-        description: PEM format X.509 server certificate that will be used to validate
-          the server certificate that will be received during the TLS/DTLS handshake.
+        description: PEM-format X.509 server certificate used to validate the server
+          certificate received during the TLS/DTLS handshake.
         type: string
       server_uri:
-        description: Server URI to which the client needs to connect to.
+        description: Server URI that the client connects to.
         type: string
     type: object
   ServicePackageMetadata:
@@ -5172,14 +5399,16 @@ definitions:
           parameter is required.
         type: string
       description:
-        description: Human readable description of this certificate, no longer than
-          500 characters.
+        description: Human readable description of this certificate.
+        maxLength: 500
         type: string
+        x-nullable: true
       enrollment_mode:
         description: Certificate is used in enrollment mode. Default value is false.
         type: boolean
       name:
-        description: Certificate name, no longer than 100 characters.
+        description: Certificate name.
+        maxLength: 100
         type: string
       service:
         description: Service name where the certificate must be used.
@@ -5208,6 +5437,7 @@ definitions:
       account_id:
         description: The ID of the account.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       certificate:
         description: X509.v3 trusted certificate in PEM format.
@@ -5225,7 +5455,9 @@ definitions:
       description:
         description: Human readable description of this certificate.
         example: Certificate created by me.
+        maxLength: 500
         type: string
+        x-nullable: true
       device_execution_mode:
         description: Device execution mode where 1 means a developer certificate.
         example: 1
@@ -5242,6 +5474,7 @@ definitions:
       id:
         description: Entity ID.
         example: 01619571d01d0242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       issuer:
         description: Issuer of the certificate.
@@ -5250,6 +5483,7 @@ definitions:
       name:
         description: Certificate name.
         example: My certificate
+        maxLength: 100
         type: string
       object:
         description: 'Entity name: always ''trusted-cert'''
@@ -5259,7 +5493,9 @@ definitions:
       owner_id:
         description: The ID of the owner.
         example: 01619571dad80242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
+        x-nullable: true
       service:
         description: Service name where the certificate is used.
         enum:
@@ -5311,6 +5547,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -5359,14 +5596,16 @@ definitions:
           parameter is required.
         type: string
       description:
-        description: Human readable description of this certificate, no longer than
-          500 characters.
+        description: Human readable description of this certificate.
+        maxLength: 500
         type: string
+        x-nullable: true
       enrollment_mode:
         description: Certificate is used in enrollment mode. Default value is false.
         type: boolean
       name:
-        description: Certificate name, no longer than 100 characters.
+        description: Certificate name.
+        maxLength: 100
         type: string
       service:
         description: Service name where the certificate must be used.
@@ -5755,6 +5994,7 @@ definitions:
       id:
         description: Entity ID.
         example: 01619571dad80242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       message:
         description: A human readable message with detailed info.
@@ -5773,6 +6013,7 @@ definitions:
       request_id:
         description: Request ID.
         example: 0161991d63150242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       type:
         description: 'Response type: success.'
@@ -5818,6 +6059,10 @@ definitions:
         description: The time the entity was updated
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
+        type: string
+      upload_job_id:
+        description: The upload job ID.
+        example: '00000000000000000000000000000000'
         type: string
     type: object
   UploadChunkInfoPage:
@@ -5916,15 +6161,19 @@ definitions:
     description: Represents a user in requests towards Device Management.
     properties:
       address:
-        description: Address, no longer than 100 characters.
+        description: Address.
+        maxLength: 100
         type: string
         x-nullable: true
       email:
-        description: The email address, no longer than 254 characters.
+        description: The email address.
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       full_name:
-        description: The full name of the user, no longer than 100 characters.
+        description: The full name of the user.
+        maxLength: 100
         type: string
+        x-nullable: true
       groups:
         description: A list of IDs of the groups this user belongs to.
         items:
@@ -5941,8 +6190,7 @@ definitions:
       login_profiles:
         description: A list of login profiles for the user. Specified as the identity
           providers the user should be associated with. Only the ID attribute of the
-          login profile should be set in the request object. The list cannot be empty.
-          Limit 100 profiles.
+          login profile should be set in the request object.
         items:
           $ref: '#/definitions/LoginProfile'
         type: array
@@ -5952,12 +6200,13 @@ definitions:
         type: string
         x-nullable: true
       phone_number:
-        description: Phone number, no longer than 100 characters.
+        description: Phone number.
+        maxLength: 100
         type: string
         x-nullable: true
       username:
-        description: A username containing alphanumerical letters and -,._@+= characters.
-          It must be at least 4 but not more than 30 character long.
+        description: A username.
+        pattern: '[\w\-,._@+=]{4,30}'
         type: string
         x-nullable: true
     required:
@@ -5969,6 +6218,7 @@ definitions:
       account_id:
         description: The ID of the account.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       active_sessions:
         description: List of active user sessions.
@@ -5995,9 +6245,11 @@ definitions:
           type: string
         description: User's account-specific custom properties. The value is a string.
         type: object
+        x-nullable: true
       email:
         description: The email address.
         example: user@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       email_verified:
         description: A flag indicating whether the user's email address has been verified
@@ -6011,7 +6263,9 @@ definitions:
       full_name:
         description: The full name of the user.
         example: User Doe
+        maxLength: 100
         type: string
+        x-nullable: true
       groups:
         description: A list of IDs of the groups this user belongs to.
         items:
@@ -6020,6 +6274,7 @@ definitions:
       id:
         description: The ID of the user.
         example: 01619571e2e89242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       is_gtc_accepted:
         description: A flag indicating that the user has accepted General Terms and
@@ -6046,6 +6301,7 @@ definitions:
           of the last five logins of the user, with timestamps in RFC3339 format.
         items:
           $ref: '#/definitions/LoginHistory'
+        maxItems: 5
         type: array
       login_profiles:
         description: A list of login profiles for the user. Specified as the identity
@@ -6073,6 +6329,7 @@ definitions:
       phone_number:
         description: Phone number.
         example: +44 (1223) 400 400
+        maxLength: 100
         type: string
         x-nullable: true
       status:
@@ -6095,14 +6352,16 @@ definitions:
         items:
           type: string
         type: array
+        x-nullable: true
       updated_at:
         description: Last update UTC time RFC3339.
         example: '2018-02-14T15:24:14Z'
         format: date-time
         type: string
       username:
-        description: A username containing alphanumerical letters and -,._@+= characters.
+        description: A username.
         example: admin
+        pattern: '[\w\-,._@+=]'
         type: string
         x-nullable: true
     required:
@@ -6118,6 +6377,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -6161,7 +6421,8 @@ definitions:
     description: Represents a user invitation in requests towards Device Management.
     properties:
       email:
-        description: The email address, no longer than 254 characters.
+        description: The email address.
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       groups:
         description: A list of IDs of the groups this user has been invited to.
@@ -6171,8 +6432,7 @@ definitions:
       login_profiles:
         description: A list of login profiles for the user. Specified as the identity
           providers the user should be associated with. Only the ID attribute of the
-          login profile should be set in the request object. The list cannot be empty.
-          Limit 100 profiles.
+          login profile should be set in the request object.
         items:
           $ref: '#/definitions/LoginProfile'
         type: array
@@ -6192,6 +6452,7 @@ definitions:
       account_id:
         description: The ID of the account the user is invited to.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       created_at:
         description: Creation UTC time RFC3339.
@@ -6201,6 +6462,7 @@ definitions:
       email:
         description: Email address of the invited user.
         example: friend@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
       etag:
         description: API resource entity version.
@@ -6219,6 +6481,7 @@ definitions:
       id:
         description: The ID of the invitation.
         example: 01619571e2e89242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       login_profiles:
         description: A list of login profiles for the user. Specified as the identity
@@ -6240,6 +6503,7 @@ definitions:
       user_id:
         description: The ID of the invited user.
         example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
     required:
     - account_id
@@ -6254,6 +6518,7 @@ definitions:
       after:
         description: The entity ID to fetch after the given one.
         example: 01619571f3c00242ac12000600000000
+        pattern: '[a-f0-9]{32}'
         type: string
       data:
         description: A list of entities.
@@ -6297,44 +6562,56 @@ definitions:
     description: Represents a user in requests towards Device Management.
     properties:
       address:
-        description: Address, no longer than 100 characters.
+        description: Address.
+        maxLength: 100
         type: string
+        x-nullable: true
       email:
-        description: The email address, no longer than 254 characters. Not allowed
-          to update other user's email address.
+        description: The email address. Not allowed to update other user's email address.
+        pattern: ^(?=.{3,254}$).+\@.+
         type: string
+        x-nullable: true
       full_name:
-        description: The full name of the user, no longer than 100 characters.
+        description: The full name of the user.
+        maxLength: 100
         type: string
+        x-nullable: true
       groups:
         description: A list of group IDs this user belongs to. Can be updated by the
           Account Admin only.
         items:
           type: string
         type: array
+        x-nullable: true
       is_gtc_accepted:
         description: A flag indicating that the user has accepted General Terms and
           Conditions.
         type: boolean
+        x-nullable: true
       is_marketing_accepted:
         description: A flag indicating that the user has consented to receive marketing
           information.
         type: boolean
+        x-nullable: true
       is_totp_enabled:
         description: A flag indicating whether mandatory two-factor authentication
           (TOTP) is enabled.
         type: boolean
+        x-nullable: true
       login_profiles:
-        description: A list of login profiles for the user, specified as identity
+        description: '''A list of login profiles for the user, specified as identity
           providers associated with the user. Only the ID attribute of the login profile
-          should be set in the request object. The list cannot be empty. Limit 100
-          profiles. Only an account admin may update login profiles.
+          should be set in the request object. The list cannot be empty. Only an account
+          admin may update login profiles.'''
         items:
           $ref: '#/definitions/LoginProfile'
         type: array
+        x-nullable: true
       phone_number:
-        description: Phone number, no longer than 100 characters.
+        description: Phone number.
+        maxLength: 100
         type: string
+        x-nullable: true
       status:
         description: The status of the user. ENROLLING indicates that the user is
           in the middle of the enrollment process. INVITED means that the user has
@@ -6349,10 +6626,12 @@ definitions:
         - INACTIVE
         example: ACTIVE
         type: string
+        x-nullable: true
       username:
-        description: A username containing alphanumerical letters and -,._@+= characters.
-          Must be 4-30 characters.
+        description: A username.
+        pattern: '[\w\-,._@+=]{4,30}'
         type: string
+        x-nullable: true
     type: object
   Webhook:
     properties:
@@ -6372,11 +6651,7 @@ definitions:
     type: object
   WebsocketChannel:
     properties:
-      channelId:
-        description: Unique identifier of the channel
-        example: 9e3931e0-3549-40bd-92cc-565cad74ef31
-        type: string
-      queueSize:
+      queue_size:
         default: 0
         description: Number of events in the channel's event queue waiting to be delivered.
         example: 0
@@ -6636,6 +6911,18 @@ paths:
         See also /v2/endpoints/{device-id}/{resourcePath}.
 
 
+        You can write [Notification Rules](../connecting/resource-change-webapp.html#notification-rules)
+        for a
+
+        resource with PUT command. Please see example of the payload below.
+
+        ```
+
+        { "method": "PUT", "uri": "/5/0/1?lt=10&gt=60&pmax=120" }
+
+        ```
+
+
         ```
 
         Example URI:
@@ -6643,9 +6930,17 @@ paths:
         POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000
 
 
-        Example payloads:
+        Example payload to read value from resource /5/0/1:
 
         { "method": "GET", "uri": "/5/0/1" }
+
+
+        Example payload to set notification rules for resource /5/0/1:
+
+        { "method": "PUT", "uri": "/5/0/1?lt=10&gt=60&pmax=120" }
+
+
+        Example payload to write value "value1" to resource /5/0/1:
 
         { "method": "PUT", "uri": "/5/0/1%20?k1=v1&k2=v2%22", "accept": "text/plain",
         "content-type": "text/plain", "payload-b64": "dmFsdWUxCg==" }
@@ -7401,8 +7696,9 @@ paths:
         \ as PUT messages to the HTTP server defined by the client with a subscription\n\
         server message. The given URL should be accessible and respond to the PUT\
         \ request with response code of 200 or 204.\nDevice Management Connect tests\
-        \ the callback URL with an empty payload when the URL is registered. For more\
-        \ information on\nnotification messages, see [NotificationMessage](#NotificationMessage).\n\
+        \ the callback URL with an empty payload when the URL is registered. Callback\
+        \ implementation \ndoes not support URL redirection. For more information\
+        \ on notification messages, see [NotificationMessage](#NotificationMessage).\n\
         \n**Optional headers in a callback message:**\n\nYou can set optional headers\
         \ to a callback in a **Webhook** object.\nDevice Management Connect will include\
         \ the header and key pairs to the notification messages send them to callback\
@@ -7459,6 +7755,22 @@ paths:
       summary: Register a callback URL
       tags:
       - Notifications
+  /v2/notification/channel:
+    get:
+      description: "Get channel delivery mechanism.\n\n**Example:**\n\n    curl -X\
+        \ GET https://api.us-east-1.mbedcloud.com/v2/notification/channel \\\n   \
+        \ -H 'Authorization: Bearer <api_key>' \\\n"
+      operationId: getChannelMetadata
+      responses:
+        200:
+          description: Success.
+          schema:
+            $ref: '#/definitions/ChannelMetadata'
+        404:
+          description: Channel was not found.
+      summary: Get channel metadata.
+      tags:
+      - Notifications
   /v2/notification/pull:
     delete:
       deprecated: true
@@ -7494,8 +7806,8 @@ paths:
         \ a batch of event notifications are delivered to the client or the request\
         \ times out\n(response code 204). In both cases, the client should open a\
         \ new polling connection after the previous one closes.\nOnly a single long\
-        \ polling connection per API key can be ongoing at any given time.\nYou must\
-        \ have a persistent connection (Connection keep-alive header in the request)\
+        \ polling connection per API key can be ongoing at any given time.\nWe recommend\
+        \ using a persistent connection (Connection keep-alive header in the request)\
         \ to avoid excess\nTLS handshakes.\n\nThe pull channel is implicitly created\
         \ by the first GET call to `/v2/notification/pull`. It is refreshed on each\
         \ GET call.\nIf the channel is not polled for a long time (10 minutes) - it\
@@ -7973,7 +8285,7 @@ paths:
       - Subscriptions
   /v3/accounts:
     get:
-      description: 'Retrieve an array of account objects, optionally filtered by status
+      description: 'Returns an array of account objects, optionally filtered by status
         and tier level.
 
 
@@ -8080,7 +8392,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all accounts.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - accounts
       x-filter:
         country:
         - like
@@ -8162,7 +8474,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new account.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - accounts
   /v3/accounts/me:
     get:
       description: 'Retrieve detailed information about the account.
@@ -8208,7 +8520,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get account info.
       tags:
-      - Developer
+      - Account - profile
     put:
       consumes:
       - application/json
@@ -8257,7 +8569,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates attributes of the account.
       tags:
-      - Account Admin
+      - Account - profile
   /v3/accounts/me/notifications:
     get:
       description: Retrieve notifications for an account.
@@ -8303,7 +8615,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get notification events for an account.
       tags:
-      - Account Admin
+      - Account - email notification logs
   /v3/accounts/{account_id}:
     get:
       description: 'Retrieve detailed information about an account.
@@ -8358,7 +8670,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get account info.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - accounts
     put:
       consumes:
       - application/json
@@ -8417,7 +8729,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update attributes of an existing account.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - accounts
   /v3/accounts/{account_id}/api-keys:
     get:
       description: 'Retrieve API keys in an array, optionally filtered by the owner.
@@ -8497,7 +8809,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all API keys.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
       x-filter:
         key:
         - eq
@@ -8562,7 +8874,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new API key.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
   /v3/accounts/{account_id}/api-keys/{apikey_id}:
     delete:
       description: 'Delete an API key.
@@ -8609,7 +8921,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete the API key.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
     get:
       description: "Retrieve API key details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
         \ \\\n -H 'Authorization: Bearer <api_key>'\n```"
@@ -8646,7 +8958,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get API key details.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
     put:
       description: 'Update API key details.
 
@@ -8708,7 +9020,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update API key details.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
   /v3/accounts/{account_id}/api-keys/{apikey_id}/groups:
     delete:
       consumes:
@@ -8775,7 +9087,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove API key from groups.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
     get:
       description: 'Retrieve groups associated with the API key.
 
@@ -8848,7 +9160,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get groups associated with the API key.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
     post:
       consumes:
       - application/json
@@ -8918,7 +9230,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add API key to a list of groups.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
   /v3/accounts/{account_id}/api-keys/{apikey_id}/reset-secret:
     post:
       description: 'Reset the secret key of the API key.
@@ -8967,10 +9279,10 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Reset the secret key.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - API keys
   /v3/accounts/{account_id}/branding-colors/dark:
     get:
-      description: 'Retrieve dark theme branding colors.
+      description: 'Retrieve dark theme branding colors for an account.
 
 
         **Example:**
@@ -9011,12 +9323,12 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get dark theme branding colors.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     put:
       consumes:
       - application/json
-      description: "Update an array of dark theme branding colors.\n\n**Example:**\n\
-        ```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark\
+      description: "Update an array of dark theme branding colors of a tenant account.\n\
+        \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
         \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"#f3f93e\" }]'\n```"
       operationId: bulkSetAccountDarkColors
@@ -9057,17 +9369,18 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates an array of dark theme branding colors.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
   /v3/accounts/{account_id}/branding-colors/dark/{reference}:
     delete:
-      description: 'Resets the branding color to its dark theme default.
+      description: 'Resets the branding color of a tenant account to its dark theme
+        default.
 
 
         **Example:**
 
         ```
 
-        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}
         \
 
         -H ''Authorization: Bearer <api_key>''
@@ -9107,21 +9420,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Reset branding color to default.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     get:
-      description: 'Retrieve the requested dark theme branding color.
-
-
-        **Example:**
-
-        ```
-
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}
-        \
-
-        -H ''Authorization: Bearer <api_key>''
-
-        ```'
+      description: "Retrieve the requested dark theme branding color. \n\n**Example:**\n\
+        ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}\
+        \ \\\n-H 'Authorization: Bearer <api_key>'\n```"
       operationId: getAccountDarkColor
       parameters:
       - description: Account ID.
@@ -9156,11 +9459,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get dark theme branding color.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     put:
       consumes:
       - application/json
-      description: 'Update a dark theme branding color.
+      description: 'Update a dark theme branding color of a tenant account.
 
 
         **Example:**
@@ -9221,10 +9524,10 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates a dark theme branding color.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
   /v3/accounts/{account_id}/branding-colors/light:
     get:
-      description: 'Retrieve light theme branding colors.
+      description: 'Retrieve light theme branding colors for an account.
 
 
         **Example:**
@@ -9265,12 +9568,12 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get light theme branding colors.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     put:
       consumes:
       - application/json
-      description: "Updates an array of light theme branding colors.\n\n**Example:**\n\
-        ```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light\
+      description: "Update an array of light theme branding colors of a tenant account.\n\
+        \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
         \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"purple\" }]'\n```"
       operationId: bulkSetAccountLightColors
@@ -9311,10 +9614,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates an array of light theme branding colors.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
   /v3/accounts/{account_id}/branding-colors/light/{reference}:
     delete:
-      description: 'Resets the branding color to its light theme default.
+      description: 'Resets the branding color of a tenant account to its light theme
+        default.
 
 
         **Example:**
@@ -9361,7 +9665,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Reset branding color to default.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     get:
       description: 'Retrieve the requested light theme branding color.
 
@@ -9409,11 +9713,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get light theme branding color.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
     put:
       consumes:
       - application/json
-      description: 'Update light theme branding color.
+      description: 'Update a light theme branding color of a tenant account.
 
 
         **Example:**
@@ -9474,7 +9778,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates light theme branding color.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - colors
   /v3/accounts/{account_id}/branding-images/dark:
     get:
       description: 'Retrieve the metadata of all dark theme branding images.
@@ -9518,7 +9822,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of all dark theme images.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/dark/{reference}:
     get:
       description: 'Retrieve metadata of one account dark theme branding image.
@@ -9568,7 +9872,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of a dark theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/dark/{reference}/clear:
     post:
       description: 'Revert an account branding image to dark theme default.
@@ -9616,7 +9920,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Revert an image to dark theme default.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/dark/{reference}/upload:
     post:
       consumes:
@@ -9689,7 +9993,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a dark theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart:
     post:
       consumes:
@@ -9746,7 +10050,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a dark theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/light:
     get:
       description: 'Retrieve the metadata of all light theme branding images.
@@ -9790,7 +10094,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of all light theme images.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/light/{reference}:
     get:
       description: 'Retrieve metadata for one account light theme branding image.
@@ -9840,7 +10144,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of a light theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/light/{reference}/clear:
     post:
       description: 'Revert an account branding image to light theme default.
@@ -9886,7 +10190,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Revert an image to light theme default.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/light/{reference}/upload:
     post:
       consumes:
@@ -9959,7 +10263,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a light theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/branding-images/light/{reference}/upload-multipart:
     post:
       consumes:
@@ -10016,7 +10320,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a light theme image.
       tags:
-      - Aggregator Account Admin
+      - Tenant user interface configuration - images
   /v3/accounts/{account_id}/identity-providers:
     get:
       consumes:
@@ -10075,7 +10379,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all identity providers.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
     post:
       consumes:
       - application/json
@@ -10125,7 +10429,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new identity provider.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
   /v3/accounts/{account_id}/identity-providers/{identity_provider_id}:
     delete:
       description: Delete an identity provider by ID.
@@ -10160,9 +10464,9 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete an identity provider by ID.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
     get:
-      description: Retrieve identity provider by ID.
+      description: Manage identity providers of a tenant account.
       operationId: getAccountIdentityProvider
       parameters:
       - description: Account ID.
@@ -10194,9 +10498,9 @@ paths:
           description: Account or identity provider not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get identity provider by ID.
+      summary: Retrieve identity provider by ID.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
     put:
       consumes:
       - application/json
@@ -10244,7 +10548,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update an existing identity provider.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
   /v3/accounts/{account_id}/identity-providers/{identity_provider_id}/delete-sp-certificate:
     post:
       consumes:
@@ -10287,7 +10591,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete the service provider certificate.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
   /v3/accounts/{account_id}/identity-providers/{identity_provider_id}/generate-sp-certificate:
     post:
       consumes:
@@ -10341,7 +10645,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Generate a new service provider certificate.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - identity providers
   /v3/accounts/{account_id}/notifications:
     get:
       description: Retrieve notifications.
@@ -10396,7 +10700,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the notification events of an account.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - email notification logs
   /v3/accounts/{account_id}/policy-groups:
     get:
       description: 'Retrieve all group information.
@@ -10470,7 +10774,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all group information.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
       x-filter:
         name:
         - eq
@@ -10536,7 +10840,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
   /v3/accounts/{account_id}/policy-groups/{group_id}:
     delete:
       description: 'Delete a group.
@@ -10583,7 +10887,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
     get:
       description: 'Retrieve general information about the group.
 
@@ -10631,7 +10935,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get group information.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
     post:
       consumes:
       - application/json
@@ -10700,7 +11004,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add members to a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
     put:
       consumes:
       - application/json
@@ -10764,7 +11068,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update the group name.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
   /v3/accounts/{account_id}/policy-groups/{group_id}/api-keys:
     delete:
       consumes:
@@ -10830,7 +11134,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove API keys from a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
     get:
       description: 'List the API keys of the group with details.
 
@@ -10903,7 +11207,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get API keys of a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
   /v3/accounts/{account_id}/policy-groups/{group_id}/users:
     delete:
       consumes:
@@ -10957,7 +11261,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove users from a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
     get:
       description: 'List users of the group with details.
 
@@ -11046,7 +11350,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get users of a group.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - policy groups
       x-filter:
         status:
         - eq
@@ -11183,7 +11487,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all trusted certificates.
       tags:
-      - Aggregator Account Admin
+      - Tenant device security - certificates
       x-filter:
         device_execution_mode:
         - eq
@@ -11266,7 +11570,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload new trusted certificate.
       tags:
-      - Aggregator Account Admin
+      - Tenant device security - certificates
   /v3/accounts/{account_id}/trusted-certificates/{cert_id}:
     delete:
       description: 'Delete the trusted certificate.
@@ -11313,7 +11617,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete trusted certificate by ID.
       tags:
-      - Aggregator Account Admin
+      - Tenant device security - certificates
     get:
       description: 'Retrieve a trusted certificate by ID.
 
@@ -11361,7 +11665,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get trusted certificate by ID.
       tags:
-      - Aggregator Account Admin
+      - Tenant device security - certificates
     put:
       consumes:
       - application/json
@@ -11413,7 +11717,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update trusted certificate.
       tags:
-      - Aggregator Account Admin
+      - Tenant device security - certificates
   /v3/accounts/{account_id}/user-invitations:
     get:
       description: 'Retrieve details of all active user invitations sent for new or
@@ -11458,7 +11762,7 @@ paths:
         type: string
       - description: Filter to retrieve user invitations by a specified login profile.
         in: query
-        name: login_profile__eq
+        name: login_profiles__eq
         required: false
         type: string
       produces:
@@ -11482,9 +11786,9 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the details of all user invitations.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - user invitations
       x-filter:
-        login_profile:
+        login_profiles:
         - eq
     post:
       consumes:
@@ -11540,7 +11844,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a user invitation.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - user invitations
   /v3/accounts/{account_id}/user-invitations/{invitation_id}:
     delete:
       description: 'Delete an active user invitation sent to a new or existing user.
@@ -11587,7 +11891,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a user invitation.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - user invitations
     get:
       description: 'Retrieve details of an active user invitation sent for a new or
         existing user.
@@ -11636,7 +11940,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Details of a user invitation.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - user invitations
   /v3/accounts/{account_id}/users:
     get:
       description: 'Retrieve details of all users.
@@ -11707,7 +12011,7 @@ paths:
         type: string
       - description: An optional filter to retrieve users with a specified login profile.
         in: query
-        name: login_profile__eq
+        name: login_profiles__eq
         required: false
         type: string
       produces:
@@ -11731,11 +12035,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the details of all users.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
       x-filter:
         email:
         - eq
-        login_profile:
+        login_profiles:
         - eq
         status:
         - eq
@@ -11810,7 +12114,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new user.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
   /v3/accounts/{account_id}/users/{user_id}:
     delete:
       description: 'Delete a user.
@@ -11861,7 +12165,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a user.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
     get:
       description: 'Retrieve user details.
 
@@ -11909,7 +12213,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Details of the user.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
     put:
       consumes:
       - application/json
@@ -11977,7 +12281,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update user details.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
   /v3/accounts/{account_id}/users/{user_id}/groups:
     delete:
       consumes:
@@ -12044,7 +12348,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove user from groups.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
     get:
       description: 'Retrieve user''s groups.
 
@@ -12117,7 +12421,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get user's groups.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
     post:
       consumes:
       - application/json
@@ -12187,7 +12491,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add user to a list of groups.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
   /v3/accounts/{account_id}/users/{user_id}/validate-email:
     post:
       description: 'Validate user email.
@@ -12234,7 +12538,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Validate the user email.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - users
   /v3/api-keys:
     get:
       description: 'Retrieve API keys in an array, optionally filtered by the owner.
@@ -12304,7 +12608,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all API keys.
       tags:
-      - Developer
+      - Account - API keys
       x-filter:
         key:
         - eq
@@ -12357,7 +12661,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new API key.
       tags:
-      - Developer
+      - Account - API keys
   /v3/api-keys/me:
     get:
       description: 'Retrieve API key details.
@@ -12391,7 +12695,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get API key details.
       tags:
-      - Developer
+      - Account - API keys
     put:
       description: 'Update API key details.
 
@@ -12438,7 +12742,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update API key details.
       tags:
-      - Developer
+      - Account - API keys
   /v3/api-keys/me/groups:
     delete:
       consumes:
@@ -12490,7 +12794,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove API key from groups.
       tags:
-      - Developer
+      - Account - API keys
     get:
       description: 'Retrieve groups associated with the API key.
 
@@ -12548,7 +12852,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get groups of the API key.
       tags:
-      - Developer
+      - Account - API keys
     post:
       consumes:
       - application/json
@@ -12603,7 +12907,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add API key to a list of groups.
       tags:
-      - Developer
+      - Account - API keys
   /v3/api-keys/{apikey_id}:
     delete:
       description: 'Delete the API key.
@@ -12645,7 +12949,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete API key.
       tags:
-      - Developer
+      - Account - API keys
     get:
       description: 'Retrieve API key details.
 
@@ -12687,7 +12991,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get API key details.
       tags:
-      - Developer
+      - Account - API keys
     put:
       description: 'Update API key details.
 
@@ -12741,7 +13045,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update API key details.
       tags:
-      - Developer
+      - Account - API keys
   /v3/api-keys/{apikey_id}/groups:
     delete:
       consumes:
@@ -12803,7 +13107,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove API key from groups.
       tags:
-      - Account Admin
+      - Account - API keys
     get:
       description: 'Retrieve groups associated with the API key.
 
@@ -12871,7 +13175,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get groups of the API key.
       tags:
-      - Account Admin
+      - Account - API keys
     post:
       consumes:
       - application/json
@@ -12936,7 +13240,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add API key to a list of groups.
       tags:
-      - Account Admin
+      - Account - API keys
   /v3/billing-report:
     get:
       description: 'Fetch the billing report generated for the currently authenticated
@@ -13387,7 +13691,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get dark theme branding colors.
       tags:
-      - Developer
+      - User interface configuration - colors
     put:
       consumes:
       - application/json
@@ -13424,7 +13728,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates an array of dark theme branding colors.
       tags:
-      - Account Admin
+      - User interface configuration - colors
   /v3/branding-colors/dark/{reference}:
     delete:
       description: 'Resets the branding color to its dark theme default.
@@ -13469,7 +13773,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Reset branding color to default.
       tags:
-      - Account Admin
+      - User interface configuration - colors
     get:
       description: 'Retrieve the requested dark theme branding color.
 
@@ -13513,7 +13817,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get dark theme branding color.
       tags:
-      - Developer
+      - User interface configuration - colors
     put:
       consumes:
       - application/json
@@ -13573,7 +13877,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates a dark theme branding color.
       tags:
-      - Account Admin
+      - User interface configuration - colors
   /v3/branding-colors/light:
     get:
       description: 'Retrieve the light theme branding colors.
@@ -13607,7 +13911,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get light theme branding colors.
       tags:
-      - Developer
+      - User interface configuration - colors
     put:
       consumes:
       - application/json
@@ -13644,7 +13948,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates an array of light theme branding colors.
       tags:
-      - Account Admin
+      - User interface configuration - colors
   /v3/branding-colors/light/{reference}:
     delete:
       description: 'Resets the branding color to its light theme default.
@@ -13689,7 +13993,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Reset branding color to default.
       tags:
-      - Account Admin
+      - User interface configuration - colors
     get:
       description: 'Retrieve the requested light theme branding color.
 
@@ -13733,7 +14037,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get light theme branding color.
       tags:
-      - Developer
+      - User interface configuration - colors
     put:
       consumes:
       - application/json
@@ -13793,7 +14097,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Updates light theme branding color.
       tags:
-      - Account Admin
+      - User interface configuration - colors
   /v3/branding-images/dark:
     get:
       description: 'Retrieve metadata for all dark theme branding images.
@@ -13825,7 +14129,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of all dark theme images.
       tags:
-      - Developer
+      - User interface configuration - images
   /v3/branding-images/dark/{reference}:
     get:
       description: 'Retrieve metadata for one account dark theme branding image.
@@ -13870,7 +14174,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of a dark theme image.
       tags:
-      - Developer
+      - User interface configuration - images
   /v3/branding-images/dark/{reference}/clear:
     post:
       description: 'Revert an account branding image to dark theme default.
@@ -13913,7 +14217,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Revert an image to dark theme default.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/branding-images/dark/{reference}/upload:
     post:
       consumes:
@@ -13981,7 +14285,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a dark theme image.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/branding-images/dark/{reference}/upload-multipart:
     post:
       consumes:
@@ -14033,7 +14337,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a dark theme image.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/branding-images/light:
     get:
       description: 'Retrieve the metadata of all light theme branding images.
@@ -14067,7 +14371,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of all light theme images.
       tags:
-      - Developer
+      - User interface configuration - images
   /v3/branding-images/light/{reference}:
     get:
       description: 'Retrieve metadata for one account light theme branding image.
@@ -14112,7 +14416,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata of a light theme image.
       tags:
-      - Developer
+      - User interface configuration - images
   /v3/branding-images/light/{reference}/clear:
     post:
       description: 'Revert an account branding image to light theme default.
@@ -14155,7 +14459,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Revert an image to light theme default.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/branding-images/light/{reference}/upload:
     post:
       consumes:
@@ -14223,7 +14527,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a light theme image.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/branding-images/light/{reference}/upload-multipart:
     post:
       consumes:
@@ -14275,7 +14579,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a light theme image.
       tags:
-      - Account Admin
+      - User interface configuration - images
   /v3/certificate-enrollments:
     get:
       description: 'Get certificate enrollments list, optionally filtered.
@@ -14418,7 +14722,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Get certificate enrollments list.
       tags:
-      - Certificate Enrollments
+      - Device security - device certificate renewals
       x-filter:
         certificate_name:
         - eq
@@ -14483,7 +14787,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Get a certificate enrollment by ID.
       tags:
-      - Certificate Enrollments
+      - Device security - device certificate renewals
   /v3/certificate-issuer-configurations:
     get:
       description: 'Get certificate issuer configurations, optionally filtered by
@@ -15140,23 +15444,29 @@ paths:
       - Certificate Issuers
   /v3/developer-certificates:
     post:
-      description: 'This REST API is intended to be used by customers to get a developer
-        certificate (a certificate that can be flashed into multiple devices to connect
-        to bootstrap server).
+      description: 'Create a developer certificate (a certificate that can be flashed
+        to multiple devices to connect to the bootstrap server).
 
 
         **Note:** The number of developer certificates allowed per account is limited.
-        Please see [Using your own certificate authority](/docs/current/mbed-cloud-deploy/instructions-for-factory-setup-and-device-provision.html#using-your-own-certificate-authority-with-mbed-cloud).
+        Please see [Using your own certificate authority](../provisioning-process/using-CA.html).
 
 
-        **Example usage:**
+        **Example:**
 
-        curl -X POST "http://api.us-east-1.mbedcloud.com/v3/developer-certificates"
-        -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
-        -H "content-type: application/json" -d "{ \"name\": \"THE_CERTIFICATE_NAME\",
-        \"description\": \"THE_CERTIFICATE_DESCRIPTION\"}"
+        ```
 
-        '
+        curl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates
+        \
+
+        -H "Authorization: Bearer <api_key>" \
+
+        -H "content-type: application/json" \
+
+        -d { "name": "<certificate_name>", "description": "<certificate_description>"
+        }
+
+        ```'
       operationId: createDeveloperCertificate
       parameters:
       - in: body
@@ -15173,7 +15483,7 @@ paths:
             Success:
               account_id: 015fee5d9b3538c98640fbfb00000000
               created_at: '2017-12-11T14:22:20.009Z'
-              description: This certificate will be used with multiple developer devices
+              description: This certificate will be used with multiple developer devices.
               developer_certificate: '-----BEGIN CERTIFICATE-----\nMIICcDCCAhWgAwIBAgIRAPSBbBtLUE/ekQcWE4GzPJEwCgYIKoZIzj0EAwIwgaIx\nCzAJBgNVBAYTAkdCMRcwFQYDVQQIDA5DYW1icmlkZ2VzaGlyZTESMBAGA1UEBwwJ\nQ2FtYnJpZGdlMRAwDgYDVQQKDAdBUk0gTHRkMSkwJwYDVQQLDCAwMTU4NDNlMzJl\nYzkwMjQyMGEwMTVlMDcwMDAwMDAwMDEpMCcGA1UEAwwgMDE2MWRiYmNkZDY2MGE1\nODBhMDEwYzM0MDNjMDAwMDAwHhcNMTgwMjI4MDkyNzIzWhcNMjgwMjI4MDkyNzIz\nWjCBojELMAkGA1UEBhMCR0IxFzAVBgNVBAgMDkNhbWJyaWRnZXNoaXJlMRIwEAYD\nVQQHDAlDYW1icmlkZ2UxEDAOBgNVBAoMB0FSTSBMdGQxKTAnBgNVBAsMIDAxNTg0\nM2UzMmVjOTAyNDIwYTAxNWUwNzAwMDAwMDAwMSkwJwYDVQQDDCAwMTYxZGJiY2Rk\nNjYwYTU4MGEwMTBjMzQwM2MwMDAwMDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IA\nBEScLDbOXvOb903AYlI9ow8E4hbLSHJPt5E2BO4Q4bHOpuWH2Oh6P+CDPte9pAv3\nE6g90Xk/ZcZpQ+xBO6qci/ajKjAoMBIGCSsGAQQBoCCBSQQFAgNAAJEwEgYDVR0T\nAQH/BAgwBgEB/wIBADAKBggqhkjOPQQDAgNJADBGAiEAsi9zSK8Njl22GoEHrsg8\nQlwFnrkkP9d6FyLFtmqndt4CIQCmVHwisYNcCkqD2SWctG1xQHo0HZePAQW8PstM\nzhNupQ==\n-----END
                 CERTIFICATE-----\n'
               developer_private_key: '-----BEGIN PRIVATE KEY-----\nMIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgeKc97aC1Z4aniXVG\njNSvvXw2hl6zwACYIs88OKQx61GgCgYIKoZIzj0DAQehRANCAAREnCw2zl7zm/dN\nwGJSPaMPBOIWy0hyT7eRNgTuEOGxzqblh9joej/ggz7XvaQL9xOoPdF5P2XGaUPs\nQTuqnIv2\n-----END
@@ -15392,20 +15702,20 @@ paths:
             Bad Request Error:
               code: 400
               fields:
-                message: Missing certificate name
+                message: Missing certificate name.
                 name: name
-              message: Bad Request. Missing certificate name
+              message: Bad Request. Missing certificate name.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: validation_error
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
-          description: The provided access token is not valid.
+          description: Invalid access token.
           examples:
             Authentication Error:
               code: 401
-              message: Provided access token is not valid.
+              message: Invalid access token.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: invalid_auth
@@ -15432,7 +15742,7 @@ paths:
             Duplicate Error:
               code: 409
               fields:
-                message: Certificate already exists
+                message: Certificate already exists.
                 name: certificate
               message: Conflict. Certificate already exists.
               object: error
@@ -15442,25 +15752,26 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new developer certificate to connect to the bootstrap server.
       tags:
-      - Developer certificate
+      - Device security - developer class certificates
   /v3/developer-certificates/{developerCertificateId}:
     get:
-      description: 'This REST API is intended to be used by customers to fetch an
-        existing developer certificate (a certificate that can be flashed into multiple
-        devices to connect to bootstrap server).
+      description: 'Return an existing developer certificate (a certificate that can
+        be flashed to multiple devices to connect to bootstrap server).
 
 
-        **Example usage:**
+        **Example:**
 
-        curl -X GET "http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID"
-        -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+        ```
 
-        '
+        curl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID
+        \
+
+        -H "Authorization: Bearer <api_key>"
+
+        ```'
       operationId: getDeveloperCertificate
       parameters:
-      - description: 'A unique identifier for the developer certificate.
-
-          '
+      - description: A unique identifier for the developer certificate.
         in: path
         name: developerCertificateId
         required: true
@@ -15469,12 +15780,12 @@ paths:
       - application/json
       responses:
         200:
-          description: Developer certificate fetched successfully.
+          description: Developer certificate returned successfully.
           examples:
             Success:
               account_id: 015fee5d9b3538c98640fbfb00000000
               created_at: '2017-12-11T14:22:20.009Z'
-              description: This certificate will be used with multiple developer devices
+              description: This certificate applies to multiple developer devices.
               developer_certificate: '-----BEGIN CERTIFICATE-----\nMIICcDCCAhWgAwIBAgIRAPSBbBtLUE/ekQcWE4GzPJEwCgYIKoZIzj0EAwIwgaIx\nCzAJBgNVBAYTAkdCMRcwFQYDVQQIDA5DYW1icmlkZ2VzaGlyZTESMBAGA1UEBwwJ\nQ2FtYnJpZGdlMRAwDgYDVQQKDAdBUk0gTHRkMSkwJwYDVQQLDCAwMTU4NDNlMzJl\nYzkwMjQyMGEwMTVlMDcwMDAwMDAwMDEpMCcGA1UEAwwgMDE2MWRiYmNkZDY2MGE1\nODBhMDEwYzM0MDNjMDAwMDAwHhcNMTgwMjI4MDkyNzIzWhcNMjgwMjI4MDkyNzIz\nWjCBojELMAkGA1UEBhMCR0IxFzAVBgNVBAgMDkNhbWJyaWRnZXNoaXJlMRIwEAYD\nVQQHDAlDYW1icmlkZ2UxEDAOBgNVBAoMB0FSTSBMdGQxKTAnBgNVBAsMIDAxNTg0\nM2UzMmVjOTAyNDIwYTAxNWUwNzAwMDAwMDAwMSkwJwYDVQQDDCAwMTYxZGJiY2Rk\nNjYwYTU4MGEwMTBjMzQwM2MwMDAwMDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IA\nBEScLDbOXvOb903AYlI9ow8E4hbLSHJPt5E2BO4Q4bHOpuWH2Oh6P+CDPte9pAv3\nE6g90Xk/ZcZpQ+xBO6qci/ajKjAoMBIGCSsGAQQBoCCBSQQFAgNAAJEwEgYDVR0T\nAQH/BAgwBgEB/wIBADAKBggqhkjOPQQDAgNJADBGAiEAsi9zSK8Njl22GoEHrsg8\nQlwFnrkkP9d6FyLFtmqndt4CIQCmVHwisYNcCkqD2SWctG1xQHo0HZePAQW8PstM\nzhNupQ==\n-----END
                 CERTIFICATE-----\n'
               developer_private_key: '-----BEGIN PRIVATE KEY-----\nMIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgeKc97aC1Z4aniXVG\njNSvvXw2hl6zwACYIs88OKQx61GgCgYIKoZIzj0DAQehRANCAAREnCw2zl7zm/dN\nwGJSPaMPBOIWy0hyT7eRNgTuEOGxzqblh9joej/ggz7XvaQL9xOoPdF5P2XGaUPs\nQTuqnIv2\n-----END
@@ -15692,18 +16003,18 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
-          description: The provided access token is not valid.
+          description: Invalid access token.
           examples:
             Authentication Error:
               code: 401
-              message: Provided access token is not valid.
+              message: Invalid access token.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: invalid_auth
           schema:
             $ref: '#/definitions/ErrorResponse'
         404:
-          description: Developer certificate not found with given id.
+          description: Developer certificate not found with given ID.
           examples:
             Authentication Error:
               code: 404
@@ -15716,7 +16027,7 @@ paths:
       summary: Fetch an existing developer certificate to connect to the bootstrap
         server.
       tags:
-      - Developer certificate
+      - Device security - developer class certificates
   /v3/device-enrollment-denials:
     get:
       description: 'This produces a list of failed attempts to bootstrap using a particular
@@ -17886,10 +18197,12 @@ paths:
         name: bootstrapped_timestamp__nin
         type: string
       - description: lte filter for the bootstrapped_timestamp field
+        format: date-time
         in: query
         name: bootstrapped_timestamp__lte
         type: string
       - description: gte filter for the bootstrapped_timestamp field
+        format: date-time
         in: query
         name: bootstrapped_timestamp__gte
         type: string
@@ -18394,7 +18707,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Request certificate renewal.
       tags:
-      - Certificate Renewal
+      - Device security - device certificate renewals
   /v3/devices/{id}/:
     delete:
       description: Delete device. Only available for devices with a developer certificate.
@@ -19334,7 +19647,7 @@ paths:
         name: chunk
         required: false
         schema:
-          format: byte
+          format: binary
           type: string
       responses:
         201:
@@ -19844,7 +20157,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all identity providers.
       tags:
-      - Account Admin
+      - Account - identity providers
     post:
       consumes:
       - application/json
@@ -19885,7 +20198,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new identity provider.
       tags:
-      - Account Admin
+      - Account - identity providers
   /v3/identity-providers/{identity_provider_id}:
     delete:
       description: Delete an identity provider by ID.
@@ -19915,7 +20228,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete an identity provider by ID.
       tags:
-      - Account Admin
+      - Account - identity providers
     get:
       description: Retrieve by ID.
       operationId: getIdentityProvider
@@ -19946,7 +20259,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get identity provider by ID.
       tags:
-      - Account Admin
+      - Account - identity providers
     put:
       consumes:
       - application/json
@@ -19989,7 +20302,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update an existing identity provider.
       tags:
-      - Account Admin
+      - Account - identity providers
   /v3/identity-providers/{identity_provider_id}/delete-sp-certificate:
     post:
       consumes:
@@ -20027,7 +20340,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete the service provider certificate.
       tags:
-      - Account Admin
+      - Account - identity providers
   /v3/identity-providers/{identity_provider_id}/generate-sp-certificate:
     post:
       consumes:
@@ -20076,7 +20389,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Generate a new service provider certificate.
       tags:
-      - Account Admin
+      - Account - identity providers
   /v3/metrics:
     get:
       description: This REST API is used to get account-specific statistics.
@@ -20283,7 +20596,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all group information.
       tags:
-      - Developer
+      - Account - policy groups
       x-filter:
         name:
         - eq
@@ -20337,7 +20650,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new group.
       tags:
-      - Account Admin
+      - Account - policy groups
   /v3/policy-groups/{group_id}:
     delete:
       description: 'Delete a group.
@@ -20379,7 +20692,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a group.
       tags:
-      - Account Admin
+      - Account - policy groups
     get:
       description: 'Retrieve general information about a group.
 
@@ -20422,7 +20735,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get group information.
       tags:
-      - Developer
+      - Account - policy groups
     post:
       consumes:
       - application/json
@@ -20486,7 +20799,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add members to a group.
       tags:
-      - Account Admin
+      - Account - policy groups
     put:
       consumes:
       - application/json
@@ -20545,7 +20858,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update the group name.
       tags:
-      - Account Admin
+      - Account - policy groups
   /v3/policy-groups/{group_id}/api-keys:
     delete:
       consumes:
@@ -20606,9 +20919,9 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove API keys from a group.
       tags:
-      - Developer
+      - Account - policy groups
     get:
-      description: 'List the API keys of the group with details.
+      description: 'Manage policy groups.
 
 
         **Example:**
@@ -20674,12 +20987,12 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the API keys of a group.
       tags:
-      - Developer
+      - Account - policy groups
   /v3/policy-groups/{group_id}/users:
     delete:
       consumes:
       - application/json
-      description: 'Remove users from groups.
+      description: 'Manage policy groups.
 
 
         **Example:**
@@ -20735,7 +21048,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove users from a group.
       tags:
-      - Account Admin
+      - Account - policy groups
     get:
       description: 'Retrieve users of a group with details.
 
@@ -20819,7 +21132,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get users of a group.
       tags:
-      - Account Admin
+      - Account - policy groups
       x-filter:
         status:
         - eq
@@ -20827,23 +21140,25 @@ paths:
         - nin
   /v3/server-credentials:
     get:
-      description: 'This REST API is intended to be used by customers to fetch all
-        (Bootstrap and LwM2M) server credentials that they will need to use with their
-        clients to connect to bootstrap or LwM2M server.
+      description: 'Return all (bootstrap and LwM2M) server credentials for client
+        to connect to bootstrap or LwM2M server.
 
 
-        **Example usage:**
+        **Example:**
 
-        curl -X GET "http://api.us-east-1.mbedcloud.com/v3/server-credentials" -H
-        "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+        ```
 
-        '
+        curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials \
+
+        -H "Authorization: Bearer <api_key>"
+
+        ```'
       operationId: getAllServerCredentials
       produces:
       - application/json
       responses:
         200:
-          description: all server credentials fetched successfully.
+          description: All server credentials fetched successfully.
           examples:
             Success:
               bootstrap:
@@ -20861,11 +21176,11 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
-          description: The provided access token is not valid.
+          description: Invalid access token.
           examples:
             Authentication Error:
               code: 401
-              message: Provided access token is not valid.
+              message: Invalid access token.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: invalid_auth
@@ -20873,21 +21188,24 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch all (Bootstrap and LwM2M) server credentials.
       tags:
-      - Server credentials
+      - Service security - server credentials
   /v3/server-credentials/bootstrap:
     get:
       deprecated: true
-      description: 'This REST API is intended to be used by customers to fetch bootstrap
-        server credentials that they will need to use with their clients to connect
-        to bootstrap server.
+      description: 'Return bootstrap server credentials for client to connect to bootstrap
+        server.
 
 
-        **Example usage:**
+        **Example:**
 
-        curl -X GET "http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap"
-        -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+        ```
 
-        '
+        curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap
+        \
+
+        -H "Authorization: Bearer <api_key>"
+
+        ```'
       operationId: getBootstrapServerCredentials
       produces:
       - application/json
@@ -20910,11 +21228,11 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
-          description: The provided access token is not valid.
+          description: Invalid access token.
           examples:
             Authentication Error:
               code: 401
-              message: Provided access token is not valid.
+              message: Invalid access token.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: invalid_auth
@@ -20922,21 +21240,24 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch bootstrap server credentials.
       tags:
-      - Server credentials
+      - Service security - server credentials
   /v3/server-credentials/lwm2m:
     get:
       deprecated: true
-      description: 'This REST API is intended to be used by customers to fetch LwM2M
-        server credentials that they will need to use with their clients to connect
-        to LwM2M server.
+      description: 'Return LwM2M server credentials for client to connect to LwM2M
+        server.
 
 
-        **Example usage:**
+        **Example:**
 
-        curl -X GET "http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m"
-        -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+        ```
 
-        '
+        curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m
+        \
+
+        -H "Authorization: Bearer <api_key>"
+
+        ```'
       operationId: getL2M2MServerCredentials
       produces:
       - application/json
@@ -20959,11 +21280,11 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
-          description: The provided access token is not valid.
+          description: Invalid access token.
           examples:
             Authentication Error:
               code: 401
-              message: Provided access token is not valid.
+              message: Invalid access token.
               object: error
               request_id: 015fee4431fd38c98640fbfb00000000
               type: invalid_auth
@@ -20971,7 +21292,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch LwM2M server credentials.
       tags:
-      - Server credentials
+      - Service security - server credentials
   /v3/service-packages:
     get:
       description: 'Get information for all service packages for the current authenticated
@@ -21361,7 +21682,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all trusted certificates.
       tags:
-      - Developer
+      - Device security - certificates
       x-filter:
         device_execution_mode:
         - eq
@@ -21437,7 +21758,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a new trusted certificate.
       tags:
-      - Account Admin
+      - Device security - certificates
   /v3/trusted-certificates/{cert_id}:
     delete:
       description: 'Delete a trusted certificate.
@@ -21479,7 +21800,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a trusted certificate by ID.
       tags:
-      - Developer
+      - Device security - certificates
     get:
       description: 'Retrieve a trusted certificate by ID.
 
@@ -21522,7 +21843,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get trusted certificate by ID.
       tags:
-      - Developer
+      - Device security - certificates
     put:
       consumes:
       - application/json
@@ -21585,7 +21906,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update trusted certificate.
       tags:
-      - Developer
+      - Device security - certificates
   /v3/update-campaigns/:
     get:
       description: Get update campaigns for devices specified by a filter.
@@ -22335,7 +22656,7 @@ paths:
         type: string
       - description: Filter to retrieve user invitations by a specified login profile.
         in: query
-        name: login_profile__eq
+        name: login_profiles__eq
         required: false
         type: string
       produces:
@@ -22355,9 +22676,9 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the details of all user invitations.
       tags:
-      - Account Admin
+      - Account - user invitations
       x-filter:
-        login_profile:
+        login_profiles:
         - eq
     post:
       consumes:
@@ -22407,7 +22728,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a user invitation.
       tags:
-      - Account Admin
+      - Account - user invitations
   /v3/user-invitations/{invitation_id}:
     delete:
       description: 'Delete an active user invitation sent to a new or existing user.
@@ -22449,7 +22770,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a user invitation.
       tags:
-      - Account Admin
+      - Account - user invitations
     get:
       description: 'Retrieve the details of an active user invitation.
 
@@ -22492,7 +22813,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Details of a user invitation.
       tags:
-      - Account Admin
+      - Account - user invitations
   /v3/users:
     get:
       description: 'Retrieve the details of all users.
@@ -22557,7 +22878,7 @@ paths:
         type: string
       - description: An optional filter to retrieve users with a specified login profile.
         in: query
-        name: login_profile__eq
+        name: login_profiles__eq
         required: false
         type: string
       produces:
@@ -22577,11 +22898,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get the details of all users.
       tags:
-      - Account Admin
+      - Account - users
       x-filter:
         email:
         - eq
-        login_profile:
+        login_profiles:
         - eq
         status:
         - eq
@@ -22646,7 +22967,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new user.
       tags:
-      - Account Admin
+      - Account - users
   /v3/users/me:
     get:
       description: Retrieve the details of the logged-in user.
@@ -22686,7 +23007,64 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Details of the current user.
       tags:
-      - Developer
+      - Account - users
+    put:
+      consumes:
+      - application/json
+      description: 'Update user details.
+
+
+        **Example:**
+
+        ```
+
+        curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me \
+
+        -H ''Authorization: Bearer <token>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''{"full_name": "fullname"}''
+
+        ```'
+      operationId: updateMyUser
+      parameters:
+      - description: A user object with attributes.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserUpdateReq'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/UserInfoResp'
+        '400':
+          description: Error in input data, for example, an invalid email address.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A user with the given ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: A user with the given username or email already exists.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Update user details.
+      tags:
+      - Account - users
   /v3/users/{user_id}:
     delete:
       description: 'Delete a user.
@@ -22731,7 +23109,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a user.
       tags:
-      - Account Admin
+      - Account - users
     get:
       description: 'Retrieve the details of a user.
 
@@ -22773,11 +23151,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Details of a user.
       tags:
-      - Account Admin
+      - Account - users
     put:
       consumes:
       - application/json
-      description: 'Update user details.
+      description: 'Update user details
 
 
         **Example:**
@@ -22835,7 +23213,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update user details.
       tags:
-      - Account Admin
+      - Account - users
   /v3/users/{user_id}/groups:
     delete:
       consumes:
@@ -22897,7 +23275,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove user from groups.
       tags:
-      - Account Admin
+      - Account - users
     get:
       description: 'Retrieve groups of the user.
 
@@ -22965,7 +23343,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get groups of the user.
       tags:
-      - Account Admin
+      - Account - users
     post:
       consumes:
       - application/json
@@ -23030,7 +23408,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Add user to a list of groups.
       tags:
-      - Account Admin
+      - Account - users
 produces:
 - application/json
 schemes:

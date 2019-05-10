@@ -132,16 +132,6 @@ class CertificateIssuer(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def description(self):
         """General description for the certificate issuer.
@@ -264,7 +254,7 @@ class CertificateIssuer(Entity):
 
         self._name.set(value)
 
-    def create(self, issuer_credentials=None):
+    def create(self, issuer_credentials):
         """Create certificate issuer.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuers>`_.
