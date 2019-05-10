@@ -1,1 +1,1 @@
-Removed deprecated 'trust_class' argument from device_directory SDK.
+Removed 'trust_class' argument from legacy device_directory SDK.
