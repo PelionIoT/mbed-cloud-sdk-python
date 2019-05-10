@@ -166,16 +166,6 @@ class CampaignDeviceMetadata(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def deployment_state(self):
         """The state of the update campaign on the device
@@ -185,16 +175,6 @@ class CampaignDeviceMetadata(Entity):
 
         return self._deployment_state.value
 
-    @deployment_state.setter
-    def deployment_state(self, value):
-        """Set value of `deployment_state`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._deployment_state.set(value)
-
     @property
     def description(self):
         """Description
@@ -203,16 +183,6 @@ class CampaignDeviceMetadata(Entity):
         """
 
         return self._description.value
-
-    @description.setter
-    def description(self, value):
-        """Set value of `description`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._description.set(value)
 
     @property
     def device_id(self):
@@ -224,16 +194,6 @@ class CampaignDeviceMetadata(Entity):
         """
 
         return self._device_id.value
-
-    @device_id.setter
-    def device_id(self, value):
-        """Set value of `device_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._device_id.set(value)
 
     @property
     def id(self):
@@ -269,16 +229,6 @@ class CampaignDeviceMetadata(Entity):
 
         return self._mechanism.value
 
-    @mechanism.setter
-    def mechanism(self, value):
-        """Set value of `mechanism`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._mechanism.set(value)
-
     @property
     def mechanism_url(self):
         """The Device Management Connect URL
@@ -287,16 +237,6 @@ class CampaignDeviceMetadata(Entity):
         """
 
         return self._mechanism_url.value
-
-    @mechanism_url.setter
-    def mechanism_url(self, value):
-        """Set value of `mechanism_url`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._mechanism_url.set(value)
 
     @property
     def name(self):
@@ -309,16 +249,6 @@ class CampaignDeviceMetadata(Entity):
 
         return self._name.value
 
-    @name.setter
-    def name(self, value):
-        """Set value of `name`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._name.set(value)
-
     @property
     def updated_at(self):
         """The record was modified in the database format: date-time
@@ -329,16 +259,6 @@ class CampaignDeviceMetadata(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     def read(self):
         """Get a campaign device metadata

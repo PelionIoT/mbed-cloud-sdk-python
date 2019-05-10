@@ -413,16 +413,6 @@ class Account(Entity):
 
         return self._admin_id.value
 
-    @admin_id.setter
-    def admin_id(self, value):
-        """Set value of `admin_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._admin_id.set(value)
-
     @property
     def admin_key(self):
         """The admin API key created for this account. Present only in the response for
@@ -435,16 +425,6 @@ class Account(Entity):
         """
 
         return self._admin_key.value
-
-    @admin_key.setter
-    def admin_key(self, value):
-        """Set value of `admin_key`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._admin_key.set(value)
 
     @property
     def admin_name(self):
@@ -625,16 +605,6 @@ class Account(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def custom_fields(self):
         """Account's custom properties as key-value pairs.
@@ -749,16 +719,6 @@ class Account(Entity):
 
         return self._expiration.value
 
-    @expiration.setter
-    def expiration(self, value):
-        """Set value of `expiration`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._expiration.set(value)
-
     @property
     def expiration_warning_threshold(self):
         """Indicates how many days (1-180) before account expiration a notification email
@@ -834,16 +794,6 @@ class Account(Entity):
 
         return self._limits.value
 
-    @limits.setter
-    def limits(self, value):
-        """Set value of `limits`
-
-        :param value: value to set
-        :type value: dict
-        """
-
-        self._limits.set(value)
-
     @property
     def mfa_status(self):
         """The enforcement status of multi-factor authentication, either `enforced` or
@@ -892,16 +842,6 @@ class Account(Entity):
 
         return self._parent_account.value
 
-    @parent_account.setter
-    def parent_account(self, value):
-        """Set value of `parent_account`
-
-        :param value: value to set
-        :type value: dict[ParentAccount]
-        """
-
-        self._parent_account.set(value)
-
     @property
     def parent_id(self):
         """The ID of the parent account, if any.
@@ -912,16 +852,6 @@ class Account(Entity):
         """
 
         return self._parent_id.value
-
-    @parent_id.setter
-    def parent_id(self, value):
-        """Set value of `parent_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._parent_id.set(value)
 
     @property
     def password_policy(self):
@@ -991,16 +921,6 @@ class Account(Entity):
 
         return self._policies.value
 
-    @policies.setter
-    def policies(self, value):
-        """Set value of `policies`
-
-        :param value: value to set
-        :type value: list[Policy]
-        """
-
-        self._policies.set(value)
-
     @property
     def postal_code(self):
         """The postal code part of the postal address.
@@ -1033,16 +953,6 @@ class Account(Entity):
 
         return self._reason.value
 
-    @reason.setter
-    def reason(self, value):
-        """Set value of `reason`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._reason.set(value)
-
     @property
     def reference_note(self):
         """A reference note for updating the status of the account.
@@ -1053,16 +963,6 @@ class Account(Entity):
         """
 
         return self._reference_note.value
-
-    @reference_note.setter
-    def reference_note(self, value):
-        """Set value of `reference_note`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._reference_note.set(value)
 
     @property
     def sales_contact(self):
@@ -1117,16 +1017,6 @@ class Account(Entity):
 
         return self._status.value
 
-    @status.setter
-    def status(self, value):
-        """Set value of `status`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._status.set(value)
-
     @property
     def template_id(self):
         """Account template ID.
@@ -1137,16 +1027,6 @@ class Account(Entity):
         """
 
         return self._template_id.value
-
-    @template_id.setter
-    def template_id(self, value):
-        """Set value of `template_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._template_id.set(value)
 
     @property
     def tier(self):
@@ -1160,16 +1040,6 @@ class Account(Entity):
 
         return self._tier.value
 
-    @tier.setter
-    def tier(self, value):
-        """Set value of `tier`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._tier.set(value)
-
     @property
     def updated_at(self):
         """Last update UTC time RFC3339.
@@ -1181,16 +1051,6 @@ class Account(Entity):
 
         return self._updated_at.value
 
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
-
     @property
     def upgraded_at(self):
         """Time when upgraded to commercial account in UTC format RFC3339.
@@ -1201,16 +1061,6 @@ class Account(Entity):
         """
 
         return self._upgraded_at.value
-
-    @upgraded_at.setter
-    def upgraded_at(self, value):
-        """Set value of `upgraded_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._upgraded_at.set(value)
 
     def api_keys(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
         """Get all API keys.

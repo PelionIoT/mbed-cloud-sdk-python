@@ -145,16 +145,6 @@ class FirmwareManifest(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def datafile_size(self):
         """The size of the datafile in bytes
@@ -163,16 +153,6 @@ class FirmwareManifest(Entity):
         """
 
         return self._datafile_size.value
-
-    @datafile_size.setter
-    def datafile_size(self, value):
-        """Set value of `datafile_size`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._datafile_size.set(value)
 
     @property
     def datafile_url(self):
@@ -184,16 +164,6 @@ class FirmwareManifest(Entity):
         """
 
         return self._datafile_url.value
-
-    @datafile_url.setter
-    def datafile_url(self, value):
-        """Set value of `datafile_url`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._datafile_url.set(value)
 
     @property
     def description(self):
@@ -224,16 +194,6 @@ class FirmwareManifest(Entity):
         """
 
         return self._device_class.value
-
-    @device_class.setter
-    def device_class(self, value):
-        """Set value of `device_class`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._device_class.set(value)
 
     @property
     def id(self):
@@ -269,16 +229,6 @@ class FirmwareManifest(Entity):
 
         return self._key_table_url.value
 
-    @key_table_url.setter
-    def key_table_url(self, value):
-        """Set value of `key_table_url`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._key_table_url.set(value)
-
     @property
     def name(self):
         """The name of the object
@@ -309,16 +259,6 @@ class FirmwareManifest(Entity):
 
         return self._timestamp.value
 
-    @timestamp.setter
-    def timestamp(self, value):
-        """Set value of `timestamp`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._timestamp.set(value)
-
     @property
     def updated_at(self):
         """The time the object was updated
@@ -329,16 +269,6 @@ class FirmwareManifest(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     def create(self, firmware_manifest_file, key_table_file=None):
         """Upload a manifest

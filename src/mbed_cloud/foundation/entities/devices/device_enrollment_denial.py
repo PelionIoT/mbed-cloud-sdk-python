@@ -105,16 +105,6 @@ class DeviceEnrollmentDenial(Entity):
 
         return self._account_id.value
 
-    @account_id.setter
-    def account_id(self, value):
-        """Set value of `account_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._account_id.set(value)
-
     @property
     def created_at(self):
         """date on which the failed bootstrap was attempted on
@@ -125,16 +115,6 @@ class DeviceEnrollmentDenial(Entity):
         """
 
         return self._created_at.value
-
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
 
     @property
     def endpoint_name(self):
@@ -147,16 +127,6 @@ class DeviceEnrollmentDenial(Entity):
 
         return self._endpoint_name.value
 
-    @endpoint_name.setter
-    def endpoint_name(self, value):
-        """Set value of `endpoint_name`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._endpoint_name.set(value)
-
     @property
     def id(self):
         """id of the recorded failed bootstrap attempt
@@ -168,16 +138,6 @@ class DeviceEnrollmentDenial(Entity):
 
         return self._id.value
 
-    @id.setter
-    def id(self, value):
-        """Set value of `id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._id.set(value)
-
     @property
     def trusted_certificate_id(self):
         """Trusted certificate id
@@ -188,16 +148,6 @@ class DeviceEnrollmentDenial(Entity):
         """
 
         return self._trusted_certificate_id.value
-
-    @trusted_certificate_id.setter
-    def trusted_certificate_id(self, value):
-        """Set value of `trusted_certificate_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._trusted_certificate_id.set(value)
 
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Return list of devices which were denied to bootstrap due to being subjected to blacklisting.

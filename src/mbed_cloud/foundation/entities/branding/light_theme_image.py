@@ -121,16 +121,6 @@ class LightThemeImage(Entity):
 
         return self._static_uri.value
 
-    @static_uri.setter
-    def static_uri(self, value):
-        """Set value of `static_uri`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._static_uri.set(value)
-
     @property
     def updated_at(self):
         """Last update time in UTC.
@@ -141,16 +131,6 @@ class LightThemeImage(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     def create(self, account_id, image):
         """Upload a light theme image.

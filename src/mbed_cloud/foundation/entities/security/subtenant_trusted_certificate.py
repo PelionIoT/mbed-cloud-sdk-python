@@ -232,16 +232,6 @@ class SubtenantTrustedCertificate(Entity):
 
         return self._certificate_fingerprint.value
 
-    @certificate_fingerprint.setter
-    def certificate_fingerprint(self, value):
-        """Set value of `certificate_fingerprint`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._certificate_fingerprint.set(value)
-
     @property
     def created_at(self):
         """Creation UTC time RFC3339.
@@ -252,16 +242,6 @@ class SubtenantTrustedCertificate(Entity):
         """
 
         return self._created_at.value
-
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
 
     @property
     def description(self):
@@ -294,16 +274,6 @@ class SubtenantTrustedCertificate(Entity):
         """
 
         return self._device_execution_mode.value
-
-    @device_execution_mode.setter
-    def device_execution_mode(self, value):
-        """Set value of `device_execution_mode`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._device_execution_mode.set(value)
 
     @property
     def enrollment_mode(self):
@@ -360,16 +330,6 @@ class SubtenantTrustedCertificate(Entity):
 
         return is_developer_certificate_getter(self=self)
 
-    @is_developer_certificate.setter
-    def is_developer_certificate(self, value):
-        """Set value of `is_developer_certificate`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._is_developer_certificate.set(value)
-
     @property
     def issuer(self):
         """Issuer of the certificate.
@@ -380,16 +340,6 @@ class SubtenantTrustedCertificate(Entity):
         """
 
         return self._issuer.value
-
-    @issuer.setter
-    def issuer(self, value):
-        """Set value of `issuer`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._issuer.set(value)
 
     @property
     def name(self):
@@ -424,16 +374,6 @@ class SubtenantTrustedCertificate(Entity):
         """
 
         return self._owner_id.value
-
-    @owner_id.setter
-    def owner_id(self, value):
-        """Set value of `owner_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._owner_id.set(value)
 
     @property
     def service(self):
@@ -488,16 +428,6 @@ class SubtenantTrustedCertificate(Entity):
 
         return self._subject.value
 
-    @subject.setter
-    def subject(self, value):
-        """Set value of `subject`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._subject.set(value)
-
     @property
     def updated_at(self):
         """Last update UTC time RFC3339.
@@ -508,16 +438,6 @@ class SubtenantTrustedCertificate(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     @property
     def valid(self):
@@ -530,16 +450,6 @@ class SubtenantTrustedCertificate(Entity):
 
         return self._valid.value
 
-    @valid.setter
-    def valid(self, value):
-        """Set value of `valid`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._valid.set(value)
-
     @property
     def validity(self):
         """Expiration time in UTC formatted as RFC3339.
@@ -550,16 +460,6 @@ class SubtenantTrustedCertificate(Entity):
         """
 
         return self._validity.value
-
-    @validity.setter
-    def validity(self, value):
-        """Set value of `validity`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._validity.set(value)
 
     def create(self):
         """Upload new trusted certificate.

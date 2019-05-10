@@ -133,16 +133,6 @@ class DeveloperCertificate(Entity):
 
         return self._account_id.value
 
-    @account_id.setter
-    def account_id(self, value):
-        """Set value of `account_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._account_id.set(value)
-
     @property
     def certificate(self):
         """PEM-format X.509 developer certificate.
@@ -152,16 +142,6 @@ class DeveloperCertificate(Entity):
 
         return self._certificate.value
 
-    @certificate.setter
-    def certificate(self, value):
-        """Set value of `certificate`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._certificate.set(value)
-
     @property
     def created_at(self):
         """Creation UTC time RFC3339.
@@ -170,16 +150,6 @@ class DeveloperCertificate(Entity):
         """
 
         return self._created_at.value
-
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
 
     @property
     def description(self):
@@ -208,16 +178,6 @@ class DeveloperCertificate(Entity):
         """
 
         return self._developer_private_key.value
-
-    @developer_private_key.setter
-    def developer_private_key(self, value):
-        """Set value of `developer_private_key`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._developer_private_key.set(value)
 
     @property
     def id(self):
@@ -270,16 +230,6 @@ class DeveloperCertificate(Entity):
         """
 
         return self._security_file_content.value
-
-    @security_file_content.setter
-    def security_file_content(self, value):
-        """Set value of `security_file_content`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._security_file_content.set(value)
 
     def create(self):
         """Create a new developer certificate to connect to the bootstrap server.

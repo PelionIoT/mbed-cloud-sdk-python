@@ -147,16 +147,6 @@ class ApiKey(Entity):
 
         return self._account_id.value
 
-    @account_id.setter
-    def account_id(self, value):
-        """Set value of `account_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._account_id.set(value)
-
     @property
     def created_at(self):
         """Creation UTC time RFC3339.
@@ -168,16 +158,6 @@ class ApiKey(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def creation_time(self):
         """The timestamp of the API key creation in the storage, in milliseconds.
@@ -188,16 +168,6 @@ class ApiKey(Entity):
         """
 
         return self._creation_time.value
-
-    @creation_time.setter
-    def creation_time(self, value):
-        """Set value of `creation_time`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._creation_time.set(value)
 
     @property
     def id(self):
@@ -234,16 +204,6 @@ class ApiKey(Entity):
 
         return self._key.value
 
-    @key.setter
-    def key(self, value):
-        """Set value of `key`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._key.set(value)
-
     @property
     def last_login_time(self):
         """The timestamp of the latest API key usage, in milliseconds.
@@ -254,16 +214,6 @@ class ApiKey(Entity):
         """
 
         return self._last_login_time.value
-
-    @last_login_time.setter
-    def last_login_time(self, value):
-        """Set value of `last_login_time`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._last_login_time.set(value)
 
     @property
     def name(self):
@@ -340,16 +290,6 @@ class ApiKey(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     def create(self):
         """Create a new API key.

@@ -96,16 +96,6 @@ class ParentAccount(Entity):
 
         return self._admin_email.value
 
-    @admin_email.setter
-    def admin_email(self, value):
-        """Set value of `admin_email`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._admin_email.set(value)
-
     @property
     def admin_name(self):
         """The name of the admin user who is the contact person of the parent account.
@@ -117,16 +107,6 @@ class ParentAccount(Entity):
 
         return self._admin_name.value
 
-    @admin_name.setter
-    def admin_name(self, value):
-        """Set value of `admin_name`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._admin_name.set(value)
-
     @property
     def id(self):
         """The ID of the parent account.
@@ -137,13 +117,3 @@ class ParentAccount(Entity):
         """
 
         return self._id.value
-
-    @id.setter
-    def id(self, value):
-        """Set value of `id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._id.set(value)

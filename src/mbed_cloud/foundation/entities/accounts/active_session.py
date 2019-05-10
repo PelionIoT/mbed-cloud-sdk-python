@@ -101,16 +101,6 @@ class ActiveSession(Entity):
 
         return self._account_id.value
 
-    @account_id.setter
-    def account_id(self, value):
-        """Set value of `account_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._account_id.set(value)
-
     @property
     def ip_address(self):
         """IP address of the client.
@@ -121,16 +111,6 @@ class ActiveSession(Entity):
         """
 
         return self._ip_address.value
-
-    @ip_address.setter
-    def ip_address(self, value):
-        """Set value of `ip_address`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._ip_address.set(value)
 
     @property
     def login_time(self):
@@ -143,16 +123,6 @@ class ActiveSession(Entity):
 
         return self._login_time.value
 
-    @login_time.setter
-    def login_time(self, value):
-        """Set value of `login_time`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._login_time.set(value)
-
     @property
     def reference_token(self):
         """The reference token.
@@ -163,16 +133,6 @@ class ActiveSession(Entity):
         """
 
         return self._reference_token.value
-
-    @reference_token.setter
-    def reference_token(self, value):
-        """Set value of `reference_token`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._reference_token.set(value)
 
     @property
     def user_agent(self):
@@ -185,13 +145,3 @@ class ActiveSession(Entity):
         """
 
         return self._user_agent.value
-
-    @user_agent.setter
-    def user_agent(self, value):
-        """Set value of `user_agent`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._user_agent.set(value)

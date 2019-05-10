@@ -99,16 +99,6 @@ class ServerCredentials(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def id(self):
         """Unique entity ID.
@@ -117,16 +107,6 @@ class ServerCredentials(Entity):
         """
 
         return self._id.value
-
-    @id.setter
-    def id(self, value):
-        """Set value of `id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._id.set(value)
 
     @property
     def server_certificate(self):
@@ -138,16 +118,6 @@ class ServerCredentials(Entity):
 
         return self._server_certificate.value
 
-    @server_certificate.setter
-    def server_certificate(self, value):
-        """Set value of `server_certificate`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._server_certificate.set(value)
-
     @property
     def server_uri(self):
         """Server URI that the client connects to.
@@ -156,16 +126,6 @@ class ServerCredentials(Entity):
         """
 
         return self._server_uri.value
-
-    @server_uri.setter
-    def server_uri(self, value):
-        """Set value of `server_uri`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._server_uri.set(value)
 
     def get_bootstrap(self):
         """Fetch bootstrap server credentials.

@@ -261,16 +261,6 @@ class Device(Entity):
 
         return self._account_id.value
 
-    @account_id.setter
-    def account_id(self, value):
-        """Set value of `account_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._account_id.set(value)
-
     @property
     def auto_update(self):
         """DEPRECATED: Mark this device for automatic firmware update.
@@ -319,16 +309,6 @@ class Device(Entity):
         """
 
         return self._bootstrapped_timestamp.value
-
-    @bootstrapped_timestamp.setter
-    def bootstrapped_timestamp(self, value):
-        """Set value of `bootstrapped_timestamp`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._bootstrapped_timestamp.set(value)
 
     @property
     def ca_id(self):
@@ -381,16 +361,6 @@ class Device(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def custom_attributes(self):
         """Up to five custom key-value attributes. Note that keys cannot begin with a
@@ -422,16 +392,6 @@ class Device(Entity):
         """
 
         return self._deployed_state.value
-
-    @deployed_state.setter
-    def deployed_state(self, value):
-        """Set value of `deployed_state`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._deployed_state.set(value)
 
     @property
     def deployment(self):
@@ -551,16 +511,6 @@ class Device(Entity):
 
         return self._endpoint_name.value
 
-    @endpoint_name.setter
-    def endpoint_name(self, value):
-        """Set value of `endpoint_name`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._endpoint_name.set(value)
-
     @property
     def endpoint_type(self):
         """The endpoint type of the device. For example, the device is a gateway.
@@ -591,16 +541,6 @@ class Device(Entity):
 
         return self._enrolment_list_timestamp.value
 
-    @enrolment_list_timestamp.setter
-    def enrolment_list_timestamp(self, value):
-        """Set value of `enrolment_list_timestamp`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._enrolment_list_timestamp.set(value)
-
     @property
     def firmware_checksum(self):
         """The SHA256 checksum of the current firmware image.
@@ -611,16 +551,6 @@ class Device(Entity):
         """
 
         return self._firmware_checksum.value
-
-    @firmware_checksum.setter
-    def firmware_checksum(self, value):
-        """Set value of `firmware_checksum`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._firmware_checksum.set(value)
 
     @property
     def host_gateway(self):
@@ -715,16 +645,6 @@ class Device(Entity):
         """
 
         return self._manifest_timestamp.value
-
-    @manifest_timestamp.setter
-    def manifest_timestamp(self, value):
-        """Set value of `manifest_timestamp`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._manifest_timestamp.set(value)
 
     @property
     def mechanism(self):
@@ -835,16 +755,6 @@ class Device(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     @property
     def vendor_id(self):

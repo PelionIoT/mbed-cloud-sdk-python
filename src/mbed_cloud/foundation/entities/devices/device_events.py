@@ -145,16 +145,6 @@ class DeviceEvents(Entity):
 
         return self._changes.value
 
-    @changes.setter
-    def changes(self, value):
-        """Set value of `changes`
-
-        :param value: value to set
-        :type value: dict
-        """
-
-        self._changes.set(value)
-
     @property
     def created_at(self):
         """
@@ -165,16 +155,6 @@ class DeviceEvents(Entity):
         """
 
         return self._created_at.value
-
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
 
     @property
     def data(self):
@@ -187,16 +167,6 @@ class DeviceEvents(Entity):
 
         return self._data.value
 
-    @data.setter
-    def data(self, value):
-        """Set value of `data`
-
-        :param value: value to set
-        :type value: dict
-        """
-
-        self._data.set(value)
-
     @property
     def date_time(self):
         """
@@ -207,16 +177,6 @@ class DeviceEvents(Entity):
         """
 
         return self._date_time.value
-
-    @date_time.setter
-    def date_time(self, value):
-        """Set value of `date_time`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._date_time.set(value)
 
     @property
     def description(self):
@@ -229,16 +189,6 @@ class DeviceEvents(Entity):
 
         return self._description.value
 
-    @description.setter
-    def description(self, value):
-        """Set value of `description`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._description.set(value)
-
     @property
     def device_id(self):
         """
@@ -249,16 +199,6 @@ class DeviceEvents(Entity):
         """
 
         return self._device_id.value
-
-    @device_id.setter
-    def device_id(self, value):
-        """Set value of `device_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._device_id.set(value)
 
     @property
     def event_type(self):
@@ -271,16 +211,6 @@ class DeviceEvents(Entity):
 
         return self._event_type.value
 
-    @event_type.setter
-    def event_type(self, value):
-        """Set value of `event_type`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._event_type.set(value)
-
     @property
     def event_type_category(self):
         """Category code which groups the event type by a summary category.
@@ -292,16 +222,6 @@ class DeviceEvents(Entity):
 
         return self._event_type_category.value
 
-    @event_type_category.setter
-    def event_type_category(self, value):
-        """Set value of `event_type_category`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._event_type_category.set(value)
-
     @property
     def event_type_description(self):
         """Generic description of the event
@@ -312,16 +232,6 @@ class DeviceEvents(Entity):
         """
 
         return self._event_type_description.value
-
-    @event_type_description.setter
-    def event_type_description(self, value):
-        """Set value of `event_type_description`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._event_type_description.set(value)
 
     @property
     def id(self):
@@ -354,16 +264,6 @@ class DeviceEvents(Entity):
         """
 
         return self._state_change.value
-
-    @state_change.setter
-    def state_change(self, value):
-        """Set value of `state_change`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._state_change.set(value)
 
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """List all device events.

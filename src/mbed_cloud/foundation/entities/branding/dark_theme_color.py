@@ -141,16 +141,6 @@ class DarkThemeColor(Entity):
 
         return self._updated_at.value
 
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
-
     def delete(self):
         """Reset branding color to default.
 

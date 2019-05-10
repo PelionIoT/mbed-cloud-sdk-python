@@ -127,16 +127,6 @@ class CampaignStatistics(Entity):
 
         return self._count.value
 
-    @count.setter
-    def count(self, value):
-        """Set value of `count`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._count.set(value)
-
     @property
     def created_at(self):
         """
@@ -147,16 +137,6 @@ class CampaignStatistics(Entity):
         """
 
         return self._created_at.value
-
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
 
     @property
     def id(self):
@@ -191,16 +171,6 @@ class CampaignStatistics(Entity):
         """
 
         return self._summary_status.value
-
-    @summary_status.setter
-    def summary_status(self, value):
-        """Set value of `summary_status`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._summary_status.set(value)
 
     def events(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get a list of events grouped by summary

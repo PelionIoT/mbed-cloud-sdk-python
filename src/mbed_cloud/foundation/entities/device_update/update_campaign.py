@@ -171,16 +171,6 @@ class UpdateCampaign(Entity):
 
         return self._autostop_reason.value
 
-    @autostop_reason.setter
-    def autostop_reason(self, value):
-        """Set value of `autostop_reason`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._autostop_reason.set(value)
-
     @property
     def created_at(self):
         """The time the update campaign was created
@@ -191,16 +181,6 @@ class UpdateCampaign(Entity):
         """
 
         return self._created_at.value
-
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
 
     @property
     def description(self):
@@ -284,16 +264,6 @@ class UpdateCampaign(Entity):
 
         return self._finished.value
 
-    @finished.setter
-    def finished(self, value):
-        """Set value of `finished`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._finished.set(value)
-
     @property
     def id(self):
         """The campaign ID
@@ -347,16 +317,6 @@ class UpdateCampaign(Entity):
 
         return self._phase.value
 
-    @phase.setter
-    def phase(self, value):
-        """Set value of `phase`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._phase.set(value)
-
     @property
     def root_manifest_id(self):
         """
@@ -389,16 +349,6 @@ class UpdateCampaign(Entity):
 
         return self._root_manifest_url.value
 
-    @root_manifest_url.setter
-    def root_manifest_url(self, value):
-        """Set value of `root_manifest_url`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._root_manifest_url.set(value)
-
     @property
     def started_at(self):
         """
@@ -410,16 +360,6 @@ class UpdateCampaign(Entity):
 
         return self._started_at.value
 
-    @started_at.setter
-    def started_at(self, value):
-        """Set value of `started_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._started_at.set(value)
-
     @property
     def updated_at(self):
         """The time the object was updated
@@ -430,16 +370,6 @@ class UpdateCampaign(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     @property
     def when(self):

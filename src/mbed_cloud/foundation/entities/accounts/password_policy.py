@@ -86,13 +86,3 @@ class PasswordPolicy(Entity):
         """
 
         return self._minimum_length.value
-
-    @minimum_length.setter
-    def minimum_length(self, value):
-        """Set value of `minimum_length`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._minimum_length.set(value)

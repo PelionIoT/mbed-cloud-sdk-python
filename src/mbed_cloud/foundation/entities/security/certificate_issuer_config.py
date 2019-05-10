@@ -137,16 +137,6 @@ class CertificateIssuerConfig(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def id(self):
         """The ID of the certificate issuer configuration.
@@ -203,16 +193,6 @@ class CertificateIssuerConfig(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     def create(self):
         """Create certificate issuer configuration.

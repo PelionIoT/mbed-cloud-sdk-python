@@ -135,16 +135,6 @@ class FirmwareImage(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def datafile_checksum(self):
         """The checksum (sha256) generated for the datafile
@@ -156,16 +146,6 @@ class FirmwareImage(Entity):
 
         return self._datafile_checksum.value
 
-    @datafile_checksum.setter
-    def datafile_checksum(self, value):
-        """Set value of `datafile_checksum`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._datafile_checksum.set(value)
-
     @property
     def datafile_size(self):
         """The size of the datafile in bytes
@@ -174,16 +154,6 @@ class FirmwareImage(Entity):
         """
 
         return self._datafile_size.value
-
-    @datafile_size.setter
-    def datafile_size(self, value):
-        """Set value of `datafile_size`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._datafile_size.set(value)
 
     @property
     def datafile_url(self):
@@ -195,16 +165,6 @@ class FirmwareImage(Entity):
         """
 
         return self._datafile_url.value
-
-    @datafile_url.setter
-    def datafile_url(self, value):
-        """Set value of `datafile_url`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._datafile_url.set(value)
 
     @property
     def description(self):
@@ -277,16 +237,6 @@ class FirmwareImage(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     def create(self, firmware_image_file):
         """Create an image

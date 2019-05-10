@@ -228,16 +228,6 @@ class User(Entity):
 
         return self._account_id.value
 
-    @account_id.setter
-    def account_id(self, value):
-        """Set value of `account_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._account_id.set(value)
-
     @property
     def active_sessions(self):
         """List of active user sessions.
@@ -246,16 +236,6 @@ class User(Entity):
         """
 
         return self._active_sessions.value
-
-    @active_sessions.setter
-    def active_sessions(self, value):
-        """Set value of `active_sessions`
-
-        :param value: value to set
-        :type value: list[ActiveSession]
-        """
-
-        self._active_sessions.set(value)
 
     @property
     def address(self):
@@ -289,16 +269,6 @@ class User(Entity):
 
         return self._created_at.value
 
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
-
     @property
     def creation_time(self):
         """A timestamp of the user creation in the storage, in milliseconds.
@@ -310,16 +280,6 @@ class User(Entity):
 
         return self._creation_time.value
 
-    @creation_time.setter
-    def creation_time(self, value):
-        """Set value of `creation_time`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._creation_time.set(value)
-
     @property
     def custom_fields(self):
         """User's account-specific custom properties. The value is a string.
@@ -328,16 +288,6 @@ class User(Entity):
         """
 
         return self._custom_fields.value
-
-    @custom_fields.setter
-    def custom_fields(self, value):
-        """Set value of `custom_fields`
-
-        :param value: value to set
-        :type value: dict
-        """
-
-        self._custom_fields.set(value)
 
     @property
     def email(self):
@@ -372,16 +322,6 @@ class User(Entity):
         """
 
         return self._email_verified.value
-
-    @email_verified.setter
-    def email_verified(self, value):
-        """Set value of `email_verified`
-
-        :param value: value to set
-        :type value: bool
-        """
-
-        self._email_verified.set(value)
 
     @property
     def full_name(self):
@@ -502,16 +442,6 @@ class User(Entity):
 
         return self._last_login_time.value
 
-    @last_login_time.setter
-    def last_login_time(self, value):
-        """Set value of `last_login_time`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._last_login_time.set(value)
-
     @property
     def login_history(self):
         """Timestamps, succeedings, IP addresses and user agent information of the last
@@ -521,16 +451,6 @@ class User(Entity):
         """
 
         return self._login_history.value
-
-    @login_history.setter
-    def login_history(self, value):
-        """Set value of `login_history`
-
-        :param value: value to set
-        :type value: list[LoginHistory]
-        """
-
-        self._login_history.set(value)
 
     @property
     def login_profiles(self):
@@ -584,16 +504,6 @@ class User(Entity):
         """
 
         return self._password_changed_time.value
-
-    @password_changed_time.setter
-    def password_changed_time(self, value):
-        """Set value of `password_changed_time`
-
-        :param value: value to set
-        :type value: int
-        """
-
-        self._password_changed_time.set(value)
 
     @property
     def phone_number(self):
@@ -651,16 +561,6 @@ class User(Entity):
 
         return self._totp_scratch_codes.value
 
-    @totp_scratch_codes.setter
-    def totp_scratch_codes(self, value):
-        """Set value of `totp_scratch_codes`
-
-        :param value: value to set
-        :type value: list
-        """
-
-        self._totp_scratch_codes.set(value)
-
     @property
     def updated_at(self):
         """Last update UTC time RFC3339.
@@ -671,16 +571,6 @@ class User(Entity):
         """
 
         return self._updated_at.value
-
-    @updated_at.setter
-    def updated_at(self, value):
-        """Set value of `updated_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._updated_at.set(value)
 
     @property
     def username(self):

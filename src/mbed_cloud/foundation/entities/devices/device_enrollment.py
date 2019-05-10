@@ -132,16 +132,6 @@ class DeviceEnrollment(Entity):
 
         return self._account_id.value
 
-    @account_id.setter
-    def account_id(self, value):
-        """Set value of `account_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._account_id.set(value)
-
     @property
     def claimed_at(self):
         """The time the device was claimed.
@@ -151,16 +141,6 @@ class DeviceEnrollment(Entity):
 
         return self._claimed_at.value
 
-    @claimed_at.setter
-    def claimed_at(self, value):
-        """Set value of `claimed_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._claimed_at.set(value)
-
     @property
     def created_at(self):
         """The time of the enrollment identity creation.
@@ -169,16 +149,6 @@ class DeviceEnrollment(Entity):
         """
 
         return self._created_at.value
-
-    @created_at.setter
-    def created_at(self, value):
-        """Set value of `created_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._created_at.set(value)
 
     @property
     def enrolled_device_id(self):
@@ -190,16 +160,6 @@ class DeviceEnrollment(Entity):
         """
 
         return self._enrolled_device_id.value
-
-    @enrolled_device_id.setter
-    def enrolled_device_id(self, value):
-        """Set value of `enrolled_device_id`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._enrolled_device_id.set(value)
 
     @property
     def enrollment_identity(self):
@@ -234,16 +194,6 @@ class DeviceEnrollment(Entity):
         """
 
         return self._expires_at.value
-
-    @expires_at.setter
-    def expires_at(self, value):
-        """Set value of `expires_at`
-
-        :param value: value to set
-        :type value: datetime
-        """
-
-        self._expires_at.set(value)
 
     @property
     def id(self):
