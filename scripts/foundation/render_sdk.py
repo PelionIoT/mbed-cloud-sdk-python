@@ -238,6 +238,7 @@ SWAGGER_TYPE_MAP = {
 }
 
 TEXT_CONTENT_TYPE = '"text/plain"'
+CSV_CONTENT_TYPE = '"text/csv"'
 BINARY_CONTENT_TYPE = '"application/octet-stream"'
 
 # Map from Swagger Types / Formats to multipart MIME content types
@@ -267,10 +268,24 @@ def map_python_field_types(fields):
         swagger_format = field.get("format")
         field["python_type"] = SWAGGER_TYPE_MAP.get(swagger_format) or SWAGGER_TYPE_MAP.get(swagger_type)
         field["python_field"] = SWAGGER_FIELD_MAP.get(swagger_format) or SWAGGER_FIELD_MAP.get(swagger_type)
-        # The content type is required is the field is part of a multipart upload
-        field["content_type"] = SWAGGER_CONTENT_TYPE.get(swagger_format) or SWAGGER_CONTENT_TYPE.get(swagger_type)
+
+        # The content type is required is the field is part of a multipart upload, there is some guesswork involved
+        # so check the contents of the description.
+        if swagger_type == "file":
+            if "csv" in field.get("description", "").lower():
+                field["content_type"] = CSV_CONTENT_TYPE
+            else:
+                field["content_type"] = BINARY_CONTENT_TYPE
+        else:
+            field["content_type"] = SWAGGER_CONTENT_TYPE.get(swagger_format) or SWAGGER_CONTENT_TYPE.get(swagger_type)
+
         # The file name is also required for the multipart upload for file fields
-        field["file_name"] = '"%s.bin"' % field["_key"] if field["content_type"] == BINARY_CONTENT_TYPE else None
+        if field["content_type"] == BINARY_CONTENT_TYPE:
+            field["file_name"] = '"%s.bin"' % field["_key"]
+        elif field["content_type"] == CSV_CONTENT_TYPE:
+            field["file_name"] = '"%s.csv"' % field["_key"]
+        else:
+            field["file_name"] = None
 
 
 @functools.lru_cache()
