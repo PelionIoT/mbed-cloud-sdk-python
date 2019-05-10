@@ -20,7 +20,7 @@ many_types_filter = {
         '$gte': datetime.datetime(2017, 1, 1),
     },
     'vendor_id': 'green',
-    'test_integer_field': {
+    'device_execution_mode': {
         'gte': 5,
     },
     'state': True,
@@ -61,7 +61,7 @@ class TestFilters(BaseCase):
         self._run(
             {
                 'vendor_id__eq': 'green', 'deployment__eq': 'yellow', 'deployment__gte': '2017-01-01T00:00:00Z',
-                'firmware_checksum__eq': None, 'name__eq': False, 'state__eq': True, 'test_integer_field__gte': 5,
+                'firmware_checksum__eq': None, 'name__eq': False, 'state__eq': True, 'device_execution_mode__gte': 5,
             },
             filters=many_types_filter,
             encode=False
@@ -78,7 +78,7 @@ class TestFilters(BaseCase):
                 '&firmware_checksum=None'
                 '&name=False'
                 '&state=True'
-                '&test_integer_field__gte=5'
+                '&device_execution_mode__gte=5'
                 '&vendor_id=green'
             )},
             filters=this_filter,
