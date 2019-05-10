@@ -1,0 +1,1 @@
+Changed order of calls in tag_and_release so that changelog is generated before release is tagged.
