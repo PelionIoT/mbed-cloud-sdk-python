@@ -641,9 +641,7 @@ definitions:
       custom_fields:
         additionalProperties:
           type: string
-        description: Account's custom properties as key-value pairs, with a maximum
-          of 10 keys. The maximum length of a key is 100 characters. The values are
-          handled as strings and the maximum length for a value is 1000 characters.
+        description: Account's custom properties as key-value pairs.
         maxItems: 10
         type: object
         x-nullable: true
