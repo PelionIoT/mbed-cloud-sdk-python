@@ -20,9 +20,6 @@ many_types_filter = {
         '$gte': datetime.datetime(2017, 1, 1),
     },
     'vendor_id': 'green',
-    'trust_class': {
-        'gte': 5,
-    },
     'state': True,
     'name': False,
     'firmware_checksum': None,
@@ -61,7 +58,7 @@ class TestFilters(BaseCase):
         self._run(
             {
                 'vendor_id__eq': 'green', 'deployment__eq': 'yellow', 'deployment__gte': '2017-01-01T00:00:00Z',
-                'firmware_checksum__eq': None, 'name__eq': False, 'state__eq': True, 'trust_class__gte': 5,
+                'firmware_checksum__eq': None, 'name__eq': False, 'state__eq': True,
             },
             filters=many_types_filter,
             encode=False
@@ -78,7 +75,6 @@ class TestFilters(BaseCase):
                 '&firmware_checksum=None'
                 '&name=False'
                 '&state=True'
-                '&trust_class__gte=5'
                 '&vendor_id=green'
             )},
             filters=this_filter,
@@ -149,7 +145,6 @@ class TestFilters(BaseCase):
                 '&custom_attributes__last_deployment__gte=2017-01-01T00%3A00%3A00Z'
                 '&custom_attributes__name=False'
                 '&custom_attributes__state=True'
-                '&custom_attributes__trust_class__gte=5'
                 '&custom_attributes__vendor_id=green'
                 '&name=red+%26+yellow'
             ),
