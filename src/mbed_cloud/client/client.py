@@ -18,6 +18,7 @@ This provides direct access the Pelion Device Management API.
 import inspect
 import json
 
+from mbed_cloud.foundation.common.entity_base import Entity
 from mbed_cloud import utils
 from mbed_cloud.sdk import ApiErrorResponse
 from mbed_cloud.client import util
@@ -146,8 +147,14 @@ class Client(object):
                 self.config.logger.error(
                     "Failed to unpack response body:\n%r", response.content
                 )
-                e.response = response
-                raise e
+                if isinstance(unpack, Entity):
+                    # If nothing is returned from the API but the response should be unpacked into an Entity, then
+                    # return the original entity instance. Some endpoints do not return a created or modified instance
+                    # on POST or PUT, which is out of spec but handle it.
+                    return unpack
+                else:
+                    e.response = response
+                    raise e
             else:
                 return unpack.from_api(**decoded)
 

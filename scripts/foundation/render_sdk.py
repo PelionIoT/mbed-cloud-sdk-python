@@ -238,6 +238,7 @@ SWAGGER_TYPE_MAP = {
 }
 
 TEXT_CONTENT_TYPE = '"text/plain"'
+CSV_CONTENT_TYPE = '"text/csv"'
 BINARY_CONTENT_TYPE = '"application/octet-stream"'
 
 # Map from Swagger Types / Formats to multipart MIME content types
@@ -267,10 +268,24 @@ def map_python_field_types(fields):
         swagger_format = field.get("format")
         field["python_type"] = SWAGGER_TYPE_MAP.get(swagger_format) or SWAGGER_TYPE_MAP.get(swagger_type)
         field["python_field"] = SWAGGER_FIELD_MAP.get(swagger_format) or SWAGGER_FIELD_MAP.get(swagger_type)
-        # The content type is required is the field is part of a multipart upload
-        field["content_type"] = SWAGGER_CONTENT_TYPE.get(swagger_format) or SWAGGER_CONTENT_TYPE.get(swagger_type)
+
+        # The content type is required is the field is part of a multipart upload, there is some guesswork involved
+        # so check the contents of the description.
+        if swagger_type == "file":
+            if "csv" in field.get("description", "").lower():
+                field["content_type"] = CSV_CONTENT_TYPE
+            else:
+                field["content_type"] = BINARY_CONTENT_TYPE
+        else:
+            field["content_type"] = SWAGGER_CONTENT_TYPE.get(swagger_format) or SWAGGER_CONTENT_TYPE.get(swagger_type)
+
         # The file name is also required for the multipart upload for file fields
-        field["file_name"] = '"%s.bin"' % field["_key"] if field["content_type"] == BINARY_CONTENT_TYPE else None
+        if field["content_type"] == BINARY_CONTENT_TYPE:
+            field["file_name"] = '"%s.bin"' % field["_key"]
+        elif field["content_type"] == CSV_CONTENT_TYPE:
+            field["file_name"] = '"%s.csv"' % field["_key"]
+        else:
+            field["file_name"] = None
 
 
 @functools.lru_cache()
@@ -576,6 +591,9 @@ def post_process_definition_file(sdk_def_filename):
         for entity in sdk_gen_dict["entities"]:
             map_python_field_types(entity["fields"])
 
+            entity["api_fieldnames"] = []
+            entity["sdk_fieldnames"] = []
+
             # Convert a reference to an SDK Entity to a Python code reference
             # devices.device.list -> mbed_cloud.foundation.entities.devices.device.Device.list
             for field in entity["fields"]:
@@ -591,6 +609,18 @@ def post_process_definition_file(sdk_def_filename):
                         # E.g. mbed_cloud.foundation.entities.devices.device.Device.list
                         python_reference += ".%s" % to_snake_case(reference_segments[2])
                     field["foundation_reference"] = python_reference
+
+                # TODO Exclude SDK only fields IOTSTOOL-2320 - definition currently doesn't support this.
+                if True:
+                    entity["api_fieldnames"].append(field["_key"])
+
+                # Add fields which aren't public to fields which can be serialised to the user
+                if not field.get("private_field"):
+                    entity["sdk_fieldnames"].append(field["_key"])
+
+            # Reduce code verbosity if SDK and API fields are identical
+            if entity["api_fieldnames"] == entity["sdk_fieldnames"]:
+                entity["sdk_fieldnames"] = "_api_fieldnames"
 
             for method in entity["methods"][:]:
                 map_python_field_types(method["fields"])
@@ -671,7 +701,7 @@ def main():
     render_foundation_sdk(python_sdk_def_dict, arguments.output_dir)
 
     logger.info("Reformatting generated source files in directory '%s'", arguments.output_dir)
-    subprocess.run(['black', arguments.output_dir, '--fast', '--line-length=92'])
+    subprocess.run(['black', arguments.output_dir, '--fast', '--line-length=120'])
 
     return 0
 

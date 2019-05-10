@@ -50,8 +50,8 @@ from mbed_cloud.foundation import enums
 class SubtenantUser(Entity):
     """Represents the `SubtenantUser` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = [
         "account_id",
         "active_sessions",
         "address",
@@ -76,6 +76,9 @@ class SubtenantUser(Entity):
         "updated_at",
         "username",
     ]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {
@@ -200,9 +203,7 @@ class SubtenantUser(Entity):
 
         # fields
         self._account_id = fields.StringField(value=account_id)
-        self._active_sessions = fields.ListField(
-            value=active_sessions, entity=ActiveSession
-        )
+        self._active_sessions = fields.ListField(value=active_sessions, entity=ActiveSession)
         self._address = fields.StringField(value=address)
         self._created_at = fields.DateTimeField(value=created_at)
         self._creation_time = fields.IntegerField(value=creation_time)
@@ -221,9 +222,7 @@ class SubtenantUser(Entity):
         self._status = fields.StringField(value=status, enum=enums.SubtenantUserStatusEnum)
         self._terms_accepted = fields.BooleanField(value=terms_accepted)
         self._totp_scratch_codes = fields.ListField(value=totp_scratch_codes)
-        self._two_factor_authentication = fields.BooleanField(
-            value=two_factor_authentication
-        )
+        self._two_factor_authentication = fields.BooleanField(value=two_factor_authentication)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._username = fields.StringField(value=username)
 
@@ -726,23 +725,35 @@ class SubtenantUser(Entity):
         :rtype: SubtenantUser
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._address.value_set:
+            body_params["address"] = self._address.to_api()
+        if self._email.value_set:
+            body_params["email"] = self._email.to_api()
+        if self._full_name.value_set:
+            body_params["full_name"] = self._full_name.to_api()
+        if self._login_profiles.value_set:
+            body_params["login_profiles"] = self._login_profiles.to_api()
+        if self._marketing_accepted.value_set:
+            body_params["is_marketing_accepted"] = self._marketing_accepted.to_api()
+        if self._password.value_set:
+            body_params["password"] = self._password.to_api()
+        if self._phone_number.value_set:
+            body_params["phone_number"] = self._phone_number.to_api()
+        if self._terms_accepted.value_set:
+            body_params["is_gtc_accepted"] = self._terms_accepted.to_api()
+        if self._username.value_set:
+            body_params["username"] = self._username.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/accounts/{account_id}/users",
             content_type="application/json",
             path_params={"account_id": self._account_id.to_api()},
             query_params={"action": fields.StringField(action).to_api()},
-            body_params={
-                "address": self._address.to_api(),
-                "email": self._email.to_api(),
-                "full_name": self._full_name.to_api(),
-                "login_profiles": self._login_profiles.to_api(),
-                "is_marketing_accepted": self._marketing_accepted.to_api(),
-                "password": self._password.to_api(),
-                "phone_number": self._phone_number.to_api(),
-                "is_gtc_accepted": self._terms_accepted.to_api(),
-                "username": self._username.to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )
 
@@ -758,10 +769,7 @@ class SubtenantUser(Entity):
             method="delete",
             path="/v3/accounts/{account_id}/users/{user_id}",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "user_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "user_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -777,10 +785,7 @@ class SubtenantUser(Entity):
             method="get",
             path="/v3/accounts/{account_id}/users/{user_id}",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "user_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "user_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -792,24 +797,32 @@ class SubtenantUser(Entity):
         :rtype: SubtenantUser
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._address.value_set:
+            body_params["address"] = self._address.to_api()
+        if self._full_name.value_set:
+            body_params["full_name"] = self._full_name.to_api()
+        if self._login_profiles.value_set:
+            body_params["login_profiles"] = self._login_profiles.to_api()
+        if self._marketing_accepted.value_set:
+            body_params["is_marketing_accepted"] = self._marketing_accepted.to_api()
+        if self._phone_number.value_set:
+            body_params["phone_number"] = self._phone_number.to_api()
+        if self._terms_accepted.value_set:
+            body_params["is_gtc_accepted"] = self._terms_accepted.to_api()
+        if self._two_factor_authentication.value_set:
+            body_params["is_totp_enabled"] = self._two_factor_authentication.to_api()
+        if self._username.value_set:
+            body_params["username"] = self._username.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/accounts/{account_id}/users/{user_id}",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "user_id": self._id.to_api(),
-            },
-            body_params={
-                "address": self._address.to_api(),
-                "full_name": self._full_name.to_api(),
-                "login_profiles": self._login_profiles.to_api(),
-                "is_marketing_accepted": self._marketing_accepted.to_api(),
-                "phone_number": self._phone_number.to_api(),
-                "is_gtc_accepted": self._terms_accepted.to_api(),
-                "is_totp_enabled": self._two_factor_authentication.to_api(),
-                "username": self._username.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "user_id": self._id.to_api()},
+            body_params=body_params,
             unpack=self,
         )
 
@@ -825,9 +838,6 @@ class SubtenantUser(Entity):
             method="post",
             path="/v3/accounts/{account_id}/users/{user_id}/validate-email",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "user_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "user_id": self._id.to_api()},
             unpack=self,
         )

@@ -47,8 +47,8 @@ from mbed_cloud.foundation import enums
 class DeviceEvents(Entity):
     """Represents the `DeviceEvents` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = [
         "changes",
         "created_at",
         "data",
@@ -61,6 +61,9 @@ class DeviceEvents(Entity):
         "id",
         "state_change",
     ]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
@@ -429,9 +432,7 @@ class DeviceEvents(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=DeviceEvents._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=DeviceEvents._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -486,7 +487,11 @@ class DeviceEvents(Entity):
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
-            method="get", path="/v3/device-events/", query_params=query_params, unpack=False
+            method="get",
+            path="/v3/device-events/",
+            content_type="application/json",
+            query_params=query_params,
+            unpack=False,
         )
 
     def read(self):

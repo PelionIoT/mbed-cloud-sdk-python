@@ -47,8 +47,11 @@ from mbed_cloud.foundation import enums
 class ServerCredentials(Entity):
     """Represents the `ServerCredentials` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = ["created_at", "id", "server_certificate", "server_uri"]
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = ["created_at", "id", "server_certificate", "server_uri"]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
@@ -56,14 +59,7 @@ class ServerCredentials(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(
-        self,
-        _client=None,
-        created_at=None,
-        id=None,
-        server_certificate=None,
-        server_uri=None,
-    ):
+    def __init__(self, _client=None, created_at=None, id=None, server_certificate=None, server_uri=None):
         """Creates a local `ServerCredentials` instance
 
         Parameters can be supplied on creation of the instance or given by
@@ -181,10 +177,7 @@ class ServerCredentials(Entity):
         """
 
         return self._client.call_api(
-            method="get",
-            path="/v3/server-credentials/bootstrap",
-            content_type="application/json",
-            unpack=self,
+            method="get", path="/v3/server-credentials/bootstrap", content_type="application/json", unpack=self
         )
 
     def get_lwm2m(self):
@@ -196,8 +189,5 @@ class ServerCredentials(Entity):
         """
 
         return self._client.call_api(
-            method="get",
-            path="/v3/server-credentials/lwm2m",
-            content_type="application/json",
-            unpack=self,
+            method="get", path="/v3/server-credentials/lwm2m", content_type="application/json", unpack=self
         )

@@ -143,3 +143,13 @@ class ApiFilter(object):
                 api_filter[api_field + "__eq"] = api_value
 
         return api_filter
+
+    def to_dict(self):
+        """Support standard field interface, equivalent to `to_api`."""
+        return self.to_api()
+
+    def to_query_string(self):
+        """Generate a query string (not percent encoded."""
+        key_value_strings = ["%s=%s" % (key, value) for key, value in self.to_api().items()]
+        key_value_strings.sort()
+        return "&".join(key_value_strings)

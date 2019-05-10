@@ -43,8 +43,11 @@ from mbed_cloud.foundation import enums
 class LoginHistory(Entity):
     """Represents the `LoginHistory` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = ["date", "ip_address", "success", "user_agent"]
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = ["date", "ip_address", "success", "user_agent"]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
@@ -52,9 +55,7 @@ class LoginHistory(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(
-        self, _client=None, date=None, ip_address=None, success=None, user_agent=None
-    ):
+    def __init__(self, _client=None, date=None, ip_address=None, success=None, user_agent=None):
         """Creates a local `LoginHistory` instance
 
         Parameters can be supplied on creation of the instance or given by

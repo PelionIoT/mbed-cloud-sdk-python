@@ -4,7 +4,7 @@
 # BUILD
 #
 
-FROM python:3.7.0-alpine3.8 as PY_SDK_BUILDER
+FROM python:3.7.3-alpine3.8 as PY_SDK_BUILDER
 
 # don't cache any pip downloads
 ENV PIP_NO_CACHE_DIR=false
@@ -22,6 +22,12 @@ WORKDIR /build
 # install system-level dependencies
 RUN apk update
 RUN apk add git
+
+# openssl install
+RUN apk add g++
+RUN apk add libffi-dev
+RUN apk add openssl-dev
+RUN apk add openssl
 
 RUN python -m pip install -U setuptools pip pipenv
 
@@ -88,7 +94,7 @@ RUN pipenv run python setup.py clean --all bdist_wheel --dist-dir release-dist
 #
 
 # minimal image for future work. this should come out 'smallish' ~ 160MB
-FROM python:3.7.0-alpine3.8 as PY_SDK_LITE
+FROM python:3.7.3-alpine3.8 as PY_SDK_LITE
 # working dir
 WORKDIR /build
 

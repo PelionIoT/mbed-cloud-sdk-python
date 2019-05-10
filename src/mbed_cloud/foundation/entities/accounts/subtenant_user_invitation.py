@@ -48,8 +48,8 @@ from mbed_cloud.foundation import enums
 class SubtenantUserInvitation(Entity):
     """Represents the `SubtenantUserInvitation` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = [
         "account_id",
         "created_at",
         "email",
@@ -59,6 +59,9 @@ class SubtenantUserInvitation(Entity):
         "updated_at",
         "user_id",
     ]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
@@ -306,16 +309,22 @@ class SubtenantUserInvitation(Entity):
         :rtype: SubtenantUserInvitation
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._email.value_set:
+            body_params["email"] = self._email.to_api()
+        if self._login_profiles.value_set:
+            body_params["login_profiles"] = self._login_profiles.to_api()
+        # Method parameters are unconditionally sent even if set to None
+        body_params["valid_for_days"] = fields.IntegerField(valid_for_days).to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/accounts/{account_id}/user-invitations",
             content_type="application/json",
             path_params={"account_id": self._account_id.to_api()},
-            body_params={
-                "email": self._email.to_api(),
-                "login_profiles": self._login_profiles.to_api(),
-                "valid_for_days": fields.IntegerField(valid_for_days).to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )
 
@@ -331,10 +340,7 @@ class SubtenantUserInvitation(Entity):
             method="delete",
             path="/v3/accounts/{account_id}/user-invitations/{invitation_id}",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "invitation_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "invitation_id": self._id.to_api()},
             unpack=self,
         )
 
@@ -350,9 +356,6 @@ class SubtenantUserInvitation(Entity):
             method="get",
             path="/v3/accounts/{account_id}/user-invitations/{invitation_id}",
             content_type="application/json",
-            path_params={
-                "account_id": self._account_id.to_api(),
-                "invitation_id": self._id.to_api(),
-            },
+            path_params={"account_id": self._account_id.to_api(), "invitation_id": self._id.to_api()},
             unpack=self,
         )

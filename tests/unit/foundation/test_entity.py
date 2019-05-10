@@ -13,17 +13,24 @@ from mbed_cloud.foundation.common import fields
 class SimpleEntity(Entity):
     """Represents the `User` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = [
         "a_simple_field",
         "a_renamed_field",
         "a_datetime_field",
         "a_date_field",
     ]
 
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
+
+    # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {
         "badly_named_field": "a_renamed_field",
     }
+
+    # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
+    _renames_to_api = {}
 
     def __init__(
             self,

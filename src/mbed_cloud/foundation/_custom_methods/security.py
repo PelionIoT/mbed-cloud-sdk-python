@@ -33,6 +33,7 @@ def pre_shared_key_id_setter(self, value):
     :type value: str
     """
     self._endpoint_name.set(value)
+    # Also set the ID here as this is used when creating the URI
     self._id.set(value)
 
 
@@ -45,4 +46,5 @@ def pre_shared_key_id_getter(self):
     :return: Entity ID (which shadows the endpoint name)
     :rtype: str
     """
-    return self._id.value
+    # The underlying value of endpoint name will set by the REST API, so use this in preference to the id
+    return self._endpoint_name.value

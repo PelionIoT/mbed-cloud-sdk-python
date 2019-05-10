@@ -51,14 +51,35 @@ from mbed_cloud.foundation import enums
 class TrustedCertificate(Entity):
     """Represents the `TrustedCertificate` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = [
         "account_id",
         "certificate",
         "certificate_fingerprint",
         "created_at",
         "description",
         "device_execution_mode",
+        "enrollment_mode",
+        "id",
+        "is_developer_certificate",
+        "issuer",
+        "name",
+        "owner_id",
+        "service",
+        "status",
+        "subject",
+        "updated_at",
+        "valid",
+        "validity",
+    ]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = [
+        "account_id",
+        "certificate",
+        "certificate_fingerprint",
+        "created_at",
+        "description",
         "enrollment_mode",
         "id",
         "is_developer_certificate",
@@ -163,12 +184,8 @@ class TrustedCertificate(Entity):
         self._issuer = fields.StringField(value=issuer)
         self._name = fields.StringField(value=name)
         self._owner_id = fields.StringField(value=owner_id)
-        self._service = fields.StringField(
-            value=service, enum=enums.TrustedCertificateServiceEnum
-        )
-        self._status = fields.StringField(
-            value=status, enum=enums.TrustedCertificateStatusEnum
-        )
+        self._service = fields.StringField(value=service, enum=enums.TrustedCertificateServiceEnum)
+        self._status = fields.StringField(value=status, enum=enums.TrustedCertificateStatusEnum)
         self._subject = fields.StringField(value=subject)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._valid = fields.BooleanField(value=valid)
@@ -547,18 +564,27 @@ class TrustedCertificate(Entity):
         :rtype: TrustedCertificate
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._certificate.value_set:
+            body_params["certificate"] = self._certificate.to_api()
+        if self._description.value_set:
+            body_params["description"] = self._description.to_api()
+        if self._enrollment_mode.value_set:
+            body_params["enrollment_mode"] = self._enrollment_mode.to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
+        if self._service.value_set:
+            body_params["service"] = self._service.to_api()
+        if self._status.value_set:
+            body_params["status"] = self._status.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/trusted-certificates",
             content_type="application/json",
-            body_params={
-                "certificate": self._certificate.to_api(),
-                "description": self._description.to_api(),
-                "enrollment_mode": self._enrollment_mode.to_api(),
-                "name": self._name.to_api(),
-                "service": self._service.to_api(),
-                "status": self._status.to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )
 
@@ -669,9 +695,7 @@ class TrustedCertificate(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=TrustedCertificate._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=TrustedCertificate._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -719,15 +743,14 @@ class TrustedCertificate(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.TrustedCertificateOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.TrustedCertificateOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
             method="get",
             path="/v3/trusted-certificates",
+            content_type="application/json",
             query_params=query_params,
             unpack=False,
         )
@@ -756,18 +779,27 @@ class TrustedCertificate(Entity):
         :rtype: TrustedCertificate
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._certificate.value_set:
+            body_params["certificate"] = self._certificate.to_api()
+        if self._description.value_set:
+            body_params["description"] = self._description.to_api()
+        if self._enrollment_mode.value_set:
+            body_params["enrollment_mode"] = self._enrollment_mode.to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
+        if self._service.value_set:
+            body_params["service"] = self._service.to_api()
+        if self._status.value_set:
+            body_params["status"] = self._status.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/trusted-certificates/{cert_id}",
             content_type="application/json",
-            body_params={
-                "certificate": self._certificate.to_api(),
-                "description": self._description.to_api(),
-                "enrollment_mode": self._enrollment_mode.to_api(),
-                "name": self._name.to_api(),
-                "service": self._service.to_api(),
-                "status": self._status.to_api(),
-            },
+            body_params=body_params,
             path_params={"cert_id": self._id.to_api()},
             unpack=self,
         )

@@ -155,6 +155,4 @@ class DeviceStateEnum(BaseEnum):
     REGISTERED = "registered"
     UNENROLLED = "unenrolled"
 
-    values = frozenset(
-        ("bootstrapped", "cloud_enrolling", "deregistered", "registered", "unenrolled")
-    )
+    values = frozenset(("bootstrapped", "cloud_enrolling", "deregistered", "registered", "unenrolled"))

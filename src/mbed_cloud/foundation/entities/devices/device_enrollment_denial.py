@@ -47,14 +47,11 @@ from mbed_cloud.foundation import enums
 class DeviceEnrollmentDenial(Entity):
     """Represents the `DeviceEnrollmentDenial` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
-        "account_id",
-        "created_at",
-        "endpoint_name",
-        "id",
-        "trusted_certificate_id",
-    ]
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = ["account_id", "created_at", "endpoint_name", "id", "trusted_certificate_id"]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
@@ -63,13 +60,7 @@ class DeviceEnrollmentDenial(Entity):
     _renames_to_api = {}
 
     def __init__(
-        self,
-        _client=None,
-        account_id=None,
-        created_at=None,
-        endpoint_name=None,
-        id=None,
-        trusted_certificate_id=None,
+        self, _client=None, account_id=None, created_at=None, endpoint_name=None, id=None, trusted_certificate_id=None
     ):
         """Creates a local `DeviceEnrollmentDenial` instance
 
@@ -263,10 +254,7 @@ class DeviceEnrollmentDenial(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter,
-                field_renames=DeviceEnrollmentDenial._renames_to_api,
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=DeviceEnrollmentDenial._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -312,15 +300,14 @@ class DeviceEnrollmentDenial(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.DeviceEnrollmentDenialOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.DeviceEnrollmentDenialOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
             method="get",
             path="/v3/device-enrollment-denials",
+            content_type="application/json",
             query_params=query_params,
             unpack=False,
         )
@@ -340,10 +327,6 @@ class DeviceEnrollmentDenial(Entity):
             method="get",
             path="/v3/device-enrollment-denials/{device_enrollment_denial_id}",
             content_type="application/json",
-            path_params={
-                "device_enrollment_denial_id": fields.StringField(
-                    device_enrollment_denial_id
-                ).to_api()
-            },
+            path_params={"device_enrollment_denial_id": fields.StringField(device_enrollment_denial_id).to_api()},
             unpack=self,
         )

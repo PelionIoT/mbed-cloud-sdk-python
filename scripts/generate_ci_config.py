@@ -62,7 +62,7 @@ mbed_cloud_hosts = dict(
     production=CloudHost('PROD', 'production', 'MBED_CLOUD_API_HOST_PROD', 'MBED_CLOUD_API_KEY_PROD'),
 )
 
-py2_openssl_install = """
+openssl_install = """
 # openssl install
 RUN apk add g++
 RUN apk add libffi-dev
@@ -93,16 +93,16 @@ python_versions = dict(
         'mbed_sdk_py2:latest',
         'py2.Dockerfile',
         'py2-compose.yml',
-        py2_openssl_install,
+        openssl_install,
         py2_openssl_cp,
     ),
     three=PyVer(
         'py3',
-        'python:3.7.0-alpine3.8',
+        'python:3.7.3-alpine3.8',
         'mbed_sdk_py3:latest',
         'py3.Dockerfile',
         'py3-compose.yml',
-        '',
+        openssl_install,
         '',
     ),
 )
@@ -134,7 +134,7 @@ def new_preload():
     version_file = 'testrunner_version.txt'
     template = yaml.safe_load(f"""
     machine:
-      image: 'circleci/classic:201710-02'
+      image: 'circleci/classic:latest'
     steps:
       - run:
           name: AWS login
@@ -262,7 +262,7 @@ def upload_reference_documentation():
     cache_file = f'app_{py_ver.name}.tar'
     template = yaml.safe_load(f"""
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
       - attach_workspace:
           at: {cache_dir}
@@ -300,7 +300,7 @@ def new_build(py_ver: PyVer):
     cache_key = f'v3-{py_ver.name}-{{{{ .Branch }}}}'
     template = yaml.safe_load(f"""
     machine:
-      image: 'circleci/classic:201710-02'
+      image: 'circleci/classic:latest'
       docker_layer_caching: true
     steps:
       - checkout
@@ -358,7 +358,7 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
     sdk_docker_cache = f'app_{py_ver.name}.tar'
     template = yaml.safe_load(f"""
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
       - checkout
       - attach_workspace:
@@ -371,7 +371,7 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           command: docker load -i {cache_dir}/{testrunner_cache}
       - run:
           name: Get docker-compose
-          command: pip install docker-compose==1.21.0
+          command: pip install docker-compose==1.23.2
       - run:
           name: Set testrunner parameters
           command: |-
@@ -411,7 +411,7 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
     cache_file = f'app_{py_ver.name}.tar'
     template = yaml.safe_load(f"""
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
       - attach_workspace:
           at: {cache_dir}

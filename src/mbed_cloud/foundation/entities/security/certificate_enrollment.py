@@ -47,8 +47,8 @@ from mbed_cloud.foundation import enums
 class CertificateEnrollment(Entity):
     """Represents the `CertificateEnrollment` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = [
         "certificate_name",
         "created_at",
         "device_id",
@@ -58,6 +58,9 @@ class CertificateEnrollment(Entity):
         "id",
         "updated_at",
     ]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
@@ -112,13 +115,9 @@ class CertificateEnrollment(Entity):
         self._certificate_name = fields.StringField(value=certificate_name)
         self._created_at = fields.DateTimeField(value=created_at)
         self._device_id = fields.StringField(value=device_id)
-        self._enroll_result = fields.StringField(
-            value=enroll_result, enum=enums.CertificateEnrollmentEnrollResultEnum
-        )
+        self._enroll_result = fields.StringField(value=enroll_result, enum=enums.CertificateEnrollmentEnrollResultEnum)
         self._enroll_result_detail = fields.StringField(value=enroll_result_detail)
-        self._enroll_status = fields.StringField(
-            value=enroll_status, enum=enums.CertificateEnrollmentEnrollStatusEnum
-        )
+        self._enroll_status = fields.StringField(value=enroll_status, enum=enums.CertificateEnrollmentEnrollStatusEnum)
         self._id = fields.StringField(value=id)
         self._updated_at = fields.DateTimeField(value=updated_at)
 
@@ -353,10 +352,7 @@ class CertificateEnrollment(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter,
-                field_renames=CertificateEnrollment._renames_to_api,
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=CertificateEnrollment._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -402,17 +398,14 @@ class CertificateEnrollment(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.CertificateEnrollmentOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.CertificateEnrollmentOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
-        query_params["include"] = fields.StringField(
-            include, enum=enums.CertificateEnrollmentIncludeEnum
-        ).to_api()
+        query_params["include"] = fields.StringField(include, enum=enums.CertificateEnrollmentIncludeEnum).to_api()
 
         return self._client.call_api(
             method="get",
             path="/v3/certificate-enrollments",
+            content_type="application/json",
             query_params=query_params,
             unpack=False,
         )

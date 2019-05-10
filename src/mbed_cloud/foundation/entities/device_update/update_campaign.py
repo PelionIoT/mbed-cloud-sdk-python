@@ -54,8 +54,8 @@ from mbed_cloud.foundation import enums
 class UpdateCampaign(Entity):
     """Represents the `UpdateCampaign` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = [
         "autostop_reason",
         "created_at",
         "description",
@@ -71,6 +71,9 @@ class UpdateCampaign(Entity):
         "updated_at",
         "when",
     ]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
@@ -484,17 +487,25 @@ class UpdateCampaign(Entity):
         :rtype: UpdateCampaign
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._description.value_set:
+            body_params["description"] = self._description.to_api()
+        if self._device_filter.value_set:
+            body_params["device_filter"] = self._device_filter.to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
+        if self._root_manifest_id.value_set:
+            body_params["root_manifest_id"] = self._root_manifest_id.to_api()
+        if self._when.value_set:
+            body_params["when"] = self._when.to_api()
+
         return self._client.call_api(
             method="post",
             path="/v3/update-campaigns/",
             content_type="application/json",
-            body_params={
-                "description": self._description.to_api(),
-                "device_filter": self._device_filter.to_api(),
-                "name": self._name.to_api(),
-                "root_manifest_id": self._root_manifest_id.to_api(),
-                "when": self._when.to_api(),
-            },
+            body_params=body_params,
             unpack=self,
         )
 
@@ -514,9 +525,7 @@ class UpdateCampaign(Entity):
             unpack=self,
         )
 
-    def device_metadata(
-        self, filter=None, order=None, max_results=None, page_size=None, include=None
-    ):
+    def device_metadata(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """List all campaign device metadata
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/update-campaigns/{campaign_id}/campaign-device-metadata/>`_.
@@ -550,10 +559,7 @@ class UpdateCampaign(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter,
-                field_renames=CampaignDeviceMetadata._renames_to_api,
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=CampaignDeviceMetadata._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -650,9 +656,7 @@ class UpdateCampaign(Entity):
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(
-                filter_definition=filter, field_renames=UpdateCampaign._renames_to_api
-            )
+            filter = ApiFilter(filter_definition=filter, field_renames=UpdateCampaign._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
@@ -673,9 +677,7 @@ class UpdateCampaign(Entity):
             wraps=self._paginate_list,
         )
 
-    def _paginate_device_metadata(
-        self, after=None, filter=None, order=None, limit=None, include=None
-    ):
+    def _paginate_device_metadata(self, after=None, filter=None, order=None, limit=None, include=None):
         """List all campaign device metadata
         
         :param after: The ID of the the item after which to retrieve the next page
@@ -703,16 +705,16 @@ class UpdateCampaign(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.UpdateCampaignOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.UpdateCampaignOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
             method="get",
             path="/v3/update-campaigns/{campaign_id}/campaign-device-metadata/",
+            content_type="application/json",
             query_params=query_params,
+            path_params={"campaign_id": self._id.to_api()},
             unpack=False,
         )
 
@@ -744,15 +746,14 @@ class UpdateCampaign(Entity):
         query_params = filter.to_api() if filter else {}
         # Add in other query parameters
         query_params["after"] = fields.StringField(after).to_api()
-        query_params["order"] = fields.StringField(
-            order, enum=enums.UpdateCampaignOrderEnum
-        ).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.UpdateCampaignOrderEnum).to_api()
         query_params["limit"] = fields.IntegerField(limit).to_api()
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
             method="get",
             path="/v3/update-campaigns/",
+            content_type="application/json",
             query_params=query_params,
             unpack=False,
         )
@@ -813,17 +814,25 @@ class UpdateCampaign(Entity):
         :rtype: UpdateCampaign
         """
 
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._description.value_set:
+            body_params["description"] = self._description.to_api()
+        if self._device_filter.value_set:
+            body_params["device_filter"] = self._device_filter.to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
+        if self._root_manifest_id.value_set:
+            body_params["root_manifest_id"] = self._root_manifest_id.to_api()
+        if self._when.value_set:
+            body_params["when"] = self._when.to_api()
+
         return self._client.call_api(
             method="put",
             path="/v3/update-campaigns/{campaign_id}/",
             content_type="application/json",
-            body_params={
-                "description": self._description.to_api(),
-                "device_filter": self._device_filter.to_api(),
-                "name": self._name.to_api(),
-                "root_manifest_id": self._root_manifest_id.to_api(),
-                "when": self._when.to_api(),
-            },
+            body_params=body_params,
             path_params={"campaign_id": self._id.to_api()},
             unpack=self,
         )

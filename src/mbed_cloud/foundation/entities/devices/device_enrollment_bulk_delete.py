@@ -50,8 +50,8 @@ from mbed_cloud.foundation import enums
 class DeviceEnrollmentBulkDelete(Entity):
     """Represents the `DeviceEnrollmentBulkDelete` entity in Pelion Device Management"""
 
-    # all fields available on this entity
-    _fieldnames = [
+    # List of fields that are serialised between the API and SDK
+    _api_fieldnames = [
         "account_id",
         "completed_at",
         "created_at",
@@ -63,6 +63,9 @@ class DeviceEnrollmentBulkDelete(Entity):
         "status",
         "total_count",
     ]
+
+    # List of fields that are available for the user of the SDK
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
@@ -137,9 +140,7 @@ class DeviceEnrollmentBulkDelete(Entity):
         self._full_report_file = fields.StringField(value=full_report_file)
         self._id = fields.StringField(value=id)
         self._processed_count = fields.IntegerField(value=processed_count)
-        self._status = fields.StringField(
-            value=status, enum=enums.DeviceEnrollmentBulkDeleteStatusEnum
-        )
+        self._status = fields.StringField(value=status, enum=enums.DeviceEnrollmentBulkDeleteStatusEnum)
         self._total_count = fields.IntegerField(value=total_count)
 
     @property
@@ -373,15 +374,12 @@ class DeviceEnrollmentBulkDelete(Entity):
             auto_close_enrollment_identities = True
 
         try:
+
             return self._client.call_api(
                 method="post",
                 path="/v3/device-enrollments-bulk-deletes",
                 stream_params={
-                    "enrollment_identities": (
-                        "enrollment_identities.bin",
-                        enrollment_identities,
-                        "application/octet-stream",
-                    )
+                    "enrollment_identities": ("enrollment_identities.csv", enrollment_identities, "text/csv")
                 },
                 unpack=self,
             )

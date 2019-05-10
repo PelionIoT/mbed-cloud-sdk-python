@@ -38,10 +38,10 @@ with open(os.path.join(repository_dir, 'requirements.txt')) as fh:
     requirements = fh.readlines()
 
 setup(
-    author="Arkadiusz Zaluski, David Hyman, Herman Schistad",
+    author="Arkadiusz Zaluski, Graham Hammond, David Hyman, Herman Schistad",
     author_email="support@mbed.com",
     classifiers=(
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 2',

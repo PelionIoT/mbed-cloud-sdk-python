@@ -25,6 +25,7 @@ import threading
 import uuid
 import re
 import json
+from io import StringIO
 
 from dateutil import parser as du_parser
 from dateutil import tz as du_tz
@@ -154,10 +155,13 @@ def serialise_entity(field):
     if isinstance(field, (datetime.datetime, datetime.date)):
         return field.isoformat()
 
+    if isinstance(field, StringIO):
+        return field.read()
+
     try:
         return field.to_dict()
-    except AttributeError:
-        pass
+    except AttributeError as e:
+        LOG.error("Unable to serialise: %s", e)
 
     raise TypeError("Entity/field of type '%s' is not JSON serializable" % field.__class__.__name__)
 

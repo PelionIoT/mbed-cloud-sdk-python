@@ -10,6 +10,7 @@ from dateutil.parser import parse
 from io import BufferedIOBase
 import json
 import six
+import pytz
 
 import logging
 
@@ -23,6 +24,7 @@ class Field(object):
         self._val = None
         self._enum = enum
         self._entity = entity
+        self.value_set = False
 
         # Work out the valid valid types that the set method can use
         if self._entity:
@@ -32,20 +34,21 @@ class Field(object):
 
         self.set(value)
 
+        # If the initial value provided was not None and was accepted then flag that the value has been set.
+        if self._val is None:
+            self.value_set = False
+
     @property
     def value(self):
         return self._val
 
     def set(self, value):
         if not isinstance(value, self._valid_types):
-            raise TypeError(
-                "%r is not one of the valid types %s" % (value, self._valid_types)
-            )
+            raise TypeError("%r is not one of the valid types %s" % (value, self._valid_types))
         if value is not None and self._enum and value not in self._enum.values:
-            LOG.warning(
-                "Unknown enum value '%s' received from API for %s", value, self._enum
-            )
+            LOG.warning("Unknown enum value '%s' received from API for %s", value, self._enum)
         self._val = value
+        self.value_set = True
         return self
 
     def to_literal(self):
@@ -62,11 +65,7 @@ class Field(object):
             return self.set(value)
 
     def from_literal(self, value):
-        return (
-            self.set(self._entity().from_literal(**value))
-            if value and self._entity
-            else self.set(value)
-        )
+        return self.set(self._entity().from_literal(**value)) if value and self._entity else self.set(value)
 
     def to_query_param(self):
         """Generate a format which is appropriate to representing a a query param
@@ -84,6 +83,7 @@ class DateTimeField(Field):
         if isinstance(value, six.string_types):
             # Use dateutil.parser to accept various input
             self._val = parse(value)
+            self.value_set = True
         else:
             return super().set(value)
         return self
@@ -92,10 +92,16 @@ class DateTimeField(Field):
         return self.value.isoformat() if self.value else None
 
     def to_api(self):
-        if self.value.tzinfo:
-            return self.to_literal()
+        if self.value:
+            if self.value.tzinfo:
+                # Convert to UTC timezone and clear the timezone so isoformat renders with offset
+                naive_datetime = self.value.astimezone(pytz.utc).replace(tzinfo=None)
+            else:
+                naive_datetime = self.value
+            # Render date, manually appending `Z` UTC indicator
+            return naive_datetime.isoformat() + "Z"
         else:
-            return self.value.isoformat() + "Z" if self.value else None
+            return None
 
     def from_api(self, value):
         return self.set(value)
@@ -116,6 +122,7 @@ class DateField(DateTimeField):
         # Use dateutil.parser to accept various input if a string is passed in but then convert to a date object
         if isinstance(self._val, datetime):
             self._val = self._val.date()
+            self.value_set = True
         return self
 
 
@@ -128,6 +135,16 @@ class DictField(Field):
         Note: This will not URL encode as this will be performed by the `requests` library
         """
         return json.dumps(self.value)
+
+    def set(self, value):
+        """Handle entities being provided as dictionaries."""
+        # If this is an entity field, the type is valid then handle being given a value which is not an entity
+        if self._entity and isinstance(value, self._valid_types) and not isinstance(value, self._entity):
+            # Pass the dict to the entity as kwargs for create a blank entity if the value is None
+            new_entity = self._entity(**value) if value else self._entity()
+            return super().set(new_entity)
+        # Revert to default behaviour if not handling an entity
+        return super().set(value)
 
 
 class IntegerField(Field):
@@ -148,10 +165,10 @@ class FloatField(Field):
     def set(self, value):
         """Attempt to convert to a float if not already."""
         try:
-            int_value = float(value)
+            float_value = float(value)
         except TypeError:
-            int_value = value
-        return super().set(int_value)
+            float_value = value
+        return super().set(float_value)
 
 
 class StringField(Field):
@@ -181,9 +198,8 @@ class ListField(Field):
     def set(self, value):
         if isinstance(value, list) and self._entity:
             # Convert a list of dictionaries into a list of entities
-            self._val = [
-                self._entity(**item) if isinstance(item, dict) else item for item in value
-            ]
+            self._val = [self._entity(**item) if isinstance(item, dict) else item for item in value]
+            self.value_set = True
         else:
             return super().set(value)
         return self
@@ -202,17 +218,13 @@ class ListField(Field):
 
     def from_api(self, value):
         if self._entity:
-            return self.set(
-                [self._entity().from_api(**item) for item in value] if value else None
-            )
+            return self.set([self._entity().from_api(**item) for item in value] if value else None)
         else:
             return super().from_api(value)
 
     def from_literal(self, value):
         if self._entity:
-            return self.set(
-                [self._entity().from_literal(**item) for item in value] if value else None
-            )
+            return self.set([self._entity().from_literal(**item) for item in value] if value else None)
         else:
             return super().from_api(value)
 

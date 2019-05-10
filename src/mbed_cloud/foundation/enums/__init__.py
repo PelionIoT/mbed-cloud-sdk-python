@@ -105,38 +105,24 @@ from mbed_cloud.foundation.entities.accounts.enums import SubtenantUserStatusEnu
 from mbed_cloud.foundation.entities.accounts.enums import UserInvitationOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import UserOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import UserStatusEnum
-from mbed_cloud.foundation.entities.device_update.enums import (
-    CampaignDeviceMetadataDeploymentStateEnum,
-)
+from mbed_cloud.foundation.entities.device_update.enums import CampaignDeviceMetadataDeploymentStateEnum
 from mbed_cloud.foundation.entities.device_update.enums import FirmwareImageOrderEnum
 from mbed_cloud.foundation.entities.device_update.enums import FirmwareManifestOrderEnum
 from mbed_cloud.foundation.entities.device_update.enums import UpdateCampaignOrderEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceDeployedStateEnum
-from mbed_cloud.foundation.entities.devices.enums import (
-    DeviceEnrollmentBulkCreateStatusEnum,
-)
-from mbed_cloud.foundation.entities.devices.enums import (
-    DeviceEnrollmentBulkDeleteStatusEnum,
-)
+from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentBulkCreateStatusEnum
+from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentBulkDeleteStatusEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentDenialOrderEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentOrderEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceMechanismEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceStateEnum
-from mbed_cloud.foundation.entities.security.enums import (
-    CertificateEnrollmentEnrollResultEnum,
-)
-from mbed_cloud.foundation.entities.security.enums import (
-    CertificateEnrollmentEnrollStatusEnum,
-)
+from mbed_cloud.foundation.entities.security.enums import CertificateEnrollmentEnrollResultEnum
+from mbed_cloud.foundation.entities.security.enums import CertificateEnrollmentEnrollStatusEnum
 from mbed_cloud.foundation.entities.security.enums import CertificateEnrollmentIncludeEnum
 from mbed_cloud.foundation.entities.security.enums import CertificateEnrollmentOrderEnum
 from mbed_cloud.foundation.entities.security.enums import CertificateIssuerTypeEnum
-from mbed_cloud.foundation.entities.security.enums import (
-    SubtenantTrustedCertificateServiceEnum,
-)
-from mbed_cloud.foundation.entities.security.enums import (
-    SubtenantTrustedCertificateStatusEnum,
-)
+from mbed_cloud.foundation.entities.security.enums import SubtenantTrustedCertificateServiceEnum
+from mbed_cloud.foundation.entities.security.enums import SubtenantTrustedCertificateStatusEnum
 from mbed_cloud.foundation.entities.security.enums import TrustedCertificateOrderEnum
 from mbed_cloud.foundation.entities.security.enums import TrustedCertificateServiceEnum
 from mbed_cloud.foundation.entities.security.enums import TrustedCertificateStatusEnum
