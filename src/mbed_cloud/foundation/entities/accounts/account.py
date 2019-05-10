@@ -10,6 +10,7 @@ Entities normally contain methods to create, read, update, delete and list resou
 actions may also be possible on the entity depending on the capabilities present in the API.
 This entity has the following methods:
 
+- :meth:`Account.api_keys`
 - :meth:`Account.create`
 - :meth:`Account.list`
 - :meth:`Account.me`
@@ -214,11 +215,11 @@ class Account(Entity):
         :type expiration: datetime
         :param expiration_warning_threshold: Indicates how many days (1-180) before account expiration a
             notification email is sent.
-        :type expiration_warning_threshold: str
+        :type expiration_warning_threshold: int
         :param id: (Required) Account ID.
         :type id: str
         :param idle_timeout: The reference token expiration time, in minutes, for this account.
-        :type idle_timeout: str
+        :type idle_timeout: int
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
         :param mfa_status: The enforcement status of multi-factor authentication, either
@@ -230,10 +231,9 @@ class Account(Entity):
         :type parent_account: dict
         :param parent_id: The ID of the parent account, if any.
         :type parent_id: str
-        :param password_policy: 
+        :param password_policy: The password policy for this account.
         :type password_policy: dict
-        :param password_recovery_expiration: Indicates for how many minutes a password recovery email is valid
-            (1-45).
+        :param password_recovery_expiration: Indicates for how many minutes a password recovery email is valid.
         :type password_recovery_expiration: int
         :param phone_number: The phone number of a company representative.
         :type phone_number: str
@@ -293,9 +293,9 @@ class Account(Entity):
         self._email = fields.StringField(value=email)
         self._end_market = fields.StringField(value=end_market)
         self._expiration = fields.DateTimeField(value=expiration)
-        self._expiration_warning_threshold = fields.StringField(value=expiration_warning_threshold)
+        self._expiration_warning_threshold = fields.IntegerField(value=expiration_warning_threshold)
         self._id = fields.StringField(value=id)
-        self._idle_timeout = fields.StringField(value=idle_timeout)
+        self._idle_timeout = fields.IntegerField(value=idle_timeout)
         self._limits = fields.DictField(value=limits)
         self._mfa_status = fields.StringField(value=mfa_status, enum=enums.AccountMfaStatusEnum)
         self._notification_emails = fields.ListField(value=notification_emails)
@@ -766,7 +766,7 @@ class Account(Entity):
         
         api example: '180'
         
-        :rtype: str
+        :rtype: int
         """
 
         return self._expiration_warning_threshold.value
@@ -776,7 +776,7 @@ class Account(Entity):
         """Set value of `expiration_warning_threshold`
 
         :param value: value to set
-        :type value: str
+        :type value: int
         """
 
         self._expiration_warning_threshold.set(value)
@@ -810,7 +810,7 @@ class Account(Entity):
         
         api example: '30'
         
-        :rtype: str
+        :rtype: int
         """
 
         return self._idle_timeout.value
@@ -820,7 +820,7 @@ class Account(Entity):
         """Set value of `idle_timeout`
 
         :param value: value to set
-        :type value: str
+        :type value: int
         """
 
         self._idle_timeout.set(value)
@@ -925,7 +925,7 @@ class Account(Entity):
 
     @property
     def password_policy(self):
-        """
+        """The password policy for this account.
         
         :rtype: dict[PasswordPolicy]
         """
@@ -944,7 +944,7 @@ class Account(Entity):
 
     @property
     def password_recovery_expiration(self):
-        """Indicates for how many minutes a password recovery email is valid (1-45).
+        """Indicates for how many minutes a password recovery email is valid.
         
         :rtype: int
         """
@@ -1212,6 +1212,84 @@ class Account(Entity):
 
         self._upgraded_at.set(value)
 
+    def api_keys(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
+        """Get all API keys.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/api-keys>`_.
+
+        **API Filters**
+
+        The following filters are supported by the API when listing Account entities:
+
+        +-------+------+------+------+------+------+------+------+
+        | Field | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +=======+======+======+======+======+======+======+======+
+        | key   | Y    |      |      |      |      |      |      |
+        +-------+------+------+------+------+------+------+------+
+        | owner | Y    |      |      |      |      |      |      |
+        +-------+------+------+------+------+------+------+------+
+
+        **Example Usage**
+
+        .. code-block:: python
+
+            from mbed_cloud.foundation import Account
+            from mbed_cloud import ApiFilter
+
+            api_filter = ApiFilter()
+            api_filter.add_filter("key", "eq", <filter value>)
+            for api_key in Account().api_keys(filter=api_filter):
+                print(api_key.key)
+        
+        :param filter: An optional filter to apply when listing entities, please see the
+            above **API Filters** table for supported filters.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
+        :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return (2-1000). Default 50.
+        :type page_size: int
+        
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
+        :type include: str
+        
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantApiKey)
+        """
+
+        from mbed_cloud.foundation._custom_methods import paginate
+        from mbed_cloud.foundation import SubtenantApiKey
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantApiKey._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = SubtenantApiKey._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
+
+        return paginate(
+            self=self,
+            foreign_key=SubtenantApiKey,
+            filter=filter,
+            order=order,
+            max_results=max_results,
+            page_size=page_size,
+            include=include,
+            wraps=self._paginate_api_keys,
+        )
+
     def create(self, action="create"):
         """Create a new account.
 
@@ -1401,6 +1479,46 @@ class Account(Entity):
                 "properties": fields.StringField(properties).to_api(),
             },
             unpack=self,
+        )
+
+    def _paginate_api_keys(self, after=None, filter=None, order="ASC", limit=50, include=None):
+        """Get all API keys.
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
+        :type order: str
+        
+        :param limit: The number of results to return (2-1000). Default 50.
+        :type limit: int
+        
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
+        :type include: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.AccountOrderEnum).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account_id}/api-keys",
+            content_type="application/json",
+            query_params=query_params,
+            path_params={"account_id": self._id.to_api()},
+            unpack=False,
         )
 
     def _paginate_list(
@@ -1764,11 +1882,11 @@ class Account(Entity):
 
         The following filters are supported by the API when listing Account entities:
 
-        +---------------+------+------+------+------+------+------+------+
-        | Field         | eq   | neq  | gte  | lte  | in   | nin  | like |
-        +===============+======+======+======+======+======+======+======+
-        | login_profile | Y    |      |      |      |      |      |      |
-        +---------------+------+------+------+------+------+------+------+
+        +----------------+------+------+------+------+------+------+------+
+        | Field          | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +================+======+======+======+======+======+======+======+
+        | login_profiles | Y    |      |      |      |      |      |      |
+        +----------------+------+------+------+------+------+------+------+
 
         **Example Usage**
 
@@ -1778,9 +1896,9 @@ class Account(Entity):
             from mbed_cloud import ApiFilter
 
             api_filter = ApiFilter()
-            api_filter.add_filter("login_profile", "eq", <filter value>)
+            api_filter.add_filter("login_profiles", "eq", <filter value>)
             for user_invitation in Account().user_invitations(filter=api_filter):
-                print(user_invitation.login_profile)
+                print(user_invitation.login_profiles)
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.
@@ -1839,15 +1957,15 @@ class Account(Entity):
 
         The following filters are supported by the API when listing Account entities:
 
-        +---------------+------+------+------+------+------+------+------+
-        | Field         | eq   | neq  | gte  | lte  | in   | nin  | like |
-        +===============+======+======+======+======+======+======+======+
-        | email         | Y    |      |      |      |      |      |      |
-        +---------------+------+------+------+------+------+------+------+
-        | login_profile | Y    |      |      |      |      |      |      |
-        +---------------+------+------+------+------+------+------+------+
-        | status        | Y    |      |      |      | Y    | Y    |      |
-        +---------------+------+------+------+------+------+------+------+
+        +----------------+------+------+------+------+------+------+------+
+        | Field          | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +================+======+======+======+======+======+======+======+
+        | email          | Y    |      |      |      |      |      |      |
+        +----------------+------+------+------+------+------+------+------+
+        | login_profiles | Y    |      |      |      |      |      |      |
+        +----------------+------+------+------+------+------+------+------+
+        | status         | Y    |      |      |      | Y    | Y    |      |
+        +----------------+------+------+------+------+------+------+------+
 
         **Example Usage**
 

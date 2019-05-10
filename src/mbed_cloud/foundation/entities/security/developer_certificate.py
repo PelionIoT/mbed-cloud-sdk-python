@@ -50,16 +50,25 @@ class DeveloperCertificate(Entity):
     """Represents the `DeveloperCertificate` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
-    _api_fieldnames = ["account_id", "certificate", "created_at", "description", "id", "name", "security_file_content"]
+    _api_fieldnames = [
+        "account_id",
+        "certificate",
+        "created_at",
+        "description",
+        "developer_private_key",
+        "id",
+        "name",
+        "security_file_content",
+    ]
 
     # List of fields that are available for the user of the SDK
     _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {"developer_certificate": "certificate", "developer_private_key": "private_key"}
+    _renames = {"developer_certificate": "certificate"}
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {"certificate": "developer_certificate", "private_key": "developer_private_key"}
+    _renames_to_api = {"certificate": "developer_certificate"}
 
     def __init__(
         self,
@@ -68,6 +77,7 @@ class DeveloperCertificate(Entity):
         certificate=None,
         created_at=None,
         description=None,
+        developer_private_key=None,
         id=None,
         name=None,
         security_file_content=None,
@@ -81,20 +91,22 @@ class DeveloperCertificate(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param account_id: account to which the developer certificate belongs
+        :param account_id: Account to which the developer certificate belongs.
         :type account_id: str
-        :param certificate: PEM format X.509 developer certificate.
+        :param certificate: PEM-format X.509 developer certificate.
         :type certificate: str
         :param created_at: Creation UTC time RFC3339.
         :type created_at: datetime
         :param description: Description for the developer certificate.
         :type description: str
+        :param developer_private_key: PEM-format developer private key associated with the certificate.
+        :type developer_private_key: str
         :param id: (Required) ID that uniquely identifies the developer certificate.
         :type id: str
         :param name: (Required) Name of the developer certificate.
         :type name: str
-        :param security_file_content: Content of the security.c file that will be flashed into the
-            device to provide the security credentials
+        :param security_file_content: Content of the `security.c` file flashed to the device to provide
+            security credentials.
         :type security_file_content: str
         """
 
@@ -107,13 +119,14 @@ class DeveloperCertificate(Entity):
         self._certificate = fields.StringField(value=certificate)
         self._created_at = fields.DateTimeField(value=created_at)
         self._description = fields.StringField(value=description)
+        self._developer_private_key = fields.StringField(value=developer_private_key)
         self._id = fields.StringField(value=id)
         self._name = fields.StringField(value=name)
         self._security_file_content = fields.StringField(value=security_file_content)
 
     @property
     def account_id(self):
-        """account to which the developer certificate belongs
+        """Account to which the developer certificate belongs.
         
         :rtype: str
         """
@@ -132,7 +145,7 @@ class DeveloperCertificate(Entity):
 
     @property
     def certificate(self):
-        """PEM format X.509 developer certificate.
+        """PEM-format X.509 developer certificate.
         
         :rtype: str
         """
@@ -188,6 +201,25 @@ class DeveloperCertificate(Entity):
         self._description.set(value)
 
     @property
+    def developer_private_key(self):
+        """PEM-format developer private key associated with the certificate.
+        
+        :rtype: str
+        """
+
+        return self._developer_private_key.value
+
+    @developer_private_key.setter
+    def developer_private_key(self, value):
+        """Set value of `developer_private_key`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._developer_private_key.set(value)
+
+    @property
     def id(self):
         """ID that uniquely identifies the developer certificate.
 
@@ -231,8 +263,8 @@ class DeveloperCertificate(Entity):
 
     @property
     def security_file_content(self):
-        """Content of the security.c file that will be flashed into the device to provide
-        the security credentials
+        """Content of the `security.c` file flashed to the device to provide security
+        credentials.
         
         :rtype: str
         """

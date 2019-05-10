@@ -73,25 +73,7 @@ class SubtenantTrustedCertificate(Entity):
     ]
 
     # List of fields that are available for the user of the SDK
-    _sdk_fieldnames = [
-        "account_id",
-        "certificate",
-        "certificate_fingerprint",
-        "created_at",
-        "description",
-        "enrollment_mode",
-        "id",
-        "is_developer_certificate",
-        "issuer",
-        "name",
-        "owner_id",
-        "service",
-        "status",
-        "subject",
-        "updated_at",
-        "valid",
-        "validity",
-    ]
+    _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
     _renames = {}
@@ -107,6 +89,7 @@ class SubtenantTrustedCertificate(Entity):
         certificate_fingerprint=None,
         created_at=None,
         description=None,
+        device_execution_mode=None,
         enrollment_mode=None,
         id=None,
         is_developer_certificate=None,
@@ -139,6 +122,8 @@ class SubtenantTrustedCertificate(Entity):
         :type created_at: datetime
         :param description: Human readable description of this certificate.
         :type description: str
+        :param device_execution_mode: Device execution mode where 1 means a developer certificate.
+        :type device_execution_mode: int
         :param enrollment_mode: If true, signature is not required. Default value false.
         :type enrollment_mode: bool
         :param id: (Required) Entity ID.
@@ -176,7 +161,7 @@ class SubtenantTrustedCertificate(Entity):
         self._certificate_fingerprint = fields.StringField(value=certificate_fingerprint)
         self._created_at = fields.DateTimeField(value=created_at)
         self._description = fields.StringField(value=description)
-        self._device_execution_mode = fields.IntegerField(value=None)
+        self._device_execution_mode = fields.IntegerField(value=device_execution_mode)
         self._enrollment_mode = fields.BooleanField(value=enrollment_mode)
         self._id = fields.StringField(value=id)
         self._is_developer_certificate = fields.BooleanField(value=is_developer_certificate)
@@ -300,6 +285,27 @@ class SubtenantTrustedCertificate(Entity):
         self._description.set(value)
 
     @property
+    def device_execution_mode(self):
+        """Device execution mode where 1 means a developer certificate.
+        
+        api example: 1
+        
+        :rtype: int
+        """
+
+        return self._device_execution_mode.value
+
+    @device_execution_mode.setter
+    def device_execution_mode(self, value):
+        """Set value of `device_execution_mode`
+
+        :param value: value to set
+        :type value: int
+        """
+
+        self._device_execution_mode.set(value)
+
+    @property
     def enrollment_mode(self):
         """If true, signature is not required. Default value false.
         
@@ -362,9 +368,7 @@ class SubtenantTrustedCertificate(Entity):
         :type value: bool
         """
 
-        from mbed_cloud.foundation._custom_methods import is_developer_certificate_setter
-
-        is_developer_certificate_setter(self=self, value=value)
+        self._is_developer_certificate.set(value)
 
     @property
     def issuer(self):

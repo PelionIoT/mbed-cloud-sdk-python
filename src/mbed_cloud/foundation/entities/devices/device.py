@@ -56,6 +56,7 @@ class Device(Entity):
         "account_id",
         "auto_update",
         "bootstrap_expiration_date",
+        "bootstrapped_timestamp",
         "ca_id",
         "connector_expiration_date",
         "created_at",
@@ -69,6 +70,7 @@ class Device(Entity):
         "endpoint_name",
         "endpoint_type",
         "enrolment_list_timestamp",
+        "firmware_checksum",
         "host_gateway",
         "id",
         "issuer_fingerprint",
@@ -98,6 +100,7 @@ class Device(Entity):
         account_id=None,
         auto_update=None,
         bootstrap_expiration_date=None,
+        bootstrapped_timestamp=None,
         ca_id=None,
         connector_expiration_date=None,
         created_at=None,
@@ -111,6 +114,7 @@ class Device(Entity):
         endpoint_name=None,
         endpoint_type=None,
         enrolment_list_timestamp=None,
+        firmware_checksum=None,
         host_gateway=None,
         id=None,
         issuer_fingerprint=None,
@@ -140,6 +144,8 @@ class Device(Entity):
         :param bootstrap_expiration_date: The expiration date of the certificate used to connect to
             bootstrap server.
         :type bootstrap_expiration_date: date
+        :param bootstrapped_timestamp: The timestamp of the device's most recent bootstrap process.
+        :type bootstrapped_timestamp: datetime
         :param ca_id: The certificate issuer's ID.
         :type ca_id: str
         :param connector_expiration_date: The expiration date of the certificate used to connect to LwM2M
@@ -178,6 +184,8 @@ class Device(Entity):
         :type endpoint_type: str
         :param enrolment_list_timestamp: The claim date/time.
         :type enrolment_list_timestamp: datetime
+        :param firmware_checksum: The SHA256 checksum of the current firmware image.
+        :type firmware_checksum: str
         :param host_gateway: The ID of the host gateway, if appropriate.
         :type host_gateway: str
         :param id: (Required) The ID of the device. The device ID is used across all Device
@@ -214,6 +222,7 @@ class Device(Entity):
         self._account_id = fields.StringField(value=account_id)
         self._auto_update = fields.BooleanField(value=auto_update)
         self._bootstrap_expiration_date = fields.DateField(value=bootstrap_expiration_date)
+        self._bootstrapped_timestamp = fields.DateTimeField(value=bootstrapped_timestamp)
         self._ca_id = fields.StringField(value=ca_id)
         self._connector_expiration_date = fields.DateField(value=connector_expiration_date)
         self._created_at = fields.DateTimeField(value=created_at)
@@ -227,6 +236,7 @@ class Device(Entity):
         self._endpoint_name = fields.StringField(value=endpoint_name)
         self._endpoint_type = fields.StringField(value=endpoint_type)
         self._enrolment_list_timestamp = fields.DateTimeField(value=enrolment_list_timestamp)
+        self._firmware_checksum = fields.StringField(value=firmware_checksum)
         self._host_gateway = fields.StringField(value=host_gateway)
         self._id = fields.StringField(value=id)
         self._issuer_fingerprint = fields.StringField(value=issuer_fingerprint)
@@ -298,6 +308,27 @@ class Device(Entity):
         """
 
         self._bootstrap_expiration_date.set(value)
+
+    @property
+    def bootstrapped_timestamp(self):
+        """The timestamp of the device's most recent bootstrap process.
+        
+        api example: '2017-05-22T12:37:55.576563Z'
+        
+        :rtype: datetime
+        """
+
+        return self._bootstrapped_timestamp.value
+
+    @bootstrapped_timestamp.setter
+    def bootstrapped_timestamp(self, value):
+        """Set value of `bootstrapped_timestamp`
+
+        :param value: value to set
+        :type value: datetime
+        """
+
+        self._bootstrapped_timestamp.set(value)
 
     @property
     def ca_id(self):
@@ -571,6 +602,27 @@ class Device(Entity):
         self._enrolment_list_timestamp.set(value)
 
     @property
+    def firmware_checksum(self):
+        """The SHA256 checksum of the current firmware image.
+        
+        api example: '0000000000000000000000000000000000000000000000000000000000000000'
+        
+        :rtype: str
+        """
+
+        return self._firmware_checksum.value
+
+    @firmware_checksum.setter
+    def firmware_checksum(self, value):
+        """Set value of `firmware_checksum`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._firmware_checksum.set(value)
+
+    @property
     def host_gateway(self):
         """The ID of the host gateway, if appropriate.
         
@@ -815,16 +867,10 @@ class Device(Entity):
 
         self._vendor_id.set(value)
 
-    def create(self, bootstrapped_timestamp=None, firmware_checksum=None):
+    def create(self):
         """Create a device
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/devices/>`_.
-        
-        :param bootstrapped_timestamp: The timestamp of the device's most recent bootstrap process.
-        :type bootstrapped_timestamp: datetime
-        
-        :param firmware_checksum: The SHA256 checksum of the current firmware image.
-        :type firmware_checksum: str
         
         :rtype: Device
         """
@@ -836,8 +882,6 @@ class Device(Entity):
             body_params["auto_update"] = self._auto_update.to_api()
         if self._bootstrap_expiration_date.value_set:
             body_params["bootstrap_expiration_date"] = self._bootstrap_expiration_date.to_api()
-        # Method parameters are unconditionally sent even if set to None
-        body_params["bootstrapped_timestamp"] = fields.DateTimeField(bootstrapped_timestamp).to_api()
         if self._ca_id.value_set:
             body_params["ca_id"] = self._ca_id.to_api()
         if self._connector_expiration_date.value_set:
@@ -858,8 +902,6 @@ class Device(Entity):
             body_params["endpoint_name"] = self._endpoint_name.to_api()
         if self._endpoint_type.value_set:
             body_params["endpoint_type"] = self._endpoint_type.to_api()
-        # Method parameters are unconditionally sent even if set to None
-        body_params["firmware_checksum"] = fields.StringField(firmware_checksum).to_api()
         if self._host_gateway.value_set:
             body_params["host_gateway"] = self._host_gateway.to_api()
         if self._issuer_fingerprint.value_set:

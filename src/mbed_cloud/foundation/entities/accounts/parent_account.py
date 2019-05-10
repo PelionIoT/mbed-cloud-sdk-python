@@ -71,7 +71,7 @@ class ParentAccount(Entity):
         :param admin_name: The name of the admin user who is the contact person of the parent
             account.
         :type admin_name: str
-        :param id: The ID of the parent account
+        :param id: The ID of the parent account.
         :type id: str
         """
 
@@ -129,7 +129,7 @@ class ParentAccount(Entity):
 
     @property
     def id(self):
-        """The ID of the parent account
+        """The ID of the parent account.
         
         api example: '01619571dad80242ac12000600000000'
         

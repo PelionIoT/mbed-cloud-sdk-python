@@ -351,11 +351,11 @@ class UserInvitation(Entity):
 
         The following filters are supported by the API when listing UserInvitation entities:
 
-        +---------------+------+------+------+------+------+------+------+
-        | Field         | eq   | neq  | gte  | lte  | in   | nin  | like |
-        +===============+======+======+======+======+======+======+======+
-        | login_profile | Y    |      |      |      |      |      |      |
-        +---------------+------+------+------+------+------+------+------+
+        +----------------+------+------+------+------+------+------+------+
+        | Field          | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +================+======+======+======+======+======+======+======+
+        | login_profiles | Y    |      |      |      |      |      |      |
+        +----------------+------+------+------+------+------+------+------+
 
         **Example Usage**
 
@@ -365,9 +365,9 @@ class UserInvitation(Entity):
             from mbed_cloud import ApiFilter
 
             api_filter = ApiFilter()
-            api_filter.add_filter("login_profile", "eq", <filter value>)
+            api_filter.add_filter("login_profiles", "eq", <filter value>)
             for user_invitation in UserInvitation().list(filter=api_filter):
-                print(user_invitation.login_profile)
+                print(user_invitation.login_profiles)
         
         :param filter: An optional filter to apply when listing entities, please see the
             above **API Filters** table for supported filters.

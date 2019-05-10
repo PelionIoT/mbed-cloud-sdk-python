@@ -264,7 +264,7 @@ class CertificateIssuer(Entity):
 
         self._name.set(value)
 
-    def create(self, issuer_credentials=None):
+    def create(self, issuer_credentials):
         """Create certificate issuer.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/certificate-issuers>`_.
