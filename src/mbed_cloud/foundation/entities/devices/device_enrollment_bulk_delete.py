@@ -379,11 +379,7 @@ class DeviceEnrollmentBulkDelete(Entity):
                 method="post",
                 path="/v3/device-enrollments-bulk-deletes",
                 stream_params={
-                    "enrollment_identities": (
-                        "enrollment_identities.csv",
-                        enrollment_identities,
-                        "test/csv",
-                    )
+                    "enrollment_identities": ("enrollment_identities.csv", enrollment_identities, "text/csv")
                 },
                 unpack=self,
             )
