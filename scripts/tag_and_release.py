@@ -77,13 +77,6 @@ def main(mode):
     subprocess.check_call(['git', 'branch', '--set-upstream-to', branch_spec])
     subprocess.check_call(['git', 'fetch', '--tags', '--force'])
 
-    # tags
-    subprocess.check_call(['git', 'tag', '-a', version, '-m', 'release %s' % version])
-    subprocess.check_call(['git', 'tag', '-f', 'latest'])
-    if mode == release_target_map['prod']:
-        print('git - pushing %s tags' % mode.name)
-        subprocess.check_call(['git', 'push', '-f', 'origin', '--tags'])
-
     print('git - add changes')
     subprocess.check_call(['git', 'add', 'src/mbed_cloud/_version.py'])
     subprocess.check_call(['git', 'add', 'CHANGELOG.rst'])
@@ -94,6 +87,13 @@ def main(mode):
     if mode == release_target_map['prod']:
         print('git - pushing %s changelog commit' % mode.name)
         subprocess.check_call(['git', 'push', 'origin'])
+
+    # tags
+    subprocess.check_call(['git', 'tag', '-a', version, '-m', 'release %s' % version])
+    subprocess.check_call(['git', 'tag', '-f', 'latest'])
+    if mode == release_target_map['prod']:
+        print('git - pushing %s tags' % mode.name)
+        subprocess.check_call(['git', 'push', '-f', 'origin', '--tags'])
 
     print('pypi - uploading')
     subprocess.check_call(['python', '-m', 'twine', 'upload', mode.bundle])
