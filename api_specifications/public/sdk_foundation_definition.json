@@ -21855,356 +21855,6 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve the requested dark theme branding color.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
-          "field_renames": [],
-          "fields": [
-            {
-              "enum": [
-                "error_color",
-                "primary",
-                "secondary",
-                "success_color",
-                "warning_color",
-                "canvas_background",
-                "canvas_background_font_color",
-                "workspace_background",
-                "workspace_background_font_color",
-                "info_color",
-                "info_font_color",
-                "primary_font_color",
-                "secondary_font_color",
-                "error_font_color",
-                "success_font_color",
-                "warning_font_color"
-              ],
-              "type": "string",
-              "description": "Color name.",
-              "api_fieldname": "reference",
-              "entity_fieldname": "reference",
-              "parameter_fieldname": "reference",
-              "in": "path",
-              "required": true,
-              "enum_reference": "dark_theme_color_reference_enum",
-              "_key": "reference"
-            }
-          ],
-          "method": "get",
-          "mode": "get",
-          "responses": [
-            {
-              "description": "Successful operation.",
-              "schema": {
-                "type": "object",
-                "properties": [
-                  {
-                    "type": "string",
-                    "example": "#f3f93e",
-                    "description": "The color given as name (purple) or as a hex code.",
-                    "api_fieldname": "color",
-                    "entity_fieldname": "color",
-                    "_key": "color"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name: always 'branding_color'",
-                    "readOnly": true,
-                    "enum": [
-                      "branding_color"
-                    ],
-                    "api_fieldname": "object",
-                    "entity_fieldname": "object",
-                    "_key": "object"
-                  },
-                  {
-                    "enum": [
-                      "error_color",
-                      "primary",
-                      "secondary",
-                      "success_color",
-                      "warning_color",
-                      "canvas_background",
-                      "canvas_background_font_color",
-                      "workspace_background",
-                      "workspace_background_font_color",
-                      "info_color",
-                      "info_font_color",
-                      "primary_font_color",
-                      "secondary_font_color",
-                      "error_font_color",
-                      "success_font_color",
-                      "warning_font_color"
-                    ],
-                    "type": "string",
-                    "description": "Color name.",
-                    "api_fieldname": "reference",
-                    "entity_fieldname": "reference",
-                    "_key": "reference"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2018-02-14T15:24:14Z",
-                    "description": "Last update time in UTC.",
-                    "readOnly": true,
-                    "api_fieldname": "updated_at",
-                    "entity_fieldname": "updated_at",
-                    "_key": "updated_at"
-                  }
-                ],
-                "foreign_key": {
-                  "group": "Branding",
-                  "entity": "light_theme_color"
-                }
-              },
-              "_key": "200"
-            },
-            {
-              "description": "Authentication failure.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "401"
-            },
-            {
-              "description": "Forbidden.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "403"
-            },
-            {
-              "description": "Color not found.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "404"
-            }
-          ],
-          "path": "/v3/branding-colors/dark/{reference}",
-          "summary": "Get dark theme branding color.",
-          "return_type": "dark_theme_color",
-          "return_info": {
-            "self": true,
-            "custom": false,
-            "type": "dark_theme_color"
-          },
-          "x_filter": {},
-          "x_deprecation": null,
-          "drop_fields": [
-            "object",
-            "etag",
-            "type",
-            "groups",
-            "filter",
-            "color",
-            "updated_at"
-          ],
-          "group_id": "Branding",
-          "operation_id": "getDarkColor",
-          "pagination": false,
-          "request_content_type": "application/json",
-          "request_body": "json",
-          "_key": "get"
-        },
-        {
           "description": "Retrieve the dark theme branding colors.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [],
@@ -22531,6 +22181,356 @@
           "request_content_type": "application/json",
           "request_body": "json",
           "_key": "list"
+        },
+        {
+          "description": "Retrieve the requested dark theme branding color.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "field_renames": [],
+          "fields": [
+            {
+              "enum": [
+                "error_color",
+                "primary",
+                "secondary",
+                "success_color",
+                "warning_color",
+                "canvas_background",
+                "canvas_background_font_color",
+                "workspace_background",
+                "workspace_background_font_color",
+                "info_color",
+                "info_font_color",
+                "primary_font_color",
+                "secondary_font_color",
+                "error_font_color",
+                "success_font_color",
+                "warning_font_color"
+              ],
+              "type": "string",
+              "description": "Color name.",
+              "api_fieldname": "reference",
+              "entity_fieldname": "reference",
+              "parameter_fieldname": "reference",
+              "in": "path",
+              "required": true,
+              "enum_reference": "dark_theme_color_reference_enum",
+              "_key": "reference"
+            }
+          ],
+          "method": "get",
+          "mode": "read",
+          "responses": [
+            {
+              "description": "Successful operation.",
+              "schema": {
+                "type": "object",
+                "properties": [
+                  {
+                    "type": "string",
+                    "example": "#f3f93e",
+                    "description": "The color given as name (purple) or as a hex code.",
+                    "api_fieldname": "color",
+                    "entity_fieldname": "color",
+                    "_key": "color"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name: always 'branding_color'",
+                    "readOnly": true,
+                    "enum": [
+                      "branding_color"
+                    ],
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "enum": [
+                      "error_color",
+                      "primary",
+                      "secondary",
+                      "success_color",
+                      "warning_color",
+                      "canvas_background",
+                      "canvas_background_font_color",
+                      "workspace_background",
+                      "workspace_background_font_color",
+                      "info_color",
+                      "info_font_color",
+                      "primary_font_color",
+                      "secondary_font_color",
+                      "error_font_color",
+                      "success_font_color",
+                      "warning_font_color"
+                    ],
+                    "type": "string",
+                    "description": "Color name.",
+                    "api_fieldname": "reference",
+                    "entity_fieldname": "reference",
+                    "_key": "reference"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-14T15:24:14Z",
+                    "description": "Last update time in UTC.",
+                    "readOnly": true,
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  }
+                ],
+                "foreign_key": {
+                  "group": "Branding",
+                  "entity": "light_theme_color"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Authentication failure.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "403"
+            },
+            {
+              "description": "Color not found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/branding-colors/dark/{reference}",
+          "summary": "Get dark theme branding color.",
+          "return_type": "dark_theme_color",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "dark_theme_color"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "color",
+            "updated_at"
+          ],
+          "group_id": "Branding",
+          "operation_id": "getDarkColor",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "read"
         },
         {
           "description": "Update a dark theme branding color.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/primary \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{ \"color\": \"#f3f93e\" }'\n```",
@@ -23858,400 +23858,6 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve metadata for one account dark theme branding image.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
-          "field_renames": [],
-          "fields": [
-            {
-              "enum": [
-                "brand_logo_portrait",
-                "brand_logo_square",
-                "brand_logo_landscape",
-                "brand_logo_email",
-                "desktop_background_landscape",
-                "desktop_background_square",
-                "desktop_background_portrait",
-                "carousel_image_portrait_0",
-                "carousel_image_portrait_1",
-                "carousel_image_portrait_2",
-                "carousel_image_portrait_3",
-                "carousel_image_portrait_4",
-                "carousel_image_portrait_5",
-                "carousel_image_portrait_6",
-                "carousel_image_portrait_7",
-                "carousel_image_portrait_8",
-                "carousel_image_portrait_9",
-                "carousel_image_square_0",
-                "carousel_image_square_1",
-                "carousel_image_square_2",
-                "carousel_image_square_3",
-                "carousel_image_square_4",
-                "carousel_image_square_5",
-                "carousel_image_square_6",
-                "carousel_image_square_7",
-                "carousel_image_square_8",
-                "carousel_image_square_9",
-                "carousel_image_landscape_0",
-                "carousel_image_landscape_1",
-                "carousel_image_landscape_2",
-                "carousel_image_landscape_3",
-                "carousel_image_landscape_4",
-                "carousel_image_landscape_5",
-                "carousel_image_landscape_6",
-                "carousel_image_landscape_7",
-                "carousel_image_landscape_8",
-                "carousel_image_landscape_9"
-              ],
-              "type": "string",
-              "description": "Name of the image.",
-              "api_fieldname": "reference",
-              "entity_fieldname": "reference",
-              "parameter_fieldname": "reference",
-              "in": "path",
-              "required": true,
-              "enum_reference": "dark_theme_image_reference_enum",
-              "_key": "reference"
-            }
-          ],
-          "method": "get",
-          "mode": "get",
-          "responses": [
-            {
-              "description": "Successful operation.",
-              "schema": {
-                "type": "object",
-                "properties": [
-                  {
-                    "type": "string",
-                    "description": "Entity name: always 'branding_image'",
-                    "readOnly": true,
-                    "enum": [
-                      "branding_image"
-                    ],
-                    "api_fieldname": "object",
-                    "entity_fieldname": "object",
-                    "_key": "object"
-                  },
-                  {
-                    "enum": [
-                      "brand_logo_portrait",
-                      "brand_logo_square",
-                      "brand_logo_landscape",
-                      "brand_logo_email",
-                      "desktop_background_landscape",
-                      "desktop_background_square",
-                      "desktop_background_portrait",
-                      "carousel_image_portrait_0",
-                      "carousel_image_portrait_1",
-                      "carousel_image_portrait_2",
-                      "carousel_image_portrait_3",
-                      "carousel_image_portrait_4",
-                      "carousel_image_portrait_5",
-                      "carousel_image_portrait_6",
-                      "carousel_image_portrait_7",
-                      "carousel_image_portrait_8",
-                      "carousel_image_portrait_9",
-                      "carousel_image_square_0",
-                      "carousel_image_square_1",
-                      "carousel_image_square_2",
-                      "carousel_image_square_3",
-                      "carousel_image_square_4",
-                      "carousel_image_square_5",
-                      "carousel_image_square_6",
-                      "carousel_image_square_7",
-                      "carousel_image_square_8",
-                      "carousel_image_square_9",
-                      "carousel_image_landscape_0",
-                      "carousel_image_landscape_1",
-                      "carousel_image_landscape_2",
-                      "carousel_image_landscape_3",
-                      "carousel_image_landscape_4",
-                      "carousel_image_landscape_5",
-                      "carousel_image_landscape_6",
-                      "carousel_image_landscape_7",
-                      "carousel_image_landscape_8",
-                      "carousel_image_landscape_9"
-                    ],
-                    "type": "string",
-                    "description": "Name of the image.",
-                    "api_fieldname": "reference",
-                    "entity_fieldname": "reference",
-                    "_key": "reference"
-                  },
-                  {
-                    "type": "string",
-                    "format": "uri",
-                    "example": "https://static.mbed.com/123456789.jpg",
-                    "description": "The static link to the image.",
-                    "readOnly": true,
-                    "api_fieldname": "static_uri",
-                    "entity_fieldname": "static_uri",
-                    "_key": "static_uri"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2018-02-14T15:24:14Z",
-                    "description": "Last update time in UTC.",
-                    "readOnly": true,
-                    "api_fieldname": "updated_at",
-                    "entity_fieldname": "updated_at",
-                    "_key": "updated_at"
-                  }
-                ],
-                "foreign_key": {
-                  "group": "Branding",
-                  "entity": "light_theme_image"
-                }
-              },
-              "_key": "200"
-            },
-            {
-              "description": "Authentication failure.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "401"
-            },
-            {
-              "description": "Forbidden.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "403"
-            },
-            {
-              "description": "Unknown image reference.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "404"
-            }
-          ],
-          "path": "/v3/branding-images/dark/{reference}",
-          "summary": "Get metadata of a dark theme image.",
-          "return_type": "dark_theme_image",
-          "return_info": {
-            "self": true,
-            "custom": false,
-            "type": "dark_theme_image"
-          },
-          "x_filter": {},
-          "x_deprecation": null,
-          "drop_fields": [
-            "object",
-            "etag",
-            "type",
-            "groups",
-            "filter",
-            "static_uri",
-            "updated_at"
-          ],
-          "group_id": "Branding",
-          "operation_id": "getDarkImageData",
-          "pagination": false,
-          "request_content_type": "application/json",
-          "request_body": "json",
-          "_key": "get"
-        },
-        {
           "description": "Retrieve metadata for all dark theme branding images.\n\n**Example:**\n`curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/dark \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [],
@@ -24601,6 +24207,400 @@
           "request_content_type": "application/json",
           "request_body": "json",
           "_key": "list"
+        },
+        {
+          "description": "Retrieve metadata for one account dark theme branding image.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "field_renames": [],
+          "fields": [
+            {
+              "enum": [
+                "brand_logo_portrait",
+                "brand_logo_square",
+                "brand_logo_landscape",
+                "brand_logo_email",
+                "desktop_background_landscape",
+                "desktop_background_square",
+                "desktop_background_portrait",
+                "carousel_image_portrait_0",
+                "carousel_image_portrait_1",
+                "carousel_image_portrait_2",
+                "carousel_image_portrait_3",
+                "carousel_image_portrait_4",
+                "carousel_image_portrait_5",
+                "carousel_image_portrait_6",
+                "carousel_image_portrait_7",
+                "carousel_image_portrait_8",
+                "carousel_image_portrait_9",
+                "carousel_image_square_0",
+                "carousel_image_square_1",
+                "carousel_image_square_2",
+                "carousel_image_square_3",
+                "carousel_image_square_4",
+                "carousel_image_square_5",
+                "carousel_image_square_6",
+                "carousel_image_square_7",
+                "carousel_image_square_8",
+                "carousel_image_square_9",
+                "carousel_image_landscape_0",
+                "carousel_image_landscape_1",
+                "carousel_image_landscape_2",
+                "carousel_image_landscape_3",
+                "carousel_image_landscape_4",
+                "carousel_image_landscape_5",
+                "carousel_image_landscape_6",
+                "carousel_image_landscape_7",
+                "carousel_image_landscape_8",
+                "carousel_image_landscape_9"
+              ],
+              "type": "string",
+              "description": "Name of the image.",
+              "api_fieldname": "reference",
+              "entity_fieldname": "reference",
+              "parameter_fieldname": "reference",
+              "in": "path",
+              "required": true,
+              "enum_reference": "dark_theme_image_reference_enum",
+              "_key": "reference"
+            }
+          ],
+          "method": "get",
+          "mode": "read",
+          "responses": [
+            {
+              "description": "Successful operation.",
+              "schema": {
+                "type": "object",
+                "properties": [
+                  {
+                    "type": "string",
+                    "description": "Entity name: always 'branding_image'",
+                    "readOnly": true,
+                    "enum": [
+                      "branding_image"
+                    ],
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "enum": [
+                      "brand_logo_portrait",
+                      "brand_logo_square",
+                      "brand_logo_landscape",
+                      "brand_logo_email",
+                      "desktop_background_landscape",
+                      "desktop_background_square",
+                      "desktop_background_portrait",
+                      "carousel_image_portrait_0",
+                      "carousel_image_portrait_1",
+                      "carousel_image_portrait_2",
+                      "carousel_image_portrait_3",
+                      "carousel_image_portrait_4",
+                      "carousel_image_portrait_5",
+                      "carousel_image_portrait_6",
+                      "carousel_image_portrait_7",
+                      "carousel_image_portrait_8",
+                      "carousel_image_portrait_9",
+                      "carousel_image_square_0",
+                      "carousel_image_square_1",
+                      "carousel_image_square_2",
+                      "carousel_image_square_3",
+                      "carousel_image_square_4",
+                      "carousel_image_square_5",
+                      "carousel_image_square_6",
+                      "carousel_image_square_7",
+                      "carousel_image_square_8",
+                      "carousel_image_square_9",
+                      "carousel_image_landscape_0",
+                      "carousel_image_landscape_1",
+                      "carousel_image_landscape_2",
+                      "carousel_image_landscape_3",
+                      "carousel_image_landscape_4",
+                      "carousel_image_landscape_5",
+                      "carousel_image_landscape_6",
+                      "carousel_image_landscape_7",
+                      "carousel_image_landscape_8",
+                      "carousel_image_landscape_9"
+                    ],
+                    "type": "string",
+                    "description": "Name of the image.",
+                    "api_fieldname": "reference",
+                    "entity_fieldname": "reference",
+                    "_key": "reference"
+                  },
+                  {
+                    "type": "string",
+                    "format": "uri",
+                    "example": "https://static.mbed.com/123456789.jpg",
+                    "description": "The static link to the image.",
+                    "readOnly": true,
+                    "api_fieldname": "static_uri",
+                    "entity_fieldname": "static_uri",
+                    "_key": "static_uri"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-14T15:24:14Z",
+                    "description": "Last update time in UTC.",
+                    "readOnly": true,
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  }
+                ],
+                "foreign_key": {
+                  "group": "Branding",
+                  "entity": "light_theme_image"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Authentication failure.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "403"
+            },
+            {
+              "description": "Unknown image reference.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/branding-images/dark/{reference}",
+          "summary": "Get metadata of a dark theme image.",
+          "return_type": "dark_theme_image",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "dark_theme_image"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "static_uri",
+            "updated_at"
+          ],
+          "group_id": "Branding",
+          "operation_id": "getDarkImageData",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "read"
         }
       ],
       "fields": [
@@ -36408,6 +36408,334 @@
           "_key": "delete"
         },
         {
+          "description": "Retrieve the light theme branding colors.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/light \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "field_renames": [],
+          "fields": [],
+          "method": "get",
+          "mode": "list",
+          "responses": [
+            {
+              "description": "Successful operation.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "data",
+                  "has_more",
+                  "limit",
+                  "object",
+                  "total_count"
+                ],
+                "properties": [
+                  {
+                    "type": "string",
+                    "example": "01619571f3c00242ac12000600000000",
+                    "description": "The entity ID to fetch after the given one.",
+                    "pattern": "[a-f0-9]{32}",
+                    "api_fieldname": "after",
+                    "entity_fieldname": "after",
+                    "_key": "after"
+                  },
+                  {
+                    "type": "array",
+                    "description": "A list of entities.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "#f3f93e",
+                          "description": "The color given as name (purple) or as a hex code.",
+                          "_key": "color"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'branding_color'",
+                          "readOnly": true,
+                          "enum": [
+                            "branding_color"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "enum": [
+                            "error_color",
+                            "primary",
+                            "secondary",
+                            "success_color",
+                            "warning_color",
+                            "canvas_background",
+                            "canvas_background_font_color",
+                            "workspace_background",
+                            "workspace_background_font_color",
+                            "info_color",
+                            "info_font_color",
+                            "primary_font_color",
+                            "secondary_font_color",
+                            "error_font_color",
+                            "success_font_color",
+                            "warning_font_color"
+                          ],
+                          "type": "string",
+                          "description": "Color name.",
+                          "_key": "reference"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update time in UTC.",
+                          "readOnly": true,
+                          "_key": "updated_at"
+                        }
+                      ],
+                      "foreign_key": {
+                        "group": "Branding",
+                        "entity": "dark_theme_color"
+                      }
+                    },
+                    "api_fieldname": "data",
+                    "entity_fieldname": "data",
+                    "_key": "data"
+                  },
+                  {
+                    "type": "boolean",
+                    "example": false,
+                    "description": "Flag indicating whether there are more results.",
+                    "api_fieldname": "has_more",
+                    "entity_fieldname": "has_more",
+                    "_key": "has_more"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 50,
+                    "description": "The number of results to return, or equal to `total_count`.",
+                    "api_fieldname": "limit",
+                    "entity_fieldname": "limit",
+                    "_key": "limit"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name: always `list`.",
+                    "enum": [
+                      "list"
+                    ],
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.",
+                    "enum": [
+                      "ASC",
+                      "DESC"
+                    ],
+                    "api_fieldname": "order",
+                    "entity_fieldname": "order",
+                    "_key": "order"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 20,
+                    "description": "The total number of records, if requested.",
+                    "api_fieldname": "total_count",
+                    "entity_fieldname": "total_count",
+                    "_key": "total_count"
+                  }
+                ],
+                "pagination": true,
+                "foreign_key": {
+                  "group": "Branding",
+                  "entity": "light_theme_color"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Authentication failure.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "403"
+            }
+          ],
+          "path": "/v3/branding-colors/light",
+          "summary": "Get light theme branding colors.",
+          "return_type": "paginated_response(dark_theme_color)",
+          "return_info": {
+            "self": false,
+            "custom": false,
+            "type": "dark_theme_color"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "limit",
+            "after",
+            "order",
+            "total_count",
+            "has_more",
+            "data"
+          ],
+          "foreign_key_priority": "self",
+          "group_id": "Branding",
+          "operation_id": "getLightColors",
+          "pagination": true,
+          "foreign_key": {
+            "group": "Branding",
+            "entity": "dark_theme_color"
+          },
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "list"
+        },
+        {
           "description": "Retrieve the requested light theme branding color.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
@@ -36442,7 +36770,7 @@
             }
           ],
           "method": "get",
-          "mode": "get",
+          "mode": "read",
           "responses": [
             {
               "description": "Successful operation.",
@@ -36771,335 +37099,7 @@
           "pagination": false,
           "request_content_type": "application/json",
           "request_body": "json",
-          "_key": "get"
-        },
-        {
-          "description": "Retrieve the light theme branding colors.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/light \\\n-H 'Authorization: Bearer <api_key>'\n```",
-          "field_renames": [],
-          "fields": [],
-          "method": "get",
-          "mode": "list",
-          "responses": [
-            {
-              "description": "Successful operation.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "data",
-                  "has_more",
-                  "limit",
-                  "object",
-                  "total_count"
-                ],
-                "properties": [
-                  {
-                    "type": "string",
-                    "example": "01619571f3c00242ac12000600000000",
-                    "description": "The entity ID to fetch after the given one.",
-                    "pattern": "[a-f0-9]{32}",
-                    "api_fieldname": "after",
-                    "entity_fieldname": "after",
-                    "_key": "after"
-                  },
-                  {
-                    "type": "array",
-                    "description": "A list of entities.",
-                    "items": {
-                      "type": "object",
-                      "properties": [
-                        {
-                          "type": "string",
-                          "example": "#f3f93e",
-                          "description": "The color given as name (purple) or as a hex code.",
-                          "_key": "color"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Entity name: always 'branding_color'",
-                          "readOnly": true,
-                          "enum": [
-                            "branding_color"
-                          ],
-                          "_key": "object"
-                        },
-                        {
-                          "enum": [
-                            "error_color",
-                            "primary",
-                            "secondary",
-                            "success_color",
-                            "warning_color",
-                            "canvas_background",
-                            "canvas_background_font_color",
-                            "workspace_background",
-                            "workspace_background_font_color",
-                            "info_color",
-                            "info_font_color",
-                            "primary_font_color",
-                            "secondary_font_color",
-                            "error_font_color",
-                            "success_font_color",
-                            "warning_font_color"
-                          ],
-                          "type": "string",
-                          "description": "Color name.",
-                          "_key": "reference"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2018-02-14T15:24:14Z",
-                          "description": "Last update time in UTC.",
-                          "readOnly": true,
-                          "_key": "updated_at"
-                        }
-                      ],
-                      "foreign_key": {
-                        "group": "Branding",
-                        "entity": "dark_theme_color"
-                      }
-                    },
-                    "api_fieldname": "data",
-                    "entity_fieldname": "data",
-                    "_key": "data"
-                  },
-                  {
-                    "type": "boolean",
-                    "example": false,
-                    "description": "Flag indicating whether there are more results.",
-                    "api_fieldname": "has_more",
-                    "entity_fieldname": "has_more",
-                    "_key": "has_more"
-                  },
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 50,
-                    "description": "The number of results to return, or equal to `total_count`.",
-                    "api_fieldname": "limit",
-                    "entity_fieldname": "limit",
-                    "_key": "limit"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name: always `list`.",
-                    "enum": [
-                      "list"
-                    ],
-                    "api_fieldname": "object",
-                    "entity_fieldname": "object",
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.",
-                    "enum": [
-                      "ASC",
-                      "DESC"
-                    ],
-                    "api_fieldname": "order",
-                    "entity_fieldname": "order",
-                    "_key": "order"
-                  },
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 20,
-                    "description": "The total number of records, if requested.",
-                    "api_fieldname": "total_count",
-                    "entity_fieldname": "total_count",
-                    "_key": "total_count"
-                  }
-                ],
-                "pagination": true,
-                "foreign_key": {
-                  "group": "Branding",
-                  "entity": "light_theme_color"
-                }
-              },
-              "_key": "200"
-            },
-            {
-              "description": "Authentication failure.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "401"
-            },
-            {
-              "description": "Forbidden.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "403"
-            }
-          ],
-          "path": "/v3/branding-colors/light",
-          "summary": "Get light theme branding colors.",
-          "return_type": "paginated_response(dark_theme_color)",
-          "return_info": {
-            "self": false,
-            "custom": false,
-            "type": "dark_theme_color"
-          },
-          "x_filter": {},
-          "x_deprecation": null,
-          "drop_fields": [
-            "object",
-            "etag",
-            "type",
-            "groups",
-            "filter",
-            "limit",
-            "after",
-            "order",
-            "total_count",
-            "has_more",
-            "data"
-          ],
-          "foreign_key_priority": "self",
-          "group_id": "Branding",
-          "operation_id": "getLightColors",
-          "pagination": true,
-          "foreign_key": {
-            "group": "Branding",
-            "entity": "dark_theme_color"
-          },
-          "request_content_type": "application/json",
-          "request_body": "json",
-          "_key": "list"
+          "_key": "read"
         },
         {
           "description": "Update light theme branding color.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/primary \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{ \"color\": \"purple\" }'\n```",
@@ -38453,404 +38453,6 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve metadata for one account light theme branding image.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
-          "field_renames": [],
-          "fields": [
-            {
-              "enum": [
-                "brand_logo_portrait",
-                "brand_logo_square",
-                "brand_logo_landscape",
-                "brand_logo_email",
-                "desktop_background_landscape",
-                "desktop_background_square",
-                "desktop_background_portrait",
-                "carousel_image_portrait_0",
-                "carousel_image_portrait_1",
-                "carousel_image_portrait_2",
-                "carousel_image_portrait_3",
-                "carousel_image_portrait_4",
-                "carousel_image_portrait_5",
-                "carousel_image_portrait_6",
-                "carousel_image_portrait_7",
-                "carousel_image_portrait_8",
-                "carousel_image_portrait_9",
-                "carousel_image_square_0",
-                "carousel_image_square_1",
-                "carousel_image_square_2",
-                "carousel_image_square_3",
-                "carousel_image_square_4",
-                "carousel_image_square_5",
-                "carousel_image_square_6",
-                "carousel_image_square_7",
-                "carousel_image_square_8",
-                "carousel_image_square_9",
-                "carousel_image_landscape_0",
-                "carousel_image_landscape_1",
-                "carousel_image_landscape_2",
-                "carousel_image_landscape_3",
-                "carousel_image_landscape_4",
-                "carousel_image_landscape_5",
-                "carousel_image_landscape_6",
-                "carousel_image_landscape_7",
-                "carousel_image_landscape_8",
-                "carousel_image_landscape_9"
-              ],
-              "type": "string",
-              "description": "Name of the image.",
-              "api_fieldname": "reference",
-              "entity_fieldname": "reference",
-              "parameter_fieldname": "reference",
-              "in": "path",
-              "required": true,
-              "enum_reference": "light_theme_image_reference_enum",
-              "_key": "reference"
-            }
-          ],
-          "method": "get",
-          "mode": "get",
-          "responses": [
-            {
-              "description": "Successful operation.",
-              "schema": {
-                "type": "object",
-                "properties": [
-                  {
-                    "type": "string",
-                    "description": "Entity name: always 'branding_image'",
-                    "readOnly": true,
-                    "enum": [
-                      "branding_image"
-                    ],
-                    "api_fieldname": "object",
-                    "entity_fieldname": "object",
-                    "_key": "object"
-                  },
-                  {
-                    "enum": [
-                      "brand_logo_portrait",
-                      "brand_logo_square",
-                      "brand_logo_landscape",
-                      "brand_logo_email",
-                      "desktop_background_landscape",
-                      "desktop_background_square",
-                      "desktop_background_portrait",
-                      "carousel_image_portrait_0",
-                      "carousel_image_portrait_1",
-                      "carousel_image_portrait_2",
-                      "carousel_image_portrait_3",
-                      "carousel_image_portrait_4",
-                      "carousel_image_portrait_5",
-                      "carousel_image_portrait_6",
-                      "carousel_image_portrait_7",
-                      "carousel_image_portrait_8",
-                      "carousel_image_portrait_9",
-                      "carousel_image_square_0",
-                      "carousel_image_square_1",
-                      "carousel_image_square_2",
-                      "carousel_image_square_3",
-                      "carousel_image_square_4",
-                      "carousel_image_square_5",
-                      "carousel_image_square_6",
-                      "carousel_image_square_7",
-                      "carousel_image_square_8",
-                      "carousel_image_square_9",
-                      "carousel_image_landscape_0",
-                      "carousel_image_landscape_1",
-                      "carousel_image_landscape_2",
-                      "carousel_image_landscape_3",
-                      "carousel_image_landscape_4",
-                      "carousel_image_landscape_5",
-                      "carousel_image_landscape_6",
-                      "carousel_image_landscape_7",
-                      "carousel_image_landscape_8",
-                      "carousel_image_landscape_9"
-                    ],
-                    "type": "string",
-                    "description": "Name of the image.",
-                    "api_fieldname": "reference",
-                    "entity_fieldname": "reference",
-                    "parameter_fieldname": "reference",
-                    "in": "path",
-                    "required": true,
-                    "enum_reference": "dark_theme_image_reference_enum",
-                    "_key": "reference"
-                  },
-                  {
-                    "type": "string",
-                    "format": "uri",
-                    "example": "https://static.mbed.com/123456789.jpg",
-                    "description": "The static link to the image.",
-                    "readOnly": true,
-                    "api_fieldname": "static_uri",
-                    "entity_fieldname": "static_uri",
-                    "_key": "static_uri"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2018-02-14T15:24:14Z",
-                    "description": "Last update time in UTC.",
-                    "readOnly": true,
-                    "api_fieldname": "updated_at",
-                    "entity_fieldname": "updated_at",
-                    "_key": "updated_at"
-                  }
-                ],
-                "foreign_key": {
-                  "group": "Branding",
-                  "entity": "dark_theme_image"
-                }
-              },
-              "_key": "200"
-            },
-            {
-              "description": "Authentication failure.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "401"
-            },
-            {
-              "description": "Forbidden.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "403"
-            },
-            {
-              "description": "Unknown image reference.",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "code",
-                  "message",
-                  "object",
-                  "request_id",
-                  "type"
-                ],
-                "properties": [
-                  {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP response code",
-                    "example": 400,
-                    "_key": "code"
-                  },
-                  {
-                    "type": "array",
-                    "description": "Request fields which failed validation.",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "message"
-                      ],
-                      "properties": [
-                        {
-                          "type": "string",
-                          "description": "Message describing the error condition.",
-                          "_key": "message"
-                        },
-                        {
-                          "type": "string",
-                          "description": "Name of the field which caused the error.",
-                          "_key": "name"
-                        }
-                      ]
-                    },
-                    "_key": "fields"
-                  },
-                  {
-                    "type": "string",
-                    "description": "A human readable informative explanation",
-                    "example": "Validation error",
-                    "_key": "message"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name, always `error`.",
-                    "enum": [
-                      "error"
-                    ],
-                    "_key": "object"
-                  },
-                  {
-                    "type": "string",
-                    "description": "ID of the request.",
-                    "example": "0161991d63150242ac12000600000000",
-                    "_key": "request_id"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Error type used to categorise the error.",
-                    "example": "validation_error",
-                    "_key": "type"
-                  }
-                ]
-              },
-              "_key": "404"
-            }
-          ],
-          "path": "/v3/branding-images/light/{reference}",
-          "summary": "Get metadata of a light theme image.",
-          "return_type": "light_theme_image",
-          "return_info": {
-            "self": true,
-            "custom": false,
-            "type": "light_theme_image"
-          },
-          "x_filter": {},
-          "x_deprecation": null,
-          "drop_fields": [
-            "object",
-            "etag",
-            "type",
-            "groups",
-            "filter",
-            "static_uri",
-            "updated_at"
-          ],
-          "group_id": "Branding",
-          "operation_id": "getLightImageData",
-          "pagination": false,
-          "request_content_type": "application/json",
-          "request_body": "json",
-          "_key": "get"
-        },
-        {
           "description": "Retrieve the metadata of all light theme branding images.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/light \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [],
@@ -39200,6 +38802,404 @@
           "request_content_type": "application/json",
           "request_body": "json",
           "_key": "list"
+        },
+        {
+          "description": "Retrieve metadata for one account light theme branding image.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "field_renames": [],
+          "fields": [
+            {
+              "enum": [
+                "brand_logo_portrait",
+                "brand_logo_square",
+                "brand_logo_landscape",
+                "brand_logo_email",
+                "desktop_background_landscape",
+                "desktop_background_square",
+                "desktop_background_portrait",
+                "carousel_image_portrait_0",
+                "carousel_image_portrait_1",
+                "carousel_image_portrait_2",
+                "carousel_image_portrait_3",
+                "carousel_image_portrait_4",
+                "carousel_image_portrait_5",
+                "carousel_image_portrait_6",
+                "carousel_image_portrait_7",
+                "carousel_image_portrait_8",
+                "carousel_image_portrait_9",
+                "carousel_image_square_0",
+                "carousel_image_square_1",
+                "carousel_image_square_2",
+                "carousel_image_square_3",
+                "carousel_image_square_4",
+                "carousel_image_square_5",
+                "carousel_image_square_6",
+                "carousel_image_square_7",
+                "carousel_image_square_8",
+                "carousel_image_square_9",
+                "carousel_image_landscape_0",
+                "carousel_image_landscape_1",
+                "carousel_image_landscape_2",
+                "carousel_image_landscape_3",
+                "carousel_image_landscape_4",
+                "carousel_image_landscape_5",
+                "carousel_image_landscape_6",
+                "carousel_image_landscape_7",
+                "carousel_image_landscape_8",
+                "carousel_image_landscape_9"
+              ],
+              "type": "string",
+              "description": "Name of the image.",
+              "api_fieldname": "reference",
+              "entity_fieldname": "reference",
+              "parameter_fieldname": "reference",
+              "in": "path",
+              "required": true,
+              "enum_reference": "light_theme_image_reference_enum",
+              "_key": "reference"
+            }
+          ],
+          "method": "get",
+          "mode": "read",
+          "responses": [
+            {
+              "description": "Successful operation.",
+              "schema": {
+                "type": "object",
+                "properties": [
+                  {
+                    "type": "string",
+                    "description": "Entity name: always 'branding_image'",
+                    "readOnly": true,
+                    "enum": [
+                      "branding_image"
+                    ],
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "enum": [
+                      "brand_logo_portrait",
+                      "brand_logo_square",
+                      "brand_logo_landscape",
+                      "brand_logo_email",
+                      "desktop_background_landscape",
+                      "desktop_background_square",
+                      "desktop_background_portrait",
+                      "carousel_image_portrait_0",
+                      "carousel_image_portrait_1",
+                      "carousel_image_portrait_2",
+                      "carousel_image_portrait_3",
+                      "carousel_image_portrait_4",
+                      "carousel_image_portrait_5",
+                      "carousel_image_portrait_6",
+                      "carousel_image_portrait_7",
+                      "carousel_image_portrait_8",
+                      "carousel_image_portrait_9",
+                      "carousel_image_square_0",
+                      "carousel_image_square_1",
+                      "carousel_image_square_2",
+                      "carousel_image_square_3",
+                      "carousel_image_square_4",
+                      "carousel_image_square_5",
+                      "carousel_image_square_6",
+                      "carousel_image_square_7",
+                      "carousel_image_square_8",
+                      "carousel_image_square_9",
+                      "carousel_image_landscape_0",
+                      "carousel_image_landscape_1",
+                      "carousel_image_landscape_2",
+                      "carousel_image_landscape_3",
+                      "carousel_image_landscape_4",
+                      "carousel_image_landscape_5",
+                      "carousel_image_landscape_6",
+                      "carousel_image_landscape_7",
+                      "carousel_image_landscape_8",
+                      "carousel_image_landscape_9"
+                    ],
+                    "type": "string",
+                    "description": "Name of the image.",
+                    "api_fieldname": "reference",
+                    "entity_fieldname": "reference",
+                    "parameter_fieldname": "reference",
+                    "in": "path",
+                    "required": true,
+                    "enum_reference": "dark_theme_image_reference_enum",
+                    "_key": "reference"
+                  },
+                  {
+                    "type": "string",
+                    "format": "uri",
+                    "example": "https://static.mbed.com/123456789.jpg",
+                    "description": "The static link to the image.",
+                    "readOnly": true,
+                    "api_fieldname": "static_uri",
+                    "entity_fieldname": "static_uri",
+                    "_key": "static_uri"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-14T15:24:14Z",
+                    "description": "Last update time in UTC.",
+                    "readOnly": true,
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  }
+                ],
+                "foreign_key": {
+                  "group": "Branding",
+                  "entity": "dark_theme_image"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Authentication failure.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "403"
+            },
+            {
+              "description": "Unknown image reference.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/branding-images/light/{reference}",
+          "summary": "Get metadata of a light theme image.",
+          "return_type": "light_theme_image",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "light_theme_image"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "static_uri",
+            "updated_at"
+          ],
+          "group_id": "Branding",
+          "operation_id": "getLightImageData",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "read"
         }
       ],
       "fields": [
