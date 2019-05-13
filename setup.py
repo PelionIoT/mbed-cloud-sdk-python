@@ -57,6 +57,7 @@ setup(
         'Topic :: Software Development :: Object Brokering',
     ),
     description="Mbed Cloud Python SDK",
+    keyword="Arm Pelion Device Management Mbed Cloud SDK",
     include_package_data=True,
     install_requires=requirements,
     license='Apache 2.0',
