@@ -20,10 +20,10 @@ This higher-level-abstraction aims to get the user code quickly from
 defining a subscription, to acting on the data received
 
 # callbacks
-def callback(x):
+def my_callback(x):
     print(x)
 
-connect_api.subscribe(device_state_changes(device_id=a)).add_callback(blah)
+connect_api.subscribe(device_state_changes(device_id=a)).add_callback(my_callback)
 
 # blocking calls with filters
 channel = connect_api.subscribe(device_state_changes(device_id=, state='deregistered'))
