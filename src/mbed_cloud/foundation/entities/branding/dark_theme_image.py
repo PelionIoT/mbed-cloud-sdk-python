@@ -12,8 +12,8 @@ This entity has the following methods:
 
 - :meth:`DarkThemeImage.create`
 - :meth:`DarkThemeImage.delete`
-- :meth:`DarkThemeImage.get`
 - :meth:`DarkThemeImage.list`
+- :meth:`DarkThemeImage.read`
 
 Entity Usage and Importing
 --------------------------
@@ -188,22 +188,6 @@ class DarkThemeImage(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Get metadata of a dark theme image.
-
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-images/dark/{reference}>`_.
-        
-        :rtype: DarkThemeImage
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/branding-images/dark/{reference}",
-            content_type="application/json",
-            path_params={"reference": self._reference.to_api()},
-            unpack=self,
-        )
-
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get metadata of all dark theme images.
 
@@ -284,4 +268,20 @@ class DarkThemeImage(Entity):
 
         return self._client.call_api(
             method="get", path="/v3/branding-images/dark", content_type="application/json", unpack=False
+        )
+
+    def read(self):
+        """Get metadata of a dark theme image.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-images/dark/{reference}>`_.
+        
+        :rtype: DarkThemeImage
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/branding-images/dark/{reference}",
+            content_type="application/json",
+            path_params={"reference": self._reference.to_api()},
+            unpack=self,
         )

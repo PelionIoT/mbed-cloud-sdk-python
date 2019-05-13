@@ -12,8 +12,8 @@ This entity has the following methods:
 
 - :meth:`LightThemeImage.create`
 - :meth:`LightThemeImage.delete`
-- :meth:`LightThemeImage.get`
 - :meth:`LightThemeImage.list`
+- :meth:`LightThemeImage.read`
 
 Entity Usage and Importing
 --------------------------
@@ -188,22 +188,6 @@ class LightThemeImage(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Get metadata of a light theme image.
-
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-images/light/{reference}>`_.
-        
-        :rtype: LightThemeImage
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/branding-images/light/{reference}",
-            content_type="application/json",
-            path_params={"reference": self._reference.to_api()},
-            unpack=self,
-        )
-
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get metadata of all light theme images.
 
@@ -284,4 +268,20 @@ class LightThemeImage(Entity):
 
         return self._client.call_api(
             method="get", path="/v3/branding-images/light", content_type="application/json", unpack=False
+        )
+
+    def read(self):
+        """Get metadata of a light theme image.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-images/light/{reference}>`_.
+        
+        :rtype: LightThemeImage
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/branding-images/light/{reference}",
+            content_type="application/json",
+            path_params={"reference": self._reference.to_api()},
+            unpack=self,
         )

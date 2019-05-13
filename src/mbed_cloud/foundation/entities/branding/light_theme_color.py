@@ -11,8 +11,8 @@ actions may also be possible on the entity depending on the capabilities present
 This entity has the following methods:
 
 - :meth:`LightThemeColor.delete`
-- :meth:`LightThemeColor.get`
 - :meth:`LightThemeColor.list`
+- :meth:`LightThemeColor.read`
 - :meth:`LightThemeColor.update`
 
 Entity Usage and Importing
@@ -157,22 +157,6 @@ class LightThemeColor(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Get light theme branding color.
-
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-colors/light/{reference}>`_.
-        
-        :rtype: LightThemeColor
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/branding-colors/light/{reference}",
-            content_type="application/json",
-            path_params={"reference": self._reference.to_api()},
-            unpack=self,
-        )
-
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get light theme branding colors.
 
@@ -253,6 +237,22 @@ class LightThemeColor(Entity):
 
         return self._client.call_api(
             method="get", path="/v3/branding-colors/light", content_type="application/json", unpack=False
+        )
+
+    def read(self):
+        """Get light theme branding color.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-colors/light/{reference}>`_.
+        
+        :rtype: LightThemeColor
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/branding-colors/light/{reference}",
+            content_type="application/json",
+            path_params={"reference": self._reference.to_api()},
+            unpack=self,
         )
 
     def update(self):

@@ -11,8 +11,8 @@ actions may also be possible on the entity depending on the capabilities present
 This entity has the following methods:
 
 - :meth:`DarkThemeColor.delete`
-- :meth:`DarkThemeColor.get`
 - :meth:`DarkThemeColor.list`
+- :meth:`DarkThemeColor.read`
 - :meth:`DarkThemeColor.update`
 
 Entity Usage and Importing
@@ -157,22 +157,6 @@ class DarkThemeColor(Entity):
             unpack=self,
         )
 
-    def get(self):
-        """Get dark theme branding color.
-
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-colors/dark/{reference}>`_.
-        
-        :rtype: DarkThemeColor
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/branding-colors/dark/{reference}",
-            content_type="application/json",
-            path_params={"reference": self._reference.to_api()},
-            unpack=self,
-        )
-
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get dark theme branding colors.
 
@@ -253,6 +237,22 @@ class DarkThemeColor(Entity):
 
         return self._client.call_api(
             method="get", path="/v3/branding-colors/dark", content_type="application/json", unpack=False
+        )
+
+    def read(self):
+        """Get dark theme branding color.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-colors/dark/{reference}>`_.
+        
+        :rtype: DarkThemeColor
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/branding-colors/dark/{reference}",
+            content_type="application/json",
+            path_params={"reference": self._reference.to_api()},
+            unpack=self,
         )
 
     def update(self):
