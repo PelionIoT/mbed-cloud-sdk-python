@@ -144,7 +144,6 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str mechanism_url: The address of the connector to use
         :param str serial_number: The serial number of the device
         :param str state: The current state of the device
-        :param int trust_class: The device trust class
         :param str vendor_id: The device vendor ID
         :param str alias: The alias of the device
         :parama str device_type: The endpoint type of the device - e.g. if the device is a gateway
@@ -338,7 +337,6 @@ class Device(BaseObject):
             "device_type": "endpoint_type",
             "serial_number": "serial_number",
             "state": "state",
-            "trust_class": "trust_class",
             "updated_at": "updated_at",
             "vendor_id": "vendor_id",
             "alias": "endpoint_name",
@@ -487,16 +485,6 @@ class Device(BaseObject):
         :rtype: str
         """
         return self._state
-
-    @property
-    def trust_class(self):
-        """The device trust class.
-
-        The time the object was created
-
-        :rtype: int
-        """
-        return self._trust_class
 
     @property
     def updated_at(self):

@@ -20,7 +20,7 @@ many_types_filter = {
         '$gte': datetime.datetime(2017, 1, 1),
     },
     'vendor_id': 'green',
-    'trust_class': {
+    'device_execution_mode': {
         'gte': 5,
     },
     'state': True,
@@ -61,7 +61,7 @@ class TestFilters(BaseCase):
         self._run(
             {
                 'vendor_id__eq': 'green', 'deployment__eq': 'yellow', 'deployment__gte': '2017-01-01T00:00:00Z',
-                'firmware_checksum__eq': None, 'name__eq': False, 'state__eq': True, 'trust_class__gte': 5,
+                'firmware_checksum__eq': None, 'name__eq': False, 'state__eq': True, 'device_execution_mode__gte': 5,
             },
             filters=many_types_filter,
             encode=False
@@ -75,10 +75,10 @@ class TestFilters(BaseCase):
                 'deployment=yellow'
                 '&deployment__gte=2017-01-01T00%3A00%3A00Z'
                 '&device_class=red+%26+%22yellow%22%2C+%3Cgreen%3E'
+                '&device_execution_mode__gte=5'
                 '&firmware_checksum=None'
                 '&name=False'
                 '&state=True'
-                '&trust_class__gte=5'
                 '&vendor_id=green'
             )},
             filters=this_filter,
@@ -144,12 +144,12 @@ class TestFilters(BaseCase):
         }
         self.maxDiff = 1e5
         self._run({u'filter': (
-                'custom_attributes__firmware_checksum=None'
+                'custom_attributes__device_execution_mode__gte=5'
+                '&custom_attributes__firmware_checksum=None'
                 '&custom_attributes__last_deployment=yellow'
                 '&custom_attributes__last_deployment__gte=2017-01-01T00%3A00%3A00Z'
                 '&custom_attributes__name=False'
                 '&custom_attributes__state=True'
-                '&custom_attributes__trust_class__gte=5'
                 '&custom_attributes__vendor_id=green'
                 '&name=red+%26+yellow'
             ),
