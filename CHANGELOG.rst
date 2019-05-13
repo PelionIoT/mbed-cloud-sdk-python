@@ -13,6 +13,22 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.0.7 (2019-05-13)
+==================
+
+Improved Documentation
+----------------------
+
+- Keyword for Pelion Device Management added to distributions metedata. (#1931)
+
+- Removed 'trust_class' argument from legacy device_directory SDK. (#2607)
+
+Misc
+----
+
+- #2306
+
+
 2.0.6 (2019-03-05)
 ==================
 
