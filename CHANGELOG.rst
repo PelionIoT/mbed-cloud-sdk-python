@@ -13,6 +13,15 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.0.8 (2019-05-13)
+==================
+
+Improved Documentation
+----------------------
+
+- Fix callback function name in connect example. (#2014)
+
+
 2.0.7 (2019-05-13)
 ==================
 
