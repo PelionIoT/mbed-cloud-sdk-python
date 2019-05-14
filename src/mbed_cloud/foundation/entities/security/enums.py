@@ -58,11 +58,9 @@ class CertificateEnrollmentEnrollResultEnum(BaseEnum):
     """
 
     FAILURE = "failure"
-    FORBIDDEN = "forbidden"
-    NOT_FOUND = "not_found"
     SUCCESS = "success"
 
-    values = frozenset(("failure", "forbidden", "not_found", "success"))
+    values = frozenset(("failure", "success"))
 
 
 class CertificateEnrollmentEnrollStatusEnum(BaseEnum):
