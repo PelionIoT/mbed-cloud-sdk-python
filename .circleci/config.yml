@@ -126,10 +126,6 @@ jobs:
           mbed_sdk_py3:latest sh -c "source .venv/bin/activate && python scripts/tag_and_release.py
           --mode=beta"
         name: Tag and release
-    - run:
-        command: docker run --env-file=scripts/templates/envvars.env mbed_sdk_py3:latest
-          sh -c "source .venv/bin/activate && python scripts/notify.py"
-        name: Start the release party!
   deploy_py3_production:
     machine:
       image: circleci/classic:latest
@@ -157,10 +153,6 @@ jobs:
           mbed_sdk_py3:latest sh -c "source .venv/bin/activate && python scripts/tag_and_release.py
           --mode=prod"
         name: Tag and release
-    - run:
-        command: docker run --env-file=scripts/templates/envvars.env mbed_sdk_py3:latest
-          sh -c "source .venv/bin/activate && python scripts/notify.py"
-        name: Start the release party!
   foundation_gen:
     docker:
     - image: circleci/python:3.6.3
