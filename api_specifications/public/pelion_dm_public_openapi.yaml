@@ -1602,8 +1602,6 @@ definitions:
         enum:
         - success
         - failure
-        - not_found
-        - forbidden
         example: success
         type: string
       enroll_result_detail:
@@ -5091,7 +5089,8 @@ definitions:
         type: string
     type: object
   ServicePackageMetadata:
-    description: Account's service package metadata.
+    description: Account's service package metadata. Value is `null` if service package
+      has expired.
     properties:
       end_time:
         description: Service package end time in RFC3339 date-time with millisecond
@@ -5278,6 +5277,8 @@ definitions:
         type: array
       metadata:
         $ref: '#/definitions/ServicePackageMetadata'
+        description: '`Null` if service package has expired.'
+        x-nullable: true
       quota_usage:
         items:
           $ref: '#/definitions/QuotaUsageReport'
@@ -14662,11 +14663,17 @@ paths:
         required: false
         type: string
       - description: An optional filter for the non-equal certificate enrollment result.
+        enum:
+        - success
+        - failure
         in: query
         name: enroll_result__neq
         required: false
         type: string
       - description: An optional filter for the certificate enrollment result.
+        enum:
+        - success
+        - failure
         in: query
         name: enroll_result__eq
         required: false
