@@ -353,12 +353,6 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
             -e TWINE_REPOSITORY={release_target.twine_repo}
             {py_ver.tag}
             sh -c "source .venv/bin/activate && python scripts/tag_and_release.py --mode={release_target.mode}"
-      - run:
-          name: Start the release party!
-          command: >-
-            docker run --env-file=scripts/templates/envvars.env
-            {py_ver.tag}
-            sh -c "source .venv/bin/activate && python scripts/notify.py"
     """)
     return deploy_name(py_ver, release_target), template
 
