@@ -11456,8 +11456,6 @@ entities:
     enum:
     - success
     - failure
-    - not_found
-    - forbidden
     enum_reference: certificate_enrollment_enroll_result_enum
     example: success
     readOnly: true
@@ -11665,8 +11663,6 @@ entities:
               enum:
               - success
               - failure
-              - not_found
-              - forbidden
               example: success
               type: string
             - _key: enroll_result_detail
@@ -11987,8 +11983,6 @@ entities:
           enum:
           - success
           - failure
-          - not_found
-          - forbidden
           example: success
           type: string
         - _key: enroll_result_detail
@@ -19447,8 +19441,6 @@ entities:
           enum:
           - success
           - failure
-          - not_found
-          - forbidden
           example: success
           type: string
         - _key: enroll_result_detail
@@ -43381,8 +43373,6 @@ enums:
   group_id: Security
   values:
   - failure
-  - forbidden
-  - not_found
   - success
 - _key: certificate_enrollment_enroll_status_enum
   entity_name: certificate_enrollment
