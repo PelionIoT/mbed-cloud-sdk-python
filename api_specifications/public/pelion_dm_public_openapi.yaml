@@ -6344,7 +6344,7 @@ definitions:
       username:
         description: A username.
         example: admin
-        pattern: '[\w\-,._@+=]'
+        pattern: '[\w\-,._@+=]{4,30}'
         type: string
         x-nullable: true
     required:
