@@ -20,7 +20,7 @@ def download_report_file(self, absolute_url):
         return StringIO(response.text)
     else:
         # If the URL not available return an empty stream
-        return StringIO("")
+        return StringIO()
 
 
 def download_full_report_file(self, foreign_key):
