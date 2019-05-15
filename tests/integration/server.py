@@ -179,6 +179,16 @@ def execute_method(method, kwargs):
     for k, v in kwargs.items():
         kwargs[k] = deserialise(v)
 
+    # Find any parameters which are not in the method signature and throw them away.
+    invalid_kwargs=[]
+    for kwarg in kwargs:
+        if kwarg not in method.__code__.co_varnames:
+            LOG.error("ERROR: Parameter '%s' is not in the method signature of '%s'", kwarg, method.__name__)
+            invalid_kwargs.append(kwarg)
+    # Remove invalid arguments (avoiding mutating the dictionary while iterating).
+    for invalid_kwarg in invalid_kwargs:
+        kwargs.pop(invalid_kwarg)
+
     # Call SDK method
     try:
         method_result = method(**kwargs)
