@@ -1,1 +1,1 @@
-Introduction of the _Foundation API_ which adds a new 'Entities' based interface.
+Introduction of the _Foundation Interface_ which adds a new 'Entities' based interface.

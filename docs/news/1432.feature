@@ -1,1 +1,1 @@
-First to Claim - to bulk delete for Enrollment Identities added to the _Foundation SDK_.
+First to Claim - to bulk delete for Enrolment Identities added to the _Foundation Interface_.

@@ -1,1 +1,1 @@
-Addition of device events entity to the _Foundation SDK_.
+Device Events entity added to the _Foundation Interface_.
