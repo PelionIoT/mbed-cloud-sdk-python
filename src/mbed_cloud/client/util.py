@@ -1,36 +1,5 @@
 """Utilities for the client interface."""
-import functools
 import json
-
-from mbed_cloud import pagination
-
-
-def maybe_cache(func):
-    """If lru_cache is available, try to use it"""
-    try:
-        from functools import lru_cache
-    except ImportError:
-        pass
-    else:
-        func = lru_cache()(func)
-    return func
-
-
-def paginate(unpack):
-    """Decorator that wraps listable_call
-
-    In a way that allows it to be paginated
-    """
-    def decorator(listable_call):
-        @functools.wraps(listable_call)
-        def wrapper(**kwargs):
-            return pagination.PaginatedResponse(
-                func=listable_call, lwrap_type=unpack, unpack=False, **kwargs
-            )
-
-        return wrapper
-
-    return decorator
 
 
 def pretty_literal(content, indent=2, replace_null=True):
