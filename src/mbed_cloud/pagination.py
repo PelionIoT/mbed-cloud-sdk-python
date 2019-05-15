@@ -16,6 +16,7 @@
 # --------------------------------------------------------------------------
 """Pagination"""
 from itertools import islice
+from mbed_cloud.sdk.exceptions import ApiErrorResponse
 
 
 class ToDictWrapper(object):
@@ -66,7 +67,7 @@ class PaginatedResponse(object):
         :param page_size: Number of results to request per page
         :param max_results: Total maximum number of results to retrieve
         """
-        self._func = func
+        self._api_func = func
         self._lwrap_type = lwrap_type
         self._kwargs = {}
         self._kwargs.update(kwargs)
@@ -83,6 +84,25 @@ class PaginatedResponse(object):
         # 'limit' parameter is deprecated, but used to approximate both values:
         self._max_results = max_results if max_results is not None else kwargs.get('limit')
         self._page_size = kwargs.get('limit') or page_size
+
+    def _api_func_wrapper(self, *args, **kwargs):
+        """Wrapper around API function to handle erroneous 404s from the API.
+
+        :param args: Positional arguments for the API function.
+        :param kwargs: Key word arguments for the API function.
+
+        :return: The result of calling the API function.
+        """
+        try:
+            return self._api_func(*args, **kwargs)
+        except ApiErrorResponse as api_error:
+            # Suppress 404s for listing as they are sometimes returned by the API rather than an empty list
+            if api_error.status_code == 404:
+                # Fake an empty response for a list method
+                return {"total_count": 0, "data": []}
+            else:
+                # Re-raise the exception if not a 404
+                raise
 
     @property
     def _is_caching(self):
@@ -118,7 +138,7 @@ class PaginatedResponse(object):
         if self._page_size is not None:
             query['limit'] = self._page_size
 
-        raw_function_response = self._func(**query)
+        raw_function_response = self._api_func_wrapper(**query)
         resp = self._response_dictionary(raw_function_response)
 
         for item in resp.get('data') or []:
@@ -151,7 +171,7 @@ class PaginatedResponse(object):
         len_query['include'] = 'total_count'
         len_query.update(self._kwargs)
         len_query['limit'] = 2
-        resp = self._response_dictionary(self._func(**len_query))
+        resp = self._response_dictionary(self._api_func_wrapper(**len_query))
         return resp.get('total_count', 0)
 
     def count(self):
@@ -172,7 +192,7 @@ class PaginatedResponse(object):
         if self._results_cache:
             return self._results_cache[0]
 
-        query = PaginatedResponse(func=self._func, lwrap_type=self._lwrap_type, **self._kwargs)
+        query = PaginatedResponse(func=self._api_func, lwrap_type=self._lwrap_type, **self._kwargs)
         try:
             return next(query)
         except StopIteration:
