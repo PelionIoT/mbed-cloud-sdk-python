@@ -229,7 +229,7 @@ jobs:
         paths: testrunner_version.txt
         root: ~/caches
     - store_artifacts:
-        path: testrunner_version.txt
+        path: ~/caches/testrunner_version.txt
   reference_documentation:
     machine:
       image: circleci/classic:latest
