@@ -7951,7 +7951,7 @@ entities:
             - _key: username
               description: A username.
               example: admin
-              pattern: '[\w\-,._@+=]'
+              pattern: '[\w\-,._@+=]{4,30}'
               type: string
               x-nullable: true
             required:
@@ -30505,7 +30505,7 @@ entities:
     example: admin
     in: body
     parameter_fieldname: username
-    pattern: '[\w\-,._@+=]'
+    pattern: '[\w\-,._@+=]{4,30}'
     readOnly: false
     required: false
     type: string
@@ -30697,7 +30697,7 @@ entities:
       example: admin
       in: body
       parameter_fieldname: username
-      pattern: '[\w\-,._@+=]'
+      pattern: '[\w\-,._@+=]{4,30}'
       required: false
       type: string
       x-nullable: true
@@ -31082,7 +31082,7 @@ entities:
           example: admin
           in: body
           parameter_fieldname: username
-          pattern: '[\w\-,._@+=]'
+          pattern: '[\w\-,._@+=]{4,30}'
           required: false
           type: string
           x-nullable: true
@@ -32041,7 +32041,7 @@ entities:
           example: admin
           in: body
           parameter_fieldname: username
-          pattern: '[\w\-,._@+=]'
+          pattern: '[\w\-,._@+=]{4,30}'
           required: false
           type: string
           x-nullable: true
@@ -32373,7 +32373,7 @@ entities:
       example: admin
       in: body
       parameter_fieldname: username
-      pattern: '[\w\-,._@+=]'
+      pattern: '[\w\-,._@+=]{4,30}'
       required: false
       type: string
       x-nullable: true
@@ -32758,7 +32758,7 @@ entities:
           example: admin
           in: body
           parameter_fieldname: username
-          pattern: '[\w\-,._@+=]'
+          pattern: '[\w\-,._@+=]{4,30}'
           required: false
           type: string
           x-nullable: true
@@ -39031,7 +39031,7 @@ entities:
     api_fieldname: username
     description: A username.
     example: admin
-    pattern: '[\w\-,._@+=]'
+    pattern: '[\w\-,._@+=]{4,30}'
     readOnly: false
     required: false
     type: string
@@ -39213,7 +39213,7 @@ entities:
       example: admin
       in: body
       parameter_fieldname: username
-      pattern: '[\w\-,._@+=]'
+      pattern: '[\w\-,._@+=]{4,30}'
       required: false
       type: string
       x-nullable: true
@@ -39555,7 +39555,7 @@ entities:
           description: A username.
           entity_fieldname: username
           example: admin
-          pattern: '[\w\-,._@+=]'
+          pattern: '[\w\-,._@+=]{4,30}'
           type: string
           x-nullable: true
         required:
@@ -40400,7 +40400,7 @@ entities:
             - _key: username
               description: A username.
               example: admin
-              pattern: '[\w\-,._@+=]'
+              pattern: '[\w\-,._@+=]{4,30}'
               type: string
               x-nullable: true
             required:
@@ -40958,7 +40958,7 @@ entities:
           description: A username.
           entity_fieldname: username
           example: admin
-          pattern: '[\w\-,._@+=]'
+          pattern: '[\w\-,._@+=]{4,30}'
           type: string
           x-nullable: true
         required:
@@ -41279,7 +41279,7 @@ entities:
       example: admin
       in: body
       parameter_fieldname: username
-      pattern: '[\w\-,._@+=]'
+      pattern: '[\w\-,._@+=]{4,30}'
       required: false
       type: string
       x-nullable: true
@@ -41621,7 +41621,7 @@ entities:
           description: A username.
           entity_fieldname: username
           example: admin
-          pattern: '[\w\-,._@+=]'
+          pattern: '[\w\-,._@+=]{4,30}'
           type: string
           x-nullable: true
         required:
