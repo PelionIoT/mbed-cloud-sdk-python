@@ -3120,7 +3120,7 @@ definitions:
         example: GET
         type: string
       payload-b64:
-        description: The base64 encoded payload to be sent to the device.
+        description: The base64 encoded payload to send to the device.
         example: dmFsdWUxCg==
         type: string
       uri:
@@ -3140,18 +3140,15 @@ definitions:
       q:
         description: 'Determines whether the device is in queue mode.
 
-          <br/><br/><b>Queue mode</b><br/>
+
+          **Queue mode**
+
 
           When an endpoint is in queue mode, messages sent to the endpoint do not
-          wake up the physical device. The messages are queued
-
-          and delivered when the device wakes up and connects to Device Management
-          Connect itself. You can also use the queue mode when
-
-          the device is behind a NAT and cannot be reached directly by Device Management
-          Connect.
-
-          '
+          wake up the physical device. The messages are queued and delivered when
+          the device wakes up and connects to Device Management Connect. You can also
+          use the queue mode when the device is behind an NAT and cannot be reached
+          directly by Device Management Connect.'
         example: false
         type: boolean
       status:
@@ -3175,22 +3172,13 @@ definitions:
         example: Light
         type: string
       original-ep:
-        description: 'In case of a self-provided endpoint name that is used to initiate
-          the device registration, Device Management provides a new
-
-          device ID to be used from that point on. The new Pelion platform provided
-          Device ID is forwarded as the ''ep'' property and the
-
-          original self-provided one as the optional ''original-ep'' property in a
-          registration notification. The name and ID can then
-
-          be mapped accordingly. Device Management saves the original endpoint name
-          in the Device Directory for future device registrations so that you don''t
-          need
-
-          to do the mapping again.
-
-          '
+        description: If device registration is initiated with a self-provided endpoint
+          name, Device Management provides a new device ID for subsequent use. The
+          new platform-provided Device ID is forwarded as the 'ep' property and the
+          original self-provided one as the optional 'original-ep' property in a registration
+          notification. The name and ID can then be mapped accordingly. Device Management
+          saves the original endpoint name in the Device Directory for future device
+          registrations so you don't need to do mapping again.
         example: my-device-123
         type: string
       q:
@@ -4433,11 +4421,9 @@ definitions:
         type: string
       max-age:
         description: 'Max age value is an integer number of seconds between 0 and
-          2^32-1 but the actual maximum cache time is limited to 3 days.
+          2^32-1, but the actual maximum cache time is limited to 3 days.
 
-          A default value of 60 seconds is assumed in the absence of the option.
-
-          '
+          Default 60.'
         example: 60
         type: string
       path:
@@ -4706,7 +4692,7 @@ definitions:
         type: string
       resource-path:
         items:
-          description: A resource URI
+          description: A resource URI.
           example: /sen/light
           type: string
         minItems: 1
@@ -4945,38 +4931,33 @@ definitions:
   Resource:
     properties:
       obs:
-        description: 'Observable determines whether you can subscribe to changes for
-          this resource. It can have values "true" or "false".
-
-          '
+        description: '''Determines whether you can subscribe to changes for this resource.
+          It can have values `true` or `false`.'''
         example: true
         type: boolean
       rt:
-        description: Application specific resource type that describes this resource.
-          [It is created by the client side application](/docs/current/connecting/resource-setup-in-device-management-client.html).
+        description: Application-specific resource type that describes this resource.
+          It is created by the [client side application](../connecting/resource-setup-in-device-management-client.html).
           Not meant to be a human-readable name for the resource. Multiple resource
-          types may be included, they are separated by a space.
+          types may be included, separated by a space.
         example: light_sensor
         type: string
       type:
         description: 'The content type of the resource.
 
-          <br/><br/><b>Important</b><br/>
 
-          You are encouraged to use the resource types listed in the [LwM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry).
-
-          '
+          We recommend you use the **resource types** listed in the [LwM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry).'
         example: text/plain
         type: string
       uri:
-        description: The URL of the resource.
+        description: The resource URL.
         example: /sen/light
         type: string
     required:
     - uri
     type: object
   ResourcePath:
-    description: A resource URI
+    description: A resource URI.
     example: /sen/light
     type: string
   ResourcesData:
@@ -4988,11 +4969,11 @@ definitions:
       if:
         description: Interface description that defines a name or URI that indicates
           how to interact with the target resource. It describes a generic interface
-          type, such as a "sensor".
+          type, such as a 'sensor'.
         example: sensor
         type: string
       obs:
-        description: Whether the resource is observable or not (true/false).
+        description: Whether the resource is observable (true/false).
         example: true
         type: boolean
       path:
@@ -5000,10 +4981,11 @@ definitions:
         example: /sen/light
         type: string
       rt:
-        description: Application-specific resource type that describes this resource.
-          [It is created by the client side application](/docs/current/connecting/resource-setup-in-device-management-client.html).
+        description: 'Application-specific resource type that describes this resource.
+          It is created by the [client side application](../connecting/resource-setup-in-device-management-client.html).
+
           Not meant to be a human-readable name for the resource. Multiple resource
-          types may be included, they are separated by a space.
+          types may be included, separated by a space.'
         example: light_sensor
         type: string
     type: object
@@ -5329,7 +5311,7 @@ definitions:
         type: array
     type: object
   SubscriptionsList:
-    description: A list of resource URIs, one per line
+    description: A list of resource URIs, one per line.
     example: /sen/light
     type: string
   SubtenantAccountReport:
@@ -6652,20 +6634,16 @@ definitions:
     type: object
   WebsocketChannel:
     properties:
-      queue_size:
+      queueSize:
         default: 0
         description: Number of events in the channel's event queue waiting to be delivered.
         example: 0
         type: integer
       status:
         default: disconnected
-        description: 'Channel status will be ''connected'' when the channel has an
-          active WebSocket bound to it. The state
-
-          will be ''disconnected'' when either the channel or the WebSocket bound
-          to it is closed.
-
-          '
+        description: Channel status is 'connected' when the channel has an active
+          WebSocket bound to it. The state is 'disconnected' when either the channel
+          or the WebSocket bound to it is closed.
         enum:
         - connected
         - disconnected
@@ -6969,7 +6947,7 @@ paths:
         required: true
         type: string
       - description: The client-generated ID for matching the correct response delivered
-          via a notification.
+          by notification.
         format: 1-40 alphanumeric characters and dashes.
         in: query
         name: async-id
@@ -7168,49 +7146,25 @@ paths:
       summary: Get a PSK.
       tags:
       - PreSharedKeys
-  /v2/endpoints:
-    get:
-      deprecated: true
-      description: "Endpoints are physical devices having valid registration to Device\
-        \ Management. All devices regardless of registration status can be requested\
-        \ from Device Directory API ['/v3/devices/`](/docs/current/service-api-references/device-directory.html).\n\
-        \n**Note:** This endpoint is deprecated and will be removed 1Q/18. You should\
-        \ use the Device Directory API [`/v3/devices/`](/docs/current/service-api-references/device-directory.html).\
-        \ To list only the registered devices, use filter `/v3/devices/?filter=state%3Dregistered`.\n\
-        \n**Example usage:**\n\n    curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints\
-        \ -H 'authorization: Bearer {api-key}'\n"
-      operationId: getConnectedEndpoints
-      parameters:
-      - description: Filter endpoints by endpoint-type.
-        in: query
-        name: type
-        required: false
-        type: string
-      produces:
-      - application/json
-      responses:
-        200:
-          description: Successful response with a list of endpoints (Array of endpoints).
-          schema:
-            items:
-              $ref: '#/definitions/Endpoint'
-            type: array
-      summary: (DEPRECATED) List registered endpoints. The number of returned endpoints
-        is currently limited to 200.
-      tags:
-      - Endpoints
   /v2/endpoints/{device-id}:
     get:
-      description: "The list of resources is cached by Device Management Connect,\
-        \ so this call does not create a message to the device.\n\n**Example usage:**\n\
-        \n    curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}\
-        \ -H 'authorization: Bearer {api-key}'\n"
+      description: 'Retrieves resources cached by Device Management Connect. This
+        call does not formulate a message to the device.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getEndpointResources
       parameters:
-      - description: 'A unique device ID for an endpoint. Note that the ID needs to
-          be an exact match. You cannot use wildcards here.
-
-          '
+      - description: A unique device ID for an endpoint. The ID must be an exact match.
+          Do not use wildcards.
         in: path
         name: device-id
         required: true
@@ -7219,59 +7173,61 @@ paths:
       - application/json
       responses:
         200:
-          description: Successful response with a list of resources (Array of resources).
+          description: Successful response with an array of resources.
           schema:
             items:
               $ref: '#/definitions/Resource'
             type: array
         404:
-          description: Endpoint not found
-      summary: List the resources on an endpoint
+          description: Endpoint not found.
+      summary: List the resources on an endpoint.
       tags:
       - Endpoints
   /v2/endpoints/{device-id}/{resourcePath}:
     delete:
-      description: "A request to delete a resource path must be handled by both Device\
-        \ Management Client and Device Management\nConnect.\n\nAll resource APIs are\
-        \ asynchronous. These APIs respond only if the device is turned on and\nconnected\
-        \ to Device Management Connect and there is an active notification channel.\n\
-        \n**Example usage:**\n\n    curl -X DELETE \\\n      https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath}\
-        \ \\\n      -H 'authorization: Bearer {api-key}'\n"
+      description: 'A request to delete a resource path must be handled by both Device
+        Management Client and Device Management
+
+        Connect.
+
+
+        All resource APIs are asynchronous. These APIs respond only if the device
+        is on and connected to Device Management Connect, and there is an active notification
+        channel.
+
+
+        **Example:**
+
+        ```
+
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath}
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: deleteResourcePath
       parameters:
-      - description: 'A unique Device Management device ID for the endpoint. Note
-          that the ID must be an exact match. You cannot use wildcards here.
-
-          '
+      - description: A unique Device Management device ID for the endpoint. The ID
+          must be an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
         type: string
-      - description: 'The URL of the resource.
-
-          '
+      - description: The resource URL.
         in: path
         name: resourcePath
         required: true
         type: string
-      - description: 'If you make a request with `noResp=true`,
-
-          Device Management Connect makes a CoAP non-confirmable request to the device.
-
-          Such requests are not guaranteed to arrive in the device, and you do not
-          get back an async-response-id.
+      - description: 'If you make a request with `noResp=true`, Device Management
+          Connect makes a CoAP non-confirmable request to the device. Such requests
+          are not guaranteed to arrive at the device, and do not return an async-response-id.
 
 
           If calls with this parameter enabled succeed, they return with the status
-          code
-
-          `204 No Content`. If the underlying protocol does not support non-confirmable
-          requests,
-
-          or if the endpoint is registered in queue mode, the response is status code
-          `409 Conflict`.
-
-          '
+          code `204 No Content`. If the underlying protocol does not support non-confirmable
+          requests, or if the endpoint is registered in queue mode, the response is
+          status code `409 Conflict`.'
         in: query
         name: noResp
         required: false
@@ -7292,11 +7248,11 @@ paths:
           description: Gone. Endpoint not found.
         412:
           description: Precondition failed. Device responds with 4.12 CoAP response
-            code. (Through AsyncIDResponse)
+            code (through AsyncIDResponse).
         413:
-          description: Request entity too large. (Through AsyncIDResponse)
+          description: Request entity too large (through AsyncIDResponse).
         415:
-          description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
+          description: Media type is not supported by the endpoint (through AsyncIDResponse).
         429:
           description: Cannot make a request at the moment; the queue is full or it
             was cleared because the device deregistered, the registration expired
@@ -7305,73 +7261,81 @@ paths:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
           description: Operation cannot be executed because endpoint is currently
-            unavailable. (Through AsyncIDResponse)
+            unavailable (through AsyncIDResponse).
         504:
-          description: Operation cannot be executed due to a time-out from the endpoint.
-            (Through AsyncIDResponse)
-      summary: Delete a resource path
+          description: Operation cannot be executed due to a time-out from the endpoint
+            (through AsyncIDResponse).
+      summary: Delete a resource path.
       tags:
       - Resources
     get:
-      description: "Requests the resource value either from the device or cache. If\
-        \ the value is not in the cache, the request goes all the\nway to the device.\
-        \ When the response is available, an `AsyncIDResponse` json object is received\
-        \ in the notification channel. \nThe resource values can be also in cache\
-        \ based on `max_age` defined by the device side. The value found from the\
-        \ cache is returned \nimmediately in the response.\n\nThe preferred way to\
-        \ get resource values is to use the **subscribe** and **callback** methods.\n\
-        \nAll resource APIs are asynchronous. These APIs only respond if the device\
-        \ is turned on and connected to Device Management.\n \nSee also how [resource\
-        \ caching](/docs/current/connecting/device-guidelines.html#resource-cache)\
-        \ works.\n\nPlease refer to [Lightweight Machine to Machine Technical specification](http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf)\
-        \ for more inforamtion.\n\n**Example usage:**\n\n    curl -X GET \\\n    \
-        \  https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath}\
-        \ \\\n      -H 'authorization: Bearer {api-key}'\n"
+      description: 'Requests the resource value either from the device or cache. If
+        the value is not in the cache, the request goes all the
+
+        way to the device. When the response is available, an `AsyncIDResponse` JSON
+        object is received in the notification channel.
+
+        The resource values can be also in cache based on `max_age` defined by the
+        device side. The value found from the cache is returned
+
+        immediately in the response.
+
+
+        The preferred way to get resource values is to use the **subscribe** and **callback**
+        methods.
+
+
+        All resource APIs are asynchronous. These APIs only respond if the device
+        is on and connected to Device Management.
+
+
+        See also how [resource caching](../connecting/device-guidelines.html#resource-cache)
+        works.
+
+
+        Please refer to [Lightweight Machine to Machine Technical specification](http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf)
+        for more inforamtion.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath}
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getResourceValue
       parameters:
-      - description: 'Unique Device Management device ID for the endpoint. Note that
-          the ID needs to be an exact match. You cannot use wildcards here.
-
-          '
+      - description: Unique Device Management device ID for the endpoint. The ID must
+          be an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
         type: string
-      - description: 'The URL of the resource.
-
-          '
+      - description: The resource URL.
         in: path
         name: resourcePath
         required: true
         type: string
       - description: 'If true, the response comes only from the cache. Default: false.
           Device Management Connect caches the received resource values for the time
-          of [max_age](/docs/current/connecting/working-with-the-resources.html) defined
-          in the client side.
-
-          '
+          of [max_age](../connecting/working-with-the-resources.html) defined in the
+          client side.'
         in: query
         name: cacheOnly
         required: false
         type: boolean
       - description: 'If a request is made with `noResp=true`, Device Management Connect
-          makes a CoAP
-
-          non-confirmable request to the device. Such requests are not guaranteed
-          to arrive in the device, and you do not get back
-
-          an async-response-id.
+          makes a CoAP non-confirmable request to the device. Such requests are not
+          guaranteed to arrive on the device, and no `async-response-id` returns.
 
 
-          If calls with this parameter enabled succeed, they return with the status
-          code `204 No Content`. If the underlying protocol
-
-          does not support non-confirmable requests, or if the endpoint is registered
-          in queue mode, the response is status code
-
-          `409 Conflict`.
-
-          '
+          Successful calls return with the status code `204 No Content`. If the underlying
+          protocol does not support non-confirmable requests, or if the endpoint is
+          registered in queue mode, the response is status code `409 Conflict`.'
         in: query
         name: noResp
         required: false
@@ -7396,12 +7360,12 @@ paths:
         410:
           description: Gone. Endpoint not found.
         412:
-          description: Precondition failed. Device responded with 4.12 CoAP response
-            code. (Through AsyncIDResponse)
+          description: Precondition failed. Device responded with 4.12 CoAP code (through
+            AsyncIDResponse).
         413:
-          description: Request entity too large. (Through AsyncIDResponse)
+          description: Request entity too large (through AsyncIDResponse).
         415:
-          description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
+          description: Media type is not supported by the endpoint (through AsyncIDResponse).
         429:
           description: Cannot make a request at the moment; the queue is full or it
             was cleared because the device deregistered, the registration expired
@@ -7410,11 +7374,11 @@ paths:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
           description: Operation cannot be executed because endpoint is currently
-            unavailable. (Through AsyncIDResponse)
+            unavailable (through AsyncIDResponse).
         504:
-          description: Operation cannot be executed due to a time-out from the endpoint.
-            (Through AsyncIDResponse)
-      summary: Read from a resource
+          description: Operation cannot be executed due to a timeout from the endpoint
+            (through AsyncIDResponse).
+      summary: Read from a resource.
       tags:
       - Resources
     post:
@@ -7431,71 +7395,67 @@ paths:
       - application/vnd.oma.lwm2m+opaq
       - application/vnd.oma.lwm2m+tlv
       - application/vnd.oma.lwm2m+json
-      description: "With this API, you can [execute a function](/docs/current/connecting/handle-resource-webapp.html#the-execute-operation)\n\
-        on an existing resource and create new Object instance to the device. The\
-        \ resource-path does not have to exist - it can be\ncreated by the call. The\
-        \ maximum length of resource-path is 255 characters.\n\nAll resource APIs\
-        \ are asynchronous. These APIs respond only if the device is turned on and\n\
-        connected to Device Management Connect and there is an active notification\
-        \ channel.\n\nSupported content types depend on the device and its resource.\
-        \ Device Management translates HTTP to equivalent CoAP content type.\n\n**Example\
-        \ usage:**\n\nThis example resets the min and max values of the [temperature\
-        \ sensor](http://www.openmobilealliance.org/tech/profiles/lwm2m/3303.xml)\
-        \ instance 0 by executing the Resource 5605 'Reset Min and Max Measured Values'.\n\
-        \n    curl -X POST \\\n      https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3303/0/5605\
-        \ \\\n      -H 'authorization: Bearer {api-key}'\n"
+      description: '[Execute a function](../connecting/handle-resource-webapp.html#the-execute-operation)
+        on an existing resource and create a new Object instance on the device. The
+        resource path does not have to exist; you can set it with the call. The maximum
+        length of the resource path is 255 characters.
+
+
+        All resource APIs are asynchronous. These APIs respond only if the device
+        is on and connected to Device Management Connect, and there is an active notification
+        channel.
+
+
+        Supported content types depend on the device and its resource. Device Management
+        translates HTTP to the equivalent CoAP content type.
+
+
+        **Example:**
+
+
+        This example resets the min and max values of the [temperature sensor](http://www.openmobilealliance.org/tech/profiles/lwm2m/3303.xml)
+        instance 0 by executing Resource 5605 ''Reset Min and Max Measured Values''.
+
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3303/0/5605
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: executeOrCreateResource
       parameters:
-      - description: 'A unique Device Management device ID for the endpoint. Note
-          that the ID must be an exact match. You cannot use wildcards here.
-
-          '
+      - description: A unique Device Management device ID for the endpoint. The ID
+          must be an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
         type: string
-      - description: The URL of the resource.
+      - description: The resource URL.
         in: path
         name: resourcePath
         required: true
         type: string
-      - description: 'This value is not needed. Most of the time resources do not
-          accept a function
-
-          but they have their own functions predefined. You can use this to trigger
-          them.
-
-
-          If a function is included, the body of this request is passed as a char*
-          to
-
-          the function in Device Management Client.
-
-          '
+      - description: This value is not needed. Most of the time, resources do not
+          accept a function but they have their own functions predefined. You can
+          use this to trigger them. If a function is included, the body of this request
+          is passed as a char* to the function in Device Management Client.
         in: body
         name: resourceFunction
         required: false
         schema:
           type: string
-      - description: 'If you make a request with `noResp=true`,
-
-          Device Management Connect makes a CoAP non-confirmable request to the device.
-
-          Such requests are not guaranteed to arrive in the device,
-
-          and you do not get back an async-response-id.
+      - description: 'If you make a request with `noResp=true`, Device Management
+          Connect makes a CoAP non-confirmable request to the device. Such requests
+          are not guaranteed to arrive in the device, and you do not get back an async-response-id.
 
 
           If calls with this parameter enabled succeed, they return with the status
-          code
-
-          `204 No Content`. If the underlying protocol does not support non-confirmable
-          requests,
-
-          or if the endpoint is registered in queue mode, the response is status code
-          `409 Conflict`.
-
-          '
+          code `204 No Content`. If the underlying protocol does not support non-confirmable
+          requests, or if the endpoint is registered in queue mode, the response is
+          status code `409 Conflict`.'
         in: query
         name: noResp
         required: false
@@ -7508,7 +7468,7 @@ paths:
         400:
           description: Bad request.
         404:
-          description: "Requested endpoint\u2019s resource is not found."
+          description: "Requested endpoint\u2019s resource not found."
         409:
           description: Conflict. If `noResp=true`, the non-confirmable request is
             not supported by the used protocol.
@@ -7516,11 +7476,11 @@ paths:
           description: Gone. Endpoint not found.
         412:
           description: Precondition failed. Device responds with 4.12 CoAP response
-            code. (Through AsyncIDResponse)
+            code (through AsyncIDResponse).
         413:
-          description: Request entity too large. (Through AsyncIDResponse)
+          description: Request entity too large (through AsyncIDResponse).
         415:
-          description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
+          description: Media type is not supported by the endpoint (through AsyncIDResponse).
         429:
           description: Cannot make a request at the moment; the queue is full or it
             was cleared because the device deregistered, the registration expired
@@ -7529,11 +7489,11 @@ paths:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
           description: Operation cannot be executed because endpoint is currently
-            unavailable. (Through AsyncIDResponse)
+            unavailable (through AsyncIDResponse).
         504:
-          description: Operation cannot be executed due to a time-out from the endpoint.
-            (Through AsyncIDResponse)
-      summary: Execute a function on a Resource or create new Object instance
+          description: Operation cannot be executed due to a time-out from the endpoint
+            (through AsyncIDResponse).
+      summary: Execute a function on a Resource or create new Object instance.
       tags:
       - Resources
     put:
@@ -7550,31 +7510,56 @@ paths:
       - application/vnd.oma.lwm2m+opaq
       - application/vnd.oma.lwm2m+tlv
       - application/vnd.oma.lwm2m+json
-      description: "With this API, you can [write a new value to existing Resources](/docs/current/connecting/handle-resource-webapp.html)\n\
-        or use the **write** attributes to set the [notification rules](/docs/current/connecting/resource-change-webapp.html#notification-rules)\
-        \ \nfor the Resources. The notification rules only work on the device client\
-        \ side and may not be supported by all clients.\n\nThis API can also be used\
-        \ to transfer files to the device. Device Management Connect\nLwM2M server\
-        \ implements the Option 1 from RFC7959. The maximum block size is 1024 bytes.\n\
-        The block size versus transferred file size is something to note in low quality\
-        \ networks.\nThe customer application needs to know what type of file is transferred\
-        \ (for example txt)\nand the payload can be encrypted by the customer. The\
-        \ maximum size of payload is 1048576 bytes.\n\nAll resource APIs are asynchronous.\
-        \ These APIs respond only if the device is turned on and\nconnected to Device\
-        \ Management Connect and there is an active notification channel.\n\nSupported\
-        \ content types depend on the device and its resource. Device Management translates\
-        \ HTTP to equivalent CoAP content type.\n\n**Example usage:**\n\nThis example\
-        \ sets the alarm on a buzzer. The command writes the [Buzzer](http://www.openmobilealliance.org/tech/profiles/lwm2m/3338.xml)\
-        \ instance 0, \"On/Off\" boolean resource to '1'.\n\n    curl -X PUT \\\n\
-        \      https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3338/0/5850\
-        \ -H \"content-type: text/plain\" \\\n      -H 'authorization: Bearer {api-key}'\
-        \ -d '1'\n"
+      description: 'With this API, you can [write a new value to existing Resources](../connecting/handle-resource-webapp.html)
+        or use the **write** attribute to set [notification rules](../connecting/resource-change-webapp.html#notification-rules)
+        for the Resources. The notification rules only work on the device client side
+        and may not be supported by all clients.
+
+
+        This API can also be used to transfer files to the device. Device Management
+        Connect LwM2M server implements Option 1 from RFC7959. The maximum block size
+        is 1024 bytes.
+
+        Note block size versus transferred file size in low-quality networks. The
+        customer application needs to know what type of file is transferred (for example,
+        TXT)
+
+        and the customer can encrypt the payload. The maximum payload size is 1048576
+        bytes.
+
+
+        All resource APIs are asynchronous. These APIs respond only if the device
+        is on and connected to Device Management Connect, and there is an active notification
+        channel.
+
+
+        Supported content types depend on the device and its resource. Device Management
+        translates HTTP to equivalent CoAP content type.
+
+
+        **Example:**
+
+
+        This example sets the alarm on a buzzer. The command writes the [Buzzer](http://www.openmobilealliance.org/tech/profiles/lwm2m/3338.xml)
+        instance 0, "On/Off" boolean resource to ''1''.
+
+
+        ```
+
+        curl -X PUT https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3338/0/5850
+        \
+
+        -H "content-type: text/plain" \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -d ''1''
+
+        ```'
       operationId: updateResourceValue
       parameters:
-      - description: 'A unique Device Management device ID for the endpoint. Note
-          that the ID must be an exact match. You cannot use wildcards here.
-
-          '
+      - description: A unique Device Management device ID for the endpoint. The ID
+          must be an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
@@ -7584,33 +7569,21 @@ paths:
         name: resourcePath
         required: true
         type: string
-      - description: 'The value to be set to the resource.
-
-          '
+      - description: The value to set to the resource.
         in: body
         name: resourceValue
         required: true
         schema:
           type: string
-      - description: 'If you make a request with `noResp=true`,
-
-          Device Management Connect makes a CoAP non-confirmable request to the device.
-
-          Such requests are not guaranteed to arrive in the device,
-
-          and you do not get back an async-response-id.
+      - description: 'If you make a request with `noResp=true`, Device Management
+          Connect makes a CoAP non-confirmable request to the device. Such requests
+          are not guaranteed to arrive to the device, and do not return an `async_response_id`.
 
 
-          If calls with this parameter enabled succeed, they return with the status
-          code
-
-          `204 No Content`. If the underlying protocol does not support non-confirmable
-          requests,
-
-          or if the endpoint is registered in queue mode, the response is status code
-          `409 Conflict`.
-
-          '
+          If a call with this parameter enabled succeeds, it return status code `204
+          No Content`. If the underlying protocol does not support non-confirmable
+          requests, or if the endpoint is registered in queue mode, the response is
+          status code `409 Conflict`.'
         in: query
         name: noResp
         required: false
@@ -7623,17 +7596,17 @@ paths:
         400:
           description: Bad request.
         409:
-          description: Conflict. If `noResp=true`, the non-confirmable request is
-            not supported by the used protocol.
+          description: '''Conflict. If `noResp=true`, the non-confirmable request
+            is not supported by the used protocol.'''
         410:
           description: Gone. Endpoint not found.
         412:
           description: Precondition failed. Device responds with 4.12 CoAP response
-            code. (Through AsyncIDResponse)
+            code (through AsyncIDResponse).
         413:
-          description: Request entity too large. (Through AsyncIDResponse)
+          description: Request entity too large (through AsyncIDResponse).
         415:
-          description: Media type is not supported by the endpoint. (Through AsyncIDResponse)
+          description: Media type is not supported by the endpoint (through AsyncIDResponse).
         429:
           description: Cannot make a request at the moment; the queue is full or it
             was cleared because the device deregistered, the registration expired
@@ -7642,19 +7615,29 @@ paths:
           description: TCP or TLS connection to endpoint cannot be established.
         503:
           description: Operation cannot be executed because endpoint is currently
-            unavailable. (Through AsyncIDResponse)
+            unavailable (through AsyncIDResponse).
         504:
-          description: Operation cannot be executed due to a time-out from the endpoint.
-            (Through AsyncIDResponse)
+          description: Operation cannot be executed due to a time-out from the endpoint
+            (through AsyncIDResponse).
       summary: Write to a Resource or use write-attributes (notification rules) for
-        a Resource
+        a Resource.
       tags:
       - Resources
   /v2/notification/callback:
     delete:
-      description: "Deletes the callback URL.\n\n**Example usage:**\n\n    curl -X\
-        \ DELETE https://api.us-east-1.mbedcloud.com/v2/notification/callback -H 'authorization:\
-        \ Bearer {api-key}'\n"
+      description: 'Deletes the callback URL.
+
+
+        **Example:**
+
+        ```
+
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/callback
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: deregisterWebhook
       responses:
         204: &id017
@@ -7662,16 +7645,25 @@ paths:
         401: &id015
           description: Unauthorized.
         403: &id016
-          description: Forbidden, the authorization token used is not an API key.
+          description: Forbidden. The authorization token used is not an API key.
         404:
           description: Callback URL does not exist.
-      summary: Delete callback URL
+      summary: Delete callback URL.
       tags:
       - Notifications
     get:
-      description: "Shows the current callback URL if it exists.\n\n**Example usage:**\n\
-        \n    curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/callback\
-        \ -H 'authorization: Bearer {api-key}'\n"
+      description: 'Shows the current callback URL if it exists.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/callback \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getWebhook
       produces:
       - application/json
@@ -7684,60 +7676,99 @@ paths:
         403: *id016
         404:
           description: The callback URL does not exist.
-      summary: Check callback URL
+      summary: Check callback URL.
       tags:
       - Notifications
     put:
       consumes:
       - application/json
-      description: "Register a URL to which the server should deliver notifications\
-        \ of the subscribed resource changes. To get notifications\npushed, you also\
-        \ need to place the subscriptions. The maximum length of the URL, header keys\
-        \ and values, all combined,\nis 400 characters. Notifications are delivered\
-        \ as PUT messages to the HTTP server defined by the client with a subscription\n\
-        server message. The given URL should be accessible and respond to the PUT\
-        \ request with response code of 200 or 204.\nDevice Management Connect tests\
-        \ the callback URL with an empty payload when the URL is registered. Callback\
-        \ implementation \ndoes not support URL redirection. For more information\
-        \ on notification messages, see [NotificationMessage](#NotificationMessage).\n\
-        \n**Optional headers in a callback message:**\n\nYou can set optional headers\
-        \ to a callback in a **Webhook** object.\nDevice Management Connect will include\
-        \ the header and key pairs to the notification messages send them to callback\
-        \ URL. As the callback\nURL's are API key specific also the headers are.\n\
-        \nOne possible use for the additional headers is to check the origin of a\
-        \ PUT request and also distinguish the application (API key)\nto which the\
-        \ notification belongs to.\n\n**Note**: Only one callback URL per an API key\
-        \ can be active. If you register a new URL while another one is already active,\n\
-        it replaces the active one. There can be only one notification channel at\
-        \ a time. If another type of channel is already present,\nyou need to delete\
-        \ it before setting the callback URL.\n\n**Expiration of a callback URL:**\n\
-        \nA callback can expire when Device Management cannot deliver a notification\
-        \ due to a connection timeout or an\nerror response (4xx or 5xx). After each\
-        \ delivery failure, Device Management sets an exponential back off time and\
-        \ makes a retry attempt\nafter that. The first retry delay is 1 second, then\
-        \ 2s, 4s, 8s, ..., 2min, 2min. The maximum retry delay is 2 minutes.\nThe\
-        \ callback URL will be removed if all retries fail within 24 hours. More about\
-        \ [notification sending logic](/docs/current/integrate-web-app/event-notification.html#notification-sending-logic).\n\
-        \n**Supported callback URL protocols:**\n\nCurrently, only HTTP and HTTPS\
-        \ protocols are supported.\n\n**HTTPS callback URLs:**\n\nWhen delivering\
-        \ a notification to an HTTPS based callback URL, Device Management Connect\
-        \ will present a valid client certificate to identify\nitself. The certificate\
-        \ is signed by a trusted certificate authorithy (GlobalSign) with a Common\
-        \ Name (CN) set to notifications.mbedcloud.com.\n\n**Example usage:**\n\n\
-        This example command shows how to set your callback URL and API key. It also\
-        \ sets an optional header authorization. When Device Management\nConnect calls\
-        \ your callback URL, the call contains the authorization header with the defined\
-        \ value.\n\n    curl -X PUT \\\n      https://api.us-east-1.mbedcloud.com/v2/notification/callback\
-        \ \\\n      -H 'authorization: Bearer {api-key}' \\\n      -H 'content-type:\
-        \ application/json' \\\n      -d '{\n      \"url\": \"{callback-url}\",\n\
-        \      \"headers\": {\"authorization\" : \"f4b93d6e-4652-4874-82e4-41a3ced0cd56\"\
-        }\n      }'\n"
+      description: 'Register a URL to which the server should deliver notifications
+        of the subscribed resource changes. To push notifications, you must place
+        subscriptions. The maximum length of the URL, header keys, and values, all
+        combined, is 400 characters. Notifications are delivered as PUT requests to
+        the HTTP server, defined by the client with a subscription server message.
+        The given URL should be accessible and respond to the PUT request with a response
+        code of 200 or 204. Device Management Connect tests the callback URL with
+        an empty payload when the URL is registered. Callback implementation does
+        not support URL redirection. For more information on notification messages,
+        see [NotificationMessage](#NotificationMessage).
+
+
+        **Optional headers in a callback message:**
+
+
+        You can set optional headers to a callback in a **Webhook** object. Device
+        Management Connect includes the header and key pairs in the notification messages
+        send them to callback URL. The callback URLs and headers are API key-specific.
+
+
+        One possible use for additional headers is checking the origin of a PUT request,
+        as well as distinguishing the application (API key) to which the notification
+        belongs.
+
+
+        **Note**: Only one callback URL per API key can be active. If you register
+        a new URL while another one is active, it replaces the active one. There can
+        be only one notification channel at a time. If another type of channel is
+        already present, you need to delete it before setting the callback URL.
+
+
+        **Expiration of a callback URL:**
+
+
+        A callback can expire when Device Management cannot deliver a notification
+        due to a connection timeout or an error response (4xx or 5xx). After each
+        delivery failure, Device Management sets an exponential back off time and
+        makes a retry attempt after that. The first retry delay is 1 second, then
+        2s, 4s, 8s, up to maximum delay of two minutes. The callback URL is removed
+        if all retries fail within 24 hours. More about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).
+
+
+        **Supported callback URL protocols:**
+
+
+        Currently, only HTTP and HTTPS protocols are supported.
+
+
+        **HTTPS callback URLs:**
+
+
+        When delivering a notification to an HTTPS based callback URL, Device Management
+        Connect presents a valid client certificate to identify itself. The certificate
+        is signed by a trusted certificate authorithy (GlobalSign) with a Common Name
+        (CN) set to notifications.mbedcloud.com.
+
+
+        **Example:**
+
+
+        This example command shows how to set your callback URL and API key. It also
+        sets an optional header authorization. When Device Management Connect calls
+        your callback URL, the call contains the authorization header with the defined
+        value.
+
+
+        ```
+
+        curl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/callback \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''{
+
+        "url": "{callback-url}",
+
+        "headers": {"authorization" : "f4b93d6e-4652-4874-82e4-41a3ced0cd56"}
+
+        }''
+
+        ```'
       operationId: registerWebhook
       parameters:
-      - description: 'A json object that contains the optional headers and the URL
-          to which the notifications need to be sent.
-
-          '
+      - description: A JSON object that contains the optional headers and URL where
+          notifications are sent.
         in: body
         name: webhook
         required: true
@@ -7747,13 +7778,13 @@ paths:
         204:
           description: Successfully subscribed.
         400:
-          description: Given URL is not accessible or other type of channel already
+          description: Given URL is not accessible, or other type of channel already
             exists.
         401: *id015
         403: *id016
         415:
           description: Unsupported Media Type.
-      summary: Register a callback URL
+      summary: Register a callback URL.
       tags:
       - Notifications
   /v2/notification/channel:
@@ -7775,22 +7806,31 @@ paths:
   /v2/notification/pull:
     delete:
       deprecated: true
-      description: "To delete a notification Long Poll channel. This is required to\
-        \ change the channel from Long Poll to another type.\nYou should not make\
-        \ a GET `/v2/notification/pull` call for 2 minutes after channel was deleted,\
-        \ because it can\nimplicitly recreate the pull channel. You can also have\
-        \ some random responses with payload or 410 GONE with\n\"CHANNEL_DELETED\"\
-        \ as a payload or 200/204 until the old channel is purged.\n\n**Example usage:**\n\
-        \    curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull\
-        \ -H 'authorization: Bearer {api-key}'\n"
+      description: 'Delete a notification Long Poll channel. This is required to change
+        the channel from Long Poll to another type. Do not make a GET `/v2/notification/pull`
+        call for two minutes after deleting the channel, because it can implicitly
+        recreate the pull channel. You can also have some random responses with payload
+        or 410 GONE with "CHANNEL_DELETED" as a payload or 200/204 until the old channel
+        is purged.
+
+
+        **Example:**
+
+        ```
+
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: deleteLongPollChannel
       responses:
         200:
-          description: Success. The body can contain "REMOVED" if it was deleted by
+          description: Success. The body can contain "REMOVED" if it was deleted with
             this call or "ALREADY_DELETED" if it was deleted before and not purged
             yet.
         401: *id015
-      summary: Delete notification Long Poll channel
+      summary: Delete notification Long Poll channel.
       tags:
       - Notifications
       x-deprecation:
@@ -7799,32 +7839,46 @@ paths:
         end_of_life_at: '2019-11-01T00:00:00+00:00'
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
-        - cloud.mbed.com/docs/current/integrate-web-app/event-notification.html
+        - cloud.mbed.com/integrate-web-app/event-notification.html
     get:
       deprecated: true
-      description: "In this case, notifications are delivered through HTTP long poll\
-        \ requests. The HTTP request is kept open\nuntil an event notification or\
-        \ a batch of event notifications are delivered to the client or the request\
-        \ times out\n(response code 204). In both cases, the client should open a\
-        \ new polling connection after the previous one closes.\nOnly a single long\
-        \ polling connection per API key can be ongoing at any given time.\nWe recommend\
-        \ using a persistent connection (Connection keep-alive header in the request)\
-        \ to avoid excess\nTLS handshakes.\n\nThe pull channel is implicitly created\
-        \ by the first GET call to `/v2/notification/pull`. It is refreshed on each\
-        \ GET call.\nIf the channel is not polled for a long time (10 minutes) - it\
-        \ expires and will be deleted. This means that no notifications\nwill stay\
-        \ in the queue between polls. A channel can be also deleted explicitly by\
-        \ a DELETE call.\n\n**Note:** If you cannot have a public facing callback\
-        \ URL, for example when developing on your local\nmachine, you can use long\
-        \ polling to check for new messages. However, **long polling is deprecated**\
-        \ and will likely be\nreplaced in future. It is meant only for experimentation\
-        \ and not for commercial usage. The proper method\nto receive notifications\
-        \ is a **notification callback**.\nThere can only be one notification channel\
-        \ per API key at a time in Device Management Connect. If a notification channel\n\
-        of other type already exists for the API key, you need to delete it before\
-        \ creating a long poll notification channel.\n\n**Example usage:**\n\n   \
-        \ curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H\
-        \ 'authorization: Bearer {api-key}'\n"
+      description: 'In this case, notifications are delivered through HTTP long poll
+        requests. The HTTP request is kept open until one or more event notifications
+        are delivered to the client, or the request times out (response code 204).
+        In both cases, the client should open a new polling connection after the previous
+        one closes. Only a single long polling connection per API key can be ongoing
+        at any given time. You must have a persistent connection (Connection keep-alive
+        header in the request) to avoid excess TLS handshakes.
+
+
+        The pull channel is implicitly created by the first GET call to `/v2/notification/pull`.
+        It refreshes on each GET call. If the channel is not polled for a long time
+        (10 minutes), it expires and is deleted. This means that no notifications
+        will stay in the queue between polls. A channel can be also be deleted explicitly
+        with a DELETE call.
+
+
+        **Note:** If you cannot have a public-facing callback URL, for example, when
+        developing on your local machine, you can use long polling to check for new
+        messages. However, **long polling is deprecated** and will likely be replaced
+        in the future. It is meant only for experimentation, not commercial use. The
+        proper method to receive notifications is a **notification callback**.
+
+
+        There can only be one notification channel per API key in Device Management
+        Connect. If a notification channel of other type already exists for the API
+        key, delete it before creating a long poll notification channel.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: longPollNotifications
       produces:
       - application/json
@@ -7841,22 +7895,14 @@ paths:
         409:
           description: Conflict. Long poll request exists already.
         410:
-          description: 'Pull channnel was deleted and waiting to be purged. This code
+          description: Pull channnel was deleted and waiting to be purged. This code
             is a result of incorrect client behavior (delete channel and then pull),
-            which can prevent
-
-            the creation of callback channel after the pull channel was deleted. The
-            channel can be (randomly) recreated by this call when it was deleted and
-            still
-
-            not purged. This client behaviour can set the channel in an undefined
-            state for some time. The channel may respond with 410 GONE or 200/204
-            codes randomly for
-
-            some time. Finally, the channel will enter in a valid "channel exists"
-            state.
-
-            '
+            which can prevent the creation of a callback channel after the pull channel
+            is deleted. The channel can be (randomly) recreated by this call when
+            deleted and not purged. This client behaviour can set the channel in an
+            undefined state for some time. The channel may respond with 410 GONE or
+            200/204 codes randomly for some time. Finally, the channel enters a valid
+            "channel exists" state.
       summary: Get notifications using Long Poll
       tags:
       - Notifications
@@ -7866,27 +7912,51 @@ paths:
         end_of_life_at: '2019-11-01T00:00:00+00:00'
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
-        - cloud.mbed.com/docs/current/integrate-web-app/event-notification.html
+        - cloud.mbed.com/integrate-web-app/event-notification.html
   /v2/notification/websocket:
     delete:
-      description: "To delete a notification websocket channel bound to the API key.\n\
-        This is required to change the channel from websocket to another type.\n\n\
-        **Example usage:**\n\n    curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
-        \ -H 'authorization: Bearer {api-key}'\n"
+      description: '(PREVIEW) Delete a notification websocket channel bound to the
+        API key. This is required to change the channel from websocket to another
+        type.
+
+
+        **Example:**
+
+
+        ```
+
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/websocket
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: deleteWebsocket
       responses:
         204: *id017
         401: *id015
         403: *id016
         404:
-          description: Websocket channel doesn't exist
-      summary: Delete websocket channel.
+          description: Websocket channel doesn't exist.
+      summary: (PREVIEW) Delete websocket channel.
       tags:
       - Notifications
     get:
-      description: "Returns 200 with websocket connection status if websocket channel\
-        \ exists.\n\n**Example usage:**\n\n    curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
-        \ -H 'authorization: Bearer {api-key}'\n"
+      description: '(PREVIEW) Returns 200 with websocket connection status, if websocket
+        channel exists.
+
+
+        **Example:**
+
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getWebsocket
       produces:
       - application/json
@@ -7899,40 +7969,58 @@ paths:
         403: *id016
         404:
           description: No channel has been registered.
-      summary: Get websocket channel information.
+      summary: (PREVIEW) Get websocket channel information.
       tags:
       - Notifications
     put:
       consumes:
       - application/json
-      description: "Register (or update) a channel which will use websocket connection\
-        \ to deliver notifications. The websocket channel should be opened\nby client\
-        \ using `/v2/notification/websocket-connect` endpoint. To get notifications\
-        \ pushed, you also need to place\nthe subscriptions. For more information\
-        \ on notification messages, see [NotificationMessage](#NotificationMessage).\n\
-        \nA websocket channel can have only one active websocket connection at a time.\
-        \ If a websocket connection for a channel exists and a new connection\nto\
-        \ the same channel is made the connection is accepted and the older connection\
-        \ will be closed.\n\n**Expiration of a websocket:**\n\nA websocket channel\
-        \ will be expired if the channel does not have an opened websocket connection\
-        \ for 24 hour period. Channel expiration\nmeans the channel will be deleted\
-        \ and any undelivered notifications stored in its internal queue will be removed.\n\
-        As long as the channel has an opened websocket connection or time between\
-        \ successive websocket connections is less than 24 hours,\nthe channel is\
-        \ considered active, notifications are stored in its internal queue and delivered\
-        \ when a websocket connection is active.\nA channel can be also deleted explicitly\
-        \ by a DELETE call.\n\nMore about [notification sending logic](/docs/current/integrate-web-app/event-notification.html#notification-sending-logic).\n\
-        \n**Example usage:**\n\n    curl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
-        \ -H 'authorization: Bearer {api-key}'\n"
+      description: '(PREVIEW) Register (or update) a channel using websocket connection
+        to deliver notifications. The websocket channel should be opened by client
+        using `/v2/notification/websocket-connect` endpoint. To get notifications
+        pushed, you must place subscriptions. For more information on notification
+        messages, see [NotificationMessage](#NotificationMessage).
+
+
+        A websocket channel can have only one active websocket connection at a time.
+        If a websocket connection for a channel exists and a new connection to the
+        same channel is made, the connection is accepted and the older connection
+        is closed.
+
+
+        **Expiration of a websocket:**
+
+
+        A websocket channel is expired if the channel does not have an opened websocket
+        connection for a 24-hour period. Channel expiration means the channel is deleted
+        and any undelivered notifications stored in its internal queue is removed.
+        As long as the channel has an opened websocket connection or time between
+        successive websocket connections is less than 24 hours,
+
+        the channel is considered active, notifications are stored in its internal
+        queue and delivered when a websocket connection is active. A channel can be
+        also deleted explicitly with a DELETE call.
+
+
+        More about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).
+
+
+        **Example:**
+
+        ```
+
+        curl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: registerWebsocket
       responses:
         200:
-          description: 'Channel successfully updated. In the current v2 implementation
+          description: Channel successfully updated. In the current v2 implementation
             this operation has no effect, and any subsequent PUT call from a client
-
-            having a channel previously registered will result in 200 OK.
-
-            '
+            previously registered to a channel results in a 200 OK response.
           schema:
             $ref: '#/definitions/WebsocketChannel'
         201:
@@ -7943,28 +8031,63 @@ paths:
           description: Other type of channel already exists.
         401: *id015
         403: *id016
-      summary: Register a websocket channel
+      summary: (PREVIEW) Register a websocket channel.
       tags:
       - Notifications
   /v2/notification/websocket-connect:
     get:
-      description: "\nA websocket channel can have only one active websocket connection\
-        \ at a time. If a websocket connection for a channel exists and a new connection\
-        \ to the same channel is made the connection is accepted and the older connection\
-        \ will be closed.<br/>\nOnce the socket has been opened, it may be closed\
-        \ with one of the following status codes<br/>\n| Code | Description |\n|---|---|\n\
-        |**1000**|Socket closed by the client.|\n|**1001**|Going away. Set when another\
-        \ socket was opened on the used channel, or if the channel was deleted with\
-        \ a REST call, or if the server is shutting down.|\n|**1006**|Abnormal loss\
-        \ of connection. This code is never set by the service.|\n|**1008**|Policy\
-        \ violation. Set when the API key is missing or invalid.|\n|**1011**|Unexpected\
-        \ condition. Socket will be closed with this status at an attempt to open\
-        \ a socket to an unexisting channel (without a prior REST PUT). This code\
-        \ is also used to indicate closing socket for any other unexpected condition\
-        \ in the server.|\n<br/>\n**Example usage:**\n\n    curl -X GET -N -I -H \"\
-        Authorization:Bearer {apikey}\" -H \"Connection:upgrade\" -H \"Upgrade:websocket\"\
-        \ -H \"Sec-WebSocket-Version: 13\" -H \"Sec-WebSocket-Key: {base64nonce}\"\
-        \  https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\n"
+      description: '
+
+        (PREVIEW) A websocket channel can have only one active connection at a time.
+        If a websocket connection for a channel exists and a new connection to the
+        same channel is made, the connection is accepted and the older connection
+        is closed.
+
+
+        Once the socket has been opened, it may be closed with one of the following
+        status codes.
+
+
+        | Code | Description |
+
+        |------|-------------|
+
+        |**1000**|Socket closed by the client.|
+
+        |**1001**|Going away. Set when another socket was opened on the used channel,
+        or if the channel was deleted with a REST call, or if the server is shutting
+        down.|
+
+        |**1006**|Abnormal loss of connection. This code is never set by the service.|
+
+        |**1008**|Policy violation. Set when the API key is missing or invalid.|
+
+        |**1011**|Unexpected condition. Socket is closed with this status at an attempt
+        to open a socket to an unexisting channel (without a prior REST PUT). This
+        code is also used to indicate closing socket for any other unexpected condition
+        in the server.|
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect
+        \
+
+        -H "Authorization:Bearer {apikey}" \
+
+        -H "Connection:upgrade" \
+
+        -H "Upgrade:websocket" \
+
+        -H "Sec-WebSocket-Version: 13" \
+
+        -H "Sec-WebSocket-Key: {base64nonce}" \
+
+        -N -I
+
+        ```'
       operationId: connectWebsocket
       parameters:
       - default: Upgrade
@@ -7977,53 +8100,54 @@ paths:
         name: Upgrade
         required: true
         type: string
-      - description: 'ApiKey or user token must be present in the `Sec-WebSocket-Protocol`
-          header **if Authorization header cannot be provided**
+      - description: 'API key or user token must be present in the `Sec-WebSocket-Protocol`
+          header **if Authorization header cannot be provided**: `Sec-WebSocket-Protocol:"wss,pelion_ak_{api_key}"`.
 
-          `Sec-WebSocket-Protocol:"wss,pelion_ak_{api_key}"`
-
-          Refer to the notification service documentation for examples of usage.
-
-          '
+          Refer to the notification service documentation for examples.'
         in: header
         name: Sec-WebSocket-Protocol
         required: false
         type: string
-      - description: Originating host of the request
+      - description: Originating host of the request.
         in: header
         name: Origin
         required: true
         type: string
       - default: 13
-        description: WebSocket version. MUST be 13.
+        description: WebSocket version. must be 13.
         in: header
         name: Sec-WebSocket-Version
         required: true
         type: integer
-      - description: 'The value of this header field MUST be a nonce consisting of
-          a randomly selected 16-byte value that has
-
-          been base64-encoded (see Section 4 of [RFC4648]).  The nonce MUST be selected
-          randomly for each connection.
-
-          '
+      - description: The value of this header field must be a nonce consisting of
+          a randomly selected 16-byte value that has been base64-encoded (see Section
+          4 of [RFC4648]). The nonce must be selected randomly for each connection.
         in: header
         name: Sec-WebSocket-Key
         required: true
         type: string
       responses:
         101:
-          description: Switching protocols
+          description: Switching protocols.
         426:
           description: Upgrade required. Connect and/or Upgrade headers missing.
-      summary: Open the websocket.
+      summary: (PREVIEW) Open the websocket.
       tags:
       - Notifications
   /v2/subscriptions:
     delete:
-      description: "Removes pre-subscriptions.\n\n**Example usage:**\n\n    curl -X\
-        \ DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H 'authorization:\
-        \ Bearer {api-key}'\n"
+      description: 'Removes pre-subscriptions.
+
+
+        **Example:**
+
+        ```
+
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: deletePreSubscriptions
       responses:
         204:
@@ -8031,16 +8155,24 @@ paths:
         401:
           description: Unauthorized.
         403:
-          description: Forbidden, the authorization token used is not an API key.
-      summary: Remove pre-subscriptions
+          description: 'Forbidden: the authorization token used is not an API key.'
+      summary: Remove pre-subscriptions.
       tags:
       - Subscriptions
     get:
-      description: "You can retrieve the pre-subscription data with the GET operation.\
-        \ The server returns with the same JSON structure\nas described above. If\
-        \ there are no pre-subscribed resources, it returns with an empty array.\n\
-        \n**Example usage:**\n\n    curl -X GET https://api.us-east-1.mbedcloud.com/v2/subscriptions\
-        \ -H 'authorization: Bearer {api-key}'\n"
+      description: 'Retrieve pre-subscription data. The server returns a JSON structure.
+        If there are no pre-subscribed resources, it returns an empty array.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v2/subscriptions \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getPreSubscriptions
       produces:
       - application/json
@@ -8052,44 +8184,43 @@ paths:
         401:
           description: Unauthorized.
         403:
-          description: Forbidden, the authorization token used is not an API key.
-      summary: Get pre-subscriptions
+          description: 'Forbidden: the authorization token used is not an API key.'
+      summary: Get pre-subscriptions.
       tags:
       - Subscriptions
     put:
       consumes:
       - application/json
-      description: "Pre-subscription is a set of rules and patterns put by the application.\
-        \ When an endpoint registers\nand its ID, type and registered resources match\
-        \ the pre-subscription data, Device Management Connect sends\nsubscription\
-        \ requests to the device automatically. The pattern may include the endpoint\
-        \ ID\n(optionally having an `*` character at the end), endpoint type, a list\
-        \ of resources or expressions\nwith an `*` character at the end. Subscriptions\
-        \ based on pre-subscriptions are done when device registers or\ndoes register\
+      description: "Pre-subscription is a set of rules and patterns established by\
+        \ the application. When an endpoint registers and its ID, type, and registered\
+        \ resources match the pre-subscription data, Device Management Connect automatically\
+        \ sends subscription requests to the device. The pattern may include the endpoint\
+        \ ID (optionally having an `*` character at the end), endpoint type, a list\
+        \ of resources, or expressions with an `*` character at the end. Subscriptions\
+        \ based on pre-subscriptions are done when device registers or does register\
         \ update. To remove the pre-subscription data, put an empty array as a rule.\n\
         \n**Notification rules**\n\nA web application can place dynamic observation\
-        \ rules for individual Object Instances and Resources\nto define when the\
-        \ device sends observations. More information in [Notification rules](/docs/current/connecting/resource-change-webapp.html).\n\
+        \ rules for individual Object Instances and Resources to define when the device\
+        \ sends observations. More information in [Notification rules](../connecting/resource-change-webapp.html).\n\
         \n**Limits**:\n\n- The maximum length of the endpoint name and endpoint type\
         \ is 64 characters.\n- The maximum length of the resource path is 128 characters.\n\
         - You can listen to 256 separate resource paths.\n- The maximum number of\
-        \ pre-subscription entries is 1024.\n\n**Example request:**\n\n```\ncurl -X\
-        \ PUT \\\n  https://api.us-east-1.mbedcloud.com/v2/subscriptions \\\n  -H\
-        \ 'authorization: Bearer {api-key}' \\\n  -H 'content-type: application/json'\
-        \ \\\n  -d '[\n         {\n           \"endpoint-name\": \"node-001\",\n \
-        \          \"resource-path\": [\"/dev\"]\n         },\n         {\n      \
-        \     \"endpoint-type\": \"Light\",\n           \"resource-path\": [\"/sen/*\"\
-        ]\n         },\n         {\n           \"endpoint-name\": \"node*\"\n    \
-        \     },\n         {\n           \"endpoint-type\": \"Sensor\"\n         },\n\
-        \         {\n           \"resource-path\": [\"/dev/temp\",\"/dev/hum\"]\n\
-        \         }\n      ]'\n```\n\n- Subscribe to `/dev` resource of endpoint named\
-        \ `node-001`.\n- Subscribe to `Light` type of endpoints and their resources\
-        \ prefixed with `/sen/`.\n- Subscribe to all observable resources of endpoint\
-        \ names prefixed with `node`.\n- Subscribe to all observable resources of\
-        \ `Sensor` type endpoints.\n- Subscribe to `/dev/temp` and `/dev/hum` resources\
-        \ of all endpoints.\n\n**Note**: For efficiency reasons, you should use resource\
-        \ path patterns in the pre-subscription data. This prevents the notification\
-        \ flow from unwanted resources.\n"
+        \ pre-subscription entries is 1024.\n\n**Example request:**\n```\ncurl -X\
+        \ PUT https://api.us-east-1.mbedcloud.com/v2/subscriptions \\\n-H 'Authorization:\
+        \ Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '[\n  \
+        \     {\n         \"endpoint-name\": \"node-001\",\n         \"resource-path\"\
+        : [\"/dev\"]\n       },\n       {\n         \"endpoint-type\": \"Light\",\n\
+        \         \"resource-path\": [\"/sen/*\"]\n       },\n       {\n         \"\
+        endpoint-name\": \"node*\"\n       },\n       {\n         \"endpoint-type\"\
+        : \"Sensor\"\n       },\n       {\n         \"resource-path\": [\"/dev/temp\"\
+        ,\"/dev/hum\"]\n       }\n    ]'\n```\n\n- Subscribe to `/dev` resource of\
+        \ endpoint named `node-001`.\n- Subscribe to `Light` type of endpoints and\
+        \ their resources prefixed with `/sen/`.\n- Subscribe to all observable resources\
+        \ of endpoint names prefixed with `node`.\n- Subscribe to all observable resources\
+        \ of `Sensor` type endpoints.\n- Subscribe to `/dev/temp` and `/dev/hum` resources\
+        \ of all endpoints.\n\n**Note**: For efficiency, you should use resource path\
+        \ patterns in the pre-subscription data. This prevents notification flow from\
+        \ unwanted resources."
       operationId: updatePreSubscriptions
       parameters:
       - description: Array of pre-subscriptions.
@@ -8108,21 +8239,29 @@ paths:
         401:
           description: Unauthorized.
         403:
-          description: Forbidden, the authorization token used is not an API key.
+          description: 'Forbidden: the authorization token used is not an API key.'
       summary: Set pre-subscriptions
       tags:
       - Subscriptions
   /v2/subscriptions/{device-id}:
     delete:
-      description: "Deletes all resource subscriptions in a single endpoint.\n\n**Example\
-        \ usage:**\n\n    curl -X DELETE \\\n      https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}\
-        \ \\\n      -H 'authorization: Bearer {api-key}'\n"
+      description: 'Deletes all resource subscriptions in a single endpoint.
+
+
+        **Example:**
+
+        ```
+
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: deleteEndpointSubscriptions
       parameters:
-      - description: 'A unique Device Management device ID for the endpoint. Note
-          that the ID must be an exact match. You cannot use wildcards here.
-
-          '
+      - description: A unique Device Management device ID for the endpoint. The ID
+          must be an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
@@ -8130,19 +8269,27 @@ paths:
       responses:
         204:
           description: Successfully removed.
-      summary: Delete subscriptions from an endpoint
+      summary: Delete subscriptions from an endpoint.
       tags:
       - Subscriptions
     get:
-      description: "Lists all subscribed resources from a single endpoint.\n\n**Example\
-        \ usage:**\n\n    curl -X GET \\\n      https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}\
-        \ \\\n      -H 'authorization: Bearer {api-key}'\n"
+      description: 'Lists all subscribed resources from a single endpoint.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getEndpointSubscriptions
       parameters:
-      - description: 'A unique Device Management device ID for the endpoint. Note
-          that ID must be an exact match. You cannot use wildcards here.
-
-          '
+      - description: A unique Device Management device ID for the endpoint. The ID
+          must be an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
@@ -8153,32 +8300,39 @@ paths:
         200:
           description: List of subscribed resources.
           schema:
-            description: A list of resource URIs, one per line
+            description: A list of resource URIs, one per line.
             example: /sen/light
             type: string
         404:
-          description: Endpoint not found or there are no subscriptions for that endpoint.
+          description: Endpoint not found, or there are no subscriptions for that
+            endpoint.
       summary: Read endpoints subscriptions
       tags:
       - Subscriptions
   /v2/subscriptions/{device-id}/{resourcePath}:
     delete:
-      description: "To remove an existing subscription from a resource path.\n\n**Example\
-        \ usage:**\n\n    curl -X DELETE \\\n      https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath}\
-        \ \\\n      -H 'authorization: Bearer {api-key}'\n"
+      description: 'Remove an existing subscription from a resource path.
+
+
+        **Example:**
+
+        ```
+
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath}
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: deleteResourceSubscription
       parameters:
-      - description: 'A unique Device Management device ID for the endpoint. Note
-          that the ID must be an exact match. You cannot use wildcards here.
-
-          '
+      - description: A unique Device Management device ID for the endpoint. The ID
+          must be an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
         type: string
-      - description: 'The URL of the resource.
-
-          '
+      - description: The resource URL.
         in: path
         name: resourcePath
         required: true
@@ -8187,24 +8341,20 @@ paths:
         204:
           description: Successfully removed subscription.
         404:
-          description: Endpoint or its resource not found.
-      summary: Remove a subscription
+          description: Endpoint or resource not found.
+      summary: Remove a subscription.
       tags:
       - Subscriptions
     get:
       operationId: checkResourceSubscription
       parameters:
-      - description: 'A unique Device Management device ID for the endpoint. Note
-          that the ID must be an exact match. You cannot use wildcards here.
-
-          '
+      - description: A unique Device Management device ID for the endpoint. The ID
+          must be an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
         type: string
-      - description: 'The URL of the resource.
-
-          '
+      - description: The resource URL.
         in: path
         name: resourcePath
         required: true
@@ -8218,36 +8368,54 @@ paths:
       tags:
       - Subscriptions
     put:
-      description: "The Device Management Connect eventing model consists of observable\
-        \ resources.\n\nThis means that endpoints can deliver updated resource content,\
-        \ periodically or with a more sophisticated\nsolution-dependent logic. The\
-        \ OMA LwM2M resource model including objects, object instances,\nresources\
-        \ and resource instances is also supported.\n\nApplications can subscribe\
-        \ to objects, object instances or individual resources to make the device\n\
-        to provide value change notifications to Device Management Connect service.\
-        \ An application needs to call a\n`/notification/callback` method to get Device\
-        \ Management Connect to push notifications of the resource changes.\n\n**Notification\
-        \ rules**\n\nA web application can place dynamic observation rules for individual\
-        \ Object Instances and Resources\nto define when the device sends observations.\
-        \ More information in [Notification rules](/docs/current/connecting/resource-change-webapp.html).\n\
-        \nAll manual subscriptions are removed during a full device registration and\
-        \ applications need to\nre-subscribe at that point. To avoid this, you can\
-        \ use `/subscriptions` to set a pre-subscription.\n\n**Example usage:**\n\n\
-        \    curl -X PUT \\\n      https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath}\
-        \ \\\n      -H 'authorization: Bearer {api-key}'\n"
+      description: 'The Device Management Connect eventing model consists of observable
+        Resources.
+
+
+        This means that endpoints can deliver updated resource content, periodically
+        or with a more sophisticated solution-dependent logic. The OMA LwM2M resource
+        model also supports including objects, object instances, resources, and resource
+        instances.
+
+
+        Applications can subscribe to objects, object instances or individual resources
+        to make the device provide value change notifications to Device Management
+        Connect service. An application needs to call a `/notification/callback` method
+        to get Device Management Connect to push notifications of the resource changes.
+
+
+        **Notification rules**
+
+
+        A web application can place dynamic observation rules for individual Object
+        Instances and Resources to define when the device sends observations. More
+        information in [Notification rules](../connecting/resource-change-webapp.html).
+
+
+        All manual subscriptions are removed during a full device registration, at
+        which point applications must re-subscribe. To avoid this, you can use `/subscriptions`
+        to set a pre-subscription.
+
+
+        **Example:**
+
+        ```
+
+        curl -X PUT https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath}
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: addResourceSubscription
       parameters:
-      - description: 'A unique Device Management device ID for the endpoint. Note
-          that the ID must be an exact match. You cannot use wildcards here.
-
-          '
+      - description: A unique Device Management device ID for the endpoint. The ID
+          must be an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
         type: string
-      - description: 'The URL of the resource.
-
-          '
+      - description: The resource URL.
         in: path
         name: resourcePath
         required: true
@@ -8258,8 +8426,8 @@ paths:
         200:
           description: Successfully subscribed.
         202:
-          description: Accepted. Returns an asynchronous response ID that is used
-            to reference the future asynchronous response.
+          description: Accepted. Returns an asynchronous response ID used to reference
+            the future asynchronous response.
           schema:
             $ref: '#/definitions/AsyncID'
         400:
@@ -8268,20 +8436,20 @@ paths:
           description: Endpoint or its resource not found.
         412:
           description: Precondition failed. Cannot make a subscription for a non-observable
-            resource. (Through AsyncIDResponse)
+            resource (through AsyncIDResponse).
         429:
           description: Cannot make a request at the moment; the queue is full or it
             was cleared because the device deregistered, the registration expired
             or the device was suspended.
         502:
-          description: Subscription failed, endpoint not connected.
+          description: 'Subscription failed: endpoint not connected.'
         503:
           description: Subscription could not be established because the endpoint
-            is currently unavailable. (Through AsyncIDResponse)
+            is currently unavailable (through AsyncIDResponse).
         504:
           description: Subscription could not be established due to a time-out from
-            the endpoint. (Through AsyncIDResponse)
-      summary: Subscribe to a resource path
+            the endpoint (through AsyncIDResponse).
+      summary: Subscribe to a resource path.
       tags:
       - Subscriptions
   /v3/accounts:
