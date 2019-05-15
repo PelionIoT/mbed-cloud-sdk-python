@@ -14,11 +14,12 @@ def download_report_file(self, absolute_url):
 
     :rtype: StringIO - contents of the downloaded file.
     """
-    relative_path = urlparse(absolute_url).path
-    if relative_path:
+    if absolute_url:
+        relative_path = urlparse(absolute_url).path
         response = self._client.call_api(method="get", path=relative_path)
         return StringIO(response.text)
     else:
+        # If the URL not available return an empty stream
         return StringIO("")
 
 
