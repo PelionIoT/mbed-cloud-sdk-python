@@ -161,7 +161,7 @@ def new_preload():
           root: {cache_dir}
           paths: '{version_file}'
       - store_artifacts:
-          path: {version_file}
+          path: {cache_dir}/{version_file}
     """)
     return 'preload', template
 
