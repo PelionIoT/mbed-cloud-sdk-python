@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
-# (C) COPYRIGHT 2017 Arm Limited
+# Pelion Device Management Python SDK
+# (C) COPYRIGHT 2017,2019 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -98,7 +98,7 @@ python_versions = dict(
     ),
     three=PyVer(
         'py3',
-        'python:3.7.0-alpine3.8',
+        'python:3.7.3-alpine3.8',
         'mbed_sdk_py3:latest',
         'py3.Dockerfile',
         'py3-compose.yml',
@@ -121,13 +121,20 @@ def new_base():
 
 
 def new_preload():
-    """Job running prior to builds - fetches TestRunner image"""
+    """Job running prior to builds - fetches TestRunner image
+
+    This attempts to pull an image for the TestRunner with the same name as the branch which is being built for the
+    Python SDK. If that cannot be found it falls back to the master build of TestRunner. Whichever is pulled is renamed
+    with the tag `latest` which will be used by the docker compose.
+    """
+    branched_testrunner_image = '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}'
+    master_testrunner_image = '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master'
     testrunner_image = get_testrunner_image()
     local_image = testrunner_image.rsplit(':')[-2].rsplit('/')[-1]
     version_file = 'testrunner_version.txt'
     template = yaml.safe_load(f"""
     machine:
-      image: 'circleci/classic:201710-02'
+      image: 'circleci/classic:latest'
     steps:
       - run:
           name: AWS login
@@ -135,8 +142,9 @@ def new_preload():
             login="$(aws ecr get-login --no-include-email)"
             ${{login}}
       - run:
-          name: Pull TestRunner Image
-          command: docker pull {testrunner_image}
+          name: Pull TestRunner Image for branch and fullback to master
+          command: |-
+            (docker pull {branched_testrunner_image} && docker tag {branched_testrunner_image} {testrunner_image}) || (docker pull {master_testrunner_image} && docker tag {master_testrunner_image} {testrunner_image})
       - run:
           name: Make cache directory
           command: mkdir -p {cache_dir}
@@ -153,7 +161,7 @@ def new_preload():
           root: {cache_dir}
           paths: '{version_file}'
       - store_artifacts:
-          path: {version_file}
+          path: {cache_dir}/{version_file}
     """)
     return 'preload', template
 
@@ -171,6 +179,50 @@ def new_tpip():
       - image: circleci/python:3.6.1
     """)
     return 'tpip_report', template
+
+
+def new_foundation_gen():
+    """Job to generate the Foundation interface.
+
+    If there are file changes caused by the generation then these are submitted back to github (which will trigger
+    another build). The current build is then cancelled to avoid unnecessary builds and misleading test results (
+    which would be with a pre-render code version).
+    """
+    foundation_dir = "src/mbed_cloud/foundation"
+    template = yaml.safe_load(f"""
+    steps:
+      - checkout
+      - run:
+          name: Install pipenv
+          command: sudo pip install pipenv
+      - run:
+          name: Install beta version of black for Python formatting
+          command: pipenv install --pre black
+      - run:
+          name: Install SDK with dev dependencies
+          command: pipenv install --dev . 
+      - run:
+          name: Generate the Foundation interface code
+          command: pipenv run python scripts/foundation/render_sdk.py 
+            api_specifications/public/sdk_foundation_definition.yaml  -vv
+            -p python_definition.yaml 
+            -o {foundation_dir}
+      - run:
+          name: Commit code changes (cancel this build if commit made)
+          command: |-
+              git add -v {foundation_dir}/entities
+              git add -v {foundation_dir}/enums
+              git add -v {foundation_dir}/__init__.py
+              git commit --message "Auto-generated code" || FILES_CHANGED=True
+              git push -q https://${{GITHUB_TOKEN}}@github.com/ARMmbed/${{CIRCLE_PROJECT_REPONAME}}.git ${{CIRCLE_BRANCH}}
+              if [ -z "$FILES_CHANGED" ]; then curl -X POST https://circleci.com/api/v1.1/project/github/ARMmbed/${{CIRCLE_PROJECT_REPONAME}}/${{CIRCLE_BUILD_NUM}}/cancel?circle-token=${{DOCS_CIRCLE_CI_TOKEN}}; fi
+      - store_artifacts:
+          path: python_definition.yaml
+          when: always
+    docker:
+      - image: circleci/python:3.6.3
+    """)
+    return 'foundation_gen', template
 
 
 def new_newscheck():
@@ -201,6 +253,41 @@ def new_build_documentation():
     return 'build_documentation', template
 
 
+def upload_reference_documentation():
+    """Job for uploading reference documentation to S3"""
+
+    # Build the documentation using python 3
+    py_ver = python_versions["three"]
+
+    cache_file = f'app_{py_ver.name}.tar'
+    template = yaml.safe_load(f"""
+    machine:
+      image: circleci/classic:latest
+    steps:
+      - attach_workspace:
+          at: {cache_dir}
+      - checkout
+      - run:
+          name: Install prerequisites
+          command: sudo pip install awscli
+      - run:
+          name: Load docker image layer cache
+          command: docker load -i {cache_dir}/{cache_file}
+      - run:
+          name: Start a named container
+          command: docker run --name=SDK {py_ver.tag}
+      - run:
+          name: Extract the documentation
+          command: 'docker cp SDK:/build/built_docs ./built_docs'
+      - run:
+          name: Upload the documentation
+          command: >-
+            aws s3 sync --delete --cache-control
+            max-age=3600 built_docs s3://mbed-cloud-sdk-python/${{CIRCLE_BRANCH}}-branch
+    """)
+    return 'reference_documentation', template
+
+
 def build_name(py_ver: PyVer):
     """Name"""
     return f'build_{py_ver.name}'
@@ -213,7 +300,7 @@ def new_build(py_ver: PyVer):
     cache_key = f'v3-{py_ver.name}-{{{{ .Branch }}}}'
     template = yaml.safe_load(f"""
     machine:
-      image: 'circleci/classic:201710-02'
+      image: 'circleci/classic:latest'
       docker_layer_caching: true
     steps:
       - checkout
@@ -271,7 +358,7 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
     sdk_docker_cache = f'app_{py_ver.name}.tar'
     template = yaml.safe_load(f"""
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
       - checkout
       - attach_workspace:
@@ -284,7 +371,7 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           command: docker load -i {cache_dir}/{testrunner_cache}
       - run:
           name: Get docker-compose
-          command: pip install docker-compose==1.21.0
+          command: pip install docker-compose==1.23.2
       - run:
           name: Set testrunner parameters
           command: |-
@@ -324,7 +411,7 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
     cache_file = f'app_{py_ver.name}.tar'
     template = yaml.safe_load(f"""
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
       - attach_workspace:
           at: {cache_dir}
@@ -345,7 +432,7 @@ def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
           name: Upload the documentation
           command: >-
             aws s3 sync --delete --cache-control
-            max-age=3600 built_docs s3://mbed-cloud-sdk-python
+            max-age=3600 built_docs s3://mbed-cloud-sdk-python/${{CIRCLE_BRANCH}}-release
       - run:
           name: Tag and release
           command: >-
@@ -371,11 +458,15 @@ def generate_circle_output():
     base = new_base()
     workflow = networkx.DiGraph()
     LOG.info('%s python versions', len(python_versions))
-    LOG.info('%s mbed cloud hosts', len(mbed_cloud_hosts))
+    LOG.info('%s Pelion Device Management hosts', len(mbed_cloud_hosts))
 
     job, content = new_tpip()
     base['jobs'].update({job: content})
     workflow.add_node(job)
+
+    new_foundation_job, content = new_foundation_gen()
+    base['jobs'].update({new_foundation_job: content})
+    workflow.add_node(new_foundation_job)
 
     job, content = new_newscheck()
     base['jobs'].update({job: content})
@@ -397,13 +488,28 @@ def generate_circle_output():
         job,
         workflow=dict(
             requires=['build_py2', 'build_py3'],
-            filters = dict(
+            filters=dict(
                 branches=dict(
                     # Only update the documentation on release branches
                     only=['master', 'beta']
+                )
+            )
         )
     )
-    )
+
+    job, content = upload_reference_documentation()
+    base['jobs'].update({job: content})
+    workflow.add_node(
+        job,
+        workflow=dict(
+            requires=['build_py2', 'build_py3'],
+            filters=dict(
+                branches=dict(
+                    # Only update the documentation on release branches
+                    only=['master', 'beta']
+                )
+            )
+        )
     )
 
     preload_job, content = new_preload()
@@ -413,7 +519,9 @@ def generate_circle_output():
     for py_ver in python_versions.values():
         build_job, build_content = new_build(py_ver=py_ver)
         base['jobs'].update({build_job: build_content})
+        # Add requires to builds on preload and foundation_gen
         workflow.add_edge(preload_job, build_job)
+        workflow.add_edge(new_foundation_job, build_job)
 
         for cloud_host in mbed_cloud_hosts.values():
             test_job, test_content = new_test(py_ver=py_ver, cloud_host=cloud_host)
@@ -513,7 +621,7 @@ def main(output_path=None):
     and also cleanly maps to the appearance of config.yml before & after templating.
 
     The main job blocks (build, test, deploy) are expanded as the product of python versions
-    and mbed cloud environments, before being recombined into the job listing.
+    and Pelion Device Management environments, before being recombined into the job listing.
 
     Jobs are chained into a CircleCI workflow using a graph
     (in which nodes are job identifiers, and edges describe the dependencies

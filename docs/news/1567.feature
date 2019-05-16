@@ -1,0 +1,1 @@
+Introduction of the _Foundation Interface_ which adds a new 'Entities' based interface.

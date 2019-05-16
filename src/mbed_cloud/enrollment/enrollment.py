@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -70,6 +70,30 @@ class EnrollmentAPI(BaseAPI):
         """Delete"""
         api = self._get_api(enrollment.PublicAPIApi)
         return api.delete_device_enrollment(id=id)
+
+    @catch_exceptions(EnrollmentAPIException)
+    def bulk_add_enrollment_claim(self, datafile):
+        """Bulk upload
+
+        With bulk upload you can upload a CSV file containing a number of enrollment IDs.
+        First line of the CSV is read as a header and not as an enrollment identity.
+
+        :returns: BulkCreateResponse
+        """
+        api = self._get_api(enrollment.PublicAPIApi)
+        return api.create_bulk_device_enrollment(enrollment_identities=datafile)
+
+    @catch_exceptions(EnrollmentAPIException)
+    def get_bulk_add_enrollment_claim_status(self, bulk_id):
+        """Get status of bulk upload
+
+        Provides info about bulk upload for the given ID.
+        For example bulk status and processed count of enrollment identities.
+
+        :returns: BulkCreateResponse
+        """
+        api = self._get_api(enrollment.PublicAPIApi)
+        return api.get_bulk_device_enrollment(id=bulk_id)
 
 
 class EnrollmentClaim(BaseObject):
@@ -144,7 +168,7 @@ class EnrollmentClaim(BaseObject):
     def expires_at(self):
         """Gets the expires_at of this EnrollmentIdentity.
 
-        The enrollment claim expiration time. If the device does not connect to Mbed Cloud
+        The enrollment claim expiration time. If the device does not connect to Pelion Device Management
         before the expiration, the claim is removed without a separate notice
 
         :return: The expires_at of this EnrollmentIdentity.

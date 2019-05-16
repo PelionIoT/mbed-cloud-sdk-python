@@ -154,7 +154,7 @@ class Test(BaseCase):
         self.assertEqual(2, observer_a.notify_count)
         self.assertEqual(1, observer_b.notify_count)
 
-    @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
+    @BaseCase._skip_in_ci
     def test_live_device_state_change(self):
         api = ConnectAPI()
         api.delete_presubscriptions()

@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
-# Mbed Cloud Python SDK
-# (C) COPYRIGHT 2017 Arm Limited
+# Pelion Device Management Python SDK
+# (C) COPYRIGHT 2017,2019 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -38,10 +38,10 @@ with open(os.path.join(repository_dir, 'requirements.txt')) as fh:
     requirements = fh.readlines()
 
 setup(
-    author="Arkadiusz Zaluski, David Hyman, Herman Schistad",
+    author="Arkadiusz Zaluski, Graham Hammond, David Hyman, Herman Schistad",
     author_email="support@mbed.com",
     classifiers=(
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 2',
@@ -56,8 +56,8 @@ setup(
         'Topic :: Software Development :: Embedded Systems',
         'Topic :: Software Development :: Object Brokering',
     ),
-    description="Mbed Cloud Python SDK",
-    keyword="Arm Pelion Device Management Mbed Cloud SDK",
+    description="Pelion Device Management Python SDK",
+    keywords="Arm Pelion Device Management Mbed Cloud SDK",
     include_package_data=True,
     install_requires=requirements,
     license='Apache 2.0',

@@ -28,7 +28,7 @@ class TestDecode(BaseCase):
         self.assertEqual(get_value_length(0b11111111), 3)
 
     def test_get_value_length_custom(self):
-        # as an example:
+        # for example:
         # both bits for the relevant mask are zero, which means it defers
         # to the remaining bits (instead of the hardcoded values)
         # the remainder are the least significant bits - here, 110

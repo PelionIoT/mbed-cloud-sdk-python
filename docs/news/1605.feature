@@ -1,0 +1,1 @@
+Account Management entities to support Aggregators / Sub-Tenant accounts added to the _Foundation Interface_.

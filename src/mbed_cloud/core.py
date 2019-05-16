@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,19 +20,15 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import datetime
-import platform
-import threading
 
-from mbed_cloud import __version__
 from mbed_cloud.configuration import Config
 from mbed_cloud import filters
+from mbed_cloud import utils
 
 from builtins import object
 from six.moves import urllib
 
 from six import iteritems
-
-_codegen_singleton_protection = threading.Lock()
 
 
 class BaseAPI(object):
@@ -41,7 +37,7 @@ class BaseAPI(object):
     api_structure = {}
 
     def __init__(self, params=None):
-        """A module to access this section of the Mbed Cloud API.
+        """A module to access this section of the Pelion Device Management API.
 
         :param params: Dictionary to override configuration values
         """
@@ -55,17 +51,10 @@ class BaseAPI(object):
         return self.apis.get(api_class, None)
 
     def _init_api(self, api_parent_class, apis):
-        with _codegen_singleton_protection:
-            api_client = api_parent_class.ApiClient()
-            self.api_clients[api_parent_class] = api_client
-            # disable codegen's singleton behaviour
-            # otherwise `TypeWithDefault` will try copying the config details
-            api_client.configuration.__class__._default = None
+        api_client = api_parent_class.ApiClient()
+        self.api_clients[api_parent_class] = api_client
 
-        api_client.user_agent = "mbed-cloud-sdk-python/{sdk_ver} ({pfm}) Python/{py_ver}".format(
-            sdk_ver=__version__,
-            pfm=platform.platform(),
-            py_ver=platform.python_version())
+        api_client.user_agent = utils.get_user_agent()
         api_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
         api_client.configuration.safe_chars_for_path_param = "/"  # don't encode (resource paths)
         self._update_api_client(api_parent_class)
@@ -104,9 +93,9 @@ class BaseAPI(object):
         )
 
     def get_last_api_metadata(self):
-        """Get meta data for the last Mbed Cloud API call.
+        """Get meta data for the last Pelion Device Management API call.
 
-        :returns: meta data of the last Mbed Cloud API call
+        :returns: meta data of the last Pelion Device Management API call
         :rtype: ApiMetadata
         """
         last_metadata = None

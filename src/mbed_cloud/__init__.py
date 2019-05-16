@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,3 +27,6 @@ from mbed_cloud.connect import ConnectAPI
 from mbed_cloud.device_directory import DeviceDirectoryAPI
 from mbed_cloud.enrollment import EnrollmentAPI
 from mbed_cloud.update import UpdateAPI
+
+from mbed_cloud.sdk.sdk import SDK
+from mbed_cloud.client.api_filter import ApiFilter

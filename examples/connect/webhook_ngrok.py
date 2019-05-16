@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,6 +59,8 @@ Two third-party tools are used in this example:
 - View the result of the application in the terminal
 
 """
+
+# an example: using a webhook for handling notifications from mbed cloud
 from mbed_cloud.connect import ConnectAPI
 
 import hug
@@ -137,3 +139,5 @@ def start_sequence():
     t.daemon = True
     t.start()
     return 'ok, starting webhook to: %s' % (ngrok_url,)
+
+# end of example

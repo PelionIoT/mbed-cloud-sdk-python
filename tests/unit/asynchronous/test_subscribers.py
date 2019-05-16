@@ -202,7 +202,7 @@ class TestSubscriptions(BaseCase):
         else:
             self.fail('Routing table not empty')
 
-    @unittest.skipIf(os.environ.get('CI'), 'Do not run in CI')
+    @BaseCase._skip_in_ci
     def test_live_device_state_change(self):
         # integration - DeviceStateChanges local filter
         from mbed_cloud.connect import ConnectAPI
