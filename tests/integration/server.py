@@ -183,7 +183,7 @@ def execute_method(method, kwargs):
     invalid_kwargs=[]
     for kwarg in kwargs:
         if kwarg not in method.__code__.co_varnames:
-            LOG.error("ERROR: Parameter '%s' is not in the method signature of '%s'", kwarg, method.__name__)
+            LOG.warning("WARNING: Parameter '%s' is not in the method signature of '%s'", kwarg, method.__name__)
             invalid_kwargs.append(kwarg)
     # Remove invalid arguments (avoiding mutating the dictionary while iterating).
     for invalid_kwarg in invalid_kwargs:
@@ -435,7 +435,10 @@ def execute_foundation_method(uuid, method):
         id_field = to_snake_case(locked_instance.entity) + "_id"
         for field, value in entity_parameters.items():
             if hasattr(locked_instance.instance, field):
-                setattr(locked_instance.instance, field, value)
+                try:
+                    setattr(locked_instance.instance, field, value)
+                except AttributeError as error:
+                    LOG.warning("WARNING: Field '%s' cannot be set on '%s'", field, locked_instance.instance.__class__.__name__)
             elif field == id_field and hasattr(locked_instance.instance, "id"):
                 setattr(locked_instance.instance, "id", value)
             else:
