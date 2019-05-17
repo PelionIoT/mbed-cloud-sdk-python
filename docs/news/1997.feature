@@ -1,1 +1,0 @@
-Support for Certificate Blacklist (Enrolment Denials) added to the _Foundation Interface_.

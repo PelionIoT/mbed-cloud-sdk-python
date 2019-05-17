@@ -13,6 +13,55 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.1.0 (2019-05-17)
+==================
+
+Features
+--------
+
+- First to Claim - to bulk upload for Enrolment Identities added to the
+  _Foundation Interface_. (#1162)
+
+- First to Claim - to bulk delete for Enrolment Identities added to the
+  _Foundation Interface_. (#1432)
+
+- Certificate entities added to the _Foundation Interface_. (#1438)
+
+- Update Campaigns statistics summary and events added to the _Foundation
+  Interface_. (#1467)
+
+- Introduction of the _Foundation Interface_ which adds a new 'Entities' based
+  interface. (#1567)
+
+- Addition of server credentials entity to the _Foundation Interface_ including
+  ability to get all credentials in a single resource. (#1604)
+
+- Account Management entities to support Aggregators / Sub-Tenant accounts
+  added to the _Foundation Interface_. (#1605)
+
+- Device Events entity added to the _Foundation Interface_. (#1768)
+
+- Addition of device entity to the _Foundation SDK_ and support added for
+  Certificate Renew. (#1827)
+
+- Pelion Device Management rebranding (previously Mbed Cloud). (#1915)
+
+- Support for Certificate Blacklist (Enrolment Denials) added to the
+  _Foundation Interface_. (#1997)
+
+- Device Update support added to the _Foundation Interface_. (#2004)
+
+- Support for filtering list endpoints added to the _Foundation Interface_.
+  (#2039)
+
+- Pre-Shared Key (PSK) added to the _Foundation Interface_. (#2339)
+
+Misc
+----
+
+- #1615, #1828, #2384
+
+
 2.0.8 (2019-05-13)
 ==================
 
