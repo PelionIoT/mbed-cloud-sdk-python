@@ -1,1 +1,0 @@
-Pre-Shared Key (PSK) added to the _Foundation Interface_.
