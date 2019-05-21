@@ -3,8 +3,8 @@
     Only edit this file directly to correct typos.
     See CONTRIBUTING for instructions on adding new entries.
 
-Mbed Cloud SDK for Python
-=========================
+Pelion Device Management SDK for Python
+=======================================
 This news file contains a log of notable changes to the SDK.
 
 Please see `mbed-cloud-sdk <https://pypi.org/project/mbed-cloud-sdk/#history>`__ for
@@ -12,6 +12,113 @@ a list of versions that have been released on PyPI.
 
 ..
     begin_release_notes
+
+2.1.0 (2019-05-17)
+==================
+
+Features
+--------
+
+- First to Claim - to bulk upload for Enrolment Identities added to the
+  _Foundation Interface_. (#1162)
+
+- First to Claim - to bulk delete for Enrolment Identities added to the
+  _Foundation Interface_. (#1432)
+
+- Certificate entities added to the _Foundation Interface_. (#1438)
+
+- Update Campaigns statistics summary and events added to the _Foundation
+  Interface_. (#1467)
+
+- Introduction of the _Foundation Interface_ which adds a new 'Entities' based
+  interface. (#1567)
+
+- Addition of server credentials entity to the _Foundation Interface_ including
+  ability to get all credentials in a single resource. (#1604)
+
+- Account Management entities to support Aggregators / Sub-Tenant accounts
+  added to the _Foundation Interface_. (#1605)
+
+- Device Events entity added to the _Foundation Interface_. (#1768)
+
+- Addition of device entity to the _Foundation SDK_ and support added for
+  Certificate Renew. (#1827)
+
+- Pelion Device Management rebranding (previously Mbed Cloud). (#1915)
+
+- Support for Certificate Blacklist (Enrolment Denials) added to the
+  _Foundation Interface_. (#1997)
+
+- Device Update support added to the _Foundation Interface_. (#2004)
+
+- Support for filtering list endpoints added to the _Foundation Interface_.
+  (#2039)
+
+- Pre-Shared Key (PSK) added to the _Foundation Interface_. (#2339)
+
+Misc
+----
+
+- #1615, #1828, #2384
+
+
+2.0.8 (2019-05-13)
+==================
+
+Improved Documentation
+----------------------
+
+- Fix callback function name in connect example. (#2014)
+
+
+2.0.7 (2019-05-13)
+==================
+
+Improved Documentation
+----------------------
+
+- Keyword for Pelion Device Management added to distributions metedata. (#1931)
+
+- Removed 'trust_class' argument from legacy device_directory SDK. (#2607)
+
+Misc
+----
+
+- #2306
+
+
+2.0.6 (2019-03-05)
+==================
+
+Bugfixes
+--------
+
+- DeviceDirectoryAPI add_device will now default the device_execution_mode to 0
+  when not defined (as per REST API behaviour) (#2068)
+
+- ConnectAPI set_resource_value_async and set_resource_value will now encode
+  and send integers, not just strings. (#2133)
+
+- DeviceDirectoryAPI update_query can now be used to change the query name
+  without supplying a filter. (#2135)
+
+
+2.0.5 (2019-02-26)
+==================
+
+Bugfixes
+--------
+
+- Fixes to subscription patterns and filtering, also a timeout on a blocking
+  subscription now raises a CloudTimeoutError not a Queue.empty exception.
+  (#2103)
+
+- Errors received in async-responses will now populate the exception `status`
+  and `reason` attributes. (#2134)
+
+- Stopping notifications now terminates cleanly without logging an error.
+  (#2136)
+
 
 2.0.4 (2018-11-30)
 ==================

@@ -6,7 +6,7 @@ Usage
 
 .. warning:: This functionality is considered experimental; the interface may change in future releases
 
-The subscription api can be used to interact with asynchronous mbed cloud events.
+The subscription api can be used to interact with asynchronous Pelion Device Management events.
 
 Currently we support:
 
@@ -46,8 +46,8 @@ The subscription system in the Python SDK has the following layers:
 |  The manager routes inbound notifications to channels
 
 | **Channels**, which request and filter notifications from the cloud, and provide a single observer.
-|  Channels represent the individual data streams relating to mbed cloud functionality.
-|  They are the main abstraction layer between mbed cloud api channels and user code,
+|  Channels represent the individual data streams relating to Pelion Device Management functionality.
+|  They are the main abstraction layer between Pelion Device Management api channels and user code,
 |  and may contain filters to further control notification behaviour.
 
 | **Observer**, an iterable of future results, each of which is an async wrapper.

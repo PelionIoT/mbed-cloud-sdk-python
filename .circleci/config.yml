@@ -12,7 +12,7 @@ jobs:
   build_py2:
     machine:
       docker_layer_caching: true
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - restore_cache:
@@ -57,7 +57,7 @@ jobs:
   build_py3:
     machine:
       docker_layer_caching: true
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - restore_cache:
@@ -101,7 +101,7 @@ jobs:
         path: built_docs
   deploy_py3_beta:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - attach_workspace:
         at: ~/caches
@@ -119,20 +119,16 @@ jobs:
         command: docker cp SDK:/build/built_docs ./built_docs
         name: Extract the documentation
     - run:
-        command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python
+        command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python/${CIRCLE_BRANCH}-release
         name: Upload the documentation
     - run:
         command: docker run --env-file=scripts/templates/envvars.env -e TWINE_REPOSITORY=pypi
           mbed_sdk_py3:latest sh -c "source .venv/bin/activate && python scripts/tag_and_release.py
           --mode=beta"
         name: Tag and release
-    - run:
-        command: docker run --env-file=scripts/templates/envvars.env mbed_sdk_py3:latest
-          sh -c "source .venv/bin/activate && python scripts/notify.py"
-        name: Start the release party!
   deploy_py3_production:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - attach_workspace:
         at: ~/caches
@@ -150,17 +146,13 @@ jobs:
         command: docker cp SDK:/build/built_docs ./built_docs
         name: Extract the documentation
     - run:
-        command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python
+        command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python/${CIRCLE_BRANCH}-release
         name: Upload the documentation
     - run:
         command: docker run --env-file=scripts/templates/envvars.env -e TWINE_REPOSITORY=pypi
           mbed_sdk_py3:latest sh -c "source .venv/bin/activate && python scripts/tag_and_release.py
           --mode=prod"
         name: Tag and release
-    - run:
-        command: docker run --env-file=scripts/templates/envvars.env mbed_sdk_py3:latest
-          sh -c "source .venv/bin/activate && python scripts/notify.py"
-        name: Start the release party!
   foundation_gen:
     docker:
     - image: circleci/python:3.6.3
@@ -177,14 +169,14 @@ jobs:
         name: Install SDK with dev dependencies
     - run:
         command: pipenv run python scripts/foundation/render_sdk.py api_specifications/public/sdk_foundation_definition.yaml  -vv
-          -p python_definition.yaml -o src/mbed_cloud/sdk
+          -p python_definition.yaml -o src/mbed_cloud/foundation
         name: Generate the Foundation interface code
     - run:
-        command: 'git add -v src/mbed_cloud/sdk/_modules/\*.py
+        command: 'git add -v src/mbed_cloud/foundation/entities
 
-          git add -v src/mbed_cloud/sdk/entities/\*.py
+          git add -v src/mbed_cloud/foundation/enums
 
-          git add -v src/mbed_cloud/sdk/enums/\*.py
+          git add -v src/mbed_cloud/foundation/__init__.py
 
           git commit --message "Auto-generated code" || FILES_CHANGED=True
 
@@ -205,7 +197,7 @@ jobs:
     - run: python scripts/assert_news.py
   preload:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - run:
         command: 'login="$(aws ecr get-login --no-include-email)"
@@ -213,17 +205,22 @@ jobs:
           ${login}'
         name: AWS login
     - run:
-        command: docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
-        name: Pull TestRunner Image
+        command: (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
+          && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
+          104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
+          || (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+          && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+          104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
+        name: Pull TestRunner Image for branch and fullback to master
     - run:
         command: mkdir -p ~/caches
         name: Make cache directory
     - run:
-        command: echo $(docker run 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+        command: echo $(docker run 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest
           python -m trunner --version) > ~/caches/testrunner_version.txt
         name: Obtain Testrunner Version
     - run:
-        command: docker save -o ~/caches/testrunner.tar 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+        command: docker save -o ~/caches/testrunner.tar 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest
         name: Export docker image layer cache
     - persist_to_workspace:
         paths: testrunner.tar
@@ -232,10 +229,32 @@ jobs:
         paths: testrunner_version.txt
         root: ~/caches
     - store_artifacts:
-        path: testrunner_version.txt
+        path: ~/caches/testrunner_version.txt
+  reference_documentation:
+    machine:
+      image: circleci/classic:latest
+    steps:
+    - attach_workspace:
+        at: ~/caches
+    - checkout
+    - run:
+        command: sudo pip install awscli
+        name: Install prerequisites
+    - run:
+        command: docker load -i ~/caches/app_py3.tar
+        name: Load docker image layer cache
+    - run:
+        command: docker run --name=SDK mbed_sdk_py3:latest
+        name: Start a named container
+    - run:
+        command: docker cp SDK:/build/built_docs ./built_docs
+        name: Extract the documentation
+    - run:
+        command: aws s3 sync --delete --cache-control max-age=3600 built_docs s3://mbed-cloud-sdk-python/${CIRCLE_BRANCH}-branch
+        name: Upload the documentation
   test_py2_OS2:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - attach_workspace:
@@ -247,7 +266,7 @@ jobs:
         command: docker load -i ~/caches/testrunner.tar
         name: Load docker image for TestRunner
     - run:
-        command: pip install docker-compose==1.21.0
+        command: pip install docker-compose==1.23.2
         name: Get docker-compose
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}''
@@ -266,9 +285,15 @@ jobs:
         when: always
     - store_artifacts:
         path: results
+    - run:
+        command: sudo pip install codecov
+        name: Install codecov
+    - run:
+        command: codecov --file=results/coverage.xml --flags py2 staging
+        name: Upload code coverage results
   test_py2_PROD:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - attach_workspace:
@@ -280,7 +305,7 @@ jobs:
         command: docker load -i ~/caches/testrunner.tar
         name: Load docker image for TestRunner
     - run:
-        command: pip install docker-compose==1.21.0
+        command: pip install docker-compose==1.23.2
         name: Get docker-compose
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}''
@@ -299,9 +324,15 @@ jobs:
         when: always
     - store_artifacts:
         path: results
+    - run:
+        command: sudo pip install codecov
+        name: Install codecov
+    - run:
+        command: codecov --file=results/coverage.xml --flags py2 production
+        name: Upload code coverage results
   test_py3_OS2:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - attach_workspace:
@@ -313,7 +344,7 @@ jobs:
         command: docker load -i ~/caches/testrunner.tar
         name: Load docker image for TestRunner
     - run:
-        command: pip install docker-compose==1.21.0
+        command: pip install docker-compose==1.23.2
         name: Get docker-compose
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_OS2}''
@@ -332,9 +363,15 @@ jobs:
         when: always
     - store_artifacts:
         path: results
+    - run:
+        command: sudo pip install codecov
+        name: Install codecov
+    - run:
+        command: codecov --file=results/coverage.xml --flags py3 staging
+        name: Upload code coverage results
   test_py3_PROD:
     machine:
-      image: circleci/classic:201710-02
+      image: circleci/classic:latest
     steps:
     - checkout
     - attach_workspace:
@@ -346,7 +383,7 @@ jobs:
         command: docker load -i ~/caches/testrunner.tar
         name: Load docker image for TestRunner
     - run:
-        command: pip install docker-compose==1.21.0
+        command: pip install docker-compose==1.23.2
         name: Get docker-compose
     - run:
         command: 'echo ''export TEST_RUNNER_DEFAULT_API_HOST=${MBED_CLOUD_API_HOST_PROD}''
@@ -365,6 +402,12 @@ jobs:
         when: always
     - store_artifacts:
         path: results
+    - run:
+        command: sudo pip install codecov
+        name: Install codecov
+    - run:
+        command: codecov --file=results/coverage.xml --flags py3 production
+        name: Upload code coverage results
   tpip_report:
     docker:
     - image: circleci/python:3.6.1
@@ -379,6 +422,15 @@ workflows:
   python_sdk_workflow:
     jobs:
     - preload: {}
+    - reference_documentation:
+        filters:
+          branches:
+            only:
+            - master
+            - beta
+        requires:
+        - build_py2
+        - build_py3
     - build_documentation:
         filters:
           branches:

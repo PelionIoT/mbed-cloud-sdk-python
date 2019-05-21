@@ -16,13 +16,30 @@ class TestExamples(BaseCase):
         """
         pass
 
+    def test_legacy_listing_resources(self):
+        # an example: legacy listing resources
+        from mbed_cloud import BillingAPI
+
+        billing_api = BillingAPI()
+        for quota_history in billing_api.get_quota_history():
+            print("Quota change reason: %s, delta: %s" % (quota_history.reason, quota_history.delta))
+        # end of example
+
+    def test_legacy_get_resources(self):
+        # an example: legacy get resource
+        from mbed_cloud import BillingAPI
+
+        billing_api = BillingAPI()
+        print("Quota remaining: %s" % billing_api.get_quota_remaining())
+        # end of example
+
     def test_configuration(self):
         with self.assertRaises(CloudApiException):
             # an example: configuring the SDK
             from mbed_cloud import AccountManagementAPI
             config = dict(api_key='ak_1234abc')
             # alternatively, configuration can be loaded from json files or environment variables
-            # if the host is not the default Mbed Cloud, it needs to be specified
+            # if the host is not the default Pelion Device Management, it needs to be specified
             config['host'] = 'https://custom-mbed-cloud-host.com'
             # create an instance of one of the SDK modules
             api = AccountManagementAPI(params=config)
@@ -31,7 +48,7 @@ class TestExamples(BaseCase):
             # end of example
 
     def test_list_connected(self):
-        # an example: list devices in mbed cloud
+        # an example: list devices in Pelion Device Management
         from mbed_cloud import ConnectAPI
         api = ConnectAPI()
 
@@ -41,7 +58,7 @@ class TestExamples(BaseCase):
         # end of example
 
     def test_list_disconnected(self):
-        # an example: list deregistered devices in mbed cloud
+        # an example: list deregistered devices in Pelion Device Management
         from mbed_cloud import DeviceDirectoryAPI
         api = DeviceDirectoryAPI()
 
@@ -51,6 +68,8 @@ class TestExamples(BaseCase):
         # end of example
 
     def test_subscribe_resources(self):
+        import logging
+        logging.basicConfig(level=logging.DEBUG)
         # an example: subscribing to resource value changes
         # creates an Observer listening to resource value changes for devices
         # whose id starts with `016` and resource paths start with `/3/0/`

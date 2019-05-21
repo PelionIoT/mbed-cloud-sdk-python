@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -83,7 +83,7 @@ class ConnectAPI(BaseAPI):
     }
 
     def __init__(self, params=None):
-        """A module to access this section of the Mbed Cloud API.
+        """A module to access this section of the Pelion Device Management API.
 
         :param params: Dictionary to override configuration values
                      : autostart_notifications : Automatically starts a thread
@@ -370,6 +370,17 @@ class ConnectAPI(BaseAPI):
             device_id, resource_path, resource_value
         ).wait(timeout)
 
+    @staticmethod
+    def _base64_encode(resource_value):
+        """Base64 encode the value in a Python version agnostic way.
+
+        Use encode and decode to covert to and from a bytes object which b64encode will encode.
+        """
+        if resource_value is None:
+            return ""
+        else:
+            return base64.b64encode(str(resource_value).encode("utf-8")).decode("utf-8")
+
     @catch_exceptions(mds.rest.ApiException)
     def set_resource_value_async(self, device_id, resource_path,
                                  resource_value=None, fix_path=True):
@@ -393,7 +404,7 @@ class ConnectAPI(BaseAPI):
         :returns: An async consumer object holding reference to request
         :rtype: AsyncConsumer
         """
-        payload_b64 = base64.b64encode(resource_value.encode("utf-8")).decode("utf-8")
+        payload_b64 = self._base64_encode(resource_value)
 
         if not resource_path.startswith("/"):
             resource_path = "/" + resource_path

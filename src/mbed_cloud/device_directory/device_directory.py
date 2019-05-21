@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -144,7 +144,6 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str mechanism_url: The address of the connector to use
         :param str serial_number: The serial number of the device
         :param str state: The current state of the device
-        :param int trust_class: The device trust class
         :param str vendor_id: The device vendor ID
         :param str alias: The alias of the device
         :parama str device_type: The endpoint type of the device - e.g. if the device is a gateway
@@ -159,8 +158,6 @@ class DeviceDirectoryAPI(BaseAPI):
         :rtype: Device
         """
         api = self._get_api(device_directory.DefaultApi)
-        if "device_execution_mode" not in kwargs:
-            kwargs.update({"device_execution_mode": 1})
         device = Device._create_request_map(kwargs)
         device = DeviceData(**device)
         return Device(api.device_create(device))
@@ -255,7 +252,14 @@ class DeviceDirectoryAPI(BaseAPI):
         ) if filter else None
 
         query_map = Query._create_request_map(kwargs)
-        body = DeviceQueryPostPutRequest(name=name, query=filter_obj['filter'], **query_map)
+
+        # The filter option is optional on update but DeviceQueryPostPutRequest sets it None, which is invalid.
+        # Manually create a resource body without the filter parameter if only the name is provided.
+        if filter is None:
+            body = {"name": name}
+        else:
+            body = DeviceQueryPostPutRequest(name=name, query=filter_obj['filter'], **query_map)
+
         api = self._get_api(device_directory.DefaultApi)
         return Query(api.device_query_update(query_id, body))
 
@@ -333,7 +337,6 @@ class Device(BaseObject):
             "device_type": "endpoint_type",
             "serial_number": "serial_number",
             "state": "state",
-            "trust_class": "trust_class",
             "updated_at": "updated_at",
             "vendor_id": "vendor_id",
             "alias": "endpoint_name",
@@ -482,16 +485,6 @@ class Device(BaseObject):
         :rtype: str
         """
         return self._state
-
-    @property
-    def trust_class(self):
-        """The device trust class.
-
-        The time the object was created
-
-        :rtype: int
-        """
-        return self._trust_class
 
     @property
     def updated_at(self):

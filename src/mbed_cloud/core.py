@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +37,7 @@ class BaseAPI(object):
     api_structure = {}
 
     def __init__(self, params=None):
-        """A module to access this section of the Mbed Cloud API.
+        """A module to access this section of the Pelion Device Management API.
 
         :param params: Dictionary to override configuration values
         """
@@ -93,9 +93,9 @@ class BaseAPI(object):
         )
 
     def get_last_api_metadata(self):
-        """Get meta data for the last Mbed Cloud API call.
+        """Get meta data for the last Pelion Device Management API call.
 
-        :returns: meta data of the last Mbed Cloud API call
+        :returns: meta data of the last Pelion Device Management API call
         :rtype: ApiMetadata
         """
         last_metadata = None
@@ -188,7 +188,7 @@ class BaseObject(object):
         query = {}
         for (key, value) in list(qs.items()):
             operator = self._get_operator(key)
-            if operator is not "":
+            if operator != "":
                 key = key.replace("__%s" % (operator), "")
             else:
                 operator = "eq"

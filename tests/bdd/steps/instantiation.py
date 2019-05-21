@@ -1,7 +1,7 @@
 from tests.bdd.steps.common import when_or_given
 
 from mbed_cloud import sdk
-from mbed_cloud.sdk import entities
+from mbed_cloud.foundation import entities
 
 
 def new_instance(context, entity_name, name=None):

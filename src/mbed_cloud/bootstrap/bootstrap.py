@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -119,7 +119,7 @@ class PreSharedKey(BaseObject):
     def created_at(self):
         """Gets the created_at of this PreSharedKey.
 
-        The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
+        The date-time (RFC3339) when this pre-shared key was uploaded to Pelion Device Management.
 
         :return: The created_at of this PreSharedKey.
         :rtype: datetime

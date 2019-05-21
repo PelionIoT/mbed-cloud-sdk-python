@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +20,10 @@ This higher-level-abstraction aims to get the user code quickly from
 defining a subscription, to acting on the data received
 
 # callbacks
-def callback(x):
+def my_callback(x):
     print(x)
 
-connect_api.subscribe(device_state_changes(device_id=a)).add_callback(blah)
+connect_api.subscribe(device_state_changes(device_id=a)).add_callback(my_callback)
 
 # blocking calls with filters
 channel = connect_api.subscribe(device_state_changes(device_id=, state='deregistered'))
@@ -46,11 +46,14 @@ while True:
 """
 import itertools
 import logging
+import warnings
 
 import six
 from mbed_cloud import utils
 
 LOG = logging.getLogger(__name__)
+
+has_warned = None
 
 
 def expand_dict_as_keys(d):
@@ -127,6 +130,7 @@ class SubscriptionsManager(RoutingBase):
 
     def __init__(self, connect_api):
         """Subscriptions Manager"""
+        beta_warning(self.__class__)
         super(SubscriptionsManager, self).__init__()
         self.watch_keys = set()
         self.connect_api = connect_api
@@ -210,3 +214,16 @@ class SubscriptionsManager(RoutingBase):
         for channel in self.list_all():
             channel.ensure_stopped()
         self.connect_api.stop_notifications()
+
+
+def beta_warning(header, category=FutureWarning):
+    """Utility function to generate a beta warning."""
+    global has_warned
+    if not has_warned:
+        warnings.warn(
+            "[Beta] this section of the SDK is at a `beta` release level and is subject to change without notice: %s"
+            % header,
+            category=category,
+            stacklevel=3,  # make the trace log from two levels above this `warnings.warn` line
+        )
+        has_warned = True

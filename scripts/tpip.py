@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
-# Mbed Cloud Python SDK
-# (C) COPYRIGHT 2017 Arm Limited
+# Pelion Device Management Python SDK
+# (C) COPYRIGHT 2017,2019 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

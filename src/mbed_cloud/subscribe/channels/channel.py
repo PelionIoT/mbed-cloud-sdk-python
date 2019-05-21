@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2017 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +25,7 @@ LOG = logging.getLogger(__name__)
 class ChannelIdentifiers(object):
     """API channels
 
-    Internal Mbed Cloud channel identifiers
+    Internal Pelion Device Management channel identifiers
     """
 
     notifications = 'notifications'
@@ -61,8 +61,8 @@ class ChannelSubscription(object):
 
     In pub/sub terms, this is one channel of notifications.
 
-    In mbed terms, this may be a Presubscription or a Subscription.
-    There could be multiple references to a single mbed channel (e.g. `notifications`),
+    In Pelion Device Management terms, this may be a Presubscription or a Subscription.
+    There could be multiple references to a single Pelion Device Management channel (e.g. `notifications`),
     with multiple receiving channels applying different filters, on the server or client-side.
     """
 
@@ -114,7 +114,7 @@ class ChannelSubscription(object):
                 'optional keys filter %s: %s (%s)',
                 filter_key, filter_value, data_value
             )
-            if data_value is None or data_value not in filter_value:
+            if data_value is None or data_value != filter_value:
                 LOG.debug(
                     'optional keys filter rejecting %s: %s (%s)',
                     filter_key, filter_value, data_value

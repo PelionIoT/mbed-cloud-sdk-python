@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
+# Pelion Device Management SDK
 # (C) COPYRIGHT 2019 Arm Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,6 +25,7 @@ import threading
 import uuid
 import re
 import json
+from io import StringIO
 
 from dateutil import parser as du_parser
 from dateutil import tz as du_tz
@@ -41,9 +42,9 @@ from mbed_cloud import __version__
 from mbed_cloud import pagination
 from mbed_cloud.core import BaseObject
 
-from mbed_cloud.sdk.common.exceptions import ApiErrorResponse
-from mbed_cloud.sdk.entities import __all__ as entity_list
-from mbed_cloud.sdk import SDK
+from mbed_cloud.sdk.exceptions import ApiErrorResponse
+from mbed_cloud.foundation import __all__ as entity_list
+from mbed_cloud import SDK
 
 
 LOG = logging.getLogger(__name__)
@@ -154,10 +155,13 @@ def serialise_entity(field):
     if isinstance(field, (datetime.datetime, datetime.date)):
         return field.isoformat()
 
+    if isinstance(field, StringIO):
+        return field.read()
+
     try:
         return field.to_dict()
-    except AttributeError:
-        pass
+    except AttributeError as e:
+        LOG.error("Unable to serialise: %s", e)
 
     raise TypeError("Entity/field of type '%s' is not JSON serializable" % field.__class__.__name__)
 
@@ -174,6 +178,16 @@ def execute_method(method, kwargs):
     """
     for k, v in kwargs.items():
         kwargs[k] = deserialise(v)
+
+    # Find any parameters which are not in the method signature and throw them away.
+    invalid_kwargs=[]
+    for kwarg in kwargs:
+        if kwarg not in method.__code__.co_varnames:
+            LOG.warning("WARNING: Parameter '%s' is not in the method signature of '%s'", kwarg, method.__name__)
+            invalid_kwargs.append(kwarg)
+    # Remove invalid arguments (avoiding mutating the dictionary while iterating).
+    for invalid_kwarg in invalid_kwargs:
+        kwargs.pop(invalid_kwarg)
 
     # Call SDK method
     try:
@@ -365,7 +379,7 @@ def create_foundation_entity_instance(entity):
     try:
         # Entity names are PascalCase, SDK entity methods are snake case.
         method_name = re.sub('(?<!^)(?=[A-Z])', '_', entity).lower()
-        entity_class = getattr(sdk_instance.entities, method_name)
+        entity_class = getattr(sdk_instance.foundation, method_name)
     except AttributeError:
         raise NotFound("Entity '%s' which was reformatted to '%s' cannot be found." % (entity, method_name))
 
@@ -421,7 +435,10 @@ def execute_foundation_method(uuid, method):
         id_field = to_snake_case(locked_instance.entity) + "_id"
         for field, value in entity_parameters.items():
             if hasattr(locked_instance.instance, field):
-                setattr(locked_instance.instance, field, value)
+                try:
+                    setattr(locked_instance.instance, field, value)
+                except AttributeError as error:
+                    LOG.warning("WARNING: Field '%s' cannot be set on '%s'", field, locked_instance.instance.__class__.__name__)
             elif field == id_field and hasattr(locked_instance.instance, "id"):
                 setattr(locked_instance.instance, "id", value)
             else:
