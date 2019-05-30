@@ -6856,8 +6856,8 @@ definitions:
     type: object
 host: api.us-east-1.mbedcloud.com
 info:
-  description: The full Mbed Cloud API
-  title: Mbed Cloud API
+  description: Pelion Device Management API build from the publicly defined API definitions.
+  title: Pelion Device Management API
   version: '3'
 paths:
   /v2/device-requests/{device-id}:
