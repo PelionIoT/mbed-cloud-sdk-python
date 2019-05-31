@@ -4847,12 +4847,17 @@ definitions:
           accuracy and UTC time zone.
         format: date-time
         type: string
+      sda_tokens:
+        format: int64
+        minimum: 0
+        type: integer
     required:
     - generated
     - period_start
     - period_end
     - active_devices
     - firmware_updates
+    - sda_tokens
     type: object
   ReportNotFoundErrorResponse:
     description: 404 Not found response.
@@ -13460,12 +13465,14 @@ paths:
                 generated: '2016-09-21T14:11:34.131Z'
                 period_end: '2016-09-30T23:59:59.999Z'
                 period_start: 2016-09-01T00:00.000Z
+                sda_tokens: 700
               billing_data:
                 active_devices: 100
                 firmware_updates: 100
                 generated: '2016-09-21T14:11:34.131Z'
                 period_end: '2016-09-30T23:59:59.999Z'
                 period_start: 2016-09-01T00:00.000Z
+                sda_tokens: 200
               id: 6cae0aec221911e88f227f51b2f005c0
               month: 2016-09
               object: billing-report
@@ -13525,6 +13532,7 @@ paths:
                   generated: '2016-09-21T14:11:34.131Z'
                   period_end: '2016-09-30T23:59:59.999Z'
                   period_start: 2016-09-01T00:00.000Z
+                  sda_tokens: 300
                 service_package:
                   quota_usage:
                   - amount: -20
@@ -13550,6 +13558,7 @@ paths:
                   generated: '2016-09-21T14:11:34.131Z'
                   period_end: '2016-09-30T23:59:59.999Z'
                   period_start: 2016-09-01T00:00.000Z
+                  sda_tokens: 200
                 service_package:
                   quota_usage:
                   - amount: -30
@@ -13733,10 +13742,10 @@ paths:
 
         are included in their aggregator''s raw billing data of the firmware updates.
 
-        The endpoint returns the URL to download the gzipped CSV file. The first line
-        is the header providing information on the firmware updates.
 
-        For example, the ID of an firmware update.
+        The endpoint returns the URL to download the gzipped CSV file. The first line
+        is the header providing information on the firmware updates, for example,
+        the ID of a firmware update.
 
 
         **Example:**
