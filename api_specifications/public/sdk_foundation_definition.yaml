@@ -17864,6 +17864,202 @@ entities:
     type: string
   group_id: Devices
   methods:
+  - _key: add_to_group
+    description: Add one device to a group.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    field_renames: []
+    fields:
+    - _key: device-group-id
+      api_fieldname: device-group-id
+      description: The ID of the group.
+      entity_fieldname: device-group-id
+      external_param: true
+      in: path
+      name: device-group-id
+      parameter_fieldname: device-group-id
+      required: true
+      type: string
+    - _key: id
+      api_fieldname: device_id
+      entity_fieldname: id
+      example: '00000000000000000000000000000000'
+      external_param: false
+      in: body
+      name: device_id
+      parameter_fieldname: device_id
+      required: false
+      schema_param: true
+      type: string
+    group_id: Devices
+    method: post
+    mode: add_to_group
+    operation_id: Group_members_add
+    pagination: false
+    parameter_map:
+      device_id: id
+    path: /v3/device-groups/{device-group-id}/devices/add/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Success - device added.
+    - _key: '400'
+      description: Bad Request.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: device
+    return_type: device
+    summary: Add a device to a group
+    x_deprecation: null
+    x_filter: {}
   - _key: create
     description: Create a new device.
     drop_fields:
@@ -19339,6 +19535,202 @@ entities:
     summary: Get a device
     x_deprecation: null
     x_filter: {}
+  - _key: remove_from_group
+    description: Remove one device from a group.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    field_renames: []
+    fields:
+    - _key: device-group-id
+      api_fieldname: device-group-id
+      description: The ID of the group.
+      entity_fieldname: device-group-id
+      external_param: true
+      in: path
+      name: device-group-id
+      parameter_fieldname: device-group-id
+      required: true
+      type: string
+    - _key: id
+      api_fieldname: device_id
+      entity_fieldname: id
+      example: '00000000000000000000000000000000'
+      external_param: false
+      in: body
+      name: device_id
+      parameter_fieldname: device_id
+      required: false
+      schema_param: true
+      type: string
+    group_id: Devices
+    method: post
+    mode: remove_from_group
+    operation_id: Group_members_remove
+    pagination: false
+    parameter_map:
+      device_id: id
+    path: /v3/device-groups/{device-group-id}/devices/remove/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Success - device removed.
+    - _key: '400'
+      description: Bad Request.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not Found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: device
+    return_type: device
+    summary: Remove a device from a group
+    x_deprecation: null
+    x_filter: {}
   - _key: renew_certificate
     description: 'Request a certificate renewal.
 
@@ -20162,6 +20554,7 @@ entities:
   - DeviceData
   - DeviceDataPostRequest
   - DeviceDataPutRequest
+  - DeviceGroupManipulation
   - DevicePage
   tags:
   - Device security - device certificate renewals
@@ -23838,6 +24231,2549 @@ entities:
   swagger_models:
   - DeviceEventData
   - DeviceEventPage
+  tags: []
+- _key: device_group
+  field_renames: []
+  fields:
+  - _key: created_at
+    api_fieldname: created_at
+    description: The time the campaign was created.
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: custom_attributes
+    additionalProperties:
+      maxLength: 128
+      pattern: ^[A-Za-z].*
+      type: string
+    api_fieldname: custom_attributes
+    description: Up to ten custom key-value attributes. Note that keys cannot begin
+      with a number. Both keys and values are limited to 128 characters. Updating
+      this field replaces existing contents.
+    example:
+      key: value
+    maxProperties: 10
+    readOnly: false
+    required: false
+    type: object
+  - _key: description
+    api_fieldname: description
+    description: The description of the group.
+    example: Devices on the factory floor.
+    maxLength: 2000
+    readOnly: false
+    required: false
+    type: string
+  - _key: devices_count
+    api_fieldname: devices_count
+    description: The number of devices in this group.
+    example: 10
+    readOnly: true
+    required: false
+    type: integer
+  - _key: id
+    api_fieldname: id
+    description: The group ID.
+    example: 015c3029f6f7000000000001001000c3
+    readOnly: false
+    required: true
+    type: string
+  - _key: name
+    api_fieldname: name
+    description: Name of the group.
+    example: My devices
+    maxLength: 128
+    readOnly: false
+    required: false
+    type: string
+  - _key: updated_at
+    api_fieldname: updated_at
+    description: The time the object was updated.
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  group_id: Devices
+  methods:
+  - _key: add_device
+    description: Add one device to a group.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    field_renames: []
+    fields:
+    - _key: device_id
+      api_fieldname: device_id
+      entity_fieldname: device_id
+      example: '00000000000000000000000000000000'
+      external_param: true
+      in: body
+      name: device_id
+      parameter_fieldname: device_id
+      required: false
+      schema_param: true
+      type: string
+    - _key: id
+      api_fieldname: device-group-id
+      description: The ID of the group.
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: device-group-id
+      parameter_fieldname: device-group-id
+      required: true
+      type: string
+    group_id: Devices
+    method: post
+    mode: add_device
+    operation_id: Group_members_add
+    pagination: false
+    parameter_map:
+      device-group-id: id
+    path: /v3/device-groups/{device-group-id}/devices/add/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Success - device added.
+    - _key: '400'
+      description: Bad Request.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_group
+    return_type: device_group
+    summary: Add a device to a group
+    x_deprecation: null
+    x_filter: {}
+  - _key: create
+    description: Create a group.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - id
+    - devices_count
+    - created_at
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: custom_attributes
+      additionalProperties:
+        maxLength: 128
+        pattern: ^[A-Za-z].*
+        type: string
+      api_fieldname: custom_attributes
+      description: Up to ten custom key-value attributes. Note that keys cannot begin
+        with a number. Both keys and values are limited to 128 characters. Updating
+        this field replaces existing contents.
+      entity_fieldname: custom_attributes
+      example:
+        key: value
+      in: body
+      maxProperties: 10
+      name: custom_attributes
+      parameter_fieldname: custom_attributes
+      required: false
+      schema_param: true
+      type: object
+    - _key: description
+      api_fieldname: description
+      description: The description of the group.
+      entity_fieldname: description
+      example: Devices on the factory floor.
+      in: body
+      maxLength: 2000
+      name: description
+      parameter_fieldname: description
+      required: false
+      schema_param: true
+      type: string
+    - _key: name
+      api_fieldname: name
+      description: Name of the group.
+      entity_fieldname: name
+      example: My devices
+      in: body
+      maxLength: 128
+      name: name
+      parameter_fieldname: name
+      required: false
+      schema_param: true
+      type: string
+    group_id: Devices
+    method: post
+    mode: create
+    operation_id: Group_create
+    pagination: false
+    parameter_map:
+      device-group-id: id
+    path: /v3/device-groups/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '201'
+      description: Created.
+      schema:
+        foreign_key:
+          entity: device_group
+          group: Devices
+        properties:
+        - _key: created_at
+          api_fieldname: created_at
+          description: The time the campaign was created.
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: custom_attributes
+          additionalProperties:
+            maxLength: 128
+            pattern: ^[A-Za-z].*
+            type: string
+          api_fieldname: custom_attributes
+          description: Up to ten custom key-value attributes. Note that keys cannot
+            begin with a number. Both keys and values are limited to 128 characters.
+            Updating this field replaces existing contents.
+          entity_fieldname: custom_attributes
+          example:
+            key: value
+          maxProperties: 10
+          type: object
+        - _key: description
+          api_fieldname: description
+          description: The description of the group.
+          entity_fieldname: description
+          example: Devices on the factory floor.
+          maxLength: 2000
+          type: string
+        - _key: devices_count
+          api_fieldname: devices_count
+          description: The number of devices in this group.
+          entity_fieldname: devices_count
+          example: 10
+          type: integer
+        - _key: etag
+          api_fieldname: etag
+          entity_fieldname: etag
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The group ID.
+          entity_fieldname: id
+          example: 015c3029f6f7000000000001001000c3
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: Name of the group.
+          entity_fieldname: name
+          example: My devices
+          maxLength: 128
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''device-group''.'
+          entity_fieldname: object
+          example: device-group
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: The time the object was updated.
+          entity_fieldname: updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        type: object
+    - _key: '400'
+      description: Bad Request.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '409'
+      description: Conflict - Group name already exists.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_group
+    return_type: device_group
+    summary: Create a group
+    x_deprecation: null
+    x_filter: {}
+  - _key: delete
+    description: Delete a group.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    field_renames: []
+    fields:
+    - _key: id
+      api_fieldname: device-group-id
+      description: The ID of the group
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: device-group-id
+      parameter_fieldname: device-group-id
+      required: true
+      type: string
+    group_id: Devices
+    method: delete
+    mode: delete
+    operation_id: Group_delete
+    pagination: false
+    parameter_map:
+      device-group-id: id
+    path: /v3/device-groups/{device-group-id}/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Success - group deleted.
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not Found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_group
+    return_type: device_group
+    summary: Delete a group
+    x_deprecation: null
+    x_filter: {}
+  - _key: devices
+    description: Get a page of devices.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - data
+    - has_more
+    - total_count
+    - account_id__eq
+    - account_id__neq
+    - account_id__in
+    - account_id__nin
+    - auto_update__eq
+    - auto_update__neq
+    - bootstrap_expiration_date__in
+    - bootstrap_expiration_date__nin
+    - bootstrap_expiration_date__lte
+    - bootstrap_expiration_date__gte
+    - bootstrapped_timestamp__in
+    - bootstrapped_timestamp__nin
+    - bootstrapped_timestamp__lte
+    - bootstrapped_timestamp__gte
+    - ca_id__eq
+    - ca_id__neq
+    - ca_id__in
+    - ca_id__nin
+    - connector_expiration_date__in
+    - connector_expiration_date__nin
+    - connector_expiration_date__lte
+    - connector_expiration_date__gte
+    - created_at__in
+    - created_at__nin
+    - created_at__lte
+    - created_at__gte
+    - deployed_state__eq
+    - deployed_state__neq
+    - deployed_state__in
+    - deployed_state__nin
+    - deployment__eq
+    - deployment__neq
+    - deployment__in
+    - deployment__nin
+    - description__eq
+    - description__neq
+    - description__in
+    - description__nin
+    - device_class__eq
+    - device_class__neq
+    - device_class__in
+    - device_class__nin
+    - device_execution_mode__eq
+    - device_execution_mode__neq
+    - device_execution_mode__in
+    - device_execution_mode__nin
+    - device_key__eq
+    - device_key__neq
+    - device_key__in
+    - device_key__nin
+    - endpoint_name__eq
+    - endpoint_name__neq
+    - endpoint_name__in
+    - endpoint_name__nin
+    - endpoint_type__eq
+    - endpoint_type__neq
+    - endpoint_type__in
+    - endpoint_type__nin
+    - enrolment_list_timestamp__in
+    - enrolment_list_timestamp__nin
+    - enrolment_list_timestamp__lte
+    - enrolment_list_timestamp__gte
+    - firmware_checksum__eq
+    - firmware_checksum__neq
+    - firmware_checksum__in
+    - firmware_checksum__nin
+    - host_gateway__eq
+    - host_gateway__neq
+    - host_gateway__in
+    - host_gateway__nin
+    - id__eq
+    - id__neq
+    - id__in
+    - id__nin
+    - manifest__eq
+    - manifest__neq
+    - manifest__in
+    - manifest__nin
+    - manifest_timestamp__in
+    - manifest_timestamp__nin
+    - manifest_timestamp__lte
+    - manifest_timestamp__gte
+    - mechanism__eq
+    - mechanism__neq
+    - mechanism__in
+    - mechanism__nin
+    - mechanism_url__eq
+    - mechanism_url__neq
+    - mechanism_url__in
+    - mechanism_url__nin
+    - name__eq
+    - name__neq
+    - name__in
+    - name__nin
+    - serial_number__eq
+    - serial_number__neq
+    - serial_number__in
+    - serial_number__nin
+    - state__eq
+    - state__neq
+    - state__in
+    - state__nin
+    - updated_at__in
+    - updated_at__nin
+    - updated_at__lte
+    - updated_at__gte
+    - vendor_id__eq
+    - vendor_id__neq
+    - vendor_id__in
+    - vendor_id__nin
+    field_renames: []
+    fields:
+    - _key: after
+      api_fieldname: after
+      description: The ID of The item after which to retrieve the next page.
+      entity_fieldname: after
+      example: '01631667477600000000000100100374'
+      external_param: true
+      in: query
+      name: after
+      parameter_fieldname: after
+      required: false
+      type: string
+    - _key: id
+      api_fieldname: device-group-id
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: device-group-id
+      parameter_fieldname: device-group-id
+      required: true
+      type: string
+    - _key: include
+      api_fieldname: include
+      description: 'Comma-separated list of data fields to return. Currently supported:
+        `total_count`.'
+      entity_fieldname: include
+      external_param: true
+      in: query
+      name: include
+      parameter_fieldname: include
+      required: false
+      type: string
+    - _key: limit
+      api_fieldname: limit
+      description: How many objects to retrieve in the page. The minimum limit is
+        2 and the maximum is 1000. Limit values outside of this range are set to the
+        closest limit.
+      entity_fieldname: limit
+      example: 50
+      external_param: true
+      in: query
+      maximum: 1000
+      minimum: 2
+      name: limit
+      parameter_fieldname: limit
+      required: false
+      type: integer
+    - _key: order
+      api_fieldname: order
+      description: The order of the records based on creation time, `ASC` or `DESC`;
+        by default `ASC`.
+      entity_fieldname: order
+      example: DESC
+      external_param: true
+      in: query
+      name: order
+      parameter_fieldname: order
+      required: false
+      type: string
+    foreign_key:
+      _key: foreign_key
+      entity: device
+      group: Devices
+    group_id: Devices
+    method: get
+    mode: devices
+    operation_id: Group_members_retrieve
+    pagination: true
+    parameter_map:
+      device-group-id: id
+    path: /v3/device-groups/{device-group-id}/devices/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Ok.
+      schema:
+        foreign_key:
+          entity: device
+          group: Devices
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: The ID of The item after which to retrieve the next page.
+          entity_fieldname: after
+          example: '01631667477600000000000100100374'
+          external_param: true
+          in: query
+          name: after
+          parameter_fieldname: after
+          required: false
+          type: string
+        - _key: data
+          api_fieldname: data
+          entity_fieldname: data
+          items:
+          - _key: foreign_key
+            entity: device
+            group: Devices
+          - _key: properties
+            account_id:
+              description: The ID of the associated account.
+              example: '00000000000000000000000000000000'
+              type: string
+            auto_update:
+              description: 'DEPRECATED: Mark this device for automatic firmware update.'
+              type: boolean
+            bootstrap_expiration_date:
+              description: The expiration date of the certificate used to connect
+                to bootstrap server.
+              format: date
+              type: string
+              x-nullable: true
+            bootstrapped_timestamp:
+              description: The timestamp of the device's most recent bootstrap process.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            ca_id:
+              description: The certificate issuer's ID.
+              example: '00000000000000000000000000000000'
+              maxLength: 500
+              type: string
+            connector_expiration_date:
+              description: The expiration date of the certificate used to connect
+                to LwM2M server.
+              format: date
+              type: string
+              x-nullable: true
+            created_at:
+              description: The timestamp of when the device was created in the device
+                directory.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            custom_attributes:
+              additionalProperties:
+                maxLength: 128
+                pattern: ^[A-Za-z].*
+                type: string
+              description: Up to five custom key-value attributes. Note that keys
+                cannot begin with a number. Both keys and values are limited to 128
+                characters. Updating this field replaces existing contents.
+              example:
+                key: value
+              maxProperties: 5
+              type: object
+            deployed_state:
+              description: 'DEPRECATED: The state of the device''s deployment.'
+              enum:
+              - development
+              - production
+              type: string
+            deployment:
+              description: 'DEPRECATED: The last deployment used on the device.'
+              example: ''
+              type: string
+            description:
+              description: The description of the device.
+              example: description
+              maxLength: 2000
+              type: string
+            device_class:
+              description: An ID representing the model and hardware revision of the
+                device.
+              example: ''
+              maxLength: 32
+              type: string
+            device_execution_mode:
+              description: "The execution mode from the certificate of the device.\
+                \ Defaults to inheriting from host_gateway device.\nPermitted values:\n\
+                \  - 0 - unspecified execution mode (default if host_gateway invalid\
+                \ or not set)\n  - 1 - development devices\n  - 5 - production devices"
+              enum:
+              - 0
+              - 1
+              - 5
+              example: 0
+              type: integer
+            device_key:
+              description: The fingerprint of the device certificate.
+              example: 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
+              maxLength: 512
+              type: string
+            endpoint_name:
+              description: The endpoint name given to the device.
+              example: 00000000-0000-0000-0000-000000000000
+              readOnly: true
+              type: string
+            endpoint_type:
+              description: The endpoint type of the device. For example, the device
+                is a gateway.
+              example: ''
+              maxLength: 64
+              type: string
+            enrolment_list_timestamp:
+              description: The claim date/time.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            etag:
+              description: The entity instance signature.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            firmware_checksum:
+              description: The SHA256 checksum of the current firmware image.
+              example: '0000000000000000000000000000000000000000000000000000000000000000'
+              type: string
+            groups:
+              description: An array containing an ID of each group this device belongs
+                to.
+              items:
+                example: '00000000000000000000000000000000'
+                type: string
+              type: array
+            host_gateway:
+              description: The ID of the host gateway, if appropriate.
+              example: ''
+              type: string
+            id:
+              description: The ID of the device. The device ID is used across all
+                Device Management APIs.
+              example: '00000000000000000000000000000000'
+              type: string
+            issuer_fingerprint:
+              description: SHA256 fingerprint of the certificate used to validate
+                the signature of the device certificate.
+              example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
+              pattern: '[A-Fa-f0-9]{64}'
+              type: string
+              x-nullable: true
+            manifest:
+              description: 'DEPRECATED: The URL for the current device manifest.'
+              example: ''
+              type: string
+            manifest_timestamp:
+              description: The timestamp of the current manifest version.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            mechanism:
+              description: The ID of the channel used to communicate with the device.
+              enum:
+              - connector
+              - direct
+              type: string
+            mechanism_url:
+              description: The address of the connector to use.
+              example: ''
+              type: string
+            name:
+              description: The name of the device.
+              example: 00000000-0000-0000-0000-000000000000
+              maxLength: 128
+              type: string
+            object:
+              description: The API resource entity.
+              example: device
+              type: string
+            serial_number:
+              description: The serial number of the device.
+              example: 00000000-0000-0000-0000-000000000000
+              type: string
+            state:
+              description: The current state of the device.
+              enum:
+              - unenrolled
+              - cloud_enrolling
+              - bootstrapped
+              - registered
+              - deregistered
+              type: string
+            updated_at:
+              description: The time the object was updated.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            vendor_id:
+              description: The device vendor ID.
+              example: 00000000-0000-0000-0000-000000000000
+              type: string
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: Are there more results available.
+          entity_fieldname: has_more
+          example: false
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: How many objects to retrieve in the page. The minimum limit
+            is 2 and the maximum is 1000. Limit values outside of this range are set
+            to the closest limit.
+          entity_fieldname: limit
+          example: 50
+          external_param: true
+          in: query
+          maximum: 1000
+          minimum: 2
+          name: limit
+          parameter_fieldname: limit
+          required: false
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: The type of this API object is a "list".
+          entity_fieldname: object
+          example: list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: The order of the records based on creation time, `ASC` or `DESC`;
+            by default `ASC`.
+          entity_fieldname: order
+          example: DESC
+          external_param: true
+          in: query
+          name: order
+          parameter_fieldname: order
+          required: false
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          entity_fieldname: total_count
+          example: 1
+          format: integer
+          type: integer
+    - _key: '400'
+      description: Bad Request.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: false
+      type: device
+    return_type: paginated_response(device)
+    summary: Get a page of devices
+    x_deprecation: null
+    x_filter:
+      account_id:
+      - eq
+      - neq
+      - in
+      - nin
+      auto_update:
+      - eq
+      - neq
+      bootstrap_expiration_date:
+      - in
+      - nin
+      - lte
+      - gte
+      bootstrapped_timestamp:
+      - in
+      - nin
+      - lte
+      - gte
+      ca_id:
+      - eq
+      - neq
+      - in
+      - nin
+      connector_expiration_date:
+      - in
+      - nin
+      - lte
+      - gte
+      created_at:
+      - in
+      - nin
+      - lte
+      - gte
+      deployed_state:
+      - eq
+      - neq
+      - in
+      - nin
+      deployment:
+      - eq
+      - neq
+      - in
+      - nin
+      description:
+      - eq
+      - neq
+      - in
+      - nin
+      device_class:
+      - eq
+      - neq
+      - in
+      - nin
+      device_execution_mode:
+      - eq
+      - neq
+      - in
+      - nin
+      device_key:
+      - eq
+      - neq
+      - in
+      - nin
+      endpoint_name:
+      - eq
+      - neq
+      - in
+      - nin
+      endpoint_type:
+      - eq
+      - neq
+      - in
+      - nin
+      enrolment_list_timestamp:
+      - in
+      - nin
+      - lte
+      - gte
+      firmware_checksum:
+      - eq
+      - neq
+      - in
+      - nin
+      host_gateway:
+      - eq
+      - neq
+      - in
+      - nin
+      id:
+      - eq
+      - neq
+      - in
+      - nin
+      manifest:
+      - eq
+      - neq
+      - in
+      - nin
+      manifest_timestamp:
+      - in
+      - nin
+      - lte
+      - gte
+      mechanism:
+      - eq
+      - neq
+      - in
+      - nin
+      mechanism_url:
+      - eq
+      - neq
+      - in
+      - nin
+      name:
+      - eq
+      - neq
+      - in
+      - nin
+      serial_number:
+      - eq
+      - neq
+      - in
+      - nin
+      state:
+      - eq
+      - neq
+      - in
+      - nin
+      updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+      vendor_id:
+      - eq
+      - neq
+      - in
+      - nin
+  - _key: list
+    description: List all groups.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - data
+    - has_more
+    - total_count
+    - id__eq
+    - id__neq
+    - id__in
+    - id__nin
+    - devices_count__eq
+    - devices_count__neq
+    - devices_count__in
+    - devices_count__nin
+    - devices_count__lte
+    - devices_count__gte
+    - name__eq
+    - name__neq
+    - name__in
+    - name__nin
+    - custom_attributes__eq
+    - custom_attributes__neq
+    - created_at__in
+    - created_at__nin
+    - created_at__lte
+    - created_at__gte
+    - updated_at__in
+    - updated_at__nin
+    - updated_at__lte
+    - updated_at__gte
+    field_renames: []
+    fields:
+    - _key: after
+      api_fieldname: after
+      description: The ID of The item after which to retrieve the next page.
+      entity_fieldname: after
+      example: '01631667477600000000000100100374'
+      external_param: true
+      in: query
+      name: after
+      parameter_fieldname: after
+      required: false
+      type: string
+    - _key: include
+      api_fieldname: include
+      description: 'Comma-separated list of data fields to return. Currently supported:
+        `total_count`.'
+      entity_fieldname: include
+      external_param: true
+      in: query
+      name: include
+      parameter_fieldname: include
+      required: false
+      type: string
+    - _key: limit
+      api_fieldname: limit
+      description: How many objects to retrieve in the page. The minimum limit is
+        2 and the maximum is 1000. Limit values outside of this range are set to the
+        closest limit.
+      entity_fieldname: limit
+      example: 50
+      external_param: true
+      in: query
+      maximum: 1000
+      minimum: 2
+      name: limit
+      parameter_fieldname: limit
+      required: false
+      type: integer
+    - _key: order
+      api_fieldname: order
+      description: The order of the records based on creation time, `ASC` or `DESC`;
+        by default `ASC`.
+      entity_fieldname: order
+      example: DESC
+      external_param: true
+      in: query
+      name: order
+      parameter_fieldname: order
+      required: false
+      type: string
+    foreign_key:
+      entity: device_group
+      group: Devices
+    foreign_key_priority: self
+    group_id: Devices
+    method: get
+    mode: list
+    operation_id: Group_list
+    pagination: true
+    parameter_map:
+      device-group-id: id
+    path: /v3/device-groups/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Ok.
+      schema:
+        foreign_key:
+          entity: device_group
+          group: Devices
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: An offset token for current page.
+          entity_fieldname: after
+          example: '01631667477600000000000100100374'
+          type: string
+        - _key: data
+          api_fieldname: data
+          entity_fieldname: data
+          items:
+            foreign_key:
+              entity: device_group
+              group: Devices
+            properties:
+            - _key: created_at
+              description: The time the campaign was created.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            - _key: custom_attributes
+              additionalProperties:
+                maxLength: 128
+                pattern: ^[A-Za-z].*
+                type: string
+              description: Up to ten custom key-value attributes. Note that keys cannot
+                begin with a number. Both keys and values are limited to 128 characters.
+                Updating this field replaces existing contents.
+              example:
+                key: value
+              maxProperties: 10
+              type: object
+            - _key: description
+              description: The description of the group.
+              example: Devices on the factory floor.
+              maxLength: 2000
+              type: string
+            - _key: devices_count
+              description: The number of devices in this group.
+              example: 10
+              type: integer
+            - _key: etag
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            - _key: id
+              description: The group ID.
+              example: 015c3029f6f7000000000001001000c3
+              type: string
+            - _key: name
+              description: Name of the group.
+              example: My devices
+              maxLength: 128
+              type: string
+            - _key: object
+              description: 'Entity name: always ''device-group''.'
+              example: device-group
+              type: string
+            - _key: updated_at
+              description: The time the object was updated.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            type: object
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: Are there more results available.
+          entity_fieldname: has_more
+          example: false
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: How many objects to retrieve in the page. The minimum limit
+            is 2 and the maximum is 1000. Limit values outside of this range are set
+            to the closest limit.
+          entity_fieldname: limit
+          example: 50
+          maximum: 1000
+          minimum: 2
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: The type of this API object is a "list".
+          entity_fieldname: object
+          example: list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: The creation time based order of the entries.
+          entity_fieldname: order
+          example: DESC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          entity_fieldname: total_count
+          example: 1
+          format: integer
+          type: integer
+        type: object
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not Found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_group
+    return_type: paginated_response(device_group)
+    summary: List all groups.
+    x_deprecation: null
+    x_filter:
+      created_at:
+      - in
+      - nin
+      - lte
+      - gte
+      custom_attributes:
+      - eq
+      - neq
+      devices_count:
+      - eq
+      - neq
+      - in
+      - nin
+      - lte
+      - gte
+      id:
+      - eq
+      - neq
+      - in
+      - nin
+      name:
+      - eq
+      - neq
+      - in
+      - nin
+      updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+  - _key: read
+    description: Get a group.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - name
+    - description
+    - custom_attributes
+    - devices_count
+    - created_at
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: id
+      api_fieldname: id
+      description: The group ID.
+      entity_fieldname: id
+      example: 015c3029f6f7000000000001001000c3
+      in: path
+      parameter_fieldname: device-group-id
+      required: true
+      type: string
+    group_id: Devices
+    method: get
+    mode: read
+    operation_id: Group_retrieve
+    pagination: false
+    parameter_map:
+      device-group-id: id
+    path: /v3/device-groups/{device-group-id}/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Ok.
+      schema:
+        foreign_key:
+          entity: device_group
+          group: Devices
+        properties:
+        - _key: created_at
+          api_fieldname: created_at
+          description: The time the campaign was created.
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: custom_attributes
+          additionalProperties:
+            maxLength: 128
+            pattern: ^[A-Za-z].*
+            type: string
+          api_fieldname: custom_attributes
+          description: Up to ten custom key-value attributes. Note that keys cannot
+            begin with a number. Both keys and values are limited to 128 characters.
+            Updating this field replaces existing contents.
+          entity_fieldname: custom_attributes
+          example:
+            key: value
+          maxProperties: 10
+          type: object
+        - _key: description
+          api_fieldname: description
+          description: The description of the group.
+          entity_fieldname: description
+          example: Devices on the factory floor.
+          maxLength: 2000
+          type: string
+        - _key: devices_count
+          api_fieldname: devices_count
+          description: The number of devices in this group.
+          entity_fieldname: devices_count
+          example: 10
+          type: integer
+        - _key: etag
+          api_fieldname: etag
+          entity_fieldname: etag
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The group ID.
+          entity_fieldname: id
+          example: 015c3029f6f7000000000001001000c3
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: Name of the group.
+          entity_fieldname: name
+          example: My devices
+          maxLength: 128
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''device-group''.'
+          entity_fieldname: object
+          example: device-group
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: The time the object was updated.
+          entity_fieldname: updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        type: object
+    - _key: '400'
+      description: Bad request.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not Found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_group
+    return_type: device_group
+    summary: Get a group.
+    x_deprecation: null
+    x_filter: {}
+  - _key: remove_device
+    description: Remove one device from a group.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    field_renames: []
+    fields:
+    - _key: device_id
+      api_fieldname: device_id
+      entity_fieldname: device_id
+      example: '00000000000000000000000000000000'
+      external_param: true
+      in: body
+      name: device_id
+      parameter_fieldname: device_id
+      required: false
+      schema_param: true
+      type: string
+    - _key: id
+      api_fieldname: device-group-id
+      description: The ID of the group.
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: device-group-id
+      parameter_fieldname: device-group-id
+      required: true
+      type: string
+    group_id: Devices
+    method: post
+    mode: remove_device
+    operation_id: Group_members_remove
+    pagination: false
+    parameter_map:
+      device-group-id: id
+    path: /v3/device-groups/{device-group-id}/devices/remove/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Success - device removed.
+    - _key: '400'
+      description: Bad Request.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not Found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_group
+    return_type: device_group
+    summary: Remove a device from a group
+    x_deprecation: null
+    x_filter: {}
+  - _key: update
+    description: Modify the attributes of a group.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - devices_count
+    - created_at
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: custom_attributes
+      additionalProperties:
+        maxLength: 128
+        pattern: ^[A-Za-z].*
+        type: string
+      api_fieldname: custom_attributes
+      description: Up to ten custom key-value attributes. Note that keys cannot begin
+        with a number. Both keys and values are limited to 128 characters. Updating
+        this field replaces existing contents.
+      entity_fieldname: custom_attributes
+      example:
+        key: value
+      in: body
+      maxProperties: 10
+      name: custom_attributes
+      parameter_fieldname: custom_attributes
+      required: false
+      schema_param: true
+      type: object
+    - _key: description
+      api_fieldname: description
+      description: The description of the group.
+      entity_fieldname: description
+      example: Devices on the factory floor.
+      in: body
+      maxLength: 2000
+      name: description
+      parameter_fieldname: description
+      required: false
+      schema_param: true
+      type: string
+    - _key: id
+      api_fieldname: id
+      description: The group ID.
+      entity_fieldname: id
+      example: 015c3029f6f7000000000001001000c3
+      in: path
+      parameter_fieldname: device-group-id
+      required: true
+      type: string
+    - _key: name
+      api_fieldname: name
+      description: Name of the group.
+      entity_fieldname: name
+      example: My devices
+      in: body
+      maxLength: 128
+      name: name
+      parameter_fieldname: name
+      required: false
+      schema_param: true
+      type: string
+    group_id: Devices
+    method: put
+    mode: update
+    operation_id: Group_update
+    pagination: false
+    parameter_map:
+      device-group-id: id
+    path: /v3/device-groups/{device-group-id}/
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Ok.
+      schema:
+        foreign_key:
+          entity: device_group
+          group: Devices
+        properties:
+        - _key: created_at
+          api_fieldname: created_at
+          description: The time the campaign was created.
+          entity_fieldname: created_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: custom_attributes
+          additionalProperties:
+            maxLength: 128
+            pattern: ^[A-Za-z].*
+            type: string
+          api_fieldname: custom_attributes
+          description: Up to ten custom key-value attributes. Note that keys cannot
+            begin with a number. Both keys and values are limited to 128 characters.
+            Updating this field replaces existing contents.
+          entity_fieldname: custom_attributes
+          example:
+            key: value
+          maxProperties: 10
+          type: object
+        - _key: description
+          api_fieldname: description
+          description: The description of the group.
+          entity_fieldname: description
+          example: Devices on the factory floor.
+          maxLength: 2000
+          type: string
+        - _key: devices_count
+          api_fieldname: devices_count
+          description: The number of devices in this group.
+          entity_fieldname: devices_count
+          example: 10
+          type: integer
+        - _key: etag
+          api_fieldname: etag
+          entity_fieldname: etag
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The group ID.
+          entity_fieldname: id
+          example: 015c3029f6f7000000000001001000c3
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: Name of the group.
+          entity_fieldname: name
+          example: My devices
+          maxLength: 128
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''device-group''.'
+          entity_fieldname: object
+          example: device-group
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: The time the object was updated.
+          entity_fieldname: updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        type: object
+    - _key: '400'
+      description: Bad Request.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Not Found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_group
+    return_type: device_group
+    summary: Modify the attributes of a group.
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: id
+  swagger_models:
+  - DeviceGroup
+  - DeviceGroupManipulation
+  - DeviceGroupPage
+  - DevicePage
   tags: []
 - _key: firmware_image
   field_renames:
@@ -43621,6 +46557,7 @@ groups:
 - _key: Devices
   entities:
   - device
+  - device_group
   - device_events
   - device_enrollment_bulk_create
   - device_enrollment_bulk_delete

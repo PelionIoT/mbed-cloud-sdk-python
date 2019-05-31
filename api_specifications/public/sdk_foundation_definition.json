@@ -52,6 +52,7 @@
     {
       "entities": [
         "device",
+        "device_group",
         "device_events",
         "device_enrollment_bulk_create",
         "device_enrollment_bulk_delete",
@@ -23113,10 +23114,295 @@
         "DeviceData",
         "DeviceDataPostRequest",
         "DeviceDataPutRequest",
+        "DeviceGroupManipulation",
         "DevicePage"
       ],
       "primary_key_field": "id",
       "methods": [
+        {
+          "description": "Add one device to a group.",
+          "field_renames": [],
+          "fields": [
+            {
+              "in": "path",
+              "description": "The ID of the group.",
+              "name": "device-group-id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "device-group-id",
+              "api_fieldname": "device-group-id",
+              "external_param": true,
+              "parameter_fieldname": "device-group-id",
+              "_key": "device-group-id"
+            },
+            {
+              "type": "string",
+              "example": "00000000000000000000000000000000",
+              "name": "device_id",
+              "in": "body",
+              "schema_param": true,
+              "entity_fieldname": "id",
+              "api_fieldname": "device_id",
+              "external_param": false,
+              "parameter_fieldname": "device_id",
+              "required": false,
+              "_key": "id"
+            }
+          ],
+          "method": "post",
+          "mode": "add_to_group",
+          "responses": [
+            {
+              "description": "Success - device added.",
+              "_key": "204"
+            },
+            {
+              "description": "Bad Request.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Unauthorized.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Not found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/device-groups/{device-group-id}/devices/add/",
+          "summary": "Add a device to a group",
+          "return_type": "device",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter"
+          ],
+          "group_id": "Devices",
+          "operation_id": "Group_members_add",
+          "parameter_map": {
+            "device_id": "id"
+          },
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "add_to_group"
+        },
         {
           "description": "Create a new device.",
           "field_renames": [],
@@ -24834,6 +25120,290 @@
           "request_content_type": "application/json",
           "request_body": "json",
           "_key": "read"
+        },
+        {
+          "description": "Remove one device from a group.",
+          "field_renames": [],
+          "fields": [
+            {
+              "in": "path",
+              "description": "The ID of the group.",
+              "name": "device-group-id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "device-group-id",
+              "api_fieldname": "device-group-id",
+              "external_param": true,
+              "parameter_fieldname": "device-group-id",
+              "_key": "device-group-id"
+            },
+            {
+              "type": "string",
+              "example": "00000000000000000000000000000000",
+              "name": "device_id",
+              "in": "body",
+              "schema_param": true,
+              "entity_fieldname": "id",
+              "api_fieldname": "device_id",
+              "external_param": false,
+              "parameter_fieldname": "device_id",
+              "required": false,
+              "_key": "id"
+            }
+          ],
+          "method": "post",
+          "mode": "remove_from_group",
+          "responses": [
+            {
+              "description": "Success - device removed.",
+              "_key": "204"
+            },
+            {
+              "description": "Bad Request.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Unauthorized.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Not Found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/device-groups/{device-group-id}/devices/remove/",
+          "summary": "Remove a device from a group",
+          "return_type": "device",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter"
+          ],
+          "group_id": "Devices",
+          "operation_id": "Group_members_remove",
+          "parameter_map": {
+            "device_id": "id"
+          },
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "remove_from_group"
         },
         {
           "description": "Request a certificate renewal.\n\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-length: 0'\n```",
@@ -30758,6 +31328,3409 @@
       "tags": [],
       "group_id": "Devices",
       "_key": "device_events"
+    },
+    {
+      "swagger_models": [
+        "DeviceGroup",
+        "DeviceGroupManipulation",
+        "DeviceGroupPage",
+        "DevicePage"
+      ],
+      "primary_key_field": "id",
+      "methods": [
+        {
+          "description": "Add one device to a group.",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "example": "00000000000000000000000000000000",
+              "name": "device_id",
+              "in": "body",
+              "schema_param": true,
+              "entity_fieldname": "device_id",
+              "api_fieldname": "device_id",
+              "external_param": true,
+              "parameter_fieldname": "device_id",
+              "required": false,
+              "_key": "device_id"
+            },
+            {
+              "in": "path",
+              "description": "The ID of the group.",
+              "name": "device-group-id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "device-group-id",
+              "external_param": false,
+              "parameter_fieldname": "device-group-id",
+              "_key": "id"
+            }
+          ],
+          "method": "post",
+          "mode": "add_device",
+          "responses": [
+            {
+              "description": "Success - device added.",
+              "_key": "204"
+            },
+            {
+              "description": "Bad Request.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Unauthorized.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Not found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/device-groups/{device-group-id}/devices/add/",
+          "summary": "Add a device to a group",
+          "return_type": "device_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter"
+          ],
+          "group_id": "Devices",
+          "parameter_map": {
+            "device-group-id": "id"
+          },
+          "operation_id": "Group_members_add",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "add_device"
+        },
+        {
+          "description": "Create a group.",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "object",
+              "maxProperties": 10,
+              "additionalProperties": {
+                "type": "string",
+                "maxLength": 128,
+                "pattern": "^[A-Za-z].*"
+              },
+              "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+              "example": {
+                "key": "value"
+              },
+              "api_fieldname": "custom_attributes",
+              "entity_fieldname": "custom_attributes",
+              "name": "custom_attributes",
+              "in": "body",
+              "schema_param": true,
+              "parameter_fieldname": "custom_attributes",
+              "required": false,
+              "_key": "custom_attributes"
+            },
+            {
+              "type": "string",
+              "maxLength": 2000,
+              "description": "The description of the group.",
+              "example": "Devices on the factory floor.",
+              "api_fieldname": "description",
+              "entity_fieldname": "description",
+              "name": "description",
+              "in": "body",
+              "schema_param": true,
+              "parameter_fieldname": "description",
+              "required": false,
+              "_key": "description"
+            },
+            {
+              "type": "string",
+              "maxLength": 128,
+              "description": "Name of the group.",
+              "example": "My devices",
+              "api_fieldname": "name",
+              "entity_fieldname": "name",
+              "name": "name",
+              "in": "body",
+              "schema_param": true,
+              "parameter_fieldname": "name",
+              "required": false,
+              "_key": "name"
+            }
+          ],
+          "method": "post",
+          "mode": "create",
+          "responses": [
+            {
+              "description": "Created.",
+              "schema": {
+                "type": "object",
+                "properties": [
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The time the campaign was created.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "type": "object",
+                    "maxProperties": 10,
+                    "additionalProperties": {
+                      "type": "string",
+                      "maxLength": 128,
+                      "pattern": "^[A-Za-z].*"
+                    },
+                    "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "example": {
+                      "key": "value"
+                    },
+                    "api_fieldname": "custom_attributes",
+                    "entity_fieldname": "custom_attributes",
+                    "_key": "custom_attributes"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The description of the group.",
+                    "example": "Devices on the factory floor.",
+                    "api_fieldname": "description",
+                    "entity_fieldname": "description",
+                    "_key": "description"
+                  },
+                  {
+                    "type": "integer",
+                    "description": "The number of devices in this group.",
+                    "example": 10,
+                    "api_fieldname": "devices_count",
+                    "entity_fieldname": "devices_count",
+                    "_key": "devices_count"
+                  },
+                  {
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The group ID.",
+                    "example": "015c3029f6f7000000000001001000c3",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 128,
+                    "description": "Name of the group.",
+                    "example": "My devices",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "_key": "name"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name: always 'device-group'.",
+                    "example": "device-group",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The time the object was updated.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  }
+                ],
+                "foreign_key": {
+                  "group": "Devices",
+                  "entity": "device_group"
+                }
+              },
+              "_key": "201"
+            },
+            {
+              "description": "Bad Request.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Unauthorized.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Conflict - Group name already exists.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "409"
+            }
+          ],
+          "path": "/v3/device-groups/",
+          "summary": "Create a group",
+          "return_type": "device_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "id",
+            "devices_count",
+            "created_at",
+            "updated_at"
+          ],
+          "group_id": "Devices",
+          "parameter_map": {
+            "device-group-id": "id"
+          },
+          "operation_id": "Group_create",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "create"
+        },
+        {
+          "description": "Delete a group.",
+          "field_renames": [],
+          "fields": [
+            {
+              "description": "The ID of the group",
+              "in": "path",
+              "name": "device-group-id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "device-group-id",
+              "external_param": false,
+              "parameter_fieldname": "device-group-id",
+              "_key": "id"
+            }
+          ],
+          "method": "delete",
+          "mode": "delete",
+          "responses": [
+            {
+              "description": "Success - group deleted.",
+              "_key": "204"
+            },
+            {
+              "description": "Unauthorized.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Not Found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/device-groups/{device-group-id}/",
+          "summary": "Delete a group",
+          "return_type": "device_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter"
+          ],
+          "group_id": "Devices",
+          "parameter_map": {
+            "device-group-id": "id"
+          },
+          "operation_id": "Group_delete",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "delete"
+        },
+        {
+          "description": "Get a page of devices.",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "description": "The ID of The item after which to retrieve the next page.",
+              "example": "01631667477600000000000100100374",
+              "api_fieldname": "after",
+              "entity_fieldname": "after",
+              "in": "query",
+              "name": "after",
+              "external_param": true,
+              "parameter_fieldname": "after",
+              "required": false,
+              "_key": "after"
+            },
+            {
+              "in": "path",
+              "name": "device-group-id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "device-group-id",
+              "external_param": false,
+              "parameter_fieldname": "device-group-id",
+              "_key": "id"
+            },
+            {
+              "description": "Comma-separated list of data fields to return. Currently supported: `total_count`.",
+              "in": "query",
+              "name": "include",
+              "type": "string",
+              "entity_fieldname": "include",
+              "api_fieldname": "include",
+              "external_param": true,
+              "parameter_fieldname": "include",
+              "required": false,
+              "_key": "include"
+            },
+            {
+              "type": "integer",
+              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "example": 50,
+              "minimum": 2,
+              "maximum": 1000,
+              "api_fieldname": "limit",
+              "entity_fieldname": "limit",
+              "in": "query",
+              "name": "limit",
+              "external_param": true,
+              "parameter_fieldname": "limit",
+              "required": false,
+              "_key": "limit"
+            },
+            {
+              "type": "string",
+              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+              "example": "DESC",
+              "api_fieldname": "order",
+              "entity_fieldname": "order",
+              "in": "query",
+              "name": "order",
+              "external_param": true,
+              "parameter_fieldname": "order",
+              "required": false,
+              "_key": "order"
+            }
+          ],
+          "method": "get",
+          "mode": "devices",
+          "responses": [
+            {
+              "description": "Ok.",
+              "schema": {
+                "properties": [
+                  {
+                    "type": "string",
+                    "description": "The ID of The item after which to retrieve the next page.",
+                    "example": "01631667477600000000000100100374",
+                    "api_fieldname": "after",
+                    "entity_fieldname": "after",
+                    "in": "query",
+                    "name": "after",
+                    "external_param": true,
+                    "parameter_fieldname": "after",
+                    "required": false,
+                    "_key": "after"
+                  },
+                  {
+                    "items": [
+                      {
+                        "group": "Devices",
+                        "entity": "device",
+                        "_key": "foreign_key"
+                      },
+                      {
+                        "groups": {
+                          "description": "An array containing an ID of each group this device belongs to.",
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "00000000000000000000000000000000"
+                          }
+                        },
+                        "issuer_fingerprint": {
+                          "type": "string",
+                          "pattern": "[A-Fa-f0-9]{64}",
+                          "x-nullable": true,
+                          "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
+                          "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322"
+                        },
+                        "account_id": {
+                          "type": "string",
+                          "description": "The ID of the associated account.",
+                          "example": "00000000000000000000000000000000"
+                        },
+                        "device_execution_mode": {
+                          "enum": [
+                            0,
+                            1,
+                            5
+                          ],
+                          "type": "integer",
+                          "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified execution mode (default if host_gateway invalid or not set)\n  - 1 - development devices\n  - 5 - production devices",
+                          "example": 0
+                        },
+                        "auto_update": {
+                          "type": "boolean",
+                          "description": "DEPRECATED: Mark this device for automatic firmware update."
+                        },
+                        "bootstrap_expiration_date": {
+                          "format": "date",
+                          "type": "string",
+                          "x-nullable": true,
+                          "description": "The expiration date of the certificate used to connect to bootstrap server."
+                        },
+                        "bootstrapped_timestamp": {
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "description": "The timestamp of the device's most recent bootstrap process."
+                        },
+                        "ca_id": {
+                          "type": "string",
+                          "maxLength": 500,
+                          "description": "The certificate issuer's ID.",
+                          "example": "00000000000000000000000000000000"
+                        },
+                        "connector_expiration_date": {
+                          "format": "date",
+                          "type": "string",
+                          "x-nullable": true,
+                          "description": "The expiration date of the certificate used to connect to LwM2M server."
+                        },
+                        "created_at": {
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "description": "The timestamp of when the device was created in the device directory."
+                        },
+                        "custom_attributes": {
+                          "type": "object",
+                          "maxProperties": 5,
+                          "additionalProperties": {
+                            "type": "string",
+                            "maxLength": 128,
+                            "pattern": "^[A-Za-z].*"
+                          },
+                          "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                          "example": {
+                            "key": "value"
+                          }
+                        },
+                        "deployed_state": {
+                          "enum": [
+                            "development",
+                            "production"
+                          ],
+                          "type": "string",
+                          "description": "DEPRECATED: The state of the device's deployment."
+                        },
+                        "deployment": {
+                          "type": "string",
+                          "description": "DEPRECATED: The last deployment used on the device.",
+                          "example": ""
+                        },
+                        "description": {
+                          "type": "string",
+                          "maxLength": 2000,
+                          "description": "The description of the device.",
+                          "example": "description"
+                        },
+                        "device_class": {
+                          "type": "string",
+                          "maxLength": 32,
+                          "description": "An ID representing the model and hardware revision of the device.",
+                          "example": ""
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "The ID of the device. The device ID is used across all Device Management APIs.",
+                          "example": "00000000000000000000000000000000"
+                        },
+                        "device_key": {
+                          "type": "string",
+                          "maxLength": 512,
+                          "description": "The fingerprint of the device certificate.",
+                          "example": "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"
+                        },
+                        "endpoint_name": {
+                          "type": "string",
+                          "description": "The endpoint name given to the device.",
+                          "example": "00000000-0000-0000-0000-000000000000",
+                          "readOnly": true
+                        },
+                        "endpoint_type": {
+                          "type": "string",
+                          "description": "The endpoint type of the device. For example, the device is a gateway.",
+                          "maxLength": 64,
+                          "example": ""
+                        },
+                        "etag": {
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "description": "The entity instance signature."
+                        },
+                        "firmware_checksum": {
+                          "type": "string",
+                          "description": "The SHA256 checksum of the current firmware image.",
+                          "example": "0000000000000000000000000000000000000000000000000000000000000000"
+                        },
+                        "host_gateway": {
+                          "type": "string",
+                          "description": "The ID of the host gateway, if appropriate.",
+                          "example": ""
+                        },
+                        "manifest": {
+                          "type": "string",
+                          "description": "DEPRECATED: The URL for the current device manifest.",
+                          "example": ""
+                        },
+                        "manifest_timestamp": {
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "description": "The timestamp of the current manifest version."
+                        },
+                        "mechanism": {
+                          "enum": [
+                            "connector",
+                            "direct"
+                          ],
+                          "type": "string",
+                          "description": "The ID of the channel used to communicate with the device."
+                        },
+                        "mechanism_url": {
+                          "type": "string",
+                          "description": "The address of the connector to use.",
+                          "example": ""
+                        },
+                        "name": {
+                          "type": "string",
+                          "maxLength": 128,
+                          "description": "The name of the device.",
+                          "example": "00000000-0000-0000-0000-000000000000"
+                        },
+                        "object": {
+                          "type": "string",
+                          "description": "The API resource entity.",
+                          "example": "device"
+                        },
+                        "serial_number": {
+                          "type": "string",
+                          "description": "The serial number of the device.",
+                          "example": "00000000-0000-0000-0000-000000000000"
+                        },
+                        "state": {
+                          "enum": [
+                            "unenrolled",
+                            "cloud_enrolling",
+                            "bootstrapped",
+                            "registered",
+                            "deregistered"
+                          ],
+                          "type": "string",
+                          "description": "The current state of the device."
+                        },
+                        "updated_at": {
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "description": "The time the object was updated."
+                        },
+                        "vendor_id": {
+                          "type": "string",
+                          "description": "The device vendor ID.",
+                          "example": "00000000-0000-0000-0000-000000000000"
+                        },
+                        "enrolment_list_timestamp": {
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "description": "The claim date/time."
+                        },
+                        "_key": "properties"
+                      }
+                    ],
+                    "type": "array",
+                    "api_fieldname": "data",
+                    "entity_fieldname": "data",
+                    "_key": "data"
+                  },
+                  {
+                    "type": "boolean",
+                    "description": "Are there more results available.",
+                    "example": false,
+                    "api_fieldname": "has_more",
+                    "entity_fieldname": "has_more",
+                    "_key": "has_more"
+                  },
+                  {
+                    "type": "integer",
+                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+                    "example": 50,
+                    "minimum": 2,
+                    "maximum": 1000,
+                    "api_fieldname": "limit",
+                    "entity_fieldname": "limit",
+                    "in": "query",
+                    "name": "limit",
+                    "external_param": true,
+                    "parameter_fieldname": "limit",
+                    "required": false,
+                    "_key": "limit"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The type of this API object is a \"list\".",
+                    "example": "list",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+                    "example": "DESC",
+                    "api_fieldname": "order",
+                    "entity_fieldname": "order",
+                    "in": "query",
+                    "name": "order",
+                    "external_param": true,
+                    "parameter_fieldname": "order",
+                    "required": false,
+                    "_key": "order"
+                  },
+                  {
+                    "format": "integer",
+                    "type": "integer",
+                    "example": 1,
+                    "api_fieldname": "total_count",
+                    "entity_fieldname": "total_count",
+                    "_key": "total_count"
+                  }
+                ],
+                "pagination": true,
+                "foreign_key": {
+                  "group": "Devices",
+                  "entity": "device"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Bad Request.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Unauthorized.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Not found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/device-groups/{device-group-id}/devices/",
+          "summary": "Get a page of devices",
+          "return_type": "paginated_response(device)",
+          "return_info": {
+            "self": false,
+            "custom": false,
+            "type": "device"
+          },
+          "x_filter": {
+            "account_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "auto_update": [
+              "eq",
+              "neq"
+            ],
+            "bootstrap_expiration_date": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "bootstrapped_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "ca_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "connector_expiration_date": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "created_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "deployed_state": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "deployment": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "description": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_class": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_execution_mode": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_key": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "endpoint_name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "endpoint_type": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "enrolment_list_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "firmware_checksum": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "host_gateway": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "manifest": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "manifest_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "mechanism": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "mechanism_url": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "serial_number": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "state": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "vendor_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ]
+          },
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "data",
+            "has_more",
+            "total_count",
+            "account_id__eq",
+            "account_id__neq",
+            "account_id__in",
+            "account_id__nin",
+            "auto_update__eq",
+            "auto_update__neq",
+            "bootstrap_expiration_date__in",
+            "bootstrap_expiration_date__nin",
+            "bootstrap_expiration_date__lte",
+            "bootstrap_expiration_date__gte",
+            "bootstrapped_timestamp__in",
+            "bootstrapped_timestamp__nin",
+            "bootstrapped_timestamp__lte",
+            "bootstrapped_timestamp__gte",
+            "ca_id__eq",
+            "ca_id__neq",
+            "ca_id__in",
+            "ca_id__nin",
+            "connector_expiration_date__in",
+            "connector_expiration_date__nin",
+            "connector_expiration_date__lte",
+            "connector_expiration_date__gte",
+            "created_at__in",
+            "created_at__nin",
+            "created_at__lte",
+            "created_at__gte",
+            "deployed_state__eq",
+            "deployed_state__neq",
+            "deployed_state__in",
+            "deployed_state__nin",
+            "deployment__eq",
+            "deployment__neq",
+            "deployment__in",
+            "deployment__nin",
+            "description__eq",
+            "description__neq",
+            "description__in",
+            "description__nin",
+            "device_class__eq",
+            "device_class__neq",
+            "device_class__in",
+            "device_class__nin",
+            "device_execution_mode__eq",
+            "device_execution_mode__neq",
+            "device_execution_mode__in",
+            "device_execution_mode__nin",
+            "device_key__eq",
+            "device_key__neq",
+            "device_key__in",
+            "device_key__nin",
+            "endpoint_name__eq",
+            "endpoint_name__neq",
+            "endpoint_name__in",
+            "endpoint_name__nin",
+            "endpoint_type__eq",
+            "endpoint_type__neq",
+            "endpoint_type__in",
+            "endpoint_type__nin",
+            "enrolment_list_timestamp__in",
+            "enrolment_list_timestamp__nin",
+            "enrolment_list_timestamp__lte",
+            "enrolment_list_timestamp__gte",
+            "firmware_checksum__eq",
+            "firmware_checksum__neq",
+            "firmware_checksum__in",
+            "firmware_checksum__nin",
+            "host_gateway__eq",
+            "host_gateway__neq",
+            "host_gateway__in",
+            "host_gateway__nin",
+            "id__eq",
+            "id__neq",
+            "id__in",
+            "id__nin",
+            "manifest__eq",
+            "manifest__neq",
+            "manifest__in",
+            "manifest__nin",
+            "manifest_timestamp__in",
+            "manifest_timestamp__nin",
+            "manifest_timestamp__lte",
+            "manifest_timestamp__gte",
+            "mechanism__eq",
+            "mechanism__neq",
+            "mechanism__in",
+            "mechanism__nin",
+            "mechanism_url__eq",
+            "mechanism_url__neq",
+            "mechanism_url__in",
+            "mechanism_url__nin",
+            "name__eq",
+            "name__neq",
+            "name__in",
+            "name__nin",
+            "serial_number__eq",
+            "serial_number__neq",
+            "serial_number__in",
+            "serial_number__nin",
+            "state__eq",
+            "state__neq",
+            "state__in",
+            "state__nin",
+            "updated_at__in",
+            "updated_at__nin",
+            "updated_at__lte",
+            "updated_at__gte",
+            "vendor_id__eq",
+            "vendor_id__neq",
+            "vendor_id__in",
+            "vendor_id__nin"
+          ],
+          "group_id": "Devices",
+          "parameter_map": {
+            "device-group-id": "id"
+          },
+          "operation_id": "Group_members_retrieve",
+          "pagination": true,
+          "foreign_key": {
+            "group": "Devices",
+            "entity": "device",
+            "_key": "foreign_key"
+          },
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "devices"
+        },
+        {
+          "description": "List all groups.",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "description": "The ID of The item after which to retrieve the next page.",
+              "example": "01631667477600000000000100100374",
+              "api_fieldname": "after",
+              "entity_fieldname": "after",
+              "in": "query",
+              "name": "after",
+              "external_param": true,
+              "parameter_fieldname": "after",
+              "required": false,
+              "_key": "after"
+            },
+            {
+              "description": "Comma-separated list of data fields to return. Currently supported: `total_count`.",
+              "in": "query",
+              "name": "include",
+              "type": "string",
+              "entity_fieldname": "include",
+              "api_fieldname": "include",
+              "external_param": true,
+              "parameter_fieldname": "include",
+              "required": false,
+              "_key": "include"
+            },
+            {
+              "type": "integer",
+              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "example": 50,
+              "minimum": 2,
+              "maximum": 1000,
+              "api_fieldname": "limit",
+              "entity_fieldname": "limit",
+              "in": "query",
+              "name": "limit",
+              "external_param": true,
+              "parameter_fieldname": "limit",
+              "required": false,
+              "_key": "limit"
+            },
+            {
+              "type": "string",
+              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+              "example": "DESC",
+              "api_fieldname": "order",
+              "entity_fieldname": "order",
+              "in": "query",
+              "name": "order",
+              "external_param": true,
+              "parameter_fieldname": "order",
+              "required": false,
+              "_key": "order"
+            }
+          ],
+          "method": "get",
+          "mode": "list",
+          "responses": [
+            {
+              "description": "Ok.",
+              "schema": {
+                "type": "object",
+                "properties": [
+                  {
+                    "type": "string",
+                    "description": "An offset token for current page.",
+                    "example": "01631667477600000000000100100374",
+                    "api_fieldname": "after",
+                    "entity_fieldname": "after",
+                    "_key": "after"
+                  },
+                  {
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The time the campaign was created.",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "object",
+                          "maxProperties": 10,
+                          "additionalProperties": {
+                            "type": "string",
+                            "maxLength": 128,
+                            "pattern": "^[A-Za-z].*"
+                          },
+                          "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                          "example": {
+                            "key": "value"
+                          },
+                          "_key": "custom_attributes"
+                        },
+                        {
+                          "type": "string",
+                          "maxLength": 2000,
+                          "description": "The description of the group.",
+                          "example": "Devices on the factory floor.",
+                          "_key": "description"
+                        },
+                        {
+                          "type": "integer",
+                          "description": "The number of devices in this group.",
+                          "example": 10,
+                          "_key": "devices_count"
+                        },
+                        {
+                          "format": "date-time",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "type": "string",
+                          "_key": "etag"
+                        },
+                        {
+                          "type": "string",
+                          "description": "The group ID.",
+                          "example": "015c3029f6f7000000000001001000c3",
+                          "_key": "id"
+                        },
+                        {
+                          "type": "string",
+                          "maxLength": 128,
+                          "description": "Name of the group.",
+                          "example": "My devices",
+                          "_key": "name"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'device-group'.",
+                          "example": "device-group",
+                          "_key": "object"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The time the object was updated.",
+                          "example": "2017-05-22T12:37:55.576563Z",
+                          "_key": "updated_at"
+                        }
+                      ],
+                      "foreign_key": {
+                        "group": "Devices",
+                        "entity": "device_group"
+                      }
+                    },
+                    "type": "array",
+                    "api_fieldname": "data",
+                    "entity_fieldname": "data",
+                    "_key": "data"
+                  },
+                  {
+                    "type": "boolean",
+                    "description": "Are there more results available.",
+                    "example": false,
+                    "api_fieldname": "has_more",
+                    "entity_fieldname": "has_more",
+                    "_key": "has_more"
+                  },
+                  {
+                    "type": "integer",
+                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+                    "example": 50,
+                    "minimum": 2,
+                    "maximum": 1000,
+                    "api_fieldname": "limit",
+                    "entity_fieldname": "limit",
+                    "_key": "limit"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The type of this API object is a \"list\".",
+                    "example": "list",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The creation time based order of the entries.",
+                    "example": "DESC",
+                    "api_fieldname": "order",
+                    "entity_fieldname": "order",
+                    "_key": "order"
+                  },
+                  {
+                    "format": "integer",
+                    "type": "integer",
+                    "example": 1,
+                    "api_fieldname": "total_count",
+                    "entity_fieldname": "total_count",
+                    "_key": "total_count"
+                  }
+                ],
+                "pagination": true,
+                "foreign_key": {
+                  "group": "Devices",
+                  "entity": "device_group"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Unauthorized.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Not Found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/device-groups/",
+          "summary": "List all groups.",
+          "return_type": "paginated_response(device_group)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_group"
+          },
+          "x_filter": {
+            "id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "devices_count": [
+              "eq",
+              "neq",
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "custom_attributes": [
+              "eq",
+              "neq"
+            ],
+            "created_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ]
+          },
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "data",
+            "has_more",
+            "total_count",
+            "id__eq",
+            "id__neq",
+            "id__in",
+            "id__nin",
+            "devices_count__eq",
+            "devices_count__neq",
+            "devices_count__in",
+            "devices_count__nin",
+            "devices_count__lte",
+            "devices_count__gte",
+            "name__eq",
+            "name__neq",
+            "name__in",
+            "name__nin",
+            "custom_attributes__eq",
+            "custom_attributes__neq",
+            "created_at__in",
+            "created_at__nin",
+            "created_at__lte",
+            "created_at__gte",
+            "updated_at__in",
+            "updated_at__nin",
+            "updated_at__lte",
+            "updated_at__gte"
+          ],
+          "foreign_key_priority": "self",
+          "group_id": "Devices",
+          "parameter_map": {
+            "device-group-id": "id"
+          },
+          "operation_id": "Group_list",
+          "pagination": true,
+          "foreign_key": {
+            "group": "Devices",
+            "entity": "device_group"
+          },
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "list"
+        },
+        {
+          "description": "Get a group.",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "description": "The group ID.",
+              "example": "015c3029f6f7000000000001001000c3",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "device-group-id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
+            }
+          ],
+          "method": "get",
+          "mode": "read",
+          "responses": [
+            {
+              "description": "Ok.",
+              "schema": {
+                "type": "object",
+                "properties": [
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The time the campaign was created.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "type": "object",
+                    "maxProperties": 10,
+                    "additionalProperties": {
+                      "type": "string",
+                      "maxLength": 128,
+                      "pattern": "^[A-Za-z].*"
+                    },
+                    "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "example": {
+                      "key": "value"
+                    },
+                    "api_fieldname": "custom_attributes",
+                    "entity_fieldname": "custom_attributes",
+                    "_key": "custom_attributes"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The description of the group.",
+                    "example": "Devices on the factory floor.",
+                    "api_fieldname": "description",
+                    "entity_fieldname": "description",
+                    "_key": "description"
+                  },
+                  {
+                    "type": "integer",
+                    "description": "The number of devices in this group.",
+                    "example": 10,
+                    "api_fieldname": "devices_count",
+                    "entity_fieldname": "devices_count",
+                    "_key": "devices_count"
+                  },
+                  {
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The group ID.",
+                    "example": "015c3029f6f7000000000001001000c3",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 128,
+                    "description": "Name of the group.",
+                    "example": "My devices",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "_key": "name"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name: always 'device-group'.",
+                    "example": "device-group",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The time the object was updated.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  }
+                ],
+                "foreign_key": {
+                  "group": "Devices",
+                  "entity": "device_group"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Bad request.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Unauthorized.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Not Found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/device-groups/{device-group-id}/",
+          "summary": "Get a group.",
+          "return_type": "device_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "name",
+            "description",
+            "custom_attributes",
+            "devices_count",
+            "created_at",
+            "updated_at"
+          ],
+          "group_id": "Devices",
+          "parameter_map": {
+            "device-group-id": "id"
+          },
+          "operation_id": "Group_retrieve",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "read"
+        },
+        {
+          "description": "Remove one device from a group.",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "example": "00000000000000000000000000000000",
+              "name": "device_id",
+              "in": "body",
+              "schema_param": true,
+              "entity_fieldname": "device_id",
+              "api_fieldname": "device_id",
+              "external_param": true,
+              "parameter_fieldname": "device_id",
+              "required": false,
+              "_key": "device_id"
+            },
+            {
+              "in": "path",
+              "description": "The ID of the group.",
+              "name": "device-group-id",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "device-group-id",
+              "external_param": false,
+              "parameter_fieldname": "device-group-id",
+              "_key": "id"
+            }
+          ],
+          "method": "post",
+          "mode": "remove_device",
+          "responses": [
+            {
+              "description": "Success - device removed.",
+              "_key": "204"
+            },
+            {
+              "description": "Bad Request.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Unauthorized.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Not Found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/device-groups/{device-group-id}/devices/remove/",
+          "summary": "Remove a device from a group",
+          "return_type": "device_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter"
+          ],
+          "group_id": "Devices",
+          "parameter_map": {
+            "device-group-id": "id"
+          },
+          "operation_id": "Group_members_remove",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "remove_device"
+        },
+        {
+          "description": "Modify the attributes of a group.",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "object",
+              "maxProperties": 10,
+              "additionalProperties": {
+                "type": "string",
+                "maxLength": 128,
+                "pattern": "^[A-Za-z].*"
+              },
+              "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+              "example": {
+                "key": "value"
+              },
+              "api_fieldname": "custom_attributes",
+              "entity_fieldname": "custom_attributes",
+              "name": "custom_attributes",
+              "in": "body",
+              "schema_param": true,
+              "parameter_fieldname": "custom_attributes",
+              "required": false,
+              "_key": "custom_attributes"
+            },
+            {
+              "type": "string",
+              "maxLength": 2000,
+              "description": "The description of the group.",
+              "example": "Devices on the factory floor.",
+              "api_fieldname": "description",
+              "entity_fieldname": "description",
+              "name": "description",
+              "in": "body",
+              "schema_param": true,
+              "parameter_fieldname": "description",
+              "required": false,
+              "_key": "description"
+            },
+            {
+              "type": "string",
+              "description": "The group ID.",
+              "example": "015c3029f6f7000000000001001000c3",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "device-group-id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
+            },
+            {
+              "type": "string",
+              "maxLength": 128,
+              "description": "Name of the group.",
+              "example": "My devices",
+              "api_fieldname": "name",
+              "entity_fieldname": "name",
+              "name": "name",
+              "in": "body",
+              "schema_param": true,
+              "parameter_fieldname": "name",
+              "required": false,
+              "_key": "name"
+            }
+          ],
+          "method": "put",
+          "mode": "update",
+          "responses": [
+            {
+              "description": "Ok.",
+              "schema": {
+                "type": "object",
+                "properties": [
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The time the campaign was created.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "type": "object",
+                    "maxProperties": 10,
+                    "additionalProperties": {
+                      "type": "string",
+                      "maxLength": 128,
+                      "pattern": "^[A-Za-z].*"
+                    },
+                    "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "example": {
+                      "key": "value"
+                    },
+                    "api_fieldname": "custom_attributes",
+                    "entity_fieldname": "custom_attributes",
+                    "_key": "custom_attributes"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The description of the group.",
+                    "example": "Devices on the factory floor.",
+                    "api_fieldname": "description",
+                    "entity_fieldname": "description",
+                    "_key": "description"
+                  },
+                  {
+                    "type": "integer",
+                    "description": "The number of devices in this group.",
+                    "example": 10,
+                    "api_fieldname": "devices_count",
+                    "entity_fieldname": "devices_count",
+                    "_key": "devices_count"
+                  },
+                  {
+                    "format": "date-time",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "type": "string",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The group ID.",
+                    "example": "015c3029f6f7000000000001001000c3",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 128,
+                    "description": "Name of the group.",
+                    "example": "My devices",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "_key": "name"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name: always 'device-group'.",
+                    "example": "device-group",
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The time the object was updated.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  }
+                ],
+                "foreign_key": {
+                  "group": "Devices",
+                  "entity": "device_group"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Bad Request.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Unauthorized.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Not Found.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/device-groups/{device-group-id}/",
+          "summary": "Modify the attributes of a group.",
+          "return_type": "device_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "groups",
+            "filter",
+            "devices_count",
+            "created_at",
+            "updated_at"
+          ],
+          "group_id": "Devices",
+          "parameter_map": {
+            "device-group-id": "id"
+          },
+          "operation_id": "Group_update",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "update"
+        }
+      ],
+      "fields": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time the campaign was created.",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "api_fieldname": "created_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "created_at"
+        },
+        {
+          "type": "object",
+          "maxProperties": 10,
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 128,
+            "pattern": "^[A-Za-z].*"
+          },
+          "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+          "example": {
+            "key": "value"
+          },
+          "api_fieldname": "custom_attributes",
+          "readOnly": false,
+          "required": false,
+          "_key": "custom_attributes"
+        },
+        {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "The description of the group.",
+          "example": "Devices on the factory floor.",
+          "api_fieldname": "description",
+          "readOnly": false,
+          "required": false,
+          "_key": "description"
+        },
+        {
+          "type": "integer",
+          "description": "The number of devices in this group.",
+          "example": 10,
+          "api_fieldname": "devices_count",
+          "readOnly": true,
+          "required": false,
+          "_key": "devices_count"
+        },
+        {
+          "type": "string",
+          "description": "The group ID.",
+          "example": "015c3029f6f7000000000001001000c3",
+          "api_fieldname": "id",
+          "readOnly": false,
+          "required": true,
+          "_key": "id"
+        },
+        {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Name of the group.",
+          "example": "My devices",
+          "api_fieldname": "name",
+          "readOnly": false,
+          "required": false,
+          "_key": "name"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time the object was updated.",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "api_fieldname": "updated_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "updated_at"
+        }
+      ],
+      "field_renames": [],
+      "tags": [],
+      "group_id": "Devices",
+      "_key": "device_group"
     },
     {
       "swagger_models": [
