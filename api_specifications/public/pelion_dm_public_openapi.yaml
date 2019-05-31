@@ -17478,146 +17478,461 @@ paths:
         in: query
         name: filter
         type: string
+      - description: eq filter for the "account_id" field
+        in: query
+        name: account_id__eq
+        type: string
+      - description: neq filter for the "account_id" field
+        in: query
+        name: account_id__neq
+        type: string
+      - description: in filter for the "account_id" field
+        in: query
+        name: account_id__in
+        type: string
+      - description: nin filter for the "account_id" field
+        in: query
+        name: account_id__nin
+        type: string
+      - description: eq filter for the "auto_update" field
+        in: query
+        name: auto_update__eq
+        type: boolean
+      - description: neq filter for the "auto_update" field
+        in: query
+        name: auto_update__neq
+        type: boolean
+      - description: in filter for the "bootstrap_expiration_date" field
+        in: query
+        name: bootstrap_expiration_date__in
+        type: string
+      - description: nin filter for the "bootstrap_expiration_date" field
+        in: query
+        name: bootstrap_expiration_date__nin
+        type: string
+      - description: lte filter for the "bootstrap_expiration_date" field
+        format: date
+        in: query
+        name: bootstrap_expiration_date__lte
+        type: string
+      - description: gte filter for the "bootstrap_expiration_date" field
+        format: date
+        in: query
+        name: bootstrap_expiration_date__gte
+        type: string
+      - description: in filter for the "bootstrapped_timestamp" field
+        in: query
+        name: bootstrapped_timestamp__in
+        type: string
+      - description: nin filter for the "bootstrapped_timestamp" field
+        in: query
+        name: bootstrapped_timestamp__nin
+        type: string
+      - description: lte filter for the "bootstrapped_timestamp" field
+        format: date-time
+        in: query
+        name: bootstrapped_timestamp__lte
+        type: string
+      - description: gte filter for the "bootstrapped_timestamp" field
+        format: date-time
+        in: query
+        name: bootstrapped_timestamp__gte
+        type: string
+      - description: eq filter for the "ca_id" field
+        in: query
+        name: ca_id__eq
+        type: string
+      - description: neq filter for the "ca_id" field
+        in: query
+        name: ca_id__neq
+        type: string
+      - description: in filter for the "ca_id" field
+        in: query
+        name: ca_id__in
+        type: string
+      - description: nin filter for the "ca_id" field
+        in: query
+        name: ca_id__nin
+        type: string
+      - description: in filter for the "connector_expiration_date" field
+        in: query
+        name: connector_expiration_date__in
+        type: string
+      - description: nin filter for the "connector_expiration_date" field
+        in: query
+        name: connector_expiration_date__nin
+        type: string
+      - description: lte filter for the "connector_expiration_date" field
+        format: date
+        in: query
+        name: connector_expiration_date__lte
+        type: string
+      - description: gte filter for the "connector_expiration_date" field
+        format: date
+        in: query
+        name: connector_expiration_date__gte
+        type: string
+      - description: in filter for the "created_at" field
+        in: query
+        name: created_at__in
+        type: string
+      - description: nin filter for the "created_at" field
+        in: query
+        name: created_at__nin
+        type: string
+      - description: lte filter for the "created_at" field
+        format: date-time
+        in: query
+        name: created_at__lte
+        type: string
+      - description: gte filter for the "created_at" field
+        format: date-time
+        in: query
+        name: created_at__gte
+        type: string
+      - description: eq filter for the "deployed_state" field
+        in: query
+        name: deployed_state__eq
+        type: string
+      - description: neq filter for the "deployed_state" field
+        in: query
+        name: deployed_state__neq
+        type: string
+      - description: in filter for the "deployed_state" field
+        in: query
+        name: deployed_state__in
+        type: string
+      - description: nin filter for the "deployed_state" field
+        in: query
+        name: deployed_state__nin
+        type: string
+      - description: eq filter for the "deployment" field
+        in: query
+        name: deployment__eq
+        type: string
+      - description: neq filter for the "deployment" field
+        in: query
+        name: deployment__neq
+        type: string
+      - description: in filter for the "deployment" field
+        in: query
+        name: deployment__in
+        type: string
+      - description: nin filter for the "deployment" field
+        in: query
+        name: deployment__nin
+        type: string
+      - description: eq filter for the "description" field
+        in: query
+        name: description__eq
+        type: string
+      - description: neq filter for the "description" field
+        in: query
+        name: description__neq
+        type: string
+      - description: in filter for the "description" field
+        in: query
+        name: description__in
+        type: string
+      - description: nin filter for the "description" field
+        in: query
+        name: description__nin
+        type: string
+      - description: eq filter for the "device_class" field
+        in: query
+        name: device_class__eq
+        type: string
+      - description: neq filter for the "device_class" field
+        in: query
+        name: device_class__neq
+        type: string
+      - description: in filter for the "device_class" field
+        in: query
+        name: device_class__in
+        type: string
+      - description: nin filter for the "device_class" field
+        in: query
+        name: device_class__nin
+        type: string
+      - description: eq filter for the "device_execution_mode" field
+        in: query
+        name: device_execution_mode__eq
+        type: integer
+      - description: neq filter for the "device_execution_mode" field
+        in: query
+        name: device_execution_mode__neq
+        type: integer
+      - description: in filter for the "device_execution_mode" field
+        in: query
+        name: device_execution_mode__in
+        type: string
+      - description: nin filter for the "device_execution_mode" field
+        in: query
+        name: device_execution_mode__nin
+        type: string
+      - description: eq filter for the "device_key" field
+        in: query
+        name: device_key__eq
+        type: string
+      - description: neq filter for the "device_key" field
+        in: query
+        name: device_key__neq
+        type: string
+      - description: in filter for the "device_key" field
+        in: query
+        name: device_key__in
+        type: string
+      - description: nin filter for the "device_key" field
+        in: query
+        name: device_key__nin
+        type: string
+      - description: eq filter for the "endpoint_name" field
+        in: query
+        name: endpoint_name__eq
+        type: string
+      - description: neq filter for the "endpoint_name" field
+        in: query
+        name: endpoint_name__neq
+        type: string
+      - description: in filter for the "endpoint_name" field
+        in: query
+        name: endpoint_name__in
+        type: string
+      - description: nin filter for the "endpoint_name" field
+        in: query
+        name: endpoint_name__nin
+        type: string
+      - description: eq filter for the "endpoint_type" field
+        in: query
+        name: endpoint_type__eq
+        type: string
+      - description: neq filter for the "endpoint_type" field
+        in: query
+        name: endpoint_type__neq
+        type: string
+      - description: in filter for the "endpoint_type" field
+        in: query
+        name: endpoint_type__in
+        type: string
+      - description: nin filter for the "endpoint_type" field
+        in: query
+        name: endpoint_type__nin
+        type: string
+      - description: in filter for the "enrolment_list_timestamp" field
+        in: query
+        name: enrolment_list_timestamp__in
+        type: string
+      - description: nin filter for the "enrolment_list_timestamp" field
+        in: query
+        name: enrolment_list_timestamp__nin
+        type: string
+      - description: lte filter for the "enrolment_list_timestamp" field
+        format: date-time
+        in: query
+        name: enrolment_list_timestamp__lte
+        type: string
+      - description: gte filter for the "enrolment_list_timestamp" field
+        format: date-time
+        in: query
+        name: enrolment_list_timestamp__gte
+        type: string
+      - description: eq filter for the "firmware_checksum" field
+        in: query
+        name: firmware_checksum__eq
+        type: string
+      - description: neq filter for the "firmware_checksum" field
+        in: query
+        name: firmware_checksum__neq
+        type: string
+      - description: in filter for the "firmware_checksum" field
+        in: query
+        name: firmware_checksum__in
+        type: string
+      - description: nin filter for the "firmware_checksum" field
+        in: query
+        name: firmware_checksum__nin
+        type: string
+      - description: eq filter for the "host_gateway" field
+        in: query
+        name: host_gateway__eq
+        type: string
+      - description: neq filter for the "host_gateway" field
+        in: query
+        name: host_gateway__neq
+        type: string
+      - description: in filter for the "host_gateway" field
+        in: query
+        name: host_gateway__in
+        type: string
+      - description: nin filter for the "host_gateway" field
+        in: query
+        name: host_gateway__nin
+        type: string
+      - description: eq filter for the "id" field
+        in: query
+        name: id__eq
+        type: string
+      - description: neq filter for the "id" field
+        in: query
+        name: id__neq
+        type: string
+      - description: in filter for the "id" field
+        in: query
+        name: id__in
+        type: string
+      - description: nin filter for the "id" field
+        in: query
+        name: id__nin
+        type: string
+      - description: eq filter for the "manifest" field
+        in: query
+        name: manifest__eq
+        type: string
+      - description: neq filter for the "manifest" field
+        in: query
+        name: manifest__neq
+        type: string
+      - description: in filter for the "manifest" field
+        in: query
+        name: manifest__in
+        type: string
+      - description: nin filter for the "manifest" field
+        in: query
+        name: manifest__nin
+        type: string
+      - description: in filter for the "manifest_timestamp" field
+        in: query
+        name: manifest_timestamp__in
+        type: string
+      - description: nin filter for the "manifest_timestamp" field
+        in: query
+        name: manifest_timestamp__nin
+        type: string
+      - description: lte filter for the "manifest_timestamp" field
+        format: date-time
+        in: query
+        name: manifest_timestamp__lte
+        type: string
+      - description: gte filter for the "manifest_timestamp" field
+        format: date-time
+        in: query
+        name: manifest_timestamp__gte
+        type: string
+      - description: eq filter for the "mechanism" field
+        in: query
+        name: mechanism__eq
+        type: string
+      - description: neq filter for the "mechanism" field
+        in: query
+        name: mechanism__neq
+        type: string
+      - description: in filter for the "mechanism" field
+        in: query
+        name: mechanism__in
+        type: string
+      - description: nin filter for the "mechanism" field
+        in: query
+        name: mechanism__nin
+        type: string
+      - description: eq filter for the "mechanism_url" field
+        in: query
+        name: mechanism_url__eq
+        type: string
+      - description: neq filter for the "mechanism_url" field
+        in: query
+        name: mechanism_url__neq
+        type: string
+      - description: in filter for the "mechanism_url" field
+        in: query
+        name: mechanism_url__in
+        type: string
+      - description: nin filter for the "mechanism_url" field
+        in: query
+        name: mechanism_url__nin
+        type: string
+      - description: eq filter for the "name" field
+        in: query
+        name: name__eq
+        type: string
+      - description: neq filter for the "name" field
+        in: query
+        name: name__neq
+        type: string
+      - description: in filter for the "name" field
+        in: query
+        name: name__in
+        type: string
+      - description: nin filter for the "name" field
+        in: query
+        name: name__nin
+        type: string
+      - description: eq filter for the "serial_number" field
+        in: query
+        name: serial_number__eq
+        type: string
+      - description: neq filter for the "serial_number" field
+        in: query
+        name: serial_number__neq
+        type: string
+      - description: in filter for the "serial_number" field
+        in: query
+        name: serial_number__in
+        type: string
+      - description: nin filter for the "serial_number" field
+        in: query
+        name: serial_number__nin
+        type: string
+      - description: eq filter for the "state" field
+        in: query
+        name: state__eq
+        type: string
+      - description: neq filter for the "state" field
+        in: query
+        name: state__neq
+        type: string
+      - description: in filter for the "state" field
+        in: query
+        name: state__in
+        type: string
+      - description: nin filter for the "state" field
+        in: query
+        name: state__nin
+        type: string
+      - description: in filter for the "updated_at" field
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the "updated_at" field
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the "updated_at" field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the "updated_at" field
+        format: date-time
+        in: query
+        name: updated_at__gte
+        type: string
+      - description: eq filter for the "vendor_id" field
+        in: query
+        name: vendor_id__eq
+        type: string
+      - description: neq filter for the "vendor_id" field
+        in: query
+        name: vendor_id__neq
+        type: string
+      - description: in filter for the "vendor_id" field
+        in: query
+        name: vendor_id__in
+        type: string
+      - description: nin filter for the "vendor_id" field
+        in: query
+        name: vendor_id__nin
+        type: string
       responses:
-        x-filter: &id024
-          account_id:
-          - eq
-          - neq
-          - in
-          - nin
-          auto_update:
-          - eq
-          - neq
-          bootstrap_expiration_date:
-          - in
-          - nin
-          - lte
-          - gte
-          bootstrapped_timestamp:
-          - in
-          - nin
-          - lte
-          - gte
-          ca_id:
-          - eq
-          - neq
-          - in
-          - nin
-          connector_expiration_date:
-          - in
-          - nin
-          - lte
-          - gte
-          created_at:
-          - in
-          - nin
-          - lte
-          - gte
-          deployed_state:
-          - eq
-          - neq
-          - in
-          - nin
-          deployment:
-          - eq
-          - neq
-          - in
-          - nin
-          description:
-          - eq
-          - neq
-          - in
-          - nin
-          device_class:
-          - eq
-          - neq
-          - in
-          - nin
-          device_execution_mode:
-          - eq
-          - neq
-          - in
-          - nin
-          device_key:
-          - eq
-          - neq
-          - in
-          - nin
-          endpoint_name:
-          - eq
-          - neq
-          - in
-          - nin
-          endpoint_type:
-          - eq
-          - neq
-          - in
-          - nin
-          enrolment_list_timestamp:
-          - in
-          - nin
-          - lte
-          - gte
-          firmware_checksum:
-          - eq
-          - neq
-          - in
-          - nin
-          host_gateway:
-          - eq
-          - neq
-          - in
-          - nin
-          id:
-          - eq
-          - neq
-          - in
-          - nin
-          manifest:
-          - eq
-          - neq
-          - in
-          - nin
-          manifest_timestamp:
-          - in
-          - nin
-          - lte
-          - gte
-          mechanism:
-          - eq
-          - neq
-          - in
-          - nin
-          mechanism_url:
-          - eq
-          - neq
-          - in
-          - nin
-          name:
-          - eq
-          - neq
-          - in
-          - nin
-          serial_number:
-          - eq
-          - neq
-          - in
-          - nin
-          state:
-          - eq
-          - neq
-          - in
-          - nin
-          updated_at:
-          - in
-          - nin
-          - lte
-          - gte
-          vendor_id:
-          - eq
-          - neq
-          - in
-          - nin
         200:
           description: Ok.
           schema:
@@ -17635,6 +17950,145 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get a page of devices
+      x-filter: &id024
+        account_id:
+        - eq
+        - neq
+        - in
+        - nin
+        auto_update:
+        - eq
+        - neq
+        bootstrap_expiration_date:
+        - in
+        - nin
+        - lte
+        - gte
+        bootstrapped_timestamp:
+        - in
+        - nin
+        - lte
+        - gte
+        ca_id:
+        - eq
+        - neq
+        - in
+        - nin
+        connector_expiration_date:
+        - in
+        - nin
+        - lte
+        - gte
+        created_at:
+        - in
+        - nin
+        - lte
+        - gte
+        deployed_state:
+        - eq
+        - neq
+        - in
+        - nin
+        deployment:
+        - eq
+        - neq
+        - in
+        - nin
+        description:
+        - eq
+        - neq
+        - in
+        - nin
+        device_class:
+        - eq
+        - neq
+        - in
+        - nin
+        device_execution_mode:
+        - eq
+        - neq
+        - in
+        - nin
+        device_key:
+        - eq
+        - neq
+        - in
+        - nin
+        endpoint_name:
+        - eq
+        - neq
+        - in
+        - nin
+        endpoint_type:
+        - eq
+        - neq
+        - in
+        - nin
+        enrolment_list_timestamp:
+        - in
+        - nin
+        - lte
+        - gte
+        firmware_checksum:
+        - eq
+        - neq
+        - in
+        - nin
+        host_gateway:
+        - eq
+        - neq
+        - in
+        - nin
+        id:
+        - eq
+        - neq
+        - in
+        - nin
+        manifest:
+        - eq
+        - neq
+        - in
+        - nin
+        manifest_timestamp:
+        - in
+        - nin
+        - lte
+        - gte
+        mechanism:
+        - eq
+        - neq
+        - in
+        - nin
+        mechanism_url:
+        - eq
+        - neq
+        - in
+        - nin
+        name:
+        - eq
+        - neq
+        - in
+        - nin
+        serial_number:
+        - eq
+        - neq
+        - in
+        - nin
+        state:
+        - eq
+        - neq
+        - in
+        - nin
+        updated_at:
+        - in
+        - nin
+        - lte
+        - gte
+        vendor_id:
+        - eq
+        - neq
+        - in
+        - nin
   /v3/device-groups/{device-group-id}/devices/add/:
     post:
       description: Add one device to a group.
