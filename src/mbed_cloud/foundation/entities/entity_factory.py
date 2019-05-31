@@ -21,6 +21,7 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.device_enrollment_bulk_delete`
 - :meth:`EntityFactory.device_enrollment_denial`
 - :meth:`EntityFactory.device_events`
+- :meth:`EntityFactory.device_group`
 - :meth:`EntityFactory.firmware_image`
 - :meth:`EntityFactory.firmware_manifest`
 - :meth:`EntityFactory.login_history`
@@ -1050,6 +1051,51 @@ class EntityFactory:
             event_type_description=event_type_description,
             id=id,
             state_change=state_change,
+        )
+
+    def device_group(
+        self,
+        created_at=None,
+        custom_attributes=None,
+        description=None,
+        devices_count=None,
+        id=None,
+        name=None,
+        updated_at=None,
+    ):
+        """Creates a local `DeviceGroup` instance, using the shared SDK context.
+
+        :param created_at: The time the campaign was created.
+        :type created_at: datetime
+        :param custom_attributes: Up to ten custom key-value attributes. Note that keys cannot begin
+            with a number. Both keys and values are limited to 128 characters.
+            Updating this field replaces existing contents.
+        :type custom_attributes: dict
+        :param description: The description of the group.
+        :type description: str
+        :param devices_count: The number of devices in this group.
+        :type devices_count: int
+        :param id: The group ID.
+        :type id: str
+        :param name: Name of the group.
+        :type name: str
+        :param updated_at: The time the object was updated.
+        :type updated_at: datetime
+        
+        :return: A new instance of a DeviceGroup Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.devices.device_group.DeviceGroup
+        """
+        from mbed_cloud.foundation import DeviceGroup
+
+        return DeviceGroup(
+            _client=self._client,
+            created_at=created_at,
+            custom_attributes=custom_attributes,
+            description=description,
+            devices_count=devices_count,
+            id=id,
+            name=name,
+            updated_at=updated_at,
         )
 
     def firmware_image(

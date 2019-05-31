@@ -10,10 +10,12 @@ Entities normally contain methods to create, read, update, delete and list resou
 actions may also be possible on the entity depending on the capabilities present in the API.
 This entity has the following methods:
 
+- :meth:`Device.add_to_group`
 - :meth:`Device.create`
 - :meth:`Device.delete`
 - :meth:`Device.list`
 - :meth:`Device.read`
+- :meth:`Device.remove_from_group`
 - :meth:`Device.renew_certificate`
 - :meth:`Device.update`
 
@@ -777,6 +779,32 @@ class Device(Entity):
 
         self._vendor_id.set(value)
 
+    def add_to_group(self, device_group_id):
+        """Add a device to a group
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-groups/{device-group-id}/devices/add/>`_.
+        
+        :param device_group_id: The ID of the group.
+        :type device_group_id: str
+        
+        :rtype: Device
+        """
+
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._id.value_set:
+            body_params["device_id"] = self._id.to_api()
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/device-groups/{device-group-id}/devices/add/",
+            content_type="application/json",
+            path_params={"device-group-id": fields.StringField(device_group_id).to_api()},
+            body_params=body_params,
+            unpack=self,
+        )
+
     def create(self):
         """Create a device
 
@@ -1033,6 +1061,32 @@ class Device(Entity):
             path="/v3/devices/{id}/",
             content_type="application/json",
             path_params={"id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def remove_from_group(self, device_group_id):
+        """Remove a device from a group
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-groups/{device-group-id}/devices/remove/>`_.
+        
+        :param device_group_id: The ID of the group.
+        :type device_group_id: str
+        
+        :rtype: Device
+        """
+
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._id.value_set:
+            body_params["device_id"] = self._id.to_api()
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/device-groups/{device-group-id}/devices/remove/",
+            content_type="application/json",
+            path_params={"device-group-id": fields.StringField(device_group_id).to_api()},
+            body_params=body_params,
             unpack=self,
         )
 

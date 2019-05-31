@@ -45,6 +45,7 @@ Devices
 - :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete`
 - :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_denial`
 - :mod:`mbed_cloud.foundation.entities.devices.device_events`
+- :mod:`mbed_cloud.foundation.entities.devices.device_group`
 
 Security
 --------
@@ -102,6 +103,7 @@ will share the same context as other Entities. There is more information in the 
     device_enrollment_bulk_deletes = pelion_dm_sdk.foundation.device_enrollment_bulk_delete()
     device_enrollment_denials = pelion_dm_sdk.foundation.device_enrollment_denial()
     device_eventss = pelion_dm_sdk.foundation.device_events()
+    device_groups = pelion_dm_sdk.foundation.device_group()
     certificate_enrollments = pelion_dm_sdk.foundation.certificate_enrollment()
     certificate_issuers = pelion_dm_sdk.foundation.certificate_issuer()
     certificate_issuer_configs = pelion_dm_sdk.foundation.certificate_issuer_config()
@@ -141,6 +143,7 @@ How to import Entities directly:
     from mbed_cloud.foundation import DeviceEnrollmentBulkDelete
     from mbed_cloud.foundation import DeviceEnrollmentDenial
     from mbed_cloud.foundation import DeviceEvents
+    from mbed_cloud.foundation import DeviceGroup
     from mbed_cloud.foundation import CertificateEnrollment
     from mbed_cloud.foundation import CertificateIssuer
     from mbed_cloud.foundation import CertificateIssuerConfig
@@ -179,6 +182,7 @@ from mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create import
 from mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete import DeviceEnrollmentBulkDelete
 from mbed_cloud.foundation.entities.devices.device_enrollment_denial import DeviceEnrollmentDenial
 from mbed_cloud.foundation.entities.devices.device_events import DeviceEvents
+from mbed_cloud.foundation.entities.devices.device_group import DeviceGroup
 from mbed_cloud.foundation.entities.security.certificate_enrollment import CertificateEnrollment
 from mbed_cloud.foundation.entities.security.certificate_issuer import CertificateIssuer
 from mbed_cloud.foundation.entities.security.certificate_issuer_config import CertificateIssuerConfig
@@ -207,6 +211,7 @@ __all__ = [
     "DeviceEnrollmentBulkDelete",
     "DeviceEnrollmentDenial",
     "DeviceEvents",
+    "DeviceGroup",
     "FirmwareImage",
     "FirmwareManifest",
     "LoginHistory",
