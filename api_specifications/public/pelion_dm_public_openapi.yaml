@@ -7847,8 +7847,8 @@ paths:
         are delivered to the client, or the request times out (response code 204).
         In both cases, the client should open a new polling connection after the previous
         one closes. Only a single long polling connection per API key can be ongoing
-        at any given time. You must have a persistent connection (Connection keep-alive
-        header in the request) to avoid excess TLS handshakes.
+        at any given time. We recommend using a persistent connection (Connection
+        keep-alive header in the request) to avoid excess TLS handshakes.
 
 
         The pull channel is implicitly created by the first GET call to `/v2/notification/pull`.
