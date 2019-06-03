@@ -26,6 +26,14 @@ Accounts
 - :mod:`mbed_cloud.foundation.entities.accounts.user`
 - :mod:`mbed_cloud.foundation.entities.accounts.user_invitation`
 
+Branding
+--------
+
+- :mod:`mbed_cloud.foundation.entities.branding.dark_theme_color`
+- :mod:`mbed_cloud.foundation.entities.branding.dark_theme_image`
+- :mod:`mbed_cloud.foundation.entities.branding.light_theme_color`
+- :mod:`mbed_cloud.foundation.entities.branding.light_theme_image`
+
 Device_Update
 -------------
 
@@ -91,6 +99,10 @@ will share the same context as other Entities. There is more information in the 
     subtenant_user_invitations = pelion_dm_sdk.foundation.subtenant_user_invitation()
     users = pelion_dm_sdk.foundation.user()
     user_invitations = pelion_dm_sdk.foundation.user_invitation()
+    dark_theme_colors = pelion_dm_sdk.foundation.dark_theme_color()
+    dark_theme_images = pelion_dm_sdk.foundation.dark_theme_image()
+    light_theme_colors = pelion_dm_sdk.foundation.light_theme_color()
+    light_theme_images = pelion_dm_sdk.foundation.light_theme_image()
     campaign_device_metadatas = pelion_dm_sdk.foundation.campaign_device_metadata()
     campaign_statisticss = pelion_dm_sdk.foundation.campaign_statistics()
     campaign_statistics_eventss = pelion_dm_sdk.foundation.campaign_statistics_events()
@@ -131,6 +143,10 @@ How to import Entities directly:
     from mbed_cloud.foundation import SubtenantUserInvitation
     from mbed_cloud.foundation import User
     from mbed_cloud.foundation import UserInvitation
+    from mbed_cloud.foundation import DarkThemeColor
+    from mbed_cloud.foundation import DarkThemeImage
+    from mbed_cloud.foundation import LightThemeColor
+    from mbed_cloud.foundation import LightThemeImage
     from mbed_cloud.foundation import CampaignDeviceMetadata
     from mbed_cloud.foundation import CampaignStatistics
     from mbed_cloud.foundation import CampaignStatisticsEvents
@@ -170,6 +186,10 @@ from mbed_cloud.foundation.entities.accounts.subtenant_user import SubtenantUser
 from mbed_cloud.foundation.entities.accounts.subtenant_user_invitation import SubtenantUserInvitation
 from mbed_cloud.foundation.entities.accounts.user import User
 from mbed_cloud.foundation.entities.accounts.user_invitation import UserInvitation
+from mbed_cloud.foundation.entities.branding.dark_theme_color import DarkThemeColor
+from mbed_cloud.foundation.entities.branding.dark_theme_image import DarkThemeImage
+from mbed_cloud.foundation.entities.branding.light_theme_color import LightThemeColor
+from mbed_cloud.foundation.entities.branding.light_theme_image import LightThemeImage
 from mbed_cloud.foundation.entities.device_update.campaign_device_metadata import CampaignDeviceMetadata
 from mbed_cloud.foundation.entities.device_update.campaign_statistics import CampaignStatistics
 from mbed_cloud.foundation.entities.device_update.campaign_statistics_events import CampaignStatisticsEvents
@@ -204,6 +224,8 @@ __all__ = [
     "CertificateEnrollment",
     "CertificateIssuer",
     "CertificateIssuerConfig",
+    "DarkThemeColor",
+    "DarkThemeImage",
     "DeveloperCertificate",
     "Device",
     "DeviceEnrollment",
@@ -214,6 +236,8 @@ __all__ = [
     "DeviceGroup",
     "FirmwareImage",
     "FirmwareManifest",
+    "LightThemeColor",
+    "LightThemeImage",
     "LoginHistory",
     "LoginProfile",
     "ParentAccount",
