@@ -26723,11 +26723,11 @@
           ],
           "path": "/v3/device-groups/{device-group-id}/devices/add/",
           "summary": "Add a device to a group",
-          "return_type": "device",
+          "return_type": "void",
           "return_info": {
-            "self": true,
-            "custom": false,
-            "type": "device"
+            "self": false,
+            "custom": true,
+            "type": "void"
           },
           "x_filter": {},
           "x_deprecation": null,
@@ -26742,6 +26742,9 @@
           "operation_id": "Group_members_add",
           "parameter_map": {
             "device_id": "id"
+          },
+          "spec": {
+            "return_type": "void"
           },
           "pagination": false,
           "request_content_type": "application/json",
@@ -28724,11 +28727,11 @@
           ],
           "path": "/v3/device-groups/{device-group-id}/devices/remove/",
           "summary": "Remove a device from a group",
-          "return_type": "device",
+          "return_type": "void",
           "return_info": {
-            "self": true,
-            "custom": false,
-            "type": "device"
+            "self": false,
+            "custom": true,
+            "type": "void"
           },
           "x_filter": {},
           "x_deprecation": null,
@@ -28743,6 +28746,9 @@
           "operation_id": "Group_members_remove",
           "parameter_map": {
             "device_id": "id"
+          },
+          "spec": {
+            "return_type": "void"
           },
           "pagination": false,
           "request_content_type": "application/json",
@@ -34941,11 +34947,11 @@
           ],
           "path": "/v3/device-groups/{device-group-id}/devices/add/",
           "summary": "Add a device to a group",
-          "return_type": "device_group",
+          "return_type": "void",
           "return_info": {
-            "self": true,
-            "custom": false,
-            "type": "device_group"
+            "self": false,
+            "custom": true,
+            "type": "void"
           },
           "x_filter": {},
           "x_deprecation": null,
@@ -34961,6 +34967,9 @@
             "device-group-id": "id"
           },
           "operation_id": "Group_members_add",
+          "spec": {
+            "return_type": "void"
+          },
           "pagination": false,
           "request_content_type": "application/json",
           "request_body": "json",
@@ -37552,11 +37561,11 @@
           ],
           "path": "/v3/device-groups/{device-group-id}/devices/remove/",
           "summary": "Remove a device from a group",
-          "return_type": "device_group",
+          "return_type": "void",
           "return_info": {
-            "self": true,
-            "custom": false,
-            "type": "device_group"
+            "self": false,
+            "custom": true,
+            "type": "void"
           },
           "x_filter": {},
           "x_deprecation": null,
@@ -37572,6 +37581,9 @@
             "device-group-id": "id"
           },
           "operation_id": "Group_members_remove",
+          "spec": {
+            "return_type": "void"
+          },
           "pagination": false,
           "request_content_type": "application/json",
           "request_body": "json",

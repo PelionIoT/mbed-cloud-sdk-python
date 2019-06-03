@@ -20367,10 +20367,12 @@ entities:
         - type
         type: object
     return_info:
-      custom: false
-      self: true
-      type: device
-    return_type: device
+      custom: true
+      self: false
+      type: void
+    return_type: void
+    spec:
+      return_type: void
     summary: Add a device to a group
     x_deprecation: null
     x_filter: {}
@@ -22037,10 +22039,12 @@ entities:
         - type
         type: object
     return_info:
-      custom: false
-      self: true
-      type: device
-    return_type: device
+      custom: true
+      self: false
+      type: void
+    return_type: void
+    spec:
+      return_type: void
     summary: Remove a device from a group
     x_deprecation: null
     x_filter: {}
@@ -26800,10 +26804,12 @@ entities:
         - type
         type: object
     return_info:
-      custom: false
-      self: true
-      type: device_group
-    return_type: device_group
+      custom: true
+      self: false
+      type: void
+    return_type: void
+    spec:
+      return_type: void
     summary: Add a device to a group
     x_deprecation: null
     x_filter: {}
@@ -28771,10 +28777,12 @@ entities:
         - type
         type: object
     return_info:
-      custom: false
-      self: true
-      type: device_group
-    return_type: device_group
+      custom: true
+      self: false
+      type: void
+    return_type: void
+    spec:
+      return_type: void
     summary: Remove a device from a group
     x_deprecation: null
     x_filter: {}
