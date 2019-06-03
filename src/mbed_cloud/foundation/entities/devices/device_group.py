@@ -245,8 +245,10 @@ class DeviceGroup(Entity):
         :param device_id: No description available
         :type device_id: str
         
-        :rtype: DeviceGroup
+        :rtype: Void
         """
+
+        from mbed_cloud.foundation import Void
 
         # Conditionally setup the message body, fields which have not been set will not be sent to the API.
         # This avoids null fields being rejected and allows the default value to be used.
@@ -260,7 +262,7 @@ class DeviceGroup(Entity):
             content_type="application/json",
             body_params=body_params,
             path_params={"device-group-id": self._id.to_api()},
-            unpack=self,
+            unpack=Void,
         )
 
     def create(self):
@@ -632,8 +634,10 @@ class DeviceGroup(Entity):
         :param device_id: No description available
         :type device_id: str
         
-        :rtype: DeviceGroup
+        :rtype: Void
         """
+
+        from mbed_cloud.foundation import Void
 
         # Conditionally setup the message body, fields which have not been set will not be sent to the API.
         # This avoids null fields being rejected and allows the default value to be used.
@@ -647,7 +651,7 @@ class DeviceGroup(Entity):
             content_type="application/json",
             body_params=body_params,
             path_params={"device-group-id": self._id.to_api()},
-            unpack=self,
+            unpack=Void,
         )
 
     def update(self):

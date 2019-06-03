@@ -787,8 +787,10 @@ class Device(Entity):
         :param device_group_id: The ID of the group.
         :type device_group_id: str
         
-        :rtype: Device
+        :rtype: Void
         """
+
+        from mbed_cloud.foundation import Void
 
         # Conditionally setup the message body, fields which have not been set will not be sent to the API.
         # This avoids null fields being rejected and allows the default value to be used.
@@ -802,7 +804,7 @@ class Device(Entity):
             content_type="application/json",
             path_params={"device-group-id": fields.StringField(device_group_id).to_api()},
             body_params=body_params,
-            unpack=self,
+            unpack=Void,
         )
 
     def create(self):
@@ -1072,8 +1074,10 @@ class Device(Entity):
         :param device_group_id: The ID of the group.
         :type device_group_id: str
         
-        :rtype: Device
+        :rtype: Void
         """
+
+        from mbed_cloud.foundation import Void
 
         # Conditionally setup the message body, fields which have not been set will not be sent to the API.
         # This avoids null fields being rejected and allows the default value to be used.
@@ -1087,7 +1091,7 @@ class Device(Entity):
             content_type="application/json",
             path_params={"device-group-id": fields.StringField(device_group_id).to_api()},
             body_params=body_params,
-            unpack=self,
+            unpack=Void,
         )
 
     def renew_certificate(self, certificate_name):
