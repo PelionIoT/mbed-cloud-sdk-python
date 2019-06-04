@@ -132,13 +132,10 @@ class DarkThemeImage(Entity):
 
         return self._updated_at.value
 
-    def create(self, account_id, image):
+    def create(self, image):
         """Upload a dark theme image.
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart>`_.
-        
-        :param account_id: Account ID.
-        :type account_id: str
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-images/dark/{reference}/upload-multipart>`_.
         
         :param image: The image in PNG or JPEG format as multipart form data. Files can be
             provided as a file object or a path to an existing file on disk.
@@ -158,12 +155,9 @@ class DarkThemeImage(Entity):
 
             return self._client.call_api(
                 method="post",
-                path="/v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart",
-                path_params={
-                    "account_id": fields.StringField(account_id).to_api(),
-                    "reference": self._reference.to_api(),
-                },
+                path="/v3/branding-images/dark/{reference}/upload-multipart",
                 stream_params={"image": ("image.bin", image, "application/octet-stream")},
+                path_params={"reference": self._reference.to_api()},
                 unpack=self,
             )
         finally:

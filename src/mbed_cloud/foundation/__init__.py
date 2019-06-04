@@ -33,6 +33,10 @@ Branding
 - :mod:`mbed_cloud.foundation.entities.branding.dark_theme_image`
 - :mod:`mbed_cloud.foundation.entities.branding.light_theme_color`
 - :mod:`mbed_cloud.foundation.entities.branding.light_theme_image`
+- :mod:`mbed_cloud.foundation.entities.branding.subtenant_dark_theme_color`
+- :mod:`mbed_cloud.foundation.entities.branding.subtenant_dark_theme_image`
+- :mod:`mbed_cloud.foundation.entities.branding.subtenant_light_theme_color`
+- :mod:`mbed_cloud.foundation.entities.branding.subtenant_light_theme_image`
 
 Device_Update
 -------------
@@ -103,6 +107,10 @@ will share the same context as other Entities. There is more information in the 
     dark_theme_images = pelion_dm_sdk.foundation.dark_theme_image()
     light_theme_colors = pelion_dm_sdk.foundation.light_theme_color()
     light_theme_images = pelion_dm_sdk.foundation.light_theme_image()
+    subtenant_dark_theme_colors = pelion_dm_sdk.foundation.subtenant_dark_theme_color()
+    subtenant_dark_theme_images = pelion_dm_sdk.foundation.subtenant_dark_theme_image()
+    subtenant_light_theme_colors = pelion_dm_sdk.foundation.subtenant_light_theme_color()
+    subtenant_light_theme_images = pelion_dm_sdk.foundation.subtenant_light_theme_image()
     campaign_device_metadatas = pelion_dm_sdk.foundation.campaign_device_metadata()
     campaign_statisticss = pelion_dm_sdk.foundation.campaign_statistics()
     campaign_statistics_eventss = pelion_dm_sdk.foundation.campaign_statistics_events()
@@ -147,6 +155,10 @@ How to import Entities directly:
     from mbed_cloud.foundation import DarkThemeImage
     from mbed_cloud.foundation import LightThemeColor
     from mbed_cloud.foundation import LightThemeImage
+    from mbed_cloud.foundation import SubtenantDarkThemeColor
+    from mbed_cloud.foundation import SubtenantDarkThemeImage
+    from mbed_cloud.foundation import SubtenantLightThemeColor
+    from mbed_cloud.foundation import SubtenantLightThemeImage
     from mbed_cloud.foundation import CampaignDeviceMetadata
     from mbed_cloud.foundation import CampaignStatistics
     from mbed_cloud.foundation import CampaignStatisticsEvents
@@ -190,6 +202,10 @@ from mbed_cloud.foundation.entities.branding.dark_theme_color import DarkThemeCo
 from mbed_cloud.foundation.entities.branding.dark_theme_image import DarkThemeImage
 from mbed_cloud.foundation.entities.branding.light_theme_color import LightThemeColor
 from mbed_cloud.foundation.entities.branding.light_theme_image import LightThemeImage
+from mbed_cloud.foundation.entities.branding.subtenant_dark_theme_color import SubtenantDarkThemeColor
+from mbed_cloud.foundation.entities.branding.subtenant_dark_theme_image import SubtenantDarkThemeImage
+from mbed_cloud.foundation.entities.branding.subtenant_light_theme_color import SubtenantLightThemeColor
+from mbed_cloud.foundation.entities.branding.subtenant_light_theme_image import SubtenantLightThemeImage
 from mbed_cloud.foundation.entities.device_update.campaign_device_metadata import CampaignDeviceMetadata
 from mbed_cloud.foundation.entities.device_update.campaign_statistics import CampaignStatistics
 from mbed_cloud.foundation.entities.device_update.campaign_statistics_events import CampaignStatisticsEvents
@@ -246,6 +262,10 @@ __all__ = [
     "PreSharedKey",
     "ServerCredentials",
     "SubtenantApiKey",
+    "SubtenantDarkThemeColor",
+    "SubtenantDarkThemeImage",
+    "SubtenantLightThemeColor",
+    "SubtenantLightThemeImage",
     "SubtenantTrustedCertificate",
     "SubtenantUser",
     "SubtenantUserInvitation",

@@ -36,6 +36,10 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.pre_shared_key`
 - :meth:`EntityFactory.server_credentials`
 - :meth:`EntityFactory.subtenant_api_key`
+- :meth:`EntityFactory.subtenant_dark_theme_color`
+- :meth:`EntityFactory.subtenant_dark_theme_image`
+- :meth:`EntityFactory.subtenant_light_theme_color`
+- :meth:`EntityFactory.subtenant_light_theme_image`
 - :meth:`EntityFactory.subtenant_trusted_certificate`
 - :meth:`EntityFactory.subtenant_user`
 - :meth:`EntityFactory.subtenant_user_invitation`
@@ -1465,6 +1469,78 @@ class EntityFactory:
             owner=owner,
             status=status,
             updated_at=updated_at,
+        )
+
+    def subtenant_dark_theme_color(self, color=None, reference=None, updated_at=None):
+        """Creates a local `SubtenantDarkThemeColor` instance, using the shared SDK context.
+
+        :param color: The color given as name (purple) or as a hex code.
+        :type color: str
+        :param reference: Color name.
+        :type reference: str
+        :param updated_at: Last update time in UTC.
+        :type updated_at: datetime
+        
+        :return: A new instance of a SubtenantDarkThemeColor Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.branding.subtenant_dark_theme_color.SubtenantDarkThemeColor
+        """
+        from mbed_cloud.foundation import SubtenantDarkThemeColor
+
+        return SubtenantDarkThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at)
+
+    def subtenant_dark_theme_image(self, reference=None, static_uri=None, updated_at=None):
+        """Creates a local `SubtenantDarkThemeImage` instance, using the shared SDK context.
+
+        :param reference: Name of the image.
+        :type reference: str
+        :param static_uri: The static link to the image.
+        :type static_uri: str
+        :param updated_at: Last update time in UTC.
+        :type updated_at: datetime
+        
+        :return: A new instance of a SubtenantDarkThemeImage Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.branding.subtenant_dark_theme_image.SubtenantDarkThemeImage
+        """
+        from mbed_cloud.foundation import SubtenantDarkThemeImage
+
+        return SubtenantDarkThemeImage(
+            _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at
+        )
+
+    def subtenant_light_theme_color(self, color=None, reference=None, updated_at=None):
+        """Creates a local `SubtenantLightThemeColor` instance, using the shared SDK context.
+
+        :param color: The color given as name (purple) or as a hex code.
+        :type color: str
+        :param reference: Color name.
+        :type reference: str
+        :param updated_at: Last update time in UTC.
+        :type updated_at: datetime
+        
+        :return: A new instance of a SubtenantLightThemeColor Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.branding.subtenant_light_theme_color.SubtenantLightThemeColor
+        """
+        from mbed_cloud.foundation import SubtenantLightThemeColor
+
+        return SubtenantLightThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at)
+
+    def subtenant_light_theme_image(self, reference=None, static_uri=None, updated_at=None):
+        """Creates a local `SubtenantLightThemeImage` instance, using the shared SDK context.
+
+        :param reference: Name of the image.
+        :type reference: str
+        :param static_uri: The static link to the image.
+        :type static_uri: str
+        :param updated_at: Last update time in UTC.
+        :type updated_at: datetime
+        
+        :return: A new instance of a SubtenantLightThemeImage Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.branding.subtenant_light_theme_image.SubtenantLightThemeImage
+        """
+        from mbed_cloud.foundation import SubtenantLightThemeImage
+
+        return SubtenantLightThemeImage(
+            _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at
         )
 
     def subtenant_trusted_certificate(

@@ -1,19 +1,19 @@
 """
 .. warning::
-    LightThemeImage should not be imported directly from this module as the
+    SubtenantDarkThemeImage should not be imported directly from this module as the
     organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-Foundation Entity: LightThemeImage
-==================================
+Foundation Entity: SubtenantDarkThemeImage
+==========================================
 
 Entities normally contain methods to create, read, update, delete and list resources. Other
 actions may also be possible on the entity depending on the capabilities present in the API.
 This entity has the following methods:
 
-- :meth:`LightThemeImage.create`
-- :meth:`LightThemeImage.delete`
-- :meth:`LightThemeImage.list`
-- :meth:`LightThemeImage.read`
+- :meth:`SubtenantDarkThemeImage.create`
+- :meth:`SubtenantDarkThemeImage.delete`
+- :meth:`SubtenantDarkThemeImage.list`
+- :meth:`SubtenantDarkThemeImage.read`
 
 Entity Usage and Importing
 --------------------------
@@ -25,13 +25,13 @@ will share the same context as other Entities. There is more information in the 
 
     from mbed_cloud import SDK
     pelion_dm_sdk = SDK()
-    light_theme_images = pelion_dm_sdk.foundation.light_theme_image()
+    subtenant_dark_theme_images = pelion_dm_sdk.foundation.subtenant_dark_theme_image()
 
-How to import LightThemeImage directly:
+How to import SubtenantDarkThemeImage directly:
 
 .. code-block:: python
     
-    from mbed_cloud.foundation import LightThemeImage
+    from mbed_cloud.foundation import SubtenantDarkThemeImage
 
 ------------
 """
@@ -47,8 +47,8 @@ from mbed_cloud.foundation.common import fields
 from mbed_cloud.foundation import enums
 
 
-class LightThemeImage(Entity):
-    """Represents the `LightThemeImage` entity in Pelion Device Management"""
+class SubtenantDarkThemeImage(Entity):
+    """Represents the `SubtenantDarkThemeImage` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
     _api_fieldnames = ["reference", "static_uri", "updated_at"]
@@ -63,7 +63,7 @@ class LightThemeImage(Entity):
     _renames_to_api = {}
 
     def __init__(self, _client=None, reference=None, static_uri=None, updated_at=None):
-        """Creates a local `LightThemeImage` instance
+        """Creates a local `SubtenantDarkThemeImage` instance
 
         Parameters can be supplied on creation of the instance or given by
         setting the properties on the instance after creation.
@@ -85,7 +85,7 @@ class LightThemeImage(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         # fields
-        self._reference = fields.StringField(value=reference, enum=enums.LightThemeImageReferenceEnum)
+        self._reference = fields.StringField(value=reference, enum=enums.SubtenantDarkThemeImageReferenceEnum)
         self._static_uri = fields.StringField(value=static_uri)
         self._updated_at = fields.DateTimeField(value=updated_at)
 
@@ -93,7 +93,7 @@ class LightThemeImage(Entity):
     def reference(self):
         """Name of the image.
 
-        This field must be set when creating a new LightThemeImage Entity.
+        This field must be set when creating a new SubtenantDarkThemeImage Entity.
         
         :rtype: str
         """
@@ -132,16 +132,19 @@ class LightThemeImage(Entity):
 
         return self._updated_at.value
 
-    def create(self, image):
-        """Upload a light theme image.
+    def create(self, account_id, image):
+        """Upload a dark theme image.
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-images/light/{reference}/upload-multipart>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart>`_.
+        
+        :param account_id: Account ID.
+        :type account_id: str
         
         :param image: The image in PNG or JPEG format as multipart form data. Files can be
             provided as a file object or a path to an existing file on disk.
         :type image: file
         
-        :rtype: LightThemeImage
+        :rtype: SubtenantDarkThemeImage
         """
 
         auto_close_image = False
@@ -155,9 +158,12 @@ class LightThemeImage(Entity):
 
             return self._client.call_api(
                 method="post",
-                path="/v3/branding-images/light/{reference}/upload-multipart",
+                path="/v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart",
+                path_params={
+                    "account_id": fields.StringField(account_id).to_api(),
+                    "reference": self._reference.to_api(),
+                },
                 stream_params={"image": ("image.bin", image, "application/octet-stream")},
-                path_params={"reference": self._reference.to_api()},
                 unpack=self,
             )
         finally:
@@ -166,26 +172,29 @@ class LightThemeImage(Entity):
             if auto_close_image:
                 image.close()
 
-    def delete(self):
-        """Revert an image to light theme default.
+    def delete(self, account_id):
+        """Revert an image to dark theme default.
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-images/light/{reference}/clear>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/dark/{reference}/clear>`_.
         
-        :rtype: LightThemeImage
+        :param account_id: Account ID.
+        :type account_id: str
+        
+        :rtype: SubtenantDarkThemeImage
         """
 
         return self._client.call_api(
             method="post",
-            path="/v3/branding-images/light/{reference}/clear",
+            path="/v3/accounts/{account_id}/branding-images/dark/{reference}/clear",
             content_type="application/json",
-            path_params={"reference": self._reference.to_api()},
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
             unpack=self,
         )
 
-    def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
-        """Get metadata of all light theme images.
+    def list(self, account_id, filter=None, order=None, max_results=None, page_size=None, include=None):
+        """Get metadata of all dark theme images.
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-images/light>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/dark>`_.
         
         :param filter: Filtering when listing entities is not supported by the API for this
             entity.
@@ -204,29 +213,33 @@ class LightThemeImage(Entity):
         :param include: Comma separated additional data to return.
         :type include: str
         
+        :param account_id: Account ID.
+        :type account_id: str
+        
         :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse(LightThemeImage)
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantDarkThemeImage)
         """
 
         from mbed_cloud.foundation._custom_methods import paginate
-        from mbed_cloud.foundation import LightThemeImage
+        from mbed_cloud.foundation import SubtenantDarkThemeImage
         from mbed_cloud import ApiFilter
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(filter_definition=filter, field_renames=LightThemeImage._renames_to_api)
+            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantDarkThemeImage._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
             if filter.field_renames is None:
-                filter.field_renames = LightThemeImage._renames_to_api
+                filter.field_renames = SubtenantDarkThemeImage._renames_to_api
         elif filter is not None:
             raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
-            foreign_key=LightThemeImage,
+            foreign_key=SubtenantDarkThemeImage,
+            account_id=account_id,
             filter=filter,
             order=order,
             max_results=max_results,
@@ -235,8 +248,8 @@ class LightThemeImage(Entity):
             wraps=self._paginate_list,
         )
 
-    def _paginate_list(self, after=None, filter=None, order=None, limit=None, include=None):
-        """Get metadata of all light theme images.
+    def _paginate_list(self, account_id, after=None, filter=None, order=None, limit=None, include=None):
+        """Get metadata of all dark theme images.
         
         :param after: Not supported by the API.
         :type after: str
@@ -253,6 +266,9 @@ class LightThemeImage(Entity):
         :param include: Not supported by the API.
         :type include: str
         
+        :param account_id: Account ID.
+        :type account_id: str
+        
         :rtype: mbed_cloud.pagination.PaginatedResponse
         """
 
@@ -261,21 +277,28 @@ class LightThemeImage(Entity):
         # Add in other query parameters
 
         return self._client.call_api(
-            method="get", path="/v3/branding-images/light", content_type="application/json", unpack=False
+            method="get",
+            path="/v3/accounts/{account_id}/branding-images/dark",
+            content_type="application/json",
+            path_params={"account_id": fields.StringField(account_id).to_api()},
+            unpack=False,
         )
 
-    def read(self):
-        """Get metadata of a light theme image.
+    def read(self, account_id):
+        """Get metadata of a dark theme image.
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-images/light/{reference}>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/dark/{reference}>`_.
         
-        :rtype: LightThemeImage
+        :param account_id: Account ID.
+        :type account_id: str
+        
+        :rtype: SubtenantDarkThemeImage
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/branding-images/light/{reference}",
+            path="/v3/accounts/{account_id}/branding-images/dark/{reference}",
             content_type="application/json",
-            path_params={"reference": self._reference.to_api()},
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
             unpack=self,
         )
