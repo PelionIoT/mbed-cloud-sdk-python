@@ -16030,7 +16030,7 @@ entities:
       description: Successful operation.
       schema:
         foreign_key:
-          entity: light_theme_color
+          entity: subtenant_light_theme_color
           group: Branding
         properties:
         - _key: color
@@ -16528,7 +16528,7 @@ entities:
       description: Successful operation.
       schema:
         foreign_key:
-          entity: light_theme_color
+          entity: subtenant_light_theme_color
           group: Branding
         properties:
         - _key: color
@@ -16797,7 +16797,7 @@ entities:
       description: Color has been set successfully.
       schema:
         foreign_key:
-          entity: light_theme_color
+          entity: subtenant_light_theme_color
           group: Branding
         properties:
         - _key: color
@@ -17121,9 +17121,9 @@ entities:
     additional_operations:
     - notes: The multipart endpoint is used by the SDKs as it offers the same functionality
         as the standard upload endpoint.
-      operation_id: uploadAccountDarkImage
-    description: Upload a new account dark theme branding image as form data in PNG
-      or JPEG format.
+      operation_id: uploadDarkImage
+    description: Upload a new account branding image as form data in the dark theme
+      in PNG or JPEG format.
     drop_fields:
     - object
     - etag
@@ -17134,16 +17134,6 @@ entities:
     - updated_at
     field_renames: []
     fields:
-    - _key: account_id
-      api_fieldname: account_id
-      description: Account ID.
-      entity_fieldname: account_id
-      external_param: true
-      in: path
-      name: account_id
-      parameter_fieldname: account_id
-      required: true
-      type: string
     - _key: image
       api_fieldname: image
       description: The image in PNG or JPEG format as multipart form data.
@@ -17204,9 +17194,9 @@ entities:
     group_id: Branding
     method: post
     mode: create
-    operation_id: uploadAccountDarkImageMultipart
+    operation_id: uploadDarkImageMultipart
     pagination: false
-    path: /v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart
+    path: /v3/branding-images/dark/{reference}/upload-multipart
     request_body: file
     request_content_type: multipart/form-data
     responses:
@@ -17221,7 +17211,7 @@ entities:
         type: string
       schema:
         foreign_key:
-          entity: light_theme_image
+          entity: subtenant_light_theme_image
           group: Branding
         properties:
         - _key: object
@@ -18006,7 +17996,7 @@ entities:
       description: Successful operation.
       schema:
         foreign_key:
-          entity: light_theme_image
+          entity: subtenant_light_theme_image
           group: Branding
         properties:
         - _key: object
@@ -18235,7 +18225,6 @@ entities:
   - BrandingImageList
   tags:
   - User interface configuration - images
-  - Tenant user interface configuration - images
 - _key: developer_certificate
   field_renames:
   - _key: certificate
@@ -30689,7 +30678,7 @@ entities:
       description: Successful operation.
       schema:
         foreign_key:
-          entity: dark_theme_color
+          entity: subtenant_light_theme_color
           group: Branding
         properties:
         - _key: color
@@ -31203,7 +31192,7 @@ entities:
       description: Successful operation.
       schema:
         foreign_key:
-          entity: dark_theme_color
+          entity: subtenant_light_theme_color
           group: Branding
         properties:
         - _key: color
@@ -31488,7 +31477,7 @@ entities:
       description: Color has been set successfully.
       schema:
         foreign_key:
-          entity: dark_theme_color
+          entity: subtenant_light_theme_color
           group: Branding
         properties:
         - _key: color
@@ -31829,8 +31818,9 @@ entities:
   - _key: create
     additional_operations:
     - notes: The multipart request is more generic and better supported by SDKs.
-      operation_id: uploadAccountLightImage
-    description: Upload a new account branding image as form data in PNG or JPEG format.
+      operation_id: uploadLightImage
+    description: Upload a new account branding image as form data in the light theme
+      in PNG or JPEG format.
     drop_fields:
     - object
     - etag
@@ -31841,16 +31831,6 @@ entities:
     - updated_at
     field_renames: []
     fields:
-    - _key: account_id
-      api_fieldname: account_id
-      description: Account ID.
-      entity_fieldname: account_id
-      external_param: true
-      in: path
-      name: account_id
-      parameter_fieldname: account_id
-      required: true
-      type: string
     - _key: image
       api_fieldname: image
       description: The image in PNG or JPEG format as multipart form data.
@@ -31911,9 +31891,9 @@ entities:
     group_id: Branding
     method: post
     mode: create
-    operation_id: uploadAccountLightImageMultipart
+    operation_id: uploadLightImageMultipart
     pagination: false
-    path: /v3/accounts/{account_id}/branding-images/light/{reference}/upload-multipart
+    path: /v3/branding-images/light/{reference}/upload-multipart
     request_body: file
     request_content_type: multipart/form-data
     responses:
@@ -31928,7 +31908,7 @@ entities:
         type: string
       schema:
         foreign_key:
-          entity: dark_theme_image
+          entity: subtenant_light_theme_image
           group: Branding
         properties:
         - _key: object
@@ -32719,7 +32699,7 @@ entities:
       description: Successful operation.
       schema:
         foreign_key:
-          entity: dark_theme_image
+          entity: subtenant_light_theme_image
           group: Branding
         properties:
         - _key: object
@@ -32952,7 +32932,6 @@ entities:
   - BrandingImageList
   tags:
   - User interface configuration - images
-  - Tenant user interface configuration - images
 - _key: login_history
   field_renames: []
   fields:
@@ -35496,6 +35475,5085 @@ entities:
   - ApiKeyUpdateReq
   tags:
   - Tenant accounts - API keys
+- _key: subtenant_dark_theme_color
+  field_renames: []
+  fields:
+  - _key: color
+    api_fieldname: color
+    description: The color given as name (purple) or as a hex code.
+    example: '#f3f93e'
+    in: body
+    parameter_fieldname: color
+    readOnly: false
+    required: false
+    type: string
+  - _key: reference
+    api_fieldname: reference
+    description: Color name.
+    enum:
+    - error_color
+    - primary
+    - secondary
+    - success_color
+    - warning_color
+    - canvas_background
+    - canvas_background_font_color
+    - workspace_background
+    - workspace_background_font_color
+    - info_color
+    - info_font_color
+    - primary_font_color
+    - secondary_font_color
+    - error_font_color
+    - success_font_color
+    - warning_font_color
+    enum_reference: subtenant_dark_theme_color_reference_enum
+    in: path
+    parameter_fieldname: reference
+    readOnly: false
+    required: true
+    type: string
+  - _key: updated_at
+    api_fieldname: updated_at
+    description: Last update time in UTC.
+    example: '2018-02-14T15:24:14Z'
+    format: date-time
+    in: body
+    parameter_fieldname: updated_at
+    readOnly: true
+    required: false
+    type: string
+  group_id: Branding
+  methods:
+  - _key: delete
+    description: 'Resets the branding color of a tenant account to its dark theme
+      default.
+
+
+      **Example:**
+
+      ```
+
+      curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - color
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: reference
+      api_fieldname: reference
+      description: Color name.
+      entity_fieldname: reference
+      enum: &id007
+      - error_color
+      - primary
+      - secondary
+      - success_color
+      - warning_color
+      - canvas_background
+      - canvas_background_font_color
+      - workspace_background
+      - workspace_background_font_color
+      - info_color
+      - info_font_color
+      - primary_font_color
+      - secondary_font_color
+      - error_font_color
+      - success_font_color
+      - warning_font_color
+      enum_reference: subtenant_dark_theme_color_reference_enum
+      in: path
+      parameter_fieldname: reference
+      required: true
+      type: string
+    group_id: Branding
+    method: delete
+    mode: delete
+    operation_id: resetAccountDarkColor
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-colors/dark/{reference}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        foreign_key:
+          entity: subtenant_light_theme_color
+          group: Branding
+        properties:
+        - _key: color
+          api_fieldname: color
+          description: The color given as name (purple) or as a hex code.
+          entity_fieldname: color
+          example: '#f3f93e'
+          in: body
+          parameter_fieldname: color
+          required: false
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''branding_color'''
+          entity_fieldname: object
+          enum:
+          - branding_color
+          external_param: true
+          in: body
+          name: object
+          parameter_fieldname: object
+          readOnly: true
+          required: false
+          schema_param: true
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: Color name.
+          entity_fieldname: reference
+          enum:
+          - error_color
+          - primary
+          - secondary
+          - success_color
+          - warning_color
+          - canvas_background
+          - canvas_background_font_color
+          - workspace_background
+          - workspace_background_font_color
+          - info_color
+          - info_font_color
+          - primary_font_color
+          - secondary_font_color
+          - error_font_color
+          - success_font_color
+          - warning_font_color
+          enum_reference: light_theme_color_reference_enum
+          in: path
+          parameter_fieldname: reference
+          required: true
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update time in UTC.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          in: body
+          parameter_fieldname: updated_at
+          readOnly: true
+          required: false
+          type: string
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Color or account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: true
+      self: false
+      type: void
+    return_type: void
+    spec:
+      return_type: void
+    summary: Reset branding color to default.
+    x_deprecation: null
+    x_filter: {}
+  - _key: list
+    description: 'Retrieve dark theme branding colors for an account.
+
+
+      **Example:**
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - limit
+    - after
+    - order
+    - total_count
+    - has_more
+    - data
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    foreign_key:
+      entity: subtenant_dark_theme_color
+      group: Branding
+    foreign_key_priority: self
+    group_id: Branding
+    method: get
+    mode: list
+    operation_id: getAccountDarkColors
+    pagination: true
+    path: /v3/accounts/{account_id}/branding-colors/dark
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        foreign_key:
+          entity: subtenant_dark_theme_color
+          group: Branding
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: The entity ID to fetch after the given one.
+          entity_fieldname: after
+          example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: data
+          api_fieldname: data
+          description: A list of entities.
+          entity_fieldname: data
+          items:
+            foreign_key:
+              entity: dark_theme_color
+              group: Branding
+            properties:
+            - _key: color
+              description: The color given as name (purple) or as a hex code.
+              example: '#f3f93e'
+              type: string
+            - _key: object
+              description: 'Entity name: always ''branding_color'''
+              enum:
+              - branding_color
+              readOnly: true
+              type: string
+            - _key: reference
+              description: Color name.
+              enum:
+              - error_color
+              - primary
+              - secondary
+              - success_color
+              - warning_color
+              - canvas_background
+              - canvas_background_font_color
+              - workspace_background
+              - workspace_background_font_color
+              - info_color
+              - info_font_color
+              - primary_font_color
+              - secondary_font_color
+              - error_font_color
+              - success_font_color
+              - warning_font_color
+              type: string
+            - _key: updated_at
+              description: Last update time in UTC.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              readOnly: true
+              type: string
+            type: object
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: Flag indicating whether there are more results.
+          entity_fieldname: has_more
+          example: false
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: The number of results to return, or equal to `total_count`.
+          entity_fieldname: limit
+          example: 50
+          format: int32
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always `list`.'
+          entity_fieldname: object
+          enum:
+          - list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: 'The order of the records to return based on creation time.
+            Available values: ASC, DESC; by default ASC.'
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          description: The total number of records, if requested.
+          entity_fieldname: total_count
+          example: 20
+          format: int32
+          type: integer
+        required:
+        - data
+        - has_more
+        - limit
+        - object
+        - total_count
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_dark_theme_color
+    return_type: paginated_response(subtenant_dark_theme_color)
+    summary: Get dark theme branding colors.
+    x_deprecation: null
+    x_filter: {}
+  - _key: read
+    description: "Retrieve the requested dark theme branding color. \n\n**Example:**\n\
+      ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}\
+      \ \\\n-H 'Authorization: Bearer <api_key>'\n```"
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - color
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: reference
+      api_fieldname: reference
+      description: Color name.
+      entity_fieldname: reference
+      enum: *id007
+      enum_reference: subtenant_dark_theme_color_reference_enum
+      in: path
+      parameter_fieldname: reference
+      required: true
+      type: string
+    group_id: Branding
+    method: get
+    mode: read
+    operation_id: getAccountDarkColor
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-colors/dark/{reference}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        foreign_key:
+          entity: subtenant_light_theme_color
+          group: Branding
+        properties:
+        - _key: color
+          api_fieldname: color
+          description: The color given as name (purple) or as a hex code.
+          entity_fieldname: color
+          example: '#f3f93e'
+          in: body
+          parameter_fieldname: color
+          required: false
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''branding_color'''
+          entity_fieldname: object
+          enum:
+          - branding_color
+          external_param: true
+          in: body
+          name: object
+          parameter_fieldname: object
+          readOnly: true
+          required: false
+          schema_param: true
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: Color name.
+          entity_fieldname: reference
+          enum:
+          - error_color
+          - primary
+          - secondary
+          - success_color
+          - warning_color
+          - canvas_background
+          - canvas_background_font_color
+          - workspace_background
+          - workspace_background_font_color
+          - info_color
+          - info_font_color
+          - primary_font_color
+          - secondary_font_color
+          - error_font_color
+          - success_font_color
+          - warning_font_color
+          enum_reference: light_theme_color_reference_enum
+          in: path
+          parameter_fieldname: reference
+          required: true
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update time in UTC.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          in: body
+          parameter_fieldname: updated_at
+          readOnly: true
+          required: false
+          type: string
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Color or account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_dark_theme_color
+    return_type: subtenant_dark_theme_color
+    summary: Get dark theme branding color.
+    x_deprecation: null
+    x_filter: {}
+  - _key: update
+    description: 'Update a dark theme branding color of a tenant account.
+
+
+      **Example:**
+
+      ```
+
+      curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark/primary
+      \
+
+      -H ''Authorization: Bearer <api_key>'' \
+
+      -H ''content-type: application/json'' \
+
+      -d ''{ "color": "#f3f93e" }''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: color
+      api_fieldname: color
+      description: The color given as name (purple) or as a hex code.
+      entity_fieldname: color
+      example: '#f3f93e'
+      in: body
+      parameter_fieldname: color
+      required: false
+      type: string
+    - _key: reference
+      api_fieldname: reference
+      description: Color name.
+      entity_fieldname: reference
+      enum: *id007
+      enum_reference: subtenant_dark_theme_color_reference_enum
+      in: path
+      parameter_fieldname: reference
+      required: true
+      type: string
+    - _key: updated_at
+      api_fieldname: updated_at
+      description: Last update time in UTC.
+      entity_fieldname: updated_at
+      example: '2018-02-14T15:24:14Z'
+      format: date-time
+      in: body
+      parameter_fieldname: updated_at
+      readOnly: true
+      required: false
+      type: string
+    group_id: Branding
+    method: put
+    mode: update
+    operation_id: setAccountDarkColor
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-colors/dark/{reference}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Color has been set successfully.
+      schema:
+        foreign_key:
+          entity: subtenant_light_theme_color
+          group: Branding
+        properties:
+        - _key: color
+          api_fieldname: color
+          description: The color given as name (purple) or as a hex code.
+          entity_fieldname: color
+          example: '#f3f93e'
+          in: body
+          parameter_fieldname: color
+          required: false
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''branding_color'''
+          entity_fieldname: object
+          enum:
+          - branding_color
+          external_param: true
+          in: body
+          name: object
+          parameter_fieldname: object
+          readOnly: true
+          required: false
+          schema_param: true
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: Color name.
+          entity_fieldname: reference
+          enum:
+          - error_color
+          - primary
+          - secondary
+          - success_color
+          - warning_color
+          - canvas_background
+          - canvas_background_font_color
+          - workspace_background
+          - workspace_background_font_color
+          - info_color
+          - info_font_color
+          - primary_font_color
+          - secondary_font_color
+          - error_font_color
+          - success_font_color
+          - warning_font_color
+          enum_reference: light_theme_color_reference_enum
+          in: path
+          parameter_fieldname: reference
+          required: true
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update time in UTC.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          in: body
+          parameter_fieldname: updated_at
+          readOnly: true
+          required: false
+          type: string
+        type: object
+    - _key: '400'
+      description: Error in input data format.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Color or account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_dark_theme_color
+    return_type: subtenant_dark_theme_color
+    summary: Updates a dark theme branding color.
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: null
+  swagger_models:
+  - BrandingColor
+  - BrandingColorList
+  tags:
+  - Tenant user interface configuration - colors
+- _key: subtenant_dark_theme_image
+  field_renames: []
+  fields:
+  - _key: reference
+    api_fieldname: reference
+    description: Name of the image.
+    enum:
+    - brand_logo_portrait
+    - brand_logo_square
+    - brand_logo_landscape
+    - brand_logo_email
+    - desktop_background_landscape
+    - desktop_background_square
+    - desktop_background_portrait
+    - carousel_image_portrait_0
+    - carousel_image_portrait_1
+    - carousel_image_portrait_2
+    - carousel_image_portrait_3
+    - carousel_image_portrait_4
+    - carousel_image_portrait_5
+    - carousel_image_portrait_6
+    - carousel_image_portrait_7
+    - carousel_image_portrait_8
+    - carousel_image_portrait_9
+    - carousel_image_square_0
+    - carousel_image_square_1
+    - carousel_image_square_2
+    - carousel_image_square_3
+    - carousel_image_square_4
+    - carousel_image_square_5
+    - carousel_image_square_6
+    - carousel_image_square_7
+    - carousel_image_square_8
+    - carousel_image_square_9
+    - carousel_image_landscape_0
+    - carousel_image_landscape_1
+    - carousel_image_landscape_2
+    - carousel_image_landscape_3
+    - carousel_image_landscape_4
+    - carousel_image_landscape_5
+    - carousel_image_landscape_6
+    - carousel_image_landscape_7
+    - carousel_image_landscape_8
+    - carousel_image_landscape_9
+    enum_reference: subtenant_dark_theme_image_reference_enum
+    in: path
+    parameter_fieldname: reference
+    readOnly: false
+    required: true
+    type: string
+  - _key: static_uri
+    api_fieldname: static_uri
+    description: The static link to the image.
+    example: https://static.mbed.com/123456789.jpg
+    format: uri
+    readOnly: true
+    required: false
+    type: string
+  - _key: updated_at
+    api_fieldname: updated_at
+    description: Last update time in UTC.
+    example: '2018-02-14T15:24:14Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  group_id: Branding
+  methods:
+  - _key: create
+    additional_operations:
+    - notes: The multipart endpoint is used by the SDKs as it offers the same functionality
+        as the standard upload endpoint.
+      operation_id: uploadAccountDarkImage
+    description: Upload a new account dark theme branding image as form data in PNG
+      or JPEG format.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - static_uri
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: image
+      api_fieldname: image
+      description: The image in PNG or JPEG format as multipart form data.
+      entity_fieldname: image
+      external_param: true
+      in: stream
+      name: image
+      parameter_fieldname: image
+      required: true
+      type: file
+    - _key: reference
+      api_fieldname: reference
+      description: Name of the image.
+      entity_fieldname: reference
+      enum: &id008
+      - brand_logo_portrait
+      - brand_logo_square
+      - brand_logo_landscape
+      - brand_logo_email
+      - desktop_background_landscape
+      - desktop_background_square
+      - desktop_background_portrait
+      - carousel_image_portrait_0
+      - carousel_image_portrait_1
+      - carousel_image_portrait_2
+      - carousel_image_portrait_3
+      - carousel_image_portrait_4
+      - carousel_image_portrait_5
+      - carousel_image_portrait_6
+      - carousel_image_portrait_7
+      - carousel_image_portrait_8
+      - carousel_image_portrait_9
+      - carousel_image_square_0
+      - carousel_image_square_1
+      - carousel_image_square_2
+      - carousel_image_square_3
+      - carousel_image_square_4
+      - carousel_image_square_5
+      - carousel_image_square_6
+      - carousel_image_square_7
+      - carousel_image_square_8
+      - carousel_image_square_9
+      - carousel_image_landscape_0
+      - carousel_image_landscape_1
+      - carousel_image_landscape_2
+      - carousel_image_landscape_3
+      - carousel_image_landscape_4
+      - carousel_image_landscape_5
+      - carousel_image_landscape_6
+      - carousel_image_landscape_7
+      - carousel_image_landscape_8
+      - carousel_image_landscape_9
+      enum_reference: subtenant_dark_theme_image_reference_enum
+      in: path
+      parameter_fieldname: reference
+      required: true
+      type: string
+    group_id: Branding
+    method: post
+    mode: create
+    operation_id: uploadAccountDarkImageMultipart
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart
+    request_body: file
+    request_content_type: multipart/form-data
+    responses:
+    - _key: '201'
+      description: Image uploaded successfully.
+      headers:
+      - _key: Content-Location
+        description: Location of the image metadata.
+        type: string
+      - _key: Location
+        description: Location of the image binary.
+        type: string
+      schema:
+        foreign_key:
+          entity: subtenant_light_theme_image
+          group: Branding
+        properties:
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''branding_image'''
+          entity_fieldname: object
+          enum:
+          - branding_image
+          readOnly: true
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: Name of the image.
+          entity_fieldname: reference
+          enum:
+          - brand_logo_portrait
+          - brand_logo_square
+          - brand_logo_landscape
+          - brand_logo_email
+          - desktop_background_landscape
+          - desktop_background_square
+          - desktop_background_portrait
+          - carousel_image_portrait_0
+          - carousel_image_portrait_1
+          - carousel_image_portrait_2
+          - carousel_image_portrait_3
+          - carousel_image_portrait_4
+          - carousel_image_portrait_5
+          - carousel_image_portrait_6
+          - carousel_image_portrait_7
+          - carousel_image_portrait_8
+          - carousel_image_portrait_9
+          - carousel_image_square_0
+          - carousel_image_square_1
+          - carousel_image_square_2
+          - carousel_image_square_3
+          - carousel_image_square_4
+          - carousel_image_square_5
+          - carousel_image_square_6
+          - carousel_image_square_7
+          - carousel_image_square_8
+          - carousel_image_square_9
+          - carousel_image_landscape_0
+          - carousel_image_landscape_1
+          - carousel_image_landscape_2
+          - carousel_image_landscape_3
+          - carousel_image_landscape_4
+          - carousel_image_landscape_5
+          - carousel_image_landscape_6
+          - carousel_image_landscape_7
+          - carousel_image_landscape_8
+          - carousel_image_landscape_9
+          enum_reference: light_theme_image_reference_enum
+          in: path
+          parameter_fieldname: reference
+          required: true
+          type: string
+        - _key: static_uri
+          api_fieldname: static_uri
+          description: The static link to the image.
+          entity_fieldname: static_uri
+          example: https://static.mbed.com/123456789.jpg
+          format: uri
+          readOnly: true
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update time in UTC.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          readOnly: true
+          type: string
+        type: object
+    - _key: '400'
+      description: Error in input data format, for example, image is too large.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Unknown image reference.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_dark_theme_image
+    return_type: subtenant_dark_theme_image
+    summary: Upload a dark theme image.
+    x_deprecation: null
+    x_filter: {}
+  - _key: delete
+    description: 'Revert an account branding image to dark theme default.
+
+
+      **Example:**
+
+      ```
+
+      curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/clear
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: reference
+      api_fieldname: reference
+      description: Name of the branding images (icon or picture).
+      entity_fieldname: reference
+      enum: *id008
+      enum_reference: subtenant_dark_theme_image_reference_enum
+      external_param: false
+      in: path
+      name: reference
+      parameter_fieldname: reference
+      required: true
+      type: string
+    group_id: Branding
+    method: post
+    mode: delete
+    operation_id: clearAccountDarkImage
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-images/dark/{reference}/clear
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Image reverted successfully.
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Unknown image reference, or account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_dark_theme_image
+    return_type: subtenant_dark_theme_image
+    summary: Revert an image to dark theme default.
+    x_deprecation: null
+    x_filter: {}
+  - _key: list
+    description: 'Retrieve the metadata of all dark theme branding images.
+
+
+      **Example:**
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - limit
+    - after
+    - order
+    - total_count
+    - has_more
+    - data
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    foreign_key:
+      entity: subtenant_dark_theme_image
+      group: Branding
+    foreign_key_priority: self
+    group_id: Branding
+    method: get
+    mode: list
+    operation_id: getAllAccountDarkImageData
+    pagination: true
+    path: /v3/accounts/{account_id}/branding-images/dark
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        foreign_key:
+          entity: subtenant_dark_theme_image
+          group: Branding
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: The entity ID to fetch after the given one.
+          entity_fieldname: after
+          example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: data
+          api_fieldname: data
+          description: A list of entities.
+          entity_fieldname: data
+          items:
+            foreign_key:
+              entity: dark_theme_image
+              group: Branding
+            properties:
+            - _key: object
+              description: 'Entity name: always ''branding_image'''
+              enum:
+              - branding_image
+              readOnly: true
+              type: string
+            - _key: reference
+              description: Name of the image.
+              enum:
+              - brand_logo_portrait
+              - brand_logo_square
+              - brand_logo_landscape
+              - brand_logo_email
+              - desktop_background_landscape
+              - desktop_background_square
+              - desktop_background_portrait
+              - carousel_image_portrait_0
+              - carousel_image_portrait_1
+              - carousel_image_portrait_2
+              - carousel_image_portrait_3
+              - carousel_image_portrait_4
+              - carousel_image_portrait_5
+              - carousel_image_portrait_6
+              - carousel_image_portrait_7
+              - carousel_image_portrait_8
+              - carousel_image_portrait_9
+              - carousel_image_square_0
+              - carousel_image_square_1
+              - carousel_image_square_2
+              - carousel_image_square_3
+              - carousel_image_square_4
+              - carousel_image_square_5
+              - carousel_image_square_6
+              - carousel_image_square_7
+              - carousel_image_square_8
+              - carousel_image_square_9
+              - carousel_image_landscape_0
+              - carousel_image_landscape_1
+              - carousel_image_landscape_2
+              - carousel_image_landscape_3
+              - carousel_image_landscape_4
+              - carousel_image_landscape_5
+              - carousel_image_landscape_6
+              - carousel_image_landscape_7
+              - carousel_image_landscape_8
+              - carousel_image_landscape_9
+              type: string
+            - _key: static_uri
+              description: The static link to the image.
+              example: https://static.mbed.com/123456789.jpg
+              format: uri
+              readOnly: true
+              type: string
+            - _key: updated_at
+              description: Last update time in UTC.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              readOnly: true
+              type: string
+            type: object
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: Flag indicating whether there are more results.
+          entity_fieldname: has_more
+          example: false
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: The number of results to return, or equal to `total_count`.
+          entity_fieldname: limit
+          example: 50
+          format: int32
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always `list`.'
+          entity_fieldname: object
+          enum:
+          - list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: 'The order of the records to return based on creation time.
+            Available values: ASC, DESC; by default ASC.'
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          description: The total number of records, if requested.
+          entity_fieldname: total_count
+          example: 20
+          format: int32
+          type: integer
+        required:
+        - data
+        - has_more
+        - limit
+        - object
+        - total_count
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_dark_theme_image
+    return_type: paginated_response(subtenant_dark_theme_image)
+    summary: Get metadata of all dark theme images.
+    x_deprecation: null
+    x_filter: {}
+  - _key: read
+    description: 'Retrieve metadata of one account dark theme branding image.
+
+
+      **Example:**
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - static_uri
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: reference
+      api_fieldname: reference
+      description: Name of the image.
+      entity_fieldname: reference
+      enum: *id008
+      enum_reference: subtenant_dark_theme_image_reference_enum
+      in: path
+      parameter_fieldname: reference
+      required: true
+      type: string
+    group_id: Branding
+    method: get
+    mode: read
+    operation_id: getAccountDarkImageData
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-images/dark/{reference}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        foreign_key:
+          entity: subtenant_light_theme_image
+          group: Branding
+        properties:
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''branding_image'''
+          entity_fieldname: object
+          enum:
+          - branding_image
+          readOnly: true
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: Name of the image.
+          entity_fieldname: reference
+          enum:
+          - brand_logo_portrait
+          - brand_logo_square
+          - brand_logo_landscape
+          - brand_logo_email
+          - desktop_background_landscape
+          - desktop_background_square
+          - desktop_background_portrait
+          - carousel_image_portrait_0
+          - carousel_image_portrait_1
+          - carousel_image_portrait_2
+          - carousel_image_portrait_3
+          - carousel_image_portrait_4
+          - carousel_image_portrait_5
+          - carousel_image_portrait_6
+          - carousel_image_portrait_7
+          - carousel_image_portrait_8
+          - carousel_image_portrait_9
+          - carousel_image_square_0
+          - carousel_image_square_1
+          - carousel_image_square_2
+          - carousel_image_square_3
+          - carousel_image_square_4
+          - carousel_image_square_5
+          - carousel_image_square_6
+          - carousel_image_square_7
+          - carousel_image_square_8
+          - carousel_image_square_9
+          - carousel_image_landscape_0
+          - carousel_image_landscape_1
+          - carousel_image_landscape_2
+          - carousel_image_landscape_3
+          - carousel_image_landscape_4
+          - carousel_image_landscape_5
+          - carousel_image_landscape_6
+          - carousel_image_landscape_7
+          - carousel_image_landscape_8
+          - carousel_image_landscape_9
+          enum_reference: light_theme_image_reference_enum
+          in: path
+          parameter_fieldname: reference
+          required: true
+          type: string
+        - _key: static_uri
+          api_fieldname: static_uri
+          description: The static link to the image.
+          entity_fieldname: static_uri
+          example: https://static.mbed.com/123456789.jpg
+          format: uri
+          readOnly: true
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update time in UTC.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          readOnly: true
+          type: string
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Unknown image reference, or account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_dark_theme_image
+    return_type: subtenant_dark_theme_image
+    summary: Get metadata of a dark theme image.
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: null
+  swagger_models:
+  - BrandingImage
+  - BrandingImageList
+  tags:
+  - Tenant user interface configuration - images
+- _key: subtenant_light_theme_color
+  field_renames: []
+  fields:
+  - _key: color
+    api_fieldname: color
+    description: The color given as name (purple) or as a hex code.
+    example: '#f3f93e'
+    in: body
+    parameter_fieldname: color
+    readOnly: false
+    required: false
+    type: string
+  - _key: reference
+    api_fieldname: reference
+    description: Color name.
+    enum:
+    - error_color
+    - primary
+    - secondary
+    - success_color
+    - warning_color
+    - canvas_background
+    - canvas_background_font_color
+    - workspace_background
+    - workspace_background_font_color
+    - info_color
+    - info_font_color
+    - primary_font_color
+    - secondary_font_color
+    - error_font_color
+    - success_font_color
+    - warning_font_color
+    enum_reference: subtenant_light_theme_color_reference_enum
+    in: path
+    parameter_fieldname: reference
+    readOnly: false
+    required: true
+    type: string
+  - _key: updated_at
+    api_fieldname: updated_at
+    description: Last update time in UTC.
+    example: '2018-02-14T15:24:14Z'
+    format: date-time
+    in: body
+    parameter_fieldname: updated_at
+    readOnly: true
+    required: false
+    type: string
+  group_id: Branding
+  methods:
+  - _key: delete
+    description: 'Resets the branding color of a tenant account to its light theme
+      default.
+
+
+      **Example:**
+
+      ```
+
+      curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - color
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: reference
+      api_fieldname: reference
+      description: Color name.
+      entity_fieldname: reference
+      enum: &id009
+      - error_color
+      - primary
+      - secondary
+      - success_color
+      - warning_color
+      - canvas_background
+      - canvas_background_font_color
+      - workspace_background
+      - workspace_background_font_color
+      - info_color
+      - info_font_color
+      - primary_font_color
+      - secondary_font_color
+      - error_font_color
+      - success_font_color
+      - warning_font_color
+      enum_reference: subtenant_light_theme_color_reference_enum
+      in: path
+      parameter_fieldname: reference
+      required: true
+      type: string
+    group_id: Branding
+    method: delete
+    mode: delete
+    operation_id: resetAccountLightColor
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-colors/light/{reference}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        foreign_key:
+          entity: subtenant_dark_theme_color
+          group: Branding
+        properties:
+        - _key: color
+          api_fieldname: color
+          description: The color given as name (purple) or as a hex code.
+          entity_fieldname: color
+          example: '#f3f93e'
+          in: body
+          parameter_fieldname: color
+          required: false
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''branding_color'''
+          entity_fieldname: object
+          enum:
+          - branding_color
+          external_param: true
+          in: body
+          name: object
+          parameter_fieldname: object
+          readOnly: true
+          required: false
+          schema_param: true
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: Color name.
+          entity_fieldname: reference
+          enum:
+          - error_color
+          - primary
+          - secondary
+          - success_color
+          - warning_color
+          - canvas_background
+          - canvas_background_font_color
+          - workspace_background
+          - workspace_background_font_color
+          - info_color
+          - info_font_color
+          - primary_font_color
+          - secondary_font_color
+          - error_font_color
+          - success_font_color
+          - warning_font_color
+          enum_reference: subtenant_dark_theme_color_reference_enum
+          in: path
+          parameter_fieldname: reference
+          required: true
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update time in UTC.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          in: body
+          parameter_fieldname: updated_at
+          readOnly: true
+          required: false
+          type: string
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Color or account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: true
+      self: false
+      type: void
+    return_type: void
+    spec:
+      return_type: void
+    summary: Reset branding color to default.
+    x_deprecation: null
+    x_filter: {}
+  - _key: list
+    description: 'Retrieve light theme branding colors for an account.
+
+
+      **Example:**
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - limit
+    - after
+    - order
+    - total_count
+    - has_more
+    - data
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    foreign_key:
+      entity: subtenant_light_theme_color
+      group: Branding
+    foreign_key_priority: self
+    group_id: Branding
+    method: get
+    mode: list
+    operation_id: getAccountLightColors
+    pagination: true
+    path: /v3/accounts/{account_id}/branding-colors/light
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        foreign_key:
+          entity: subtenant_light_theme_color
+          group: Branding
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: The entity ID to fetch after the given one.
+          entity_fieldname: after
+          example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: data
+          api_fieldname: data
+          description: A list of entities.
+          entity_fieldname: data
+          items:
+            foreign_key:
+              entity: dark_theme_color
+              group: Branding
+            properties:
+            - _key: color
+              description: The color given as name (purple) or as a hex code.
+              example: '#f3f93e'
+              type: string
+            - _key: object
+              description: 'Entity name: always ''branding_color'''
+              enum:
+              - branding_color
+              readOnly: true
+              type: string
+            - _key: reference
+              description: Color name.
+              enum:
+              - error_color
+              - primary
+              - secondary
+              - success_color
+              - warning_color
+              - canvas_background
+              - canvas_background_font_color
+              - workspace_background
+              - workspace_background_font_color
+              - info_color
+              - info_font_color
+              - primary_font_color
+              - secondary_font_color
+              - error_font_color
+              - success_font_color
+              - warning_font_color
+              type: string
+            - _key: updated_at
+              description: Last update time in UTC.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              readOnly: true
+              type: string
+            type: object
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: Flag indicating whether there are more results.
+          entity_fieldname: has_more
+          example: false
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: The number of results to return, or equal to `total_count`.
+          entity_fieldname: limit
+          example: 50
+          format: int32
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always `list`.'
+          entity_fieldname: object
+          enum:
+          - list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: 'The order of the records to return based on creation time.
+            Available values: ASC, DESC; by default ASC.'
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          description: The total number of records, if requested.
+          entity_fieldname: total_count
+          example: 20
+          format: int32
+          type: integer
+        required:
+        - data
+        - has_more
+        - limit
+        - object
+        - total_count
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_light_theme_color
+    return_type: paginated_response(subtenant_light_theme_color)
+    summary: Get light theme branding colors.
+    x_deprecation: null
+    x_filter: {}
+  - _key: read
+    description: 'Retrieve the requested light theme branding color.
+
+
+      **Example:**
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - color
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: reference
+      api_fieldname: reference
+      description: Color name.
+      entity_fieldname: reference
+      enum: *id009
+      enum_reference: subtenant_light_theme_color_reference_enum
+      in: path
+      parameter_fieldname: reference
+      required: true
+      type: string
+    group_id: Branding
+    method: get
+    mode: read
+    operation_id: getAccountLightColor
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-colors/light/{reference}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        foreign_key:
+          entity: subtenant_dark_theme_color
+          group: Branding
+        properties:
+        - _key: color
+          api_fieldname: color
+          description: The color given as name (purple) or as a hex code.
+          entity_fieldname: color
+          example: '#f3f93e'
+          in: body
+          parameter_fieldname: color
+          required: false
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''branding_color'''
+          entity_fieldname: object
+          enum:
+          - branding_color
+          external_param: true
+          in: body
+          name: object
+          parameter_fieldname: object
+          readOnly: true
+          required: false
+          schema_param: true
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: Color name.
+          entity_fieldname: reference
+          enum:
+          - error_color
+          - primary
+          - secondary
+          - success_color
+          - warning_color
+          - canvas_background
+          - canvas_background_font_color
+          - workspace_background
+          - workspace_background_font_color
+          - info_color
+          - info_font_color
+          - primary_font_color
+          - secondary_font_color
+          - error_font_color
+          - success_font_color
+          - warning_font_color
+          enum_reference: subtenant_dark_theme_color_reference_enum
+          in: path
+          parameter_fieldname: reference
+          required: true
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update time in UTC.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          in: body
+          parameter_fieldname: updated_at
+          readOnly: true
+          required: false
+          type: string
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Color or account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_light_theme_color
+    return_type: subtenant_light_theme_color
+    summary: Get light theme branding color.
+    x_deprecation: null
+    x_filter: {}
+  - _key: update
+    description: 'Update a light theme branding color of a tenant account.
+
+
+      **Example:**
+
+      ```
+
+      curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light/primary
+      \
+
+      -H ''Authorization: Bearer <api_key>'' \
+
+      -H ''content-type: application/json'' \
+
+      -d ''{ "color": "purple" }''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: color
+      api_fieldname: color
+      description: The color given as name (purple) or as a hex code.
+      entity_fieldname: color
+      example: '#f3f93e'
+      in: body
+      parameter_fieldname: color
+      required: false
+      type: string
+    - _key: reference
+      api_fieldname: reference
+      description: Color name.
+      entity_fieldname: reference
+      enum: *id009
+      enum_reference: subtenant_light_theme_color_reference_enum
+      in: path
+      parameter_fieldname: reference
+      required: true
+      type: string
+    - _key: updated_at
+      api_fieldname: updated_at
+      description: Last update time in UTC.
+      entity_fieldname: updated_at
+      example: '2018-02-14T15:24:14Z'
+      format: date-time
+      in: body
+      parameter_fieldname: updated_at
+      readOnly: true
+      required: false
+      type: string
+    group_id: Branding
+    method: put
+    mode: update
+    operation_id: setAccountLightColor
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-colors/light/{reference}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Color set successfully.
+      schema:
+        foreign_key:
+          entity: subtenant_dark_theme_color
+          group: Branding
+        properties:
+        - _key: color
+          api_fieldname: color
+          description: The color given as name (purple) or as a hex code.
+          entity_fieldname: color
+          example: '#f3f93e'
+          in: body
+          parameter_fieldname: color
+          required: false
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''branding_color'''
+          entity_fieldname: object
+          enum:
+          - branding_color
+          external_param: true
+          in: body
+          name: object
+          parameter_fieldname: object
+          readOnly: true
+          required: false
+          schema_param: true
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: Color name.
+          entity_fieldname: reference
+          enum:
+          - error_color
+          - primary
+          - secondary
+          - success_color
+          - warning_color
+          - canvas_background
+          - canvas_background_font_color
+          - workspace_background
+          - workspace_background_font_color
+          - info_color
+          - info_font_color
+          - primary_font_color
+          - secondary_font_color
+          - error_font_color
+          - success_font_color
+          - warning_font_color
+          enum_reference: subtenant_dark_theme_color_reference_enum
+          in: path
+          parameter_fieldname: reference
+          required: true
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update time in UTC.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          in: body
+          parameter_fieldname: updated_at
+          readOnly: true
+          required: false
+          type: string
+        type: object
+    - _key: '400'
+      description: Error in input data format.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Color or account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_light_theme_color
+    return_type: subtenant_light_theme_color
+    summary: Updates light theme branding color.
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: null
+  swagger_models:
+  - BrandingColor
+  - BrandingColorList
+  tags:
+  - Tenant user interface configuration - colors
+- _key: subtenant_light_theme_image
+  field_renames: []
+  fields:
+  - _key: reference
+    api_fieldname: reference
+    description: Name of the image.
+    enum:
+    - brand_logo_portrait
+    - brand_logo_square
+    - brand_logo_landscape
+    - brand_logo_email
+    - desktop_background_landscape
+    - desktop_background_square
+    - desktop_background_portrait
+    - carousel_image_portrait_0
+    - carousel_image_portrait_1
+    - carousel_image_portrait_2
+    - carousel_image_portrait_3
+    - carousel_image_portrait_4
+    - carousel_image_portrait_5
+    - carousel_image_portrait_6
+    - carousel_image_portrait_7
+    - carousel_image_portrait_8
+    - carousel_image_portrait_9
+    - carousel_image_square_0
+    - carousel_image_square_1
+    - carousel_image_square_2
+    - carousel_image_square_3
+    - carousel_image_square_4
+    - carousel_image_square_5
+    - carousel_image_square_6
+    - carousel_image_square_7
+    - carousel_image_square_8
+    - carousel_image_square_9
+    - carousel_image_landscape_0
+    - carousel_image_landscape_1
+    - carousel_image_landscape_2
+    - carousel_image_landscape_3
+    - carousel_image_landscape_4
+    - carousel_image_landscape_5
+    - carousel_image_landscape_6
+    - carousel_image_landscape_7
+    - carousel_image_landscape_8
+    - carousel_image_landscape_9
+    enum_reference: subtenant_light_theme_image_reference_enum
+    in: path
+    parameter_fieldname: reference
+    readOnly: false
+    required: true
+    type: string
+  - _key: static_uri
+    api_fieldname: static_uri
+    description: The static link to the image.
+    example: https://static.mbed.com/123456789.jpg
+    format: uri
+    readOnly: true
+    required: false
+    type: string
+  - _key: updated_at
+    api_fieldname: updated_at
+    description: Last update time in UTC.
+    example: '2018-02-14T15:24:14Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  group_id: Branding
+  methods:
+  - _key: create
+    additional_operations:
+    - notes: The multipart request is more generic and better supported by SDKs.
+      operation_id: uploadAccountLightImage
+    description: Upload a new account branding image as form data in PNG or JPEG format.
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - static_uri
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: image
+      api_fieldname: image
+      description: The image in PNG or JPEG format as multipart form data.
+      entity_fieldname: image
+      external_param: true
+      in: stream
+      name: image
+      parameter_fieldname: image
+      required: true
+      type: file
+    - _key: reference
+      api_fieldname: reference
+      description: Name of the image.
+      entity_fieldname: reference
+      enum: &id010
+      - brand_logo_portrait
+      - brand_logo_square
+      - brand_logo_landscape
+      - brand_logo_email
+      - desktop_background_landscape
+      - desktop_background_square
+      - desktop_background_portrait
+      - carousel_image_portrait_0
+      - carousel_image_portrait_1
+      - carousel_image_portrait_2
+      - carousel_image_portrait_3
+      - carousel_image_portrait_4
+      - carousel_image_portrait_5
+      - carousel_image_portrait_6
+      - carousel_image_portrait_7
+      - carousel_image_portrait_8
+      - carousel_image_portrait_9
+      - carousel_image_square_0
+      - carousel_image_square_1
+      - carousel_image_square_2
+      - carousel_image_square_3
+      - carousel_image_square_4
+      - carousel_image_square_5
+      - carousel_image_square_6
+      - carousel_image_square_7
+      - carousel_image_square_8
+      - carousel_image_square_9
+      - carousel_image_landscape_0
+      - carousel_image_landscape_1
+      - carousel_image_landscape_2
+      - carousel_image_landscape_3
+      - carousel_image_landscape_4
+      - carousel_image_landscape_5
+      - carousel_image_landscape_6
+      - carousel_image_landscape_7
+      - carousel_image_landscape_8
+      - carousel_image_landscape_9
+      enum_reference: subtenant_light_theme_image_reference_enum
+      in: path
+      parameter_fieldname: reference
+      required: true
+      type: string
+    group_id: Branding
+    method: post
+    mode: create
+    operation_id: uploadAccountLightImageMultipart
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-images/light/{reference}/upload-multipart
+    request_body: file
+    request_content_type: multipart/form-data
+    responses:
+    - _key: '201'
+      description: Image uploaded successfully.
+      headers:
+      - _key: Content-Location
+        description: Location of the image metadata.
+        type: string
+      - _key: Location
+        description: Location of the image binary.
+        type: string
+      schema:
+        foreign_key:
+          entity: subtenant_dark_theme_image
+          group: Branding
+        properties:
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''branding_image'''
+          entity_fieldname: object
+          enum:
+          - branding_image
+          readOnly: true
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: Name of the image.
+          entity_fieldname: reference
+          enum:
+          - brand_logo_portrait
+          - brand_logo_square
+          - brand_logo_landscape
+          - brand_logo_email
+          - desktop_background_landscape
+          - desktop_background_square
+          - desktop_background_portrait
+          - carousel_image_portrait_0
+          - carousel_image_portrait_1
+          - carousel_image_portrait_2
+          - carousel_image_portrait_3
+          - carousel_image_portrait_4
+          - carousel_image_portrait_5
+          - carousel_image_portrait_6
+          - carousel_image_portrait_7
+          - carousel_image_portrait_8
+          - carousel_image_portrait_9
+          - carousel_image_square_0
+          - carousel_image_square_1
+          - carousel_image_square_2
+          - carousel_image_square_3
+          - carousel_image_square_4
+          - carousel_image_square_5
+          - carousel_image_square_6
+          - carousel_image_square_7
+          - carousel_image_square_8
+          - carousel_image_square_9
+          - carousel_image_landscape_0
+          - carousel_image_landscape_1
+          - carousel_image_landscape_2
+          - carousel_image_landscape_3
+          - carousel_image_landscape_4
+          - carousel_image_landscape_5
+          - carousel_image_landscape_6
+          - carousel_image_landscape_7
+          - carousel_image_landscape_8
+          - carousel_image_landscape_9
+          enum_reference: subtenant_dark_theme_image_reference_enum
+          in: path
+          parameter_fieldname: reference
+          required: true
+          type: string
+        - _key: static_uri
+          api_fieldname: static_uri
+          description: The static link to the image.
+          entity_fieldname: static_uri
+          example: https://static.mbed.com/123456789.jpg
+          format: uri
+          readOnly: true
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update time in UTC.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          readOnly: true
+          type: string
+        type: object
+    - _key: '400'
+      description: Error in input data format, for example, image is too large.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Unknown image reference.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_light_theme_image
+    return_type: subtenant_light_theme_image
+    summary: Upload a light theme image.
+    x_deprecation: null
+    x_filter: {}
+  - _key: delete
+    description: 'Revert an account branding image to light theme default.
+
+
+      **Example:**
+
+      ```curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/clear
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: reference
+      api_fieldname: reference
+      description: Name of the branding images (icon or picture).
+      entity_fieldname: reference
+      enum: *id010
+      enum_reference: subtenant_light_theme_image_reference_enum
+      external_param: false
+      in: path
+      name: reference
+      parameter_fieldname: reference
+      required: true
+      type: string
+    group_id: Branding
+    method: post
+    mode: delete
+    operation_id: clearAccountLightImage
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-images/light/{reference}/clear
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Image reverted successfully.
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Unknown image reference, or account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_light_theme_image
+    return_type: subtenant_light_theme_image
+    summary: Revert an image to light theme default.
+    x_deprecation: null
+    x_filter: {}
+  - _key: list
+    description: 'Retrieve the metadata of all light theme branding images.
+
+
+      **Example:**
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - limit
+    - after
+    - order
+    - total_count
+    - has_more
+    - data
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    foreign_key:
+      entity: subtenant_light_theme_image
+      group: Branding
+    foreign_key_priority: self
+    group_id: Branding
+    method: get
+    mode: list
+    operation_id: getAllAccountLightImageData
+    pagination: true
+    path: /v3/accounts/{account_id}/branding-images/light
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        foreign_key:
+          entity: subtenant_light_theme_image
+          group: Branding
+        pagination: true
+        properties:
+        - _key: after
+          api_fieldname: after
+          description: The entity ID to fetch after the given one.
+          entity_fieldname: after
+          example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: data
+          api_fieldname: data
+          description: A list of entities.
+          entity_fieldname: data
+          items:
+            foreign_key:
+              entity: dark_theme_image
+              group: Branding
+            properties:
+            - _key: object
+              description: 'Entity name: always ''branding_image'''
+              enum:
+              - branding_image
+              readOnly: true
+              type: string
+            - _key: reference
+              description: Name of the image.
+              enum:
+              - brand_logo_portrait
+              - brand_logo_square
+              - brand_logo_landscape
+              - brand_logo_email
+              - desktop_background_landscape
+              - desktop_background_square
+              - desktop_background_portrait
+              - carousel_image_portrait_0
+              - carousel_image_portrait_1
+              - carousel_image_portrait_2
+              - carousel_image_portrait_3
+              - carousel_image_portrait_4
+              - carousel_image_portrait_5
+              - carousel_image_portrait_6
+              - carousel_image_portrait_7
+              - carousel_image_portrait_8
+              - carousel_image_portrait_9
+              - carousel_image_square_0
+              - carousel_image_square_1
+              - carousel_image_square_2
+              - carousel_image_square_3
+              - carousel_image_square_4
+              - carousel_image_square_5
+              - carousel_image_square_6
+              - carousel_image_square_7
+              - carousel_image_square_8
+              - carousel_image_square_9
+              - carousel_image_landscape_0
+              - carousel_image_landscape_1
+              - carousel_image_landscape_2
+              - carousel_image_landscape_3
+              - carousel_image_landscape_4
+              - carousel_image_landscape_5
+              - carousel_image_landscape_6
+              - carousel_image_landscape_7
+              - carousel_image_landscape_8
+              - carousel_image_landscape_9
+              type: string
+            - _key: static_uri
+              description: The static link to the image.
+              example: https://static.mbed.com/123456789.jpg
+              format: uri
+              readOnly: true
+              type: string
+            - _key: updated_at
+              description: Last update time in UTC.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              readOnly: true
+              type: string
+            type: object
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: Flag indicating whether there are more results.
+          entity_fieldname: has_more
+          example: false
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: The number of results to return, or equal to `total_count`.
+          entity_fieldname: limit
+          example: 50
+          format: int32
+          type: integer
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always `list`.'
+          entity_fieldname: object
+          enum:
+          - list
+          type: string
+        - _key: order
+          api_fieldname: order
+          description: 'The order of the records to return based on creation time.
+            Available values: ASC, DESC; by default ASC.'
+          entity_fieldname: order
+          enum:
+          - ASC
+          - DESC
+          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          description: The total number of records, if requested.
+          entity_fieldname: total_count
+          example: 20
+          format: int32
+          type: integer
+        required:
+        - data
+        - has_more
+        - limit
+        - object
+        - total_count
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_light_theme_image
+    return_type: paginated_response(subtenant_light_theme_image)
+    summary: Get metadata of all light theme images.
+    x_deprecation: null
+    x_filter: {}
+  - _key: read
+    description: 'Retrieve metadata for one account light theme branding image.
+
+
+      **Example:**
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - groups
+    - filter
+    - static_uri
+    - updated_at
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: true
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: reference
+      api_fieldname: reference
+      description: Name of the image.
+      entity_fieldname: reference
+      enum: *id010
+      enum_reference: subtenant_light_theme_image_reference_enum
+      in: path
+      parameter_fieldname: reference
+      required: true
+      type: string
+    group_id: Branding
+    method: get
+    mode: read
+    operation_id: getAccountLightImageData
+    pagination: false
+    path: /v3/accounts/{account_id}/branding-images/light/{reference}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        foreign_key:
+          entity: subtenant_dark_theme_image
+          group: Branding
+        properties:
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''branding_image'''
+          entity_fieldname: object
+          enum:
+          - branding_image
+          readOnly: true
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: Name of the image.
+          entity_fieldname: reference
+          enum:
+          - brand_logo_portrait
+          - brand_logo_square
+          - brand_logo_landscape
+          - brand_logo_email
+          - desktop_background_landscape
+          - desktop_background_square
+          - desktop_background_portrait
+          - carousel_image_portrait_0
+          - carousel_image_portrait_1
+          - carousel_image_portrait_2
+          - carousel_image_portrait_3
+          - carousel_image_portrait_4
+          - carousel_image_portrait_5
+          - carousel_image_portrait_6
+          - carousel_image_portrait_7
+          - carousel_image_portrait_8
+          - carousel_image_portrait_9
+          - carousel_image_square_0
+          - carousel_image_square_1
+          - carousel_image_square_2
+          - carousel_image_square_3
+          - carousel_image_square_4
+          - carousel_image_square_5
+          - carousel_image_square_6
+          - carousel_image_square_7
+          - carousel_image_square_8
+          - carousel_image_square_9
+          - carousel_image_landscape_0
+          - carousel_image_landscape_1
+          - carousel_image_landscape_2
+          - carousel_image_landscape_3
+          - carousel_image_landscape_4
+          - carousel_image_landscape_5
+          - carousel_image_landscape_6
+          - carousel_image_landscape_7
+          - carousel_image_landscape_8
+          - carousel_image_landscape_9
+          enum_reference: subtenant_dark_theme_image_reference_enum
+          in: path
+          parameter_fieldname: reference
+          required: true
+          type: string
+        - _key: static_uri
+          api_fieldname: static_uri
+          description: The static link to the image.
+          entity_fieldname: static_uri
+          example: https://static.mbed.com/123456789.jpg
+          format: uri
+          readOnly: true
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update time in UTC.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          readOnly: true
+          type: string
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Unknown image reference, or account not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_light_theme_image
+    return_type: subtenant_light_theme_image
+    summary: Get metadata of a light theme image.
+    x_deprecation: null
+    x_filter: {}
+  primary_key_field: null
+  swagger_models:
+  - BrandingImage
+  - BrandingImageList
+  tags:
+  - Tenant user interface configuration - images
 - _key: subtenant_trusted_certificate
   field_renames: []
   fields:
@@ -35762,7 +40820,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: &id007
+      enum: &id011
       - lwm2m
       - bootstrap
       enum_reference: subtenant_trusted_certificate_service_enum
@@ -35774,7 +40832,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id008
+      enum: &id012
       - ACTIVE
       - INACTIVE
       enum_reference: subtenant_trusted_certificate_status_enum
@@ -37379,7 +42437,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: *id007
+      enum: *id011
       enum_reference: subtenant_trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -37389,7 +42447,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id008
+      enum: *id012
       enum_reference: subtenant_trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -38289,14 +43347,14 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: &id009
+          enum: &id013
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           readOnly: true
           type: string
-        required: &id010
+        required: &id014
         - id
         type: object
       parameter_fieldname: login_profiles
@@ -39981,10 +45039,10 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: *id009
+          enum: *id013
           readOnly: true
           type: string
-        required: *id010
+        required: *id014
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -42198,7 +47256,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: &id011
+      enum: &id015
       - lwm2m
       - bootstrap
       enum_reference: trusted_certificate_service_enum
@@ -42210,7 +47268,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id012
+      enum: &id016
       - ACTIVE
       - INACTIVE
       enum_reference: trusted_certificate_status_enum
@@ -44165,7 +49223,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: *id011
+      enum: *id015
       enum_reference: trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -44175,7 +49233,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id012
+      enum: *id016
       enum_reference: trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -46804,14 +51862,14 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: &id013
+          enum: &id017
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           readOnly: true
           type: string
-        required: &id014
+        required: &id018
         - id
         type: object
       parameter_fieldname: login_profiles
@@ -48886,10 +53944,10 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: *id013
+          enum: *id017
           readOnly: true
           type: string
-        required: *id014
+        required: *id018
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -51254,6 +56312,136 @@ enums:
   values:
   - ACTIVE
   - INACTIVE
+- _key: subtenant_dark_theme_color_reference_enum
+  entity_name: subtenant_dark_theme_color
+  enum_name: subtenant_dark_theme_color_reference_enum
+  field_name: reference
+  group_id: Branding
+  values:
+  - canvas_background
+  - canvas_background_font_color
+  - error_color
+  - error_font_color
+  - info_color
+  - info_font_color
+  - primary
+  - primary_font_color
+  - secondary
+  - secondary_font_color
+  - success_color
+  - success_font_color
+  - warning_color
+  - warning_font_color
+  - workspace_background
+  - workspace_background_font_color
+- _key: subtenant_dark_theme_image_reference_enum
+  entity_name: subtenant_dark_theme_image
+  enum_name: subtenant_dark_theme_image_reference_enum
+  field_name: reference
+  group_id: Branding
+  values:
+  - brand_logo_email
+  - brand_logo_landscape
+  - brand_logo_portrait
+  - brand_logo_square
+  - carousel_image_landscape_0
+  - carousel_image_landscape_1
+  - carousel_image_landscape_2
+  - carousel_image_landscape_3
+  - carousel_image_landscape_4
+  - carousel_image_landscape_5
+  - carousel_image_landscape_6
+  - carousel_image_landscape_7
+  - carousel_image_landscape_8
+  - carousel_image_landscape_9
+  - carousel_image_portrait_0
+  - carousel_image_portrait_1
+  - carousel_image_portrait_2
+  - carousel_image_portrait_3
+  - carousel_image_portrait_4
+  - carousel_image_portrait_5
+  - carousel_image_portrait_6
+  - carousel_image_portrait_7
+  - carousel_image_portrait_8
+  - carousel_image_portrait_9
+  - carousel_image_square_0
+  - carousel_image_square_1
+  - carousel_image_square_2
+  - carousel_image_square_3
+  - carousel_image_square_4
+  - carousel_image_square_5
+  - carousel_image_square_6
+  - carousel_image_square_7
+  - carousel_image_square_8
+  - carousel_image_square_9
+  - desktop_background_landscape
+  - desktop_background_portrait
+  - desktop_background_square
+- _key: subtenant_light_theme_color_reference_enum
+  entity_name: subtenant_light_theme_color
+  enum_name: subtenant_light_theme_color_reference_enum
+  field_name: reference
+  group_id: Branding
+  values:
+  - canvas_background
+  - canvas_background_font_color
+  - error_color
+  - error_font_color
+  - info_color
+  - info_font_color
+  - primary
+  - primary_font_color
+  - secondary
+  - secondary_font_color
+  - success_color
+  - success_font_color
+  - warning_color
+  - warning_font_color
+  - workspace_background
+  - workspace_background_font_color
+- _key: subtenant_light_theme_image_reference_enum
+  entity_name: subtenant_light_theme_image
+  enum_name: subtenant_light_theme_image_reference_enum
+  field_name: reference
+  group_id: Branding
+  values:
+  - brand_logo_email
+  - brand_logo_landscape
+  - brand_logo_portrait
+  - brand_logo_square
+  - carousel_image_landscape_0
+  - carousel_image_landscape_1
+  - carousel_image_landscape_2
+  - carousel_image_landscape_3
+  - carousel_image_landscape_4
+  - carousel_image_landscape_5
+  - carousel_image_landscape_6
+  - carousel_image_landscape_7
+  - carousel_image_landscape_8
+  - carousel_image_landscape_9
+  - carousel_image_portrait_0
+  - carousel_image_portrait_1
+  - carousel_image_portrait_2
+  - carousel_image_portrait_3
+  - carousel_image_portrait_4
+  - carousel_image_portrait_5
+  - carousel_image_portrait_6
+  - carousel_image_portrait_7
+  - carousel_image_portrait_8
+  - carousel_image_portrait_9
+  - carousel_image_square_0
+  - carousel_image_square_1
+  - carousel_image_square_2
+  - carousel_image_square_3
+  - carousel_image_square_4
+  - carousel_image_square_5
+  - carousel_image_square_6
+  - carousel_image_square_7
+  - carousel_image_square_8
+  - carousel_image_square_9
+  - desktop_background_landscape
+  - desktop_background_portrait
+  - desktop_background_square
 - _key: subtenant_trusted_certificate_service_enum
   entity_name: subtenant_trusted_certificate
   enum_name: subtenant_trusted_certificate_service_enum
@@ -51373,11 +56561,19 @@ groups:
   - light_theme_color
   - dark_theme_image
   - light_theme_image
+  - subtenant_dark_theme_color
+  - subtenant_light_theme_color
+  - subtenant_dark_theme_image
+  - subtenant_light_theme_image
   enums:
   - dark_theme_color_reference_enum
   - light_theme_color_reference_enum
   - dark_theme_image_reference_enum
   - light_theme_image_reference_enum
+  - subtenant_dark_theme_color_reference_enum
+  - subtenant_light_theme_color_reference_enum
+  - subtenant_dark_theme_image_reference_enum
+  - subtenant_light_theme_image_reference_enum
 - _key: Device_Update
   entities:
   - campaign_device_metadata
