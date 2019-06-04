@@ -146,15 +146,17 @@ class LightThemeColor(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-colors/light/{reference}>`_.
         
-        :rtype: LightThemeColor
+        :rtype: Void
         """
+
+        from mbed_cloud.foundation import Void
 
         return self._client.call_api(
             method="delete",
             path="/v3/branding-colors/light/{reference}",
             content_type="application/json",
             path_params={"reference": self._reference.to_api()},
-            unpack=self,
+            unpack=Void,
         )
 
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
