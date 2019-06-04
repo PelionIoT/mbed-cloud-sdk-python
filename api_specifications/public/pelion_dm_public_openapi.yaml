@@ -2765,6 +2765,8 @@ definitions:
       device_id:
         example: '00000000000000000000000000000000'
         type: string
+    required:
+    - device_id
     type: object
   DeviceGroupPage:
     properties:

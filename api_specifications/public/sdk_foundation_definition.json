@@ -26493,7 +26493,7 @@
               "api_fieldname": "device_id",
               "external_param": false,
               "parameter_fieldname": "device_id",
-              "required": false,
+              "required": true,
               "_key": "id"
             }
           ],
@@ -28497,7 +28497,7 @@
               "api_fieldname": "device_id",
               "external_param": false,
               "parameter_fieldname": "device_id",
-              "required": false,
+              "required": true,
               "_key": "id"
             }
           ],

@@ -20208,7 +20208,7 @@ entities:
       in: body
       name: device_id
       parameter_fieldname: device_id
-      required: false
+      required: true
       schema_param: true
       type: string
     group_id: Devices
@@ -21880,7 +21880,7 @@ entities:
       in: body
       name: device_id
       parameter_fieldname: device_id
-      required: false
+      required: true
       schema_param: true
       type: string
     group_id: Devices
