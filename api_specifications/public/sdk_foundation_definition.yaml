@@ -16223,10 +16223,12 @@ entities:
         - type
         type: object
     return_info:
-      custom: false
-      self: true
-      type: dark_theme_color
-    return_type: dark_theme_color
+      custom: true
+      self: false
+      type: void
+    return_type: void
+    spec:
+      return_type: void
     summary: Reset branding color to default.
     x_deprecation: null
     x_filter: {}
@@ -30896,10 +30898,12 @@ entities:
         - type
         type: object
     return_info:
-      custom: false
-      self: true
-      type: light_theme_color
-    return_type: light_theme_color
+      custom: true
+      self: false
+      type: void
+    return_type: void
+    spec:
+      return_type: void
     summary: Reset branding color to default.
     x_deprecation: null
     x_filter: {}

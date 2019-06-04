@@ -21827,11 +21827,11 @@
           ],
           "path": "/v3/branding-colors/dark/{reference}",
           "summary": "Reset branding color to default.",
-          "return_type": "dark_theme_color",
+          "return_type": "void",
           "return_info": {
-            "self": true,
-            "custom": false,
-            "type": "dark_theme_color"
+            "self": false,
+            "custom": true,
+            "type": "void"
           },
           "x_filter": {},
           "x_deprecation": null,
@@ -21846,6 +21846,9 @@
           ],
           "group_id": "Branding",
           "operation_id": "resetDarkColor",
+          "spec": {
+            "return_type": "void"
+          },
           "pagination": false,
           "request_content_type": "application/json",
           "request_body": "json",
@@ -40360,11 +40363,11 @@
           ],
           "path": "/v3/branding-colors/light/{reference}",
           "summary": "Reset branding color to default.",
-          "return_type": "light_theme_color",
+          "return_type": "void",
           "return_info": {
-            "self": true,
-            "custom": false,
-            "type": "light_theme_color"
+            "self": false,
+            "custom": true,
+            "type": "void"
           },
           "x_filter": {},
           "x_deprecation": null,
@@ -40379,6 +40382,9 @@
           ],
           "group_id": "Branding",
           "operation_id": "resetLightColor",
+          "spec": {
+            "return_type": "void"
+          },
           "pagination": false,
           "request_content_type": "application/json",
           "request_body": "json",
