@@ -72,7 +72,7 @@ class SubtenantDarkThemeColor(Entity):
 
         :param color: The color given as name (purple) or as a hex code.
         :type color: str
-        :param reference: (Required) Color name.
+        :param reference: Color name.
         :type reference: str
         :param updated_at: Last update time in UTC.
         :type updated_at: datetime
@@ -111,8 +111,6 @@ class SubtenantDarkThemeColor(Entity):
     @property
     def reference(self):
         """Color name.
-
-        This field must be set when creating a new SubtenantDarkThemeColor Entity.
         
         :rtype: str
         """

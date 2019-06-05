@@ -71,7 +71,7 @@ class SubtenantDarkThemeImage(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param reference: (Required) Name of the image.
+        :param reference: Name of the image.
         :type reference: str
         :param static_uri: The static link to the image.
         :type static_uri: str
@@ -91,8 +91,6 @@ class SubtenantDarkThemeImage(Entity):
     @property
     def reference(self):
         """Name of the image.
-
-        This field must be set when creating a new SubtenantDarkThemeImage Entity.
         
         :rtype: str
         """
