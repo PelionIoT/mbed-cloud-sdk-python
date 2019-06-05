@@ -10,10 +10,9 @@ Entities normally contain methods to create, read, update, delete and list resou
 actions may also be possible on the entity depending on the capabilities present in the API.
 This entity has the following methods:
 
-- :meth:`SubtenantLightThemeImage.create`
 - :meth:`SubtenantLightThemeImage.delete`
-- :meth:`SubtenantLightThemeImage.list`
 - :meth:`SubtenantLightThemeImage.read`
+- :meth:`SubtenantLightThemeImage.update`
 
 Entity Usage and Importing
 --------------------------
@@ -132,7 +131,45 @@ class SubtenantLightThemeImage(Entity):
 
         return self._updated_at.value
 
-    def create(self, account_id, image):
+    def delete(self, account_id):
+        """Revert an image to light theme default.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light/{reference}/clear>`_.
+        
+        :param account_id: Account ID.
+        :type account_id: str
+        
+        :rtype: SubtenantLightThemeImage
+        """
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/accounts/{account_id}/branding-images/light/{reference}/clear",
+            content_type="application/json",
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
+            unpack=self,
+        )
+
+    def read(self, account_id):
+        """Get metadata of a light theme image.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light/{reference}>`_.
+        
+        :param account_id: Account ID.
+        :type account_id: str
+        
+        :rtype: SubtenantLightThemeImage
+        """
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account_id}/branding-images/light/{reference}",
+            content_type="application/json",
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
+            unpack=self,
+        )
+
+    def update(self, account_id, image):
         """Upload a light theme image.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light/{reference}/upload-multipart>`_.
@@ -171,134 +208,3 @@ class SubtenantLightThemeImage(Entity):
             # Note: Files are only closed if they were opened by the method.
             if auto_close_image:
                 image.close()
-
-    def delete(self, account_id):
-        """Revert an image to light theme default.
-
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light/{reference}/clear>`_.
-        
-        :param account_id: Account ID.
-        :type account_id: str
-        
-        :rtype: SubtenantLightThemeImage
-        """
-
-        return self._client.call_api(
-            method="post",
-            path="/v3/accounts/{account_id}/branding-images/light/{reference}/clear",
-            content_type="application/json",
-            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
-            unpack=self,
-        )
-
-    def list(self, account_id, filter=None, order=None, max_results=None, page_size=None, include=None):
-        """Get metadata of all light theme images.
-
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light>`_.
-        
-        :param filter: Filtering when listing entities is not supported by the API for this
-            entity.
-        :type filter: mbed_cloud.client.api_filter.ApiFilter
-        
-        :param order: The order of the records based on creation time, ASC or DESC. Default
-            value is ASC
-        :type order: str
-        
-        :param max_results: Total maximum number of results to retrieve
-        :type max_results: int
-        
-        :param page_size: The number of results to return for each page.
-        :type page_size: int
-        
-        :param include: Comma separated additional data to return.
-        :type include: str
-        
-        :param account_id: Account ID.
-        :type account_id: str
-        
-        :return: An iterator object which yields instances of an entity.
-        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantLightThemeImage)
-        """
-
-        from mbed_cloud.foundation._custom_methods import paginate
-        from mbed_cloud.foundation import SubtenantLightThemeImage
-        from mbed_cloud import ApiFilter
-
-        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
-        if isinstance(filter, dict):
-            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantLightThemeImage._renames_to_api)
-        # The preferred method is an ApiFilter instance as this should be easier to use.
-        elif isinstance(filter, ApiFilter):
-            # If filter renames have not be defined then configure the ApiFilter so that any renames
-            # performed by the SDK are reversed when the query parameters are created.
-            if filter.field_renames is None:
-                filter.field_renames = SubtenantLightThemeImage._renames_to_api
-        elif filter is not None:
-            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
-
-        return paginate(
-            self=self,
-            foreign_key=SubtenantLightThemeImage,
-            account_id=account_id,
-            filter=filter,
-            order=order,
-            max_results=max_results,
-            page_size=page_size,
-            include=include,
-            wraps=self._paginate_list,
-        )
-
-    def _paginate_list(self, account_id, after=None, filter=None, order=None, limit=None, include=None):
-        """Get metadata of all light theme images.
-        
-        :param after: Not supported by the API.
-        :type after: str
-        
-        :param filter: Optional API filter for listing resources.
-        :type filter: mbed_cloud.client.api_filter.ApiFilter
-        
-        :param order: Not supported by the API.
-        :type order: str
-        
-        :param limit: Not supported by the API.
-        :type limit: int
-        
-        :param include: Not supported by the API.
-        :type include: str
-        
-        :param account_id: Account ID.
-        :type account_id: str
-        
-        :rtype: mbed_cloud.pagination.PaginatedResponse
-        """
-
-        # Filter query parameters
-        query_params = filter.to_api() if filter else {}
-        # Add in other query parameters
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/accounts/{account_id}/branding-images/light",
-            content_type="application/json",
-            path_params={"account_id": fields.StringField(account_id).to_api()},
-            unpack=False,
-        )
-
-    def read(self, account_id):
-        """Get metadata of a light theme image.
-
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light/{reference}>`_.
-        
-        :param account_id: Account ID.
-        :type account_id: str
-        
-        :rtype: SubtenantLightThemeImage
-        """
-
-        return self._client.call_api(
-            method="get",
-            path="/v3/accounts/{account_id}/branding-images/light/{reference}",
-            content_type="application/json",
-            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
-            unpack=self,
-        )

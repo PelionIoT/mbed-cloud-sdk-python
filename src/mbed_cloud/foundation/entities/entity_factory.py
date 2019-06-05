@@ -101,9 +101,11 @@ class EntityFactory:
         policies=None,
         postal_code=None,
         reason=None,
+        reference=None,
         reference_note=None,
         sales_contact=None,
         state=None,
+        static_uri=None,
         status=None,
         template_id=None,
         tier=None,
@@ -189,12 +191,16 @@ class EntityFactory:
         :type postal_code: str
         :param reason: A note with the reason for account status update.
         :type reason: str
+        :param reference: Name of the image.
+        :type reference: str
         :param reference_note: A reference note for updating the status of the account.
         :type reference_note: str
         :param sales_contact: Email address of the sales contact.
         :type sales_contact: str
         :param state: The state part of the postal address.
         :type state: str
+        :param static_uri: The static link to the image.
+        :type static_uri: str
         :param status: The status of the account.
         :type status: str
         :param template_id: Account template ID.
@@ -203,7 +209,7 @@ class EntityFactory:
             account, `2`: partner tier. Other values are reserved for the
             future.
         :type tier: str
-        :param updated_at: Last update UTC time RFC3339.
+        :param updated_at: Last update time in UTC.
         :type updated_at: datetime
         :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
         :type upgraded_at: datetime
@@ -250,9 +256,11 @@ class EntityFactory:
             policies=policies,
             postal_code=postal_code,
             reason=reason,
+            reference=reference,
             reference_note=reference_note,
             sales_contact=sales_contact,
             state=state,
+            static_uri=static_uri,
             status=status,
             template_id=template_id,
             tier=tier,

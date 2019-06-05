@@ -11,6 +11,7 @@ Accounts
 
 - :class:`mbed_cloud.foundation.entities.accounts.enums.AccountMfaStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.AccountOrderEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.AccountReferenceEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.AccountStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.ApiKeyOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.ApiKeyStatusEnum`
@@ -79,6 +80,7 @@ How to import Enums:
     
     from mbed_cloud.foundation.enums import AccountMfaStatusEnum
     from mbed_cloud.foundation.enums import AccountOrderEnum
+    from mbed_cloud.foundation.enums import AccountReferenceEnum
     from mbed_cloud.foundation.enums import AccountStatusEnum
     from mbed_cloud.foundation.enums import ApiKeyOrderEnum
     from mbed_cloud.foundation.enums import ApiKeyStatusEnum
@@ -124,6 +126,7 @@ How to import Enums:
 
 from mbed_cloud.foundation.entities.accounts.enums import AccountMfaStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import AccountOrderEnum
+from mbed_cloud.foundation.entities.accounts.enums import AccountReferenceEnum
 from mbed_cloud.foundation.entities.accounts.enums import AccountStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import ApiKeyOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import ApiKeyStatusEnum
@@ -168,6 +171,7 @@ from mbed_cloud.foundation.entities.security.enums import TrustedCertificateStat
 __all__ = [
     "AccountMfaStatusEnum",
     "AccountOrderEnum",
+    "AccountReferenceEnum",
     "AccountStatusEnum",
     "ApiKeyOrderEnum",
     "ApiKeyStatusEnum",

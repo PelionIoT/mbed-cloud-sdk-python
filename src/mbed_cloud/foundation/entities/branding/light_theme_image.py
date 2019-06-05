@@ -10,10 +10,10 @@ Entities normally contain methods to create, read, update, delete and list resou
 actions may also be possible on the entity depending on the capabilities present in the API.
 This entity has the following methods:
 
-- :meth:`LightThemeImage.create`
 - :meth:`LightThemeImage.delete`
 - :meth:`LightThemeImage.list`
 - :meth:`LightThemeImage.read`
+- :meth:`LightThemeImage.update`
 
 Entity Usage and Importing
 --------------------------
@@ -132,40 +132,6 @@ class LightThemeImage(Entity):
 
         return self._updated_at.value
 
-    def create(self, image):
-        """Upload a light theme image.
-
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-images/light/{reference}/upload-multipart>`_.
-        
-        :param image: The image in PNG or JPEG format as multipart form data. Files can be
-            provided as a file object or a path to an existing file on disk.
-        :type image: file
-        
-        :rtype: LightThemeImage
-        """
-
-        auto_close_image = False
-
-        # If image is a string rather than a file, treat as a path and attempt to open the file.
-        if image and isinstance(image, six.string_types):
-            image = open(image, "rb")
-            auto_close_image = True
-
-        try:
-
-            return self._client.call_api(
-                method="post",
-                path="/v3/branding-images/light/{reference}/upload-multipart",
-                stream_params={"image": ("image.bin", image, "application/octet-stream")},
-                path_params={"reference": self._reference.to_api()},
-                unpack=self,
-            )
-        finally:
-            # Calling the API may result in an exception being raised so close the files in a finally statement.
-            # Note: Files are only closed if they were opened by the method.
-            if auto_close_image:
-                image.close()
-
     def delete(self):
         """Revert an image to light theme default.
 
@@ -279,3 +245,37 @@ class LightThemeImage(Entity):
             path_params={"reference": self._reference.to_api()},
             unpack=self,
         )
+
+    def update(self, image):
+        """Upload a light theme image.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/branding-images/light/{reference}/upload-multipart>`_.
+        
+        :param image: The image in PNG or JPEG format as multipart form data. Files can be
+            provided as a file object or a path to an existing file on disk.
+        :type image: file
+        
+        :rtype: LightThemeImage
+        """
+
+        auto_close_image = False
+
+        # If image is a string rather than a file, treat as a path and attempt to open the file.
+        if image and isinstance(image, six.string_types):
+            image = open(image, "rb")
+            auto_close_image = True
+
+        try:
+
+            return self._client.call_api(
+                method="post",
+                path="/v3/branding-images/light/{reference}/upload-multipart",
+                stream_params={"image": ("image.bin", image, "application/octet-stream")},
+                path_params={"reference": self._reference.to_api()},
+                unpack=self,
+            )
+        finally:
+            # Calling the API may result in an exception being raised so close the files in a finally statement.
+            # Note: Files are only closed if they were opened by the method.
+            if auto_close_image:
+                image.close()
