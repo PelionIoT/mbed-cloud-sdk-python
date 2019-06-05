@@ -2242,6 +2242,7 @@ entities:
               readOnly: true
               type: string
             - _key: reference
+              _override: true
               description: Color name.
               enum:
               - error_color
@@ -2260,6 +2261,7 @@ entities:
               - error_font_color
               - success_font_color
               - warning_font_color
+              is_primary_key: true
               type: string
             - _key: updated_at
               description: Last update time in UTC.
@@ -2548,6 +2550,7 @@ entities:
               readOnly: true
               type: string
             - _key: reference
+              _override: true
               description: Name of the image.
               enum:
               - brand_logo_portrait
@@ -2587,6 +2590,7 @@ entities:
               - carousel_image_landscape_7
               - carousel_image_landscape_8
               - carousel_image_landscape_9
+              is_primary_key: true
               type: string
             - _key: static_uri
               description: The static link to the image.
@@ -2886,6 +2890,7 @@ entities:
               readOnly: true
               type: string
             - _key: reference
+              _override: true
               description: Color name.
               enum:
               - error_color
@@ -2904,6 +2909,7 @@ entities:
               - error_font_color
               - success_font_color
               - warning_font_color
+              is_primary_key: true
               type: string
             - _key: updated_at
               description: Last update time in UTC.
@@ -3192,6 +3198,7 @@ entities:
               readOnly: true
               type: string
             - _key: reference
+              _override: true
               description: Name of the image.
               enum:
               - brand_logo_portrait
@@ -3231,6 +3238,7 @@ entities:
               - carousel_image_landscape_7
               - carousel_image_landscape_8
               - carousel_image_landscape_9
+              is_primary_key: true
               type: string
             - _key: static_uri
               description: The static link to the image.
@@ -17227,6 +17235,7 @@ entities:
     type: string
     x-nullable: true
   - _key: reference
+    _override: true
     api_fieldname: reference
     description: Color name.
     enum:
@@ -17247,8 +17256,9 @@ entities:
     - success_font_color
     - warning_font_color
     enum_reference: dark_theme_color_reference_enum
+    is_primary_key: true
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
@@ -17285,6 +17295,7 @@ entities:
     field_renames: []
     fields:
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
@@ -17307,7 +17318,8 @@ entities:
       - warning_font_color
       enum_reference: dark_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -17342,6 +17354,7 @@ entities:
           readOnly: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -17362,6 +17375,7 @@ entities:
           - error_font_color
           - success_font_color
           - warning_font_color
+          is_primary_key: true
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -17552,7 +17566,13 @@ entities:
     - has_more
     - data
     field_renames: []
-    fields: []
+    fields:
+    - _key: reference
+      _override: true
+      api_fieldname: reference
+      entity_fieldname: reference
+      is_primary_key: true
+      type: string
     foreign_key:
       entity: dark_theme_color
       group: Branding
@@ -17602,6 +17622,7 @@ entities:
               readOnly: true
               type: string
             - _key: reference
+              _override: true
               description: Color name.
               enum:
               - error_color
@@ -17620,6 +17641,7 @@ entities:
               - error_font_color
               - success_font_color
               - warning_font_color
+              is_primary_key: true
               type: string
             - _key: updated_at
               description: Last update time in UTC.
@@ -17801,13 +17823,15 @@ entities:
     field_renames: []
     fields:
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
       enum: *id002
       enum_reference: dark_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -17842,6 +17866,7 @@ entities:
           readOnly: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -17862,6 +17887,7 @@ entities:
           - error_font_color
           - success_font_color
           - warning_font_color
+          is_primary_key: true
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -18061,13 +18087,15 @@ entities:
       type: string
       x-nullable: true
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
       enum: *id002
       enum_reference: dark_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     - _key: updated_at
@@ -18113,6 +18141,7 @@ entities:
           readOnly: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -18133,6 +18162,7 @@ entities:
           - error_font_color
           - success_font_color
           - warning_font_color
+          is_primary_key: true
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -18343,7 +18373,7 @@ entities:
     summary: Updates a dark theme branding color.
     x_deprecation: null
     x_filter: {}
-  primary_key_field: null
+  primary_key_field: reference
   swagger_models:
   - BrandingColor
   - BrandingColorList
@@ -18353,6 +18383,7 @@ entities:
   field_renames: []
   fields:
   - _key: reference
+    _override: true
     api_fieldname: reference
     description: Name of the image.
     enum:
@@ -18394,8 +18425,9 @@ entities:
     - carousel_image_landscape_8
     - carousel_image_landscape_9
     enum_reference: dark_theme_image_reference_enum
+    is_primary_key: true
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: static_uri
     api_fieldname: static_uri
@@ -18438,6 +18470,7 @@ entities:
     field_renames: []
     fields:
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the branding images (icon or picture).
       entity_fieldname: reference
@@ -18480,10 +18513,9 @@ entities:
       - carousel_image_landscape_8
       - carousel_image_landscape_9
       enum_reference: dark_theme_image_reference_enum
-      external_param: false
       in: path
+      is_primary_key: true
       name: reference
-      parameter_fieldname: reference
       required: true
       type: string
     group_id: Branding
@@ -18673,7 +18705,13 @@ entities:
     - has_more
     - data
     field_renames: []
-    fields: []
+    fields:
+    - _key: reference
+      _override: true
+      api_fieldname: reference
+      entity_fieldname: reference
+      is_primary_key: true
+      type: string
     foreign_key:
       entity: dark_theme_image
       group: Branding
@@ -18718,6 +18756,7 @@ entities:
               readOnly: true
               type: string
             - _key: reference
+              _override: true
               description: Name of the image.
               enum:
               - brand_logo_portrait
@@ -18757,6 +18796,7 @@ entities:
               - carousel_image_landscape_7
               - carousel_image_landscape_8
               - carousel_image_landscape_9
+              is_primary_key: true
               type: string
             - _key: static_uri
               description: The static link to the image.
@@ -18944,13 +18984,15 @@ entities:
     field_renames: []
     fields:
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
       enum: *id003
       enum_reference: dark_theme_image_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -18978,6 +19020,7 @@ entities:
           readOnly: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Name of the image.
           entity_fieldname: reference
@@ -19019,6 +19062,7 @@ entities:
           - carousel_image_landscape_7
           - carousel_image_landscape_8
           - carousel_image_landscape_9
+          is_primary_key: true
           type: string
         - _key: static_uri
           api_fieldname: static_uri
@@ -19217,13 +19261,15 @@ entities:
       required: true
       type: file
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
       enum: *id003
       enum_reference: dark_theme_image_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -19258,6 +19304,7 @@ entities:
           readOnly: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Name of the image.
           entity_fieldname: reference
@@ -19299,6 +19346,7 @@ entities:
           - carousel_image_landscape_7
           - carousel_image_landscape_8
           - carousel_image_landscape_9
+          is_primary_key: true
           type: string
         - _key: static_uri
           api_fieldname: static_uri
@@ -19517,7 +19565,7 @@ entities:
     summary: Upload a dark theme image.
     x_deprecation: null
     x_filter: {}
-  primary_key_field: null
+  primary_key_field: reference
   swagger_models:
   - BrandingImage
   - BrandingImageList
@@ -31872,6 +31920,7 @@ entities:
     type: string
     x-nullable: true
   - _key: reference
+    _override: true
     api_fieldname: reference
     description: Color name.
     enum:
@@ -31893,9 +31942,10 @@ entities:
     - warning_font_color
     enum_reference: light_theme_color_reference_enum
     in: path
-    parameter_fieldname: reference
+    is_primary_key: true
+    name: reference
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
@@ -31934,6 +31984,7 @@ entities:
     field_renames: []
     fields:
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
@@ -31956,7 +32007,8 @@ entities:
       - warning_font_color
       enum_reference: light_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -32000,6 +32052,7 @@ entities:
           schema_param: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -32022,7 +32075,8 @@ entities:
           - warning_font_color
           enum_reference: dark_theme_color_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: updated_at
@@ -32217,7 +32271,13 @@ entities:
     - has_more
     - data
     field_renames: []
-    fields: []
+    fields:
+    - _key: reference
+      _override: true
+      api_fieldname: reference
+      entity_fieldname: reference
+      is_primary_key: true
+      type: string
     foreign_key:
       entity: light_theme_color
       group: Branding
@@ -32267,6 +32327,7 @@ entities:
               readOnly: true
               type: string
             - _key: reference
+              _override: true
               description: Color name.
               enum:
               - error_color
@@ -32285,6 +32346,7 @@ entities:
               - error_font_color
               - success_font_color
               - warning_font_color
+              is_primary_key: true
               type: string
             - _key: updated_at
               description: Last update time in UTC.
@@ -32466,13 +32528,15 @@ entities:
     field_renames: []
     fields:
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
       enum: *id004
       enum_reference: light_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -32516,6 +32580,7 @@ entities:
           schema_param: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -32538,7 +32603,8 @@ entities:
           - warning_font_color
           enum_reference: dark_theme_color_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: updated_at
@@ -32742,13 +32808,15 @@ entities:
       type: string
       x-nullable: true
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
       enum: *id004
       enum_reference: light_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     - _key: updated_at
@@ -32803,6 +32871,7 @@ entities:
           schema_param: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -32825,7 +32894,8 @@ entities:
           - warning_font_color
           enum_reference: dark_theme_color_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: updated_at
@@ -33040,7 +33110,7 @@ entities:
     summary: Updates light theme branding color.
     x_deprecation: null
     x_filter: {}
-  primary_key_field: null
+  primary_key_field: reference
   swagger_models:
   - BrandingColor
   - BrandingColorList
@@ -33050,6 +33120,7 @@ entities:
   field_renames: []
   fields:
   - _key: reference
+    _override: true
     api_fieldname: reference
     description: Name of the image.
     enum:
@@ -33092,9 +33163,10 @@ entities:
     - carousel_image_landscape_9
     enum_reference: light_theme_image_reference_enum
     in: path
-    parameter_fieldname: reference
+    is_primary_key: true
+    name: reference
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: static_uri
     api_fieldname: static_uri
@@ -33137,6 +33209,7 @@ entities:
     field_renames: []
     fields:
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the branding images (icon or picture).
       entity_fieldname: reference
@@ -33179,10 +33252,9 @@ entities:
       - carousel_image_landscape_8
       - carousel_image_landscape_9
       enum_reference: light_theme_image_reference_enum
-      external_param: false
       in: path
+      is_primary_key: true
       name: reference
-      parameter_fieldname: reference
       required: true
       type: string
     group_id: Branding
@@ -33374,7 +33446,13 @@ entities:
     - has_more
     - data
     field_renames: []
-    fields: []
+    fields:
+    - _key: reference
+      _override: true
+      api_fieldname: reference
+      entity_fieldname: reference
+      is_primary_key: true
+      type: string
     foreign_key:
       entity: light_theme_image
       group: Branding
@@ -33419,6 +33497,7 @@ entities:
               readOnly: true
               type: string
             - _key: reference
+              _override: true
               description: Name of the image.
               enum:
               - brand_logo_portrait
@@ -33458,6 +33537,7 @@ entities:
               - carousel_image_landscape_7
               - carousel_image_landscape_8
               - carousel_image_landscape_9
+              is_primary_key: true
               type: string
             - _key: static_uri
               description: The static link to the image.
@@ -33645,13 +33725,15 @@ entities:
     field_renames: []
     fields:
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
       enum: *id005
       enum_reference: light_theme_image_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -33679,6 +33761,7 @@ entities:
           readOnly: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Name of the image.
           entity_fieldname: reference
@@ -33722,7 +33805,8 @@ entities:
           - carousel_image_landscape_9
           enum_reference: dark_theme_image_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: static_uri
@@ -33921,13 +34005,15 @@ entities:
       required: true
       type: file
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
       enum: *id005
       enum_reference: light_theme_image_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -33962,6 +34048,7 @@ entities:
           readOnly: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Name of the image.
           entity_fieldname: reference
@@ -34005,7 +34092,8 @@ entities:
           - carousel_image_landscape_9
           enum_reference: dark_theme_image_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: static_uri
@@ -34225,7 +34313,7 @@ entities:
     summary: Upload a light theme image.
     x_deprecation: null
     x_filter: {}
-  primary_key_field: null
+  primary_key_field: reference
   swagger_models:
   - BrandingImage
   - BrandingImageList
@@ -36788,6 +36876,7 @@ entities:
     type: string
     x-nullable: true
   - _key: reference
+    _override: true
     api_fieldname: reference
     description: Color name.
     enum:
@@ -36809,9 +36898,10 @@ entities:
     - warning_font_color
     enum_reference: subtenant_dark_theme_color_reference_enum
     in: path
-    parameter_fieldname: reference
+    is_primary_key: true
+    name: reference
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
@@ -36861,6 +36951,7 @@ entities:
       required: true
       type: string
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
@@ -36883,7 +36974,8 @@ entities:
       - warning_font_color
       enum_reference: subtenant_dark_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -36927,6 +37019,7 @@ entities:
           schema_param: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -36949,7 +37042,8 @@ entities:
           - warning_font_color
           enum_reference: light_theme_color_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: updated_at
@@ -37143,13 +37237,15 @@ entities:
       required: true
       type: string
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
       enum: *id007
       enum_reference: subtenant_dark_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -37193,6 +37289,7 @@ entities:
           schema_param: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -37215,7 +37312,8 @@ entities:
           - warning_font_color
           enum_reference: light_theme_color_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: updated_at
@@ -37429,13 +37527,15 @@ entities:
       type: string
       x-nullable: true
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
       enum: *id007
       enum_reference: subtenant_dark_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     - _key: updated_at
@@ -37490,6 +37590,7 @@ entities:
           schema_param: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -37512,7 +37613,8 @@ entities:
           - warning_font_color
           enum_reference: light_theme_color_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: updated_at
@@ -37727,7 +37829,7 @@ entities:
     summary: Updates a dark theme branding color.
     x_deprecation: null
     x_filter: {}
-  primary_key_field: null
+  primary_key_field: reference
   swagger_models:
   - BrandingColor
   tags:
@@ -37736,6 +37838,7 @@ entities:
   field_renames: []
   fields:
   - _key: reference
+    _override: true
     api_fieldname: reference
     description: Name of the image.
     enum:
@@ -37778,9 +37881,10 @@ entities:
     - carousel_image_landscape_9
     enum_reference: subtenant_dark_theme_image_reference_enum
     in: path
-    parameter_fieldname: reference
+    is_primary_key: true
+    name: reference
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: static_uri
     api_fieldname: static_uri
@@ -37833,6 +37937,7 @@ entities:
       required: true
       type: string
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the branding images (icon or picture).
       entity_fieldname: reference
@@ -37875,10 +37980,9 @@ entities:
       - carousel_image_landscape_8
       - carousel_image_landscape_9
       enum_reference: subtenant_dark_theme_image_reference_enum
-      external_param: false
       in: path
+      is_primary_key: true
       name: reference
-      parameter_fieldname: reference
       required: true
       type: string
     group_id: Branding
@@ -38079,13 +38183,15 @@ entities:
       required: true
       type: string
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
       enum: *id008
       enum_reference: subtenant_dark_theme_image_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -38113,6 +38219,7 @@ entities:
           readOnly: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Name of the image.
           entity_fieldname: reference
@@ -38156,7 +38263,8 @@ entities:
           - carousel_image_landscape_9
           enum_reference: light_theme_image_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: static_uri
@@ -38366,13 +38474,15 @@ entities:
       required: true
       type: file
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
       enum: *id008
       enum_reference: subtenant_dark_theme_image_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -38407,6 +38517,7 @@ entities:
           readOnly: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Name of the image.
           entity_fieldname: reference
@@ -38450,7 +38561,8 @@ entities:
           - carousel_image_landscape_9
           enum_reference: light_theme_image_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: static_uri
@@ -38670,7 +38782,7 @@ entities:
     summary: Upload a dark theme image.
     x_deprecation: null
     x_filter: {}
-  primary_key_field: null
+  primary_key_field: reference
   swagger_models:
   - BrandingImage
   tags:
@@ -38689,6 +38801,7 @@ entities:
     type: string
     x-nullable: true
   - _key: reference
+    _override: true
     api_fieldname: reference
     description: Color name.
     enum:
@@ -38710,9 +38823,10 @@ entities:
     - warning_font_color
     enum_reference: subtenant_light_theme_color_reference_enum
     in: path
-    parameter_fieldname: reference
+    is_primary_key: true
+    name: reference
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
@@ -38762,6 +38876,7 @@ entities:
       required: true
       type: string
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
@@ -38784,7 +38899,8 @@ entities:
       - warning_font_color
       enum_reference: subtenant_light_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -38828,6 +38944,7 @@ entities:
           schema_param: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -38850,7 +38967,8 @@ entities:
           - warning_font_color
           enum_reference: subtenant_dark_theme_color_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: updated_at
@@ -39053,13 +39171,15 @@ entities:
       required: true
       type: string
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
       enum: *id009
       enum_reference: subtenant_light_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -39103,6 +39223,7 @@ entities:
           schema_param: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -39125,7 +39246,8 @@ entities:
           - warning_font_color
           enum_reference: subtenant_dark_theme_color_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: updated_at
@@ -39339,13 +39461,15 @@ entities:
       type: string
       x-nullable: true
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
       enum: *id009
       enum_reference: subtenant_light_theme_color_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     - _key: updated_at
@@ -39400,6 +39524,7 @@ entities:
           schema_param: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Color name.
           entity_fieldname: reference
@@ -39422,7 +39547,8 @@ entities:
           - warning_font_color
           enum_reference: subtenant_dark_theme_color_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: updated_at
@@ -39637,7 +39763,7 @@ entities:
     summary: Updates light theme branding color.
     x_deprecation: null
     x_filter: {}
-  primary_key_field: null
+  primary_key_field: reference
   swagger_models:
   - BrandingColor
   tags:
@@ -39646,6 +39772,7 @@ entities:
   field_renames: []
   fields:
   - _key: reference
+    _override: true
     api_fieldname: reference
     description: Name of the image.
     enum:
@@ -39688,9 +39815,10 @@ entities:
     - carousel_image_landscape_9
     enum_reference: subtenant_light_theme_image_reference_enum
     in: path
-    parameter_fieldname: reference
+    is_primary_key: true
+    name: reference
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: static_uri
     api_fieldname: static_uri
@@ -39741,6 +39869,7 @@ entities:
       required: true
       type: string
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the branding images (icon or picture).
       entity_fieldname: reference
@@ -39783,10 +39912,9 @@ entities:
       - carousel_image_landscape_8
       - carousel_image_landscape_9
       enum_reference: subtenant_light_theme_image_reference_enum
-      external_param: false
       in: path
+      is_primary_key: true
       name: reference
-      parameter_fieldname: reference
       required: true
       type: string
     group_id: Branding
@@ -39987,13 +40115,15 @@ entities:
       required: true
       type: string
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
       enum: *id010
       enum_reference: subtenant_light_theme_image_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -40021,6 +40151,7 @@ entities:
           readOnly: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Name of the image.
           entity_fieldname: reference
@@ -40064,7 +40195,8 @@ entities:
           - carousel_image_landscape_9
           enum_reference: subtenant_dark_theme_image_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: static_uri
@@ -40272,13 +40404,15 @@ entities:
       required: true
       type: file
     - _key: reference
+      _override: true
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
       enum: *id010
       enum_reference: subtenant_light_theme_image_reference_enum
       in: path
-      parameter_fieldname: reference
+      is_primary_key: true
+      name: reference
       required: true
       type: string
     group_id: Branding
@@ -40313,6 +40447,7 @@ entities:
           readOnly: true
           type: string
         - _key: reference
+          _override: true
           api_fieldname: reference
           description: Name of the image.
           entity_fieldname: reference
@@ -40356,7 +40491,8 @@ entities:
           - carousel_image_landscape_9
           enum_reference: subtenant_dark_theme_image_reference_enum
           in: path
-          parameter_fieldname: reference
+          is_primary_key: true
+          name: reference
           required: true
           type: string
         - _key: static_uri
@@ -40576,7 +40712,7 @@ entities:
     summary: Upload a light theme image.
     x_deprecation: null
     x_filter: {}
-  primary_key_field: null
+  primary_key_field: reference
   swagger_models:
   - BrandingImage
   tags:
