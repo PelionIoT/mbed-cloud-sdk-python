@@ -1178,6 +1178,7 @@ definitions:
         description: The color given as name (purple) or as a hex code.
         example: '#f3f93e'
         type: string
+        x-nullable: true
       object:
         description: 'Entity name: always ''branding_color'''
         enum:
@@ -17158,14 +17159,6 @@ paths:
         in: query
         name: name__nin
         type: string
-      - description: eq filter for the "custom_attributes" field
-        in: query
-        name: custom_attributes__eq
-        type: string
-      - description: neq filter for the "custom_attributes" field
-        in: query
-        name: custom_attributes__neq
-        type: string
       - description: in filter for the "created_at" field
         in: query
         name: created_at__in
@@ -17222,9 +17215,6 @@ paths:
         - nin
         - lte
         - gte
-        custom_attributes:
-        - eq
-        - neq
         devices_count:
         - eq
         - neq
