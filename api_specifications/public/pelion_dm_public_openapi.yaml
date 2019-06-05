@@ -6987,6 +6987,7 @@ paths:
       summary: Send an async request to device
       tags:
       - DeviceRequests
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/device-shared-keys:
     get:
       consumes:
@@ -7031,6 +7032,7 @@ paths:
       summary: List PSKs.
       tags:
       - PreSharedKeys
+      x-origin: /home/circleci/project/connector-bootstrap/public/swagger.yaml
     post:
       consumes:
       - application/json
@@ -7073,6 +7075,7 @@ paths:
       summary: Upload a PSK to Pelion Device Management.
       tags:
       - PreSharedKeys
+      x-origin: /home/circleci/project/connector-bootstrap/public/swagger.yaml
   /v2/device-shared-keys/{endpoint_name}:
     delete:
       description: 'Remove a PSK.
@@ -7112,6 +7115,7 @@ paths:
       summary: Remove a PSK.
       tags:
       - PreSharedKeys
+      x-origin: /home/circleci/project/connector-bootstrap/public/swagger.yaml
     get:
       description: 'Check if a PSK for an endpoint exists or not. The response does
         not contain the secret itself.
@@ -7154,6 +7158,7 @@ paths:
       summary: Get a PSK.
       tags:
       - PreSharedKeys
+      x-origin: /home/circleci/project/connector-bootstrap/public/swagger.yaml
   /v2/endpoints/{device-id}:
     get:
       description: 'Retrieves resources cached by Device Management Connect. This
@@ -7191,6 +7196,7 @@ paths:
       summary: List the resources on an endpoint.
       tags:
       - Endpoints
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/endpoints/{device-id}/{resourcePath}:
     delete:
       description: 'A request to delete a resource path must be handled by both Device
@@ -7276,6 +7282,7 @@ paths:
       summary: Delete a resource path.
       tags:
       - Resources
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
       description: 'Requests the resource value either from the device or cache. If
         the value is not in the cache, the request goes all the
@@ -7389,6 +7396,7 @@ paths:
       summary: Read from a resource.
       tags:
       - Resources
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     post:
       consumes:
       - text/plain
@@ -7504,6 +7512,7 @@ paths:
       summary: Execute a function on a Resource or create new Object instance.
       tags:
       - Resources
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     put:
       consumes:
       - text/plain
@@ -7631,6 +7640,7 @@ paths:
         a Resource.
       tags:
       - Resources
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/notification/callback:
     delete:
       description: 'Deletes the callback URL.
@@ -7659,6 +7669,7 @@ paths:
       summary: Delete callback URL.
       tags:
       - Notifications
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
       description: 'Shows the current callback URL if it exists.
 
@@ -7687,6 +7698,7 @@ paths:
       summary: Check callback URL.
       tags:
       - Notifications
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     put:
       consumes:
       - application/json
@@ -7795,6 +7807,7 @@ paths:
       summary: Register a callback URL.
       tags:
       - Notifications
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/notification/channel:
     get:
       description: "Get channel delivery mechanism.\n\n**Example:**\n\n    curl -X\
@@ -7811,6 +7824,7 @@ paths:
       summary: Get channel metadata.
       tags:
       - Notifications
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/notification/pull:
     delete:
       deprecated: true
@@ -7848,6 +7862,7 @@ paths:
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
         - cloud.mbed.com/integrate-web-app/event-notification.html
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
       deprecated: true
       description: 'In this case, notifications are delivered through HTTP long poll
@@ -7921,6 +7936,7 @@ paths:
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
         - cloud.mbed.com/integrate-web-app/event-notification.html
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/notification/websocket:
     delete:
       description: '(PREVIEW) Delete a notification websocket channel bound to the
@@ -7949,6 +7965,7 @@ paths:
       summary: (PREVIEW) Delete websocket channel.
       tags:
       - Notifications
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
       description: '(PREVIEW) Returns 200 with websocket connection status, if websocket
         channel exists.
@@ -7980,6 +7997,7 @@ paths:
       summary: (PREVIEW) Get websocket channel information.
       tags:
       - Notifications
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     put:
       consumes:
       - application/json
@@ -8042,6 +8060,7 @@ paths:
       summary: (PREVIEW) Register a websocket channel.
       tags:
       - Notifications
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/notification/websocket-connect:
     get:
       description: '
@@ -8142,6 +8161,7 @@ paths:
       summary: (PREVIEW) Open the websocket.
       tags:
       - Notifications
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/subscriptions:
     delete:
       description: 'Removes pre-subscriptions.
@@ -8167,6 +8187,7 @@ paths:
       summary: Remove pre-subscriptions.
       tags:
       - Subscriptions
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
       description: 'Retrieve pre-subscription data. The server returns a JSON structure.
         If there are no pre-subscribed resources, it returns an empty array.
@@ -8196,6 +8217,7 @@ paths:
       summary: Get pre-subscriptions.
       tags:
       - Subscriptions
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     put:
       consumes:
       - application/json
@@ -8251,6 +8273,7 @@ paths:
       summary: Set pre-subscriptions
       tags:
       - Subscriptions
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/subscriptions/{device-id}:
     delete:
       description: 'Deletes all resource subscriptions in a single endpoint.
@@ -8280,6 +8303,7 @@ paths:
       summary: Delete subscriptions from an endpoint.
       tags:
       - Subscriptions
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
       description: 'Lists all subscribed resources from a single endpoint.
 
@@ -8317,6 +8341,7 @@ paths:
       summary: Read endpoints subscriptions
       tags:
       - Subscriptions
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/subscriptions/{device-id}/{resourcePath}:
     delete:
       description: 'Remove an existing subscription from a resource path.
@@ -8353,6 +8378,7 @@ paths:
       summary: Remove a subscription.
       tags:
       - Subscriptions
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
       operationId: checkResourceSubscription
       parameters:
@@ -8375,6 +8401,7 @@ paths:
       summary: Read subscription status
       tags:
       - Subscriptions
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
     put:
       description: 'The Device Management Connect eventing model consists of observable
         Resources.
@@ -8460,6 +8487,7 @@ paths:
       summary: Subscribe to a resource path.
       tags:
       - Subscriptions
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v3/accounts:
     get:
       description: 'Returns an array of account objects, optionally filtered by status
@@ -8583,6 +8611,7 @@ paths:
         - nin
         tier:
         - eq
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -8652,6 +8681,7 @@ paths:
       summary: Create a new account.
       tags:
       - Tenant accounts - accounts
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/me:
     get:
       description: 'Retrieve detailed information about the account.
@@ -8698,6 +8728,7 @@ paths:
       summary: Get account info.
       tags:
       - Account - profile
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -8747,6 +8778,7 @@ paths:
       summary: Updates attributes of the account.
       tags:
       - Account - profile
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/me/notifications:
     get:
       description: Retrieve notifications for an account.
@@ -8793,6 +8825,7 @@ paths:
       summary: Get notification events for an account.
       tags:
       - Account - email notification logs
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}:
     get:
       description: 'Retrieve detailed information about an account.
@@ -8848,6 +8881,7 @@ paths:
       summary: Get account info.
       tags:
       - Tenant accounts - accounts
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -8907,6 +8941,7 @@ paths:
       summary: Update attributes of an existing account.
       tags:
       - Tenant accounts - accounts
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/api-keys:
     get:
       description: 'Retrieve API keys in an array, optionally filtered by the owner.
@@ -8992,6 +9027,7 @@ paths:
         - eq
         owner:
         - eq
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -9052,6 +9088,7 @@ paths:
       summary: Create a new API key.
       tags:
       - Tenant accounts - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/api-keys/{apikey_id}:
     delete:
       description: 'Delete an API key.
@@ -9099,6 +9136,7 @@ paths:
       summary: Delete the API key.
       tags:
       - Tenant accounts - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: "Retrieve API key details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
         \ \\\n -H 'Authorization: Bearer <api_key>'\n```"
@@ -9136,6 +9174,7 @@ paths:
       summary: Get API key details.
       tags:
       - Tenant accounts - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       description: 'Update API key details.
 
@@ -9198,6 +9237,7 @@ paths:
       summary: Update API key details.
       tags:
       - Tenant accounts - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/api-keys/{apikey_id}/groups:
     delete:
       consumes:
@@ -9265,6 +9305,7 @@ paths:
       summary: Remove API key from groups.
       tags:
       - Tenant accounts - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve groups associated with the API key.
 
@@ -9338,6 +9379,7 @@ paths:
       summary: Get groups associated with the API key.
       tags:
       - Tenant accounts - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -9408,6 +9450,7 @@ paths:
       summary: Add API key to a list of groups.
       tags:
       - Tenant accounts - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/api-keys/{apikey_id}/reset-secret:
     post:
       description: 'Reset the secret key of the API key.
@@ -9457,6 +9500,7 @@ paths:
       summary: Reset the secret key.
       tags:
       - Tenant accounts - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-colors/dark:
     get:
       description: 'Retrieve dark theme branding colors for an account.
@@ -9501,6 +9545,7 @@ paths:
       summary: Get dark theme branding colors.
       tags:
       - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -9547,6 +9592,7 @@ paths:
       summary: Updates an array of dark theme branding colors.
       tags:
       - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-colors/dark/{reference}:
     delete:
       description: 'Resets the branding color of a tenant account to its dark theme
@@ -9598,6 +9644,7 @@ paths:
       summary: Reset branding color to default.
       tags:
       - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: "Retrieve the requested dark theme branding color. \n\n**Example:**\n\
         ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}\
@@ -9637,6 +9684,7 @@ paths:
       summary: Get dark theme branding color.
       tags:
       - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -9702,6 +9750,7 @@ paths:
       summary: Updates a dark theme branding color.
       tags:
       - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-colors/light:
     get:
       description: 'Retrieve light theme branding colors for an account.
@@ -9746,6 +9795,7 @@ paths:
       summary: Get light theme branding colors.
       tags:
       - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -9792,6 +9842,7 @@ paths:
       summary: Updates an array of light theme branding colors.
       tags:
       - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-colors/light/{reference}:
     delete:
       description: 'Resets the branding color of a tenant account to its light theme
@@ -9843,6 +9894,7 @@ paths:
       summary: Reset branding color to default.
       tags:
       - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the requested light theme branding color.
 
@@ -9891,6 +9943,7 @@ paths:
       summary: Get light theme branding color.
       tags:
       - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -9956,6 +10009,7 @@ paths:
       summary: Updates light theme branding color.
       tags:
       - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/dark:
     get:
       description: 'Retrieve the metadata of all dark theme branding images.
@@ -10000,6 +10054,7 @@ paths:
       summary: Get metadata of all dark theme images.
       tags:
       - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/dark/{reference}:
     get:
       description: 'Retrieve metadata of one account dark theme branding image.
@@ -10050,6 +10105,7 @@ paths:
       summary: Get metadata of a dark theme image.
       tags:
       - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/dark/{reference}/clear:
     post:
       description: 'Revert an account branding image to dark theme default.
@@ -10098,6 +10154,7 @@ paths:
       summary: Revert an image to dark theme default.
       tags:
       - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/dark/{reference}/upload:
     post:
       consumes:
@@ -10171,6 +10228,7 @@ paths:
       summary: Upload a dark theme image.
       tags:
       - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart:
     post:
       consumes:
@@ -10228,6 +10286,7 @@ paths:
       summary: Upload a dark theme image.
       tags:
       - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/light:
     get:
       description: 'Retrieve the metadata of all light theme branding images.
@@ -10272,6 +10331,7 @@ paths:
       summary: Get metadata of all light theme images.
       tags:
       - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/light/{reference}:
     get:
       description: 'Retrieve metadata for one account light theme branding image.
@@ -10322,6 +10382,7 @@ paths:
       summary: Get metadata of a light theme image.
       tags:
       - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/light/{reference}/clear:
     post:
       description: 'Revert an account branding image to light theme default.
@@ -10368,6 +10429,7 @@ paths:
       summary: Revert an image to light theme default.
       tags:
       - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/light/{reference}/upload:
     post:
       consumes:
@@ -10441,6 +10503,7 @@ paths:
       summary: Upload a light theme image.
       tags:
       - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/light/{reference}/upload-multipart:
     post:
       consumes:
@@ -10498,6 +10561,7 @@ paths:
       summary: Upload a light theme image.
       tags:
       - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/identity-providers:
     get:
       consumes:
@@ -10557,6 +10621,7 @@ paths:
       summary: Get all identity providers.
       tags:
       - Tenant accounts - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -10607,6 +10672,7 @@ paths:
       summary: Create a new identity provider.
       tags:
       - Tenant accounts - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/identity-providers/{identity_provider_id}:
     delete:
       description: Delete an identity provider by ID.
@@ -10642,6 +10708,7 @@ paths:
       summary: Delete an identity provider by ID.
       tags:
       - Tenant accounts - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: Manage identity providers of a tenant account.
       operationId: getAccountIdentityProvider
@@ -10678,6 +10745,7 @@ paths:
       summary: Retrieve identity provider by ID.
       tags:
       - Tenant accounts - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -10726,6 +10794,7 @@ paths:
       summary: Update an existing identity provider.
       tags:
       - Tenant accounts - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/identity-providers/{identity_provider_id}/delete-sp-certificate:
     post:
       consumes:
@@ -10769,6 +10838,7 @@ paths:
       summary: Delete the service provider certificate.
       tags:
       - Tenant accounts - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/identity-providers/{identity_provider_id}/generate-sp-certificate:
     post:
       consumes:
@@ -10823,6 +10893,7 @@ paths:
       summary: Generate a new service provider certificate.
       tags:
       - Tenant accounts - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/notifications:
     get:
       description: Retrieve notifications.
@@ -10878,6 +10949,7 @@ paths:
       summary: Get the notification events of an account.
       tags:
       - Tenant accounts - email notification logs
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/policy-groups:
     get:
       description: 'Retrieve all group information.
@@ -10955,6 +11027,7 @@ paths:
       x-filter:
         name:
         - eq
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -11018,6 +11091,7 @@ paths:
       summary: Create a new group.
       tags:
       - Tenant accounts - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/policy-groups/{group_id}:
     delete:
       description: 'Delete a group.
@@ -11065,6 +11139,7 @@ paths:
       summary: Delete a group.
       tags:
       - Tenant accounts - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve general information about the group.
 
@@ -11113,6 +11188,7 @@ paths:
       summary: Get group information.
       tags:
       - Tenant accounts - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -11182,6 +11258,7 @@ paths:
       summary: Add members to a group.
       tags:
       - Tenant accounts - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -11246,6 +11323,7 @@ paths:
       summary: Update the group name.
       tags:
       - Tenant accounts - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/policy-groups/{group_id}/api-keys:
     delete:
       consumes:
@@ -11312,6 +11390,7 @@ paths:
       summary: Remove API keys from a group.
       tags:
       - Tenant accounts - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'List the API keys of the group with details.
 
@@ -11385,6 +11464,7 @@ paths:
       summary: Get API keys of a group.
       tags:
       - Tenant accounts - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/policy-groups/{group_id}/users:
     delete:
       consumes:
@@ -11439,6 +11519,7 @@ paths:
       summary: Remove users from a group.
       tags:
       - Tenant accounts - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'List users of the group with details.
 
@@ -11533,6 +11614,7 @@ paths:
         - eq
         - in
         - nin
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/trusted-certificates:
     get:
       description: 'Retrieve trusted certificates in an array.
@@ -11687,6 +11769,7 @@ paths:
         - like
         valid:
         - eq
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -11748,6 +11831,7 @@ paths:
       summary: Upload new trusted certificate.
       tags:
       - Tenant device security - certificates
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/trusted-certificates/{cert_id}:
     delete:
       description: 'Delete the trusted certificate.
@@ -11795,6 +11879,7 @@ paths:
       summary: Delete trusted certificate by ID.
       tags:
       - Tenant device security - certificates
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve a trusted certificate by ID.
 
@@ -11843,6 +11928,7 @@ paths:
       summary: Get trusted certificate by ID.
       tags:
       - Tenant device security - certificates
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -11895,6 +11981,7 @@ paths:
       summary: Update trusted certificate.
       tags:
       - Tenant device security - certificates
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/user-invitations:
     get:
       description: 'Retrieve details of all active user invitations sent for new or
@@ -11967,6 +12054,7 @@ paths:
       x-filter:
         login_profiles:
         - eq
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -12022,6 +12110,7 @@ paths:
       summary: Create a user invitation.
       tags:
       - Tenant accounts - user invitations
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/user-invitations/{invitation_id}:
     delete:
       description: 'Delete an active user invitation sent to a new or existing user.
@@ -12069,6 +12158,7 @@ paths:
       summary: Delete a user invitation.
       tags:
       - Tenant accounts - user invitations
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve details of an active user invitation sent for a new or
         existing user.
@@ -12118,6 +12208,7 @@ paths:
       summary: Details of a user invitation.
       tags:
       - Tenant accounts - user invitations
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/users:
     get:
       description: 'Retrieve details of all users.
@@ -12222,6 +12313,7 @@ paths:
         - eq
         - in
         - nin
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -12292,6 +12384,7 @@ paths:
       summary: Create a new user.
       tags:
       - Tenant accounts - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/users/{user_id}:
     delete:
       description: 'Delete a user.
@@ -12343,6 +12436,7 @@ paths:
       summary: Delete a user.
       tags:
       - Tenant accounts - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve user details.
 
@@ -12391,6 +12485,7 @@ paths:
       summary: Details of the user.
       tags:
       - Tenant accounts - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -12459,6 +12554,7 @@ paths:
       summary: Update user details.
       tags:
       - Tenant accounts - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/users/{user_id}/groups:
     delete:
       consumes:
@@ -12526,6 +12622,7 @@ paths:
       summary: Remove user from groups.
       tags:
       - Tenant accounts - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve user''s groups.
 
@@ -12599,6 +12696,7 @@ paths:
       summary: Get user's groups.
       tags:
       - Tenant accounts - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -12669,6 +12767,7 @@ paths:
       summary: Add user to a list of groups.
       tags:
       - Tenant accounts - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/users/{user_id}/validate-email:
     post:
       description: 'Validate user email.
@@ -12716,6 +12815,7 @@ paths:
       summary: Validate the user email.
       tags:
       - Tenant accounts - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/api-keys:
     get:
       description: 'Retrieve API keys in an array, optionally filtered by the owner.
@@ -12791,6 +12891,7 @@ paths:
         - eq
         owner:
         - eq
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -12839,6 +12940,7 @@ paths:
       summary: Create a new API key.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/api-keys/me:
     get:
       description: 'Retrieve API key details.
@@ -12873,6 +12975,7 @@ paths:
       summary: Get API key details.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       description: 'Update API key details.
 
@@ -12920,6 +13023,7 @@ paths:
       summary: Update API key details.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/api-keys/me/groups:
     delete:
       consumes:
@@ -12972,6 +13076,7 @@ paths:
       summary: Remove API key from groups.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve groups associated with the API key.
 
@@ -13030,6 +13135,7 @@ paths:
       summary: Get groups of the API key.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -13085,6 +13191,7 @@ paths:
       summary: Add API key to a list of groups.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/api-keys/{apikey_id}:
     delete:
       description: 'Delete the API key.
@@ -13127,6 +13234,7 @@ paths:
       summary: Delete API key.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve API key details.
 
@@ -13169,6 +13277,7 @@ paths:
       summary: Get API key details.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       description: 'Update API key details.
 
@@ -13223,6 +13332,7 @@ paths:
       summary: Update API key details.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/api-keys/{apikey_id}/groups:
     delete:
       consumes:
@@ -13285,6 +13395,7 @@ paths:
       summary: Remove API key from groups.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve groups associated with the API key.
 
@@ -13353,6 +13464,7 @@ paths:
       summary: Get groups of the API key.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -13418,6 +13530,7 @@ paths:
       summary: Add API key to a list of groups.
       tags:
       - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/billing-report:
     get:
       description: 'Fetch the billing report generated for the currently authenticated
@@ -13631,6 +13744,7 @@ paths:
           schema:
             $ref: '#/definitions/InternalServerErrorResponse'
       summary: Get billing report.
+      x-origin: /home/circleci/project/billing/public/swagger-public-apis.yaml
   /v3/billing-report-active-devices:
     get:
       description: 'Fetch raw billing data for active devices for the currently authenticated
@@ -13735,6 +13849,7 @@ paths:
           schema:
             $ref: '#/definitions/InternalServerErrorResponse'
       summary: Get raw billing data of the active devices for the month.
+      x-origin: /home/circleci/project/billing/public/swagger-public-apis.yaml
   /v3/billing-report-firmware-updates:
     get:
       description: 'Fetch raw billing data for firmware updates for the currently
@@ -13839,6 +13954,7 @@ paths:
           schema:
             $ref: '#/definitions/InternalServerErrorResponse'
       summary: Get raw billing data of the firmware updates for the month.
+      x-origin: /home/circleci/project/billing/public/swagger-public-apis.yaml
   /v3/branding-colors/dark:
     get:
       description: 'Retrieve the dark theme branding colors.
@@ -13873,6 +13989,7 @@ paths:
       summary: Get dark theme branding colors.
       tags:
       - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -13910,6 +14027,7 @@ paths:
       summary: Updates an array of dark theme branding colors.
       tags:
       - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-colors/dark/{reference}:
     delete:
       description: 'Resets the branding color to its dark theme default.
@@ -13955,6 +14073,7 @@ paths:
       summary: Reset branding color to default.
       tags:
       - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the requested dark theme branding color.
 
@@ -13999,6 +14118,7 @@ paths:
       summary: Get dark theme branding color.
       tags:
       - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -14059,6 +14179,7 @@ paths:
       summary: Updates a dark theme branding color.
       tags:
       - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-colors/light:
     get:
       description: 'Retrieve the light theme branding colors.
@@ -14093,6 +14214,7 @@ paths:
       summary: Get light theme branding colors.
       tags:
       - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -14130,6 +14252,7 @@ paths:
       summary: Updates an array of light theme branding colors.
       tags:
       - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-colors/light/{reference}:
     delete:
       description: 'Resets the branding color to its light theme default.
@@ -14175,6 +14298,7 @@ paths:
       summary: Reset branding color to default.
       tags:
       - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the requested light theme branding color.
 
@@ -14219,6 +14343,7 @@ paths:
       summary: Get light theme branding color.
       tags:
       - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -14279,6 +14404,7 @@ paths:
       summary: Updates light theme branding color.
       tags:
       - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/dark:
     get:
       description: 'Retrieve metadata for all dark theme branding images.
@@ -14311,6 +14437,7 @@ paths:
       summary: Get metadata of all dark theme images.
       tags:
       - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/dark/{reference}:
     get:
       description: 'Retrieve metadata for one account dark theme branding image.
@@ -14356,6 +14483,7 @@ paths:
       summary: Get metadata of a dark theme image.
       tags:
       - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/dark/{reference}/clear:
     post:
       description: 'Revert an account branding image to dark theme default.
@@ -14399,6 +14527,7 @@ paths:
       summary: Revert an image to dark theme default.
       tags:
       - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/dark/{reference}/upload:
     post:
       consumes:
@@ -14467,6 +14596,7 @@ paths:
       summary: Upload a dark theme image.
       tags:
       - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/dark/{reference}/upload-multipart:
     post:
       consumes:
@@ -14519,6 +14649,7 @@ paths:
       summary: Upload a dark theme image.
       tags:
       - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/light:
     get:
       description: 'Retrieve the metadata of all light theme branding images.
@@ -14553,6 +14684,7 @@ paths:
       summary: Get metadata of all light theme images.
       tags:
       - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/light/{reference}:
     get:
       description: 'Retrieve metadata for one account light theme branding image.
@@ -14598,6 +14730,7 @@ paths:
       summary: Get metadata of a light theme image.
       tags:
       - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/light/{reference}/clear:
     post:
       description: 'Revert an account branding image to light theme default.
@@ -14641,6 +14774,7 @@ paths:
       summary: Revert an image to light theme default.
       tags:
       - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/light/{reference}/upload:
     post:
       consumes:
@@ -14709,6 +14843,7 @@ paths:
       summary: Upload a light theme image.
       tags:
       - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/light/{reference}/upload-multipart:
     post:
       consumes:
@@ -14761,6 +14896,7 @@ paths:
       summary: Upload a light theme image.
       tags:
       - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/certificate-enrollments:
     get:
       description: 'Get certificate enrollments list, optionally filtered.
@@ -14927,6 +15063,7 @@ paths:
         updated_at:
         - lte
         - gte
+      x-origin: /home/circleci/project/certificate-enrollment/public/swagger.yaml
   /v3/certificate-enrollments/{certificate-enrollment-id}:
     get:
       description: 'Get a certificate enrollment by ID.
@@ -14975,6 +15112,7 @@ paths:
       summary: Get a certificate enrollment by ID.
       tags:
       - Device security - device certificate renewals
+      x-origin: /home/circleci/project/certificate-enrollment/public/swagger.yaml
   /v3/certificate-issuer-configurations:
     get:
       description: 'Get certificate issuer configurations, optionally filtered by
@@ -15067,6 +15205,7 @@ paths:
       x-filter:
         reference:
         - eq
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     post:
       description: "Configure the certificate issuer to be used when creating the\
         \ device custom certificates.\n<br>\n**Example usage:**\n\n```\ncurl -X POST\
@@ -15109,6 +15248,7 @@ paths:
       summary: Create certificate issuer configuration.
       tags:
       - Certificate Issuers Activation
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuer-configurations/lwm2m:
     get:
       description: 'Provides the configured certificate issuer to be used when creating
@@ -15138,6 +15278,7 @@ paths:
       summary: Get certificate issuer configuration.
       tags:
       - Certificate Issuers Activation
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     put:
       description: "Configure the certificate issuer to be used when creating device\
         \ certificates\nfor LwM2M communication.\n<br>\n**Example usage:**\n\n```\n\
@@ -15177,6 +15318,7 @@ paths:
       summary: Update certificate issuer configuration.
       tags:
       - Certificate Issuers Activation
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}:
     delete:
       description: 'Delete the configured certificate issuer configuration.
@@ -15216,6 +15358,7 @@ paths:
       summary: Delete certificate issuer configuration.
       tags:
       - Certificate Issuers Activation
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     get:
       description: 'Provides the configured certificate issuer.
 
@@ -15247,6 +15390,7 @@ paths:
       summary: Get certificate issuer configuration.
       tags:
       - Certificate Issuers Activation
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     put:
       description: 'Update the configured certificate issuer configuration.
 
@@ -15284,6 +15428,7 @@ paths:
       summary: Update certificate issuer configuration.
       tags:
       - Certificate Issuers Activation
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuers:
     get:
       description: 'Note: This endpoint does not implement pagination and therefore,
@@ -15331,6 +15476,7 @@ paths:
       summary: Get certificate issuers list.
       tags:
       - Certificate Issuers
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     post:
       description: "Create a certificate issuer.\nThe maximum number of issuers is\
         \ limited to 20 per account.\nMultiple certificate issuers of the same issuer\
@@ -15402,6 +15548,7 @@ paths:
       summary: Create certificate issuer.
       tags:
       - Certificate Issuers
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuers/{certificate-issuer-id}:
     delete:
       description: 'Delete a certificate issuer by ID.
@@ -15457,6 +15604,7 @@ paths:
       summary: Delete certificate issuer.
       tags:
       - Certificate Issuers
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     get:
       operationId: getCertificateIssuer
       parameters:
@@ -15496,6 +15644,7 @@ paths:
       summary: Get certificate issuer by ID.
       tags:
       - Certificate Issuers
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     put:
       description: "Update a certificate issuer.\n<br>\n**Example usage:**\n\n```\n\
         curl -X PUT \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type:\
@@ -15556,6 +15705,7 @@ paths:
       summary: Update certificate issuer.
       tags:
       - Certificate Issuers
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuers/{certificate-issuer-id}/verify:
     post:
       description: 'A utility API that can be used to validate the user configuration
@@ -15629,6 +15779,7 @@ paths:
       summary: Verify certificate issuer.
       tags:
       - Certificate Issuers
+      x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/developer-certificates:
     post:
       description: 'Create a developer certificate (a certificate that can be flashed
@@ -15940,6 +16091,7 @@ paths:
       summary: Create a new developer certificate to connect to the bootstrap server.
       tags:
       - Device security - developer class certificates
+      x-origin: /home/circleci/project/connector-ca/public/swagger.yaml
   /v3/developer-certificates/{developerCertificateId}:
     get:
       description: 'Return an existing developer certificate (a certificate that can
@@ -16215,6 +16367,7 @@ paths:
         server.
       tags:
       - Device security - developer class certificates
+      x-origin: /home/circleci/project/connector-ca/public/swagger.yaml
   /v3/device-enrollment-denials:
     get:
       description: 'This produces a list of failed attempts to bootstrap using a particular
@@ -16285,6 +16438,7 @@ paths:
         - eq
         trusted_certificate_id:
         - eq
+      x-origin: /home/circleci/project/enrollment-denial-service/public/swagger.yaml
   /v3/device-enrollment-denials/{device_enrollment_denial_id}:
     get:
       description: 'Query for a single attempt to bootstrap with a blacklisted certificate
@@ -16327,6 +16481,7 @@ paths:
       summary: Query for a single device by ID
       tags:
       - EnrollmentDenials
+      x-origin: /home/circleci/project/enrollment-denial-service/public/swagger.yaml
   /v3/device-enrollments:
     get:
       description: 'Provides a list of pending and claimed enrollments.
@@ -16402,6 +16557,7 @@ paths:
       summary: Get a list of enrollments per account.
       tags:
       - Public API
+      x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
     post:
       description: 'When the device connects to the bootstrap server and provides
         the enrollment ID, it is assigned to your account.
@@ -16452,6 +16608,7 @@ paths:
       summary: Create a single enrollment.
       tags:
       - Public API
+      x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-enrollments-bulk-deletes:
     post:
       consumes:
@@ -16511,6 +16668,7 @@ paths:
       summary: Bulk delete.
       tags:
       - Public API
+      x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-enrollments-bulk-deletes/{id}:
     get:
       description: 'Provides information on bulk delete for the given ID, for example,
@@ -16592,6 +16750,7 @@ paths:
       summary: Get bulk delete entity.
       tags:
       - Public API
+      x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-enrollments-bulk-uploads:
     post:
       consumes:
@@ -16652,6 +16811,7 @@ paths:
       summary: Bulk upload.
       tags:
       - Public API
+      x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-enrollments-bulk-uploads/{id}:
     get:
       description: 'Provides information on bulk upload for the given ID, for example,
@@ -16733,6 +16893,7 @@ paths:
       summary: Get bulk upload entity.
       tags:
       - Public API
+      x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-enrollments/{id}:
     delete:
       description: 'To free a device from your account, delete the enrollment claim.
@@ -16774,6 +16935,7 @@ paths:
       summary: Delete an enrollment by ID.
       tags:
       - Public API
+      x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
     get:
       description: 'Check detailed enrollment info, for example, date of claim or
         expiration date.
@@ -16813,6 +16975,7 @@ paths:
       summary: Get details of an single enrollment by ID.
       tags:
       - Public API
+      x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-events/:
     get:
       description: List all device events for an account.
@@ -17012,6 +17175,7 @@ paths:
         state_change:
         - eq
         - neq
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-events/{device_event_id}/:
     get:
       description: Retrieve a specific device event.
@@ -17033,6 +17197,7 @@ paths:
         '404':
           description: Unable to find device.
       summary: Retrieve a device event.
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/:
     get:
       description: List all groups.
@@ -17237,6 +17402,7 @@ paths:
         - nin
         - lte
         - gte
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
     post:
       description: Create a group.
       operationId: Group_create
@@ -17269,6 +17435,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a group
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/{device-group-id}/:
     delete:
       description: Delete a group.
@@ -17291,6 +17458,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a group
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
     get:
       description: Get a group.
       operationId: Group_retrieve
@@ -17318,6 +17486,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get a group.
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
     put:
       description: Modify the attributes of a group.
       operationId: Group_update
@@ -17354,6 +17523,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Modify the attributes of a group.
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/{device-group-id}/devices/:
     get:
       description: Get a page of devices.
@@ -18081,6 +18251,7 @@ paths:
         - neq
         - in
         - nin
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/{device-group-id}/devices/add/:
     post:
       description: Add one device to a group.
@@ -18113,6 +18284,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Add a device to a group
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/{device-group-id}/devices/remove/:
     post:
       description: Remove one device from a group.
@@ -18145,6 +18317,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Remove a device from a group
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-queries/:
     get:
       description: List all device queries. The result will be paged into pages of
@@ -18335,6 +18508,7 @@ paths:
         - nin
         - lte
         - gte
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
     post:
       description: Create a new device query.
       operationId: Device_Query_create
@@ -18357,6 +18531,7 @@ paths:
         '401':
           description: Not authenticated.
       summary: Create a device query
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-queries/{query_id}/:
     delete:
       description: Delete a device query.
@@ -18379,6 +18554,7 @@ paths:
         '404':
           description: Unable to delete update device query because it can't be found.
       summary: Delete a device query
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
     get:
       description: Retrieve a specific device query.
       operationId: Device_Query_retrieve
@@ -18402,6 +18578,7 @@ paths:
         '404':
           description: Unable to find device query.
       summary: Retrieve a device query.
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
     put:
       description: Update a specifc device query.
       operationId: Device_Query_update
@@ -18431,6 +18608,7 @@ paths:
         '404':
           description: Unable to update device query because it can't be found.
       summary: Update a device query
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devicelog/:
     get:
       deprecated: true
@@ -18641,6 +18819,7 @@ paths:
         - neq
         - in
         - nin
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devicelog/{device_event_id}/:
     get:
       deprecated: true
@@ -18664,6 +18843,7 @@ paths:
         '404':
           description: Unable to find device.
       summary: 'DEPRECATED: Retrieve a device event.'
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devices/:
     get:
       description: List all devices.
@@ -19243,6 +19423,7 @@ paths:
           description: Unable to find page.
       summary: List all devices.
       x-filter: *id024
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
     post:
       description: Create a new device.
       operationId: Device_create
@@ -19269,6 +19450,7 @@ paths:
         '409':
           description: Unique-constrained fields are used by other resources.
       summary: Create a device
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devices/{device-id}/certificates/{certificate-name}/renew:
     post:
       description: 'Request a certificate renewal.
@@ -19338,6 +19520,7 @@ paths:
       summary: Request certificate renewal.
       tags:
       - Device security - device certificate renewals
+      x-origin: /home/circleci/project/certificate-enrollment/public/swagger.yaml
   /v3/devices/{id}/:
     delete:
       description: Delete device. Only available for devices with a developer certificate.
@@ -19359,6 +19542,7 @@ paths:
         '404':
           description: Unable to delete device because it can't be found.
       summary: Delete a device.
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
     get:
       description: Retrieve information about a specific device.
       operationId: Device_retrieve
@@ -19379,6 +19563,7 @@ paths:
         '404':
           description: Unable to find device.
       summary: Get a device
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
     put:
       description: Update a specific device.
       operationId: Device_update
@@ -19408,6 +19593,7 @@ paths:
         '404':
           description: Unable to update device because it can't be found.
       summary: Update a device
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/firmware-images/:
     get:
       description: List all firmware images.
@@ -19664,6 +19850,7 @@ paths:
         - nin
         - lte
         - gte
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
     post:
       consumes:
       - multipart/form-data
@@ -19700,6 +19887,7 @@ paths:
         413:
           description: Firmware image too large.
       summary: Create an image
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/firmware-images/upload-jobs:
     get:
       description: Get all upload jobs
@@ -19924,6 +20112,7 @@ paths:
         - nin
         - lte
         - gte
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
     post:
       description: Create a new upload job
       operationId: Upload_Job_Create
@@ -19959,6 +20148,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new upload job
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/firmware-images/upload-jobs/{upload_job_id}:
     delete:
       description: Delete an upload job
@@ -19985,6 +20175,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete an upload job
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
     get:
       description: Get an upload job
       operationId: Upload_Job_Retrieve
@@ -20008,6 +20199,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get an upload job
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
     put:
       description: Update an upload job
       operationId: Upload_Job_Update
@@ -20044,6 +20236,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Update an upload job
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/firmware-images/upload-jobs/{upload_job_id}/chunks:
     get:
       description: List all metadata for uploaded chunks
@@ -20251,6 +20444,7 @@ paths:
         - nin
         - lte
         - gte
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
     post:
       consumes:
       - binary/octet-stream
@@ -20304,6 +20498,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Append a chunks to an upload job
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/firmware-images/upload-jobs/{upload_job_id}/chunks/{chunk_id}:
     get:
       description: Get metadata about a chunk
@@ -20333,6 +20528,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get metadata about a chunk
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/firmware-images/{image_id}/:
     delete:
       description: Delete a firmware image.
@@ -20353,6 +20549,7 @@ paths:
         '404':
           description: Firmware image not found
       summary: Delete an image
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
     get:
       description: Retrieve a firmware image.
       operationId: Firmware_Image_retrieve
@@ -20374,6 +20571,7 @@ paths:
         '404':
           description: Firmware image can't be found
       summary: Get an image
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/firmware-manifests/:
     get:
       description: List firmware manifests.
@@ -20654,6 +20852,7 @@ paths:
         - nin
         - lte
         - gte
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
     post:
       consumes:
       - multipart/form-data
@@ -20697,6 +20896,7 @@ paths:
         '403':
           description: Forbidden
       summary: Upload a manifest
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/firmware-manifests/{manifest_id}/:
     delete:
       description: Delete a firmware manifest.
@@ -20717,6 +20917,7 @@ paths:
         '404':
           description: Firmware manifest not found
       summary: Delete a manifest
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
     get:
       description: Retrieve a firmware manifest.
       operationId: Firmware_Manifest_retrieve
@@ -20738,6 +20939,7 @@ paths:
         '404':
           description: Firmware manifest can't be found
       summary: Get a manifest
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/identity-providers:
     get:
       consumes:
@@ -20788,6 +20990,7 @@ paths:
       summary: Get all identity providers.
       tags:
       - Account - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -20829,6 +21032,7 @@ paths:
       summary: Create a new identity provider.
       tags:
       - Account - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/identity-providers/{identity_provider_id}:
     delete:
       description: Delete an identity provider by ID.
@@ -20859,6 +21063,7 @@ paths:
       summary: Delete an identity provider by ID.
       tags:
       - Account - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: Retrieve by ID.
       operationId: getIdentityProvider
@@ -20890,6 +21095,7 @@ paths:
       summary: Get identity provider by ID.
       tags:
       - Account - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -20933,6 +21139,7 @@ paths:
       summary: Update an existing identity provider.
       tags:
       - Account - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/identity-providers/{identity_provider_id}/delete-sp-certificate:
     post:
       consumes:
@@ -20971,6 +21178,7 @@ paths:
       summary: Delete the service provider certificate.
       tags:
       - Account - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/identity-providers/{identity_provider_id}/generate-sp-certificate:
     post:
       consumes:
@@ -21020,6 +21228,7 @@ paths:
       summary: Generate a new service provider certificate.
       tags:
       - Account - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/metrics:
     get:
       description: This REST API is used to get account-specific statistics.
@@ -21163,6 +21372,7 @@ paths:
       summary: Provides account-specific statistics for other cloud services.
       tags:
       - Statistics
+      x-origin: /home/circleci/project/statistics/public/rest-api-v3-external.yaml
   /v3/policy-groups:
     get:
       description: 'Retrieve all group information.
@@ -21230,6 +21440,7 @@ paths:
       x-filter:
         name:
         - eq
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -21281,6 +21492,7 @@ paths:
       summary: Create a new group.
       tags:
       - Account - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/policy-groups/{group_id}:
     delete:
       description: 'Delete a group.
@@ -21323,6 +21535,7 @@ paths:
       summary: Delete a group.
       tags:
       - Account - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve general information about a group.
 
@@ -21366,6 +21579,7 @@ paths:
       summary: Get group information.
       tags:
       - Account - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -21430,6 +21644,7 @@ paths:
       summary: Add members to a group.
       tags:
       - Account - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -21489,6 +21704,7 @@ paths:
       summary: Update the group name.
       tags:
       - Account - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/policy-groups/{group_id}/api-keys:
     delete:
       consumes:
@@ -21550,6 +21766,7 @@ paths:
       summary: Remove API keys from a group.
       tags:
       - Account - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Manage policy groups.
 
@@ -21618,6 +21835,7 @@ paths:
       summary: Get the API keys of a group.
       tags:
       - Account - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/policy-groups/{group_id}/users:
     delete:
       consumes:
@@ -21679,6 +21897,7 @@ paths:
       summary: Remove users from a group.
       tags:
       - Account - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve users of a group with details.
 
@@ -21768,6 +21987,7 @@ paths:
         - eq
         - in
         - nin
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/server-credentials:
     get:
       description: 'Return all (bootstrap and LwM2M) server credentials for client
@@ -21819,6 +22039,7 @@ paths:
       summary: Fetch all (Bootstrap and LwM2M) server credentials.
       tags:
       - Service security - server credentials
+      x-origin: /home/circleci/project/connector-ca/public/swagger.yaml
   /v3/server-credentials/bootstrap:
     get:
       deprecated: true
@@ -21871,6 +22092,7 @@ paths:
       summary: Fetch bootstrap server credentials.
       tags:
       - Service security - server credentials
+      x-origin: /home/circleci/project/connector-ca/public/swagger.yaml
   /v3/server-credentials/lwm2m:
     get:
       deprecated: true
@@ -21923,6 +22145,7 @@ paths:
       summary: Fetch LwM2M server credentials.
       tags:
       - Service security - server credentials
+      x-origin: /home/circleci/project/connector-ca/public/swagger.yaml
   /v3/service-packages:
     get:
       description: 'Get information for all service packages for the current authenticated
@@ -22025,6 +22248,7 @@ paths:
           schema:
             $ref: '#/definitions/InternalServerErrorResponse'
       summary: Get all service packages.
+      x-origin: /home/circleci/project/billing/public/swagger-public-apis.yaml
   /v3/service-packages-quota:
     get:
       description: 'Get the available firmware update quota for the current authenticated
@@ -22086,6 +22310,7 @@ paths:
           schema:
             $ref: '#/definitions/InternalServerErrorResponse'
       summary: Service package quota.
+      x-origin: /home/circleci/project/billing/public/swagger-public-apis.yaml
   /v3/service-packages-quota-history:
     get:
       description: 'Get your quota usage history. This API is available only for commercial
@@ -22190,6 +22415,7 @@ paths:
           schema:
             $ref: '#/definitions/InternalServerErrorResponse'
       summary: Service package quota history.
+      x-origin: /home/circleci/project/billing/public/swagger-public-apis.yaml
   /v3/trusted-certificates:
     get:
       description: 'Retrieve trusted certificates in an array.
@@ -22335,6 +22561,7 @@ paths:
         - like
         valid:
         - eq
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -22389,6 +22616,7 @@ paths:
       summary: Upload a new trusted certificate.
       tags:
       - Device security - certificates
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/trusted-certificates/{cert_id}:
     delete:
       description: 'Delete a trusted certificate.
@@ -22431,6 +22659,7 @@ paths:
       summary: Delete a trusted certificate by ID.
       tags:
       - Device security - certificates
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve a trusted certificate by ID.
 
@@ -22474,6 +22703,7 @@ paths:
       summary: Get trusted certificate by ID.
       tags:
       - Device security - certificates
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -22537,6 +22767,7 @@ paths:
       summary: Update trusted certificate.
       tags:
       - Device security - certificates
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/update-campaigns/:
     get:
       description: Get update campaigns for devices specified by a filter.
@@ -22870,6 +23101,7 @@ paths:
         - nin
         - lte
         - gte
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
     post:
       description: Create an update campaign.
       operationId: Update_Campaign_create
@@ -22893,6 +23125,7 @@ paths:
         '401':
           description: Not authenticated
       summary: Create a campaign
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/:
     delete:
       description: Delete an update campaign.
@@ -22921,6 +23154,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a campaign
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
     get:
       description: Get an update campaign.
       operationId: Update_Campaign_retrieve
@@ -22945,6 +23179,7 @@ paths:
         '404':
           description: Unable to find campaign
       summary: Get a campaign.
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
     put:
       description: Modify an update campaign.
       operationId: Update_Campaign_update
@@ -22977,6 +23212,7 @@ paths:
         '404':
           description: Update campaign can't be found
       summary: Modify a campaign
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/archive:
     post:
       description: This command will archive a campaign.
@@ -22999,6 +23235,7 @@ paths:
         '409':
           description: Cannot archive the campaign while in the current phase.
       summary: Archive a campaign.
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/campaign-device-metadata/:
     get:
       description: Get campaign device metadata.
@@ -23038,6 +23275,7 @@ paths:
         401:
           description: Unauthorized
       summary: List all campaign device metadata
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/:
     get:
       description: Get update campaign metadata.
@@ -23063,6 +23301,7 @@ paths:
         404:
           description: Not Found
       summary: Get a campaign device metadata
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/metrics:
     get:
       description: Get detailed statistics of a campaign.
@@ -23088,6 +23327,7 @@ paths:
         end_of_life_at: '2020-04-10T13:41:00+00:00'
         issued_at: '2019-04-10T13:41:00+00:00'
         links: []
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/start:
     post:
       description: This command will begin the process of starting a campaign.
@@ -23110,6 +23350,7 @@ paths:
         '409':
           description: Cannot start the campaign while in the current phase.
       summary: Start a campaign.
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/statistics/:
     get:
       description: Get a list of statistics for a campaign
@@ -23134,6 +23375,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get a list of statistics for a campaign
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}:
     get:
       description: Get a summary status
@@ -23163,6 +23405,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get a summary status
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/:
     get:
       description: Get a list of events grouped by summary
@@ -23192,6 +23435,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get a list of events grouped by summary
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/{event_type_id}:
     get:
       description: Get an event type for a campaign
@@ -23227,6 +23471,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get an event type for a campaign
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/stop:
     post:
       description: This command will begin the process of stopping a campaign.
@@ -23249,6 +23494,7 @@ paths:
         '409':
           description: Cannot stop the campaign while in the current phase.
       summary: Stop a campaign.
+      x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/user-invitations:
     get:
       description: 'Retrieve details for all the active user invitations.
@@ -23310,6 +23556,7 @@ paths:
       x-filter:
         login_profiles:
         - eq
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -23359,6 +23606,7 @@ paths:
       summary: Create a user invitation.
       tags:
       - Account - user invitations
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/user-invitations/{invitation_id}:
     delete:
       description: 'Delete an active user invitation sent to a new or existing user.
@@ -23401,6 +23649,7 @@ paths:
       summary: Delete a user invitation.
       tags:
       - Account - user invitations
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the details of an active user invitation.
 
@@ -23444,6 +23693,7 @@ paths:
       summary: Details of a user invitation.
       tags:
       - Account - user invitations
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/users:
     get:
       description: 'Retrieve the details of all users.
@@ -23538,6 +23788,7 @@ paths:
         - eq
         - in
         - nin
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -23598,6 +23849,7 @@ paths:
       summary: Create a new user.
       tags:
       - Account - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/users/me:
     get:
       description: Retrieve the details of the logged-in user.
@@ -23638,6 +23890,7 @@ paths:
       summary: Details of the current user.
       tags:
       - Account - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -23695,6 +23948,7 @@ paths:
       summary: Update user details.
       tags:
       - Account - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/users/{user_id}:
     delete:
       description: 'Delete a user.
@@ -23740,6 +23994,7 @@ paths:
       summary: Delete a user.
       tags:
       - Account - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the details of a user.
 
@@ -23782,6 +24037,7 @@ paths:
       summary: Details of a user.
       tags:
       - Account - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
@@ -23844,6 +24100,7 @@ paths:
       summary: Update user details.
       tags:
       - Account - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/users/{user_id}/groups:
     delete:
       consumes:
@@ -23906,6 +24163,7 @@ paths:
       summary: Remove user from groups.
       tags:
       - Account - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve groups of the user.
 
@@ -23974,6 +24232,7 @@ paths:
       summary: Get groups of the user.
       tags:
       - Account - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     post:
       consumes:
       - application/json
@@ -24039,6 +24298,7 @@ paths:
       summary: Add user to a list of groups.
       tags:
       - Account - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
 produces:
 - application/json
 schemes:
