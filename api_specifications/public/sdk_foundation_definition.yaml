@@ -393,53 +393,6 @@ entities:
     required: false
     type: string
     x-nullable: true
-  - _key: reference
-    api_fieldname: reference
-    description: Name of the image.
-    enum:
-    - brand_logo_portrait
-    - brand_logo_square
-    - brand_logo_landscape
-    - brand_logo_email
-    - desktop_background_landscape
-    - desktop_background_square
-    - desktop_background_portrait
-    - carousel_image_portrait_0
-    - carousel_image_portrait_1
-    - carousel_image_portrait_2
-    - carousel_image_portrait_3
-    - carousel_image_portrait_4
-    - carousel_image_portrait_5
-    - carousel_image_portrait_6
-    - carousel_image_portrait_7
-    - carousel_image_portrait_8
-    - carousel_image_portrait_9
-    - carousel_image_square_0
-    - carousel_image_square_1
-    - carousel_image_square_2
-    - carousel_image_square_3
-    - carousel_image_square_4
-    - carousel_image_square_5
-    - carousel_image_square_6
-    - carousel_image_square_7
-    - carousel_image_square_8
-    - carousel_image_square_9
-    - carousel_image_landscape_0
-    - carousel_image_landscape_1
-    - carousel_image_landscape_2
-    - carousel_image_landscape_3
-    - carousel_image_landscape_4
-    - carousel_image_landscape_5
-    - carousel_image_landscape_6
-    - carousel_image_landscape_7
-    - carousel_image_landscape_8
-    - carousel_image_landscape_9
-    enum_reference: account_reference_enum
-    in: path
-    parameter_fieldname: reference
-    readOnly: false
-    required: true
-    type: string
   - _key: reference_note
     api_fieldname: reference_note
     description: A reference note for updating the status of the account.
@@ -466,14 +419,6 @@ entities:
     required: false
     type: string
     x-nullable: true
-  - _key: static_uri
-    api_fieldname: static_uri
-    description: The static link to the image.
-    example: https://static.mbed.com/123456789.jpg
-    format: uri
-    readOnly: true
-    required: false
-    type: string
   - _key: status
     api_fieldname: status
     description: The status of the account.
@@ -506,7 +451,7 @@ entities:
     type: string
   - _key: updated_at
     api_fieldname: updated_at
-    description: Last update time in UTC.
+    description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
     readOnly: true
@@ -3164,14 +3109,14 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: light_theme_branding_images
-    description: 'Retrieve metadata for one account light theme branding image.
+    description: 'Retrieve the metadata of all light theme branding images.
 
 
       **Example:**
 
       ```
 
-      curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light
       \
 
       -H ''Authorization: Bearer <api_key>''
@@ -3184,8 +3129,12 @@ entities:
     - groups
     - filter
     - sub_accounts
-    - static_uri
-    - updated_at
+    - limit
+    - after
+    - order
+    - total_count
+    - has_more
+    - data
     field_renames: []
     fields:
     - _key: id
@@ -3198,64 +3147,17 @@ entities:
       parameter_fieldname: account_id
       required: true
       type: string
-    - _key: reference
-      api_fieldname: reference
-      description: Name of the image.
-      entity_fieldname: reference
-      enum:
-      - brand_logo_portrait
-      - brand_logo_square
-      - brand_logo_landscape
-      - brand_logo_email
-      - desktop_background_landscape
-      - desktop_background_square
-      - desktop_background_portrait
-      - carousel_image_portrait_0
-      - carousel_image_portrait_1
-      - carousel_image_portrait_2
-      - carousel_image_portrait_3
-      - carousel_image_portrait_4
-      - carousel_image_portrait_5
-      - carousel_image_portrait_6
-      - carousel_image_portrait_7
-      - carousel_image_portrait_8
-      - carousel_image_portrait_9
-      - carousel_image_square_0
-      - carousel_image_square_1
-      - carousel_image_square_2
-      - carousel_image_square_3
-      - carousel_image_square_4
-      - carousel_image_square_5
-      - carousel_image_square_6
-      - carousel_image_square_7
-      - carousel_image_square_8
-      - carousel_image_square_9
-      - carousel_image_landscape_0
-      - carousel_image_landscape_1
-      - carousel_image_landscape_2
-      - carousel_image_landscape_3
-      - carousel_image_landscape_4
-      - carousel_image_landscape_5
-      - carousel_image_landscape_6
-      - carousel_image_landscape_7
-      - carousel_image_landscape_8
-      - carousel_image_landscape_9
-      enum_reference: account_reference_enum
-      in: path
-      parameter_fieldname: reference
-      required: true
-      type: string
     foreign_key:
       entity: subtenant_light_theme_image
     group_id: Accounts
     method: get
     mode: light_theme_branding_images
     notes: This lists the light theme banding images of the subtenant account.
-    operation_id: getAccountLightImageData
-    pagination: false
+    operation_id: getAllAccountLightImageData
+    pagination: true
     parameter_map:
       account_id: id
-    path: /v3/accounts/{account_id}/branding-images/light/{reference}
+    path: /v3/accounts/{account_id}/branding-images/light
     request_body: json
     request_content_type: application/json
     responses:
@@ -3263,80 +3165,129 @@ entities:
       description: Successful operation.
       schema:
         foreign_key:
-          entity: account
-          group: Accounts
+          entity: dark_theme_image
+          group: Branding
+        pagination: true
         properties:
+        - _key: after
+          api_fieldname: after
+          description: The entity ID to fetch after the given one.
+          entity_fieldname: after
+          example: 01619571f3c00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: data
+          api_fieldname: data
+          description: A list of entities.
+          entity_fieldname: data
+          items:
+            foreign_key:
+              entity: dark_theme_image
+              group: Branding
+            properties:
+            - _key: object
+              description: 'Entity name: always ''branding_image'''
+              enum:
+              - branding_image
+              readOnly: true
+              type: string
+            - _key: reference
+              description: Name of the image.
+              enum:
+              - brand_logo_portrait
+              - brand_logo_square
+              - brand_logo_landscape
+              - brand_logo_email
+              - desktop_background_landscape
+              - desktop_background_square
+              - desktop_background_portrait
+              - carousel_image_portrait_0
+              - carousel_image_portrait_1
+              - carousel_image_portrait_2
+              - carousel_image_portrait_3
+              - carousel_image_portrait_4
+              - carousel_image_portrait_5
+              - carousel_image_portrait_6
+              - carousel_image_portrait_7
+              - carousel_image_portrait_8
+              - carousel_image_portrait_9
+              - carousel_image_square_0
+              - carousel_image_square_1
+              - carousel_image_square_2
+              - carousel_image_square_3
+              - carousel_image_square_4
+              - carousel_image_square_5
+              - carousel_image_square_6
+              - carousel_image_square_7
+              - carousel_image_square_8
+              - carousel_image_square_9
+              - carousel_image_landscape_0
+              - carousel_image_landscape_1
+              - carousel_image_landscape_2
+              - carousel_image_landscape_3
+              - carousel_image_landscape_4
+              - carousel_image_landscape_5
+              - carousel_image_landscape_6
+              - carousel_image_landscape_7
+              - carousel_image_landscape_8
+              - carousel_image_landscape_9
+              type: string
+            - _key: static_uri
+              description: The static link to the image.
+              example: https://static.mbed.com/123456789.jpg
+              format: uri
+              readOnly: true
+              type: string
+            - _key: updated_at
+              description: Last update time in UTC.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              readOnly: true
+              type: string
+            type: object
+          type: array
+        - _key: has_more
+          api_fieldname: has_more
+          description: Flag indicating whether there are more results.
+          entity_fieldname: has_more
+          example: false
+          type: boolean
+        - _key: limit
+          api_fieldname: limit
+          description: The number of results to return, or equal to `total_count`.
+          entity_fieldname: limit
+          example: 50
+          format: int32
+          type: integer
         - _key: object
           api_fieldname: object
-          description: 'Entity name: always ''branding_image'''
+          description: 'Entity name: always `list`.'
           entity_fieldname: object
           enum:
-          - branding_image
-          readOnly: true
+          - list
           type: string
-        - _key: reference
-          api_fieldname: reference
-          description: Name of the image.
-          entity_fieldname: reference
+        - _key: order
+          api_fieldname: order
+          description: 'The order of the records to return based on creation time.
+            Available values: ASC, DESC; by default ASC.'
+          entity_fieldname: order
           enum:
-          - brand_logo_portrait
-          - brand_logo_square
-          - brand_logo_landscape
-          - brand_logo_email
-          - desktop_background_landscape
-          - desktop_background_square
-          - desktop_background_portrait
-          - carousel_image_portrait_0
-          - carousel_image_portrait_1
-          - carousel_image_portrait_2
-          - carousel_image_portrait_3
-          - carousel_image_portrait_4
-          - carousel_image_portrait_5
-          - carousel_image_portrait_6
-          - carousel_image_portrait_7
-          - carousel_image_portrait_8
-          - carousel_image_portrait_9
-          - carousel_image_square_0
-          - carousel_image_square_1
-          - carousel_image_square_2
-          - carousel_image_square_3
-          - carousel_image_square_4
-          - carousel_image_square_5
-          - carousel_image_square_6
-          - carousel_image_square_7
-          - carousel_image_square_8
-          - carousel_image_square_9
-          - carousel_image_landscape_0
-          - carousel_image_landscape_1
-          - carousel_image_landscape_2
-          - carousel_image_landscape_3
-          - carousel_image_landscape_4
-          - carousel_image_landscape_5
-          - carousel_image_landscape_6
-          - carousel_image_landscape_7
-          - carousel_image_landscape_8
-          - carousel_image_landscape_9
-          enum_reference: subtenant_dark_theme_image_reference_enum
-          in: path
-          parameter_fieldname: reference
-          required: true
+          - ASC
+          - DESC
           type: string
-        - _key: static_uri
-          api_fieldname: static_uri
-          description: The static link to the image.
-          entity_fieldname: static_uri
-          example: https://static.mbed.com/123456789.jpg
-          format: uri
-          readOnly: true
-          type: string
-        - _key: updated_at
-          api_fieldname: updated_at
-          description: Last update time in UTC.
-          entity_fieldname: updated_at
-          example: '2018-02-14T15:24:14Z'
-          format: date-time
-          readOnly: true
-          type: string
+        - _key: total_count
+          api_fieldname: total_count
+          description: The total number of records, if requested.
+          entity_fieldname: total_count
+          example: 20
+          format: int32
+          type: integer
+        required:
+        - data
+        - has_more
+        - limit
+        - object
+        - total_count
         type: object
     - _key: '401'
       description: Authentication failure.
@@ -3435,7 +3386,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Unknown image reference, or account not found.
+      description: Account not found.
       schema:
         properties:
         - _key: code
@@ -3486,8 +3437,8 @@ entities:
       custom: false
       self: false
       type: subtenant_light_theme_image
-    return_type: subtenant_light_theme_image
-    summary: Get metadata of a light theme image.
+    return_type: paginated_response(subtenant_light_theme_image)
+    summary: Get metadata of all light theme images.
     x_deprecation: null
     x_filter: {}
   - _key: list
@@ -9527,7 +9478,6 @@ entities:
   - AccountUpdateRootReq
   - ApiKeyInfoRespList
   - BrandingColorList
-  - BrandingImage
   - BrandingImageList
   - TrustedCertificateRespList
   - UserInfoRespList
@@ -19016,8 +18966,8 @@ entities:
       description: Successful operation.
       schema:
         foreign_key:
-          entity: account
-          group: Accounts
+          entity: subtenant_light_theme_image
+          group: Branding
         properties:
         - _key: object
           api_fieldname: object
@@ -19296,8 +19246,8 @@ entities:
         type: string
       schema:
         foreign_key:
-          entity: account
-          group: Accounts
+          entity: subtenant_light_theme_image
+          group: Branding
         properties:
         - _key: object
           api_fieldname: object
@@ -33717,8 +33667,8 @@ entities:
       description: Successful operation.
       schema:
         foreign_key:
-          entity: account
-          group: Accounts
+          entity: subtenant_light_theme_image
+          group: Branding
         properties:
         - _key: object
           api_fieldname: object
@@ -34000,8 +33950,8 @@ entities:
         type: string
       schema:
         foreign_key:
-          entity: account
-          group: Accounts
+          entity: subtenant_light_theme_image
+          group: Branding
         properties:
         - _key: object
           api_fieldname: object
@@ -38151,8 +38101,8 @@ entities:
       description: Successful operation.
       schema:
         foreign_key:
-          entity: account
-          group: Accounts
+          entity: subtenant_light_theme_image
+          group: Branding
         properties:
         - _key: object
           api_fieldname: object
@@ -38445,8 +38395,8 @@ entities:
         type: string
       schema:
         foreign_key:
-          entity: account
-          group: Accounts
+          entity: subtenant_light_theme_image
+          group: Branding
         properties:
         - _key: object
           api_fieldname: object
@@ -40059,8 +40009,8 @@ entities:
       description: Successful operation.
       schema:
         foreign_key:
-          entity: account
-          group: Accounts
+          entity: subtenant_dark_theme_image
+          group: Branding
         properties:
         - _key: object
           api_fieldname: object
@@ -40351,8 +40301,8 @@ entities:
         type: string
       schema:
         foreign_key:
-          entity: account
-          group: Accounts
+          entity: subtenant_dark_theme_image
+          group: Branding
         properties:
         - _key: object
           api_fieldname: object
@@ -56077,49 +56027,6 @@ enums:
   values:
   - ASC
   - DESC
-- _key: account_reference_enum
-  entity_name: account
-  enum_name: account_reference_enum
-  field_name: reference
-  group_id: Accounts
-  values:
-  - brand_logo_email
-  - brand_logo_landscape
-  - brand_logo_portrait
-  - brand_logo_square
-  - carousel_image_landscape_0
-  - carousel_image_landscape_1
-  - carousel_image_landscape_2
-  - carousel_image_landscape_3
-  - carousel_image_landscape_4
-  - carousel_image_landscape_5
-  - carousel_image_landscape_6
-  - carousel_image_landscape_7
-  - carousel_image_landscape_8
-  - carousel_image_landscape_9
-  - carousel_image_portrait_0
-  - carousel_image_portrait_1
-  - carousel_image_portrait_2
-  - carousel_image_portrait_3
-  - carousel_image_portrait_4
-  - carousel_image_portrait_5
-  - carousel_image_portrait_6
-  - carousel_image_portrait_7
-  - carousel_image_portrait_8
-  - carousel_image_portrait_9
-  - carousel_image_square_0
-  - carousel_image_square_1
-  - carousel_image_square_2
-  - carousel_image_square_3
-  - carousel_image_square_4
-  - carousel_image_square_5
-  - carousel_image_square_6
-  - carousel_image_square_7
-  - carousel_image_square_8
-  - carousel_image_square_9
-  - desktop_background_landscape
-  - desktop_background_portrait
-  - desktop_background_square
 - _key: account_status_enum
   entity_name: account
   enum_name: account_status_enum
@@ -56674,7 +56581,6 @@ groups:
   - subtenant_api_key_status_enum
   - account_status_enum
   - account_mfa_status_enum
-  - account_reference_enum
   - account_order_enum
 - _key: Branding
   entities:
