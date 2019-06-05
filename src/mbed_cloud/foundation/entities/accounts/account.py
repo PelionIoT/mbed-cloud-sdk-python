@@ -95,11 +95,9 @@ class Account(Entity):
         "policies",
         "postal_code",
         "reason",
-        "reference",
         "reference_note",
         "sales_contact",
         "state",
-        "static_uri",
         "status",
         "template_id",
         "tier",
@@ -154,11 +152,9 @@ class Account(Entity):
         policies=None,
         postal_code=None,
         reason=None,
-        reference=None,
         reference_note=None,
         sales_contact=None,
         state=None,
-        static_uri=None,
         status=None,
         template_id=None,
         tier=None,
@@ -251,16 +247,12 @@ class Account(Entity):
         :type postal_code: str
         :param reason: A note with the reason for account status update.
         :type reason: str
-        :param reference: (Required) Name of the image.
-        :type reference: str
         :param reference_note: A reference note for updating the status of the account.
         :type reference_note: str
         :param sales_contact: Email address of the sales contact.
         :type sales_contact: str
         :param state: The state part of the postal address.
         :type state: str
-        :param static_uri: The static link to the image.
-        :type static_uri: str
         :param status: The status of the account.
         :type status: str
         :param template_id: Account template ID.
@@ -269,7 +261,7 @@ class Account(Entity):
             account, `2`: partner tier. Other values are reserved for the
             future.
         :type tier: str
-        :param updated_at: Last update time in UTC.
+        :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
         :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
         :type upgraded_at: datetime
@@ -319,11 +311,9 @@ class Account(Entity):
         self._policies = fields.ListField(value=policies, entity=Policy)
         self._postal_code = fields.StringField(value=postal_code)
         self._reason = fields.StringField(value=reason)
-        self._reference = fields.StringField(value=reference, enum=enums.AccountReferenceEnum)
         self._reference_note = fields.StringField(value=reference_note)
         self._sales_contact = fields.StringField(value=sales_contact)
         self._state = fields.StringField(value=state)
-        self._static_uri = fields.StringField(value=static_uri)
         self._status = fields.StringField(value=status, enum=enums.AccountStatusEnum)
         self._template_id = fields.StringField(value=template_id)
         self._tier = fields.StringField(value=tier)
@@ -968,27 +958,6 @@ class Account(Entity):
         return self._reason.value
 
     @property
-    def reference(self):
-        """Name of the image.
-
-        This field must be set when creating a new Account Entity.
-        
-        :rtype: str
-        """
-
-        return self._reference.value
-
-    @reference.setter
-    def reference(self, value):
-        """Set value of `reference`
-
-        :param value: value to set
-        :type value: str
-        """
-
-        self._reference.set(value)
-
-    @property
     def reference_note(self):
         """A reference note for updating the status of the account.
         
@@ -1042,17 +1011,6 @@ class Account(Entity):
         self._state.set(value)
 
     @property
-    def static_uri(self):
-        """The static link to the image.
-        
-        api example: 'https://static.mbed.com/123456789.jpg'
-        
-        :rtype: str
-        """
-
-        return self._static_uri.value
-
-    @property
     def status(self):
         """The status of the account.
         
@@ -1088,7 +1046,7 @@ class Account(Entity):
 
     @property
     def updated_at(self):
-        """Last update time in UTC.
+        """Last update UTC time RFC3339.
         
         api example: '2018-02-14T15:24:14Z'
         
@@ -1416,22 +1374,57 @@ class Account(Entity):
             wraps=self._paginate_light_theme_branding_colors,
         )
 
-    def light_theme_branding_images(self):
-        """Get metadata of a light theme image.
+    def light_theme_branding_images(self, filter=None, order=None, max_results=None, page_size=None, include=None):
+        """Get metadata of all light theme images.
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light/{reference}>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light>`_.
         
-        :rtype: SubtenantLightThemeImage
+        :param filter: Filtering when listing entities is not supported by the API for this
+            entity.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: The order of the records based on creation time, ASC or DESC. Default
+            value is ASC
+        :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return for each page.
+        :type page_size: int
+        
+        :param include: Comma separated additional data to return.
+        :type include: str
+        
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantLightThemeImage)
         """
 
+        from mbed_cloud.foundation._custom_methods import paginate
         from mbed_cloud.foundation import SubtenantLightThemeImage
+        from mbed_cloud import ApiFilter
 
-        return self._client.call_api(
-            method="get",
-            path="/v3/accounts/{account_id}/branding-images/light/{reference}",
-            content_type="application/json",
-            path_params={"account_id": self._id.to_api(), "reference": self._reference.to_api()},
-            unpack=SubtenantLightThemeImage,
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantLightThemeImage._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = SubtenantLightThemeImage._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
+
+        return paginate(
+            self=self,
+            foreign_key=SubtenantLightThemeImage,
+            filter=filter,
+            order=order,
+            max_results=max_results,
+            page_size=page_size,
+            include=include,
+            wraps=self._paginate_light_theme_branding_images,
         )
 
     def list(
@@ -1688,6 +1681,39 @@ class Account(Entity):
         return self._client.call_api(
             method="get",
             path="/v3/accounts/{account_id}/branding-colors/light",
+            content_type="application/json",
+            path_params={"account_id": self._id.to_api()},
+            unpack=False,
+        )
+
+    def _paginate_light_theme_branding_images(self, after=None, filter=None, order=None, limit=None, include=None):
+        """Get metadata of all light theme images.
+        
+        :param after: Not supported by the API.
+        :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: Not supported by the API.
+        :type order: str
+        
+        :param limit: Not supported by the API.
+        :type limit: int
+        
+        :param include: Not supported by the API.
+        :type include: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account_id}/branding-images/light",
             content_type="application/json",
             path_params={"account_id": self._id.to_api()},
             unpack=False,
