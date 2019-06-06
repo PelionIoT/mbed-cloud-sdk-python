@@ -26,6 +26,18 @@ Accounts
 - :mod:`mbed_cloud.foundation.entities.accounts.user`
 - :mod:`mbed_cloud.foundation.entities.accounts.user_invitation`
 
+Branding
+--------
+
+- :mod:`mbed_cloud.foundation.entities.branding.dark_theme_color`
+- :mod:`mbed_cloud.foundation.entities.branding.dark_theme_image`
+- :mod:`mbed_cloud.foundation.entities.branding.light_theme_color`
+- :mod:`mbed_cloud.foundation.entities.branding.light_theme_image`
+- :mod:`mbed_cloud.foundation.entities.branding.subtenant_dark_theme_color`
+- :mod:`mbed_cloud.foundation.entities.branding.subtenant_dark_theme_image`
+- :mod:`mbed_cloud.foundation.entities.branding.subtenant_light_theme_color`
+- :mod:`mbed_cloud.foundation.entities.branding.subtenant_light_theme_image`
+
 Device_Update
 -------------
 
@@ -45,6 +57,7 @@ Devices
 - :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete`
 - :mod:`mbed_cloud.foundation.entities.devices.device_enrollment_denial`
 - :mod:`mbed_cloud.foundation.entities.devices.device_events`
+- :mod:`mbed_cloud.foundation.entities.devices.device_group`
 
 Security
 --------
@@ -90,6 +103,14 @@ will share the same context as other Entities. There is more information in the 
     subtenant_user_invitations = pelion_dm_sdk.foundation.subtenant_user_invitation()
     users = pelion_dm_sdk.foundation.user()
     user_invitations = pelion_dm_sdk.foundation.user_invitation()
+    dark_theme_colors = pelion_dm_sdk.foundation.dark_theme_color()
+    dark_theme_images = pelion_dm_sdk.foundation.dark_theme_image()
+    light_theme_colors = pelion_dm_sdk.foundation.light_theme_color()
+    light_theme_images = pelion_dm_sdk.foundation.light_theme_image()
+    subtenant_dark_theme_colors = pelion_dm_sdk.foundation.subtenant_dark_theme_color()
+    subtenant_dark_theme_images = pelion_dm_sdk.foundation.subtenant_dark_theme_image()
+    subtenant_light_theme_colors = pelion_dm_sdk.foundation.subtenant_light_theme_color()
+    subtenant_light_theme_images = pelion_dm_sdk.foundation.subtenant_light_theme_image()
     campaign_device_metadatas = pelion_dm_sdk.foundation.campaign_device_metadata()
     campaign_statisticss = pelion_dm_sdk.foundation.campaign_statistics()
     campaign_statistics_eventss = pelion_dm_sdk.foundation.campaign_statistics_events()
@@ -102,6 +123,7 @@ will share the same context as other Entities. There is more information in the 
     device_enrollment_bulk_deletes = pelion_dm_sdk.foundation.device_enrollment_bulk_delete()
     device_enrollment_denials = pelion_dm_sdk.foundation.device_enrollment_denial()
     device_eventss = pelion_dm_sdk.foundation.device_events()
+    device_groups = pelion_dm_sdk.foundation.device_group()
     certificate_enrollments = pelion_dm_sdk.foundation.certificate_enrollment()
     certificate_issuers = pelion_dm_sdk.foundation.certificate_issuer()
     certificate_issuer_configs = pelion_dm_sdk.foundation.certificate_issuer_config()
@@ -129,6 +151,14 @@ How to import Entities directly:
     from mbed_cloud.foundation import SubtenantUserInvitation
     from mbed_cloud.foundation import User
     from mbed_cloud.foundation import UserInvitation
+    from mbed_cloud.foundation import DarkThemeColor
+    from mbed_cloud.foundation import DarkThemeImage
+    from mbed_cloud.foundation import LightThemeColor
+    from mbed_cloud.foundation import LightThemeImage
+    from mbed_cloud.foundation import SubtenantDarkThemeColor
+    from mbed_cloud.foundation import SubtenantDarkThemeImage
+    from mbed_cloud.foundation import SubtenantLightThemeColor
+    from mbed_cloud.foundation import SubtenantLightThemeImage
     from mbed_cloud.foundation import CampaignDeviceMetadata
     from mbed_cloud.foundation import CampaignStatistics
     from mbed_cloud.foundation import CampaignStatisticsEvents
@@ -141,6 +171,7 @@ How to import Entities directly:
     from mbed_cloud.foundation import DeviceEnrollmentBulkDelete
     from mbed_cloud.foundation import DeviceEnrollmentDenial
     from mbed_cloud.foundation import DeviceEvents
+    from mbed_cloud.foundation import DeviceGroup
     from mbed_cloud.foundation import CertificateEnrollment
     from mbed_cloud.foundation import CertificateIssuer
     from mbed_cloud.foundation import CertificateIssuerConfig
@@ -167,6 +198,14 @@ from mbed_cloud.foundation.entities.accounts.subtenant_user import SubtenantUser
 from mbed_cloud.foundation.entities.accounts.subtenant_user_invitation import SubtenantUserInvitation
 from mbed_cloud.foundation.entities.accounts.user import User
 from mbed_cloud.foundation.entities.accounts.user_invitation import UserInvitation
+from mbed_cloud.foundation.entities.branding.dark_theme_color import DarkThemeColor
+from mbed_cloud.foundation.entities.branding.dark_theme_image import DarkThemeImage
+from mbed_cloud.foundation.entities.branding.light_theme_color import LightThemeColor
+from mbed_cloud.foundation.entities.branding.light_theme_image import LightThemeImage
+from mbed_cloud.foundation.entities.branding.subtenant_dark_theme_color import SubtenantDarkThemeColor
+from mbed_cloud.foundation.entities.branding.subtenant_dark_theme_image import SubtenantDarkThemeImage
+from mbed_cloud.foundation.entities.branding.subtenant_light_theme_color import SubtenantLightThemeColor
+from mbed_cloud.foundation.entities.branding.subtenant_light_theme_image import SubtenantLightThemeImage
 from mbed_cloud.foundation.entities.device_update.campaign_device_metadata import CampaignDeviceMetadata
 from mbed_cloud.foundation.entities.device_update.campaign_statistics import CampaignStatistics
 from mbed_cloud.foundation.entities.device_update.campaign_statistics_events import CampaignStatisticsEvents
@@ -179,6 +218,7 @@ from mbed_cloud.foundation.entities.devices.device_enrollment_bulk_create import
 from mbed_cloud.foundation.entities.devices.device_enrollment_bulk_delete import DeviceEnrollmentBulkDelete
 from mbed_cloud.foundation.entities.devices.device_enrollment_denial import DeviceEnrollmentDenial
 from mbed_cloud.foundation.entities.devices.device_events import DeviceEvents
+from mbed_cloud.foundation.entities.devices.device_group import DeviceGroup
 from mbed_cloud.foundation.entities.security.certificate_enrollment import CertificateEnrollment
 from mbed_cloud.foundation.entities.security.certificate_issuer import CertificateIssuer
 from mbed_cloud.foundation.entities.security.certificate_issuer_config import CertificateIssuerConfig
@@ -200,6 +240,8 @@ __all__ = [
     "CertificateEnrollment",
     "CertificateIssuer",
     "CertificateIssuerConfig",
+    "DarkThemeColor",
+    "DarkThemeImage",
     "DeveloperCertificate",
     "Device",
     "DeviceEnrollment",
@@ -207,8 +249,11 @@ __all__ = [
     "DeviceEnrollmentBulkDelete",
     "DeviceEnrollmentDenial",
     "DeviceEvents",
+    "DeviceGroup",
     "FirmwareImage",
     "FirmwareManifest",
+    "LightThemeColor",
+    "LightThemeImage",
     "LoginHistory",
     "LoginProfile",
     "ParentAccount",
@@ -217,6 +262,10 @@ __all__ = [
     "PreSharedKey",
     "ServerCredentials",
     "SubtenantApiKey",
+    "SubtenantDarkThemeColor",
+    "SubtenantDarkThemeImage",
+    "SubtenantLightThemeColor",
+    "SubtenantLightThemeImage",
     "SubtenantTrustedCertificate",
     "SubtenantUser",
     "SubtenantUserInvitation",

@@ -12,6 +12,10 @@ This entity has the following methods:
 
 - :meth:`Account.api_keys`
 - :meth:`Account.create`
+- :meth:`Account.dark_theme_branding_colors`
+- :meth:`Account.dark_theme_branding_images`
+- :meth:`Account.light_theme_branding_colors`
+- :meth:`Account.light_theme_branding_images`
 - :meth:`Account.list`
 - :meth:`Account.me`
 - :meth:`Account.read`
@@ -1211,6 +1215,218 @@ class Account(Entity):
             unpack=self,
         )
 
+    def dark_theme_branding_colors(self, filter=None, order=None, max_results=None, page_size=None, include=None):
+        """Get dark theme branding colors.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-colors/dark>`_.
+        
+        :param filter: Filtering when listing entities is not supported by the API for this
+            entity.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: The order of the records based on creation time, ASC or DESC. Default
+            value is ASC
+        :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return for each page.
+        :type page_size: int
+        
+        :param include: Comma separated additional data to return.
+        :type include: str
+        
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantDarkThemeColor)
+        """
+
+        from mbed_cloud.foundation._custom_methods import paginate
+        from mbed_cloud.foundation import SubtenantDarkThemeColor
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantDarkThemeColor._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = SubtenantDarkThemeColor._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
+
+        return paginate(
+            self=self,
+            foreign_key=SubtenantDarkThemeColor,
+            filter=filter,
+            order=order,
+            max_results=max_results,
+            page_size=page_size,
+            include=include,
+            wraps=self._paginate_dark_theme_branding_colors,
+        )
+
+    def dark_theme_branding_images(self, filter=None, order=None, max_results=None, page_size=None, include=None):
+        """Get metadata of all dark theme images.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/dark>`_.
+        
+        :param filter: Filtering when listing entities is not supported by the API for this
+            entity.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: The order of the records based on creation time, ASC or DESC. Default
+            value is ASC
+        :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return for each page.
+        :type page_size: int
+        
+        :param include: Comma separated additional data to return.
+        :type include: str
+        
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantDarkThemeImage)
+        """
+
+        from mbed_cloud.foundation._custom_methods import paginate
+        from mbed_cloud.foundation import SubtenantDarkThemeImage
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantDarkThemeImage._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = SubtenantDarkThemeImage._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
+
+        return paginate(
+            self=self,
+            foreign_key=SubtenantDarkThemeImage,
+            filter=filter,
+            order=order,
+            max_results=max_results,
+            page_size=page_size,
+            include=include,
+            wraps=self._paginate_dark_theme_branding_images,
+        )
+
+    def light_theme_branding_colors(self, filter=None, order=None, max_results=None, page_size=None, include=None):
+        """Get light theme branding colors.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-colors/light>`_.
+        
+        :param filter: Filtering when listing entities is not supported by the API for this
+            entity.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: The order of the records based on creation time, ASC or DESC. Default
+            value is ASC
+        :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return for each page.
+        :type page_size: int
+        
+        :param include: Comma separated additional data to return.
+        :type include: str
+        
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantLightThemeColor)
+        """
+
+        from mbed_cloud.foundation._custom_methods import paginate
+        from mbed_cloud.foundation import SubtenantLightThemeColor
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantLightThemeColor._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = SubtenantLightThemeColor._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
+
+        return paginate(
+            self=self,
+            foreign_key=SubtenantLightThemeColor,
+            filter=filter,
+            order=order,
+            max_results=max_results,
+            page_size=page_size,
+            include=include,
+            wraps=self._paginate_light_theme_branding_colors,
+        )
+
+    def light_theme_branding_images(self, filter=None, order=None, max_results=None, page_size=None, include=None):
+        """Get metadata of all light theme images.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light>`_.
+        
+        :param filter: Filtering when listing entities is not supported by the API for this
+            entity.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: The order of the records based on creation time, ASC or DESC. Default
+            value is ASC
+        :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return for each page.
+        :type page_size: int
+        
+        :param include: Comma separated additional data to return.
+        :type include: str
+        
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantLightThemeImage)
+        """
+
+        from mbed_cloud.foundation._custom_methods import paginate
+        from mbed_cloud.foundation import SubtenantLightThemeImage
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantLightThemeImage._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = SubtenantLightThemeImage._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
+
+        return paginate(
+            self=self,
+            foreign_key=SubtenantLightThemeImage,
+            filter=filter,
+            order=order,
+            max_results=max_results,
+            page_size=page_size,
+            include=include,
+            wraps=self._paginate_light_theme_branding_images,
+        )
+
     def list(
         self, filter=None, order="ASC", max_results=None, page_size=1000, include=None, format=None, properties=None
     ):
@@ -1277,24 +1493,24 @@ class Account(Entity):
         """
 
         from mbed_cloud.foundation._custom_methods import paginate
-
+        from mbed_cloud.foundation import Account
         from mbed_cloud import ApiFilter
 
         # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
         if isinstance(filter, dict):
-            filter = ApiFilter(filter_definition=filter, field_renames=self._renames_to_api)
+            filter = ApiFilter(filter_definition=filter, field_renames=Account._renames_to_api)
         # The preferred method is an ApiFilter instance as this should be easier to use.
         elif isinstance(filter, ApiFilter):
             # If filter renames have not be defined then configure the ApiFilter so that any renames
             # performed by the SDK are reversed when the query parameters are created.
             if filter.field_renames is None:
-                filter.field_renames = self._renames_to_api
+                filter.field_renames = Account._renames_to_api
         elif filter is not None:
             raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
 
         return paginate(
             self=self,
-            foreign_key=self.__class__,
+            foreign_key=Account,
             filter=filter,
             order=order,
             max_results=max_results,
@@ -1367,6 +1583,138 @@ class Account(Entity):
             path="/v3/accounts/{account_id}/api-keys",
             content_type="application/json",
             query_params=query_params,
+            path_params={"account_id": self._id.to_api()},
+            unpack=False,
+        )
+
+    def _paginate_dark_theme_branding_colors(self, after=None, filter=None, order=None, limit=None, include=None):
+        """Get dark theme branding colors.
+        
+        :param after: Not supported by the API.
+        :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: Not supported by the API.
+        :type order: str
+        
+        :param limit: Not supported by the API.
+        :type limit: int
+        
+        :param include: Not supported by the API.
+        :type include: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account_id}/branding-colors/dark",
+            content_type="application/json",
+            path_params={"account_id": self._id.to_api()},
+            unpack=False,
+        )
+
+    def _paginate_dark_theme_branding_images(self, after=None, filter=None, order=None, limit=None, include=None):
+        """Get metadata of all dark theme images.
+        
+        :param after: Not supported by the API.
+        :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: Not supported by the API.
+        :type order: str
+        
+        :param limit: Not supported by the API.
+        :type limit: int
+        
+        :param include: Not supported by the API.
+        :type include: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account_id}/branding-images/dark",
+            content_type="application/json",
+            path_params={"account_id": self._id.to_api()},
+            unpack=False,
+        )
+
+    def _paginate_light_theme_branding_colors(self, after=None, filter=None, order=None, limit=None, include=None):
+        """Get light theme branding colors.
+        
+        :param after: Not supported by the API.
+        :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: Not supported by the API.
+        :type order: str
+        
+        :param limit: Not supported by the API.
+        :type limit: int
+        
+        :param include: Not supported by the API.
+        :type include: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account_id}/branding-colors/light",
+            content_type="application/json",
+            path_params={"account_id": self._id.to_api()},
+            unpack=False,
+        )
+
+    def _paginate_light_theme_branding_images(self, after=None, filter=None, order=None, limit=None, include=None):
+        """Get metadata of all light theme images.
+        
+        :param after: Not supported by the API.
+        :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: Not supported by the API.
+        :type order: str
+        
+        :param limit: Not supported by the API.
+        :type limit: int
+        
+        :param include: Not supported by the API.
+        :type include: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account_id}/branding-images/light",
+            content_type="application/json",
             path_params={"account_id": self._id.to_api()},
             unpack=False,
         )
