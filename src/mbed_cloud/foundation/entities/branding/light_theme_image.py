@@ -268,7 +268,7 @@ class LightThemeImage(Entity):
             return self._client.call_api(
                 method="post",
                 path="/v3/branding-images/light/{reference}/upload-multipart",
-                stream_params={"image": ("image.bin", image, "application/octet-stream")},
+                stream_params={"image": ("image.png", image, "image/png")},
                 path_params={"reference": self._reference.to_api()},
                 unpack=self,
             )

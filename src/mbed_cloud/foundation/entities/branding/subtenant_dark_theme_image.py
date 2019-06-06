@@ -198,7 +198,7 @@ class SubtenantDarkThemeImage(Entity):
                     "account_id": fields.StringField(account_id).to_api(),
                     "reference": self._reference.to_api(),
                 },
-                stream_params={"image": ("image.bin", image, "application/octet-stream")},
+                stream_params={"image": ("image.png", image, "image/png")},
                 unpack=self,
             )
         finally:

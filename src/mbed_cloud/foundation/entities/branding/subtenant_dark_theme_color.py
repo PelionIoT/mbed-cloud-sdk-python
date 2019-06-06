@@ -146,17 +146,15 @@ class SubtenantDarkThemeColor(Entity):
         :param account_id: Account ID.
         :type account_id: str
         
-        :rtype: Void
+        :rtype: 
         """
-
-        from mbed_cloud.foundation import Void
 
         return self._client.call_api(
             method="delete",
             path="/v3/accounts/{account_id}/branding-colors/dark/{reference}",
             content_type="application/json",
             path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
-            unpack=Void,
+            unpack=self,
         )
 
     def read(self, account_id):
