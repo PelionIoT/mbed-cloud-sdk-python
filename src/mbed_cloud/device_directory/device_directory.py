@@ -208,8 +208,7 @@ class DeviceDirectoryAPI(BaseAPI):
 
         :param str name: Name of query (Required)
         :param dict filter: Filter properties to apply (Required)
-        :param return: The newly created query object.
-        :return: the newly created query object
+        :return: The newly created query object.
         :rtype: Query
         """
         # Ensure we have the correct types and get the new query object
