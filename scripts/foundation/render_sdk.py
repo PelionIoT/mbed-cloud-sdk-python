@@ -272,8 +272,7 @@ def map_python_field_types(fields):
         field["python_field"] = SWAGGER_FIELD_MAP.get(swagger_format) or SWAGGER_FIELD_MAP.get(swagger_type)
 
         # The content type is required is the field is part of a multipart upload, there is some guesswork involved
-        # so check the contents of the description.
-        # FIXME this guesswork is unfortunately broken if we have to set different MIME types for
+        # so check the contents of the description. Unfortunately broken if we have to set different MIME types for
         # the same endpoint depending on the file type which is passed e.g. upload branding image
         if swagger_type == "file":
             file_description = field.get("description", "").lower()
