@@ -206,7 +206,7 @@ class DeviceDirectoryAPI(BaseAPI):
             )
             print(f.created_at)
 
-        :param str name: Name of query (Required)
+        :param str name: Name of query
         :param dict filter: Filter properties to apply (Required)
         :return: The newly created query object.
         :rtype: Query
