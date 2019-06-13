@@ -18051,6 +18051,10 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
+    additional_operations:
+    - notes: Bulk operation is not appriate for SDK's entity model, this functionality
+        is covered by the update method.
+      operation_id: bulkSetDarkColors
     description: 'Update a dark theme branding color.
 
 
@@ -32772,6 +32776,10 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
+    additional_operations:
+    - notes: Bulk operation is not appriate for SDK's entity model, this functionality
+        is covered by the update method.
+      operation_id: bulkSetLightColors
     description: 'Update light theme branding color.
 
 
@@ -37481,6 +37489,10 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
+    additional_operations:
+    - notes: Bulk operation is not appriate for SDK's entity model, this functionality
+        is covered by the update method.
+      operation_id: bulkSetAccountDarkColors
     description: 'Update a dark theme branding color of a tenant account.
 
 
@@ -39415,6 +39427,10 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
+    additional_operations:
+    - notes: Bulk operation is not appriate for SDK's entity model, this functionality
+        is covered by the update method.
+      operation_id: bulkSetAccountLightColors
     description: 'Update a light theme branding color of a tenant account.
 
 

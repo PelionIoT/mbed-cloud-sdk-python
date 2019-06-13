@@ -24878,6 +24878,12 @@
           ],
           "group_id": "Branding",
           "operation_id": "setDarkColor",
+          "additional_operations": [
+            {
+              "operation_id": "bulkSetDarkColors",
+              "notes": "Bulk operation is not appriate for SDK's entity model, this functionality is covered by the update method."
+            }
+          ],
           "pagination": false,
           "request_content_type": "application/json",
           "request_body": "json",
@@ -43479,6 +43485,12 @@
           ],
           "group_id": "Branding",
           "operation_id": "setLightColor",
+          "additional_operations": [
+            {
+              "operation_id": "bulkSetLightColors",
+              "notes": "Bulk operation is not appriate for SDK's entity model, this functionality is covered by the update method."
+            }
+          ],
           "pagination": false,
           "request_content_type": "application/json",
           "request_body": "json",
@@ -49757,6 +49769,12 @@
           ],
           "group_id": "Branding",
           "operation_id": "setAccountDarkColor",
+          "additional_operations": [
+            {
+              "operation_id": "bulkSetAccountDarkColors",
+              "notes": "Bulk operation is not appriate for SDK's entity model, this functionality is covered by the update method."
+            }
+          ],
           "pagination": false,
           "request_content_type": "application/json",
           "request_body": "json",
@@ -52415,6 +52433,12 @@
           ],
           "group_id": "Branding",
           "operation_id": "setAccountLightColor",
+          "additional_operations": [
+            {
+              "operation_id": "bulkSetAccountLightColors",
+              "notes": "Bulk operation is not appriate for SDK's entity model, this functionality is covered by the update method."
+            }
+          ],
           "pagination": false,
           "request_content_type": "application/json",
           "request_body": "json",
