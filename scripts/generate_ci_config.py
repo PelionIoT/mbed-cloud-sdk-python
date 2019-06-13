@@ -446,7 +446,7 @@ def new_deploy_docker(py_ver: PyVer, release_target: ReleaseTarget, is_release):
       - run:
           name: Push TestServer docker image
           command: |-
-            (docker tag {py_ver.tag} {branched_testserver_image}) && docker push {branched_testserver_image})
+            (docker tag {py_ver.tag} {branched_testserver_image}) && (docker push {branched_testserver_image})
     """
     template = yaml.safe_load(job)
     return deploy_docker_name(py_ver, release_target), template
