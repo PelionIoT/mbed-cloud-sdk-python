@@ -126,6 +126,10 @@ jobs:
           ${CIRCLE_BRANCH} | tr / -))
         name: Push TestServer docker image
     - run:
+        command: (docker tag mbed_sdk_py3:latest 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:${CIRCLE_SHA1})
+          && (docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:${CIRCLE_SHA1})
+        name: Push TestServer docker image
+    - run:
         command: (docker tag mbed_sdk_py3:latest 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:latest)
           && (docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:latest)
         name: Push TestServer docker image
@@ -161,6 +165,10 @@ jobs:
           ${CIRCLE_BRANCH} | tr / -))
         name: Push TestServer docker image
     - run:
+        command: (docker tag mbed_sdk_py3:latest 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:${CIRCLE_SHA1})
+          && (docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:${CIRCLE_SHA1})
+        name: Push TestServer docker image
+    - run:
         command: (docker tag mbed_sdk_py3:latest 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:latest)
           && (docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:latest)
         name: Push TestServer docker image
@@ -194,6 +202,10 @@ jobs:
         command: (docker tag mbed_sdk_py3:latest 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:$(echo
           ${CIRCLE_BRANCH} | tr / -)) && (docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:$(echo
           ${CIRCLE_BRANCH} | tr / -))
+        name: Push TestServer docker image
+    - run:
+        command: (docker tag mbed_sdk_py3:latest 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:${CIRCLE_SHA1})
+          && (docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:${CIRCLE_SHA1})
         name: Push TestServer docker image
   deploy_py3_beta:
     machine:
