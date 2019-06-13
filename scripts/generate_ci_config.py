@@ -438,7 +438,7 @@ def new_deploy_docker(py_ver: PyVer, release_target: ReleaseTarget, is_release):
           command: docker load -i {cache_dir}/{cache_file}
       - run:
           name: Store SDK's version
-          command: docker run {py_ver.tag} pipenv run python -c "import mbed_cloud; print(mbed_cloud.__version__)" > {version_file}
+          command: docker run {py_ver.tag} > {version_file}
     """
     for tag in branched_testserver_tags:
         branched_testserver_image = branched_testserver_raw_image+tag

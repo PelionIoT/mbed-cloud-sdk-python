@@ -118,8 +118,7 @@ jobs:
         command: docker load -i ~/caches/app_py3.tar
         name: Load docker image layer cache
     - run:
-        command: docker run mbed_sdk_py3:latest pipenv run python -c "import mbed_cloud;
-          print(mbed_cloud.__version__)" > testserver_version.txt
+        command: docker run mbed_sdk_py3:latest > testserver_version.txt
         name: Store SDK's version
     - run:
         command: (docker tag mbed_sdk_py3:latest 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:$(echo
@@ -154,8 +153,7 @@ jobs:
         command: docker load -i ~/caches/app_py3.tar
         name: Load docker image layer cache
     - run:
-        command: docker run mbed_sdk_py3:latest pipenv run python -c "import mbed_cloud;
-          print(mbed_cloud.__version__)" > testserver_version.txt
+        command: docker run mbed_sdk_py3:latest > testserver_version.txt
         name: Store SDK's version
     - run:
         command: (docker tag mbed_sdk_py3:latest 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:$(echo
@@ -190,8 +188,7 @@ jobs:
         command: docker load -i ~/caches/app_py3.tar
         name: Load docker image layer cache
     - run:
-        command: docker run mbed_sdk_py3:latest pipenv run python -c "import mbed_cloud;
-          print(mbed_cloud.__version__)" > testserver_version.txt
+        command: docker run mbed_sdk_py3:latest > testserver_version.txt
         name: Store SDK's version
     - run:
         command: (docker tag mbed_sdk_py3:latest 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:$(echo
