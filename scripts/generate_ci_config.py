@@ -414,7 +414,7 @@ def new_deploy_docker(py_ver: PyVer, release_target: ReleaseTarget, is_release):
     cache_file = f'app_{py_ver.name}.tar'
     version_file = 'testserver_version.txt'
     branched_testserver_raw_image='104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:'
-    branched_testserver_tags = ['$(echo ${CIRCLE_BRANCH} | tr / -)']
+    branched_testserver_tags = ['$(echo ${CIRCLE_BRANCH} | tr / -)', '${CIRCLE_SHA1}']
     if is_release:
         branched_testserver_tags.append('latest')
         branched_testserver_tags.append(f'$(cat {version_file})')
