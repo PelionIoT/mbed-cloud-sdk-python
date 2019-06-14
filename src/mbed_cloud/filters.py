@@ -80,7 +80,6 @@ def _normalise_key_values(filter_obj, attr_map=None):
         if not isinstance(constraints, dict):
             constraints = {'eq': constraints}
         for operator, value in constraints.items():
-            # FIXME: deprecate this $ nonsense
             canonical_operator = FILTER_OPERATOR_ALIASES.get(operator.lstrip('$'))
             if canonical_operator is None:
                 raise CloudValueError(

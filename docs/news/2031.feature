@@ -1,1 +1,1 @@
-Support for Branding (i.e. colours, images)
+Support added User Interface Configuration (Branding) i.e. colours, images.

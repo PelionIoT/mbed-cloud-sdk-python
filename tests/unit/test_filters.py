@@ -50,7 +50,6 @@ class TestFilters(BaseCase):
         )
 
     def test_simple_plural_valid(self):
-        # FIXME: why are we allowed to use `filter` or `filters`? too permissive.
         self._run(
             {u'filter': 'created_at__gte=2017-01-01T00%3A00%3A00Z&created_at__lte=2017-12-31T00%3A00%3A00Z'},
             # note plural 'filters' phrase

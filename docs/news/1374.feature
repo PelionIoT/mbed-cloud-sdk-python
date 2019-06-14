@@ -1,1 +1,1 @@
-Support for device group
+Support added for Device Groups.

@@ -146,7 +146,7 @@ class DeviceDirectoryAPI(BaseAPI):
         :param str state: The current state of the device
         :param str vendor_id: The device vendor ID
         :param str alias: The alias of the device
-        :parama str device_type: The endpoint type of the device - e.g. if the device is a gateway
+        :param str device_type: The endpoint type of the device - e.g. if the device is a gateway
         :param str host_gateway: The endpoint_name of the host gateway, if appropriate
         :param datetime bootstrap_certificate_expiration:
         :param datetime connector_certificate_expiration: Expiration date of the certificate
@@ -206,10 +206,9 @@ class DeviceDirectoryAPI(BaseAPI):
             )
             print(f.created_at)
 
-        :param str name: Name of query (Required)
+        :param str name: Name of query
         :param dict filter: Filter properties to apply (Required)
-        :param return: The newly created query object.
-        :return: the newly created query object
+        :return: The newly created query object.
         :rtype: Query
         """
         # Ensure we have the correct types and get the new query object
