@@ -14,7 +14,7 @@ class TestExamples(BaseCase):
         # Use the Foundation interface to find a device.
         device = Device().list(max_results=1).next()
 
-        # Use the Legacy interface for find resources
+        # Use the Legacy interface to find resources
         connect_api = ConnectAPI()
 
         # Find an observable resource
