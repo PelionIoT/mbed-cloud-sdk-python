@@ -25,6 +25,7 @@ ReleaseTarget = namedtuple('ReleaseTarget', ['name', 'mode', 'bundle', 'twine_re
 release_targets = [
     ReleaseTarget('beta', 'beta', 'beta-dist/*', 'pypi'),
     ReleaseTarget('production', 'prod', 'release-dist/*', 'pypi'),
+    ReleaseTarget('staging', 'staging', '', ''),
 ]
 release_target_map = {t.mode: t for t in release_targets}
 
