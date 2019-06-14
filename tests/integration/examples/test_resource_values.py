@@ -9,10 +9,14 @@ class TestExamples(BaseCase):
     def test_get_and_set_resource_value(self):
         # an example: get and set a resource value
         from mbed_cloud.foundation import Device
+        from mbed_cloud import ApiFilter
+        from mbed_cloud.foundation.enums import DeviceStateEnum
         from mbed_cloud import ConnectAPI
 
-        # Use the Foundation interface to find a device.
-        device = Device().list(max_results=1).next()
+        # Use the Foundation interface to find a registered device.
+        api_filter = ApiFilter()
+        api_filter.add_filter("state", "eq", DeviceStateEnum.REGISTERED)
+        device = Device().list(max_results=2, filter=api_filter).next()
 
         # Use the Legacy interface for find resources
         connect_api = ConnectAPI()
