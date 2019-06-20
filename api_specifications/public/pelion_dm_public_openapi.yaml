@@ -16899,7 +16899,7 @@ paths:
       description: 'To free a device from your account, delete the enrollment claim.
         To bypass the device ownership, you need to delete the enrollment and factory
         reset the device. For more information, see [Transferring ownership using
-        First-to-Claim](../docs/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html).
+        First-to-Claim](../connecting/device-ownership-first-to-claim-by-enrollment-list.html).
 
         <br>
 
