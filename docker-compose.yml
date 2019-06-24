@@ -1,0 +1,30 @@
+# this file will run a testrunner against the specified image
+# run it with:
+# docker-compose up --exit-code-from testrunner
+
+sdk_test_server:
+  command:
+    - sh
+    - "-c"
+    - "source .venv/bin/activate && python tests/integration/server.py"
+  environment:
+    - MBED_CLOUD_SDK_API_KEY=abc123
+    - TEST_RUNNER_DEFAULT_API_KEY
+    - TEST_RUNNER_DEFAULT_API_HOST
+  image: sdk_test_server
+  volumes: ["../results:/build/results", "../test_fixtures:/test_fixtures"]
+testrunner:
+  environment:
+    - "TEST_SERVER_URL=http://sdk_test_server:5000"
+    - TEST_FIXTURES_DIR=/test_fixtures
+    - TEST_RUNNER_DEFAULT_API_KEY
+    - TEST_RUNNER_DEFAULT_API_HOST
+  image: "${TESTRUNNER_DOCKER_IMAGE}"
+  command:
+    - sh
+    - "-c"
+    - "sleep 1 && python -m trunner"
+  links:
+    - sdk_test_server
+  volumes: ["../results:/runner/results", "../test_fixtures:/runner/test_fixtures"]
+

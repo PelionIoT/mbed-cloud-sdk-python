@@ -20,7 +20,6 @@ class TestSortParams(BaseCase):
 
     @unittest.expectedFailure
     def test_simple_invalid_int(self):
-        # FIXME: raises a different kind of error?!
         with self.assertRaises(ValueError):
             self._run(None, order=1337)
 

@@ -217,3 +217,53 @@ class TestExamples(BaseCase):
 
         end_status = my_cert.read().status
         self.assertEqual(original_status, end_status, "Status should have been reverted back to its original value")
+
+    def test_firmware_update_campaign_launch(self):
+        from mbed_cloud.foundation import FirmwareManifest
+
+        firmware_manifest = FirmwareManifest().list().first()
+        my_manifest_id = firmware_manifest.id
+
+        # an example: firmware update campaign launch
+        from datetime import datetime
+        from pprint import pprint
+        from mbed_cloud import SDK
+        from mbed_cloud import ApiFilter
+
+        pelion_dm_sdk = SDK()
+        new_campaign = pelion_dm_sdk.foundation.update_campaign(
+            root_manifest_id=my_manifest_id,
+            name="campaign - " + str(datetime.now()),
+            description="Update campaign for prior 2019 devices"
+
+        )
+
+        # Create a filter for all devices created before the 1st of January 2019 so that these devices will have their
+        # firmware replaced by the one defined in the manifest.
+        api_filter = ApiFilter()
+        api_filter.add_filter("created_at", "lte", datetime(2019, 1, 1))
+        new_campaign.device_filter_helper = api_filter
+
+        # Create the campaign
+        new_campaign.create()
+
+        # Determine the phase of the campaign
+        print("Campaign Phase:", new_campaign.phase)
+
+        # Start the campaign
+        new_campaign.start()
+
+        # Determine the phase of the campaign
+        new_campaign.read()
+        print("Campaign Phase:", new_campaign.phase)
+
+        # Print all device metadata related to this campaign
+        for campaign_device_metadata in new_campaign.device_metadata():
+            pprint(campaign_device_metadata.to_dict())
+
+        # end of example
+        new_campaign.stop()
+        new_campaign.read()
+        print("Campaign Phase:", new_campaign.phase)
+
+        new_campaign.delete()
