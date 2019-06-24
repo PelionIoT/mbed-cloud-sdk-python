@@ -376,9 +376,9 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           name: Set testrunner parameters
           command: |-
             echo 'export TEST_RUNNER_DEFAULT_API_HOST=${{{cloud_host.envvar_host}}}' >> $BASH_ENV
-	    echo 'export MBED_CLOUD_SDK_HOST=${{{cloud_host.envvar_host}}}' >> $BASH_ENV
+            echo 'export MBED_CLOUD_SDK_HOST=${{{cloud_host.envvar_host}}}' >> $BASH_ENV
             echo 'export TEST_RUNNER_DEFAULT_API_KEY=${{{cloud_host.envvar_key}}}' >> $BASH_ENV
-	    echo 'export MBED_CLOUD_SDK_API_KEY=${{{cloud_host.envvar_key}}}' >> $BASH_ENV
+            echo 'export MBED_CLOUD_SDK_API_KEY=${{{cloud_host.envvar_key}}}' >> $BASH_ENV
       - run:
           name: Run all tests
           no_output_timeout: 15m
