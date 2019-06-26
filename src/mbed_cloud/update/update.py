@@ -115,7 +115,6 @@ class UpdateAPI(BaseAPI):
         )
         campaign = Campaign._create_request_map(kwargs)
         if 'when' in campaign:
-            # FIXME: randomly validating an input here is a sure route to nasty surprises elsewhere
             campaign['when'] = force_utc(campaign['when'])
         body = UpdateCampaignPostRequest(
             name=name,
@@ -155,7 +154,6 @@ class UpdateAPI(BaseAPI):
                 Device._get_attributes_map()
             )['filter']
         if 'when' in campaign_object:
-            # FIXME: randomly validating an input here is a sure route to nasty surprises elsewhere
             campaign_object['when'] = force_utc(campaign_object['when'])
         return Campaign(api.update_campaign_update(campaign_id=campaign_id,
                                                    campaign=campaign_object))

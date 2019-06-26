@@ -31,7 +31,6 @@ class Test(BaseCase):
         })
         self.api.notify_webhook_received(payload=json_payload)
         self.assertTrue(result.is_done)
-        # FIXME: heh, looks like TLV comes out funny. Raw b64 would be 'Change me!?'
         self.assertEqual(result.value, {'104': 'ang', '8301': 'e!'})
         self.assertEqual(result.async_id, asyncid)
 
@@ -68,7 +67,6 @@ class Test(BaseCase):
         })
         self.api.notify_webhook_received(payload=json_payload)
 
-        # FIXME: what a terrible api.
         timeout_seconds = 0.5
         delay = 0.02
 

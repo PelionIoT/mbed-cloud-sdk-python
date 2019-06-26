@@ -10,6 +10,7 @@ from mbed_cloud.foundation import DeviceEnrollmentBulkCreate
 from mbed_cloud.foundation import DeviceEnrollmentBulkDelete
 from mbed_cloud.foundation import DeviceEnrollment
 from mbed_cloud.foundation import DeviceEvents
+from mbed_cloud.foundation import DeviceGroup
 
 from mbed_cloud.foundation.enums import DeviceStateEnum
 from mbed_cloud.foundation.enums import DeviceEnrollmentBulkCreateStatusEnum
@@ -53,6 +54,7 @@ class TestDevice(BaseCase, CrudMixinTests):
                         print("Certificate '%s' was renewed on device '%s'" % (
                             certificate_reference, device.name))
         # end of example
+
 
 @BaseCase._skip_in_ci
 class TestDeviceEnrollment(BaseCase, CrudMixinTests):
@@ -103,6 +105,7 @@ class TestDeviceEnrollment(BaseCase, CrudMixinTests):
         print(bulk_device_enrollment.download_full_report_file().read())
         print(bulk_device_enrollment.download_errors_report_file().read())
 
+
 @BaseCase._skip_in_ci
 class TestDeviceEvents(BaseCase, CrudMixinTests):
     """Test device events in lieu of proper tests."""
@@ -111,3 +114,17 @@ class TestDeviceEvents(BaseCase, CrudMixinTests):
     def setUpClass(cls):
         cls.class_under_test = DeviceEvents
         super(TestDeviceEvents, cls).setUpClass()
+
+
+@BaseCase._skip_in_ci
+class TestDeviceGroups(BaseCase, CrudMixinTests):
+    """Test device events in lieu of proper tests."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.class_under_test = DeviceGroup
+        super(TestDeviceGroups, cls).setUpClass()
+
+    def test_filtering(self):
+        for group in DeviceGroup().list(filter={'devices_count': {'nin': [1,2]}}):
+            print(group.to_api())
