@@ -127,7 +127,7 @@ def new_preload():
     Python SDK. If that cannot be found it falls back to the master build of TestRunner. Whichever is pulled is renamed
     with the tag `latest` which will be used by the docker compose.
     """
-    branched_testrunner_image = '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}'
+    branched_testrunner_image = '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:$(echo ${CIRCLE_BRANCH} | tr / -)'
     master_testrunner_image = '104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master'
     testrunner_image = get_testrunner_image()
     local_image = testrunner_image.rsplit(':')[-2].rsplit('/')[-1]
@@ -142,7 +142,7 @@ def new_preload():
             login="$(aws ecr get-login --no-include-email)"
             ${{login}}
       - run:
-          name: Pull TestRunner Image for branch and fullback to master
+          name: Pull TestRunner Image for branch or fallback to master
           command: |-
             (docker pull {branched_testrunner_image} && docker tag {branched_testrunner_image} {testrunner_image}) || (docker pull {master_testrunner_image} && docker tag {master_testrunner_image} {testrunner_image})
       - run:
@@ -376,7 +376,9 @@ def new_test(py_ver: PyVer, cloud_host: CloudHost):
           name: Set testrunner parameters
           command: |-
             echo 'export TEST_RUNNER_DEFAULT_API_HOST=${{{cloud_host.envvar_host}}}' >> $BASH_ENV
+            echo 'export MBED_CLOUD_SDK_HOST=${{{cloud_host.envvar_host}}}' >> $BASH_ENV
             echo 'export TEST_RUNNER_DEFAULT_API_KEY=${{{cloud_host.envvar_key}}}' >> $BASH_ENV
+            echo 'export MBED_CLOUD_SDK_API_KEY=${{{cloud_host.envvar_key}}}' >> $BASH_ENV
       - run:
           name: Run all tests
           no_output_timeout: 15m
@@ -405,6 +407,51 @@ def deploy_name(py_ver: PyVer, release_target: ReleaseTarget):
     """Name"""
     return f'deploy_{py_ver.name}_{release_target.name}'
 
+def deploy_docker_name(py_ver: PyVer, release_target: ReleaseTarget):
+    """Name"""
+    return f'deploy_docker_{py_ver.name}_{release_target.name}'
+
+def new_deploy_docker(py_ver: PyVer, release_target: ReleaseTarget, is_release):
+    """Job for deploying docker to aws ecr"""
+    cache_file = f'app_{py_ver.name}.tar'
+    version_file = 'testserver_version.txt'
+    branched_testserver_raw_image='104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-python:'
+    branched_testserver_tags = ['$(echo ${CIRCLE_BRANCH} | tr / -)', '${CIRCLE_SHA1}']
+    if is_release:
+        branched_testserver_tags.append('latest')
+        branched_testserver_tags.append(f'$(cat {version_file})')
+    job = f"""
+    machine:
+      image: circleci/classic:latest
+    steps:
+      - attach_workspace:
+          at: {cache_dir}
+      - checkout
+      - run:
+          name: Install prerequisites
+          command: sudo pip install awscli
+      - run:
+          name: AWS login
+          command: |-
+            login="$(aws ecr get-login --no-include-email)"
+            ${{login}}
+      - run:
+          name: Load docker image layer cache
+          command: docker load -i {cache_dir}/{cache_file}
+      - run:
+          name: Store SDK's version
+          command: docker run {py_ver.tag} > {version_file}
+    """
+    for tag in branched_testserver_tags:
+        branched_testserver_image = branched_testserver_raw_image+tag
+        job += f"""
+      - run:
+          name: Push TestServer docker image
+          command: |-
+            (docker tag {py_ver.tag} {branched_testserver_image}) && (docker push {branched_testserver_image})
+    """
+    template = yaml.safe_load(job)
+    return deploy_docker_name(py_ver, release_target), template
 
 def new_deploy(py_ver: PyVer, release_target: ReleaseTarget):
     """Job for deploying package to pypi"""
@@ -534,6 +581,12 @@ def generate_circle_output():
             release_target=release_target
         )
         base['jobs'].update({deploy_job: deploy_content})
+        deploy_docker_job, deploy_docker_content = new_deploy_docker(
+            py_ver=python_versions['three'],
+            release_target=release_target,
+            is_release=release_target.mode in ['prod', 'beta'] 
+        )
+        base['jobs'].update({deploy_docker_job: deploy_docker_content})
 
     # wire up the release gates (clicky buttons)
     workflow.add_edge(
@@ -551,6 +604,11 @@ def generate_circle_output():
         test_name(python_versions['two'], mbed_cloud_hosts['production']),
         release_name(release_target_map['prod']),
     )
+    workflow.add_edge(
+        test_name(python_versions['three'], mbed_cloud_hosts['production']),
+        deploy_docker_name(python_versions['three'], release_target_map['staging']),
+        filters=dict(branches=dict(only=['api-contract/staging', 'master', 'integration', 'beta'])),
+    )
 
     # we only want to deploy in certain conditions
     workflow.add_edge(
@@ -559,8 +617,18 @@ def generate_circle_output():
     )
 
     workflow.add_edge(
+        release_name(release_target_map['beta']),
+        deploy_docker_name(python_versions['three'], release_target_map['beta']),
+    )
+
+    workflow.add_edge(
         release_name(release_target_map['prod']),
         deploy_name(python_versions['three'], release_target_map['prod'])
+    )
+	
+    workflow.add_edge(
+        release_name(release_target_map['prod']),
+        deploy_docker_name(python_versions['three'], release_target_map['prod']),
     )
 
     workflow_jobs = base['workflows']['python_sdk_workflow']['jobs']

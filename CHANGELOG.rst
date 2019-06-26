@@ -13,6 +13,39 @@ a list of versions that have been released on PyPI.
 ..
     begin_release_notes
 
+2.2.0 (2019-06-14)
+==================
+
+Features
+--------
+
+- Support added for Device Groups. (#1374)
+
+- Support added User Interface Configuration (Branding) i.e. colours, images.
+  (#2031)
+
+Improved Documentation
+----------------------
+
+- Replace old Campaign update example with new one based on foundation
+  interface. (#1955)
+
+- Corrected formatting of `add_device` parameters. (#2069)
+
+- Corrected formatting of `add_query` parameters. (#2070)
+
+- Remove required comment `name` parameter of `add_query`. (#2071)
+
+- Removed out of date FIXME comments from legacy code. (#2125)
+
+- Added examples for resource value and subscription. (#2163)
+
+Misc
+----
+
+- #13062019
+
+
 2.1.0 (2019-05-17)
 ==================
 

@@ -31,8 +31,8 @@ services:
         - 'TEST_SERVER_URL=http://sdk_test_server:5000'
         - TEST_FIXTURES_DIR=/test_fixtures
         - TEST_RUNNER_SHUTDOWN_SERVER=yes
-        - TEST_RUNNER_DEFAULT_API_KEY
-        - TEST_RUNNER_DEFAULT_API_HOST
+        - MBED_CLOUD_SDK_API_KEY
+        - MBED_CLOUD_SDK_HOST
       depends_on:
         - sdk_test_server
       volumes:

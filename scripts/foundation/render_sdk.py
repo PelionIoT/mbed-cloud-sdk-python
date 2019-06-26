@@ -239,6 +239,8 @@ SWAGGER_TYPE_MAP = {
 
 TEXT_CONTENT_TYPE = '"text/plain"'
 CSV_CONTENT_TYPE = '"text/csv"'
+JPEG_CONTENT_TYPE = '"image/jpeg"'
+PNG_CONTENT_TYPE = '"image/png"'
 BINARY_CONTENT_TYPE = '"application/octet-stream"'
 
 # Map from Swagger Types / Formats to multipart MIME content types
@@ -270,10 +272,16 @@ def map_python_field_types(fields):
         field["python_field"] = SWAGGER_FIELD_MAP.get(swagger_format) or SWAGGER_FIELD_MAP.get(swagger_type)
 
         # The content type is required is the field is part of a multipart upload, there is some guesswork involved
-        # so check the contents of the description.
+        # so check the contents of the description. Unfortunately broken if we have to set different MIME types for
+        # the same endpoint depending on the file type which is passed e.g. upload branding image
         if swagger_type == "file":
-            if "csv" in field.get("description", "").lower():
+            file_description = field.get("description", "").lower()
+            if "csv" in file_description:
                 field["content_type"] = CSV_CONTENT_TYPE
+            elif "png" in file_description:
+                field["content_type"] = PNG_CONTENT_TYPE
+            elif "jpg" in file_description or "jpeg" in file_description:
+                field["content_type"] = JPEG_CONTENT_TYPE
             else:
                 field["content_type"] = BINARY_CONTENT_TYPE
         else:
@@ -284,6 +292,10 @@ def map_python_field_types(fields):
             field["file_name"] = '"%s.bin"' % field["_key"]
         elif field["content_type"] == CSV_CONTENT_TYPE:
             field["file_name"] = '"%s.csv"' % field["_key"]
+        elif field["content_type"] == JPEG_CONTENT_TYPE:
+            field["file_name"] = '"%s.jpg"' % field["_key"]
+        elif field["content_type"] == PNG_CONTENT_TYPE:
+            field["file_name"] = '"%s.png"' % field["_key"]
         else:
             field["file_name"] = None
 
@@ -572,7 +584,7 @@ def create_custom_methods(entity, method):
             for field in method["fields"]:
                 if field["_key"] == "filter":
                     field["description"] = "An optional filter to apply when listing entities, please see the above " \
-                                            "**API Filters** table for supported filters."
+                                           "**API Filters** table for supported filters."
 
         entity["methods"].append(internal_paginator)
 
@@ -604,7 +616,8 @@ def post_process_definition_file(sdk_def_filename):
                     python_reference = "mbed_cloud.foundation.entities." + to_snake_case(reference_segments[0])
                     if len(reference_segments) > 1:
                         # E.g. mbed_cloud.foundation.entities.devices.device.Device
-                        python_reference += ".%s.%s" %(to_snake_case(reference_segments[1]), to_pascal_case(reference_segments[1]))
+                        python_reference += ".%s.%s" % (
+                            to_snake_case(reference_segments[1]), to_pascal_case(reference_segments[1]))
                     if len(reference_segments) > 2:
                         # E.g. mbed_cloud.foundation.entities.devices.device.Device.list
                         python_reference += ".%s" % to_snake_case(reference_segments[2])
@@ -629,7 +642,11 @@ def post_process_definition_file(sdk_def_filename):
                 create_custom_methods(entity, method)
                 # Convert the return type to a Python type or assume it is an entity if not known
                 return_type = method["return_type"]
-                method["python_return_type"] = SWAGGER_TYPE_MAP.get(return_type, to_pascal_case(return_type))
+                # Dealing with introduced new return type: void
+                if not return_type or return_type.lower().strip() == "void":
+                    method["return_info"] = {'self': True, 'custom': False, 'type': entity["_key"]}
+                else:
+                    method["python_return_type"] = SWAGGER_TYPE_MAP.get(return_type, to_pascal_case(return_type))
 
                 # Find file parameters
                 method["file_fields"] = []

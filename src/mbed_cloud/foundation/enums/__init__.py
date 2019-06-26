@@ -20,6 +20,18 @@ Accounts
 - :class:`mbed_cloud.foundation.entities.accounts.enums.UserOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.UserStatusEnum`
 
+Branding
+--------
+
+- :class:`mbed_cloud.foundation.entities.branding.enums.DarkThemeColorReferenceEnum`
+- :class:`mbed_cloud.foundation.entities.branding.enums.DarkThemeImageReferenceEnum`
+- :class:`mbed_cloud.foundation.entities.branding.enums.LightThemeColorReferenceEnum`
+- :class:`mbed_cloud.foundation.entities.branding.enums.LightThemeImageReferenceEnum`
+- :class:`mbed_cloud.foundation.entities.branding.enums.SubtenantDarkThemeColorReferenceEnum`
+- :class:`mbed_cloud.foundation.entities.branding.enums.SubtenantDarkThemeImageReferenceEnum`
+- :class:`mbed_cloud.foundation.entities.branding.enums.SubtenantLightThemeColorReferenceEnum`
+- :class:`mbed_cloud.foundation.entities.branding.enums.SubtenantLightThemeImageReferenceEnum`
+
 Device_Update
 -------------
 
@@ -75,6 +87,14 @@ How to import Enums:
     from mbed_cloud.foundation.enums import UserInvitationOrderEnum
     from mbed_cloud.foundation.enums import UserOrderEnum
     from mbed_cloud.foundation.enums import UserStatusEnum
+    from mbed_cloud.foundation.enums import DarkThemeColorReferenceEnum
+    from mbed_cloud.foundation.enums import DarkThemeImageReferenceEnum
+    from mbed_cloud.foundation.enums import LightThemeColorReferenceEnum
+    from mbed_cloud.foundation.enums import LightThemeImageReferenceEnum
+    from mbed_cloud.foundation.enums import SubtenantDarkThemeColorReferenceEnum
+    from mbed_cloud.foundation.enums import SubtenantDarkThemeImageReferenceEnum
+    from mbed_cloud.foundation.enums import SubtenantLightThemeColorReferenceEnum
+    from mbed_cloud.foundation.enums import SubtenantLightThemeImageReferenceEnum
     from mbed_cloud.foundation.enums import CampaignDeviceMetadataDeploymentStateEnum
     from mbed_cloud.foundation.enums import CampaignStatisticsIdEnum
     from mbed_cloud.foundation.enums import CampaignStatisticsSummaryStatusEnum
@@ -112,6 +132,14 @@ from mbed_cloud.foundation.entities.accounts.enums import SubtenantUserStatusEnu
 from mbed_cloud.foundation.entities.accounts.enums import UserInvitationOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import UserOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import UserStatusEnum
+from mbed_cloud.foundation.entities.branding.enums import DarkThemeColorReferenceEnum
+from mbed_cloud.foundation.entities.branding.enums import DarkThemeImageReferenceEnum
+from mbed_cloud.foundation.entities.branding.enums import LightThemeColorReferenceEnum
+from mbed_cloud.foundation.entities.branding.enums import LightThemeImageReferenceEnum
+from mbed_cloud.foundation.entities.branding.enums import SubtenantDarkThemeColorReferenceEnum
+from mbed_cloud.foundation.entities.branding.enums import SubtenantDarkThemeImageReferenceEnum
+from mbed_cloud.foundation.entities.branding.enums import SubtenantLightThemeColorReferenceEnum
+from mbed_cloud.foundation.entities.branding.enums import SubtenantLightThemeImageReferenceEnum
 from mbed_cloud.foundation.entities.device_update.enums import CampaignDeviceMetadataDeploymentStateEnum
 from mbed_cloud.foundation.entities.device_update.enums import CampaignStatisticsIdEnum
 from mbed_cloud.foundation.entities.device_update.enums import CampaignStatisticsSummaryStatusEnum
@@ -148,6 +176,14 @@ __all__ = [
     "UserInvitationOrderEnum",
     "UserOrderEnum",
     "UserStatusEnum",
+    "DarkThemeColorReferenceEnum",
+    "DarkThemeImageReferenceEnum",
+    "LightThemeColorReferenceEnum",
+    "LightThemeImageReferenceEnum",
+    "SubtenantDarkThemeColorReferenceEnum",
+    "SubtenantDarkThemeImageReferenceEnum",
+    "SubtenantLightThemeColorReferenceEnum",
+    "SubtenantLightThemeImageReferenceEnum",
     "CampaignDeviceMetadataDeploymentStateEnum",
     "CampaignStatisticsIdEnum",
     "CampaignStatisticsSummaryStatusEnum",
