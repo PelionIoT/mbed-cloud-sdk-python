@@ -8063,58 +8063,26 @@ paths:
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/notification/websocket-connect:
     get:
-      description: '
-
-        (PREVIEW) A websocket channel can have only one active connection at a time.
-        If a websocket connection for a channel exists and a new connection to the
-        same channel is made, the connection is accepted and the older connection
-        is closed.
-
-
-        Once the socket has been opened, it may be closed with one of the following
-        status codes.
-
-
-        | Code | Description |
-
-        |------|-------------|
-
-        |**1000**|Socket closed by the client.|
-
-        |**1001**|Going away. Set when another socket was opened on the used channel,
-        or if the channel was deleted with a REST call, or if the server is shutting
-        down.|
-
-        |**1006**|Abnormal loss of connection. This code is never set by the service.|
-
-        |**1008**|Policy violation. Set when the API key is missing or invalid.|
-
-        |**1011**|Unexpected condition. Socket is closed with this status at an attempt
-        to open a socket to an unexisting channel (without a prior REST PUT). This
-        code is also used to indicate closing socket for any other unexpected condition
-        in the server.|
-
-
-        **Example:**
-
-        ```
-
-        curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect
-        \
-
-        -H "Authorization:Bearer {apikey}" \
-
-        -H "Connection:upgrade" \
-
-        -H "Upgrade:websocket" \
-
-        -H "Sec-WebSocket-Version: 13" \
-
-        -H "Sec-WebSocket-Key: {base64nonce}" \
-
-        -N -I
-
-        ```'
+      description: "\n(PREVIEW) A websocket channel can have only one active connection\
+        \ at a time. If a websocket connection for a channel exists and a new connection\
+        \ to the same channel is made, the connection is accepted and the older connection\
+        \ is closed.\n\nOnce the socket has been opened, it may be closed with one\
+        \ of the following status codes.\n\n<table>\n  <thead>\n    <tr>\n      <th>Code</th>\n\
+        \      <th>Description</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n\
+        \      <td><b>1000</b></td>\n      <td>Socket closed by the client.</td>\n\
+        \    </tr>\n    <tr>\n      <td><b>1001</b></td>\n      <td>Going away. Set\
+        \ when another socket opens on the used channel, the channel is deleted with\
+        \ a REST call, or the server is shutting down.</td>\n    </tr>\n    <tr>\n\
+        \      <td><b>1008</b></td>\n      <td>Policy violation. Set when the API\
+        \ key is missing or invalid.</td>\n    </tr>\n    <tr>\n      <td><b>1011</b></td>\n\
+        \      <td>Unexpected condition. Socket is closed with this status at an attempt\
+        \ to open a socket to a nonexistent channel (without a prior PUT request).\
+        \ This code is also used to indicate closing socket for any other unexpected\
+        \ condition in the server.</td>\n    </tr>\n  </tbody>\n</table>\n\n\n**Example:**\n\
+        ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\
+        \ \\\n-H \"Authorization:Bearer {apikey}\" \\\n-H \"Connection:upgrade\" \\\
+        \n-H \"Upgrade:websocket\" \\\n-H \"Sec-WebSocket-Version: 13\" \\\n-H \"\
+        Sec-WebSocket-Key: {base64nonce}\" \\\n-N -I\n```"
       operationId: connectWebsocket
       parameters:
       - default: Upgrade
