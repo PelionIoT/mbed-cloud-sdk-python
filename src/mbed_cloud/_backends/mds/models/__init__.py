@@ -28,3 +28,4 @@ from .resource_path import ResourcePath
 from .resources_data import ResourcesData
 from .subscriptions_list import SubscriptionsList
 from .webhook import Webhook
+from .websocket_channel import WebsocketChannel

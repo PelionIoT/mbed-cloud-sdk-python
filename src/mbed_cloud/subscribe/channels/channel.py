@@ -45,7 +45,7 @@ class FirstValue(object):
     There is a tradeoff in terms of performance/api calls/device power usage
     """
 
-    # waits for a device to send re-register message. one api call. long wait.
+    # waits for a device to send re-register message. one  = 'on_registration'
     on_registration = 'on_registration'
 
     # sets up subscriptions on existing live resources. many api calls. medium wait.

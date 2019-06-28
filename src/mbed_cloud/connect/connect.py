@@ -39,6 +39,7 @@ from mbed_cloud.connect.notifications import NotificationsThread
 from mbed_cloud.connect.presubscription import Presubscription
 from mbed_cloud.connect.resource import Resource
 from mbed_cloud.connect.webhooks import Webhook
+from mbed_cloud.connect.websockets import Websocket
 
 from mbed_cloud.core import BaseAPI
 from mbed_cloud.pagination import PaginatedResponse
@@ -56,6 +57,9 @@ from six.moves import queue
 
 LOG = logging.getLogger(__name__)
 
+CLIENT_INITIATED = "CLIENT_INITIATED"
+SERVER_INITIATED = "SERVER_INITIATED"
+
 
 class ConnectAPI(BaseAPI):
     """API reference for the Connect API.
@@ -72,7 +76,7 @@ class ConnectAPI(BaseAPI):
             mds.NotificationsApi,
             mds.DeviceRequestsApi,
             mds.ResourcesApi,
-            mds.SubscriptionsApi
+            mds.SubscriptionsApi,
         ],
         statistics: [statistics.AccountApi, statistics.StatisticsApi],
         device_directory: [device_directory.DefaultApi],
@@ -82,14 +86,24 @@ class ConnectAPI(BaseAPI):
         """A module to access this section of the Pelion Device Management API.
 
         :param params: Dictionary to override configuration values
-                     : autostart_notification_thread : Automatically starts a thread
+                     : autostart_notifications : Automatically starts a thread
                      if needed for Async APIs (e.g. get_resource_value).
-                     This should be set to False when using webhooks for notifications.
+                     : force_clear : forcibly remove any existing channels before receiving notifications
+                     : skip_cleanup : do not clean up channels and subscriptions after quitting
         """
         super(ConnectAPI, self).__init__(params)
 
         self._db = {}
         self._queues = defaultdict(dict)
+
+        self._delivery_method = None
+        # check for autostart_notification_thread if autostart_notifications is not set, for backwards compatibility
+        self._autostart_notifications = self.config.get('autostart_notifications',
+                                                        self.config.get('autostart_notification_thread', False))
+        if self._autostart_notifications:
+            self._delivery_method = CLIENT_INITIATED
+        self._force_clear = self.config.get('force_clear', False)
+        self._skip_cleanup = self.config.get('skip_cleanup', False)
 
         self.b64decode = True
         self._notifications_thread = None
@@ -104,8 +118,8 @@ class ConnectAPI(BaseAPI):
 
     def ensure_notifications_thread(self):
         """Ensure notification thread is running"""
-        if self.config.get('autostart_notification_thread'):
-            if not self.has_active_notification_thread:
+        if not self.has_active_notification_thread:
+            if self._autostart_notifications:
                 self.start_notifications()
 
     def start_notifications(self):
@@ -123,9 +137,28 @@ class ConnectAPI(BaseAPI):
 
         :returns: void
         """
+        LOG.debug("starting notifications...")
+        # delivery method is server initiated so raise an exception
+        if self._delivery_method == SERVER_INITIATED:
+            raise CloudApiException("Cannot start the notification thread as Webhooks have been previously configured.")
+
+        # delivery method not set so set to client initiated
+        if not self._delivery_method:
+            LOG.debug("setting delivery method to %s", CLIENT_INITIATED)
+            self._delivery_method = CLIENT_INITIATED
+
         with self._notifications_lock:
             if self.has_active_notification_thread:
+                LOG.debug("notifications already started")
                 return
+
+            # force clear is true so clear all channels
+            if self._force_clear:
+                self._clear_notification_channel()
+
+            # check for webhook
+            self._fail_if_webhook_is_setup("start notifications")
+
             api = self._get_api(mds.NotificationsApi)
             self._notifications_thread = NotificationsThread(
                 self._db,
@@ -133,23 +166,32 @@ class ConnectAPI(BaseAPI):
                 b64decode=self.b64decode,
                 notifications_api=api,
                 subscription_manager=self.subscribe,
+                force_clear=self._force_clear,
             )
+
             self._notifications_thread.daemon = True
             self._notifications_thread.start()
+            LOG.debug("notification thread started")
 
     def stop_notifications(self):
         """Stop the notifications thread.
 
         :returns:
         """
+        LOG.debug("stopping notifications...")
+        if self._delivery_method == SERVER_INITIATED:
+            LOG.warning("Should not call stop notifications as Webhooks have been previously configured.")
+
         with self._notifications_lock:
             if not self.has_active_notification_thread:
+                LOG.debug("nothing to stop...")
                 return
             thread = self._notifications_thread
             self._notifications_thread = None
             stopping = thread.stop()
-            api = self._get_api(mds.NotificationsApi)
-            api.delete_long_poll_channel()
+            if not self._skip_cleanup:
+                self.delete_websocket()
+                self.delete_subscriptions()
             return stopping.wait()
 
     @catch_exceptions(device_directory.rest.ApiException)
@@ -196,7 +238,6 @@ class ConnectAPI(BaseAPI):
         :returns: a list of connected :py:class:`Device` objects.
         :rtype: PaginatedResponse
         """
-        # TODO(pick one of these)
         filter_or_filters = 'filter' if 'filter' in kwargs else 'filters'
         kwargs.setdefault(filter_or_filters, {}).setdefault('state', {'$eq': 'registered'})
         kwargs = self._verify_sort_options(kwargs)
@@ -325,7 +366,6 @@ class ConnectAPI(BaseAPI):
         :returns: The value of the new resource
         :rtype: str
         """
-        self.ensure_notifications_thread()
         return self.set_resource_value_async(
             device_id, resource_path, resource_value
         ).wait(timeout)
@@ -400,7 +440,6 @@ class ConnectAPI(BaseAPI):
         :returns: The value returned from the function executed on the resource
         :rtype: str
         """
-        self.ensure_notifications_thread()
         return self.execute_resource_async(device_id, resource_path).wait(timeout)
 
     @catch_exceptions(mds.rest.ApiException)
@@ -638,7 +677,7 @@ class ConnectAPI(BaseAPI):
                 del self._queues[e][r]
         return
 
-    def notify_webhook_received(self, payload):
+    def notify(self, payload):
         """Callback function for triggering notification channel handlers.
 
         Use this in conjunction with a webserver to complete the loop when using
@@ -660,6 +699,18 @@ class ConnectAPI(BaseAPI):
             notification_object=notification
         )
 
+    def notify_webhook_received(self, payload):
+        """Callback function for triggering notification channel handlers.
+
+        This method is still functional, but preferable to use notify() instead
+
+        Use this in conjunction with a webserver to complete the loop when using
+        webhooks as the notification channel.
+
+        :param str payload: the encoded payload, as sent by the notification channel
+        """
+        self.notify(payload)
+
     @catch_exceptions(mds.rest.ApiException)
     def get_webhook(self):
         """Get the current callback URL if it exists.
@@ -679,11 +730,19 @@ class ConnectAPI(BaseAPI):
         :param dict headers: K/V dict with additional headers to send with request
         :return: void
         """
+        if not self._delivery_method:
+            self._delivery_method = "SERVER_INITIATED"
+
+        elif self._delivery_method == "CLIENT_INITIATED":
+            raise CloudApiException("cannot update webhook if receiving notifications on the client."
+                                    "If you want to use a webhook, make sure autostart_notifications is False"
+                                    "and start_notifications isn't being called.")
+
         headers = headers or {}
         api = self._get_api(mds.NotificationsApi)
 
-        # Delete notifications channel
-        api.delete_long_poll_channel()
+        if self._force_clear:
+            self._clear_notification_channel()
 
         # Send the request to register the webhook
         webhook_obj = WebhookData(url=url, headers=headers)
@@ -707,6 +766,55 @@ class ConnectAPI(BaseAPI):
         # Every subscription will be deleted, so we can clear the queues too.
         self._queues.clear()
         return
+
+    def _clear_notification_channel(self):
+        """Delete/remove any notification channel in place.
+
+        No exception is raised
+
+        :return: void
+        """
+        try:
+            self.delete_webhook()
+        except CloudApiException:
+            pass
+        try:
+            api = self._get_api(mds.NotificationsApi)
+            # Delete notifications channel
+            api.delete_long_poll_channel()
+        except CloudApiException:
+            pass
+        try:
+            api.delete_websocket()
+        except CloudApiException:
+            pass
+
+    @catch_exceptions(mds.rest.ApiException)
+    def get_websocket(self):
+        """Get the current websocket if it exists.
+
+        :return: The currently set websocket
+        """
+        api = self._get_api(mds.NotificationsApi)
+        return Websocket(api.get_websocket())
+
+    @catch_exceptions(mds.rest.ApiException)
+    def register_websocket(self):
+        """Register a websocket channel
+
+        :return: The set websocket
+        """
+        api = self._get_api(mds.NotificationsApi)
+        return Websocket(api.register_websocket())
+
+    @catch_exceptions(mds.rest.ApiException)
+    def delete_websocket(self):
+        """Delete websocket channel
+
+        :return: void
+        """
+        api = self._get_api(mds.NotificationsApi)
+        api.delete_websocket()
 
     @catch_exceptions(statistics.rest.ApiException)
     def list_metrics(self, include=None, interval="1d", **kwargs):
@@ -742,6 +850,14 @@ class ConnectAPI(BaseAPI):
         while True:
             value = queue.get()
             callback_fn(device_id, path, value)
+
+    def _fail_if_webhook_is_setup(self, method_name):
+        try:
+            webhook = self.get_webhook()
+        except CloudApiException:
+            pass
+        if webhook and webhook.url:
+            raise CloudApiException("cannot call %s because a webhook exists [%s]", method_name, webhook.url)
 
     def _verify_arguments(self, interval, kwargs):
         start = kwargs.get("start", None)

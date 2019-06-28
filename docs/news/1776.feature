@@ -1,0 +1,1 @@
+WebSockets are used to retrieve asynchronous messages (e.g. resource subscriptions) instead of long-polling.
