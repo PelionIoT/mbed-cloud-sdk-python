@@ -9650,10 +9650,8 @@ paths:
       produces:
       - application/json
       responses:
-        '200':
-          description: Successful operation.
-          schema:
-            $ref: '#/definitions/BrandingColor'
+        '204':
+          description: Deleted successfully.
         '401':
           description: Authentication failure.
           schema:
@@ -9910,10 +9908,8 @@ paths:
       produces:
       - application/json
       responses:
-        '200':
-          description: Successful operation.
-          schema:
-            $ref: '#/definitions/BrandingColor'
+        '204':
+          description: Deleted successfully.
         '401':
           description: Authentication failure.
           schema:
@@ -14202,10 +14198,8 @@ paths:
       produces:
       - application/json
       responses:
-        '200':
-          description: Successful operation.
-          schema:
-            $ref: '#/definitions/BrandingColor'
+        '204':
+          description: Deleted successfully.
         '401':
           description: Authentication failure.
           schema:
@@ -14427,10 +14421,8 @@ paths:
       produces:
       - application/json
       responses:
-        '200':
-          description: Successful operation.
-          schema:
-            $ref: '#/definitions/BrandingColor'
+        '204':
+          description: Deleted successfully.
         '401':
           description: Authentication failure.
           schema:

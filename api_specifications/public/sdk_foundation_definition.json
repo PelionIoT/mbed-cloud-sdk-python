@@ -23672,6 +23672,11 @@
           "field_renames": [],
           "fields": [
             {
+              "is_primary_key": true,
+              "_override": true,
+              "type": "string",
+              "api_fieldname": "reference",
+              "entity_fieldname": "reference",
               "enum": [
                 "error_color",
                 "primary",
@@ -23690,14 +23695,9 @@
                 "success_font_color",
                 "warning_font_color"
               ],
-              "type": "string",
-              "description": "Color name.",
-              "is_primary_key": true,
-              "_override": true,
-              "api_fieldname": "reference",
-              "entity_fieldname": "reference",
               "name": "reference",
               "in": "path",
+              "description": "The name of the branding color.",
               "required": true,
               "enum_reference": "dark_theme_color_reference_enum",
               "_key": "reference"
@@ -23707,74 +23707,8 @@
           "mode": "delete",
           "responses": [
             {
-              "description": "Successful operation.",
-              "schema": {
-                "type": "object",
-                "properties": [
-                  {
-                    "type": "string",
-                    "example": "#f3f93e",
-                    "description": "The color given as name (purple) or as a hex code.",
-                    "x-nullable": true,
-                    "api_fieldname": "color",
-                    "entity_fieldname": "color",
-                    "_key": "color"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name: always 'branding_color'",
-                    "readOnly": true,
-                    "enum": [
-                      "branding_color"
-                    ],
-                    "api_fieldname": "object",
-                    "entity_fieldname": "object",
-                    "_key": "object"
-                  },
-                  {
-                    "enum": [
-                      "error_color",
-                      "primary",
-                      "secondary",
-                      "success_color",
-                      "warning_color",
-                      "canvas_background",
-                      "canvas_background_font_color",
-                      "workspace_background",
-                      "workspace_background_font_color",
-                      "info_color",
-                      "info_font_color",
-                      "primary_font_color",
-                      "secondary_font_color",
-                      "error_font_color",
-                      "success_font_color",
-                      "warning_font_color"
-                    ],
-                    "type": "string",
-                    "description": "Color name.",
-                    "is_primary_key": true,
-                    "_override": true,
-                    "api_fieldname": "reference",
-                    "entity_fieldname": "reference",
-                    "_key": "reference"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2018-02-14T15:24:14Z",
-                    "description": "Last update time in UTC.",
-                    "readOnly": true,
-                    "api_fieldname": "updated_at",
-                    "entity_fieldname": "updated_at",
-                    "_key": "updated_at"
-                  }
-                ],
-                "foreign_key": {
-                  "group": "Branding",
-                  "entity": "subtenant_light_theme_color"
-                }
-              },
-              "_key": "200"
+              "description": "Deleted successfully.",
+              "_key": "204"
             },
             {
               "description": "Authentication failure.",
@@ -24011,9 +23945,7 @@
             "etag",
             "type",
             "groups",
-            "filter",
-            "color",
-            "updated_at"
+            "filter"
           ],
           "group_id": "Branding",
           "operation_id": "resetDarkColor",
@@ -42231,6 +42163,11 @@
           "field_renames": [],
           "fields": [
             {
+              "is_primary_key": true,
+              "_override": true,
+              "type": "string",
+              "api_fieldname": "reference",
+              "entity_fieldname": "reference",
               "enum": [
                 "error_color",
                 "primary",
@@ -42249,14 +42186,9 @@
                 "success_font_color",
                 "warning_font_color"
               ],
-              "type": "string",
-              "description": "Color name.",
-              "is_primary_key": true,
-              "_override": true,
-              "api_fieldname": "reference",
-              "entity_fieldname": "reference",
               "name": "reference",
               "in": "path",
+              "description": "The name of the branding color.",
               "required": true,
               "enum_reference": "light_theme_color_reference_enum",
               "_key": "reference"
@@ -42266,90 +42198,8 @@
           "mode": "delete",
           "responses": [
             {
-              "description": "Successful operation.",
-              "schema": {
-                "type": "object",
-                "properties": [
-                  {
-                    "type": "string",
-                    "example": "#f3f93e",
-                    "description": "The color given as name (purple) or as a hex code.",
-                    "x-nullable": true,
-                    "api_fieldname": "color",
-                    "entity_fieldname": "color",
-                    "parameter_fieldname": "color",
-                    "in": "body",
-                    "required": false,
-                    "_key": "color"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name: always 'branding_color'",
-                    "readOnly": true,
-                    "enum": [
-                      "branding_color"
-                    ],
-                    "api_fieldname": "object",
-                    "entity_fieldname": "object",
-                    "name": "object",
-                    "in": "body",
-                    "schema_param": true,
-                    "external_param": true,
-                    "parameter_fieldname": "object",
-                    "required": false,
-                    "_key": "object"
-                  },
-                  {
-                    "enum": [
-                      "error_color",
-                      "primary",
-                      "secondary",
-                      "success_color",
-                      "warning_color",
-                      "canvas_background",
-                      "canvas_background_font_color",
-                      "workspace_background",
-                      "workspace_background_font_color",
-                      "info_color",
-                      "info_font_color",
-                      "primary_font_color",
-                      "secondary_font_color",
-                      "error_font_color",
-                      "success_font_color",
-                      "warning_font_color"
-                    ],
-                    "type": "string",
-                    "description": "Color name.",
-                    "is_primary_key": true,
-                    "_override": true,
-                    "api_fieldname": "reference",
-                    "entity_fieldname": "reference",
-                    "name": "reference",
-                    "in": "path",
-                    "required": true,
-                    "enum_reference": "dark_theme_color_reference_enum",
-                    "_key": "reference"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2018-02-14T15:24:14Z",
-                    "description": "Last update time in UTC.",
-                    "readOnly": true,
-                    "api_fieldname": "updated_at",
-                    "entity_fieldname": "updated_at",
-                    "parameter_fieldname": "updated_at",
-                    "in": "body",
-                    "required": false,
-                    "_key": "updated_at"
-                  }
-                ],
-                "foreign_key": {
-                  "group": "Branding",
-                  "entity": "subtenant_light_theme_color"
-                }
-              },
-              "_key": "200"
+              "description": "Deleted successfully.",
+              "_key": "204"
             },
             {
               "description": "Authentication failure.",
@@ -42586,9 +42436,7 @@
             "etag",
             "type",
             "groups",
-            "filter",
-            "color",
-            "updated_at"
+            "filter"
           ],
           "group_id": "Branding",
           "operation_id": "resetLightColor",
@@ -48856,6 +48704,11 @@
               "_key": "account_id"
             },
             {
+              "is_primary_key": true,
+              "_override": true,
+              "type": "string",
+              "api_fieldname": "reference",
+              "entity_fieldname": "reference",
               "enum": [
                 "error_color",
                 "primary",
@@ -48874,14 +48727,9 @@
                 "success_font_color",
                 "warning_font_color"
               ],
-              "type": "string",
-              "description": "Color name.",
-              "is_primary_key": true,
-              "_override": true,
-              "api_fieldname": "reference",
-              "entity_fieldname": "reference",
               "name": "reference",
               "in": "path",
+              "description": "The name of the branding color.",
               "required": true,
               "enum_reference": "subtenant_dark_theme_color_reference_enum",
               "_key": "reference"
@@ -48891,90 +48739,8 @@
           "mode": "delete",
           "responses": [
             {
-              "description": "Successful operation.",
-              "schema": {
-                "type": "object",
-                "properties": [
-                  {
-                    "type": "string",
-                    "example": "#f3f93e",
-                    "description": "The color given as name (purple) or as a hex code.",
-                    "x-nullable": true,
-                    "api_fieldname": "color",
-                    "entity_fieldname": "color",
-                    "parameter_fieldname": "color",
-                    "in": "body",
-                    "required": false,
-                    "_key": "color"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name: always 'branding_color'",
-                    "readOnly": true,
-                    "enum": [
-                      "branding_color"
-                    ],
-                    "api_fieldname": "object",
-                    "entity_fieldname": "object",
-                    "name": "object",
-                    "in": "body",
-                    "schema_param": true,
-                    "external_param": true,
-                    "parameter_fieldname": "object",
-                    "required": false,
-                    "_key": "object"
-                  },
-                  {
-                    "enum": [
-                      "error_color",
-                      "primary",
-                      "secondary",
-                      "success_color",
-                      "warning_color",
-                      "canvas_background",
-                      "canvas_background_font_color",
-                      "workspace_background",
-                      "workspace_background_font_color",
-                      "info_color",
-                      "info_font_color",
-                      "primary_font_color",
-                      "secondary_font_color",
-                      "error_font_color",
-                      "success_font_color",
-                      "warning_font_color"
-                    ],
-                    "type": "string",
-                    "description": "Color name.",
-                    "is_primary_key": true,
-                    "_override": true,
-                    "api_fieldname": "reference",
-                    "entity_fieldname": "reference",
-                    "name": "reference",
-                    "in": "path",
-                    "required": true,
-                    "enum_reference": "light_theme_color_reference_enum",
-                    "_key": "reference"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2018-02-14T15:24:14Z",
-                    "description": "Last update time in UTC.",
-                    "readOnly": true,
-                    "api_fieldname": "updated_at",
-                    "entity_fieldname": "updated_at",
-                    "parameter_fieldname": "updated_at",
-                    "in": "body",
-                    "required": false,
-                    "_key": "updated_at"
-                  }
-                ],
-                "foreign_key": {
-                  "group": "Branding",
-                  "entity": "subtenant_light_theme_color"
-                }
-              },
-              "_key": "200"
+              "description": "Deleted successfully.",
+              "_key": "204"
             },
             {
               "description": "Authentication failure.",
@@ -49211,9 +48977,7 @@
             "etag",
             "type",
             "groups",
-            "filter",
-            "color",
-            "updated_at"
+            "filter"
           ],
           "group_id": "Branding",
           "operation_id": "resetAccountDarkColor",
@@ -51520,6 +51284,11 @@
               "_key": "account_id"
             },
             {
+              "is_primary_key": true,
+              "_override": true,
+              "type": "string",
+              "api_fieldname": "reference",
+              "entity_fieldname": "reference",
               "enum": [
                 "error_color",
                 "primary",
@@ -51538,14 +51307,9 @@
                 "success_font_color",
                 "warning_font_color"
               ],
-              "type": "string",
-              "description": "Color name.",
-              "is_primary_key": true,
-              "_override": true,
-              "api_fieldname": "reference",
-              "entity_fieldname": "reference",
               "name": "reference",
               "in": "path",
+              "description": "The name of the branding color.",
               "required": true,
               "enum_reference": "subtenant_light_theme_color_reference_enum",
               "_key": "reference"
@@ -51555,90 +51319,8 @@
           "mode": "delete",
           "responses": [
             {
-              "description": "Successful operation.",
-              "schema": {
-                "type": "object",
-                "properties": [
-                  {
-                    "type": "string",
-                    "example": "#f3f93e",
-                    "description": "The color given as name (purple) or as a hex code.",
-                    "x-nullable": true,
-                    "api_fieldname": "color",
-                    "entity_fieldname": "color",
-                    "parameter_fieldname": "color",
-                    "in": "body",
-                    "required": false,
-                    "_key": "color"
-                  },
-                  {
-                    "type": "string",
-                    "description": "Entity name: always 'branding_color'",
-                    "readOnly": true,
-                    "enum": [
-                      "branding_color"
-                    ],
-                    "api_fieldname": "object",
-                    "entity_fieldname": "object",
-                    "name": "object",
-                    "in": "body",
-                    "schema_param": true,
-                    "external_param": true,
-                    "parameter_fieldname": "object",
-                    "required": false,
-                    "_key": "object"
-                  },
-                  {
-                    "enum": [
-                      "error_color",
-                      "primary",
-                      "secondary",
-                      "success_color",
-                      "warning_color",
-                      "canvas_background",
-                      "canvas_background_font_color",
-                      "workspace_background",
-                      "workspace_background_font_color",
-                      "info_color",
-                      "info_font_color",
-                      "primary_font_color",
-                      "secondary_font_color",
-                      "error_font_color",
-                      "success_font_color",
-                      "warning_font_color"
-                    ],
-                    "type": "string",
-                    "description": "Color name.",
-                    "is_primary_key": true,
-                    "_override": true,
-                    "api_fieldname": "reference",
-                    "entity_fieldname": "reference",
-                    "name": "reference",
-                    "in": "path",
-                    "required": true,
-                    "enum_reference": "subtenant_dark_theme_color_reference_enum",
-                    "_key": "reference"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2018-02-14T15:24:14Z",
-                    "description": "Last update time in UTC.",
-                    "readOnly": true,
-                    "api_fieldname": "updated_at",
-                    "entity_fieldname": "updated_at",
-                    "parameter_fieldname": "updated_at",
-                    "in": "body",
-                    "required": false,
-                    "_key": "updated_at"
-                  }
-                ],
-                "foreign_key": {
-                  "group": "Branding",
-                  "entity": "subtenant_dark_theme_color"
-                }
-              },
-              "_key": "200"
+              "description": "Deleted successfully.",
+              "_key": "204"
             },
             {
               "description": "Authentication failure.",
@@ -51875,9 +51557,7 @@
             "etag",
             "type",
             "groups",
-            "filter",
-            "color",
-            "updated_at"
+            "filter"
           ],
           "group_id": "Branding",
           "operation_id": "resetAccountLightColor",

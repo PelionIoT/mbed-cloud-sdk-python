@@ -17517,14 +17517,12 @@ entities:
     - type
     - groups
     - filter
-    - color
-    - updated_at
     field_renames: []
     fields:
     - _key: reference
       _override: true
       api_fieldname: reference
-      description: Color name.
+      description: The name of the branding color.
       entity_fieldname: reference
       enum: &id002
       - error_color
@@ -17558,61 +17556,8 @@ entities:
     request_body: json
     request_content_type: application/json
     responses:
-    - _key: '200'
-      description: Successful operation.
-      schema:
-        foreign_key:
-          entity: subtenant_light_theme_color
-          group: Branding
-        properties:
-        - _key: color
-          api_fieldname: color
-          description: The color given as name (purple) or as a hex code.
-          entity_fieldname: color
-          example: '#f3f93e'
-          type: string
-          x-nullable: true
-        - _key: object
-          api_fieldname: object
-          description: 'Entity name: always ''branding_color'''
-          entity_fieldname: object
-          enum:
-          - branding_color
-          readOnly: true
-          type: string
-        - _key: reference
-          _override: true
-          api_fieldname: reference
-          description: Color name.
-          entity_fieldname: reference
-          enum:
-          - error_color
-          - primary
-          - secondary
-          - success_color
-          - warning_color
-          - canvas_background
-          - canvas_background_font_color
-          - workspace_background
-          - workspace_background_font_color
-          - info_color
-          - info_font_color
-          - primary_font_color
-          - secondary_font_color
-          - error_font_color
-          - success_font_color
-          - warning_font_color
-          is_primary_key: true
-          type: string
-        - _key: updated_at
-          api_fieldname: updated_at
-          description: Last update time in UTC.
-          entity_fieldname: updated_at
-          example: '2018-02-14T15:24:14Z'
-          format: date-time
-          readOnly: true
-          type: string
-        type: object
+    - _key: '204'
+      description: Deleted successfully.
     - _key: '401'
       description: Authentication failure.
       schema:
@@ -32210,14 +32155,12 @@ entities:
     - type
     - groups
     - filter
-    - color
-    - updated_at
     field_renames: []
     fields:
     - _key: reference
       _override: true
       api_fieldname: reference
-      description: Color name.
+      description: The name of the branding color.
       entity_fieldname: reference
       enum: &id004
       - error_color
@@ -32251,77 +32194,8 @@ entities:
     request_body: json
     request_content_type: application/json
     responses:
-    - _key: '200'
-      description: Successful operation.
-      schema:
-        foreign_key:
-          entity: subtenant_light_theme_color
-          group: Branding
-        properties:
-        - _key: color
-          api_fieldname: color
-          description: The color given as name (purple) or as a hex code.
-          entity_fieldname: color
-          example: '#f3f93e'
-          in: body
-          parameter_fieldname: color
-          required: false
-          type: string
-          x-nullable: true
-        - _key: object
-          api_fieldname: object
-          description: 'Entity name: always ''branding_color'''
-          entity_fieldname: object
-          enum:
-          - branding_color
-          external_param: true
-          in: body
-          name: object
-          parameter_fieldname: object
-          readOnly: true
-          required: false
-          schema_param: true
-          type: string
-        - _key: reference
-          _override: true
-          api_fieldname: reference
-          description: Color name.
-          entity_fieldname: reference
-          enum:
-          - error_color
-          - primary
-          - secondary
-          - success_color
-          - warning_color
-          - canvas_background
-          - canvas_background_font_color
-          - workspace_background
-          - workspace_background_font_color
-          - info_color
-          - info_font_color
-          - primary_font_color
-          - secondary_font_color
-          - error_font_color
-          - success_font_color
-          - warning_font_color
-          enum_reference: dark_theme_color_reference_enum
-          in: path
-          is_primary_key: true
-          name: reference
-          required: true
-          type: string
-        - _key: updated_at
-          api_fieldname: updated_at
-          description: Last update time in UTC.
-          entity_fieldname: updated_at
-          example: '2018-02-14T15:24:14Z'
-          format: date-time
-          in: body
-          parameter_fieldname: updated_at
-          readOnly: true
-          required: false
-          type: string
-        type: object
+    - _key: '204'
+      description: Deleted successfully.
     - _key: '401'
       description: Authentication failure.
       schema:
@@ -37191,8 +37065,6 @@ entities:
     - type
     - groups
     - filter
-    - color
-    - updated_at
     field_renames: []
     fields:
     - _key: account_id
@@ -37208,7 +37080,7 @@ entities:
     - _key: reference
       _override: true
       api_fieldname: reference
-      description: Color name.
+      description: The name of the branding color.
       entity_fieldname: reference
       enum: &id007
       - error_color
@@ -37242,77 +37114,8 @@ entities:
     request_body: json
     request_content_type: application/json
     responses:
-    - _key: '200'
-      description: Successful operation.
-      schema:
-        foreign_key:
-          entity: subtenant_light_theme_color
-          group: Branding
-        properties:
-        - _key: color
-          api_fieldname: color
-          description: The color given as name (purple) or as a hex code.
-          entity_fieldname: color
-          example: '#f3f93e'
-          in: body
-          parameter_fieldname: color
-          required: false
-          type: string
-          x-nullable: true
-        - _key: object
-          api_fieldname: object
-          description: 'Entity name: always ''branding_color'''
-          entity_fieldname: object
-          enum:
-          - branding_color
-          external_param: true
-          in: body
-          name: object
-          parameter_fieldname: object
-          readOnly: true
-          required: false
-          schema_param: true
-          type: string
-        - _key: reference
-          _override: true
-          api_fieldname: reference
-          description: Color name.
-          entity_fieldname: reference
-          enum:
-          - error_color
-          - primary
-          - secondary
-          - success_color
-          - warning_color
-          - canvas_background
-          - canvas_background_font_color
-          - workspace_background
-          - workspace_background_font_color
-          - info_color
-          - info_font_color
-          - primary_font_color
-          - secondary_font_color
-          - error_font_color
-          - success_font_color
-          - warning_font_color
-          enum_reference: light_theme_color_reference_enum
-          in: path
-          is_primary_key: true
-          name: reference
-          required: true
-          type: string
-        - _key: updated_at
-          api_fieldname: updated_at
-          description: Last update time in UTC.
-          entity_fieldname: updated_at
-          example: '2018-02-14T15:24:14Z'
-          format: date-time
-          in: body
-          parameter_fieldname: updated_at
-          readOnly: true
-          required: false
-          type: string
-        type: object
+    - _key: '204'
+      description: Deleted successfully.
     - _key: '401'
       description: Authentication failure.
       schema:
@@ -39130,8 +38933,6 @@ entities:
     - type
     - groups
     - filter
-    - color
-    - updated_at
     field_renames: []
     fields:
     - _key: account_id
@@ -39147,7 +38948,7 @@ entities:
     - _key: reference
       _override: true
       api_fieldname: reference
-      description: Color name.
+      description: The name of the branding color.
       entity_fieldname: reference
       enum: &id009
       - error_color
@@ -39181,77 +38982,8 @@ entities:
     request_body: json
     request_content_type: application/json
     responses:
-    - _key: '200'
-      description: Successful operation.
-      schema:
-        foreign_key:
-          entity: subtenant_dark_theme_color
-          group: Branding
-        properties:
-        - _key: color
-          api_fieldname: color
-          description: The color given as name (purple) or as a hex code.
-          entity_fieldname: color
-          example: '#f3f93e'
-          in: body
-          parameter_fieldname: color
-          required: false
-          type: string
-          x-nullable: true
-        - _key: object
-          api_fieldname: object
-          description: 'Entity name: always ''branding_color'''
-          entity_fieldname: object
-          enum:
-          - branding_color
-          external_param: true
-          in: body
-          name: object
-          parameter_fieldname: object
-          readOnly: true
-          required: false
-          schema_param: true
-          type: string
-        - _key: reference
-          _override: true
-          api_fieldname: reference
-          description: Color name.
-          entity_fieldname: reference
-          enum:
-          - error_color
-          - primary
-          - secondary
-          - success_color
-          - warning_color
-          - canvas_background
-          - canvas_background_font_color
-          - workspace_background
-          - workspace_background_font_color
-          - info_color
-          - info_font_color
-          - primary_font_color
-          - secondary_font_color
-          - error_font_color
-          - success_font_color
-          - warning_font_color
-          enum_reference: subtenant_dark_theme_color_reference_enum
-          in: path
-          is_primary_key: true
-          name: reference
-          required: true
-          type: string
-        - _key: updated_at
-          api_fieldname: updated_at
-          description: Last update time in UTC.
-          entity_fieldname: updated_at
-          example: '2018-02-14T15:24:14Z'
-          format: date-time
-          in: body
-          parameter_fieldname: updated_at
-          readOnly: true
-          required: false
-          type: string
-        type: object
+    - _key: '204'
+      description: Deleted successfully.
     - _key: '401'
       description: Authentication failure.
       schema:
