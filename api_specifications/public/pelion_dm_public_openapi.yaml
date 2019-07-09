@@ -4187,6 +4187,9 @@ definitions:
         description: Name of the identity provider.
         maxLength: 100
         type: string
+      oidc_attributes:
+        $ref: '#/definitions/OIDCInfo'
+        description: OIDC specific attributes.
       saml2_attributes:
         $ref: '#/definitions/SAML2Req'
         description: SAML2 specific attributes.
@@ -4324,6 +4327,9 @@ definitions:
         description: Name of the identity provider.
         maxLength: 100
         type: string
+      oidc_attributes:
+        $ref: '#/definitions/OIDCInfo'
+        description: OIDC specific attributes.
       saml2_attributes:
         $ref: '#/definitions/SAML2Req'
         description: SAML2 specific attributes.
@@ -4341,6 +4347,17 @@ definitions:
     required:
     - name
     - type
+    type: object
+  IdpPublicKey:
+    description: Represents provider's public key and key ID used to sign ID tokens.
+      PEM-encoded.
+    properties:
+      key:
+        description: The public key.
+        type: string
+      kid:
+        description: The public key ID.
+        type: string
     type: object
   Image:
     format: binary
@@ -4626,6 +4643,51 @@ definitions:
           example: 015f3850a657000000000001001002ab
           type: string
         type: array
+    type: object
+  OIDCInfo:
+    description: Represents OIDC specific attributes.
+    properties:
+      authorization_endpoint:
+        description: URL of the OAuth 2.0 authorization endpoint.
+        type: string
+      auto_enrollment:
+        description: For future use.
+        type: boolean
+      client_id:
+        description: Client ID needed to authenticate and gain access to identity
+          provider's API.
+        type: string
+      client_secret:
+        description: Client secret needed to authenticate and gain access to identity
+          provider's API.
+        type: string
+      end_session_endpoint:
+        description: URL of the provider's end session endpoint.
+        type: string
+      issuer:
+        description: Issuer of the identity provider.
+        type: string
+      jwks_uri:
+        description: URL of the provider's JSON web key set document.
+        type: string
+      keys:
+        description: Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.
+        items:
+          $ref: '#/definitions/IdpPublicKey'
+        type: array
+      redirect_uri:
+        description: The URI needed to authenticate and gain access to identity provider's
+          API.
+        type: string
+      revocation_endpoint:
+        description: URL of the provider's token revocation endpoint.
+        type: string
+      token_endpoint:
+        description: URL of the OAuth 2.0 authorization endpoint.
+        type: string
+      userinfo_endpoint:
+        description: URL of the OAuth 2.0 UserInfo endpoint.
+        type: string
     type: object
   ParentAccountInfo:
     description: Represents parent account contact details in responses.
@@ -9444,6 +9506,10 @@ paths:
           description: Successful operation.
           schema:
             $ref: '#/definitions/ApiKeyInfoResp'
+        '400':
+          description: Error in input data format.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Authentication failure.
           schema:
@@ -9605,9 +9671,19 @@ paths:
       - Tenant user interface configuration - colors
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: "Retrieve the requested dark theme branding color. \n\n**Example:**\n\
-        ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}\
-        \ \\\n-H 'Authorization: Bearer <api_key>'\n```"
+      description: 'Retrieve the requested dark theme branding color.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
       operationId: getAccountDarkColor
       parameters:
       - description: Account ID.
@@ -10592,6 +10668,14 @@ paths:
         name: account_id
         required: true
         type: string
+      - allowEmptyValue: true
+        description: 'Indicates that the OpenID Connect endpoints and keys should
+          be set using the OpenID Connect Discovery mechanism. The following parameters
+          are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint
+          * revocation_endpoint * jwks_uri * keys'
+        in: query
+        name: discovery
+        type: boolean
       - description: Details of the identity provider to create.
         in: body
         name: body
@@ -10721,6 +10805,14 @@ paths:
         name: identity_provider_id
         required: true
         type: string
+      - allowEmptyValue: true
+        description: 'Indicates that the OpenID Connect endpoints and keys should
+          be set using the OpenID Connect Discovery mechanism. The following parameters
+          are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint
+          * revocation_endpoint * jwks_uri * keys'
+        in: query
+        name: discovery
+        type: boolean
       - description: Details of the identity provider to update.
         in: body
         name: body
@@ -13529,6 +13621,61 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Add API key to a list of groups.
+      tags:
+      - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/api-keys/{apikey_id}/reset-secret:
+    post:
+      description: 'Reset the secret key of the API key.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/reset-secret
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
+      operationId: resetSecret
+      parameters:
+      - description: The ID of the API key to reset.
+        in: path
+        name: apikey_id
+        required: true
+        type: string
+      - description: New API key attributes to be stored.
+        in: body
+        name: body
+        required: false
+        schema:
+          $ref: '#/definitions/ApiKeyUpdateReq'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoResp'
+        '400':
+          description: Error in input data format.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An API key with the specified ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Reset the secret key.
       tags:
       - Account - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -20998,6 +21145,14 @@ paths:
       description: Create a new identity provider.
       operationId: createIdentityProvider
       parameters:
+      - allowEmptyValue: true
+        description: 'Indicates that the OpenID Connect endpoints and keys should
+          be set using the OpenID Connect Discovery mechanism. The following parameters
+          are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint
+          * revocation_endpoint * jwks_uri * keys'
+        in: query
+        name: discovery
+        type: boolean
       - description: Details of the identity provider to create.
         in: body
         name: body
@@ -21108,6 +21263,14 @@ paths:
         name: identity_provider_id
         required: true
         type: string
+      - allowEmptyValue: true
+        description: 'Indicates that the OpenID Connect endpoints and keys should
+          be set using the OpenID Connect Discovery mechanism. The following parameters
+          are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint
+          * revocation_endpoint * jwks_uri * keys'
+        in: query
+        name: discovery
+        type: boolean
       - description: Details of the identity provider to update.
         in: body
         name: body

@@ -49226,7 +49226,7 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve the requested dark theme branding color. \n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve the requested dark theme branding color.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {

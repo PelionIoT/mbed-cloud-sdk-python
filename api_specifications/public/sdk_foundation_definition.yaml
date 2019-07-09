@@ -37468,9 +37468,19 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: read
-    description: "Retrieve the requested dark theme branding color. \n\n**Example:**\n\
-      ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}\
-      \ \\\n-H 'Authorization: Bearer <api_key>'\n```"
+    description: 'Retrieve the requested dark theme branding color.
+
+
+      **Example:**
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
     drop_fields:
     - object
     - etag
