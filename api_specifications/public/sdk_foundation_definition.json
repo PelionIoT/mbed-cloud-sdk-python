@@ -17,6 +17,7 @@
         "account"
       ],
       "enums": [
+        "policy_inherited_type_enum",
         "user_status_enum",
         "user_order_enum",
         "subtenant_user_status_enum",
@@ -518,6 +519,18 @@
       ],
       "group_id": "Branding",
       "_key": "light_theme_image_reference_enum"
+    },
+    {
+      "entity_name": "policy",
+      "field_name": "inherited_type",
+      "enum_name": "policy_inherited_type_enum",
+      "values": [
+        "account",
+        "template",
+        "tier_template"
+      ],
+      "group_id": "Accounts",
+      "_key": "policy_inherited_type_enum"
     },
     {
       "entity_name": "subtenant_api_key",
@@ -2062,9 +2075,34 @@
                           "type": "boolean",
                           "example": false,
                           "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                          "readOnly": true,
                           "api_fieldname": "inherited",
                           "entity_fieldname": "inherited",
                           "_key": "inherited"
+                        },
+                        {
+                          "type": "string",
+                          "example": "016ada3ec2d46665bf66e32e00000000",
+                          "description": "An ID indicating where this policy is inherited from.",
+                          "pattern": "[a-f0-9]{32}",
+                          "readOnly": true,
+                          "api_fieldname": "inherited_from",
+                          "entity_fieldname": "inherited_from",
+                          "_key": "inherited_from"
+                        },
+                        {
+                          "type": "string",
+                          "example": "account",
+                          "description": "Indicates the type of entity this policy is inherited from.",
+                          "readOnly": true,
+                          "enum": [
+                            "account",
+                            "template",
+                            "tier_template"
+                          ],
+                          "api_fieldname": "inherited_type",
+                          "entity_fieldname": "inherited_type",
+                          "_key": "inherited_type"
                         },
                         {
                           "type": "string",
@@ -2517,9 +2555,34 @@
                                 "type": "boolean",
                                 "example": false,
                                 "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                                "readOnly": true,
                                 "api_fieldname": "inherited",
                                 "entity_fieldname": "inherited",
                                 "_key": "inherited"
+                              },
+                              {
+                                "type": "string",
+                                "example": "016ada3ec2d46665bf66e32e00000000",
+                                "description": "An ID indicating where this policy is inherited from.",
+                                "pattern": "[a-f0-9]{32}",
+                                "readOnly": true,
+                                "api_fieldname": "inherited_from",
+                                "entity_fieldname": "inherited_from",
+                                "_key": "inherited_from"
+                              },
+                              {
+                                "type": "string",
+                                "example": "account",
+                                "description": "Indicates the type of entity this policy is inherited from.",
+                                "readOnly": true,
+                                "enum": [
+                                  "account",
+                                  "template",
+                                  "tier_template"
+                                ],
+                                "api_fieldname": "inherited_type",
+                                "entity_fieldname": "inherited_type",
+                                "_key": "inherited_type"
                               },
                               {
                                 "type": "string",
@@ -5148,9 +5211,34 @@
                                 "type": "boolean",
                                 "example": false,
                                 "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                                "readOnly": true,
                                 "api_fieldname": "inherited",
                                 "entity_fieldname": "inherited",
                                 "_key": "inherited"
+                              },
+                              {
+                                "type": "string",
+                                "example": "016ada3ec2d46665bf66e32e00000000",
+                                "description": "An ID indicating where this policy is inherited from.",
+                                "pattern": "[a-f0-9]{32}",
+                                "readOnly": true,
+                                "api_fieldname": "inherited_from",
+                                "entity_fieldname": "inherited_from",
+                                "_key": "inherited_from"
+                              },
+                              {
+                                "type": "string",
+                                "example": "account",
+                                "description": "Indicates the type of entity this policy is inherited from.",
+                                "readOnly": true,
+                                "enum": [
+                                  "account",
+                                  "template",
+                                  "tier_template"
+                                ],
+                                "api_fieldname": "inherited_type",
+                                "entity_fieldname": "inherited_type",
+                                "_key": "inherited_type"
                               },
                               {
                                 "type": "string",
@@ -5589,9 +5677,34 @@
                                       "type": "boolean",
                                       "example": false,
                                       "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                                      "readOnly": true,
                                       "api_fieldname": "inherited",
                                       "entity_fieldname": "inherited",
                                       "_key": "inherited"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "example": "016ada3ec2d46665bf66e32e00000000",
+                                      "description": "An ID indicating where this policy is inherited from.",
+                                      "pattern": "[a-f0-9]{32}",
+                                      "readOnly": true,
+                                      "api_fieldname": "inherited_from",
+                                      "entity_fieldname": "inherited_from",
+                                      "_key": "inherited_from"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "example": "account",
+                                      "description": "Indicates the type of entity this policy is inherited from.",
+                                      "readOnly": true,
+                                      "enum": [
+                                        "account",
+                                        "template",
+                                        "tier_template"
+                                      ],
+                                      "api_fieldname": "inherited_type",
+                                      "entity_fieldname": "inherited_type",
+                                      "_key": "inherited_type"
                                     },
                                     {
                                       "type": "string",
@@ -6467,9 +6580,34 @@
                           "type": "boolean",
                           "example": false,
                           "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                          "readOnly": true,
                           "api_fieldname": "inherited",
                           "entity_fieldname": "inherited",
                           "_key": "inherited"
+                        },
+                        {
+                          "type": "string",
+                          "example": "016ada3ec2d46665bf66e32e00000000",
+                          "description": "An ID indicating where this policy is inherited from.",
+                          "pattern": "[a-f0-9]{32}",
+                          "readOnly": true,
+                          "api_fieldname": "inherited_from",
+                          "entity_fieldname": "inherited_from",
+                          "_key": "inherited_from"
+                        },
+                        {
+                          "type": "string",
+                          "example": "account",
+                          "description": "Indicates the type of entity this policy is inherited from.",
+                          "readOnly": true,
+                          "enum": [
+                            "account",
+                            "template",
+                            "tier_template"
+                          ],
+                          "api_fieldname": "inherited_type",
+                          "entity_fieldname": "inherited_type",
+                          "_key": "inherited_type"
                         },
                         {
                           "type": "string",
@@ -6922,9 +7060,34 @@
                                 "type": "boolean",
                                 "example": false,
                                 "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                                "readOnly": true,
                                 "api_fieldname": "inherited",
                                 "entity_fieldname": "inherited",
                                 "_key": "inherited"
+                              },
+                              {
+                                "type": "string",
+                                "example": "016ada3ec2d46665bf66e32e00000000",
+                                "description": "An ID indicating where this policy is inherited from.",
+                                "pattern": "[a-f0-9]{32}",
+                                "readOnly": true,
+                                "api_fieldname": "inherited_from",
+                                "entity_fieldname": "inherited_from",
+                                "_key": "inherited_from"
+                              },
+                              {
+                                "type": "string",
+                                "example": "account",
+                                "description": "Indicates the type of entity this policy is inherited from.",
+                                "readOnly": true,
+                                "enum": [
+                                  "account",
+                                  "template",
+                                  "tier_template"
+                                ],
+                                "api_fieldname": "inherited_type",
+                                "entity_fieldname": "inherited_type",
+                                "_key": "inherited_type"
                               },
                               {
                                 "type": "string",
@@ -7775,9 +7938,34 @@
                           "type": "boolean",
                           "example": false,
                           "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                          "readOnly": true,
                           "api_fieldname": "inherited",
                           "entity_fieldname": "inherited",
                           "_key": "inherited"
+                        },
+                        {
+                          "type": "string",
+                          "example": "016ada3ec2d46665bf66e32e00000000",
+                          "description": "An ID indicating where this policy is inherited from.",
+                          "pattern": "[a-f0-9]{32}",
+                          "readOnly": true,
+                          "api_fieldname": "inherited_from",
+                          "entity_fieldname": "inherited_from",
+                          "_key": "inherited_from"
+                        },
+                        {
+                          "type": "string",
+                          "example": "account",
+                          "description": "Indicates the type of entity this policy is inherited from.",
+                          "readOnly": true,
+                          "enum": [
+                            "account",
+                            "template",
+                            "tier_template"
+                          ],
+                          "api_fieldname": "inherited_type",
+                          "entity_fieldname": "inherited_type",
+                          "_key": "inherited_type"
                         },
                         {
                           "type": "string",
@@ -8230,9 +8418,34 @@
                                 "type": "boolean",
                                 "example": false,
                                 "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                                "readOnly": true,
                                 "api_fieldname": "inherited",
                                 "entity_fieldname": "inherited",
                                 "_key": "inherited"
+                              },
+                              {
+                                "type": "string",
+                                "example": "016ada3ec2d46665bf66e32e00000000",
+                                "description": "An ID indicating where this policy is inherited from.",
+                                "pattern": "[a-f0-9]{32}",
+                                "readOnly": true,
+                                "api_fieldname": "inherited_from",
+                                "entity_fieldname": "inherited_from",
+                                "_key": "inherited_from"
+                              },
+                              {
+                                "type": "string",
+                                "example": "account",
+                                "description": "Indicates the type of entity this policy is inherited from.",
+                                "readOnly": true,
+                                "enum": [
+                                  "account",
+                                  "template",
+                                  "tier_template"
+                                ],
+                                "api_fieldname": "inherited_type",
+                                "entity_fieldname": "inherited_type",
+                                "_key": "inherited_type"
                               },
                               {
                                 "type": "string",
@@ -10086,9 +10299,34 @@
                           "type": "boolean",
                           "example": false,
                           "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                          "readOnly": true,
                           "api_fieldname": "inherited",
                           "entity_fieldname": "inherited",
                           "_key": "inherited"
+                        },
+                        {
+                          "type": "string",
+                          "example": "016ada3ec2d46665bf66e32e00000000",
+                          "description": "An ID indicating where this policy is inherited from.",
+                          "pattern": "[a-f0-9]{32}",
+                          "readOnly": true,
+                          "api_fieldname": "inherited_from",
+                          "entity_fieldname": "inherited_from",
+                          "_key": "inherited_from"
+                        },
+                        {
+                          "type": "string",
+                          "example": "account",
+                          "description": "Indicates the type of entity this policy is inherited from.",
+                          "readOnly": true,
+                          "enum": [
+                            "account",
+                            "template",
+                            "tier_template"
+                          ],
+                          "api_fieldname": "inherited_type",
+                          "entity_fieldname": "inherited_type",
+                          "_key": "inherited_type"
                         },
                         {
                           "type": "string",
@@ -10541,9 +10779,34 @@
                                 "type": "boolean",
                                 "example": false,
                                 "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                                "readOnly": true,
                                 "api_fieldname": "inherited",
                                 "entity_fieldname": "inherited",
                                 "_key": "inherited"
+                              },
+                              {
+                                "type": "string",
+                                "example": "016ada3ec2d46665bf66e32e00000000",
+                                "description": "An ID indicating where this policy is inherited from.",
+                                "pattern": "[a-f0-9]{32}",
+                                "readOnly": true,
+                                "api_fieldname": "inherited_from",
+                                "entity_fieldname": "inherited_from",
+                                "_key": "inherited_from"
+                              },
+                              {
+                                "type": "string",
+                                "example": "account",
+                                "description": "Indicates the type of entity this policy is inherited from.",
+                                "readOnly": true,
+                                "enum": [
+                                  "account",
+                                  "template",
+                                  "tier_template"
+                                ],
+                                "api_fieldname": "inherited_type",
+                                "entity_fieldname": "inherited_type",
+                                "_key": "inherited_type"
                               },
                               {
                                 "type": "string",
@@ -12869,9 +13132,34 @@
                 "type": "boolean",
                 "example": false,
                 "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                "readOnly": true,
                 "api_fieldname": "inherited",
                 "entity_fieldname": "inherited",
                 "_key": "inherited"
+              },
+              {
+                "type": "string",
+                "example": "016ada3ec2d46665bf66e32e00000000",
+                "description": "An ID indicating where this policy is inherited from.",
+                "pattern": "[a-f0-9]{32}",
+                "readOnly": true,
+                "api_fieldname": "inherited_from",
+                "entity_fieldname": "inherited_from",
+                "_key": "inherited_from"
+              },
+              {
+                "type": "string",
+                "example": "account",
+                "description": "Indicates the type of entity this policy is inherited from.",
+                "readOnly": true,
+                "enum": [
+                  "account",
+                  "template",
+                  "tier_template"
+                ],
+                "api_fieldname": "inherited_type",
+                "entity_fieldname": "inherited_type",
+                "_key": "inherited_type"
               },
               {
                 "type": "string",
@@ -45413,10 +45701,35 @@
           "type": "boolean",
           "example": false,
           "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
-          "api_fieldname": "inherited",
           "readOnly": true,
+          "api_fieldname": "inherited",
           "required": false,
           "_key": "inherited"
+        },
+        {
+          "type": "string",
+          "example": "016ada3ec2d46665bf66e32e00000000",
+          "description": "An ID indicating where this policy is inherited from.",
+          "pattern": "[a-f0-9]{32}",
+          "readOnly": true,
+          "api_fieldname": "inherited_from",
+          "required": false,
+          "_key": "inherited_from"
+        },
+        {
+          "type": "string",
+          "example": "account",
+          "description": "Indicates the type of entity this policy is inherited from.",
+          "readOnly": true,
+          "enum": [
+            "account",
+            "template",
+            "tier_template"
+          ],
+          "api_fieldname": "inherited_type",
+          "required": false,
+          "enum_reference": "policy_inherited_type_enum",
+          "_key": "inherited_type"
         },
         {
           "type": "string",

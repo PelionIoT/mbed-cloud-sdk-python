@@ -3582,7 +3582,23 @@ definitions:
         description: Flag indicating whether this feature is inherited or overwritten
           specifically.
         example: false
+        readOnly: true
         type: boolean
+      inherited_from:
+        description: An ID indicating where this policy is inherited from.
+        example: 016ada3ec2d46665bf66e32e00000000
+        pattern: '[a-f0-9]{32}'
+        readOnly: true
+        type: string
+      inherited_type:
+        description: Indicates the type of entity this policy is inherited from.
+        enum:
+        - account
+        - template
+        - tier_template
+        example: account
+        readOnly: true
+        type: string
       resource:
         description: Resource that is protected by this policy.
         example: /v3/update-campaign
@@ -8726,6 +8742,43 @@ paths:
       tags:
       - Account - email notification logs
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/me/notifications/{notification_id}:
+    get:
+      description: An endpoint for retrieving notification event details.
+      operationId: getNofificationEntry
+      parameters:
+      - description: The ID of the notification entry to be retrieved.
+        in: path
+        name: notification_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/NotificationEntry'
+        '400':
+          description: Error in input data, missing or invalid parameters.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: No entry found for the given ID.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get notification event details.
+      tags:
+      - Account Admin
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}:
     get:
       description: 'Retrieve detailed information about an account.
@@ -9378,6 +9431,12 @@ paths:
         name: apikey_id
         required: true
         type: string
+      - description: New API key attributes to be stored.
+        in: body
+        name: body
+        required: false
+        schema:
+          $ref: '#/definitions/ApiKeyUpdateReq'
       produces:
       - application/json
       responses:
@@ -10849,6 +10908,48 @@ paths:
       summary: Get the notification events of an account.
       tags:
       - Tenant accounts - email notification logs
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/notifications/{notification_id}:
+    get:
+      description: An endpoint for retrieving notification event details of an account.
+      operationId: getAccountNofificationEntry
+      parameters:
+      - description: The ID of the account for which this notification should be retrieved.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the notification entry to be retrieved.
+        in: path
+        name: notification_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/NotificationEntry'
+        '400':
+          description: Error in input data, missing or invalid parameters.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: No entry found for the given ID.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get a notification event of an account.
+      tags:
+      - Aggregator Account Admin
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/policy-groups:
     get:

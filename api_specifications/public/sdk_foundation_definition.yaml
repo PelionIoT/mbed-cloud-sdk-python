@@ -364,7 +364,27 @@ entities:
           specifically.
         entity_fieldname: inherited
         example: false
+        readOnly: true
         type: boolean
+      - _key: inherited_from
+        api_fieldname: inherited_from
+        description: An ID indicating where this policy is inherited from.
+        entity_fieldname: inherited_from
+        example: 016ada3ec2d46665bf66e32e00000000
+        pattern: '[a-f0-9]{32}'
+        readOnly: true
+        type: string
+      - _key: inherited_type
+        api_fieldname: inherited_type
+        description: Indicates the type of entity this policy is inherited from.
+        entity_fieldname: inherited_type
+        enum:
+        - account
+        - template
+        - tier_template
+        example: account
+        readOnly: true
+        type: string
       - _key: resource
         api_fieldname: resource
         description: Resource that is protected by this policy.
@@ -1535,7 +1555,27 @@ entities:
                 specifically.
               entity_fieldname: inherited
               example: false
+              readOnly: true
               type: boolean
+            - _key: inherited_from
+              api_fieldname: inherited_from
+              description: An ID indicating where this policy is inherited from.
+              entity_fieldname: inherited_from
+              example: 016ada3ec2d46665bf66e32e00000000
+              pattern: '[a-f0-9]{32}'
+              readOnly: true
+              type: string
+            - _key: inherited_type
+              api_fieldname: inherited_type
+              description: Indicates the type of entity this policy is inherited from.
+              entity_fieldname: inherited_type
+              enum:
+              - account
+              - template
+              - tier_template
+              example: account
+              readOnly: true
+              type: string
             - _key: resource
               api_fieldname: resource
               description: Resource that is protected by this policy.
@@ -1880,7 +1920,28 @@ entities:
                     overwritten specifically.
                   entity_fieldname: inherited
                   example: false
+                  readOnly: true
                   type: boolean
+                - _key: inherited_from
+                  api_fieldname: inherited_from
+                  description: An ID indicating where this policy is inherited from.
+                  entity_fieldname: inherited_from
+                  example: 016ada3ec2d46665bf66e32e00000000
+                  pattern: '[a-f0-9]{32}'
+                  readOnly: true
+                  type: string
+                - _key: inherited_type
+                  api_fieldname: inherited_type
+                  description: Indicates the type of entity this policy is inherited
+                    from.
+                  entity_fieldname: inherited_type
+                  enum:
+                  - account
+                  - template
+                  - tier_template
+                  example: account
+                  readOnly: true
+                  type: string
                 - _key: resource
                   api_fieldname: resource
                   description: Resource that is protected by this policy.
@@ -3869,7 +3930,28 @@ entities:
                     overwritten specifically.
                   entity_fieldname: inherited
                   example: false
+                  readOnly: true
                   type: boolean
+                - _key: inherited_from
+                  api_fieldname: inherited_from
+                  description: An ID indicating where this policy is inherited from.
+                  entity_fieldname: inherited_from
+                  example: 016ada3ec2d46665bf66e32e00000000
+                  pattern: '[a-f0-9]{32}'
+                  readOnly: true
+                  type: string
+                - _key: inherited_type
+                  api_fieldname: inherited_type
+                  description: Indicates the type of entity this policy is inherited
+                    from.
+                  entity_fieldname: inherited_type
+                  enum:
+                  - account
+                  - template
+                  - tier_template
+                  example: account
+                  readOnly: true
+                  type: string
                 - _key: resource
                   api_fieldname: resource
                   description: Resource that is protected by this policy.
@@ -4200,7 +4282,29 @@ entities:
                         or overwritten specifically.
                       entity_fieldname: inherited
                       example: false
+                      readOnly: true
                       type: boolean
+                    - _key: inherited_from
+                      api_fieldname: inherited_from
+                      description: An ID indicating where this policy is inherited
+                        from.
+                      entity_fieldname: inherited_from
+                      example: 016ada3ec2d46665bf66e32e00000000
+                      pattern: '[a-f0-9]{32}'
+                      readOnly: true
+                      type: string
+                    - _key: inherited_type
+                      api_fieldname: inherited_type
+                      description: Indicates the type of entity this policy is inherited
+                        from.
+                      entity_fieldname: inherited_type
+                      enum:
+                      - account
+                      - template
+                      - tier_template
+                      example: account
+                      readOnly: true
+                      type: string
                     - _key: resource
                       api_fieldname: resource
                       description: Resource that is protected by this policy.
@@ -4928,7 +5032,27 @@ entities:
                 specifically.
               entity_fieldname: inherited
               example: false
+              readOnly: true
               type: boolean
+            - _key: inherited_from
+              api_fieldname: inherited_from
+              description: An ID indicating where this policy is inherited from.
+              entity_fieldname: inherited_from
+              example: 016ada3ec2d46665bf66e32e00000000
+              pattern: '[a-f0-9]{32}'
+              readOnly: true
+              type: string
+            - _key: inherited_type
+              api_fieldname: inherited_type
+              description: Indicates the type of entity this policy is inherited from.
+              entity_fieldname: inherited_type
+              enum:
+              - account
+              - template
+              - tier_template
+              example: account
+              readOnly: true
+              type: string
             - _key: resource
               api_fieldname: resource
               description: Resource that is protected by this policy.
@@ -5273,7 +5397,28 @@ entities:
                     overwritten specifically.
                   entity_fieldname: inherited
                   example: false
+                  readOnly: true
                   type: boolean
+                - _key: inherited_from
+                  api_fieldname: inherited_from
+                  description: An ID indicating where this policy is inherited from.
+                  entity_fieldname: inherited_from
+                  example: 016ada3ec2d46665bf66e32e00000000
+                  pattern: '[a-f0-9]{32}'
+                  readOnly: true
+                  type: string
+                - _key: inherited_type
+                  api_fieldname: inherited_type
+                  description: Indicates the type of entity this policy is inherited
+                    from.
+                  entity_fieldname: inherited_type
+                  enum:
+                  - account
+                  - template
+                  - tier_template
+                  example: account
+                  readOnly: true
+                  type: string
                 - _key: resource
                   api_fieldname: resource
                   description: Resource that is protected by this policy.
@@ -5958,7 +6103,27 @@ entities:
                 specifically.
               entity_fieldname: inherited
               example: false
+              readOnly: true
               type: boolean
+            - _key: inherited_from
+              api_fieldname: inherited_from
+              description: An ID indicating where this policy is inherited from.
+              entity_fieldname: inherited_from
+              example: 016ada3ec2d46665bf66e32e00000000
+              pattern: '[a-f0-9]{32}'
+              readOnly: true
+              type: string
+            - _key: inherited_type
+              api_fieldname: inherited_type
+              description: Indicates the type of entity this policy is inherited from.
+              entity_fieldname: inherited_type
+              enum:
+              - account
+              - template
+              - tier_template
+              example: account
+              readOnly: true
+              type: string
             - _key: resource
               api_fieldname: resource
               description: Resource that is protected by this policy.
@@ -6303,7 +6468,28 @@ entities:
                     overwritten specifically.
                   entity_fieldname: inherited
                   example: false
+                  readOnly: true
                   type: boolean
+                - _key: inherited_from
+                  api_fieldname: inherited_from
+                  description: An ID indicating where this policy is inherited from.
+                  entity_fieldname: inherited_from
+                  example: 016ada3ec2d46665bf66e32e00000000
+                  pattern: '[a-f0-9]{32}'
+                  readOnly: true
+                  type: string
+                - _key: inherited_type
+                  api_fieldname: inherited_type
+                  description: Indicates the type of entity this policy is inherited
+                    from.
+                  entity_fieldname: inherited_type
+                  enum:
+                  - account
+                  - template
+                  - tier_template
+                  example: account
+                  readOnly: true
+                  type: string
                 - _key: resource
                   api_fieldname: resource
                   description: Resource that is protected by this policy.
@@ -7748,7 +7934,27 @@ entities:
                 specifically.
               entity_fieldname: inherited
               example: false
+              readOnly: true
               type: boolean
+            - _key: inherited_from
+              api_fieldname: inherited_from
+              description: An ID indicating where this policy is inherited from.
+              entity_fieldname: inherited_from
+              example: 016ada3ec2d46665bf66e32e00000000
+              pattern: '[a-f0-9]{32}'
+              readOnly: true
+              type: string
+            - _key: inherited_type
+              api_fieldname: inherited_type
+              description: Indicates the type of entity this policy is inherited from.
+              entity_fieldname: inherited_type
+              enum:
+              - account
+              - template
+              - tier_template
+              example: account
+              readOnly: true
+              type: string
             - _key: resource
               api_fieldname: resource
               description: Resource that is protected by this policy.
@@ -8093,7 +8299,28 @@ entities:
                     overwritten specifically.
                   entity_fieldname: inherited
                   example: false
+                  readOnly: true
                   type: boolean
+                - _key: inherited_from
+                  api_fieldname: inherited_from
+                  description: An ID indicating where this policy is inherited from.
+                  entity_fieldname: inherited_from
+                  example: 016ada3ec2d46665bf66e32e00000000
+                  pattern: '[a-f0-9]{32}'
+                  readOnly: true
+                  type: string
+                - _key: inherited_type
+                  api_fieldname: inherited_type
+                  description: Indicates the type of entity this policy is inherited
+                    from.
+                  entity_fieldname: inherited_type
+                  enum:
+                  - account
+                  - template
+                  - tier_template
+                  example: account
+                  readOnly: true
+                  type: string
                 - _key: resource
                   api_fieldname: resource
                   description: Resource that is protected by this policy.
@@ -34474,6 +34701,26 @@ entities:
     readOnly: true
     required: false
     type: boolean
+  - _key: inherited_from
+    api_fieldname: inherited_from
+    description: An ID indicating where this policy is inherited from.
+    example: 016ada3ec2d46665bf66e32e00000000
+    pattern: '[a-f0-9]{32}'
+    readOnly: true
+    required: false
+    type: string
+  - _key: inherited_type
+    api_fieldname: inherited_type
+    description: Indicates the type of entity this policy is inherited from.
+    enum:
+    - account
+    - template
+    - tier_template
+    enum_reference: policy_inherited_type_enum
+    example: account
+    readOnly: true
+    required: false
+    type: string
   - _key: resource
     api_fieldname: resource
     description: Resource that is protected by this policy.
@@ -56483,6 +56730,15 @@ enums:
   - desktop_background_landscape
   - desktop_background_portrait
   - desktop_background_square
+- _key: policy_inherited_type_enum
+  entity_name: policy
+  enum_name: policy_inherited_type_enum
+  field_name: inherited_type
+  group_id: Accounts
+  values:
+  - account
+  - template
+  - tier_template
 - _key: subtenant_api_key_status_enum
   entity_name: subtenant_api_key
   enum_name: subtenant_api_key_status_enum
@@ -56724,6 +56980,7 @@ groups:
   - subtenant_api_key
   - account
   enums:
+  - policy_inherited_type_enum
   - user_status_enum
   - user_order_enum
   - subtenant_user_status_enum
