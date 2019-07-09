@@ -14,6 +14,7 @@ Accounts
 - :class:`mbed_cloud.foundation.entities.accounts.enums.AccountStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.ApiKeyOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.ApiKeyStatusEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.PolicyInheritedTypeEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantApiKeyStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantUserStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.UserInvitationOrderEnum`
@@ -82,6 +83,7 @@ How to import Enums:
     from mbed_cloud.foundation.enums import AccountStatusEnum
     from mbed_cloud.foundation.enums import ApiKeyOrderEnum
     from mbed_cloud.foundation.enums import ApiKeyStatusEnum
+    from mbed_cloud.foundation.enums import PolicyInheritedTypeEnum
     from mbed_cloud.foundation.enums import SubtenantApiKeyStatusEnum
     from mbed_cloud.foundation.enums import SubtenantUserStatusEnum
     from mbed_cloud.foundation.enums import UserInvitationOrderEnum
@@ -127,6 +129,7 @@ from mbed_cloud.foundation.entities.accounts.enums import AccountOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import AccountStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import ApiKeyOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import ApiKeyStatusEnum
+from mbed_cloud.foundation.entities.accounts.enums import PolicyInheritedTypeEnum
 from mbed_cloud.foundation.entities.accounts.enums import SubtenantApiKeyStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import SubtenantUserStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import UserInvitationOrderEnum
@@ -171,6 +174,7 @@ __all__ = [
     "AccountStatusEnum",
     "ApiKeyOrderEnum",
     "ApiKeyStatusEnum",
+    "PolicyInheritedTypeEnum",
     "SubtenantApiKeyStatusEnum",
     "SubtenantUserStatusEnum",
     "UserInvitationOrderEnum",

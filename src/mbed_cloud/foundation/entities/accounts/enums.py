@@ -13,6 +13,7 @@ This module contains all Enums used by Foundation Entities in the Accounts categ
 - :class:`AccountStatusEnum`
 - :class:`ApiKeyOrderEnum`
 - :class:`ApiKeyStatusEnum`
+- :class:`PolicyInheritedTypeEnum`
 - :class:`SubtenantApiKeyStatusEnum`
 - :class:`SubtenantUserStatusEnum`
 - :class:`UserInvitationOrderEnum`
@@ -30,6 +31,7 @@ How to import Enums:
     from mbed_cloud.foundation.enums import AccountStatusEnum
     from mbed_cloud.foundation.enums import ApiKeyOrderEnum
     from mbed_cloud.foundation.enums import ApiKeyStatusEnum
+    from mbed_cloud.foundation.enums import PolicyInheritedTypeEnum
     from mbed_cloud.foundation.enums import SubtenantApiKeyStatusEnum
     from mbed_cloud.foundation.enums import SubtenantUserStatusEnum
     from mbed_cloud.foundation.enums import UserInvitationOrderEnum
@@ -127,6 +129,23 @@ class ApiKeyStatusEnum(BaseEnum):
     INACTIVE = "INACTIVE"
 
     values = frozenset(("ACTIVE", "INACTIVE"))
+
+
+class PolicyInheritedTypeEnum(BaseEnum):
+    """Represents expected values of `PolicyInheritedTypeEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ACCOUNT = "account"
+    TEMPLATE = "template"
+    TIER_TEMPLATE = "tier_template"
+
+    values = frozenset(("account", "template", "tier_template"))
 
 
 class SubtenantApiKeyStatusEnum(BaseEnum):

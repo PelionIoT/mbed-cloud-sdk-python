@@ -1344,7 +1344,16 @@ class EntityFactory:
 
         return PasswordPolicy(_client=self._client, minimum_length=minimum_length)
 
-    def policy(self, action=None, allow=None, feature=None, inherited=None, resource=None):
+    def policy(
+        self,
+        action=None,
+        allow=None,
+        feature=None,
+        inherited=None,
+        inherited_from=None,
+        inherited_type=None,
+        resource=None,
+    ):
         """Creates a local `Policy` instance, using the shared SDK context.
 
         :param action: Comma-separated list of actions, empty string represents all
@@ -1357,6 +1366,10 @@ class EntityFactory:
         :param inherited: Flag indicating whether this feature is inherited or overwritten
             specifically.
         :type inherited: bool
+        :param inherited_from: An ID indicating where this policy is inherited from.
+        :type inherited_from: str
+        :param inherited_type: Indicates the type of entity this policy is inherited from.
+        :type inherited_type: str
         :param resource: Resource that is protected by this policy.
         :type resource: str
         
@@ -1366,7 +1379,14 @@ class EntityFactory:
         from mbed_cloud.foundation import Policy
 
         return Policy(
-            _client=self._client, action=action, allow=allow, feature=feature, inherited=inherited, resource=resource
+            _client=self._client,
+            action=action,
+            allow=allow,
+            feature=feature,
+            inherited=inherited,
+            inherited_from=inherited_from,
+            inherited_type=inherited_type,
+            resource=resource,
         )
 
     def pre_shared_key(self, created_at=None, endpoint_name=None, id=None):
