@@ -4233,6 +4233,10 @@ definitions:
         example: 01619571d01d0242ac12000600000000
         pattern: '[a-f0-9]{32}'
         type: string
+      is_default:
+        description: Flag indicating whether this is the global default identity provider.
+        readOnly: true
+        type: boolean
       name:
         description: Name of the identity provider.
         maxLength: 100
