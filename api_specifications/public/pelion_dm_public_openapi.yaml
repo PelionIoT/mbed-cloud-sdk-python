@@ -20597,6 +20597,7 @@ paths:
       operationId: Upload_Job_Chunk_Create
       parameters:
       - description: The base64-encoded binary digest of the body (chunk data).
+        format: byte
         in: header
         name: Content-MD5
         required: true
