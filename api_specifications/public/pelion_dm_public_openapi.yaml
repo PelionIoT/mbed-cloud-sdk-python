@@ -3173,36 +3173,6 @@ definitions:
     - method
     - uri
     type: object
-  Endpoint:
-    properties:
-      name:
-        description: Unique Device Management Device ID representing the endpoint.
-        example: 015f3850a657000000000001001002ab
-        type: string
-      q:
-        description: 'Determines whether the device is in queue mode.
-
-
-          **Queue mode**
-
-
-          When an endpoint is in queue mode, messages sent to the endpoint do not
-          wake up the physical device. The messages are queued and delivered when
-          the device wakes up and connects to Device Management Connect. You can also
-          use the queue mode when the device is behind an NAT and cannot be reached
-          directly by Device Management Connect.'
-        example: false
-        type: boolean
-      status:
-        description: Deprecated and the value is always ACTIVE. Only used for API
-          backwards compatibility reasons.
-        example: ACTIVE
-        type: string
-      type:
-        description: Type of endpoint. (Free text)
-        example: Light
-        type: string
-    type: object
   EndpointData:
     properties:
       ep:
@@ -7016,6 +6986,56 @@ paths:
         contacting the device.
 
 
+        The server queues requests if it cannot reach the device at the time of the
+        request. The queue is limited to 20
+
+        requests. The queueing behaviour is affected by the `retry` and the `expiry-seconds`
+        parameters. If the device
+
+        is not reached, or the device fails to respond when the request is made, the
+        server queues the request
+
+        and retries within the given expiry period the next time the device contacts
+        the server. The requests from
+
+        the queue are delivered in the order of insertion, one at a time, and not
+        concurrently.
+
+
+        One delivery attempt consist from protocol specific retrasmission logic, where
+        is multiple trasmissions. In case
+
+        of CoAP, the retrasmissions exponential backoff 2, 4, 8, 16 to 64 seconds,
+        taking total over 2 minutes.
+
+        If the device does not respond within this two-minute period, delivery fails,
+        and the request is put back
+
+        in the queue so long as the retry count is less than its maximum.
+
+
+        For a queue-mode device, the request delivery is not attempted immediately,
+        but only when the device next time
+
+        contacts the server.
+
+
+        If retries are exhausted or the expiry time has passed, then the server discards
+        the request and sends an error
+
+        in **AsyncIDResponse**. The retries could be exhausted, for example, if the
+        device periodically contacts
+
+        the server and receives the request from the queue, but then fails to respond
+        back to the server.
+
+
+        On the other hand, the device might lose its network connectivity, and the
+        requests in the queue might expire
+
+        and get discarded before the device regains the connectivity.
+
+
         See also /v2/endpoints/{device-id}/{resourcePath}.
 
 
@@ -7033,9 +7053,11 @@ paths:
 
         ```
 
-        Example URI:
+        Example URIs:
 
         POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000
+
+        POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000&retry=2&expiry-seconds=7200
 
 
         Example payload to read value from resource /5/0/1:
@@ -7059,10 +7081,13 @@ paths:
         202 Accepted
 
 
-        Example AsyncIDResponse, delivered via the notification channel:
+        Examples of AsyncIDResponse, delivered via the notification channel:
 
         { "async-responses": [ { "id": "123e4567-e89b-12d3-a456-426655440000", "status":
         200, "payload": "dmFsdWUxCg==", "ct": "text/plain", "max-age": 600 } ] }
+
+        { "async-responses": [ { "id": "123e4567-e89b-12d3-a456-426655440000", "status":
+        504, "error": "TIMEOUT" } ] }
 
         ```
 
@@ -7083,6 +7108,27 @@ paths:
         pattern: ^[\w\-]{1,40}$
         required: true
         type: string
+      - description: The count of retry transmissions of the request to the device,
+          after initial transmission. For example, retry of two means three delivery
+          attempts in total. If retries are exhausted, the request is discarded and
+          an error is delivered in the AsyncIDResponse. Default value of retry is
+          0 for a non-queue-mode device and 2 for a queue-mode device.
+        in: query
+        maximum: 10
+        minimum: 0
+        name: retry
+        required: false
+        type: integer
+      - description: The time period during which the delivery is attempted, in seconds.
+          If the device is not reachable within this period, the request is discarded
+          and an error is delivered in the AsyncIDResponse. Default value of expiry-seconds
+          is 2 hours for a non-queue-mode device and 3 days for a queue-mode device.
+        in: query
+        maximum: 2592000
+        minimum: 60
+        name: expiry-seconds
+        required: false
+        type: integer
       - description: Device request to send.
         in: body
         name: body
@@ -7096,7 +7142,7 @@ paths:
           description: Accepted.
         400:
           description: Bad request. Contains one of the errors RESOURCE_NOT_FOUND,
-            DEVICE_NOT_CONNECTED, MALFORMED_JSON_CONTENT, MALFORMED_ASYNC_ID and TOO_MANY_REQUESTS
+            DEVICE_NOT_CONNECTED, MALFORMED_JSON_CONTENT, MALFORMED_ASYNC_ID and QUEUE_IS_FULL
           schema:
             type: string
         401:
