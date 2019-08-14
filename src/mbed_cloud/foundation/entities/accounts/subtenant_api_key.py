@@ -12,6 +12,7 @@ This entity has the following methods:
 
 - :meth:`SubtenantApiKey.create`
 - :meth:`SubtenantApiKey.delete`
+- :meth:`SubtenantApiKey.policy_groups`
 - :meth:`SubtenantApiKey.read`
 - :meth:`SubtenantApiKey.update`
 
@@ -54,6 +55,7 @@ class SubtenantApiKey(Entity):
         "account_id",
         "created_at",
         "creation_time",
+        "groups",
         "id",
         "key",
         "last_login_time",
@@ -78,6 +80,7 @@ class SubtenantApiKey(Entity):
         account_id=None,
         created_at=None,
         creation_time=None,
+        groups=None,
         id=None,
         key=None,
         last_login_time=None,
@@ -102,6 +105,8 @@ class SubtenantApiKey(Entity):
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
+        :param groups: A list of group IDs this API key belongs to.
+        :type groups: list
         :param id: (Required) The ID of the API key.
         :type id: str
         :param key: The API key.
@@ -126,6 +131,7 @@ class SubtenantApiKey(Entity):
         self._account_id = fields.StringField(value=account_id)
         self._created_at = fields.DateTimeField(value=created_at)
         self._creation_time = fields.IntegerField(value=creation_time)
+        self._groups = fields.ListField(value=groups)
         self._id = fields.StringField(value=id)
         self._key = fields.StringField(value=key)
         self._last_login_time = fields.IntegerField(value=last_login_time)
@@ -178,6 +184,25 @@ class SubtenantApiKey(Entity):
         """
 
         return self._creation_time.value
+
+    @property
+    def groups(self):
+        """A list of group IDs this API key belongs to.
+        
+        :rtype: list
+        """
+
+        return self._groups.value
+
+    @groups.setter
+    def groups(self, value):
+        """Set value of `groups`
+
+        :param value: value to set
+        :type value: list
+        """
+
+        self._groups.set(value)
 
     @property
     def id(self):
@@ -312,6 +337,8 @@ class SubtenantApiKey(Entity):
         # Conditionally setup the message body, fields which have not been set will not be sent to the API.
         # This avoids null fields being rejected and allows the default value to be used.
         body_params = {}
+        if self._groups.value_set:
+            body_params["groups"] = self._groups.to_api()
         if self._name.value_set:
             body_params["name"] = self._name.to_api()
         if self._owner.value_set:
@@ -344,6 +371,100 @@ class SubtenantApiKey(Entity):
             unpack=self,
         )
 
+    def _paginate_policy_groups(self, after=None, filter=None, order="ASC", limit=50, include=None):
+        """Get groups associated with the API key.
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
+        :type order: str
+        
+        :param limit: The number of results to return (2-1000). Default 50.
+        :type limit: int
+        
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
+        :type include: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.SubtenantApiKeyOrderEnum).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/accounts/{account_id}/api-keys/{apikey_id}/groups",
+            content_type="application/json",
+            path_params={"account_id": self._account_id.to_api(), "apikey_id": self._id.to_api()},
+            query_params=query_params,
+            unpack=False,
+        )
+
+    def policy_groups(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
+        """Get groups associated with the API key.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/api-keys/{apikey_id}/groups>`_.
+        
+        :param filter: Filtering when listing entities is not supported by the API for this
+            entity.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
+        :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return (2-1000). Default 50.
+        :type page_size: int
+        
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
+        :type include: str
+        
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(SubtenantPolicyGroup)
+        """
+
+        from mbed_cloud.foundation._custom_methods import paginate
+        from mbed_cloud.foundation import SubtenantPolicyGroup
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(filter_definition=filter, field_renames=SubtenantPolicyGroup._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = SubtenantPolicyGroup._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
+
+        return paginate(
+            self=self,
+            foreign_key=SubtenantPolicyGroup,
+            filter=filter,
+            order=order,
+            max_results=max_results,
+            page_size=page_size,
+            include=include,
+            wraps=self._paginate_policy_groups,
+        )
+
     def read(self):
         """Get API key details.
 
@@ -371,6 +492,8 @@ class SubtenantApiKey(Entity):
         # Conditionally setup the message body, fields which have not been set will not be sent to the API.
         # This avoids null fields being rejected and allows the default value to be used.
         body_params = {}
+        if self._groups.value_set:
+            body_params["groups"] = self._groups.to_api()
         if self._name.value_set:
             body_params["name"] = self._name.to_api()
         if self._owner.value_set:

@@ -16,7 +16,9 @@ This module contains the Foundation Entities that are grouped together under the
 - :mod:`mbed_cloud.foundation.entities.accounts.parent_account`
 - :mod:`mbed_cloud.foundation.entities.accounts.password_policy`
 - :mod:`mbed_cloud.foundation.entities.accounts.policy`
+- :mod:`mbed_cloud.foundation.entities.accounts.policy_group`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_api_key`
+- :mod:`mbed_cloud.foundation.entities.accounts.subtenant_policy_group`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation`
 - :mod:`mbed_cloud.foundation.entities.accounts.user`
@@ -36,7 +38,9 @@ How to import Accounts Entities:
     from mbed_cloud.foundation import ParentAccount
     from mbed_cloud.foundation import PasswordPolicy
     from mbed_cloud.foundation import Policy
+    from mbed_cloud.foundation import PolicyGroup
     from mbed_cloud.foundation import SubtenantApiKey
+    from mbed_cloud.foundation import SubtenantPolicyGroup
     from mbed_cloud.foundation import SubtenantUser
     from mbed_cloud.foundation import SubtenantUserInvitation
     from mbed_cloud.foundation import User

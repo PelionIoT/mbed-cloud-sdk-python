@@ -13,6 +13,7 @@ This entity has the following methods:
 - :meth:`User.create`
 - :meth:`User.delete`
 - :meth:`User.list`
+- :meth:`User.policy_groups`
 - :meth:`User.read`
 - :meth:`User.update`
 
@@ -61,6 +62,7 @@ class User(Entity):
         "email",
         "email_verified",
         "full_name",
+        "groups",
         "id",
         "is_gtc_accepted",
         "is_marketing_accepted",
@@ -98,6 +100,7 @@ class User(Entity):
         email=None,
         email_verified=None,
         full_name=None,
+        groups=None,
         id=None,
         is_gtc_accepted=None,
         is_marketing_accepted=None,
@@ -141,6 +144,8 @@ class User(Entity):
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
+        :param groups: A list of IDs of the groups this user belongs to.
+        :type groups: list
         :param id: (Required) The ID of the user.
         :type id: str
         :param is_gtc_accepted: A flag indicating that the user has accepted General Terms and
@@ -202,6 +207,7 @@ class User(Entity):
         self._email = fields.StringField(value=email)
         self._email_verified = fields.BooleanField(value=email_verified)
         self._full_name = fields.StringField(value=full_name)
+        self._groups = fields.ListField(value=groups)
         self._id = fields.StringField(value=id)
         self._is_gtc_accepted = fields.BooleanField(value=is_gtc_accepted)
         self._is_marketing_accepted = fields.BooleanField(value=is_marketing_accepted)
@@ -343,6 +349,25 @@ class User(Entity):
         """
 
         self._full_name.set(value)
+
+    @property
+    def groups(self):
+        """A list of IDs of the groups this user belongs to.
+        
+        :rtype: list
+        """
+
+        return self._groups.value
+
+    @groups.setter
+    def groups(self, value):
+        """Set value of `groups`
+
+        :param value: value to set
+        :type value: list
+        """
+
+        self._groups.set(value)
 
     @property
     def id(self):
@@ -613,6 +638,8 @@ class User(Entity):
             body_params["email"] = self._email.to_api()
         if self._full_name.value_set:
             body_params["full_name"] = self._full_name.to_api()
+        if self._groups.value_set:
+            body_params["groups"] = self._groups.to_api()
         if self._is_gtc_accepted.value_set:
             body_params["is_gtc_accepted"] = self._is_gtc_accepted.to_api()
         if self._is_marketing_accepted.value_set:
@@ -766,6 +793,100 @@ class User(Entity):
             method="get", path="/v3/users", content_type="application/json", query_params=query_params, unpack=False
         )
 
+    def _paginate_policy_groups(self, after=None, filter=None, order="ASC", limit=50, include=None):
+        """Get groups of the user.
+        
+        :param after: The entity ID to fetch after the given one.
+        :type after: str
+        
+        :param filter: Optional API filter for listing resources.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
+        :type order: str
+        
+        :param limit: The number of results to return (2-1000). Default 50.
+        :type limit: int
+        
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
+        :type include: str
+        
+        :rtype: mbed_cloud.pagination.PaginatedResponse
+        """
+
+        # Filter query parameters
+        query_params = filter.to_api() if filter else {}
+        # Add in other query parameters
+        query_params["after"] = fields.StringField(after).to_api()
+        query_params["order"] = fields.StringField(order, enum=enums.UserOrderEnum).to_api()
+        query_params["limit"] = fields.IntegerField(limit).to_api()
+        query_params["include"] = fields.StringField(include).to_api()
+
+        return self._client.call_api(
+            method="get",
+            path="/v3/users/{user_id}/groups",
+            content_type="application/json",
+            query_params=query_params,
+            path_params={"user_id": self._id.to_api()},
+            unpack=False,
+        )
+
+    def policy_groups(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
+        """Get groups of the user.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/users/{user_id}/groups>`_.
+        
+        :param filter: Filtering when listing entities is not supported by the API for this
+            entity.
+        :type filter: mbed_cloud.client.api_filter.ApiFilter
+        
+        :param order: Record order based on creation time. Acceptable values: ASC, DESC.
+            Default: ASC.
+        :type order: str
+        
+        :param max_results: Total maximum number of results to retrieve
+        :type max_results: int
+        
+        :param page_size: The number of results to return (2-1000). Default 50.
+        :type page_size: int
+        
+        :param include: Comma-separated additional data to return. Currently supported:
+            total_count.
+        :type include: str
+        
+        :return: An iterator object which yields instances of an entity.
+        :rtype: mbed_cloud.pagination.PaginatedResponse(PolicyGroup)
+        """
+
+        from mbed_cloud.foundation._custom_methods import paginate
+        from mbed_cloud.foundation import PolicyGroup
+        from mbed_cloud import ApiFilter
+
+        # Be permissive and accept an instance of a dictionary as this was how the Legacy interface worked.
+        if isinstance(filter, dict):
+            filter = ApiFilter(filter_definition=filter, field_renames=PolicyGroup._renames_to_api)
+        # The preferred method is an ApiFilter instance as this should be easier to use.
+        elif isinstance(filter, ApiFilter):
+            # If filter renames have not be defined then configure the ApiFilter so that any renames
+            # performed by the SDK are reversed when the query parameters are created.
+            if filter.field_renames is None:
+                filter.field_renames = PolicyGroup._renames_to_api
+        elif filter is not None:
+            raise TypeError("The 'filter' parameter may be either 'dict' or 'ApiFilter'.")
+
+        return paginate(
+            self=self,
+            foreign_key=PolicyGroup,
+            filter=filter,
+            order=order,
+            max_results=max_results,
+            page_size=page_size,
+            include=include,
+            wraps=self._paginate_policy_groups,
+        )
+
     def read(self):
         """Details of a user.
 
@@ -797,6 +918,8 @@ class User(Entity):
             body_params["address"] = self._address.to_api()
         if self._full_name.value_set:
             body_params["full_name"] = self._full_name.to_api()
+        if self._groups.value_set:
+            body_params["groups"] = self._groups.to_api()
         if self._is_gtc_accepted.value_set:
             body_params["is_gtc_accepted"] = self._is_gtc_accepted.to_api()
         if self._is_marketing_accepted.value_set:

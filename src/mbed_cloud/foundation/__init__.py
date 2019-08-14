@@ -20,7 +20,9 @@ Accounts
 - :mod:`mbed_cloud.foundation.entities.accounts.parent_account`
 - :mod:`mbed_cloud.foundation.entities.accounts.password_policy`
 - :mod:`mbed_cloud.foundation.entities.accounts.policy`
+- :mod:`mbed_cloud.foundation.entities.accounts.policy_group`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_api_key`
+- :mod:`mbed_cloud.foundation.entities.accounts.subtenant_policy_group`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation`
 - :mod:`mbed_cloud.foundation.entities.accounts.user`
@@ -98,7 +100,9 @@ will share the same context as other Entities. There is more information in the 
     parent_accounts = pelion_dm_sdk.foundation.parent_account()
     password_policys = pelion_dm_sdk.foundation.password_policy()
     policys = pelion_dm_sdk.foundation.policy()
+    policy_groups = pelion_dm_sdk.foundation.policy_group()
     subtenant_api_keys = pelion_dm_sdk.foundation.subtenant_api_key()
+    subtenant_policy_groups = pelion_dm_sdk.foundation.subtenant_policy_group()
     subtenant_users = pelion_dm_sdk.foundation.subtenant_user()
     subtenant_user_invitations = pelion_dm_sdk.foundation.subtenant_user_invitation()
     users = pelion_dm_sdk.foundation.user()
@@ -146,7 +150,9 @@ How to import Entities directly:
     from mbed_cloud.foundation import ParentAccount
     from mbed_cloud.foundation import PasswordPolicy
     from mbed_cloud.foundation import Policy
+    from mbed_cloud.foundation import PolicyGroup
     from mbed_cloud.foundation import SubtenantApiKey
+    from mbed_cloud.foundation import SubtenantPolicyGroup
     from mbed_cloud.foundation import SubtenantUser
     from mbed_cloud.foundation import SubtenantUserInvitation
     from mbed_cloud.foundation import User
@@ -193,7 +199,9 @@ from mbed_cloud.foundation.entities.accounts.login_profile import LoginProfile
 from mbed_cloud.foundation.entities.accounts.parent_account import ParentAccount
 from mbed_cloud.foundation.entities.accounts.password_policy import PasswordPolicy
 from mbed_cloud.foundation.entities.accounts.policy import Policy
+from mbed_cloud.foundation.entities.accounts.policy_group import PolicyGroup
 from mbed_cloud.foundation.entities.accounts.subtenant_api_key import SubtenantApiKey
+from mbed_cloud.foundation.entities.accounts.subtenant_policy_group import SubtenantPolicyGroup
 from mbed_cloud.foundation.entities.accounts.subtenant_user import SubtenantUser
 from mbed_cloud.foundation.entities.accounts.subtenant_user_invitation import SubtenantUserInvitation
 from mbed_cloud.foundation.entities.accounts.user import User
@@ -259,6 +267,7 @@ __all__ = [
     "ParentAccount",
     "PasswordPolicy",
     "Policy",
+    "PolicyGroup",
     "PreSharedKey",
     "ServerCredentials",
     "SubtenantApiKey",
@@ -266,6 +275,7 @@ __all__ = [
     "SubtenantDarkThemeImage",
     "SubtenantLightThemeColor",
     "SubtenantLightThemeImage",
+    "SubtenantPolicyGroup",
     "SubtenantTrustedCertificate",
     "SubtenantUser",
     "SubtenantUserInvitation",

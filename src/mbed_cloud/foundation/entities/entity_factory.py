@@ -33,6 +33,7 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.parent_account`
 - :meth:`EntityFactory.password_policy`
 - :meth:`EntityFactory.policy`
+- :meth:`EntityFactory.policy_group`
 - :meth:`EntityFactory.pre_shared_key`
 - :meth:`EntityFactory.server_credentials`
 - :meth:`EntityFactory.subtenant_api_key`
@@ -40,6 +41,7 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.subtenant_dark_theme_image`
 - :meth:`EntityFactory.subtenant_light_theme_color`
 - :meth:`EntityFactory.subtenant_light_theme_image`
+- :meth:`EntityFactory.subtenant_policy_group`
 - :meth:`EntityFactory.subtenant_trusted_certificate`
 - :meth:`EntityFactory.subtenant_user`
 - :meth:`EntityFactory.subtenant_user_invitation`
@@ -293,6 +295,7 @@ class EntityFactory:
         account_id=None,
         created_at=None,
         creation_time=None,
+        groups=None,
         id=None,
         key=None,
         last_login_time=None,
@@ -310,6 +313,8 @@ class EntityFactory:
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
+        :param groups: A list of group IDs this API key belongs to.
+        :type groups: list
         :param id: The ID of the API key.
         :type id: str
         :param key: The API key.
@@ -335,6 +340,7 @@ class EntityFactory:
             account_id=account_id,
             created_at=created_at,
             creation_time=creation_time,
+            groups=groups,
             id=id,
             key=key,
             last_login_time=last_login_time,
@@ -702,6 +708,7 @@ class EntityFactory:
         endpoint_type=None,
         enrolment_list_timestamp=None,
         firmware_checksum=None,
+        groups=None,
         host_gateway=None,
         id=None,
         issuer_fingerprint=None,
@@ -766,6 +773,8 @@ class EntityFactory:
         :type enrolment_list_timestamp: datetime
         :param firmware_checksum: The SHA256 checksum of the current firmware image.
         :type firmware_checksum: str
+        :param groups: An array containing an ID of each group this device belongs to.
+        :type groups: list
         :param host_gateway: The ID of the host gateway, if appropriate.
         :type host_gateway: str
         :param id: The ID of the device. The device ID is used across all Device
@@ -818,6 +827,7 @@ class EntityFactory:
             endpoint_type=endpoint_type,
             enrolment_list_timestamp=enrolment_list_timestamp,
             firmware_checksum=firmware_checksum,
+            groups=groups,
             host_gateway=host_gateway,
             id=id,
             issuer_fingerprint=issuer_fingerprint,
@@ -1389,6 +1399,42 @@ class EntityFactory:
             resource=resource,
         )
 
+    def policy_group(
+        self, account_id=None, apikey_count=None, created_at=None, id=None, name=None, updated_at=None, user_count=None
+    ):
+        """Creates a local `PolicyGroup` instance, using the shared SDK context.
+
+        :param account_id: The ID of the account this group belongs to.
+        :type account_id: str
+        :param apikey_count: The number of API keys in this group.
+        :type apikey_count: int
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param id: The ID of the group.
+        :type id: str
+        :param name: The name of the group.
+        :type name: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        :param user_count: The number of users in this group.
+        :type user_count: int
+        
+        :return: A new instance of a PolicyGroup Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.policy_group.PolicyGroup
+        """
+        from mbed_cloud.foundation import PolicyGroup
+
+        return PolicyGroup(
+            _client=self._client,
+            account_id=account_id,
+            apikey_count=apikey_count,
+            created_at=created_at,
+            id=id,
+            name=name,
+            updated_at=updated_at,
+            user_count=user_count,
+        )
+
     def pre_shared_key(self, created_at=None, endpoint_name=None, id=None):
         """Creates a local `PreSharedKey` instance, using the shared SDK context.
 
@@ -1440,6 +1486,7 @@ class EntityFactory:
         account_id=None,
         created_at=None,
         creation_time=None,
+        groups=None,
         id=None,
         key=None,
         last_login_time=None,
@@ -1457,6 +1504,8 @@ class EntityFactory:
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
+        :param groups: A list of group IDs this API key belongs to.
+        :type groups: list
         :param id: The ID of the API key.
         :type id: str
         :param key: The API key.
@@ -1482,6 +1531,7 @@ class EntityFactory:
             account_id=account_id,
             created_at=created_at,
             creation_time=creation_time,
+            groups=groups,
             id=id,
             key=key,
             last_login_time=last_login_time,
@@ -1561,6 +1611,42 @@ class EntityFactory:
 
         return SubtenantLightThemeImage(
             _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at
+        )
+
+    def subtenant_policy_group(
+        self, account_id=None, apikey_count=None, created_at=None, id=None, name=None, updated_at=None, user_count=None
+    ):
+        """Creates a local `SubtenantPolicyGroup` instance, using the shared SDK context.
+
+        :param account_id: The ID of the account this group belongs to.
+        :type account_id: str
+        :param apikey_count: The number of API keys in this group.
+        :type apikey_count: int
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param id: The ID of the group.
+        :type id: str
+        :param name: The name of the group.
+        :type name: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        :param user_count: The number of users in this group.
+        :type user_count: int
+        
+        :return: A new instance of a SubtenantPolicyGroup Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.subtenant_policy_group.SubtenantPolicyGroup
+        """
+        from mbed_cloud.foundation import SubtenantPolicyGroup
+
+        return SubtenantPolicyGroup(
+            _client=self._client,
+            account_id=account_id,
+            apikey_count=apikey_count,
+            created_at=created_at,
+            id=id,
+            name=name,
+            updated_at=updated_at,
+            user_count=user_count,
         )
 
     def subtenant_trusted_certificate(
@@ -1662,6 +1748,7 @@ class EntityFactory:
         email=None,
         email_verified=None,
         full_name=None,
+        groups=None,
         id=None,
         is_gtc_accepted=None,
         is_marketing_accepted=None,
@@ -1698,6 +1785,8 @@ class EntityFactory:
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
+        :param groups: A list of IDs of the groups this user belongs to.
+        :type groups: list
         :param id: The ID of the user.
         :type id: str
         :param is_gtc_accepted: A flag indicating that the user has accepted General Terms and
@@ -1756,6 +1845,7 @@ class EntityFactory:
             email=email,
             email_verified=email_verified,
             full_name=full_name,
+            groups=groups,
             id=id,
             is_gtc_accepted=is_gtc_accepted,
             is_marketing_accepted=is_marketing_accepted,
@@ -1778,6 +1868,7 @@ class EntityFactory:
         created_at=None,
         email=None,
         expiration=None,
+        groups=None,
         id=None,
         login_profiles=None,
         updated_at=None,
@@ -1793,6 +1884,8 @@ class EntityFactory:
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
+        :param groups: A list of IDs of the groups the user is invited to.
+        :type groups: list
         :param id: The ID of the invitation.
         :type id: str
         :param login_profiles: A list of login profiles for the user. Specified as the identity
@@ -1814,6 +1907,7 @@ class EntityFactory:
             created_at=created_at,
             email=email,
             expiration=expiration,
+            groups=groups,
             id=id,
             login_profiles=login_profiles,
             updated_at=updated_at,
@@ -1992,6 +2086,7 @@ class EntityFactory:
         email=None,
         email_verified=None,
         full_name=None,
+        groups=None,
         id=None,
         is_gtc_accepted=None,
         is_marketing_accepted=None,
@@ -2028,6 +2123,8 @@ class EntityFactory:
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
+        :param groups: A list of IDs of the groups this user belongs to.
+        :type groups: list
         :param id: The ID of the user.
         :type id: str
         :param is_gtc_accepted: A flag indicating that the user has accepted General Terms and
@@ -2086,6 +2183,7 @@ class EntityFactory:
             email=email,
             email_verified=email_verified,
             full_name=full_name,
+            groups=groups,
             id=id,
             is_gtc_accepted=is_gtc_accepted,
             is_marketing_accepted=is_marketing_accepted,
@@ -2108,6 +2206,7 @@ class EntityFactory:
         created_at=None,
         email=None,
         expiration=None,
+        groups=None,
         id=None,
         login_profiles=None,
         updated_at=None,
@@ -2123,6 +2222,8 @@ class EntityFactory:
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
+        :param groups: A list of IDs of the groups the user is invited to.
+        :type groups: list
         :param id: The ID of the invitation.
         :type id: str
         :param login_profiles: A list of login profiles for the user. Specified as the identity
@@ -2144,6 +2245,7 @@ class EntityFactory:
             created_at=created_at,
             email=email,
             expiration=expiration,
+            groups=groups,
             id=id,
             login_profiles=login_profiles,
             updated_at=updated_at,

@@ -73,6 +73,7 @@ class Device(Entity):
         "endpoint_type",
         "enrolment_list_timestamp",
         "firmware_checksum",
+        "groups",
         "host_gateway",
         "id",
         "issuer_fingerprint",
@@ -117,6 +118,7 @@ class Device(Entity):
         endpoint_type=None,
         enrolment_list_timestamp=None,
         firmware_checksum=None,
+        groups=None,
         host_gateway=None,
         id=None,
         issuer_fingerprint=None,
@@ -188,6 +190,8 @@ class Device(Entity):
         :type enrolment_list_timestamp: datetime
         :param firmware_checksum: The SHA256 checksum of the current firmware image.
         :type firmware_checksum: str
+        :param groups: An array containing an ID of each group this device belongs to.
+        :type groups: list
         :param host_gateway: The ID of the host gateway, if appropriate.
         :type host_gateway: str
         :param id: (Required) The ID of the device. The device ID is used across all Device
@@ -239,6 +243,7 @@ class Device(Entity):
         self._endpoint_type = fields.StringField(value=endpoint_type)
         self._enrolment_list_timestamp = fields.DateTimeField(value=enrolment_list_timestamp)
         self._firmware_checksum = fields.StringField(value=firmware_checksum)
+        self._groups = fields.ListField(value=groups)
         self._host_gateway = fields.StringField(value=host_gateway)
         self._id = fields.StringField(value=id)
         self._issuer_fingerprint = fields.StringField(value=issuer_fingerprint)
@@ -553,6 +558,15 @@ class Device(Entity):
         """
 
         return self._firmware_checksum.value
+
+    @property
+    def groups(self):
+        """An array containing an ID of each group this device belongs to.
+        
+        :rtype: list
+        """
+
+        return self._groups.value
 
     @property
     def host_gateway(self):
