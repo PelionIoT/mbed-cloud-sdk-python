@@ -162,7 +162,6 @@ class PaginatedResponse(object):
             )
 
     def _get_total_count(self):
-        # FIXME: new PSK API does not conform to spec
         from mbed_cloud.bootstrap.bootstrap import PreSharedKey
         if self._lwrap_type == PreSharedKey:
             return 0
