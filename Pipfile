@@ -13,6 +13,8 @@ coverage = "*"
 flake8 = "==3.6.0"
 flake8-copyright = "*"
 flake8-docstrings = "*"
+# Lock the pydocstyle derived dependancy to the last Python 2 compible version
+pydocstyle = "==3.0.0"
 flask = "*"
 httpretty = "*"
 jinja2 = "*"
