@@ -1065,44 +1065,29 @@ definitions:
         example: My4zMQ==
         type: string
       status:
-        description: '
-
-          States whether sending a command to the device succeeded or failed.<br/>
-
-          |Code|Description|
-
-          |-|-|
-
-          |**200**| Operation succeeded. The playload contains result of the operation
-          from the device. |
-
-          |**404**| Endpoint does not have requested resource. |
-
-          |**412**| Precondition failed and operation was not executed. Device responded
-          with 4.12 CoAP response code.|
-
-          |**413**| Request entity is too large and could not be delivered to the
-          device. |
-
-          |**415**| Endpoint does not support media type. |
-
-          |**429**| Expired request was removed from queue (REQUEST_EXPIRED), device
-          requested deregistration (DEVICE_REMOVED_REGISTRATION), or device was suspended
-          (DEVICE_BLOCKED). |
-
-          |**502**| Request to the device failed and retry count exceeded. Last retry
-          failed to establish TCP or TLS connection to endpoint. |
-
-          |**503**| Request to the device failed and retry count exceeded. Last retry
-          failed because endpoint is currently unavailable (NOT_CONNECTED). |
-
-          |**504**| Request to the device failed and retry count exceeded. Last retry
-          failed, as device did not respond in the time of protocol-specific retransmission
-          logic (TIMEOUT). |
-
-          <br/>
-
-          '
+        description: "\nStates whether sending a command to the device succeeded or\
+          \ failed.\n\n<table>\n  <thead>\n    <tr>\n      <th>Code</th>\n      <th>Description</th>\n\
+          \    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><b>200</b></td>\n\
+          \      <td>Operation succeeded. The playload contains result of the operation\
+          \ from the device.</td>\n    </tr>\n    <tr>\n      <td><b>404</b></td>\n\
+          \      <td>Endpoint does not have requested resource.</td>\n    </tr>\n\
+          \    <tr>\n      <td><b>412</b></td>\n      <td>Precondition failed and\
+          \ operation was not executed. Device responded with 4.12 CoAP response code.</td>\n\
+          \    </tr>\n    <tr>\n      <td><b>413</b></td>\n      <td>Request entity\
+          \ is too large and could not be delivered to the device.</td>\n    </tr>\n\
+          \    <tr>\n      <td><b>415</b></td>\n      <td>Endpoint does not support\
+          \ media type.</td>\n    </tr>\n    <tr>\n      <td><b>429</b></td>\n   \
+          \   <td>Expired request was removed from queue (REQUEST_EXPIRED), device\
+          \ requested deregistration (DEVICE_REMOVED_REGISTRATION), or device was\
+          \ suspended (DEVICE_BLOCKED).</td>\n    </tr>\n    <tr>\n      <td><b>502</b></td>\n\
+          \      <td>Request to the device failed and retry count exceeded. Last retry\
+          \ failed to establish TCP or TLS connection to endpoint.</td>\n    </tr>\n\
+          \    <tr>\n      <td><b>503</b></td>\n      <td>Request to the device failed\
+          \ and retry count exceeded. Last retry failed because endpoint is currently\
+          \ unavailable (NOT_CONNECTED).</td>\n    </tr>\n    <tr>\n      <td><b>504</b></td>\n\
+          \      <td>Request to the device failed and retry count exceeded. Last retry\
+          \ failed, as device did not respond in the time of protocol-specific retransmission\
+          \ logic (TIMEOUT).</td>\n    </tr>\n  </tbody>\n</table>\n"
         example: 200
         type: integer
     type: object
@@ -7051,6 +7036,22 @@ paths:
         ```
 
 
+        POST `method` can be used to either execute or create resource on a LWM2M
+        supporting device. When creating
+
+        a resource, `uri` must refer to an object, and `payload-b64` must be in LWM2M
+        TLV format, as in
+
+        the following example.
+
+        ```
+
+        { "method": "POST", "uri": "/123", "content-type": "application/vnd.oma.lwm2m+tlv",
+        "payload-b64": "BwHFAnZhbHVl" }
+
+        ```
+
+
         ```
 
         Example URIs:
@@ -7074,6 +7075,11 @@ paths:
 
         { "method": "PUT", "uri": "/5/0/1%20?k1=v1&k2=v2%22", "accept": "text/plain",
         "content-type": "text/plain", "payload-b64": "dmFsdWUxCg==" }
+
+
+        Example payload to execute LWM2M resource /123/1/1:
+
+        { "method": "POST", "uri": "/123/1/1" }
 
 
         Immediate response:
@@ -7148,11 +7154,14 @@ paths:
         401:
           description: Authentication failure.
         404:
-          description: "Contains one of the following errors \n|Error message|Description|\n\
-            |-|-|\n|**DEVICE_NOT_FOUND**| Device is not in Device reqistry. Either\
-            \ device has requestd register delete or device has not connected in time\
-            \ and expired.|\n|**URI_PATH_DOES_NOT_EXISTS**| The device does not have\
-            \ requested resource. Check the resource path is correct |"
+          description: "Contains one of the following errors:\n<table>\n  <thead>\n\
+            \    <tr>\n      <th>Error message</th>\n      <th>Description</th>\n\
+            \    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><b>DEVICE_NOT_FOUND</b></td>\n\
+            \      <td>Device is not in Device reqistry. Either device has requestd\
+            \ register delete or device has not connected in time and expired.</td>\n\
+            \    </tr>\n    <tr>\n      <td><b>URI_PATH_DOES_NOT_EXISTS</b></td>\n\
+            \      <td>The device does not have requested resource. Check the resource\
+            \ path is correct.</td>\n    </tr>\n  </tbody>\n</table>"
           schema:
             type: string
       summary: Send an async request to device
