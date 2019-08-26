@@ -4603,50 +4603,129 @@ definitions:
           type: string
         type: array
     type: object
+  OIDCClaimMapping:
+    description: Mapping for non-standard OIDC claim names.
+    properties:
+      email:
+        description: Custom claim name for 'email'.
+        example: email_address
+        type: string
+        x-nullable: true
+      email_verified:
+        description: Custom claim name for 'email_verified'.
+        type: string
+        x-nullable: true
+      family_name:
+        description: Custom claim name for 'family_name'.
+        type: string
+        x-nullable: true
+      given_name:
+        description: Custom claim name for 'given_name'.
+        type: string
+        x-nullable: true
+      name:
+        description: Custom claim name for 'name'.
+        type: string
+        x-nullable: true
+      phone_number:
+        description: Custom claim name for 'phone_number'.
+        type: string
+        x-nullable: true
+      sub:
+        description: Custom claim name for 'sub'.
+        type: string
+        x-nullable: true
+      updated_at:
+        description: Custom claim name for 'updated_at'.
+        type: string
+        x-nullable: true
+      updated_at_pattern:
+        description: Custom pattern for claim 'updated_at' as defined by the Java
+          SimpleDateFormat class.
+        example: yyyy-MM-dd'T'HH:mm:ssXXX
+        type: string
+        x-nullable: true
+    type: object
   OIDCInfo:
     description: Represents OIDC specific attributes.
     properties:
       authorization_endpoint:
         description: URL of the OAuth 2.0 authorization endpoint.
         type: string
+        x-nullable: true
       auto_enrollment:
         description: For future use.
         type: boolean
+        x-nullable: true
+      claim_mapping:
+        $ref: '#/definitions/OIDCClaimMapping'
+        description: Mapping table for supporting custom OIDC claims.
+        x-nullable: true
       client_id:
         description: Client ID needed to authenticate and gain access to identity
           provider's API.
         type: string
+        x-nullable: true
       client_secret:
         description: Client secret needed to authenticate and gain access to identity
           provider's API.
         type: string
+        x-nullable: true
       end_session_endpoint:
         description: URL of the provider's end session endpoint.
         type: string
+        x-nullable: true
       issuer:
         description: Issuer of the identity provider.
         type: string
       jwks_uri:
         description: URL of the provider's JSON web key set document.
         type: string
+        x-nullable: true
       keys:
         description: Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.
         items:
           $ref: '#/definitions/IdpPublicKey'
         type: array
+        x-nullable: true
       redirect_uri:
         description: The URI needed to authenticate and gain access to identity provider's
-          API.
+          API. Leave this empty to use the default redirect URI.
         type: string
+        x-nullable: true
       revocation_endpoint:
         description: URL of the provider's token revocation endpoint.
+        type: string
+        x-nullable: true
+      scopes:
+        description: Space-separated list of scopes sent in the authentication request.
+          When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).
+        example: openid email
         type: string
       token_endpoint:
         description: URL of the OAuth 2.0 authorization endpoint.
         type: string
+        x-nullable: true
+      token_request_mode:
+        default: POST
+        description: One way to obtain the access token. Since the request results
+          in the transmission of clear-text credentials, the client must use the POST
+          mode.
+        enum:
+        - POST
+        - GET
+        type: string
+      token_response_path:
+        description: Path to the standard data in the token response. Levels in the
+          JSON structure must be separated by '.' (dot) characters.
+        example: oidc.data
+        type: string
       userinfo_endpoint:
         description: URL of the OAuth 2.0 UserInfo endpoint.
         type: string
+        x-nullable: true
+    required:
+    - issuer
     type: object
   ParentAccountInfo:
     description: Represents parent account contact details in responses.
@@ -5077,39 +5156,49 @@ definitions:
     description: Represents SAML2 specific attributes in responses.
     properties:
       assertion_endpoint:
-        description: URL of the service provider's assertion endpoint.
+        description: URL of the service provider's assertion endpoint. Leave this
+          empty to use the default assertion endpoint.
         type: string
+        x-nullable: true
       idp_entity_id:
         description: Entity ID of the identity provider.
         type: string
+        x-nullable: true
       idp_x509_certs:
         description: List of public X509 certificates of the identity provider in
           PEM format.
         items:
           type: string
         type: array
+        x-nullable: true
       slo_endpoint:
         description: URL of the identity provider's SLO endpoint.
         type: string
+        x-nullable: true
       sp_entity_id:
         description: Entity ID of the service provider.
         type: string
+        x-nullable: true
       sp_x509_cert:
         description: Public X509 certificate of the service provider in PEM format.
           This is a read-only attribute, see API documentation about how to generate
           a new one or how to delete it.
         readOnly: true
         type: string
+        x-nullable: true
       sso_endpoint:
         description: URL of the identity provider's SSO endpoint.
         type: string
+        x-nullable: true
     type: object
   SAML2Req:
     properties:
       entity_descriptor:
-        description: Base64 encoded string representation of an XML file. Contains
-          an entity descriptor document for the identity provider. Can be used as
-          an alternative method to provide the identity provider's attributes.
+        description: Contains an entity descriptor document for the identity provider.
+          Can be used as an alternative method to provide the identity provider's
+          attributes.
+        format: byte
+        maxLength: 65535
         type: string
       idp_entity_id:
         description: Entity ID of the identity provider.
@@ -10997,6 +11086,55 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Generate a new service provider certificate.
+      tags:
+      - Tenant accounts - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/identity-providers/{identity_provider_id}/refresh-jwks:
+    post:
+      consumes:
+      - application/json
+      description: Refreshes an OIDC IdP's signing keys.
+      operationId: refreshAccountJwks
+      parameters:
+      - description: The ID of the account to be managed.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the identity provider for which to refresh the signing
+          keys.
+        in: path
+        name: identity_provider_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          headers:
+            Content-Location:
+              description: /v3/accounts/{account_id}/identity-providers/{identity_provider_id}
+              type: string
+          schema:
+            $ref: '#/definitions/IdentityProviderInfo'
+        '400':
+          description: Not an OIDC IdP or JWKS URI is unspecified.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account or identity provider not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Refreshes the OIDC signing keys.
       tags:
       - Tenant accounts - identity providers
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -21442,6 +21580,50 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Generate a new service provider certificate.
+      tags:
+      - Account - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/identity-providers/{identity_provider_id}/refresh-jwks:
+    post:
+      consumes:
+      - application/json
+      description: Refreshes an OIDC IdP's signing keys.
+      operationId: refreshJwks
+      parameters:
+      - description: The ID of the identity provider for which to refresh the signing
+          keys.
+        in: path
+        name: identity_provider_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          headers:
+            Content-Location:
+              description: /v3/identity-providers/{identity_provider_id}
+              type: string
+          schema:
+            $ref: '#/definitions/IdentityProviderInfo'
+        '400':
+          description: Not an OIDC IdP or JWKS URI is unspecified.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Identity provider not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Refreshes the OIDC signing keys.
       tags:
       - Account - identity providers
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
