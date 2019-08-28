@@ -77,13 +77,22 @@ class Device(Entity):
         "host_gateway",
         "id",
         "issuer_fingerprint",
+        "last_operator_suspended_category",
+        "last_operator_suspended_description",
+        "last_operator_suspended_updated_at",
+        "last_system_suspended_category",
+        "last_system_suspended_description",
+        "last_system_suspended_updated_at",
+        "lifecycle_status",
         "manifest",
         "manifest_timestamp",
         "mechanism",
         "mechanism_url",
         "name",
+        "operator_suspended",
         "serial_number",
         "state",
+        "system_suspended",
         "updated_at",
         "vendor_id",
     ]
@@ -122,13 +131,22 @@ class Device(Entity):
         host_gateway=None,
         id=None,
         issuer_fingerprint=None,
+        last_operator_suspended_category=None,
+        last_operator_suspended_description=None,
+        last_operator_suspended_updated_at=None,
+        last_system_suspended_category=None,
+        last_system_suspended_description=None,
+        last_system_suspended_updated_at=None,
+        lifecycle_status=None,
         manifest=None,
         manifest_timestamp=None,
         mechanism=None,
         mechanism_url=None,
         name=None,
+        operator_suspended=None,
         serial_number=None,
         state=None,
+        system_suspended=None,
         updated_at=None,
         vendor_id=None,
     ):
@@ -174,10 +192,15 @@ class Device(Entity):
             inheriting from host_gateway device.
             Permitted values:
               - 0 -
-            unspecified execution mode (default if host_gateway invalid or not
-            set)
-              - 1 - development devices
-              - 5 - production devices
+            Unspecified execution mode (default if host_gateway invalid or not
+            set). The device firmware uses a certificate that is not
+            identified as a developer or production certificate.
+              - 1 -
+            Development device. The device firmware uses a developer
+            certificate to communicate with Device Management.
+              - 5 -
+            Production device. The device firmware uses a factory-generated
+            certificate to communicate with Device Management.
         :type device_execution_mode: int
         :param device_key: The fingerprint of the device certificate.
         :type device_key: str
@@ -200,6 +223,22 @@ class Device(Entity):
         :param issuer_fingerprint: SHA256 fingerprint of the certificate used to validate the
             signature of the device certificate.
         :type issuer_fingerprint: str
+        :param last_operator_suspended_category: The reference of the block category.
+        :type last_operator_suspended_category: str
+        :param last_operator_suspended_description: The most recent description why the device was suspended or
+            returned to service.
+        :type last_operator_suspended_description: str
+        :param last_operator_suspended_updated_at: The timestamp of the most recent suspension activity.
+        :type last_operator_suspended_updated_at: datetime
+        :param last_system_suspended_category: The reference of the block category.
+        :type last_system_suspended_category: str
+        :param last_system_suspended_description: The most recent description of why the device was blocked or
+            unblocked by the system.
+        :type last_system_suspended_description: str
+        :param last_system_suspended_updated_at: The timestamp of the most recent system block activity.
+        :type last_system_suspended_updated_at: datetime
+        :param lifecycle_status: The lifecycle status of the device.
+        :type lifecycle_status: str
         :param manifest: DEPRECATED: The URL for the current device manifest.
         :type manifest: str
         :param manifest_timestamp: The timestamp of the current manifest version.
@@ -210,10 +249,14 @@ class Device(Entity):
         :type mechanism_url: str
         :param name: The name of the device.
         :type name: str
+        :param operator_suspended: Is the device suspended by the operator?
+        :type operator_suspended: bool
         :param serial_number: The serial number of the device.
         :type serial_number: str
         :param state: The current state of the device.
         :type state: str
+        :param system_suspended: Is the device suspended by the system?
+        :type system_suspended: bool
         :param updated_at: The time the object was updated.
         :type updated_at: datetime
         :param vendor_id: The device vendor ID.
@@ -247,13 +290,22 @@ class Device(Entity):
         self._host_gateway = fields.StringField(value=host_gateway)
         self._id = fields.StringField(value=id)
         self._issuer_fingerprint = fields.StringField(value=issuer_fingerprint)
+        self._last_operator_suspended_category = fields.StringField(value=last_operator_suspended_category)
+        self._last_operator_suspended_description = fields.StringField(value=last_operator_suspended_description)
+        self._last_operator_suspended_updated_at = fields.DateTimeField(value=last_operator_suspended_updated_at)
+        self._last_system_suspended_category = fields.StringField(value=last_system_suspended_category)
+        self._last_system_suspended_description = fields.StringField(value=last_system_suspended_description)
+        self._last_system_suspended_updated_at = fields.DateTimeField(value=last_system_suspended_updated_at)
+        self._lifecycle_status = fields.StringField(value=lifecycle_status, enum=enums.DeviceLifecycleStatusEnum)
         self._manifest = fields.StringField(value=manifest)
         self._manifest_timestamp = fields.DateTimeField(value=manifest_timestamp)
         self._mechanism = fields.StringField(value=mechanism, enum=enums.DeviceMechanismEnum)
         self._mechanism_url = fields.StringField(value=mechanism_url)
         self._name = fields.StringField(value=name)
+        self._operator_suspended = fields.BooleanField(value=operator_suspended)
         self._serial_number = fields.StringField(value=serial_number)
         self._state = fields.StringField(value=state, enum=enums.DeviceStateEnum)
+        self._system_suspended = fields.BooleanField(value=system_suspended)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._vendor_id = fields.StringField(value=vendor_id)
 
@@ -464,11 +516,14 @@ class Device(Entity):
         """The execution mode from the certificate of the device. Defaults to inheriting
         from host_gateway device.
         Permitted values:
-          - 0 - unspecified execution mode
-        (default if host_gateway invalid or not set)
-          - 1 - development devices
-          - 5
-        - production devices
+          - 0 - Unspecified execution mode
+        (default if host_gateway invalid or not set). The device firmware uses a
+        certificate that is not identified as a developer or production certificate.
+        - 1 - Development device. The device firmware uses a developer certificate to
+        communicate with Device Management.
+          - 5 - Production device. The device
+        firmware uses a factory-generated certificate to communicate with Device
+        Management.
         
         :rtype: int
         """
@@ -633,6 +688,86 @@ class Device(Entity):
         self._issuer_fingerprint.set(value)
 
     @property
+    def last_operator_suspended_category(self):
+        """The reference of the block category.
+        
+        api example: 'maintenance'
+        
+        :rtype: str
+        """
+
+        return self._last_operator_suspended_category.value
+
+    @property
+    def last_operator_suspended_description(self):
+        """The most recent description why the device was suspended or returned to
+        service.
+        
+        api example: 'Suspended for maintenance.'
+        
+        :rtype: str
+        """
+
+        return self._last_operator_suspended_description.value
+
+    @property
+    def last_operator_suspended_updated_at(self):
+        """The timestamp of the most recent suspension activity.
+        
+        api example: '2017-05-22T12:37:55.576563Z'
+        
+        :rtype: datetime
+        """
+
+        return self._last_operator_suspended_updated_at.value
+
+    @property
+    def last_system_suspended_category(self):
+        """The reference of the block category.
+        
+        api example: 'maintenance'
+        
+        :rtype: str
+        """
+
+        return self._last_system_suspended_category.value
+
+    @property
+    def last_system_suspended_description(self):
+        """The most recent description of why the device was blocked or unblocked by the
+        system.
+        
+        api example: "A certificate in the device's certificate chain was blacklisted by the
+            system."
+        
+        :rtype: str
+        """
+
+        return self._last_system_suspended_description.value
+
+    @property
+    def last_system_suspended_updated_at(self):
+        """The timestamp of the most recent system block activity.
+        
+        api example: '2017-05-22T12:37:55.576563Z'
+        
+        :rtype: datetime
+        """
+
+        return self._last_system_suspended_updated_at.value
+
+    @property
+    def lifecycle_status(self):
+        """The lifecycle status of the device.
+        
+        api example: 'enabled'
+        
+        :rtype: str
+        """
+
+        return self._lifecycle_status.value
+
+    @property
     def manifest(self):
         """DEPRECATED: The URL for the current device manifest.
         
@@ -722,6 +857,15 @@ class Device(Entity):
         self._name.set(value)
 
     @property
+    def operator_suspended(self):
+        """Is the device suspended by the operator?
+        
+        :rtype: bool
+        """
+
+        return self._operator_suspended.value
+
+    @property
     def serial_number(self):
         """The serial number of the device.
         
@@ -762,6 +906,15 @@ class Device(Entity):
         self._state.set(value)
 
     @property
+    def system_suspended(self):
+        """Is the device suspended by the system?
+        
+        :rtype: bool
+        """
+
+        return self._system_suspended.value
+
+    @property
     def updated_at(self):
         """The time the object was updated.
         
@@ -794,7 +947,7 @@ class Device(Entity):
         self._vendor_id.set(value)
 
     def add_to_group(self, device_group_id):
-        """Add a device to a group
+        """Add a device to a group.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-groups/{device-group-id}/devices/add/>`_.
         
@@ -820,7 +973,7 @@ class Device(Entity):
         )
 
     def create(self):
-        """Create a device
+        """Create a device.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/devices/>`_.
         
@@ -902,65 +1055,79 @@ class Device(Entity):
 
         The following filters are supported by the API when listing Device entities:
 
-        +---------------------------+------+------+------+------+------+------+------+
-        | Field                     | eq   | neq  | gte  | lte  | in   | nin  | like |
-        +===========================+======+======+======+======+======+======+======+
-        | account_id                | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | auto_update               | Y    | Y    |      |      |      |      |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | bootstrap_expiration_date |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | bootstrapped_timestamp    |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | ca_id                     | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | connector_expiration_date |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | created_at                |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | deployed_state            | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | deployment                | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | description               | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | device_class              | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | device_execution_mode     | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | device_key                | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | endpoint_name             | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | endpoint_type             | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | enrolment_list_timestamp  |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | firmware_checksum         | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | host_gateway              | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | id                        | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | manifest                  | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | manifest_timestamp        |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | mechanism                 | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | mechanism_url             | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | name                      | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | serial_number             | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | state                     | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | updated_at                |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | vendor_id                 | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
+        +------------------------------------+------+------+------+------+------+------+------+
+        | Field                              | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +====================================+======+======+======+======+======+======+======+
+        | account_id                         | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | auto_update                        | Y    | Y    |      |      |      |      |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | bootstrap_expiration_date          |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | bootstrapped_timestamp             |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | ca_id                              | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | connector_expiration_date          |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | created_at                         |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | deployed_state                     | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | deployment                         | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | description                        | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | device_class                       | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | device_execution_mode              | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | device_key                         | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | endpoint_name                      | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | endpoint_type                      | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | enrolment_list_timestamp           |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | firmware_checksum                  | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | host_gateway                       | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | id                                 | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | last_operator_suspended_category   | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | last_operator_suspended_updated_at |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | last_system_suspended_category     | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | last_system_suspended_updated_at   |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | lifecycle_status                   | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | manifest                           | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | manifest_timestamp                 |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | mechanism                          | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | mechanism_url                      | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | name                               | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | operator_suspended                 | Y    | Y    |      |      |      |      |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | serial_number                      | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | state                              | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | system_suspended                   | Y    | Y    |      |      |      |      |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | updated_at                         |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | vendor_id                          | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
 
         **Example Usage**
 
@@ -978,16 +1145,14 @@ class Device(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, `ASC` or `DESC`; by
-            default `ASC`.
+        :param order: Record order. Acceptable values: ASC, DESC. Default: ASC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: How many objects to retrieve in the page. The minimum limit is 2 and
-            the maximum is 1000. Limit values outside of this range are set to the
-            closest limit.
+        :param page_size: How many objects to retrieve in the page (2-1000). Limit values
+            outside of this range are set to the closest limit.
         :type page_size: int
         
         :param include: Comma-separated list of data fields to return. Currently supported:
@@ -1028,19 +1193,17 @@ class Device(Entity):
     def _paginate_list(self, after=None, filter=None, order=None, limit=None, include=None):
         """List all devices.
         
-        :param after: The ID of The item after which to retrieve the next page.
+        :param after: The ID of the item after which to retrieve the next page.
         :type after: str
         
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, `ASC` or `DESC`; by
-            default `ASC`.
+        :param order: Record order. Acceptable values: ASC, DESC. Default: ASC.
         :type order: str
         
-        :param limit: How many objects to retrieve in the page. The minimum limit is 2 and
-            the maximum is 1000. Limit values outside of this range are set to the
-            closest limit.
+        :param limit: How many objects to retrieve in the page (2-1000). Limit values
+            outside of this range are set to the closest limit.
         :type limit: int
         
         :param include: Comma-separated list of data fields to return. Currently supported:
@@ -1063,7 +1226,7 @@ class Device(Entity):
         )
 
     def read(self):
-        """Get a device
+        """Get a device.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/devices/{id}/>`_.
         
@@ -1079,7 +1242,7 @@ class Device(Entity):
         )
 
     def remove_from_group(self, device_group_id):
-        """Remove a device from a group
+        """Remove a device from a group.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-groups/{device-group-id}/devices/remove/>`_.
         
@@ -1129,7 +1292,7 @@ class Device(Entity):
         )
 
     def update(self):
-        """Update a device
+        """Update a device.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/devices/{id}/>`_.
         

@@ -55,6 +55,7 @@ Devices
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceEnrollmentBulkDeleteStatusEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceEnrollmentDenialOrderEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceEnrollmentOrderEnum`
+- :class:`mbed_cloud.foundation.entities.devices.enums.DeviceLifecycleStatusEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceMechanismEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceStateEnum`
 
@@ -116,6 +117,7 @@ How to import Enums:
     from mbed_cloud.foundation.enums import DeviceEnrollmentBulkDeleteStatusEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentDenialOrderEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentOrderEnum
+    from mbed_cloud.foundation.enums import DeviceLifecycleStatusEnum
     from mbed_cloud.foundation.enums import DeviceMechanismEnum
     from mbed_cloud.foundation.enums import DeviceStateEnum
     from mbed_cloud.foundation.enums import CertificateEnrollmentEnrollResultEnum
@@ -166,6 +168,7 @@ from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentBulkCre
 from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentBulkDeleteStatusEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentDenialOrderEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentOrderEnum
+from mbed_cloud.foundation.entities.devices.enums import DeviceLifecycleStatusEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceMechanismEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceStateEnum
 from mbed_cloud.foundation.entities.security.enums import CertificateEnrollmentEnrollResultEnum
@@ -215,6 +218,7 @@ __all__ = [
     "DeviceEnrollmentBulkDeleteStatusEnum",
     "DeviceEnrollmentDenialOrderEnum",
     "DeviceEnrollmentOrderEnum",
+    "DeviceLifecycleStatusEnum",
     "DeviceMechanismEnum",
     "DeviceStateEnum",
     "CertificateEnrollmentEnrollResultEnum",

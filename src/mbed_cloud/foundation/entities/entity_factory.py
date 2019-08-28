@@ -712,13 +712,22 @@ class EntityFactory:
         host_gateway=None,
         id=None,
         issuer_fingerprint=None,
+        last_operator_suspended_category=None,
+        last_operator_suspended_description=None,
+        last_operator_suspended_updated_at=None,
+        last_system_suspended_category=None,
+        last_system_suspended_description=None,
+        last_system_suspended_updated_at=None,
+        lifecycle_status=None,
         manifest=None,
         manifest_timestamp=None,
         mechanism=None,
         mechanism_url=None,
         name=None,
+        operator_suspended=None,
         serial_number=None,
         state=None,
+        system_suspended=None,
         updated_at=None,
         vendor_id=None,
     ):
@@ -757,10 +766,15 @@ class EntityFactory:
             inheriting from host_gateway device.
             Permitted values:
               - 0 -
-            unspecified execution mode (default if host_gateway invalid or not
-            set)
-              - 1 - development devices
-              - 5 - production devices
+            Unspecified execution mode (default if host_gateway invalid or not
+            set). The device firmware uses a certificate that is not
+            identified as a developer or production certificate.
+              - 1 -
+            Development device. The device firmware uses a developer
+            certificate to communicate with Device Management.
+              - 5 -
+            Production device. The device firmware uses a factory-generated
+            certificate to communicate with Device Management.
         :type device_execution_mode: int
         :param device_key: The fingerprint of the device certificate.
         :type device_key: str
@@ -783,6 +797,22 @@ class EntityFactory:
         :param issuer_fingerprint: SHA256 fingerprint of the certificate used to validate the
             signature of the device certificate.
         :type issuer_fingerprint: str
+        :param last_operator_suspended_category: The reference of the block category.
+        :type last_operator_suspended_category: str
+        :param last_operator_suspended_description: The most recent description why the device was suspended or
+            returned to service.
+        :type last_operator_suspended_description: str
+        :param last_operator_suspended_updated_at: The timestamp of the most recent suspension activity.
+        :type last_operator_suspended_updated_at: datetime
+        :param last_system_suspended_category: The reference of the block category.
+        :type last_system_suspended_category: str
+        :param last_system_suspended_description: The most recent description of why the device was blocked or
+            unblocked by the system.
+        :type last_system_suspended_description: str
+        :param last_system_suspended_updated_at: The timestamp of the most recent system block activity.
+        :type last_system_suspended_updated_at: datetime
+        :param lifecycle_status: The lifecycle status of the device.
+        :type lifecycle_status: str
         :param manifest: DEPRECATED: The URL for the current device manifest.
         :type manifest: str
         :param manifest_timestamp: The timestamp of the current manifest version.
@@ -793,10 +823,14 @@ class EntityFactory:
         :type mechanism_url: str
         :param name: The name of the device.
         :type name: str
+        :param operator_suspended: Is the device suspended by the operator?
+        :type operator_suspended: bool
         :param serial_number: The serial number of the device.
         :type serial_number: str
         :param state: The current state of the device.
         :type state: str
+        :param system_suspended: Is the device suspended by the system?
+        :type system_suspended: bool
         :param updated_at: The time the object was updated.
         :type updated_at: datetime
         :param vendor_id: The device vendor ID.
@@ -831,13 +865,22 @@ class EntityFactory:
             host_gateway=host_gateway,
             id=id,
             issuer_fingerprint=issuer_fingerprint,
+            last_operator_suspended_category=last_operator_suspended_category,
+            last_operator_suspended_description=last_operator_suspended_description,
+            last_operator_suspended_updated_at=last_operator_suspended_updated_at,
+            last_system_suspended_category=last_system_suspended_category,
+            last_system_suspended_description=last_system_suspended_description,
+            last_system_suspended_updated_at=last_system_suspended_updated_at,
+            lifecycle_status=lifecycle_status,
             manifest=manifest,
             manifest_timestamp=manifest_timestamp,
             mechanism=mechanism,
             mechanism_url=mechanism_url,
             name=name,
+            operator_suspended=operator_suspended,
             serial_number=serial_number,
             state=state,
+            system_suspended=system_suspended,
             updated_at=updated_at,
             vendor_id=vendor_id,
         )
@@ -1078,7 +1121,7 @@ class EntityFactory:
         :type event_type: str
         :param event_type_category: Category code which groups the event type by a summary category.
         :type event_type_category: str
-        :param event_type_description: Generic description of the event
+        :param event_type_description: Generic description of the event.
         :type event_type_description: str
         :param id: 
         :type id: str
@@ -1119,9 +1162,9 @@ class EntityFactory:
 
         :param created_at: The time the campaign was created.
         :type created_at: datetime
-        :param custom_attributes: Up to ten custom key-value attributes. Note that keys cannot begin
-            with a number. Both keys and values are limited to 128 characters.
-            Updating this field replaces existing contents.
+        :param custom_attributes: Up to ten custom key-value attributes. Keys cannot begin with a
+            number. Both key and value are limited to 128 characters. Updating
+            this field replaces existing contents.
         :type custom_attributes: dict
         :param description: The description of the group.
         :type description: str
