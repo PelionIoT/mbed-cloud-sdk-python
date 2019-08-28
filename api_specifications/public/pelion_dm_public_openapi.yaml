@@ -1211,7 +1211,7 @@ definitions:
         type: string
       reference:
         description: Color name.
-        enum: &id018
+        enum: &id019
         - error_color
         - primary
         - secondary
@@ -1291,7 +1291,7 @@ definitions:
         type: string
       reference:
         description: Name of the image.
-        enum: &id019
+        enum: &id020
         - brand_logo_portrait
         - brand_logo_square
         - brand_logo_landscape
@@ -2181,6 +2181,55 @@ definitions:
           security credentials.
         type: string
     type: object
+  DeviceBlockCategory:
+    properties:
+      description:
+        example: Suspended for maintenance.
+        type: string
+      object:
+        description: 'Entity name: always ''device-block-category''.'
+        example: device-block-category
+        type: string
+      reference:
+        example: maintenance
+        type: string
+      updated_at:
+        format: date-time
+        type: string
+    type: object
+  DeviceBlockCategoryPage:
+    properties:
+      after:
+        description: An offset token for current page.
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/DeviceBlockCategory'
+        type: array
+      has_more:
+        description: More results are available.
+        example: false
+        type: boolean
+      limit:
+        description: How many objects to retrieve in the page (2-1000). Limit values
+          outside of this range are set to the closest limit.
+        example: 50
+        maximum: 1000
+        minimum: 2
+        type: integer
+      object:
+        description: The type of this API object is 'list'.
+        example: list
+        type: string
+      order:
+        description: Order of entries based on creation time.
+        example: DESC
+        type: string
+      total_count:
+        example: 1
+        format: integer
+        type: integer
+    type: object
   DeviceData:
     properties:
       account_id:
@@ -2249,11 +2298,16 @@ definitions:
         example: ''
         maxLength: 32
         type: string
-      device_execution_mode:
+      device_execution_mode: &id011
+        default: 0
         description: "The execution mode from the certificate of the device. Defaults\
-          \ to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified\
-          \ execution mode (default if host_gateway invalid or not set)\n  - 1 - development\
-          \ devices\n  - 5 - production devices"
+          \ to inheriting from host_gateway device.\nPermitted values:\n  - 0 - Unspecified\
+          \ execution mode (default if host_gateway invalid or not set). The device\
+          \ firmware uses a certificate that is not identified as a developer or production\
+          \ certificate.\n  - 1 - Development device. The device firmware uses a developer\
+          \ certificate to communicate with Device Management.\n  - 5 - Production\
+          \ device. The device firmware uses a factory-generated certificate to communicate\
+          \ with Device Management."
         enum:
         - 0
         - 1
@@ -2305,13 +2359,53 @@ definitions:
           Management APIs.
         example: '00000000000000000000000000000000'
         type: string
-      issuer_fingerprint: &id011
+      issuer_fingerprint: &id012
         description: SHA256 fingerprint of the certificate used to validate the signature
           of the device certificate.
         example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
         pattern: '[A-Fa-f0-9]{64}'
         type: string
         x-nullable: true
+      last_operator_suspended_category:
+        description: The reference of the block category.
+        example: maintenance
+        pattern: '[a-f0-9_]{32}'
+        type: string
+      last_operator_suspended_description:
+        description: The most recent description why the device was suspended or returned
+          to service.
+        example: Suspended for maintenance.
+        maxLength: 2000
+        type: string
+      last_operator_suspended_updated_at:
+        description: The timestamp of the most recent suspension activity.
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+      last_system_suspended_category:
+        description: The reference of the block category.
+        example: maintenance
+        pattern: '[a-f0-9_]{32}'
+        type: string
+      last_system_suspended_description:
+        description: The most recent description of why the device was blocked or
+          unblocked by the system.
+        example: A certificate in the device's certificate chain was blacklisted by
+          the system.
+        maxLength: 2000
+        type: string
+      last_system_suspended_updated_at:
+        description: The timestamp of the most recent system block activity.
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+      lifecycle_status:
+        description: The lifecycle status of the device.
+        enum:
+        - enabled
+        - blocked
+        example: enabled
+        type: string
       manifest:
         description: 'DEPRECATED: The URL for the current device manifest.'
         example: ''
@@ -2340,6 +2434,9 @@ definitions:
         description: The API resource entity.
         example: device
         type: string
+      operator_suspended:
+        description: Is the device suspended by the operator?
+        type: boolean
       serial_number:
         description: The serial number of the device.
         example: 00000000-0000-0000-0000-000000000000
@@ -2353,6 +2450,9 @@ definitions:
         - registered
         - deregistered
         type: string
+      system_suspended:
+        description: Is the device suspended by the system?
+        type: boolean
       updated_at:
         description: The time the object was updated.
         example: '2017-05-22T12:37:55.576563Z'
@@ -2411,11 +2511,7 @@ definitions:
         description: An ID representing the model and hardware revision of the device.
         maxLength: 32
         type: string
-      device_execution_mode:
-        description: "The execution mode from the certificate of the device.\nPermitted\
-          \ values:\n  - 0 - unspecified execution mode (default)\n  - 1 - development\
-          \ devices\n  - 5 - production devices"
-        type: integer
+      device_execution_mode: *id011
       device_key:
         description: The fingerprint of the device certificate.
         example: 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
@@ -2436,7 +2532,7 @@ definitions:
         description: The ID of the host gateway, if appropriate.
         example: ''
         type: string
-      issuer_fingerprint: *id011
+      issuer_fingerprint: *id012
       manifest:
         description: 'DEPRECATED: The URL for the current device manifest.'
         example: ''
@@ -2656,7 +2752,7 @@ definitions:
         example: FAIL_MANIFEST_REJECTED
         type: string
       event_type_description:
-        description: Generic description of the event
+        description: Generic description of the event.
         example: FAIL
         type: string
       id:
@@ -2741,19 +2837,19 @@ definitions:
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
-      custom_attributes: &id021
+      custom_attributes: &id022
         additionalProperties:
           maxLength: 128
           pattern: ^[A-Za-z].*
           type: string
-        description: Up to ten custom key-value attributes. Note that keys cannot
-          begin with a number. Both keys and values are limited to 128 characters.
-          Updating this field replaces existing contents.
+        description: Up to ten custom key-value attributes. Keys cannot begin with
+          a number. Both key and value are limited to 128 characters. Updating this
+          field replaces existing contents.
         example:
           key: value
         maxProperties: 10
         type: object
-      description: &id022
+      description: &id023
         description: The description of the group.
         example: Devices on the factory floor.
         maxLength: 2000
@@ -2770,13 +2866,13 @@ definitions:
         description: The group ID.
         example: 015c3029f6f7000000000001001000c3
         type: string
-      name: &id023
+      name: &id024
         description: Name of the group.
         example: My devices
         maxLength: 128
         type: string
       object:
-        description: 'Entity name: always ''device-group''.'
+        description: 'Entity name: always `device-group`.'
         example: device-group
         type: string
       updated_at:
@@ -2804,23 +2900,22 @@ definitions:
           $ref: '#/definitions/DeviceGroup'
         type: array
       has_more:
-        description: Are there more results available.
+        description: More results are available.
         example: false
         type: boolean
       limit:
-        description: How many objects to retrieve in the page. The minimum limit is
-          2 and the maximum is 1000. Limit values outside of this range are set to
-          the closest limit.
+        description: How many objects to retrieve in the page (2-1000). Limit values
+          outside of this range are set to the closest limit.
         example: 50
         maximum: 1000
         minimum: 2
         type: integer
       object:
-        description: The type of this API object is a "list".
+        description: The type of this API object is 'list'.
         example: list
         type: string
       order:
-        description: The creation time based order of the entries.
+        description: Record order based on creation time.
         example: DESC
         type: string
       total_count:
@@ -2982,7 +3077,7 @@ definitions:
   DeviceQuery:
     properties:
       created_at:
-        description: The timestamp of when the device was created in the device directory.
+        description: The timestamp of when the device was created in Device Directory.
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
@@ -6186,12 +6281,12 @@ definitions:
     type: object
   UploadChunkInfo:
     properties:
-      created_at: &id012
+      created_at: &id013
         description: The time the entity was created
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
-      etag: &id013
+      etag: &id014
         description: API resource entity version
         example: '2017-05-22T12:37:58.753425Z'
         type: string
@@ -6211,7 +6306,7 @@ definitions:
         description: 'Entity name: always ''upload-info'''
         example: upload-info
         type: string
-      updated_at: &id014
+      updated_at: &id015
         description: The time the entity was updated
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
@@ -6255,13 +6350,13 @@ definitions:
         description: A flag that indicates job completion
         example: false
         type: boolean
-      created_at: *id012
-      description: &id025
+      created_at: *id013
+      description: &id027
         description: Human-readable description
         example: New Linux update for my devices
         maxLength: 2000
         type: string
-      etag: *id013
+      etag: *id014
       firmware_image_id:
         description: ID of the firmware image - empty until the Upload Job is complete
         example: '00000000000000000000000000000000'
@@ -6270,7 +6365,7 @@ definitions:
         description: The upload job ID
         example: '00000000000000000000000000000000'
         type: string
-      name: &id026
+      name: &id028
         description: Human-readable name
         example: New Linux update
         maxLength: 128
@@ -6283,7 +6378,7 @@ definitions:
         description: Status of the upload job
         example: in_progress
         type: string
-      updated_at: *id014
+      updated_at: *id015
     type: object
   UploadJobPage:
     properties:
@@ -7867,11 +7962,11 @@ paths:
         ```'
       operationId: deregisterWebhook
       responses:
-        204: &id017
+        204: &id018
           description: Successfully deleted.
-        401: &id015
+        401: &id016
           description: Unauthorized.
-        403: &id016
+        403: &id017
           description: Forbidden. The authorization token used is not an API key.
         404:
           description: Callback URL does not exist.
@@ -7900,8 +7995,8 @@ paths:
           description: URL found.
           schema:
             $ref: '#/definitions/Webhook'
-        401: *id015
-        403: *id016
+        401: *id016
+        403: *id017
         404:
           description: The callback URL does not exist.
       summary: Check callback URL.
@@ -7966,8 +8061,8 @@ paths:
         400:
           description: Given URL is not accessible, or other type of channel already
             exists.
-        401: *id015
-        403: *id016
+        401: *id016
+        403: *id017
         415:
           description: Unsupported Media Type.
       summary: Register a callback URL.
@@ -8017,7 +8112,7 @@ paths:
           description: Success. The body can contain "REMOVED" if it was deleted with
             this call or "ALREADY_DELETED" if it was deleted before and not purged
             yet.
-        401: *id015
+        401: *id016
       summary: Delete notification Long Poll channel.
       tags:
       - Notifications
@@ -8080,7 +8175,7 @@ paths:
           description: No new notifications.
         400:
           description: Other type of channel already exists.
-        401: *id015
+        401: *id016
         409:
           description: Conflict. Long poll request exists already.
         410:
@@ -8123,9 +8218,9 @@ paths:
         ```'
       operationId: deleteWebsocket
       responses:
-        204: *id017
-        401: *id015
-        403: *id016
+        204: *id018
+        401: *id016
+        403: *id017
         404:
           description: Websocket channel doesn't exist.
       summary: (PREVIEW) Delete websocket channel.
@@ -8156,8 +8251,8 @@ paths:
           description: Websocket found.
           schema:
             $ref: '#/definitions/WebsocketChannel'
-        401: *id015
-        403: *id016
+        401: *id016
+        403: *id017
         404:
           description: No channel has been registered.
       summary: (PREVIEW) Get websocket channel information.
@@ -8221,8 +8316,8 @@ paths:
             $ref: '#/definitions/WebsocketChannel'
         400:
           description: Other type of channel already exists.
-        401: *id015
-        403: *id016
+        401: *id016
+        403: *id017
       summary: (PREVIEW) Register a websocket channel.
       tags:
       - Notifications
@@ -8292,7 +8387,7 @@ paths:
           description: Switching protocols.
         400:
           description: Required header(s) missing.
-        401: *id015
+        401: *id016
         426:
           description: Upgrade required. Connect and/or Upgrade headers missing.
       summary: (PREVIEW) Open the websocket.
@@ -9790,7 +9885,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -9838,7 +9933,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -9894,7 +9989,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -10048,7 +10143,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -10095,7 +10190,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -10151,7 +10246,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -10257,7 +10352,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -10308,7 +10403,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -10363,7 +10458,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -10422,7 +10517,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -10534,7 +10629,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -10583,7 +10678,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -10638,7 +10733,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -10697,7 +10792,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -14387,7 +14482,7 @@ paths:
       operationId: resetDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -14430,7 +14525,7 @@ paths:
       operationId: getDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -14481,7 +14576,7 @@ paths:
       operationId: setDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -14610,7 +14705,7 @@ paths:
       operationId: resetLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -14653,7 +14748,7 @@ paths:
       operationId: getLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -14704,7 +14799,7 @@ paths:
       operationId: setLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id018
+        enum: *id019
         in: path
         name: reference
         required: true
@@ -14793,7 +14888,7 @@ paths:
       operationId: getDarkImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -14839,7 +14934,7 @@ paths:
       operationId: clearDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -14889,7 +14984,7 @@ paths:
       operationId: uploadDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -14943,7 +15038,7 @@ paths:
       operationId: uploadDarkImageMultipart
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -15040,7 +15135,7 @@ paths:
       operationId: getLightImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -15086,7 +15181,7 @@ paths:
       operationId: clearLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -15136,7 +15231,7 @@ paths:
       operationId: uploadLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -15190,7 +15285,7 @@ paths:
       operationId: uploadLightImageMultipart
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id019
+        enum: *id020
         in: path
         name: reference
         required: true
@@ -15665,7 +15760,7 @@ paths:
         '
       operationId: deleteCertificateIssuerConfigByID
       parameters:
-      - &id020
+      - &id021
         description: 'The ID of the certificate issuer configuration.
 
           '
@@ -15702,7 +15797,7 @@ paths:
         '
       operationId: getCertificateIssuerConfigByID
       parameters:
-      - *id020
+      - *id021
       responses:
         '200':
           description: OK.
@@ -15740,7 +15835,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/CertificateIssuerConfigRequest'
-      - *id020
+      - *id021
       responses:
         '200':
           description: OK.
@@ -16705,6 +16800,137 @@ paths:
       tags:
       - Device security - developer class certificates
       x-origin: /home/circleci/project/connector-ca/public/swagger.yaml
+  /v3/device-block-categories/:
+    get:
+      description: 'List all device block categories. A block category is a short
+        description of why a device was suspended or returned to service.
+
+
+        **Example:**
+
+        Get all defined categories of why device is blocked from the device management
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-block-categories
+        \
+
+        -H ''Authorization: Bearer <API key>''
+
+        ```'
+      operationId: Block_Categories_list
+      parameters:
+      - description: This endpoint doesn't support paging. Parameter is accepted for
+          API compatibility. Value is ignored
+        in: query
+        maximum: 1000
+        minimum: 2
+        name: limit
+        type: integer
+      - description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
+        in: query
+        name: order
+        type: string
+      - description: This endpoint doesn't support paging. Parameter is accepted for
+          API compatibility. Value is ignored
+        in: query
+        name: after
+        type: string
+      - description: 'Comma-separated list of data fields to return. Currently supported:
+          `total_count`.'
+        in: query
+        name: include
+        type: string
+      - description: eq filter for the "reference" field
+        in: query
+        name: reference__eq
+        type: string
+      - description: neq filter for the "reference" field
+        in: query
+        name: reference__neq
+        type: string
+      - description: in filter for the "reference" field
+        in: query
+        name: reference__in
+        type: string
+      - description: nin filter for the "reference" field
+        in: query
+        name: reference__nin
+        type: string
+      - description: in filter for the "updated_at" field
+        in: query
+        name: updated_at__in
+        type: string
+      - description: nin filter for the "updated_at" field
+        in: query
+        name: updated_at__nin
+        type: string
+      - description: lte filter for the "updated_at" field
+        format: date-time
+        in: query
+        name: updated_at__lte
+        type: string
+      - description: gte filter for the "updated_at" field
+        format: date-time
+        in: query
+        name: updated_at__gte
+        type: string
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/DeviceBlockCategoryPage'
+        400:
+          description: Bad request.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Unauthorized.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: List all device block categories
+      tags:
+      - Device directory - lifecycle
+      x-filter:
+        reference:
+        - eq
+        - neq
+        - in
+        - nin
+        updated_at:
+        - in
+        - nin
+        - lte
+        - gte
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
+  /v3/device-block-categories/{block_category_reference}:
+    get:
+      description: Retrieve a device block category. A block category is a short description
+        of why a device was suspended or returned to service.
+      operationId: Block_Categories_retrieve
+      parameters:
+      - description: The reference of the block category.
+        in: path
+        name: block_category_reference
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/DeviceBlockCategory'
+        401:
+          description: Unauthorized.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        404:
+          description: Not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get a device block category.
+      tags:
+      - Device directory - lifecycle
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-enrollment-denials:
     get:
       description: 'This produces a list of failed attempts to bootstrap using a particular
@@ -17315,69 +17541,89 @@ paths:
       x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-events/:
     get:
-      description: List all device events for an account.
+      description: 'List all device events for an account.
+
+
+        **Example:**
+
+        Following example gets device-events limiting returned results to max 5 events
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \
+
+        -H ''Authorization: Bearer <API key>''
+
+        ```
+
+        or to get events for certain device filter based on device_id:
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=<device_id>
+        \
+
+        -H ''Authorization: Bearer <API key>''
+
+        ```'
       operationId: Device_Event_list
       parameters:
-      - description: How many objects to retrieve in the page. The minimum limit is
-          2 and the maximum is 1000. Limit values outside of this range are set to
-          the closest limit.
+      - description: How many objects to retrieve in the page (2-1000). Limit values
+          outside of this range are set to the closest limit.
         in: query
         maximum: 1000
         minimum: 2
         name: limit
         type: integer
-      - description: The order of the records based on creation time, `ASC` or `DESC`;
-          by default `ASC`.
+      - description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
         in: query
         name: order
         type: string
-      - description: The ID of The item after which to retrieve the next page.
+      - description: The ID of the item after which to retrieve the next page.
         in: query
         name: after
         type: string
       - description: 'Comma-separated list of data fields to return. Currently supported:
-          `total_count`'
+          `total_count`.'
         in: query
         name: include
         type: string
-      - description: "URL encoded query string parameter to filter returned data.\n\
-          \n##### Filtering\n\n```?filter={URL encoded query string}```\n\nThe query\
-          \ string is made up of key/value pairs separated by ampersands. So for a\
-          \ query of\n```key1=value1&key2=value2&key3=value3``` this would be encoded\
-          \ as follows:\n```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```\n\
-          \n###### Filterable fields:\n\nThe below table lists all the fields that\
-          \ can be filtered on with certain filters:\n\n<table>\n  <thead>\n    <tr>\n\
-          \      <th>Field</th>\n      <th>= / __eq / __neq</th>\n      <th>__in /\
-          \  __nin</th>\n      <th>__lte / __gte</th>\n    <tr>\n  <thead>\n  <tbody>\n\
-          \    <tr>\n      <td>date_time</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>description</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>device_id</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>event_type</td>\n      <td>\u2713</td>\n\
+      - description: "URL-encoded query string parameter to filter returned data.\n\
+          \n##### Filtering\n\n`?filter={URL encoded query string}`\n\nThe query string\
+          \ is made up of key/value pairs separated by ampersands. So for a query\
+          \ of\n`key1=value1&key2=value2&key3=value3`, this would be encoded as `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`.\n\
+          \n###### Filterable fields:\n\nThe below table lists all filterable fields:\n\
+          \n<table>\n  <thead>\n    <tr>\n      <th>Field</th>\n      <th>= / __eq\
+          \ / __neq</th>\n      <th>__in /  __nin</th>\n      <th>__lte / __gte</th>\n\
+          \    <tr>\n  <thead>\n  <tbody>\n    <tr>\n      <td>date_time</td>\n  \
+          \    <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n   \
+          \ </tr>\n    <tr>\n      <td>description</td>\n      <td>\u2713</td>\n \
+          \     <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n    \
+          \  <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n\
+          \    </tr>\n    <tr>\n      <td>device_id</td>\n      <td>\u2713</td>\n\
           \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>state_change</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe examples\
-          \ below show the queries in *unencoded* form.\n\n###### By id:\n\n```id={id}```\n\
-          \n###### By state change:\n\n```state_change=[True|False]```\n\n###### By\
-          \ event type:\n\n```event_type={value}```\n\n###### On date-time fields:\n\
-          \nDate-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```.\
-          \ There are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds\
-          \ e.g. 2016-11-30T16:25:12.1234Z\n* UTC RFC3339 without milliseconds e.g.\
-          \ 2016-11-30T16:25:12Z\n* UTC RFC3339 shortened - without milliseconds and\
-          \ punctuation e.g. 20161130T162512Z\n\nDate-time filtering supports three\
-          \ operators:\n\n* equality\n* greater than or equal to &ndash; field name\
-          \ suffixed with ```__gte```\n* less than or equal to &ndash; field name\
-          \ suffixed with ```__lte```\nLower and upper limits to a date-time range\
-          \ may be specified by including both the ```__gte``` and ```__lte``` forms\
-          \ in\nthe filter.\n```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```\n\
-          \n##### Multi-field example\n\n```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```\n\
-          \nEncoded:\n\n```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```\n\
+          \   <td>event_type</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>state_change</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe examples below show the queries\
+          \ in *unencoded* form.\n\n###### By id:\n\n`id={id}`\n\n###### By state\
+          \ change:\n\n`state_change=[True|False]`\n\n###### By event type:\n\n`event_type={value}`\n\
+          \n###### On date-time fields:\n\nDate-time fields should be specified in\
+          \ UTC RFC3339 format: `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted\n\
+          variations:\n\n* UTC RFC3339 with milliseconds, for example, 2016-11-30T16:25:12.1234Z.\n\
+          * UTC RFC3339 without milliseconds, for example, 2016-11-30T16:25:12Z.\n\
+          * UTC RFC3339 shortened - without milliseconds and punctuation, for example,\
+          \ 20161130T162512Z.\n\nDate-time filtering supports three operators:\n\n\
+          * Equality.\n* Greater than or equal to &ndash; field name suffixed with\
+          \ `__gte`.\n* Less than or equal to &ndash; field name suffixed with `__lte`.\n\
+          Lower and upper limits to a date-time range may be specified by including\
+          \ both the `__gte` and `__lte` forms in\nthe filter:\n\n`{field name}[|__lte|__gte]={UTC\
+          \ RFC3339 date-time}`\n\n##### Multi-field example\n\n`id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z`\n\
+          \nEncoded:\n\n`?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z`\n\
           \n##### Filtering with filter operators\n\nString field filtering supports\
-          \ the following operators:\n\n* equality: `__eq`\n* non-equality: `__neq`\n\
-          * in : `__in`\n* not in: `__nin`\n\nFor `__in` and `__nin` filters list\
-          \ of parameters must be comma-separated:\n`event_type__in=update.device.device-created,update.device.device-updated`"
+          \ the following operators:\n\n* Equality: `__eq`.\n* Non-equality: `__neq`.\n\
+          * In : `__in`.\n* Not in: `__nin`.\n\nFor `__in` and `__nin` filters list\
+          \ of parameters must be comma-separated:\n\n`event_type__in=update.device.device-created,update.device.device-updated`"
         in: query
         name: filter
         type: string
@@ -17477,12 +17723,14 @@ paths:
           schema:
             $ref: '#/definitions/DeviceEventPage'
         '400':
-          description: Bad Request.
+          description: Bad request.
         '401':
           description: Not authenticated.
         '404':
           description: Unable to find page.
       summary: List all device events.
+      tags:
+      - Device directory - events
       x-filter:
         date_time:
         - in
@@ -17515,7 +17763,22 @@ paths:
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-events/{device_event_id}/:
     get:
-      description: Retrieve a specific device event.
+      description: 'Retrieve a specific device event.
+
+
+        **Example:**
+
+        To fetch a specific event you can use the ''id'' field form the ''/v3/device-events''.
+        Form of ''016c03d40a4e000000000001001003b4''
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events/<device_event_id>
+        \
+
+        -H ''Authorization: Bearer <API key>''
+
+        ```'
       operationId: Device_Event_retrieve
       parameters:
       - in: path
@@ -17528,32 +17791,32 @@ paths:
           schema:
             $ref: '#/definitions/DeviceEventData'
         '400':
-          description: Bad Request.
+          description: Bad request.
         '401':
           description: Not authenticated.
         '404':
           description: Unable to find device.
       summary: Retrieve a device event.
+      tags:
+      - Device directory - events
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/:
     get:
       description: List all groups.
       operationId: Group_list
       parameters:
-      - description: How many objects to retrieve in the page. The minimum limit is
-          2 and the maximum is 1000. Limit values outside of this range are set to
-          the closest limit.
+      - description: How many objects to retrieve in the page (2-1000). Limit values
+          outside of this range are set to the closest limit.
         in: query
         maximum: 1000
         minimum: 2
         name: limit
         type: integer
-      - description: The order of the records based on creation time, `ASC` or `DESC`;
-          by default `ASC`.
+      - description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
         in: query
         name: order
         type: string
-      - description: The ID of The item after which to retrieve the next page.
+      - description: The ID of the item after which to retrieve the next page.
         in: query
         name: after
         type: string
@@ -17562,45 +17825,43 @@ paths:
         in: query
         name: include
         type: string
-      - description: "URL encoded query string parameter to filter returned data.\n\
-          \n##### Filtering\n\n```?filter={URL encoded query string}```\n\nThe query\
-          \ string is made up of key/value pairs separated by ampersands. So for a\
-          \ query of\n\n```key1=value1&key2=value2&key3=value3``` this would be encoded\
-          \ as follows:\n```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```\n\
-          \n###### Filterable fields:\n\nThe table lists all the fields that can be\
-          \ filtered on with certain filters:\n\n<table>\n  <thead>\n    <tr>\n  \
-          \    <th>Field</th>\n      <th>= / __eq / __neq</th>\n      <th>__in / \
-          \ __nin</th>\n      <th>__lte / __gte</th>\n    <tr>\n  <thead>\n  <tbody>\n\
-          \    <tr>\n      <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>devices_count</td>\n\
+      - description: "URL-encoded query string parameter to filter returned data.\n\
+          \n##### Filtering\n\n`?filter={URL encoded query string}`\n\nThe query string\
+          \ is made up of key/value pairs separated by ampersands. So for a query\
+          \ of\n`key1=value1&key2=value2&key3=value3`, this would be encoded as `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`.\n\
+          \n###### Filterable fields:\n\nThe table lists all filterable fields:\n\n\
+          <table>\n  <thead>\n    <tr>\n      <th>Field</th>\n      <th>= / __eq /\
+          \ __neq</th>\n      <th>__in /  __nin</th>\n      <th>__lte / __gte</th>\n\
+          \    <tr>\n  <thead>\n  <tbody>\n    <tr>\n      <td>id</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
+          \      <td>devices_count</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>name</td>\n     \
+          \ <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n\
+          \    <tr>\n      <td>custom_attributes</td>\n      <td>\u2713</td>\n   \
+          \   <td>&nbsp;</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>created_at</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>name</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>custom_attributes</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>created_at</td>\n      <td>\u2713</td>\n\
+          \   </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
-          \   <td>updated_at</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>etag</td>\n     \
-          \ <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n\
-          \  </tbody>\n</table>\n&nbsp;\n\nThe examples below show the queries in\
-          \ *unencoded* form.\n\n###### By device group properties:\n```name__eq=mygroup```\n\
-          \n###### On date-time fields:\n\nDate-time fields should be specified in\
-          \ UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted\n\
-          variations:\n\n* UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z\n\
-          * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z\n* UTC RFC3339\
-          \ shortened - without milliseconds and punctuation e.g. 20161130T162512Z\n\
-          \nDate-time filtering supports three operators:\n\n* equality\n* greater\
-          \ than or equal to &ndash; field name suffixed with ```__gte```\n* less\
-          \ than or equal to &ndash; field name suffixed with ```__lte```\n\nLower\
-          \ and upper limits to a date-time range may be specified by including both\
-          \ the ```__gte``` and ```__lte``` forms in\nthe filter.\n```{field name}[|__lte|__gte]={UTC\
-          \ RFC3339 date-time}```\n\n###### By device group custom attributes:\n\n\
-          ```custom_attributes__{param}={value}```\n```custom_attributes__tag=TAG1```\n\
-          \n##### Multi-field example\n\n```name__eq=mygroup&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```\n\
-          \nEncoded:\n\n```?filter=name__eq%3Dmygroup%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-12-30T00%3A00%3A00Z```\n\
+          \   <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe examples below show\
+          \ the queries in *unencoded* form.\n\n###### By device group properties:\n\
+          \n`name__eq=mygroup`\n\n###### On date-time fields:\n\nDate-time fields\
+          \ should be specified in UTC RFC3339 format `YYYY-MM-DDThh:mm:ss.msZ`. There\
+          \ are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds, for\
+          \ example, 2016-11-30T16:25:12.1234Z.\n* UTC RFC3339 without milliseconds,\
+          \ for example, 2016-11-30T16:25:12Z.\n* UTC RFC3339 shortened - without\
+          \ milliseconds and punctuation, for example, 20161130T162512Z.\n\nDate-time\
+          \ filtering supports three operators:\n\n* Equality.\n* Greater than or\
+          \ equal to &ndash; field name suffixed with `__gte`.\n* Less than or equal\
+          \ to &ndash; field name suffixed with `__lte`.\n\nLower and upper limits\
+          \ to a date-time range may be specified by including both the `__gte` and\
+          \ `__lte` forms in\nthe filter:\n\n`{field name}[|__lte|__gte]={UTC RFC3339\
+          \ date-time}`\n\n###### By device group custom attributes:\n\n`custom_attributes__{param}={value}`\n\
+          \n`custom_attributes__tag=TAG1`\n\n##### Multi-field example\n\n`name__eq=mygroup&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \nEncoded:\n\n`?filter=name__eq%3Dmygroup%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-12-30T00%3A00%3A00Z`\n\
           \n##### Filtering with filter operators\n\nString field filtering supports\
-          \ the following operators:\n\n* equality: `__eq`\n* non-equality: `__neq`\n\
-          * in : `__in`\n* not in: `__nin`\n\nFor `__in` and `__nin` filters list\
+          \ the following operators:\n\n* Equality: `__eq`.\n* Non-equality: `__neq`.\n\
+          * In : `__in`.\n* Not in: `__nin`.\n\nFor `__in` and `__nin` filters list\
           \ of parameters must be comma-separated:\n`name__in=group1,group2`"
         in: query
         name: filter
@@ -17711,6 +17972,8 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: List all groups.
+      tags:
+      - Device directory - groups
       x-filter:
         created_at:
         - in
@@ -17750,9 +18013,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id021
-            description: *id022
-            name: *id023
+            custom_attributes: *id022
+            description: *id023
+            name: *id024
           type: object
       responses:
         '201':
@@ -17760,7 +18023,7 @@ paths:
           schema:
             $ref: '#/definitions/DeviceGroup'
         '400':
-          description: Bad Request.
+          description: Bad request.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '401':
@@ -17771,14 +18034,16 @@ paths:
           description: Conflict - Group name already exists.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Create a group
+      summary: Create a group.
+      tags:
+      - Device directory - groups
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/{device-group-id}/:
     delete:
       description: Delete a group.
       operationId: Group_delete
       parameters:
-      - description: The ID of the group
+      - description: The ID of the group.
         in: path
         name: device-group-id
         required: true
@@ -17794,7 +18059,9 @@ paths:
           description: Not Found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Delete a group
+      summary: Delete a group.
+      tags:
+      - Device directory - groups
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     get:
       description: Get a group.
@@ -17823,6 +18090,8 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Get a group.
+      tags:
+      - Device directory - groups
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     put:
       description: Modify the attributes of a group.
@@ -17838,9 +18107,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id021
-            description: *id022
-            name: *id023
+            custom_attributes: *id022
+            description: *id023
+            name: *id024
           type: object
       responses:
         '200':
@@ -17848,7 +18117,7 @@ paths:
           schema:
             $ref: '#/definitions/DeviceGroup'
         '400':
-          description: Bad Request.
+          description: Bad request.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '401':
@@ -17860,6 +18129,8 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Modify the attributes of a group.
+      tags:
+      - Device directory - groups
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/{device-group-id}/devices/:
     get:
@@ -17870,20 +18141,18 @@ paths:
         name: device-group-id
         required: true
         type: string
-      - description: How many objects to retrieve in the page. The minimum limit is
-          2 and the maximum is 1000. Limit values outside of this range are set to
-          the closest limit.
+      - description: How many objects to retrieve in the page (2-1000). Limit values
+          outside of this range are set to the closest limit.
         in: query
         maximum: 1000
         minimum: 2
         name: limit
         type: integer
-      - description: The order of the records based on creation time, `ASC` or `DESC`;
-          by default `ASC`.
+      - description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
         in: query
         name: order
         type: string
-      - description: The ID of The item after which to retrieve the next page.
+      - description: The ID of the item after which to retrieve the next page.
         in: query
         name: after
         type: string
@@ -17892,90 +18161,105 @@ paths:
         in: query
         name: include
         type: string
-      - description: "URL encoded query string parameter to filter returned data.\n\
-          \      \n##### Filtering\n\n```?filter={URL encoded query string}```\n\n\
-          The query string is made up of key/value pairs separated by ampersands.\
-          \ So for a query of\n```key1=value1&key2=value2&key3=value3``` this would\
-          \ be encoded as follows:\n```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```\n\
-          \n###### Filterable fields:\n\nThe below table lists all the fields that\
-          \ can be filtered on with certain filters:\n\n<table>\n  <thead>\n    <tr>\n\
-          \      <th>Field</th>\n      <th>= / __eq / __neq</th>\n      <th>__in /\
-          \  __nin</th>\n      <th>__lte / __gte</th>\n    <tr>\n  <thead>\n  <tbody>\n\
-          \    <tr>\n      <td>lifecycle_status</td>\n      <td>\u2713</td>\n    \
-          \  <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>account_id</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>auto_update</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>bootstrap_expiration_date</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>bootstrapped_timestamp</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \     </tr>\n    <tr>\n      <td>ca_id</td>\n      <td>\u2713</td>\n   \
-          \   <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>connector_expiration_date</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>created_at</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
-          \   <td>custom_attributes</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>deployed_state</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>deployment</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>description</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>device_class</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>device_execution_mode</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
-          \      <td>device_key</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>endpoint_name</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>endpoint_type</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>enrolment_list_timestamp</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>etag</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>firmware_checksum</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
-          \      <td>host_gateway</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>id</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
-          \      <td>manifest</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>manifest_timestamp</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>mechanism</td>\n      <td>\u2713</td>\n \
-          \     <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n    \
-          \  <td>mechanism_url</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>name</td>\n     \
-          \ <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n\
-          \    <tr>\n      <td>serial_number</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>state</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
-          \   <td>vendor_id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \     <td>&nbsp;</td>\n      </tr>\n    <tr>\n      <td>issuer_fingerprint</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>            \n  </tbody>\n</table>\n&nbsp;\n\nThe examples below\
-          \ show the queries in *unencoded* form.\n\n###### By device properties (all\
-          \ properties are filterable):\n\n```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```\n\
-          ```device_class={value}```\n\n###### On date-time fields:\n\nDate-time fields\
-          \ should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```.\
-          \ There are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds\
-          \ e.g. 2016-11-30T16:25:12.1234Z\n* UTC RFC3339 without milliseconds e.g.\
-          \ 2016-11-30T16:25:12Z\n* UTC RFC3339 shortened - without milliseconds and\
-          \ punctuation e.g. 20161130T162512Z\n\nDate-time filtering supports three\
-          \ operators:\n\n* equality\n* greater than or equal to &ndash; field name\
-          \ suffixed with ```__gte```\n* less than or equal to &ndash; field name\
-          \ suffixed with ```__lte```\n\nLower and upper limits to a date-time range\
-          \ may be specified by including both the ```__gte``` and ```__lte``` forms\
-          \ in the filter.\n```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```\n\
-          \n###### On device custom attributes:\n\n```custom_attributes__{param}={value}```\n\
-          ```custom_attributes__tag=TAG1```\n\n##### Multi-field example\n\n```state=bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```\n\
-          \nEncoded:\n\n```?filter=state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```\n\
-          \n##### Filtering with filter operators\n\nString field filtering supports\
-          \ the following operators:\n\n* equality: `__eq`\n* non-equality: `__neq`\n\
-          * in : `__in`\n* not in: `__nin`\n\nFor `__in` and `__nin` filters list\
-          \ of parameters must be comma-separated:\n`state__nin=unenrolled,dergistered`"
+      - description: eq filter for the "lifecycle_status" field
         in: query
-        name: filter
+        name: lifecycle_status__eq
+        type: string
+      - description: neq filter for the "lifecycle_status" field
+        in: query
+        name: lifecycle_status__neq
+        type: string
+      - description: in filter for the "lifecycle_status" field
+        in: query
+        name: lifecycle_status__in
+        type: string
+      - description: nin filter for the "lifecycle_status" field
+        in: query
+        name: lifecycle_status__nin
+        type: string
+      - description: eq filter for the "operator_suspended" field
+        in: query
+        name: operator_suspended__eq
+        type: boolean
+      - description: neq filter for the "operator_suspended" field
+        in: query
+        name: operator_suspended__neq
+        type: boolean
+      - description: eq filter for the "last_operator_suspended_category" field
+        in: query
+        name: last_operator_suspended_category__eq
+        type: string
+      - description: neq filter for the "last_operator_suspended_category" field
+        in: query
+        name: last_operator_suspended_category__neq
+        type: string
+      - description: in filter for the "last_operator_suspended_category" field
+        in: query
+        name: last_operator_suspended_category__in
+        type: string
+      - description: nin filter for the "last_operator_suspended_category" field
+        in: query
+        name: last_operator_suspended_category__nin
+        type: string
+      - description: in filter for the "last_operator_suspended_updated_at" field
+        in: query
+        name: last_operator_suspended_updated_at__in
+        type: string
+      - description: nin filter for the "last_operator_suspended_updated_at" field
+        in: query
+        name: last_operator_suspended_updated_at__nin
+        type: string
+      - description: lte filter for the "last_operator_suspended_updated_at" field
+        format: date-time
+        in: query
+        name: last_operator_suspended_updated_at__lte
+        type: string
+      - description: gte filter for the "last_operator_suspended_updated_at" field
+        format: date-time
+        in: query
+        name: last_operator_suspended_updated_at__gte
+        type: string
+      - description: eq filter for the "system_suspended" field
+        in: query
+        name: system_suspended__eq
+        type: boolean
+      - description: neq filter for the "system_suspended" field
+        in: query
+        name: system_suspended__neq
+        type: boolean
+      - description: eq filter for the "last_system_suspended_category" field
+        in: query
+        name: last_system_suspended_category__eq
+        type: string
+      - description: neq filter for the "last_system_suspended_category" field
+        in: query
+        name: last_system_suspended_category__neq
+        type: string
+      - description: in filter for the "last_system_suspended_category" field
+        in: query
+        name: last_system_suspended_category__in
+        type: string
+      - description: nin filter for the "last_system_suspended_category" field
+        in: query
+        name: last_system_suspended_category__nin
+        type: string
+      - description: in filter for the "last_system_suspended_updated_at" field
+        in: query
+        name: last_system_suspended_updated_at__in
+        type: string
+      - description: nin filter for the "last_system_suspended_updated_at" field
+        in: query
+        name: last_system_suspended_updated_at__nin
+        type: string
+      - description: lte filter for the "last_system_suspended_updated_at" field
+        format: date-time
+        in: query
+        name: last_system_suspended_updated_at__lte
+        type: string
+      - description: gte filter for the "last_system_suspended_updated_at" field
+        format: date-time
+        in: query
+        name: last_system_suspended_updated_at__gte
         type: string
       - description: eq filter for the "account_id" field
         in: query
@@ -18437,7 +18721,7 @@ paths:
           schema:
             $ref: '#/definitions/DevicePage'
         400:
-          description: Bad Request.
+          description: Bad request.
           schema:
             $ref: '#/definitions/ErrorResponse'
         401:
@@ -18448,8 +18732,10 @@ paths:
           description: Not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get a page of devices
-      x-filter: &id024
+      summary: Get a page of devices.
+      tags:
+      - Device directory - groups
+      x-filter: &id025
         account_id:
         - eq
         - neq
@@ -18543,6 +18829,31 @@ paths:
         - neq
         - in
         - nin
+        last_operator_suspended_category:
+        - eq
+        - neq
+        - in
+        - nin
+        last_operator_suspended_updated_at:
+        - in
+        - nin
+        - lte
+        - gte
+        last_system_suspended_category:
+        - eq
+        - neq
+        - in
+        - nin
+        last_system_suspended_updated_at:
+        - in
+        - nin
+        - lte
+        - gte
+        lifecycle_status:
+        - eq
+        - neq
+        - in
+        - nin
         manifest:
         - eq
         - neq
@@ -18568,6 +18879,9 @@ paths:
         - neq
         - in
         - nin
+        operator_suspended:
+        - eq
+        - neq
         serial_number:
         - eq
         - neq
@@ -18578,6 +18892,9 @@ paths:
         - neq
         - in
         - nin
+        system_suspended:
+        - eq
+        - neq
         updated_at:
         - in
         - nin
@@ -18609,7 +18926,7 @@ paths:
         '204':
           description: Success - device added.
         '400':
-          description: Bad Request.
+          description: Bad request.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '401':
@@ -18620,7 +18937,9 @@ paths:
           description: Not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Add a device to a group
+      summary: Add a device to a group.
+      tags:
+      - Device directory - groups
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/{device-group-id}/devices/remove/:
     post:
@@ -18642,7 +18961,7 @@ paths:
         '204':
           description: Success - device removed.
         '400':
-          description: Bad Request.
+          description: Bad request.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '401':
@@ -18650,31 +18969,30 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         '404':
-          description: Not Found.
+          description: Not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Remove a device from a group
+      summary: Remove a device from a group.
+      tags:
+      - Device directory - groups
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-queries/:
     get:
-      description: List all device queries. The result will be paged into pages of
-        100.
+      description: List all device queries.
       operationId: Device_Query_list
       parameters:
-      - description: How many objects to retrieve in the page. The minimum limit is
-          2 and the maximum is 1000. Limit values outside of this range are set to
-          the closest limit.
+      - description: How many objects to retrieve in the page (2-1000). Limit values
+          outside of this range are set to the closest limit.
         in: query
         maximum: 1000
         minimum: 2
         name: limit
         type: integer
-      - description: The order of the records based on creation time, `ASC` or `DESC`;
-          by default `ASC`.
+      - description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
         in: query
         name: order
         type: string
-      - description: The ID of The item after which to retrieve the next page.
+      - description: The ID of the item after which to retrieve the next page.
         in: query
         name: after
         type: string
@@ -18683,42 +19001,40 @@ paths:
         in: query
         name: include
         type: string
-      - description: "URL encoded query string parameter to filter returned data.\n\
-          \n##### Filtering\n\n```?filter={URL encoded query string}```\n\nThe query\
-          \ string is made up of key/value pairs separated by ampersands. So for a\
-          \ query of\n```key1=value1&key2=value2&key3=value3``` this would be encoded\
-          \ as follows:\n```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```\n\
-          \nThe below table lists all the fields that can be filtered on with certain\
-          \ filters:\n\n<table>\n  <thead>\n    <tr>\n      <th>Field</th>\n     \
-          \ <th>= / __eq / __neq</th>\n      <th>__in /  __nin</th>\n      <th>__lte\
-          \ / __gte</th>\n    <tr>\n  <thead>\n  <tbody>\n    <tr>\n      <td>created_at</td>\n\
+      - description: "URL-encoded query string parameter to filter returned data.\n\
+          \n##### Filtering\n\n`?filter={URL encoded query string}`\n\nThe query string\
+          \ is made up of key/value pairs separated by ampersands. So for a query\
+          \ of\n`key1=value1&key2=value2&key3=value3`, this would be encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`.\n\
+          \nThe below table lists all filterable fields:\n\n<table>\n  <thead>\n \
+          \   <tr>\n      <th>Field</th>\n      <th>= / __eq / __neq</th>\n      <th>__in\
+          \ /  __nin</th>\n      <th>__lte / __gte</th>\n    <tr>\n  <thead>\n  <tbody>\n\
+          \    <tr>\n      <td>created_at</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>etag</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>id</td>\n \
-          \     <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n  \
-          \  </tr>\n    <tr>\n      <td>name</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>query</td>\n\
+          \   </tr>\n    <tr>\n      <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>name</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n  </tbody>\n</table>\n\
-          &nbsp;\n\nThe examples below show the queries in *unencoded* form.\n\n######\
-          \ By device query properties (all properties are filterable):\n\nFor example:\n\
-          ```description={value}```\n\n###### On date-time fields:\n\nDate-time fields\
-          \ should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```.\
-          \ There are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds\
-          \ e.g. 2016-11-30T16:25:12.1234Z\n* UTC RFC3339 without milliseconds e.g.\
-          \ 2016-11-30T16:25:12Z\n* UTC RFC3339 shortened - without milliseconds and\
-          \ punctuation e.g. 20161130T162512Z\n\nDate-time filtering supports three\
-          \ operators:\n\n* equality\n* greater than or equal to &ndash; field name\
-          \ suffixed with ```__gte```\n* less than or equal to &ndash; field name\
-          \ suffixed with ```__lte```\n\nLower and upper limits to a date-time range\
-          \ may be specified by including both the ```__gte``` and ```__lte``` forms\
-          \ in\nthe filter.\n```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```\n\
-          \n##### Multi-field example\n\n```query_id=0158d38771f70000000000010010038c&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```\n\
-          \nEncoded:\n\n```filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```\n\
+          \   </tr>\n    <tr>\n      <td>query</td>\n      <td>\u2713</td>\n     \
+          \ <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>updated_at</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
+          \   </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe examples below show the queries\
+          \ in *unencoded* form.\n\n###### By device query properties (all properties\
+          \ are filterable):\n\nFor example:\n`description={value}`\n\n###### On date-time\
+          \ fields:\n\nDate-time fields should be specified in UTC RFC3339 format\
+          \ `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted\nvariations:\n\n\
+          * UTC RFC3339 with milliseconds, for example, 2016-11-30T16:25:12.1234Z.\n\
+          * UTC RFC3339 without milliseconds, for example, 2016-11-30T16:25:12Z.\n\
+          * UTC RFC3339 shortened - without milliseconds and punctuation, for example,\
+          \ 20161130T162512Z.\n\nDate-time filtering supports three operators:\n\n\
+          * Equality.\n* Greater than or equal to &ndash; field name suffixed with\
+          \ `__gte`.\n* Less than or equal to &ndash; field name suffixed with `__lte`.\n\
+          \nLower and upper limits to a date-time range may be specified by including\
+          \ both the `__gte` and `__lte` forms in\nthe filter: `{field name}[|__lte|__gte]={UTC\
+          \ RFC3339 date-time}`.\n\n##### Multi-field example\n\n`query_id=0158d38771f70000000000010010038c&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \nEncoded:\n\n`filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z`\n\
           \n##### Filtering with filter operators\n\nString field filtering supports\
-          \ the following operators:\n\n* equality: `__eq`\n* non-equality: `__neq`\n\
-          * in : `__in`\n* not in: `__nin`\n\nFor `__in` and `__nin` filters list\
+          \ the following operators:\n\n* Equality: `__eq`.\n* Non-equality: `__neq`.\n\
+          * In : `__in`.\n* Not in: `__nin`.\n\nFor `__in` and `__nin` filters list\
           \ of parameters must be comma-separated:\n`name__nin=query1,query2`"
         in: query
         name: filter
@@ -18813,12 +19129,14 @@ paths:
           schema:
             $ref: '#/definitions/DeviceQueryPage'
         '400':
-          description: Bad Request.
+          description: Bad request.
         '401':
           description: Not authenticated.
         '404':
           description: Unable to find page.
       summary: List device queries.
+      tags:
+      - Device directory - filter queries
       x-filter:
         created_at:
         - in
@@ -18862,12 +19180,12 @@ paths:
             $ref: '#/definitions/DeviceQuery'
         '400':
           description: 'Validation error: The data used to create the device query
-            did not validate.
-
-            '
+            did not validate.'
         '401':
           description: Not authenticated.
-      summary: Create a device query
+      summary: Create a device query.
+      tags:
+      - Device directory - filter queries
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-queries/{query_id}/:
     delete:
@@ -18883,14 +19201,14 @@ paths:
           description: Update device query deleted.
         '400':
           description: 'Validation error: The data used to create the device query
-            did not validate
-
-            '
+            did not validate.'
         '401':
           description: Not authenticated.
         '404':
           description: Unable to delete update device query because it can't be found.
-      summary: Delete a device query
+      summary: Delete a device query.
+      tags:
+      - Device directory - filter queries
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     get:
       description: Retrieve a specific device query.
@@ -18907,14 +19225,14 @@ paths:
             $ref: '#/definitions/DeviceQuery'
         '400':
           description: 'Validation error: The data used to create the device query
-            did not validate.
-
-            '
+            did not validate.'
         '401':
           description: Not authenticated.
         '404':
           description: Unable to find device query.
       summary: Retrieve a device query.
+      tags:
+      - Device directory - filter queries
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     put:
       description: Update a specifc device query.
@@ -18937,14 +19255,14 @@ paths:
             $ref: '#/definitions/DeviceQuery'
         '400':
           description: 'Validation error: The data used to update the device query
-            did not validate.
-
-            '
+            did not validate.'
         '401':
           description: Not authenticated.
         '404':
           description: Unable to update device query because it can't be found.
-      summary: Update a device query
+      summary: Update a device query.
+      tags:
+      - Device directory - filter queries
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devicelog/:
     get:
@@ -18952,20 +19270,18 @@ paths:
       description: 'DEPRECATED: List all device events. Use `/v3/device-events/` instead.'
       operationId: Device_Log_list
       parameters:
-      - description: How many objects to retrieve in the page. The minimum limit is
-          2 and the maximum is 1000. Limit values outside of this range are set to
-          the closest limit.
+      - description: How many objects to retrieve in the page (2-1000). Limit values
+          outside of this range are set to the closest limit.
         in: query
         maximum: 1000
         minimum: 2
         name: limit
         type: integer
-      - description: The order of the records based on creation time, `ASC` or `DESC`;
-          by default `ASC`.
+      - description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
         in: query
         name: order
         type: string
-      - description: The ID of The item after which to retrieve the next page.
+      - description: The ID of the item after which to retrieve the next page.
         in: query
         name: after
         type: string
@@ -18974,44 +19290,42 @@ paths:
         in: query
         name: include
         type: string
-      - description: "URL encoded query string parameter to filter returned data.\n\
-          \n##### Filtering\n\n```?filter={URL encoded query string}```\n\nThe query\
-          \ string is made up of key/value pairs separated by ampersands. So for a\
-          \ query of\n```key1=value1&key2=value2&key3=value3``` this would be encoded\
-          \ as follows:\n```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```\n\
-          \n###### Filterable fields:\n\nThe below table lists all the fields that\
-          \ can be filtered on with certain filters:\n\n<table>\n  <thead>\n    <tr>\n\
-          \      <th>Field</th>\n      <th>= / __eq / __neq</th>\n      <th>__in /\
-          \  __nin</th>\n      <th>__lte / __gte</th>\n    <tr>\n  <thead>\n  <tbody>\n\
-          \    <tr>\n      <td>date_time</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>description</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>device_id</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>event_type</td>\n      <td>\u2713</td>\n\
+      - description: "URL-encoded query string parameter to filter returned data.\n\
+          \n##### Filtering\n\n`?filter={URL encoded query string}`\n\nThe query string\
+          \ is made up of key/value pairs separated by ampersands. So for a query\
+          \ of\n`key1=value1&key2=value2&key3=value3`, this would be encoded as `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`.\n\
+          \n###### Filterable fields:\n\nThe below table lists all filterable fields:\n\
+          \n<table>\n  <thead>\n    <tr>\n      <th>Field</th>\n      <th>= / __eq\
+          \ / __neq</th>\n      <th>__in /  __nin</th>\n      <th>__lte / __gte</th>\n\
+          \    <tr>\n  <thead>\n  <tbody>\n    <tr>\n      <td>date_time</td>\n  \
+          \    <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n   \
+          \ </tr>\n    <tr>\n      <td>description</td>\n      <td>\u2713</td>\n \
+          \     <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n    \
+          \  <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n\
+          \    </tr>\n    <tr>\n      <td>device_id</td>\n      <td>\u2713</td>\n\
           \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>state_change</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe examples\
-          \ below show the queries in *unencoded* form.\n\n###### By id:\n\n```id={id}```\n\
-          \n###### By state change:\n\n```state_change=[True|False]```\n\n###### By\
-          \ event type:\n\n```event_type={value}```\n\n###### On date-time fields:\n\
-          \nDate-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```.\
-          \ There are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds\
-          \ e.g. 2016-11-30T16:25:12.1234Z\n* UTC RFC3339 without milliseconds e.g.\
-          \ 2016-11-30T16:25:12Z\n* UTC RFC3339 shortened - without milliseconds and\
-          \ punctuation e.g. 20161130T162512Z\n\nDate-time filtering supports three\
-          \ operators:\n\n* equality\n* greater than or equal to &ndash; field name\
-          \ suffixed with ```__gte```\n* less than or equal to &ndash; field name\
-          \ suffixed with ```__lte```\n\nLower and upper limits to a date-time range\
-          \ may be specified by including both the ```__gte``` and ```__lte``` forms\
-          \ in\nthe filter.\n```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```\n\
-          \n##### Multi-field example\n```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```\n\
-          \nEncoded:\n\n```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```\n\
+          \   <td>event_type</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>state_change</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe examples below show the queries\
+          \ in *unencoded* form.\n\n###### By id:\n\n`id={id}`\n\n###### By state\
+          \ change:\n\n`state_change=[True|False]`\n\n###### By event type:\n\n`event_type={value}`\n\
+          \n###### On date-time fields:\n\nDate-time fields should be specified in\
+          \ UTC RFC3339 format `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted\n\
+          variations:\n\n* UTC RFC3339 with milliseconds, for example, 2016-11-30T16:25:12.1234Z.\n\
+          * UTC RFC3339 without milliseconds, for example, 2016-11-30T16:25:12Z.\n\
+          * UTC RFC3339 shortened - without milliseconds and punctuation, for example,\
+          \ 20161130T162512Z.\n\nDate-time filtering supports three operators:\n\n\
+          * Equality.\n* Greater than or equal to &ndash; field name suffixed with\
+          \ `__gte`.\n* Less than or equal to &ndash; field name suffixed with `__lte`.\n\
+          \nLower and upper limits to a date-time range may be specified by including\
+          \ both the `__gte` and `__lte` forms in\nthe filter:\n\n`{field name}[|__lte|__gte]={UTC\
+          \ RFC3339 date-time}`\n\n##### Multi-field example\n\n`id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z`\n\
+          \nEncoded:\n\n`?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z`\n\
           \n##### Filtering with filter operators\n\nString field filtering supports\
-          \ the following operators:\n\n* equality: `__eq`\n* non-equality: `__neq`\n\
-          * in : `__in`\n* not in: `__nin`\n\nFor `__in` and `__nin` filters list\
-          \ of parameters must be comma-separated:\n`event_type__in=update.device.device-created,update.device.device-updated`"
+          \ the following operators:\n\n* Equality: `__eq`.\n* Non-equality: `__neq`.\n\
+          * In : `__in`.\n* Not in: `__nin`.\n\nFor `__in` and `__nin` filters list\
+          \ of parameters must be comma-separated:\n`event_type__in=update.device.device-created,update.device.device-updated`."
         in: query
         name: filter
         type: string
@@ -19115,16 +19429,18 @@ paths:
         type: string
       responses:
         '200':
-          description: Request successful
+          description: Request successful.
           schema:
             $ref: '#/definitions/DeviceEventPage'
         '400':
-          description: Bad Request
+          description: Bad request.
         '401':
-          description: Not authenticated
+          description: Not authenticated.
         '404':
           description: Unable to find page
       summary: 'DEPRECATED: List all device events.'
+      tags:
+      - Device directory - events
       x-filter:
         date_time:
         - in
@@ -19174,32 +19490,47 @@ paths:
           schema:
             $ref: '#/definitions/DeviceEventData'
         '400':
-          description: Bad Request.
+          description: Bad request.
         '401':
           description: Not authenticated.
         '404':
           description: Unable to find device.
       summary: 'DEPRECATED: Retrieve a device event.'
+      tags:
+      - Device directory - events
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devices/:
     get:
-      description: List all devices.
+      description: 'List all devices.
+
+
+        **Example:**
+
+        Following example filters devices according to state field and returns only
+        devices in ''registered'' state:
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices?filter=state%3Dregistered
+        \
+
+        -H ''Authorization: Bearer <API key>''
+
+        ```'
       operationId: Device_list
       parameters:
-      - description: How many objects to retrieve in the page. The minimum limit is
-          2 and the maximum is 1000. Limit values outside of this range are set to
-          the closest limit.
+      - description: How many objects to retrieve in the page (2-1000). Limit values
+          outside of this range are set to the closest limit.
         in: query
         maximum: 1000
         minimum: 2
         name: limit
         type: integer
-      - description: The order of the records based on creation time, `ASC` or `DESC`;
-          by default `ASC`.
+      - description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
         in: query
         name: order
         type: string
-      - description: The ID of The item after which to retrieve the next page.
+      - description: The ID of the item after which to retrieve the next page.
         in: query
         name: after
         type: string
@@ -19208,90 +19539,105 @@ paths:
         in: query
         name: include
         type: string
-      - description: "URL encoded query string parameter to filter returned data.\n\
-          \      \n##### Filtering\n\n```?filter={URL encoded query string}```\n\n\
-          The query string is made up of key/value pairs separated by ampersands.\
-          \ So for a query of\n```key1=value1&key2=value2&key3=value3``` this would\
-          \ be encoded as follows:\n```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```\n\
-          \n###### Filterable fields:\n\nThe below table lists all the fields that\
-          \ can be filtered on with certain filters:\n\n<table>\n  <thead>\n    <tr>\n\
-          \      <th>Field</th>\n      <th>= / __eq / __neq</th>\n      <th>__in /\
-          \  __nin</th>\n      <th>__lte / __gte</th>\n    <tr>\n  <thead>\n  <tbody>\n\
-          \    <tr>\n      <td>lifecycle_status</td>\n      <td>\u2713</td>\n    \
-          \  <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>account_id</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>auto_update</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>bootstrap_expiration_date</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>bootstrapped_timestamp</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \     </tr>\n    <tr>\n      <td>ca_id</td>\n      <td>\u2713</td>\n   \
-          \   <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>connector_expiration_date</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>created_at</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
-          \   <td>custom_attributes</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>deployed_state</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>deployment</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>description</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>device_class</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>device_execution_mode</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
-          \      <td>device_key</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>endpoint_name</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>endpoint_type</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n   \
-          \   <td>enrolment_list_timestamp</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>etag</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>firmware_checksum</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
-          \      <td>host_gateway</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>id</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n\
-          \      <td>manifest</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>manifest_timestamp</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>mechanism</td>\n      <td>\u2713</td>\n \
-          \     <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n    \
-          \  <td>mechanism_url</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
-          \      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>name</td>\n     \
-          \ <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n\
-          \    <tr>\n      <td>serial_number</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>state</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
-          \   <td>vendor_id</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \     <td>&nbsp;</td>\n      </tr>\n    <tr>\n      <td>issuer_fingerprint</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>            \n  </tbody>\n</table>\n&nbsp;\n\nThe examples below\
-          \ show the queries in *unencoded* form.\n\n###### By device properties (all\
-          \ properties are filterable):\n\n```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```\n\
-          ```device_class={value}```\n\n###### On date-time fields:\n\nDate-time fields\
-          \ should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```.\
-          \ There are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds\
-          \ e.g. 2016-11-30T16:25:12.1234Z\n* UTC RFC3339 without milliseconds e.g.\
-          \ 2016-11-30T16:25:12Z\n* UTC RFC3339 shortened - without milliseconds and\
-          \ punctuation e.g. 20161130T162512Z\n\nDate-time filtering supports three\
-          \ operators:\n\n* equality\n* greater than or equal to &ndash; field name\
-          \ suffixed with ```__gte```\n* less than or equal to &ndash; field name\
-          \ suffixed with ```__lte```\n\nLower and upper limits to a date-time range\
-          \ may be specified by including both the ```__gte``` and ```__lte``` forms\
-          \ in the filter.\n```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```\n\
-          \n###### On device custom attributes:\n\n```custom_attributes__{param}={value}```\n\
-          ```custom_attributes__tag=TAG1```\n\n##### Multi-field example\n\n```state=bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```\n\
-          \nEncoded:\n\n```?filter=state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```\n\
-          \n##### Filtering with filter operators\n\nString field filtering supports\
-          \ the following operators:\n\n* equality: `__eq`\n* non-equality: `__neq`\n\
-          * in : `__in`\n* not in: `__nin`\n\nFor `__in` and `__nin` filters list\
-          \ of parameters must be comma-separated:\n`state__nin=unenrolled,dergistered`"
+      - description: eq filter for the "lifecycle_status" field
         in: query
-        name: filter
+        name: lifecycle_status__eq
+        type: string
+      - description: neq filter for the "lifecycle_status" field
+        in: query
+        name: lifecycle_status__neq
+        type: string
+      - description: in filter for the "lifecycle_status" field
+        in: query
+        name: lifecycle_status__in
+        type: string
+      - description: nin filter for the "lifecycle_status" field
+        in: query
+        name: lifecycle_status__nin
+        type: string
+      - description: eq filter for the "operator_suspended" field
+        in: query
+        name: operator_suspended__eq
+        type: boolean
+      - description: neq filter for the "operator_suspended" field
+        in: query
+        name: operator_suspended__neq
+        type: boolean
+      - description: eq filter for the "last_operator_suspended_category" field
+        in: query
+        name: last_operator_suspended_category__eq
+        type: string
+      - description: neq filter for the "last_operator_suspended_category" field
+        in: query
+        name: last_operator_suspended_category__neq
+        type: string
+      - description: in filter for the "last_operator_suspended_category" field
+        in: query
+        name: last_operator_suspended_category__in
+        type: string
+      - description: nin filter for the "last_operator_suspended_category" field
+        in: query
+        name: last_operator_suspended_category__nin
+        type: string
+      - description: in filter for the "last_operator_suspended_updated_at" field
+        in: query
+        name: last_operator_suspended_updated_at__in
+        type: string
+      - description: nin filter for the "last_operator_suspended_updated_at" field
+        in: query
+        name: last_operator_suspended_updated_at__nin
+        type: string
+      - description: lte filter for the "last_operator_suspended_updated_at" field
+        format: date-time
+        in: query
+        name: last_operator_suspended_updated_at__lte
+        type: string
+      - description: gte filter for the "last_operator_suspended_updated_at" field
+        format: date-time
+        in: query
+        name: last_operator_suspended_updated_at__gte
+        type: string
+      - description: eq filter for the "system_suspended" field
+        in: query
+        name: system_suspended__eq
+        type: boolean
+      - description: neq filter for the "system_suspended" field
+        in: query
+        name: system_suspended__neq
+        type: boolean
+      - description: eq filter for the "last_system_suspended_category" field
+        in: query
+        name: last_system_suspended_category__eq
+        type: string
+      - description: neq filter for the "last_system_suspended_category" field
+        in: query
+        name: last_system_suspended_category__neq
+        type: string
+      - description: in filter for the "last_system_suspended_category" field
+        in: query
+        name: last_system_suspended_category__in
+        type: string
+      - description: nin filter for the "last_system_suspended_category" field
+        in: query
+        name: last_system_suspended_category__nin
+        type: string
+      - description: in filter for the "last_system_suspended_updated_at" field
+        in: query
+        name: last_system_suspended_updated_at__in
+        type: string
+      - description: nin filter for the "last_system_suspended_updated_at" field
+        in: query
+        name: last_system_suspended_updated_at__nin
+        type: string
+      - description: lte filter for the "last_system_suspended_updated_at" field
+        format: date-time
+        in: query
+        name: last_system_suspended_updated_at__lte
+        type: string
+      - description: gte filter for the "last_system_suspended_updated_at" field
+        format: date-time
+        in: query
+        name: last_system_suspended_updated_at__gte
         type: string
       - description: eq filter for the "account_id" field
         in: query
@@ -19753,13 +20099,15 @@ paths:
           schema:
             $ref: '#/definitions/DevicePage'
         '400':
-          description: Bad Request.
+          description: Bad request.
         '401':
           description: Not authenticated.
         '404':
           description: Unable to find page.
       summary: List all devices.
-      x-filter: *id024
+      tags:
+      - Device directory - devices
+      x-filter: *id025
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     post:
       description: Create a new device.
@@ -19777,16 +20125,16 @@ paths:
             $ref: '#/definitions/DeviceData'
         '400':
           description: 'Validation error: The data used to create the device did not
-            validate.
-
-            '
+            validate.'
         '401':
           description: Not authenticated.
         '403':
           description: Account limit reached. Could not create device.
         '409':
           description: Unique-constrained fields are used by other resources.
-      summary: Create a device
+      summary: Create a device.
+      tags:
+      - Device directory - devices
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devices/{device-id}/certificates/{certificate-name}/renew:
     post:
@@ -19861,11 +20209,11 @@ paths:
   /v3/devices/{id}/:
     delete:
       description: Delete device. Only available for devices with a developer certificate.
-        Attempts to delete a device with a production certicate will return a 400
-        response.
+        Attempting to delete a device with a production certicate returns a 400 response.
       operationId: Device_destroy
       parameters:
-      - in: path
+      - description: The ID of the device.
+        in: path
         name: id
         required: true
         type: string
@@ -19873,18 +20221,35 @@ paths:
         '204':
           description: Device deleted.
         '400':
-          description: Bad Request.
+          description: Bad request.
         '401':
           description: Not authenticated.
         '404':
           description: Unable to delete device because it can't be found.
       summary: Delete a device.
+      tags:
+      - Device directory - devices
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     get:
-      description: Retrieve information about a specific device.
+      description: 'Retrieve information about a specific device.
+
+
+        **Example:**
+
+        Following example must be updated with the device''s ID to the URL. The id
+        is from of "01667c6e992c00000000000100100370"
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/<device_ID> \
+
+        -H ''Authorization: Bearer <API key>''
+
+        ```'
       operationId: Device_retrieve
       parameters:
-      - in: path
+      - description: The ID of the device.
+        in: path
         name: id
         required: true
         type: string
@@ -19894,15 +20259,35 @@ paths:
           schema:
             $ref: '#/definitions/DeviceData'
         '400':
-          description: Bad Request.
+          description: Bad request.
         '401':
           description: Not authenticated.
         '404':
           description: Unable to find device.
-      summary: Get a device
+      summary: Get a device.
+      tags:
+      - Device directory - devices
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     put:
-      description: Update a specific device.
+      description: 'Update a specific device.
+
+
+        **Example:**
+
+        Following example will update the specific devices description field to contain
+        "Testing description field".
+
+        ```
+
+        curl -X PUT https://api.us-east-1.mbedcloud.com/v3/devices/<device_ID> \
+
+        -H ''Authorization: Bearer <API key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''{"description": "Testing description field"}''
+
+        ```'
       operationId: Device_update
       parameters:
       - description: The ID of the device.
@@ -19922,14 +20307,128 @@ paths:
             $ref: '#/definitions/DeviceData'
         '400':
           description: 'Validation error: The data used to update the device did not
-            validate.
-
-            '
+            validate.'
         '401':
           description: Not authenticated.
         '404':
           description: Unable to update device because it can't be found.
-      summary: Update a device
+      summary: Update a device.
+      tags:
+      - Device directory - devices
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
+  /v3/devices/{id}/resume:
+    post:
+      description: 'Returning a device to service restores connectivity to the device.
+        All API functionality is restored.
+
+
+        **Example:**
+
+        Following example enables device to connect again to Pelion Device Management.
+        Note that the category must match the reason why device was suspended. This
+        device was reported stolen but was now found.
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/<device_id>/resume
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''{ "category": "lost_or_stolen", "description": "Was found, was not stolen
+        but miss placed"}''
+
+        ```'
+      operationId: Device_resume
+      parameters:
+      - description: The ID of the device.
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The device block.
+        in: body
+        name: Block
+        required: true
+        schema: &id026
+          properties:
+            category:
+              description: The reference of the block category.
+              example: maintenance
+              pattern: '[a-z0-9_]{0,32}'
+              type: string
+            description:
+              description: The most recent description of why the device was suspended
+                or returned to service.
+              example: Suspended for maintenance.
+              maxLength: 2000
+              type: string
+          type: object
+      responses:
+        '204':
+          description: Ok - Device returned to service.
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Not Found - Could not find device.
+      summary: Return a device to service.
+      tags:
+      - Device directory - lifecycle
+      x-origin: /home/circleci/project/device-directory/public/swagger.yml
+  /v3/devices/{id}/suspend:
+    post:
+      description: 'Suspending a device prevents it from connecting to Device Management.
+        If a device is currently connected, it will be disconnected. Some API operations
+        will fail while a device is suspended.
+
+
+        ***Example:*
+
+        Following example suspends a device with category "Lost or stolen". You can
+        see available categories with ''/v3/device-block-categories/''.
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/<device_id>/suspend
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''{ "category": "lost_or_stolen", "description": "EXAMPLE: Customer contacted
+        via phone and reported device being stolen. Specific time of the theft was
+        not know. Device last used in May/2019"}''
+
+        ```'
+      operationId: Device_suspend
+      parameters:
+      - description: The ID of the device.
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The device block.
+        in: body
+        name: Block
+        required: true
+        schema: *id026
+      responses:
+        '204':
+          description: Ok - Device suspended.
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Not found - Could not find device.
+      summary: Suspend a device.
+      tags:
+      - Device directory - lifecycle
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/firmware-images/:
     get:
@@ -20460,8 +20959,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id025
-            name: *id026
+            description: *id027
+            name: *id028
           type: object
       responses:
         201:
@@ -20552,8 +21051,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id025
-            name: *id026
+            description: *id027
+            name: *id028
           type: object
       responses:
         200:

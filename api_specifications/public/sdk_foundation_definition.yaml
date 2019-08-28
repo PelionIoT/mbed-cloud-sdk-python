@@ -21911,10 +21911,14 @@ entities:
     type: string
   - _key: device_execution_mode
     api_fieldname: device_execution_mode
+    default: 0
     description: "The execution mode from the certificate of the device. Defaults\
-      \ to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified\
-      \ execution mode (default if host_gateway invalid or not set)\n  - 1 - development\
-      \ devices\n  - 5 - production devices"
+      \ to inheriting from host_gateway device.\nPermitted values:\n  - 0 - Unspecified\
+      \ execution mode (default if host_gateway invalid or not set). The device firmware\
+      \ uses a certificate that is not identified as a developer or production certificate.\n\
+      \  - 1 - Development device. The device firmware uses a developer certificate\
+      \ to communicate with Device Management.\n  - 5 - Production device. The device\
+      \ firmware uses a factory-generated certificate to communicate with Device Management."
     enum:
     - 0
     - 1
@@ -21995,6 +21999,68 @@ entities:
     required: false
     type: string
     x-nullable: true
+  - _key: last_operator_suspended_category
+    api_fieldname: last_operator_suspended_category
+    description: The reference of the block category.
+    example: maintenance
+    pattern: '[a-f0-9_]{32}'
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_operator_suspended_description
+    api_fieldname: last_operator_suspended_description
+    description: The most recent description why the device was suspended or returned
+      to service.
+    example: Suspended for maintenance.
+    maxLength: 2000
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_operator_suspended_updated_at
+    api_fieldname: last_operator_suspended_updated_at
+    description: The timestamp of the most recent suspension activity.
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_system_suspended_category
+    api_fieldname: last_system_suspended_category
+    description: The reference of the block category.
+    example: maintenance
+    pattern: '[a-f0-9_]{32}'
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_system_suspended_description
+    api_fieldname: last_system_suspended_description
+    description: The most recent description of why the device was blocked or unblocked
+      by the system.
+    example: A certificate in the device's certificate chain was blacklisted by the
+      system.
+    maxLength: 2000
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_system_suspended_updated_at
+    api_fieldname: last_system_suspended_updated_at
+    description: The timestamp of the most recent system block activity.
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: lifecycle_status
+    api_fieldname: lifecycle_status
+    description: The lifecycle status of the device.
+    enum:
+    - enabled
+    - blocked
+    enum_reference: device_lifecycle_status_enum
+    example: enabled
+    readOnly: true
+    required: false
+    type: string
   - _key: manifest
     api_fieldname: manifest
     description: 'DEPRECATED: The URL for the current device manifest.'
@@ -22035,6 +22101,12 @@ entities:
     readOnly: false
     required: false
     type: string
+  - _key: operator_suspended
+    api_fieldname: operator_suspended
+    description: Is the device suspended by the operator?
+    readOnly: true
+    required: false
+    type: boolean
   - _key: serial_number
     api_fieldname: serial_number
     description: The serial number of the device.
@@ -22055,6 +22127,12 @@ entities:
     readOnly: false
     required: false
     type: string
+  - _key: system_suspended
+    api_fieldname: system_suspended
+    description: Is the device suspended by the system?
+    readOnly: true
+    required: false
+    type: boolean
   - _key: updated_at
     api_fieldname: updated_at
     description: The time the object was updated.
@@ -22116,7 +22194,7 @@ entities:
     - _key: '204'
       description: Success - device added.
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
       schema:
         properties:
         - _key: code
@@ -22266,7 +22344,7 @@ entities:
     return_type: void
     spec:
       return_type: void
-    summary: Add a device to a group
+    summary: Add a device to a group.
     x_deprecation: null
     x_filter: {}
   - _key: create
@@ -22277,6 +22355,15 @@ entities:
     - type
     - filter
     - groups
+    - operator_suspended
+    - last_operator_suspended_category
+    - last_operator_suspended_description
+    - last_operator_suspended_updated_at
+    - system_suspended
+    - last_system_suspended_category
+    - last_system_suspended_description
+    - last_system_suspended_updated_at
+    - lifecycle_status
     - account_id
     - bootstrapped_timestamp
     - created_at
@@ -22376,10 +22463,15 @@ entities:
       type: string
     - _key: device_execution_mode
       api_fieldname: device_execution_mode
+      default: 0
       description: "The execution mode from the certificate of the device. Defaults\
-        \ to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified\
-        \ execution mode (default if host_gateway invalid or not set)\n  - 1 - development\
-        \ devices\n  - 5 - production devices"
+        \ to inheriting from host_gateway device.\nPermitted values:\n  - 0 - Unspecified\
+        \ execution mode (default if host_gateway invalid or not set). The device\
+        \ firmware uses a certificate that is not identified as a developer or production\
+        \ certificate.\n  - 1 - Development device. The device firmware uses a developer\
+        \ certificate to communicate with Device Management.\n  - 5 - Production device.\
+        \ The device firmware uses a factory-generated certificate to communicate\
+        \ with Device Management."
       entity_fieldname: device_execution_mode
       enum:
       - 0
@@ -22623,10 +22715,15 @@ entities:
           type: string
         device_execution_mode:
           api_fieldname: device_execution_mode
+          default: 0
           description: "The execution mode from the certificate of the device. Defaults\
             \ to inheriting from host_gateway device.\nPermitted values:\n  - 0 -\
-            \ unspecified execution mode (default if host_gateway invalid or not set)\n\
-            \  - 1 - development devices\n  - 5 - production devices"
+            \ Unspecified execution mode (default if host_gateway invalid or not set).\
+            \ The device firmware uses a certificate that is not identified as a developer\
+            \ or production certificate.\n  - 1 - Development device. The device firmware\
+            \ uses a developer certificate to communicate with Device Management.\n\
+            \  - 5 - Production device. The device firmware uses a factory-generated\
+            \ certificate to communicate with Device Management."
           entity_fieldname: device_execution_mode
           enum:
           - 0
@@ -22707,6 +22804,60 @@ entities:
           pattern: '[A-Fa-f0-9]{64}'
           type: string
           x-nullable: true
+        last_operator_suspended_category:
+          api_fieldname: last_operator_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_operator_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_operator_suspended_description:
+          api_fieldname: last_operator_suspended_description
+          description: The most recent description why the device was suspended or
+            returned to service.
+          entity_fieldname: last_operator_suspended_description
+          example: Suspended for maintenance.
+          maxLength: 2000
+          type: string
+        last_operator_suspended_updated_at:
+          api_fieldname: last_operator_suspended_updated_at
+          description: The timestamp of the most recent suspension activity.
+          entity_fieldname: last_operator_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        last_system_suspended_category:
+          api_fieldname: last_system_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_system_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_system_suspended_description:
+          api_fieldname: last_system_suspended_description
+          description: The most recent description of why the device was blocked or
+            unblocked by the system.
+          entity_fieldname: last_system_suspended_description
+          example: A certificate in the device's certificate chain was blacklisted
+            by the system.
+          maxLength: 2000
+          type: string
+        last_system_suspended_updated_at:
+          api_fieldname: last_system_suspended_updated_at
+          description: The timestamp of the most recent system block activity.
+          entity_fieldname: last_system_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        lifecycle_status:
+          api_fieldname: lifecycle_status
+          description: The lifecycle status of the device.
+          entity_fieldname: lifecycle_status
+          enum:
+          - enabled
+          - blocked
+          example: enabled
+          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -22747,6 +22898,11 @@ entities:
           entity_fieldname: object
           example: device
           type: string
+        operator_suspended:
+          api_fieldname: operator_suspended
+          description: Is the device suspended by the operator?
+          entity_fieldname: operator_suspended
+          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -22764,6 +22920,11 @@ entities:
           - registered
           - deregistered
           type: string
+        system_suspended:
+          api_fieldname: system_suspended
+          description: Is the device suspended by the system?
+          entity_fieldname: system_suspended
+          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -22778,9 +22939,7 @@ entities:
           example: 00000000-0000-0000-0000-000000000000
           type: string
     - _key: '400'
-      description: 'Validation error: The data used to create the device did not validate.
-
-        '
+      description: 'Validation error: The data used to create the device did not validate.'
     - _key: '401'
       description: Not authenticated.
     - _key: '403'
@@ -22792,12 +22951,12 @@ entities:
       self: true
       type: device
     return_type: device
-    summary: Create a device
+    summary: Create a device.
     x_deprecation: null
     x_filter: {}
   - _key: delete
     description: Delete device. Only available for devices with a developer certificate.
-      Attempts to delete a device with a production certicate will return a 400 response.
+      Attempting to delete a device with a production certicate returns a 400 response.
     drop_fields:
     - object
     - etag
@@ -22807,6 +22966,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: id
+      description: The ID of the device.
       entity_fieldname: id
       external_param: false
       in: path
@@ -22826,7 +22986,7 @@ entities:
     - _key: '204'
       description: Device deleted.
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -22840,7 +23000,22 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: List all devices.
+    description: 'List all devices.
+
+
+      **Example:**
+
+      Following example filters devices according to state field and returns only
+      devices in ''registered'' state:
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices?filter=state%3Dregistered
+      \
+
+      -H ''Authorization: Bearer <API key>''
+
+      ```'
     drop_fields:
     - object
     - etag
@@ -22849,6 +23024,30 @@ entities:
     - data
     - has_more
     - total_count
+    - lifecycle_status__eq
+    - lifecycle_status__neq
+    - lifecycle_status__in
+    - lifecycle_status__nin
+    - operator_suspended__eq
+    - operator_suspended__neq
+    - last_operator_suspended_category__eq
+    - last_operator_suspended_category__neq
+    - last_operator_suspended_category__in
+    - last_operator_suspended_category__nin
+    - last_operator_suspended_updated_at__in
+    - last_operator_suspended_updated_at__nin
+    - last_operator_suspended_updated_at__lte
+    - last_operator_suspended_updated_at__gte
+    - system_suspended__eq
+    - system_suspended__neq
+    - last_system_suspended_category__eq
+    - last_system_suspended_category__neq
+    - last_system_suspended_category__in
+    - last_system_suspended_category__nin
+    - last_system_suspended_updated_at__in
+    - last_system_suspended_updated_at__nin
+    - last_system_suspended_updated_at__lte
+    - last_system_suspended_updated_at__gte
     - account_id__eq
     - account_id__neq
     - account_id__in
@@ -22963,7 +23162,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The ID of The item after which to retrieve the next page.
+      description: The ID of the item after which to retrieve the next page.
       entity_fieldname: after
       example: '01631667477600000000000100100374'
       external_param: true
@@ -22985,9 +23184,8 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: How many objects to retrieve in the page. The minimum limit is
-        2 and the maximum is 1000. Limit values outside of this range are set to the
-        closest limit.
+      description: How many objects to retrieve in the page (2-1000). Limit values
+        outside of this range are set to the closest limit.
       entity_fieldname: limit
       example: 50
       external_param: true
@@ -23000,8 +23198,7 @@ entities:
       type: integer
     - _key: order
       api_fieldname: order
-      description: The order of the records based on creation time, `ASC` or `DESC`;
-        by default `ASC`.
+      description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
       entity_fieldname: order
       example: DESC
       external_param: true
@@ -23114,10 +23311,16 @@ entities:
               maxLength: 32
               type: string
             device_execution_mode:
+              default: 0
               description: "The execution mode from the certificate of the device.\
                 \ Defaults to inheriting from host_gateway device.\nPermitted values:\n\
-                \  - 0 - unspecified execution mode (default if host_gateway invalid\
-                \ or not set)\n  - 1 - development devices\n  - 5 - production devices"
+                \  - 0 - Unspecified execution mode (default if host_gateway invalid\
+                \ or not set). The device firmware uses a certificate that is not\
+                \ identified as a developer or production certificate.\n  - 1 - Development\
+                \ device. The device firmware uses a developer certificate to communicate\
+                \ with Device Management.\n  - 5 - Production device. The device firmware\
+                \ uses a factory-generated certificate to communicate with Device\
+                \ Management."
               enum:
               - 0
               - 1
@@ -23177,6 +23380,46 @@ entities:
               pattern: '[A-Fa-f0-9]{64}'
               type: string
               x-nullable: true
+            last_operator_suspended_category:
+              description: The reference of the block category.
+              example: maintenance
+              pattern: '[a-f0-9_]{32}'
+              type: string
+            last_operator_suspended_description:
+              description: The most recent description why the device was suspended
+                or returned to service.
+              example: Suspended for maintenance.
+              maxLength: 2000
+              type: string
+            last_operator_suspended_updated_at:
+              description: The timestamp of the most recent suspension activity.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            last_system_suspended_category:
+              description: The reference of the block category.
+              example: maintenance
+              pattern: '[a-f0-9_]{32}'
+              type: string
+            last_system_suspended_description:
+              description: The most recent description of why the device was blocked
+                or unblocked by the system.
+              example: A certificate in the device's certificate chain was blacklisted
+                by the system.
+              maxLength: 2000
+              type: string
+            last_system_suspended_updated_at:
+              description: The timestamp of the most recent system block activity.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            lifecycle_status:
+              description: The lifecycle status of the device.
+              enum:
+              - enabled
+              - blocked
+              example: enabled
+              type: string
             manifest:
               description: 'DEPRECATED: The URL for the current device manifest.'
               example: ''
@@ -23205,6 +23448,9 @@ entities:
               description: The API resource entity.
               example: device
               type: string
+            operator_suspended:
+              description: Is the device suspended by the operator?
+              type: boolean
             serial_number:
               description: The serial number of the device.
               example: 00000000-0000-0000-0000-000000000000
@@ -23218,6 +23464,9 @@ entities:
               - registered
               - deregistered
               type: string
+            system_suspended:
+              description: Is the device suspended by the system?
+              type: boolean
             updated_at:
               description: The time the object was updated.
               example: '2017-05-22T12:37:55.576563Z'
@@ -23264,7 +23513,7 @@ entities:
           format: integer
           type: integer
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -23370,6 +23619,31 @@ entities:
       - neq
       - in
       - nin
+      last_operator_suspended_category:
+      - eq
+      - neq
+      - in
+      - nin
+      last_operator_suspended_updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+      last_system_suspended_category:
+      - eq
+      - neq
+      - in
+      - nin
+      last_system_suspended_updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+      lifecycle_status:
+      - eq
+      - neq
+      - in
+      - nin
       manifest:
       - eq
       - neq
@@ -23395,6 +23669,9 @@ entities:
       - neq
       - in
       - nin
+      operator_suspended:
+      - eq
+      - neq
       serial_number:
       - eq
       - neq
@@ -23405,6 +23682,9 @@ entities:
       - neq
       - in
       - nin
+      system_suspended:
+      - eq
+      - neq
       updated_at:
       - in
       - nin
@@ -23416,16 +23696,39 @@ entities:
       - in
       - nin
   - _key: read
-    description: Retrieve information about a specific device.
+    description: 'Retrieve information about a specific device.
+
+
+      **Example:**
+
+      Following example must be updated with the device''s ID to the URL. The id is
+      from of "01667c6e992c00000000000100100370"
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/<device_ID> \
+
+      -H ''Authorization: Bearer <API key>''
+
+      ```'
     drop_fields:
     - object
     - etag
     - type
     - filter
+    - device_execution_mode
     - groups
     - issuer_fingerprint
+    - operator_suspended
+    - last_operator_suspended_category
+    - last_operator_suspended_description
+    - last_operator_suspended_updated_at
+    - system_suspended
+    - last_system_suspended_category
+    - last_system_suspended_description
+    - last_system_suspended_updated_at
+    - lifecycle_status
     - account_id
-    - device_execution_mode
     - auto_update
     - bootstrap_expiration_date
     - bootstrapped_timestamp
@@ -23573,10 +23876,15 @@ entities:
           type: string
         device_execution_mode:
           api_fieldname: device_execution_mode
+          default: 0
           description: "The execution mode from the certificate of the device. Defaults\
             \ to inheriting from host_gateway device.\nPermitted values:\n  - 0 -\
-            \ unspecified execution mode (default if host_gateway invalid or not set)\n\
-            \  - 1 - development devices\n  - 5 - production devices"
+            \ Unspecified execution mode (default if host_gateway invalid or not set).\
+            \ The device firmware uses a certificate that is not identified as a developer\
+            \ or production certificate.\n  - 1 - Development device. The device firmware\
+            \ uses a developer certificate to communicate with Device Management.\n\
+            \  - 5 - Production device. The device firmware uses a factory-generated\
+            \ certificate to communicate with Device Management."
           entity_fieldname: device_execution_mode
           enum:
           - 0
@@ -23657,6 +23965,60 @@ entities:
           pattern: '[A-Fa-f0-9]{64}'
           type: string
           x-nullable: true
+        last_operator_suspended_category:
+          api_fieldname: last_operator_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_operator_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_operator_suspended_description:
+          api_fieldname: last_operator_suspended_description
+          description: The most recent description why the device was suspended or
+            returned to service.
+          entity_fieldname: last_operator_suspended_description
+          example: Suspended for maintenance.
+          maxLength: 2000
+          type: string
+        last_operator_suspended_updated_at:
+          api_fieldname: last_operator_suspended_updated_at
+          description: The timestamp of the most recent suspension activity.
+          entity_fieldname: last_operator_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        last_system_suspended_category:
+          api_fieldname: last_system_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_system_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_system_suspended_description:
+          api_fieldname: last_system_suspended_description
+          description: The most recent description of why the device was blocked or
+            unblocked by the system.
+          entity_fieldname: last_system_suspended_description
+          example: A certificate in the device's certificate chain was blacklisted
+            by the system.
+          maxLength: 2000
+          type: string
+        last_system_suspended_updated_at:
+          api_fieldname: last_system_suspended_updated_at
+          description: The timestamp of the most recent system block activity.
+          entity_fieldname: last_system_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        lifecycle_status:
+          api_fieldname: lifecycle_status
+          description: The lifecycle status of the device.
+          entity_fieldname: lifecycle_status
+          enum:
+          - enabled
+          - blocked
+          example: enabled
+          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -23697,6 +24059,11 @@ entities:
           entity_fieldname: object
           example: device
           type: string
+        operator_suspended:
+          api_fieldname: operator_suspended
+          description: Is the device suspended by the operator?
+          entity_fieldname: operator_suspended
+          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -23714,6 +24081,11 @@ entities:
           - registered
           - deregistered
           type: string
+        system_suspended:
+          api_fieldname: system_suspended
+          description: Is the device suspended by the system?
+          entity_fieldname: system_suspended
+          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -23728,7 +24100,7 @@ entities:
           example: 00000000-0000-0000-0000-000000000000
           type: string
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -23738,7 +24110,7 @@ entities:
       self: true
       type: device
     return_type: device
-    summary: Get a device
+    summary: Get a device.
     x_deprecation: null
     x_filter: {}
   - _key: remove_from_group
@@ -23785,7 +24157,7 @@ entities:
     - _key: '204'
       description: Success - device removed.
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
       schema:
         properties:
         - _key: code
@@ -23881,7 +24253,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Not Found.
+      description: Not found.
       schema:
         properties:
         - _key: code
@@ -23935,7 +24307,7 @@ entities:
     return_type: void
     spec:
       return_type: void
-    summary: Remove a device from a group
+    summary: Remove a device from a group.
     x_deprecation: null
     x_filter: {}
   - _key: renew_certificate
@@ -24342,16 +24714,43 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
-    description: Update a specific device.
+    description: 'Update a specific device.
+
+
+      **Example:**
+
+      Following example will update the specific devices description field to contain
+      "Testing description field".
+
+      ```
+
+      curl -X PUT https://api.us-east-1.mbedcloud.com/v3/devices/<device_ID> \
+
+      -H ''Authorization: Bearer <API key>'' \
+
+      -H ''content-type: application/json'' \
+
+      -d ''{"description": "Testing description field"}''
+
+      ```'
     drop_fields:
     - object
     - etag
     - type
     - filter
+    - device_execution_mode
     - groups
     - issuer_fingerprint
+    - operator_suspended
+    - last_operator_suspended_category
+    - last_operator_suspended_description
+    - last_operator_suspended_updated_at
+    - system_suspended
+    - last_system_suspended_category
+    - last_system_suspended_description
+    - last_system_suspended_updated_at
+    - lifecycle_status
     - account_id
-    - device_execution_mode
     - bootstrap_expiration_date
     - bootstrapped_timestamp
     - connector_expiration_date
@@ -24584,10 +24983,15 @@ entities:
           type: string
         device_execution_mode:
           api_fieldname: device_execution_mode
+          default: 0
           description: "The execution mode from the certificate of the device. Defaults\
             \ to inheriting from host_gateway device.\nPermitted values:\n  - 0 -\
-            \ unspecified execution mode (default if host_gateway invalid or not set)\n\
-            \  - 1 - development devices\n  - 5 - production devices"
+            \ Unspecified execution mode (default if host_gateway invalid or not set).\
+            \ The device firmware uses a certificate that is not identified as a developer\
+            \ or production certificate.\n  - 1 - Development device. The device firmware\
+            \ uses a developer certificate to communicate with Device Management.\n\
+            \  - 5 - Production device. The device firmware uses a factory-generated\
+            \ certificate to communicate with Device Management."
           entity_fieldname: device_execution_mode
           enum:
           - 0
@@ -24668,6 +25072,60 @@ entities:
           pattern: '[A-Fa-f0-9]{64}'
           type: string
           x-nullable: true
+        last_operator_suspended_category:
+          api_fieldname: last_operator_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_operator_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_operator_suspended_description:
+          api_fieldname: last_operator_suspended_description
+          description: The most recent description why the device was suspended or
+            returned to service.
+          entity_fieldname: last_operator_suspended_description
+          example: Suspended for maintenance.
+          maxLength: 2000
+          type: string
+        last_operator_suspended_updated_at:
+          api_fieldname: last_operator_suspended_updated_at
+          description: The timestamp of the most recent suspension activity.
+          entity_fieldname: last_operator_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        last_system_suspended_category:
+          api_fieldname: last_system_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_system_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_system_suspended_description:
+          api_fieldname: last_system_suspended_description
+          description: The most recent description of why the device was blocked or
+            unblocked by the system.
+          entity_fieldname: last_system_suspended_description
+          example: A certificate in the device's certificate chain was blacklisted
+            by the system.
+          maxLength: 2000
+          type: string
+        last_system_suspended_updated_at:
+          api_fieldname: last_system_suspended_updated_at
+          description: The timestamp of the most recent system block activity.
+          entity_fieldname: last_system_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        lifecycle_status:
+          api_fieldname: lifecycle_status
+          description: The lifecycle status of the device.
+          entity_fieldname: lifecycle_status
+          enum:
+          - enabled
+          - blocked
+          example: enabled
+          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -24708,6 +25166,11 @@ entities:
           entity_fieldname: object
           example: device
           type: string
+        operator_suspended:
+          api_fieldname: operator_suspended
+          description: Is the device suspended by the operator?
+          entity_fieldname: operator_suspended
+          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -24725,6 +25188,11 @@ entities:
           - registered
           - deregistered
           type: string
+        system_suspended:
+          api_fieldname: system_suspended
+          description: Is the device suspended by the system?
+          entity_fieldname: system_suspended
+          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -24739,9 +25207,7 @@ entities:
           example: 00000000-0000-0000-0000-000000000000
           type: string
     - _key: '400'
-      description: 'Validation error: The data used to update the device did not validate.
-
-        '
+      description: 'Validation error: The data used to update the device did not validate.'
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -24751,7 +25217,7 @@ entities:
       self: true
       type: device
     return_type: device
-    summary: Update a device
+    summary: Update a device.
     x_deprecation: null
     x_filter: {}
   primary_key_field: id
@@ -24763,7 +25229,9 @@ entities:
   - DeviceGroupManipulation
   - DevicePage
   tags:
+  - Device directory - devices
   - Device security - device certificate renewals
+  - Device directory - groups
 - _key: device_enrollment
   field_renames: []
   fields:
@@ -28007,7 +28475,7 @@ entities:
     type: string
   - _key: event_type_description
     api_fieldname: event_type_description
-    description: Generic description of the event
+    description: Generic description of the event.
     example: FAIL
     readOnly: true
     required: false
@@ -28026,7 +28494,31 @@ entities:
   group_id: Devices
   methods:
   - _key: list
-    description: List all device events for an account.
+    description: 'List all device events for an account.
+
+
+      **Example:**
+
+      Following example gets device-events limiting returned results to max 5 events
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \
+
+      -H ''Authorization: Bearer <API key>''
+
+      ```
+
+      or to get events for certain device filter based on device_id:
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=<device_id>
+      \
+
+      -H ''Authorization: Bearer <API key>''
+
+      ```'
     drop_fields:
     - object
     - etag
@@ -28061,7 +28553,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The ID of The item after which to retrieve the next page.
+      description: The ID of the item after which to retrieve the next page.
       entity_fieldname: after
       example: null
       external_param: true
@@ -28073,7 +28565,7 @@ entities:
     - _key: include
       api_fieldname: include
       description: 'Comma-separated list of data fields to return. Currently supported:
-        `total_count`'
+        `total_count`.'
       entity_fieldname: include
       external_param: true
       in: query
@@ -28083,9 +28575,8 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: How many objects to retrieve in the page. The minimum limit is
-        2 and the maximum is 1000. Limit values outside of this range are set to the
-        closest limit.
+      description: How many objects to retrieve in the page (2-1000). Limit values
+        outside of this range are set to the closest limit.
       entity_fieldname: limit
       example: 1000
       external_param: true
@@ -28098,8 +28589,7 @@ entities:
       type: integer
     - _key: order
       api_fieldname: order
-      description: The order of the records based on creation time, `ASC` or `DESC`;
-        by default `ASC`.
+      description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
       entity_fieldname: order
       example: DESC
       external_param: true
@@ -28189,7 +28679,7 @@ entities:
               example: FAIL_MANIFEST_REJECTED
               type: string
             - _key: event_type_description
-              description: Generic description of the event
+              description: Generic description of the event.
               example: FAIL
               type: string
             - _key: id
@@ -28231,7 +28721,7 @@ entities:
           example: 1
           type: integer
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -28273,7 +28763,22 @@ entities:
       - eq
       - neq
   - _key: read
-    description: Retrieve a specific device event.
+    description: 'Retrieve a specific device event.
+
+
+      **Example:**
+
+      To fetch a specific event you can use the ''id'' field form the ''/v3/device-events''.
+      Form of ''016c03d40a4e000000000001001003b4''
+
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events/<device_event_id>
+      \
+
+      -H ''Authorization: Bearer <API key>''
+
+      ```'
     drop_fields:
     - object
     - etag
@@ -28381,7 +28886,7 @@ entities:
           type: string
         - _key: event_type_description
           api_fieldname: event_type_description
-          description: Generic description of the event
+          description: Generic description of the event.
           entity_fieldname: event_type_description
           example: FAIL
           type: string
@@ -28404,7 +28909,7 @@ entities:
         - date_time
         - id
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -28421,7 +28926,8 @@ entities:
   swagger_models:
   - DeviceEventData
   - DeviceEventPage
-  tags: []
+  tags:
+  - Device directory - events
 - _key: device_group
   field_renames: []
   fields:
@@ -28439,9 +28945,9 @@ entities:
       pattern: ^[A-Za-z].*
       type: string
     api_fieldname: custom_attributes
-    description: Up to ten custom key-value attributes. Note that keys cannot begin
-      with a number. Both keys and values are limited to 128 characters. Updating
-      this field replaces existing contents.
+    description: Up to ten custom key-value attributes. Keys cannot begin with a number.
+      Both key and value are limited to 128 characters. Updating this field replaces
+      existing contents.
     example:
       key: value
     maxProperties: 10
@@ -28532,7 +29038,7 @@ entities:
     - _key: '204'
       description: Success - device added.
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
       schema:
         properties:
         - _key: code
@@ -28682,7 +29188,7 @@ entities:
     return_type: void
     spec:
       return_type: void
-    summary: Add a device to a group
+    summary: Add a device to a group.
     x_deprecation: null
     x_filter: {}
   - _key: create
@@ -28704,9 +29210,9 @@ entities:
         pattern: ^[A-Za-z].*
         type: string
       api_fieldname: custom_attributes
-      description: Up to ten custom key-value attributes. Note that keys cannot begin
-        with a number. Both keys and values are limited to 128 characters. Updating
-        this field replaces existing contents.
+      description: Up to ten custom key-value attributes. Keys cannot begin with a
+        number. Both key and value are limited to 128 characters. Updating this field
+        replaces existing contents.
       entity_fieldname: custom_attributes
       example:
         key: value
@@ -28772,9 +29278,9 @@ entities:
             pattern: ^[A-Za-z].*
             type: string
           api_fieldname: custom_attributes
-          description: Up to ten custom key-value attributes. Note that keys cannot
-            begin with a number. Both keys and values are limited to 128 characters.
-            Updating this field replaces existing contents.
+          description: Up to ten custom key-value attributes. Keys cannot begin with
+            a number. Both key and value are limited to 128 characters. Updating this
+            field replaces existing contents.
           entity_fieldname: custom_attributes
           example:
             key: value
@@ -28814,7 +29320,7 @@ entities:
           type: string
         - _key: object
           api_fieldname: object
-          description: 'Entity name: always ''device-group''.'
+          description: 'Entity name: always `device-group`.'
           entity_fieldname: object
           example: device-group
           type: string
@@ -28827,7 +29333,7 @@ entities:
           type: string
         type: object
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
       schema:
         properties:
         - _key: code
@@ -28975,7 +29481,7 @@ entities:
       self: true
       type: device_group
     return_type: device_group
-    summary: Create a group
+    summary: Create a group.
     x_deprecation: null
     x_filter: {}
   - _key: delete
@@ -28989,7 +29495,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: device-group-id
-      description: The ID of the group
+      description: The ID of the group.
       entity_fieldname: id
       external_param: false
       in: path
@@ -29111,7 +29617,7 @@ entities:
       self: true
       type: device_group
     return_type: device_group
-    summary: Delete a group
+    summary: Delete a group.
     x_deprecation: null
     x_filter: {}
   - _key: devices
@@ -29124,6 +29630,30 @@ entities:
     - data
     - has_more
     - total_count
+    - lifecycle_status__eq
+    - lifecycle_status__neq
+    - lifecycle_status__in
+    - lifecycle_status__nin
+    - operator_suspended__eq
+    - operator_suspended__neq
+    - last_operator_suspended_category__eq
+    - last_operator_suspended_category__neq
+    - last_operator_suspended_category__in
+    - last_operator_suspended_category__nin
+    - last_operator_suspended_updated_at__in
+    - last_operator_suspended_updated_at__nin
+    - last_operator_suspended_updated_at__lte
+    - last_operator_suspended_updated_at__gte
+    - system_suspended__eq
+    - system_suspended__neq
+    - last_system_suspended_category__eq
+    - last_system_suspended_category__neq
+    - last_system_suspended_category__in
+    - last_system_suspended_category__nin
+    - last_system_suspended_updated_at__in
+    - last_system_suspended_updated_at__nin
+    - last_system_suspended_updated_at__lte
+    - last_system_suspended_updated_at__gte
     - account_id__eq
     - account_id__neq
     - account_id__in
@@ -29238,7 +29768,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The ID of The item after which to retrieve the next page.
+      description: The ID of the item after which to retrieve the next page.
       entity_fieldname: after
       example: '01631667477600000000000100100374'
       external_param: true
@@ -29269,9 +29799,8 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: How many objects to retrieve in the page. The minimum limit is
-        2 and the maximum is 1000. Limit values outside of this range are set to the
-        closest limit.
+      description: How many objects to retrieve in the page (2-1000). Limit values
+        outside of this range are set to the closest limit.
       entity_fieldname: limit
       example: 50
       external_param: true
@@ -29284,8 +29813,7 @@ entities:
       type: integer
     - _key: order
       api_fieldname: order
-      description: The order of the records based on creation time, `ASC` or `DESC`;
-        by default `ASC`.
+      description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
       entity_fieldname: order
       example: DESC
       external_param: true
@@ -29318,7 +29846,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The ID of The item after which to retrieve the next page.
+          description: The ID of the item after which to retrieve the next page.
           entity_fieldname: after
           example: '01631667477600000000000100100374'
           external_param: true
@@ -29404,10 +29932,16 @@ entities:
               maxLength: 32
               type: string
             device_execution_mode:
+              default: 0
               description: "The execution mode from the certificate of the device.\
                 \ Defaults to inheriting from host_gateway device.\nPermitted values:\n\
-                \  - 0 - unspecified execution mode (default if host_gateway invalid\
-                \ or not set)\n  - 1 - development devices\n  - 5 - production devices"
+                \  - 0 - Unspecified execution mode (default if host_gateway invalid\
+                \ or not set). The device firmware uses a certificate that is not\
+                \ identified as a developer or production certificate.\n  - 1 - Development\
+                \ device. The device firmware uses a developer certificate to communicate\
+                \ with Device Management.\n  - 5 - Production device. The device firmware\
+                \ uses a factory-generated certificate to communicate with Device\
+                \ Management."
               enum:
               - 0
               - 1
@@ -29467,6 +30001,46 @@ entities:
               pattern: '[A-Fa-f0-9]{64}'
               type: string
               x-nullable: true
+            last_operator_suspended_category:
+              description: The reference of the block category.
+              example: maintenance
+              pattern: '[a-f0-9_]{32}'
+              type: string
+            last_operator_suspended_description:
+              description: The most recent description why the device was suspended
+                or returned to service.
+              example: Suspended for maintenance.
+              maxLength: 2000
+              type: string
+            last_operator_suspended_updated_at:
+              description: The timestamp of the most recent suspension activity.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            last_system_suspended_category:
+              description: The reference of the block category.
+              example: maintenance
+              pattern: '[a-f0-9_]{32}'
+              type: string
+            last_system_suspended_description:
+              description: The most recent description of why the device was blocked
+                or unblocked by the system.
+              example: A certificate in the device's certificate chain was blacklisted
+                by the system.
+              maxLength: 2000
+              type: string
+            last_system_suspended_updated_at:
+              description: The timestamp of the most recent system block activity.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            lifecycle_status:
+              description: The lifecycle status of the device.
+              enum:
+              - enabled
+              - blocked
+              example: enabled
+              type: string
             manifest:
               description: 'DEPRECATED: The URL for the current device manifest.'
               example: ''
@@ -29495,6 +30069,9 @@ entities:
               description: The API resource entity.
               example: device
               type: string
+            operator_suspended:
+              description: Is the device suspended by the operator?
+              type: boolean
             serial_number:
               description: The serial number of the device.
               example: 00000000-0000-0000-0000-000000000000
@@ -29508,6 +30085,9 @@ entities:
               - registered
               - deregistered
               type: string
+            system_suspended:
+              description: Is the device suspended by the system?
+              type: boolean
             updated_at:
               description: The time the object was updated.
               example: '2017-05-22T12:37:55.576563Z'
@@ -29526,9 +30106,8 @@ entities:
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: How many objects to retrieve in the page. The minimum limit
-            is 2 and the maximum is 1000. Limit values outside of this range are set
-            to the closest limit.
+          description: How many objects to retrieve in the page (2-1000). Limit values
+            outside of this range are set to the closest limit.
           entity_fieldname: limit
           example: 50
           external_param: true
@@ -29547,8 +30126,7 @@ entities:
           type: string
         - _key: order
           api_fieldname: order
-          description: The order of the records based on creation time, `ASC` or `DESC`;
-            by default `ASC`.
+          description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
           entity_fieldname: order
           example: DESC
           external_param: true
@@ -29564,7 +30142,7 @@ entities:
           format: integer
           type: integer
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
       schema:
         properties:
         - _key: code
@@ -29712,7 +30290,7 @@ entities:
       self: false
       type: device
     return_type: paginated_response(device)
-    summary: Get a page of devices
+    summary: Get a page of devices.
     x_deprecation: null
     x_filter:
       account_id:
@@ -29808,6 +30386,31 @@ entities:
       - neq
       - in
       - nin
+      last_operator_suspended_category:
+      - eq
+      - neq
+      - in
+      - nin
+      last_operator_suspended_updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+      last_system_suspended_category:
+      - eq
+      - neq
+      - in
+      - nin
+      last_system_suspended_updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+      lifecycle_status:
+      - eq
+      - neq
+      - in
+      - nin
       manifest:
       - eq
       - neq
@@ -29833,6 +30436,9 @@ entities:
       - neq
       - in
       - nin
+      operator_suspended:
+      - eq
+      - neq
       serial_number:
       - eq
       - neq
@@ -29843,6 +30449,9 @@ entities:
       - neq
       - in
       - nin
+      system_suspended:
+      - eq
+      - neq
       updated_at:
       - in
       - nin
@@ -29889,7 +30498,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The ID of The item after which to retrieve the next page.
+      description: The ID of the item after which to retrieve the next page.
       entity_fieldname: after
       example: '01631667477600000000000100100374'
       external_param: true
@@ -29911,9 +30520,8 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: How many objects to retrieve in the page. The minimum limit is
-        2 and the maximum is 1000. Limit values outside of this range are set to the
-        closest limit.
+      description: How many objects to retrieve in the page (2-1000). Limit values
+        outside of this range are set to the closest limit.
       entity_fieldname: limit
       example: 50
       external_param: true
@@ -29926,8 +30534,7 @@ entities:
       type: integer
     - _key: order
       api_fieldname: order
-      description: The order of the records based on creation time, `ASC` or `DESC`;
-        by default `ASC`.
+      description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
       entity_fieldname: order
       example: DESC
       external_param: true
@@ -29983,9 +30590,9 @@ entities:
                 maxLength: 128
                 pattern: ^[A-Za-z].*
                 type: string
-              description: Up to ten custom key-value attributes. Note that keys cannot
-                begin with a number. Both keys and values are limited to 128 characters.
-                Updating this field replaces existing contents.
+              description: Up to ten custom key-value attributes. Keys cannot begin
+                with a number. Both key and value are limited to 128 characters. Updating
+                this field replaces existing contents.
               example:
                 key: value
               maxProperties: 10
@@ -30013,7 +30620,7 @@ entities:
               maxLength: 128
               type: string
             - _key: object
-              description: 'Entity name: always ''device-group''.'
+              description: 'Entity name: always `device-group`.'
               example: device-group
               type: string
             - _key: updated_at
@@ -30025,15 +30632,14 @@ entities:
           type: array
         - _key: has_more
           api_fieldname: has_more
-          description: Are there more results available.
+          description: More results are available.
           entity_fieldname: has_more
           example: false
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: How many objects to retrieve in the page. The minimum limit
-            is 2 and the maximum is 1000. Limit values outside of this range are set
-            to the closest limit.
+          description: How many objects to retrieve in the page (2-1000). Limit values
+            outside of this range are set to the closest limit.
           entity_fieldname: limit
           example: 50
           maximum: 1000
@@ -30041,13 +30647,13 @@ entities:
           type: integer
         - _key: object
           api_fieldname: object
-          description: The type of this API object is a "list".
+          description: The type of this API object is 'list'.
           entity_fieldname: object
           example: list
           type: string
         - _key: order
           api_fieldname: order
-          description: The creation time based order of the entries.
+          description: Record order based on creation time.
           entity_fieldname: order
           example: DESC
           type: string
@@ -30244,9 +30850,9 @@ entities:
             pattern: ^[A-Za-z].*
             type: string
           api_fieldname: custom_attributes
-          description: Up to ten custom key-value attributes. Note that keys cannot
-            begin with a number. Both keys and values are limited to 128 characters.
-            Updating this field replaces existing contents.
+          description: Up to ten custom key-value attributes. Keys cannot begin with
+            a number. Both key and value are limited to 128 characters. Updating this
+            field replaces existing contents.
           entity_fieldname: custom_attributes
           example:
             key: value
@@ -30286,7 +30892,7 @@ entities:
           type: string
         - _key: object
           api_fieldname: object
-          description: 'Entity name: always ''device-group''.'
+          description: 'Entity name: always `device-group`.'
           entity_fieldname: object
           example: device-group
           type: string
@@ -30494,7 +31100,7 @@ entities:
     - _key: '204'
       description: Success - device removed.
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
       schema:
         properties:
         - _key: code
@@ -30590,7 +31196,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Not Found.
+      description: Not found.
       schema:
         properties:
         - _key: code
@@ -30644,7 +31250,7 @@ entities:
     return_type: void
     spec:
       return_type: void
-    summary: Remove a device from a group
+    summary: Remove a device from a group.
     x_deprecation: null
     x_filter: {}
   - _key: update
@@ -30665,9 +31271,9 @@ entities:
         pattern: ^[A-Za-z].*
         type: string
       api_fieldname: custom_attributes
-      description: Up to ten custom key-value attributes. Note that keys cannot begin
-        with a number. Both keys and values are limited to 128 characters. Updating
-        this field replaces existing contents.
+      description: Up to ten custom key-value attributes. Keys cannot begin with a
+        number. Both key and value are limited to 128 characters. Updating this field
+        replaces existing contents.
       entity_fieldname: custom_attributes
       example:
         key: value
@@ -30742,9 +31348,9 @@ entities:
             pattern: ^[A-Za-z].*
             type: string
           api_fieldname: custom_attributes
-          description: Up to ten custom key-value attributes. Note that keys cannot
-            begin with a number. Both keys and values are limited to 128 characters.
-            Updating this field replaces existing contents.
+          description: Up to ten custom key-value attributes. Keys cannot begin with
+            a number. Both key and value are limited to 128 characters. Updating this
+            field replaces existing contents.
           entity_fieldname: custom_attributes
           example:
             key: value
@@ -30784,7 +31390,7 @@ entities:
           type: string
         - _key: object
           api_fieldname: object
-          description: 'Entity name: always ''device-group''.'
+          description: 'Entity name: always `device-group`.'
           entity_fieldname: object
           example: device-group
           type: string
@@ -30797,7 +31403,7 @@ entities:
           type: string
         type: object
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
       schema:
         properties:
         - _key: code
@@ -30954,7 +31560,8 @@ entities:
   - DeviceGroupManipulation
   - DeviceGroupPage
   - DevicePage
-  tags: []
+  tags:
+  - Device directory - groups
 - _key: firmware_image
   field_renames:
   - _key: datafile_url
@@ -61462,6 +62069,14 @@ enums:
   values:
   - ASC
   - DESC
+- _key: device_lifecycle_status_enum
+  entity_name: device
+  enum_name: device_lifecycle_status_enum
+  field_name: lifecycle_status
+  group_id: Devices
+  values:
+  - blocked
+  - enabled
 - _key: device_mechanism_enum
   entity_name: device
   enum_name: device_mechanism_enum
@@ -61905,6 +62520,7 @@ groups:
   - device_enrollment
   - device_enrollment_denial
   enums:
+  - device_lifecycle_status_enum
   - device_deployed_state_enum
   - device_mechanism_enum
   - device_state_enum

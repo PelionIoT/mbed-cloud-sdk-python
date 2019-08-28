@@ -90,6 +90,7 @@
         "device_enrollment_denial"
       ],
       "enums": [
+        "device_lifecycle_status_enum",
         "device_deployed_state_enum",
         "device_mechanism_enum",
         "device_state_enum",
@@ -407,6 +408,17 @@
       ],
       "group_id": "Devices",
       "_key": "device_enrollment_order_enum"
+    },
+    {
+      "entity_name": "device",
+      "field_name": "lifecycle_status",
+      "enum_name": "device_lifecycle_status_enum",
+      "values": [
+        "blocked",
+        "enabled"
+      ],
+      "group_id": "Devices",
+      "_key": "device_lifecycle_status_enum"
     },
     {
       "entity_name": "device",
@@ -29203,7 +29215,7 @@
               "_key": "204"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -29423,7 +29435,7 @@
             }
           ],
           "path": "/v3/device-groups/{device-group-id}/devices/add/",
-          "summary": "Add a device to a group",
+          "summary": "Add a device to a group.",
           "return_type": "void",
           "return_info": {
             "self": false,
@@ -29562,8 +29574,9 @@
                 5
               ],
               "type": "integer",
-              "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified execution mode (default if host_gateway invalid or not set)\n  - 1 - development devices\n  - 5 - production devices",
+              "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a certificate that is not identified as a developer or production certificate.\n  - 1 - Development device. The device firmware uses a developer certificate to communicate with Device Management.\n  - 5 - Production device. The device firmware uses a factory-generated certificate to communicate with Device Management.",
               "example": 0,
+              "default": 0,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
               "parameter_fieldname": "device_execution_mode",
@@ -29733,6 +29746,19 @@
                   "_key": "foreign_key"
                 },
                 {
+                  "device_execution_mode": {
+                    "enum": [
+                      0,
+                      1,
+                      5
+                    ],
+                    "type": "integer",
+                    "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a certificate that is not identified as a developer or production certificate.\n  - 1 - Development device. The device firmware uses a developer certificate to communicate with Device Management.\n  - 5 - Production device. The device firmware uses a factory-generated certificate to communicate with Device Management.",
+                    "example": 0,
+                    "default": 0,
+                    "api_fieldname": "device_execution_mode",
+                    "entity_fieldname": "device_execution_mode"
+                  },
                   "groups": {
                     "description": "An array containing an ID of each group this device belongs to.",
                     "type": "array",
@@ -29752,24 +29778,83 @@
                     "api_fieldname": "issuer_fingerprint",
                     "entity_fieldname": "issuer_fingerprint"
                   },
+                  "operator_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the operator?",
+                    "api_fieldname": "operator_suspended",
+                    "entity_fieldname": "operator_suspended"
+                  },
+                  "last_operator_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_operator_suspended_category",
+                    "entity_fieldname": "last_operator_suspended_category"
+                  },
+                  "last_operator_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description why the device was suspended or returned to service.",
+                    "example": "Suspended for maintenance.",
+                    "api_fieldname": "last_operator_suspended_description",
+                    "entity_fieldname": "last_operator_suspended_description"
+                  },
+                  "last_operator_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent suspension activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_operator_suspended_updated_at",
+                    "entity_fieldname": "last_operator_suspended_updated_at"
+                  },
+                  "system_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the system?",
+                    "api_fieldname": "system_suspended",
+                    "entity_fieldname": "system_suspended"
+                  },
+                  "last_system_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_system_suspended_category",
+                    "entity_fieldname": "last_system_suspended_category"
+                  },
+                  "last_system_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
+                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
+                    "api_fieldname": "last_system_suspended_description",
+                    "entity_fieldname": "last_system_suspended_description"
+                  },
+                  "last_system_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent system block activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_system_suspended_updated_at",
+                    "entity_fieldname": "last_system_suspended_updated_at"
+                  },
+                  "lifecycle_status": {
+                    "type": "string",
+                    "enum": [
+                      "enabled",
+                      "blocked"
+                    ],
+                    "description": "The lifecycle status of the device.",
+                    "example": "enabled",
+                    "api_fieldname": "lifecycle_status",
+                    "entity_fieldname": "lifecycle_status"
+                  },
                   "account_id": {
                     "type": "string",
                     "description": "The ID of the associated account.",
                     "example": "00000000000000000000000000000000",
                     "api_fieldname": "account_id",
                     "entity_fieldname": "account_id"
-                  },
-                  "device_execution_mode": {
-                    "enum": [
-                      0,
-                      1,
-                      5
-                    ],
-                    "type": "integer",
-                    "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified execution mode (default if host_gateway invalid or not set)\n  - 1 - development devices\n  - 5 - production devices",
-                    "example": 0,
-                    "api_fieldname": "device_execution_mode",
-                    "entity_fieldname": "device_execution_mode"
                   },
                   "auto_update": {
                     "type": "boolean",
@@ -30014,7 +30099,7 @@
               "_key": "201"
             },
             {
-              "description": "Validation error: The data used to create the device did not validate.\n",
+              "description": "Validation error: The data used to create the device did not validate.",
               "_key": "400"
             },
             {
@@ -30031,7 +30116,7 @@
             }
           ],
           "path": "/v3/devices/",
-          "summary": "Create a device",
+          "summary": "Create a device.",
           "return_type": "device",
           "return_info": {
             "self": true,
@@ -30046,6 +30131,15 @@
             "type",
             "filter",
             "groups",
+            "operator_suspended",
+            "last_operator_suspended_category",
+            "last_operator_suspended_description",
+            "last_operator_suspended_updated_at",
+            "system_suspended",
+            "last_system_suspended_category",
+            "last_system_suspended_description",
+            "last_system_suspended_updated_at",
+            "lifecycle_status",
             "account_id",
             "bootstrapped_timestamp",
             "created_at",
@@ -30064,10 +30158,11 @@
           "_key": "create"
         },
         {
-          "description": "Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.",
+          "description": "Delete device. Only available for devices with a developer certificate. Attempting to delete a device with a production certicate returns a 400 response.",
           "field_renames": [],
           "fields": [
             {
+              "description": "The ID of the device.",
               "in": "path",
               "name": "id",
               "required": true,
@@ -30087,7 +30182,7 @@
               "_key": "204"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "_key": "400"
             },
             {
@@ -30123,12 +30218,12 @@
           "_key": "delete"
         },
         {
-          "description": "List all devices.",
+          "description": "List all devices.\n\n**Example:**\nFollowing example filters devices according to state field and returns only devices in 'registered' state:\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/devices?filter=state%3Dregistered \\\n-H 'Authorization: Bearer <API key>'\n```",
           "field_renames": [],
           "fields": [
             {
               "type": "string",
-              "description": "The ID of The item after which to retrieve the next page.",
+              "description": "The ID of the item after which to retrieve the next page.",
               "example": "01631667477600000000000100100374",
               "api_fieldname": "after",
               "entity_fieldname": "after",
@@ -30153,7 +30248,7 @@
             },
             {
               "type": "integer",
-              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "description": "How many objects to retrieve in the page (2-1000). Limit values outside of this range are set to the closest limit.",
               "example": 50,
               "minimum": 2,
               "maximum": 1000,
@@ -30168,7 +30263,7 @@
             },
             {
               "type": "string",
-              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+              "description": "Record order. Acceptable values: ASC, DESC. Default: ASC.",
               "example": "DESC",
               "api_fieldname": "order",
               "entity_fieldname": "order",
@@ -30203,6 +30298,17 @@
                         "_key": "foreign_key"
                       },
                       {
+                        "device_execution_mode": {
+                          "enum": [
+                            0,
+                            1,
+                            5
+                          ],
+                          "type": "integer",
+                          "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a certificate that is not identified as a developer or production certificate.\n  - 1 - Development device. The device firmware uses a developer certificate to communicate with Device Management.\n  - 5 - Production device. The device firmware uses a factory-generated certificate to communicate with Device Management.",
+                          "example": 0,
+                          "default": 0
+                        },
                         "groups": {
                           "description": "An array containing an ID of each group this device belongs to.",
                           "type": "array",
@@ -30218,20 +30324,63 @@
                           "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
                           "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322"
                         },
+                        "operator_suspended": {
+                          "type": "boolean",
+                          "description": "Is the device suspended by the operator?"
+                        },
+                        "last_operator_suspended_category": {
+                          "type": "string",
+                          "description": "The reference of the block category.",
+                          "pattern": "[a-f0-9_]{32}",
+                          "example": "maintenance"
+                        },
+                        "last_operator_suspended_description": {
+                          "type": "string",
+                          "maxLength": 2000,
+                          "description": "The most recent description why the device was suspended or returned to service.",
+                          "example": "Suspended for maintenance."
+                        },
+                        "last_operator_suspended_updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The timestamp of the most recent suspension activity.",
+                          "example": "2017-05-22T12:37:55.576563Z"
+                        },
+                        "system_suspended": {
+                          "type": "boolean",
+                          "description": "Is the device suspended by the system?"
+                        },
+                        "last_system_suspended_category": {
+                          "type": "string",
+                          "description": "The reference of the block category.",
+                          "pattern": "[a-f0-9_]{32}",
+                          "example": "maintenance"
+                        },
+                        "last_system_suspended_description": {
+                          "type": "string",
+                          "maxLength": 2000,
+                          "description": "The most recent description of why the device was blocked or unblocked by the system.",
+                          "example": "A certificate in the device's certificate chain was blacklisted by the system."
+                        },
+                        "last_system_suspended_updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The timestamp of the most recent system block activity.",
+                          "example": "2017-05-22T12:37:55.576563Z"
+                        },
+                        "lifecycle_status": {
+                          "type": "string",
+                          "enum": [
+                            "enabled",
+                            "blocked"
+                          ],
+                          "description": "The lifecycle status of the device.",
+                          "example": "enabled"
+                        },
                         "account_id": {
                           "type": "string",
                           "description": "The ID of the associated account.",
                           "example": "00000000000000000000000000000000"
-                        },
-                        "device_execution_mode": {
-                          "enum": [
-                            0,
-                            1,
-                            5
-                          ],
-                          "type": "integer",
-                          "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified execution mode (default if host_gateway invalid or not set)\n  - 1 - development devices\n  - 5 - production devices",
-                          "example": 0
                         },
                         "auto_update": {
                           "type": "boolean",
@@ -30472,7 +30621,7 @@
               "_key": "200"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "_key": "400"
             },
             {
@@ -30493,6 +30642,44 @@
             "type": "device"
           },
           "x_filter": {
+            "lifecycle_status": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "operator_suspended": [
+              "eq",
+              "neq"
+            ],
+            "last_operator_suspended_category": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "last_operator_suspended_updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "system_suspended": [
+              "eq",
+              "neq"
+            ],
+            "last_system_suspended_category": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "last_system_suspended_updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
             "account_id": [
               "eq",
               "neq",
@@ -30669,6 +30856,30 @@
             "data",
             "has_more",
             "total_count",
+            "lifecycle_status__eq",
+            "lifecycle_status__neq",
+            "lifecycle_status__in",
+            "lifecycle_status__nin",
+            "operator_suspended__eq",
+            "operator_suspended__neq",
+            "last_operator_suspended_category__eq",
+            "last_operator_suspended_category__neq",
+            "last_operator_suspended_category__in",
+            "last_operator_suspended_category__nin",
+            "last_operator_suspended_updated_at__in",
+            "last_operator_suspended_updated_at__nin",
+            "last_operator_suspended_updated_at__lte",
+            "last_operator_suspended_updated_at__gte",
+            "system_suspended__eq",
+            "system_suspended__neq",
+            "last_system_suspended_category__eq",
+            "last_system_suspended_category__neq",
+            "last_system_suspended_category__in",
+            "last_system_suspended_category__nin",
+            "last_system_suspended_updated_at__in",
+            "last_system_suspended_updated_at__nin",
+            "last_system_suspended_updated_at__lte",
+            "last_system_suspended_updated_at__gte",
             "account_id__eq",
             "account_id__neq",
             "account_id__in",
@@ -30793,7 +31004,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve information about a specific device.",
+          "description": "Retrieve information about a specific device.\n\n**Example:**\nFollowing example must be updated with the device's ID to the URL. The id is from of \"01667c6e992c00000000000100100370\"\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/<device_ID> \\\n-H 'Authorization: Bearer <API key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -30820,6 +31031,19 @@
                   "_key": "foreign_key"
                 },
                 {
+                  "device_execution_mode": {
+                    "enum": [
+                      0,
+                      1,
+                      5
+                    ],
+                    "type": "integer",
+                    "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a certificate that is not identified as a developer or production certificate.\n  - 1 - Development device. The device firmware uses a developer certificate to communicate with Device Management.\n  - 5 - Production device. The device firmware uses a factory-generated certificate to communicate with Device Management.",
+                    "example": 0,
+                    "default": 0,
+                    "api_fieldname": "device_execution_mode",
+                    "entity_fieldname": "device_execution_mode"
+                  },
                   "groups": {
                     "description": "An array containing an ID of each group this device belongs to.",
                     "type": "array",
@@ -30839,24 +31063,83 @@
                     "api_fieldname": "issuer_fingerprint",
                     "entity_fieldname": "issuer_fingerprint"
                   },
+                  "operator_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the operator?",
+                    "api_fieldname": "operator_suspended",
+                    "entity_fieldname": "operator_suspended"
+                  },
+                  "last_operator_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_operator_suspended_category",
+                    "entity_fieldname": "last_operator_suspended_category"
+                  },
+                  "last_operator_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description why the device was suspended or returned to service.",
+                    "example": "Suspended for maintenance.",
+                    "api_fieldname": "last_operator_suspended_description",
+                    "entity_fieldname": "last_operator_suspended_description"
+                  },
+                  "last_operator_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent suspension activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_operator_suspended_updated_at",
+                    "entity_fieldname": "last_operator_suspended_updated_at"
+                  },
+                  "system_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the system?",
+                    "api_fieldname": "system_suspended",
+                    "entity_fieldname": "system_suspended"
+                  },
+                  "last_system_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_system_suspended_category",
+                    "entity_fieldname": "last_system_suspended_category"
+                  },
+                  "last_system_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
+                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
+                    "api_fieldname": "last_system_suspended_description",
+                    "entity_fieldname": "last_system_suspended_description"
+                  },
+                  "last_system_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent system block activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_system_suspended_updated_at",
+                    "entity_fieldname": "last_system_suspended_updated_at"
+                  },
+                  "lifecycle_status": {
+                    "type": "string",
+                    "enum": [
+                      "enabled",
+                      "blocked"
+                    ],
+                    "description": "The lifecycle status of the device.",
+                    "example": "enabled",
+                    "api_fieldname": "lifecycle_status",
+                    "entity_fieldname": "lifecycle_status"
+                  },
                   "account_id": {
                     "type": "string",
                     "description": "The ID of the associated account.",
                     "example": "00000000000000000000000000000000",
                     "api_fieldname": "account_id",
                     "entity_fieldname": "account_id"
-                  },
-                  "device_execution_mode": {
-                    "enum": [
-                      0,
-                      1,
-                      5
-                    ],
-                    "type": "integer",
-                    "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified execution mode (default if host_gateway invalid or not set)\n  - 1 - development devices\n  - 5 - production devices",
-                    "example": 0,
-                    "api_fieldname": "device_execution_mode",
-                    "entity_fieldname": "device_execution_mode"
                   },
                   "auto_update": {
                     "type": "boolean",
@@ -31101,7 +31384,7 @@
               "_key": "200"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "_key": "400"
             },
             {
@@ -31114,7 +31397,7 @@
             }
           ],
           "path": "/v3/devices/{id}/",
-          "summary": "Get a device",
+          "summary": "Get a device.",
           "return_type": "device",
           "return_info": {
             "self": true,
@@ -31128,10 +31411,19 @@
             "etag",
             "type",
             "filter",
+            "device_execution_mode",
             "groups",
             "issuer_fingerprint",
+            "operator_suspended",
+            "last_operator_suspended_category",
+            "last_operator_suspended_description",
+            "last_operator_suspended_updated_at",
+            "system_suspended",
+            "last_system_suspended_category",
+            "last_system_suspended_description",
+            "last_system_suspended_updated_at",
+            "lifecycle_status",
             "account_id",
-            "device_execution_mode",
             "auto_update",
             "bootstrap_expiration_date",
             "bootstrapped_timestamp",
@@ -31204,7 +31496,7 @@
               "_key": "204"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -31350,7 +31642,7 @@
               "_key": "401"
             },
             {
-              "description": "Not Found.",
+              "description": "Not found.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -31424,7 +31716,7 @@
             }
           ],
           "path": "/v3/device-groups/{device-group-id}/devices/remove/",
-          "summary": "Remove a device from a group",
+          "summary": "Remove a device from a group.",
           "return_type": "void",
           "return_info": {
             "self": false,
@@ -32015,7 +32307,7 @@
           "_key": "renew_certificate"
         },
         {
-          "description": "Update a specific device.",
+          "description": "Update a specific device.\n\n**Example:**\nFollowing example will update the specific devices description field to contain \"Testing description field\".\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/devices/<device_ID> \\\n-H 'Authorization: Bearer <API key>' \\\n-H 'content-type: application/json' \\\n-d '{\"description\": \"Testing description field\"}'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -32154,6 +32446,19 @@
                   "_key": "foreign_key"
                 },
                 {
+                  "device_execution_mode": {
+                    "enum": [
+                      0,
+                      1,
+                      5
+                    ],
+                    "type": "integer",
+                    "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a certificate that is not identified as a developer or production certificate.\n  - 1 - Development device. The device firmware uses a developer certificate to communicate with Device Management.\n  - 5 - Production device. The device firmware uses a factory-generated certificate to communicate with Device Management.",
+                    "example": 0,
+                    "default": 0,
+                    "api_fieldname": "device_execution_mode",
+                    "entity_fieldname": "device_execution_mode"
+                  },
                   "groups": {
                     "description": "An array containing an ID of each group this device belongs to.",
                     "type": "array",
@@ -32173,24 +32478,83 @@
                     "api_fieldname": "issuer_fingerprint",
                     "entity_fieldname": "issuer_fingerprint"
                   },
+                  "operator_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the operator?",
+                    "api_fieldname": "operator_suspended",
+                    "entity_fieldname": "operator_suspended"
+                  },
+                  "last_operator_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_operator_suspended_category",
+                    "entity_fieldname": "last_operator_suspended_category"
+                  },
+                  "last_operator_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description why the device was suspended or returned to service.",
+                    "example": "Suspended for maintenance.",
+                    "api_fieldname": "last_operator_suspended_description",
+                    "entity_fieldname": "last_operator_suspended_description"
+                  },
+                  "last_operator_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent suspension activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_operator_suspended_updated_at",
+                    "entity_fieldname": "last_operator_suspended_updated_at"
+                  },
+                  "system_suspended": {
+                    "type": "boolean",
+                    "description": "Is the device suspended by the system?",
+                    "api_fieldname": "system_suspended",
+                    "entity_fieldname": "system_suspended"
+                  },
+                  "last_system_suspended_category": {
+                    "type": "string",
+                    "description": "The reference of the block category.",
+                    "pattern": "[a-f0-9_]{32}",
+                    "example": "maintenance",
+                    "api_fieldname": "last_system_suspended_category",
+                    "entity_fieldname": "last_system_suspended_category"
+                  },
+                  "last_system_suspended_description": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
+                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
+                    "api_fieldname": "last_system_suspended_description",
+                    "entity_fieldname": "last_system_suspended_description"
+                  },
+                  "last_system_suspended_updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The timestamp of the most recent system block activity.",
+                    "example": "2017-05-22T12:37:55.576563Z",
+                    "api_fieldname": "last_system_suspended_updated_at",
+                    "entity_fieldname": "last_system_suspended_updated_at"
+                  },
+                  "lifecycle_status": {
+                    "type": "string",
+                    "enum": [
+                      "enabled",
+                      "blocked"
+                    ],
+                    "description": "The lifecycle status of the device.",
+                    "example": "enabled",
+                    "api_fieldname": "lifecycle_status",
+                    "entity_fieldname": "lifecycle_status"
+                  },
                   "account_id": {
                     "type": "string",
                     "description": "The ID of the associated account.",
                     "example": "00000000000000000000000000000000",
                     "api_fieldname": "account_id",
                     "entity_fieldname": "account_id"
-                  },
-                  "device_execution_mode": {
-                    "enum": [
-                      0,
-                      1,
-                      5
-                    ],
-                    "type": "integer",
-                    "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified execution mode (default if host_gateway invalid or not set)\n  - 1 - development devices\n  - 5 - production devices",
-                    "example": 0,
-                    "api_fieldname": "device_execution_mode",
-                    "entity_fieldname": "device_execution_mode"
                   },
                   "auto_update": {
                     "type": "boolean",
@@ -32435,7 +32799,7 @@
               "_key": "200"
             },
             {
-              "description": "Validation error: The data used to update the device did not validate.\n",
+              "description": "Validation error: The data used to update the device did not validate.",
               "_key": "400"
             },
             {
@@ -32448,7 +32812,7 @@
             }
           ],
           "path": "/v3/devices/{id}/",
-          "summary": "Update a device",
+          "summary": "Update a device.",
           "return_type": "device",
           "return_info": {
             "self": true,
@@ -32462,10 +32826,19 @@
             "etag",
             "type",
             "filter",
+            "device_execution_mode",
             "groups",
             "issuer_fingerprint",
+            "operator_suspended",
+            "last_operator_suspended_category",
+            "last_operator_suspended_description",
+            "last_operator_suspended_updated_at",
+            "system_suspended",
+            "last_system_suspended_category",
+            "last_system_suspended_description",
+            "last_system_suspended_updated_at",
+            "lifecycle_status",
             "account_id",
-            "device_execution_mode",
             "bootstrap_expiration_date",
             "bootstrapped_timestamp",
             "connector_expiration_date",
@@ -32626,8 +32999,9 @@
             5
           ],
           "type": "integer",
-          "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified execution mode (default if host_gateway invalid or not set)\n  - 1 - development devices\n  - 5 - production devices",
+          "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a certificate that is not identified as a developer or production certificate.\n  - 1 - Development device. The device firmware uses a developer certificate to communicate with Device Management.\n  - 5 - Production device. The device firmware uses a factory-generated certificate to communicate with Device Management.",
           "example": 0,
+          "default": 0,
           "api_fieldname": "device_execution_mode",
           "readOnly": false,
           "required": false,
@@ -32724,6 +33098,80 @@
         },
         {
           "type": "string",
+          "description": "The reference of the block category.",
+          "pattern": "[a-f0-9_]{32}",
+          "example": "maintenance",
+          "api_fieldname": "last_operator_suspended_category",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_operator_suspended_category"
+        },
+        {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "The most recent description why the device was suspended or returned to service.",
+          "example": "Suspended for maintenance.",
+          "api_fieldname": "last_operator_suspended_description",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_operator_suspended_description"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the most recent suspension activity.",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "api_fieldname": "last_operator_suspended_updated_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_operator_suspended_updated_at"
+        },
+        {
+          "type": "string",
+          "description": "The reference of the block category.",
+          "pattern": "[a-f0-9_]{32}",
+          "example": "maintenance",
+          "api_fieldname": "last_system_suspended_category",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_system_suspended_category"
+        },
+        {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "The most recent description of why the device was blocked or unblocked by the system.",
+          "example": "A certificate in the device's certificate chain was blacklisted by the system.",
+          "api_fieldname": "last_system_suspended_description",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_system_suspended_description"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the most recent system block activity.",
+          "example": "2017-05-22T12:37:55.576563Z",
+          "api_fieldname": "last_system_suspended_updated_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "last_system_suspended_updated_at"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "enabled",
+            "blocked"
+          ],
+          "description": "The lifecycle status of the device.",
+          "example": "enabled",
+          "api_fieldname": "lifecycle_status",
+          "readOnly": true,
+          "required": false,
+          "enum_reference": "device_lifecycle_status_enum",
+          "_key": "lifecycle_status"
+        },
+        {
+          "type": "string",
           "description": "DEPRECATED: The URL for the current device manifest.",
           "example": "",
           "api_fieldname": "manifest",
@@ -32774,6 +33222,14 @@
           "_key": "name"
         },
         {
+          "type": "boolean",
+          "description": "Is the device suspended by the operator?",
+          "api_fieldname": "operator_suspended",
+          "readOnly": true,
+          "required": false,
+          "_key": "operator_suspended"
+        },
+        {
           "type": "string",
           "description": "The serial number of the device.",
           "example": "00000000-0000-0000-0000-000000000000",
@@ -32799,6 +33255,14 @@
           "_key": "state"
         },
         {
+          "type": "boolean",
+          "description": "Is the device suspended by the system?",
+          "api_fieldname": "system_suspended",
+          "readOnly": true,
+          "required": false,
+          "_key": "system_suspended"
+        },
+        {
           "format": "date-time",
           "example": "2017-05-22T12:37:55.576563Z",
           "type": "string",
@@ -32820,7 +33284,9 @@
       ],
       "field_renames": [],
       "tags": [
-        "Device security - device certificate renewals"
+        "Device directory - devices",
+        "Device security - device certificate renewals",
+        "Device directory - groups"
       ],
       "group_id": "Devices",
       "_key": "device"
@@ -36737,7 +37203,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "List all device events for an account.",
+          "description": "List all device events for an account.\n\n**Example:**\nFollowing example gets device-events limiting returned results to max 5 events\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \\\n-H 'Authorization: Bearer <API key>'\n```\nor to get events for certain device filter based on device_id:\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=<device_id> \\\n-H 'Authorization: Bearer <API key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -36745,7 +37211,7 @@
               "example": null,
               "api_fieldname": "after",
               "entity_fieldname": "after",
-              "description": "The ID of The item after which to retrieve the next page.",
+              "description": "The ID of the item after which to retrieve the next page.",
               "in": "query",
               "name": "after",
               "external_param": true,
@@ -36754,7 +37220,7 @@
               "_key": "after"
             },
             {
-              "description": "Comma-separated list of data fields to return. Currently supported: `total_count`",
+              "description": "Comma-separated list of data fields to return. Currently supported: `total_count`.",
               "in": "query",
               "name": "include",
               "type": "string",
@@ -36770,7 +37236,7 @@
               "example": 1000,
               "api_fieldname": "limit",
               "entity_fieldname": "limit",
-              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "description": "How many objects to retrieve in the page (2-1000). Limit values outside of this range are set to the closest limit.",
               "in": "query",
               "name": "limit",
               "minimum": 2,
@@ -36785,7 +37251,7 @@
               "example": "DESC",
               "api_fieldname": "order",
               "entity_fieldname": "order",
-              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+              "description": "Record order. Acceptable values: ASC, DESC. Default: ASC.",
               "in": "query",
               "name": "order",
               "external_param": true,
@@ -36880,7 +37346,7 @@
                         {
                           "type": "string",
                           "example": "FAIL",
-                          "description": "Generic description of the event",
+                          "description": "Generic description of the event.",
                           "_key": "event_type_description"
                         },
                         {
@@ -36959,7 +37425,7 @@
               "_key": "200"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "_key": "400"
             },
             {
@@ -37060,7 +37526,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve a specific device event.",
+          "description": "Retrieve a specific device event.\n\n**Example:**\nTo fetch a specific event you can use the 'id' field form the '/v3/device-events'. Form of '016c03d40a4e000000000001001003b4'\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events/<device_event_id> \\\n-H 'Authorization: Bearer <API key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -37168,7 +37634,7 @@
                   {
                     "type": "string",
                     "example": "FAIL",
-                    "description": "Generic description of the event",
+                    "description": "Generic description of the event.",
                     "api_fieldname": "event_type_description",
                     "entity_fieldname": "event_type_description",
                     "_key": "event_type_description"
@@ -37207,7 +37673,7 @@
               "_key": "200"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "_key": "400"
             },
             {
@@ -37344,7 +37810,7 @@
         {
           "type": "string",
           "example": "FAIL",
-          "description": "Generic description of the event",
+          "description": "Generic description of the event.",
           "api_fieldname": "event_type_description",
           "readOnly": true,
           "required": false,
@@ -37367,7 +37833,9 @@
         }
       ],
       "field_renames": [],
-      "tags": [],
+      "tags": [
+        "Device directory - events"
+      ],
       "group_id": "Devices",
       "_key": "device_events"
     },
@@ -37418,7 +37886,7 @@
               "_key": "204"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -37638,7 +38106,7 @@
             }
           ],
           "path": "/v3/device-groups/{device-group-id}/devices/add/",
-          "summary": "Add a device to a group",
+          "summary": "Add a device to a group.",
           "return_type": "void",
           "return_info": {
             "self": false,
@@ -37678,7 +38146,7 @@
                 "maxLength": 128,
                 "pattern": "^[A-Za-z].*"
               },
-              "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+              "description": "Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.",
               "example": {
                 "key": "value"
               },
@@ -37745,7 +38213,7 @@
                       "maxLength": 128,
                       "pattern": "^[A-Za-z].*"
                     },
-                    "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "description": "Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.",
                     "example": {
                       "key": "value"
                     },
@@ -37797,7 +38265,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "Entity name: always 'device-group'.",
+                    "description": "Entity name: always `device-group`.",
                     "example": "device-group",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
@@ -37821,7 +38289,7 @@
               "_key": "201"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -38041,7 +38509,7 @@
             }
           ],
           "path": "/v3/device-groups/",
-          "summary": "Create a group",
+          "summary": "Create a group.",
           "return_type": "device_group",
           "return_info": {
             "self": true,
@@ -38075,7 +38543,7 @@
           "field_renames": [],
           "fields": [
             {
-              "description": "The ID of the group",
+              "description": "The ID of the group.",
               "in": "path",
               "name": "device-group-id",
               "required": true,
@@ -38242,7 +38710,7 @@
             }
           ],
           "path": "/v3/device-groups/{device-group-id}/",
-          "summary": "Delete a group",
+          "summary": "Delete a group.",
           "return_type": "device_group",
           "return_info": {
             "self": true,
@@ -38273,7 +38741,7 @@
           "fields": [
             {
               "type": "string",
-              "description": "The ID of The item after which to retrieve the next page.",
+              "description": "The ID of the item after which to retrieve the next page.",
               "example": "01631667477600000000000100100374",
               "api_fieldname": "after",
               "entity_fieldname": "after",
@@ -38309,7 +38777,7 @@
             },
             {
               "type": "integer",
-              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "description": "How many objects to retrieve in the page (2-1000). Limit values outside of this range are set to the closest limit.",
               "example": 50,
               "minimum": 2,
               "maximum": 1000,
@@ -38324,7 +38792,7 @@
             },
             {
               "type": "string",
-              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+              "description": "Record order. Acceptable values: ASC, DESC. Default: ASC.",
               "example": "DESC",
               "api_fieldname": "order",
               "entity_fieldname": "order",
@@ -38345,7 +38813,7 @@
                 "properties": [
                   {
                     "type": "string",
-                    "description": "The ID of The item after which to retrieve the next page.",
+                    "description": "The ID of the item after which to retrieve the next page.",
                     "example": "01631667477600000000000100100374",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
@@ -38364,6 +38832,17 @@
                         "_key": "foreign_key"
                       },
                       {
+                        "device_execution_mode": {
+                          "enum": [
+                            0,
+                            1,
+                            5
+                          ],
+                          "type": "integer",
+                          "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a certificate that is not identified as a developer or production certificate.\n  - 1 - Development device. The device firmware uses a developer certificate to communicate with Device Management.\n  - 5 - Production device. The device firmware uses a factory-generated certificate to communicate with Device Management.",
+                          "example": 0,
+                          "default": 0
+                        },
                         "groups": {
                           "description": "An array containing an ID of each group this device belongs to.",
                           "type": "array",
@@ -38379,20 +38858,63 @@
                           "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
                           "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322"
                         },
+                        "operator_suspended": {
+                          "type": "boolean",
+                          "description": "Is the device suspended by the operator?"
+                        },
+                        "last_operator_suspended_category": {
+                          "type": "string",
+                          "description": "The reference of the block category.",
+                          "pattern": "[a-f0-9_]{32}",
+                          "example": "maintenance"
+                        },
+                        "last_operator_suspended_description": {
+                          "type": "string",
+                          "maxLength": 2000,
+                          "description": "The most recent description why the device was suspended or returned to service.",
+                          "example": "Suspended for maintenance."
+                        },
+                        "last_operator_suspended_updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The timestamp of the most recent suspension activity.",
+                          "example": "2017-05-22T12:37:55.576563Z"
+                        },
+                        "system_suspended": {
+                          "type": "boolean",
+                          "description": "Is the device suspended by the system?"
+                        },
+                        "last_system_suspended_category": {
+                          "type": "string",
+                          "description": "The reference of the block category.",
+                          "pattern": "[a-f0-9_]{32}",
+                          "example": "maintenance"
+                        },
+                        "last_system_suspended_description": {
+                          "type": "string",
+                          "maxLength": 2000,
+                          "description": "The most recent description of why the device was blocked or unblocked by the system.",
+                          "example": "A certificate in the device's certificate chain was blacklisted by the system."
+                        },
+                        "last_system_suspended_updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The timestamp of the most recent system block activity.",
+                          "example": "2017-05-22T12:37:55.576563Z"
+                        },
+                        "lifecycle_status": {
+                          "type": "string",
+                          "enum": [
+                            "enabled",
+                            "blocked"
+                          ],
+                          "description": "The lifecycle status of the device.",
+                          "example": "enabled"
+                        },
                         "account_id": {
                           "type": "string",
                           "description": "The ID of the associated account.",
                           "example": "00000000000000000000000000000000"
-                        },
-                        "device_execution_mode": {
-                          "enum": [
-                            0,
-                            1,
-                            5
-                          ],
-                          "type": "integer",
-                          "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified execution mode (default if host_gateway invalid or not set)\n  - 1 - development devices\n  - 5 - production devices",
-                          "example": 0
                         },
                         "auto_update": {
                           "type": "boolean",
@@ -38591,7 +39113,7 @@
                   },
                   {
                     "type": "integer",
-                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+                    "description": "How many objects to retrieve in the page (2-1000). Limit values outside of this range are set to the closest limit.",
                     "example": 50,
                     "minimum": 2,
                     "maximum": 1000,
@@ -38614,7 +39136,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+                    "description": "Record order. Acceptable values: ASC, DESC. Default: ASC.",
                     "example": "DESC",
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
@@ -38643,7 +39165,7 @@
               "_key": "200"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -38863,7 +39385,7 @@
             }
           ],
           "path": "/v3/device-groups/{device-group-id}/devices/",
-          "summary": "Get a page of devices",
+          "summary": "Get a page of devices.",
           "return_type": "paginated_response(device)",
           "return_info": {
             "self": false,
@@ -38871,6 +39393,44 @@
             "type": "device"
           },
           "x_filter": {
+            "lifecycle_status": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "operator_suspended": [
+              "eq",
+              "neq"
+            ],
+            "last_operator_suspended_category": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "last_operator_suspended_updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "system_suspended": [
+              "eq",
+              "neq"
+            ],
+            "last_system_suspended_category": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "last_system_suspended_updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
             "account_id": [
               "eq",
               "neq",
@@ -39047,6 +39607,30 @@
             "data",
             "has_more",
             "total_count",
+            "lifecycle_status__eq",
+            "lifecycle_status__neq",
+            "lifecycle_status__in",
+            "lifecycle_status__nin",
+            "operator_suspended__eq",
+            "operator_suspended__neq",
+            "last_operator_suspended_category__eq",
+            "last_operator_suspended_category__neq",
+            "last_operator_suspended_category__in",
+            "last_operator_suspended_category__nin",
+            "last_operator_suspended_updated_at__in",
+            "last_operator_suspended_updated_at__nin",
+            "last_operator_suspended_updated_at__lte",
+            "last_operator_suspended_updated_at__gte",
+            "system_suspended__eq",
+            "system_suspended__neq",
+            "last_system_suspended_category__eq",
+            "last_system_suspended_category__neq",
+            "last_system_suspended_category__in",
+            "last_system_suspended_category__nin",
+            "last_system_suspended_updated_at__in",
+            "last_system_suspended_updated_at__nin",
+            "last_system_suspended_updated_at__lte",
+            "last_system_suspended_updated_at__gte",
             "account_id__eq",
             "account_id__neq",
             "account_id__in",
@@ -39178,7 +39762,7 @@
           "fields": [
             {
               "type": "string",
-              "description": "The ID of The item after which to retrieve the next page.",
+              "description": "The ID of the item after which to retrieve the next page.",
               "example": "01631667477600000000000100100374",
               "api_fieldname": "after",
               "entity_fieldname": "after",
@@ -39203,7 +39787,7 @@
             },
             {
               "type": "integer",
-              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "description": "How many objects to retrieve in the page (2-1000). Limit values outside of this range are set to the closest limit.",
               "example": 50,
               "minimum": 2,
               "maximum": 1000,
@@ -39218,7 +39802,7 @@
             },
             {
               "type": "string",
-              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+              "description": "Record order. Acceptable values: ASC, DESC. Default: ASC.",
               "example": "DESC",
               "api_fieldname": "order",
               "entity_fieldname": "order",
@@ -39265,7 +39849,7 @@
                             "maxLength": 128,
                             "pattern": "^[A-Za-z].*"
                           },
-                          "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                          "description": "Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.",
                           "example": {
                             "key": "value"
                           },
@@ -39305,7 +39889,7 @@
                         },
                         {
                           "type": "string",
-                          "description": "Entity name: always 'device-group'.",
+                          "description": "Entity name: always `device-group`.",
                           "example": "device-group",
                           "_key": "object"
                         },
@@ -39329,7 +39913,7 @@
                   },
                   {
                     "type": "boolean",
-                    "description": "Are there more results available.",
+                    "description": "More results are available.",
                     "example": false,
                     "api_fieldname": "has_more",
                     "entity_fieldname": "has_more",
@@ -39337,7 +39921,7 @@
                   },
                   {
                     "type": "integer",
-                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+                    "description": "How many objects to retrieve in the page (2-1000). Limit values outside of this range are set to the closest limit.",
                     "example": 50,
                     "minimum": 2,
                     "maximum": 1000,
@@ -39347,7 +39931,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The type of this API object is a \"list\".",
+                    "description": "The type of this API object is 'list'.",
                     "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
@@ -39355,7 +39939,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The creation time based order of the entries.",
+                    "description": "Record order based on creation time.",
                     "example": "DESC",
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
@@ -39655,7 +40239,7 @@
                       "maxLength": 128,
                       "pattern": "^[A-Za-z].*"
                     },
-                    "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "description": "Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.",
                     "example": {
                       "key": "value"
                     },
@@ -39707,7 +40291,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "Entity name: always 'device-group'.",
+                    "description": "Entity name: always `device-group`.",
                     "example": "device-group",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
@@ -40020,7 +40604,7 @@
               "_key": "204"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -40166,7 +40750,7 @@
               "_key": "401"
             },
             {
-              "description": "Not Found.",
+              "description": "Not found.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -40240,7 +40824,7 @@
             }
           ],
           "path": "/v3/device-groups/{device-group-id}/devices/remove/",
-          "summary": "Remove a device from a group",
+          "summary": "Remove a device from a group.",
           "return_type": "void",
           "return_info": {
             "self": false,
@@ -40280,7 +40864,7 @@
                 "maxLength": 128,
                 "pattern": "^[A-Za-z].*"
               },
-              "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+              "description": "Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.",
               "example": {
                 "key": "value"
               },
@@ -40358,7 +40942,7 @@
                       "maxLength": 128,
                       "pattern": "^[A-Za-z].*"
                     },
-                    "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+                    "description": "Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.",
                     "example": {
                       "key": "value"
                     },
@@ -40410,7 +40994,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "Entity name: always 'device-group'.",
+                    "description": "Entity name: always `device-group`.",
                     "example": "device-group",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
@@ -40434,7 +41018,7 @@
               "_key": "200"
             },
             {
-              "description": "Bad Request.",
+              "description": "Bad request.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -40702,7 +41286,7 @@
             "maxLength": 128,
             "pattern": "^[A-Za-z].*"
           },
-          "description": "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
+          "description": "Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.",
           "example": {
             "key": "value"
           },
@@ -40761,7 +41345,9 @@
         }
       ],
       "field_renames": [],
-      "tags": [],
+      "tags": [
+        "Device directory - groups"
+      ],
       "group_id": "Devices",
       "_key": "device_group"
     },
