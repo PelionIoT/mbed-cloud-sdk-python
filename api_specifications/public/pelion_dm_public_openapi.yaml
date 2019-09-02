@@ -7205,9 +7205,6 @@ paths:
         and get discarded before the device regains the connectivity.
 
 
-        See also /v2/endpoints/{device-id}/{resourcePath}.
-
-
         You can write [Notification Rules](../connecting/resource-change-webapp.html#notification-rules)
         for a
 
@@ -7563,8 +7560,9 @@ paths:
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/endpoints/{device-id}/{resourcePath}:
     delete:
-      description: 'A request to delete a resource path must be handled by both Device
-        Management Client and Device Management
+      deprecated: true
+      description: '(DEPRECATED) A request to delete a resource path must be handled
+        by both Device Management Client and Device Management
 
         Connect.
 
@@ -7628,13 +7626,22 @@ paths:
           description: 'Cannot accept the request at the moment: the queue is full.'
         502:
           description: TCP or TLS connection to endpoint cannot be established.
-      summary: Delete a resource path.
+      summary: (DEPRECATED) Delete a resource path.
       tags:
       - Resources
+      x-deprecation:
+        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced with [/v2/device-requests/{device-id}](../service-api-references/device-management-connect.html#createAsyncRequest).
+          The /v2/device-requests/{device-id} endpoint lets you use your own async-id,
+          and simplifies integration by returning cached values as events through
+          the event notification channel.
+        end_of_life_at: 2020-05-017T00:00:00+00:00
+        issued_at: '2019-05-17T15:23:00+00:00'
+        links: []
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
-      description: 'Requests the resource value either from the device or cache. If
-        the value is not in the cache, the request goes all the
+      deprecated: true
+      description: '(DEPRECATED) Requests the resource value either from the device
+        or cache. If the value is not in the cache, the request goes all the
 
         way to the device. When the response is available, an `AsyncIDResponse` JSON
         object is received in the notification channel.
@@ -7727,9 +7734,17 @@ paths:
           description: 'Cannot accept the request at the moment: the queue is full.'
         502:
           description: TCP or TLS connection to endpoint cannot be established.
-      summary: Read from a resource.
+      summary: (DEPRECATED) Read from a resource.
       tags:
       - Resources
+      x-deprecation:
+        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced with [/v2/device-requests/{device-id}](../service-api-references/device-management-connect.html#createAsyncRequest).
+          The /v2/device-requests/{device-id} endpoint lets you use your own async-id,
+          and simplifies integration by returning cached values as events through
+          the event notification channel.
+        end_of_life_at: 2020-05-017T00:00:00+00:00
+        issued_at: '2019-05-17T15:23:00+00:00'
+        links: []
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     post:
       consumes:
@@ -7745,7 +7760,8 @@ paths:
       - application/vnd.oma.lwm2m+opaq
       - application/vnd.oma.lwm2m+tlv
       - application/vnd.oma.lwm2m+json
-      description: '[Execute a function](../connecting/handle-resource-webapp.html#the-execute-operation)
+      deprecated: true
+      description: '(DEPRECATED) [Execute a function](../connecting/handle-resource-webapp.html#the-execute-operation)
         on an existing resource and create a new Object instance on the device. The
         resource path does not have to exist; you can set it with the call. The maximum
         length of the resource path is 255 characters.
@@ -7828,9 +7844,18 @@ paths:
           description: 'Cannot accept the request at the moment: the queue is full.'
         502:
           description: TCP or TLS connection to endpoint cannot be established.
-      summary: Execute a function on a Resource or create new Object instance.
+      summary: (DEPRECATED) Execute a function on a Resource or create new Object
+        instance.
       tags:
       - Resources
+      x-deprecation:
+        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced with [/v2/device-requests/{device-id}](../service-api-references/device-management-connect.html#createAsyncRequest).
+          The /v2/device-requests/{device-id} enables you to use your own async-id
+          and simplifies the integration by returning also the cached values as events
+          via the event notification channel.
+        end_of_life_at: 2020-05-017T00:00:00+00:00
+        issued_at: '2019-05-17T15:23:00+00:00'
+        links: []
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     put:
       consumes:
@@ -7846,8 +7871,10 @@ paths:
       - application/vnd.oma.lwm2m+opaq
       - application/vnd.oma.lwm2m+tlv
       - application/vnd.oma.lwm2m+json
-      description: 'With this API, you can [write a new value to existing Resources](../connecting/handle-resource-webapp.html)
-        or use the **write** attribute to set [notification rules](../connecting/resource-change-webapp.html#notification-rules)
+      deprecated: true
+      description: '(DEPRECATED) With this API, you can [write a new value to existing
+        Resources](../connecting/handle-resource-webapp.html) or use the **write**
+        attribute to set [notification rules](../connecting/resource-change-webapp.html#notification-rules)
         for the Resources. The notification rules only work on the device client side
         and may not be supported by all clients.
 
@@ -7940,10 +7967,18 @@ paths:
           description: 'Cannot accept the request at the moment: the queue is full.'
         502:
           description: TCP or TLS connection to endpoint cannot be established.
-      summary: Write to a Resource or use write-attributes (notification rules) for
-        a Resource.
+      summary: (DEPRECATED) Write to a Resource or use write-attributes (notification
+        rules) for a Resource.
       tags:
       - Resources
+      x-deprecation:
+        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced with [/v2/device-requests/{device-id}](../service-api-references/device-management-connect.html#createAsyncRequest).
+          The /v2/device-requests/{device-id} endpoint lets you use your own async-id,
+          and simplifies integration by returning cached values as events through
+          the event notification channel.
+        end_of_life_at: 2020-05-017T00:00:00+00:00
+        issued_at: '2019-05-17T15:23:00+00:00'
+        links: []
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/notification/callback:
     delete:
