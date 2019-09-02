@@ -27,15 +27,19 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.firmware_image`
 - :meth:`EntityFactory.firmware_manifest`
 - :meth:`EntityFactory.identity_provider`
+- :meth:`EntityFactory.idppublickey`
 - :meth:`EntityFactory.light_theme_color`
 - :meth:`EntityFactory.light_theme_image`
 - :meth:`EntityFactory.login_history`
 - :meth:`EntityFactory.login_profile`
+- :meth:`EntityFactory.oidcrequest`
+- :meth:`EntityFactory.oidcrequestclaimmapping`
 - :meth:`EntityFactory.parent_account`
 - :meth:`EntityFactory.password_policy`
 - :meth:`EntityFactory.policy`
 - :meth:`EntityFactory.policy_group`
 - :meth:`EntityFactory.pre_shared_key`
+- :meth:`EntityFactory.saml2request`
 - :meth:`EntityFactory.server_credentials`
 - :meth:`EntityFactory.subtenant_api_key`
 - :meth:`EntityFactory.subtenant_dark_theme_color`
@@ -1349,6 +1353,21 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
+    def idppublickey(self, key=None, kid=None):
+        """Creates a local `IdpPublicKey` instance, using the shared SDK context.
+
+        :param key: The public key.
+        :type key: str
+        :param kid: The public key ID.
+        :type kid: str
+        
+        :return: A new instance of a IdpPublicKey Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.idppublickey.IdpPublicKey
+        """
+        from mbed_cloud.foundation import IdpPublicKey
+
+        return IdpPublicKey(_client=self._client, key=key, kid=kid)
+
     def light_theme_color(self, color=None, reference=None, updated_at=None):
         """Creates a local `LightThemeColor` instance, using the shared SDK context.
 
@@ -1418,6 +1437,147 @@ class EntityFactory:
         from mbed_cloud.foundation import LoginProfile
 
         return LoginProfile(_client=self._client, id=id, name=name)
+
+    def oidcrequest(
+        self,
+        authorization_endpoint=None,
+        auto_enrollment=None,
+        claim_mapping=None,
+        client_id=None,
+        client_secret=None,
+        end_session_endpoint=None,
+        issuer=None,
+        jwks_uri=None,
+        keys=None,
+        redirect_uri=None,
+        revocation_endpoint=None,
+        scopes=None,
+        token_endpoint=None,
+        token_request_mode=None,
+        token_response_path=None,
+        userinfo_endpoint=None,
+    ):
+        """Creates a local `OIDCRequest` instance, using the shared SDK context.
+
+        :param authorization_endpoint: URL of the OAuth 2.0 authorization endpoint.
+        :type authorization_endpoint: str
+        :param auto_enrollment: For future use.
+        :type auto_enrollment: bool
+        :param claim_mapping: Mapping for non-standard OIDC claim names.
+        :type claim_mapping: dict
+        :param client_id: Client ID needed to authenticate and gain access to identity
+            provider's API.
+        :type client_id: str
+        :param client_secret: Client secret needed to authenticate and gain access to identity
+            provider's API.
+        :type client_secret: str
+        :param end_session_endpoint: URL of the provider's end session endpoint.
+        :type end_session_endpoint: str
+        :param issuer: Issuer of the identity provider.
+        :type issuer: str
+        :param jwks_uri: URL of the provider's JSON web key set document.
+        :type jwks_uri: str
+        :param keys: Provider's public keys and key IDs used to sign ID tokens. PEM-
+            encoded.
+        :type keys: list
+        :param redirect_uri: The URI needed to authenticate and gain access to identity
+            provider's API. Leave this empty to use the default redirect URI.
+        :type redirect_uri: str
+        :param revocation_endpoint: URL of the provider's token revocation endpoint.
+        :type revocation_endpoint: str
+        :param scopes: Space-separated list of scopes sent in the authentication request.
+            When not configured otherwise, the default scopes are ['openid
+            profile email'](https://openid.net/specs/openid-connect-
+            core-1_0.html#ScopeClaims).
+        :type scopes: str
+        :param token_endpoint: URL of the OAuth 2.0 authorization endpoint.
+        :type token_endpoint: str
+        :param token_request_mode: One way to obtain the access token. Since the request results in
+            the transmission of clear-text credentials, the client must use
+            the POST mode.
+        :type token_request_mode: str
+        :param token_response_path: Path to the standard data in the token response. Levels in the
+            JSON structure must be separated by '.' (dot) characters.
+        :type token_response_path: str
+        :param userinfo_endpoint: URL of the OAuth 2.0 UserInfo endpoint.
+        :type userinfo_endpoint: str
+        
+        :return: A new instance of a OIDCRequest Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.oidcrequest.OIDCRequest
+        """
+        from mbed_cloud.foundation import OIDCRequest
+
+        return OIDCRequest(
+            _client=self._client,
+            authorization_endpoint=authorization_endpoint,
+            auto_enrollment=auto_enrollment,
+            claim_mapping=claim_mapping,
+            client_id=client_id,
+            client_secret=client_secret,
+            end_session_endpoint=end_session_endpoint,
+            issuer=issuer,
+            jwks_uri=jwks_uri,
+            keys=keys,
+            redirect_uri=redirect_uri,
+            revocation_endpoint=revocation_endpoint,
+            scopes=scopes,
+            token_endpoint=token_endpoint,
+            token_request_mode=token_request_mode,
+            token_response_path=token_response_path,
+            userinfo_endpoint=userinfo_endpoint,
+        )
+
+    def oidcrequestclaimmapping(
+        self,
+        email=None,
+        email_verified=None,
+        family_name=None,
+        given_name=None,
+        name=None,
+        phone_number=None,
+        sub=None,
+        updated_at=None,
+        updated_at_pattern=None,
+    ):
+        """Creates a local `OIDCRequestClaimMapping` instance, using the shared SDK context.
+
+        :param email: Custom claim name for 'email'.
+        :type email: str
+        :param email_verified: Custom claim name for 'email_verified'.
+        :type email_verified: str
+        :param family_name: Custom claim name for 'family_name'.
+        :type family_name: str
+        :param given_name: Custom claim name for 'given_name'.
+        :type given_name: str
+        :param name: Custom claim name for 'name'.
+        :type name: str
+        :param phone_number: Custom claim name for 'phone_number'.
+        :type phone_number: str
+        :param sub: Custom claim name for 'sub'.
+        :type sub: str
+        :param updated_at: Custom claim name for 'updated_at'.
+        :type updated_at: str
+        :param updated_at_pattern: Custom pattern for claim 'updated_at' as defined by the Java
+            SimpleDateFormat class.
+        :type updated_at_pattern: str
+        
+        :return: A new instance of a OIDCRequestClaimMapping Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.oidcrequestclaimmapping.OIDCRequestClaimMapping
+        """
+        from mbed_cloud.foundation import OIDCRequestClaimMapping
+
+        return OIDCRequestClaimMapping(
+            _client=self._client,
+            email=email,
+            email_verified=email_verified,
+            family_name=family_name,
+            given_name=given_name,
+            name=name,
+            phone_number=phone_number,
+            sub=sub,
+            updated_at=updated_at,
+            updated_at_pattern=updated_at_pattern,
+        )
 
     def parent_account(self, admin_email=None, admin_name=None, id=None):
         """Creates a local `ParentAccount` instance, using the shared SDK context.
@@ -1551,6 +1711,49 @@ class EntityFactory:
         from mbed_cloud.foundation import PreSharedKey
 
         return PreSharedKey(_client=self._client, created_at=created_at, endpoint_name=endpoint_name, id=id)
+
+    def saml2request(
+        self,
+        entity_descriptor=None,
+        idp_entity_id=None,
+        idp_x509_certs=None,
+        slo_endpoint=None,
+        sp_entity_id=None,
+        sso_endpoint=None,
+    ):
+        """Creates a local `SAML2Request` instance, using the shared SDK context.
+
+        :param entity_descriptor: Contains an entity descriptor document for the identity provider.
+            Can be used as an alternative method to provide the identity
+            provider's attributes.
+        :type entity_descriptor: bytes
+        :param idp_entity_id: Entity ID of the identity provider.
+        :type idp_entity_id: str
+        :param idp_x509_certs: List of public X509 certificates of the identity provider.
+            Certificates must be in PEM format.
+        :type idp_x509_certs: list
+        :param slo_endpoint: URL of the identity provider's SLO endpoint.
+        :type slo_endpoint: str
+        :param sp_entity_id: Entity ID of the service provider. We recommend that you leave it
+            empty and let the system generate it.
+        :type sp_entity_id: str
+        :param sso_endpoint: URL of the identity provider's SSO endpoint.
+        :type sso_endpoint: str
+        
+        :return: A new instance of a SAML2Request Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.saml2request.SAML2Request
+        """
+        from mbed_cloud.foundation import SAML2Request
+
+        return SAML2Request(
+            _client=self._client,
+            entity_descriptor=entity_descriptor,
+            idp_entity_id=idp_entity_id,
+            idp_x509_certs=idp_x509_certs,
+            slo_endpoint=slo_endpoint,
+            sp_entity_id=sp_entity_id,
+            sso_endpoint=sso_endpoint,
+        )
 
     def server_credentials(self, created_at=None, id=None, server_certificate=None, server_uri=None):
         """Creates a local `ServerCredentials` instance, using the shared SDK context.

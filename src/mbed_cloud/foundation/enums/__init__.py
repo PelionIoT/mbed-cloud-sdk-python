@@ -17,6 +17,7 @@ Accounts
 - :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderAlgorithmEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderStatusEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.OIDCRequestTokenRequestModeEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.PolicyGroupOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.PolicyInheritedTypeEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantApiKeyOrderEnum`
@@ -97,6 +98,7 @@ How to import Enums:
     from mbed_cloud.foundation.enums import IdentityProviderAlgorithmEnum
     from mbed_cloud.foundation.enums import IdentityProviderOrderEnum
     from mbed_cloud.foundation.enums import IdentityProviderStatusEnum
+    from mbed_cloud.foundation.enums import OIDCRequestTokenRequestModeEnum
     from mbed_cloud.foundation.enums import PolicyGroupOrderEnum
     from mbed_cloud.foundation.enums import PolicyInheritedTypeEnum
     from mbed_cloud.foundation.enums import SubtenantApiKeyOrderEnum
@@ -154,6 +156,7 @@ from mbed_cloud.foundation.entities.accounts.enums import ApiKeyStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderAlgorithmEnum
 from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderStatusEnum
+from mbed_cloud.foundation.entities.accounts.enums import OIDCRequestTokenRequestModeEnum
 from mbed_cloud.foundation.entities.accounts.enums import PolicyGroupOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import PolicyInheritedTypeEnum
 from mbed_cloud.foundation.entities.accounts.enums import SubtenantApiKeyOrderEnum
@@ -210,6 +213,7 @@ __all__ = [
     "IdentityProviderAlgorithmEnum",
     "IdentityProviderOrderEnum",
     "IdentityProviderStatusEnum",
+    "OIDCRequestTokenRequestModeEnum",
     "PolicyGroupOrderEnum",
     "PolicyInheritedTypeEnum",
     "SubtenantApiKeyOrderEnum",

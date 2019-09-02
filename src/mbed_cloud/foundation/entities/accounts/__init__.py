@@ -12,12 +12,16 @@ This module contains the Foundation Entities that are grouped together under the
 - :mod:`mbed_cloud.foundation.entities.accounts.active_session`
 - :mod:`mbed_cloud.foundation.entities.accounts.api_key`
 - :mod:`mbed_cloud.foundation.entities.accounts.identity_provider`
+- :mod:`mbed_cloud.foundation.entities.accounts.idppublickey`
 - :mod:`mbed_cloud.foundation.entities.accounts.login_history`
 - :mod:`mbed_cloud.foundation.entities.accounts.login_profile`
+- :mod:`mbed_cloud.foundation.entities.accounts.oidcrequest`
+- :mod:`mbed_cloud.foundation.entities.accounts.oidcrequestclaimmapping`
 - :mod:`mbed_cloud.foundation.entities.accounts.parent_account`
 - :mod:`mbed_cloud.foundation.entities.accounts.password_policy`
 - :mod:`mbed_cloud.foundation.entities.accounts.policy`
 - :mod:`mbed_cloud.foundation.entities.accounts.policy_group`
+- :mod:`mbed_cloud.foundation.entities.accounts.saml2request`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_api_key`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_identity_provider`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_policy_group`
@@ -36,12 +40,16 @@ How to import Accounts Entities:
     from mbed_cloud.foundation import ActiveSession
     from mbed_cloud.foundation import ApiKey
     from mbed_cloud.foundation import IdentityProvider
+    from mbed_cloud.foundation import IdpPublicKey
     from mbed_cloud.foundation import LoginHistory
     from mbed_cloud.foundation import LoginProfile
+    from mbed_cloud.foundation import OIDCRequest
+    from mbed_cloud.foundation import OIDCRequestClaimMapping
     from mbed_cloud.foundation import ParentAccount
     from mbed_cloud.foundation import PasswordPolicy
     from mbed_cloud.foundation import Policy
     from mbed_cloud.foundation import PolicyGroup
+    from mbed_cloud.foundation import SAML2Request
     from mbed_cloud.foundation import SubtenantApiKey
     from mbed_cloud.foundation import SubtenantIdentityProvider
     from mbed_cloud.foundation import SubtenantPolicyGroup

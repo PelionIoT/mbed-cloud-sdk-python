@@ -288,7 +288,7 @@ class IdentityProvider(Entity):
         :type discovery: bool
         
         :param oidc_attributes: Represents OIDC specific attributes.
-        :type oidc_attributes: dict
+        :type oidc_attributes: mbed_cloud.foundation.entities.OIDCRequest
         
         :rtype: IdentityProvider
         """
@@ -517,7 +517,7 @@ class IdentityProvider(Entity):
         :type discovery: bool
         
         :param oidc_attributes: Represents OIDC specific attributes.
-        :type oidc_attributes: dict
+        :type oidc_attributes: mbed_cloud.foundation.entities.OIDCRequest
         
         :rtype: IdentityProvider
         """

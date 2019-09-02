@@ -16,6 +16,7 @@ This module contains all Enums used by Foundation Entities in the Accounts categ
 - :class:`IdentityProviderAlgorithmEnum`
 - :class:`IdentityProviderOrderEnum`
 - :class:`IdentityProviderStatusEnum`
+- :class:`OIDCRequestTokenRequestModeEnum`
 - :class:`PolicyGroupOrderEnum`
 - :class:`PolicyInheritedTypeEnum`
 - :class:`SubtenantApiKeyOrderEnum`
@@ -44,6 +45,7 @@ How to import Enums:
     from mbed_cloud.foundation.enums import IdentityProviderAlgorithmEnum
     from mbed_cloud.foundation.enums import IdentityProviderOrderEnum
     from mbed_cloud.foundation.enums import IdentityProviderStatusEnum
+    from mbed_cloud.foundation.enums import OIDCRequestTokenRequestModeEnum
     from mbed_cloud.foundation.enums import PolicyGroupOrderEnum
     from mbed_cloud.foundation.enums import PolicyInheritedTypeEnum
     from mbed_cloud.foundation.enums import SubtenantApiKeyOrderEnum
@@ -207,6 +209,22 @@ class IdentityProviderStatusEnum(BaseEnum):
     SUSPENDED = "SUSPENDED"
 
     values = frozenset(("ACTIVE", "SUSPENDED"))
+
+
+class OIDCRequestTokenRequestModeEnum(BaseEnum):
+    """Represents expected values of `OIDCRequestTokenRequestModeEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    GET = "GET"
+    POST = "POST"
+
+    values = frozenset(("GET", "POST"))
 
 
 class PolicyGroupOrderEnum(BaseEnum):

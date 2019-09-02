@@ -16,12 +16,16 @@ Accounts
 - :mod:`mbed_cloud.foundation.entities.accounts.active_session`
 - :mod:`mbed_cloud.foundation.entities.accounts.api_key`
 - :mod:`mbed_cloud.foundation.entities.accounts.identity_provider`
+- :mod:`mbed_cloud.foundation.entities.accounts.idppublickey`
 - :mod:`mbed_cloud.foundation.entities.accounts.login_history`
 - :mod:`mbed_cloud.foundation.entities.accounts.login_profile`
+- :mod:`mbed_cloud.foundation.entities.accounts.oidcrequest`
+- :mod:`mbed_cloud.foundation.entities.accounts.oidcrequestclaimmapping`
 - :mod:`mbed_cloud.foundation.entities.accounts.parent_account`
 - :mod:`mbed_cloud.foundation.entities.accounts.password_policy`
 - :mod:`mbed_cloud.foundation.entities.accounts.policy`
 - :mod:`mbed_cloud.foundation.entities.accounts.policy_group`
+- :mod:`mbed_cloud.foundation.entities.accounts.saml2request`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_api_key`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_identity_provider`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_policy_group`
@@ -98,12 +102,16 @@ will share the same context as other Entities. There is more information in the 
     active_sessions = pelion_dm_sdk.foundation.active_session()
     api_keys = pelion_dm_sdk.foundation.api_key()
     identity_providers = pelion_dm_sdk.foundation.identity_provider()
+    idppublickeys = pelion_dm_sdk.foundation.idppublickey()
     login_historys = pelion_dm_sdk.foundation.login_history()
     login_profiles = pelion_dm_sdk.foundation.login_profile()
+    oidcrequests = pelion_dm_sdk.foundation.oidcrequest()
+    oidcrequestclaimmappings = pelion_dm_sdk.foundation.oidcrequestclaimmapping()
     parent_accounts = pelion_dm_sdk.foundation.parent_account()
     password_policys = pelion_dm_sdk.foundation.password_policy()
     policys = pelion_dm_sdk.foundation.policy()
     policy_groups = pelion_dm_sdk.foundation.policy_group()
+    saml2requests = pelion_dm_sdk.foundation.saml2request()
     subtenant_api_keys = pelion_dm_sdk.foundation.subtenant_api_key()
     subtenant_identity_providers = pelion_dm_sdk.foundation.subtenant_identity_provider()
     subtenant_policy_groups = pelion_dm_sdk.foundation.subtenant_policy_group()
@@ -150,12 +158,16 @@ How to import Entities directly:
     from mbed_cloud.foundation import ActiveSession
     from mbed_cloud.foundation import ApiKey
     from mbed_cloud.foundation import IdentityProvider
+    from mbed_cloud.foundation import IdpPublicKey
     from mbed_cloud.foundation import LoginHistory
     from mbed_cloud.foundation import LoginProfile
+    from mbed_cloud.foundation import OIDCRequest
+    from mbed_cloud.foundation import OIDCRequestClaimMapping
     from mbed_cloud.foundation import ParentAccount
     from mbed_cloud.foundation import PasswordPolicy
     from mbed_cloud.foundation import Policy
     from mbed_cloud.foundation import PolicyGroup
+    from mbed_cloud.foundation import SAML2Request
     from mbed_cloud.foundation import SubtenantApiKey
     from mbed_cloud.foundation import SubtenantIdentityProvider
     from mbed_cloud.foundation import SubtenantPolicyGroup
@@ -201,12 +213,16 @@ from mbed_cloud.foundation.entities.accounts.account import Account
 from mbed_cloud.foundation.entities.accounts.active_session import ActiveSession
 from mbed_cloud.foundation.entities.accounts.api_key import ApiKey
 from mbed_cloud.foundation.entities.accounts.identity_provider import IdentityProvider
+from mbed_cloud.foundation.entities.accounts.idppublickey import IdpPublicKey
 from mbed_cloud.foundation.entities.accounts.login_history import LoginHistory
 from mbed_cloud.foundation.entities.accounts.login_profile import LoginProfile
+from mbed_cloud.foundation.entities.accounts.oidcrequest import OIDCRequest
+from mbed_cloud.foundation.entities.accounts.oidcrequestclaimmapping import OIDCRequestClaimMapping
 from mbed_cloud.foundation.entities.accounts.parent_account import ParentAccount
 from mbed_cloud.foundation.entities.accounts.password_policy import PasswordPolicy
 from mbed_cloud.foundation.entities.accounts.policy import Policy
 from mbed_cloud.foundation.entities.accounts.policy_group import PolicyGroup
+from mbed_cloud.foundation.entities.accounts.saml2request import SAML2Request
 from mbed_cloud.foundation.entities.accounts.subtenant_api_key import SubtenantApiKey
 from mbed_cloud.foundation.entities.accounts.subtenant_identity_provider import SubtenantIdentityProvider
 from mbed_cloud.foundation.entities.accounts.subtenant_policy_group import SubtenantPolicyGroup
@@ -269,15 +285,19 @@ __all__ = [
     "FirmwareImage",
     "FirmwareManifest",
     "IdentityProvider",
+    "IdpPublicKey",
     "LightThemeColor",
     "LightThemeImage",
     "LoginHistory",
     "LoginProfile",
+    "OIDCRequest",
+    "OIDCRequestClaimMapping",
     "ParentAccount",
     "PasswordPolicy",
     "Policy",
     "PolicyGroup",
     "PreSharedKey",
+    "SAML2Request",
     "ServerCredentials",
     "SubtenantApiKey",
     "SubtenantDarkThemeColor",
