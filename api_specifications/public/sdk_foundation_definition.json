@@ -19,10 +19,10 @@
         "subtenant_policy_group",
         "identity_provider",
         "subtenant_identity_provider",
-        "SAML2Request",
-        "OIDCRequest",
-        "OIDCRequestClaimMapping",
-        "IdpPublicKey"
+        "SAML2_request",
+        "OIDC_request",
+        "OIDC_request_claim_mapping",
+        "identity_provider_public_key"
       ],
       "enums": [
         "policy_inherited_type_enum",
@@ -46,7 +46,7 @@
         "subtenant_identity_provider_status_enum",
         "subtenant_identity_provider_order_enum",
         "subtenant_identity_provider_algorithm_enum",
-        "OIDCRequest_token_request_mode_enum"
+        "OIDC_request_token_mode_enum"
       ],
       "_key": "Accounts"
     },
@@ -593,15 +593,15 @@
       "_key": "light_theme_image_reference_enum"
     },
     {
-      "entity_name": "OIDCRequest",
+      "entity_name": "OIDC_request",
       "field_name": "token_request_mode",
-      "enum_name": "OIDCRequest_token_request_mode_enum",
+      "enum_name": "OIDC_request_token_mode_enum",
       "values": [
         "GET",
         "POST"
       ],
       "group_id": "Accounts",
-      "_key": "OIDCRequest_token_request_mode_enum"
+      "_key": "OIDC_request_token_mode_enum"
     },
     {
       "entity_name": "policy_group",
@@ -43501,7 +43501,7 @@
                   ],
                   "foreign_key": {
                     "group": "Accounts",
-                    "entity": "OIDCRequestClaimMapping"
+                    "entity": "OIDC_request_claim_mapping"
                   },
                   "x-nullable": true,
                   "_key": "claim_mapping"
@@ -43555,7 +43555,7 @@
                     "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
                     "foreign_key": {
                       "group": "Accounts",
-                      "entity": "IdpPublicKey"
+                      "entity": "identity_provider_public_key"
                     }
                   },
                   "x-nullable": true,
@@ -43611,7 +43611,7 @@
               "description": "Represents OIDC specific attributes.",
               "foreign_key": {
                 "group": "Accounts",
-                "entity": "OIDCRequest"
+                "entity": "OIDC_request"
               },
               "name": "oidc_attributes",
               "in": "body",
@@ -47031,7 +47031,7 @@
                   ],
                   "foreign_key": {
                     "group": "Accounts",
-                    "entity": "OIDCRequestClaimMapping"
+                    "entity": "OIDC_request_claim_mapping"
                   },
                   "x-nullable": true,
                   "_key": "claim_mapping"
@@ -47085,7 +47085,7 @@
                     "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
                     "foreign_key": {
                       "group": "Accounts",
-                      "entity": "IdpPublicKey"
+                      "entity": "identity_provider_public_key"
                     }
                   },
                   "x-nullable": true,
@@ -47141,7 +47141,7 @@
               "description": "Represents OIDC specific attributes.",
               "foreign_key": {
                 "group": "Accounts",
-                "entity": "OIDCRequest"
+                "entity": "OIDC_request"
               },
               "name": "oidc_attributes",
               "in": "body",
@@ -47901,7 +47901,7 @@
       "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
-      "_key": "IdpPublicKey"
+      "_key": "identity_provider_public_key"
     },
     {
       "swagger_models": [
@@ -51276,7 +51276,7 @@
           ],
           "foreign_key": {
             "group": "Accounts",
-            "entity": "OIDCRequestClaimMapping"
+            "entity": "OIDC_request_claim_mapping"
           },
           "x-nullable": true,
           "api_fieldname": "claim_mapping",
@@ -51348,7 +51348,7 @@
             "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
             "foreign_key": {
               "group": "Accounts",
-              "entity": "IdpPublicKey"
+              "entity": "identity_provider_public_key"
             }
           },
           "x-nullable": true,
@@ -51404,7 +51404,7 @@
           "api_fieldname": "token_request_mode",
           "readOnly": true,
           "required": false,
-          "enum_reference": "OIDCRequest_token_request_mode_enum",
+          "enum_reference": "OIDC_request_token_mode_enum",
           "_key": "token_request_mode"
         },
         {
@@ -51429,7 +51429,7 @@
       "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
-      "_key": "OIDCRequest"
+      "_key": "OIDC_request"
     },
     {
       "swagger_models": [
@@ -51525,7 +51525,7 @@
       "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
-      "_key": "OIDCRequestClaimMapping"
+      "_key": "OIDC_request_claim_mapping"
     },
     {
       "swagger_models": [
@@ -54541,7 +54541,7 @@
       "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
-      "_key": "SAML2Request"
+      "_key": "SAML2_request"
     },
     {
       "swagger_models": [
@@ -60351,7 +60351,7 @@
                   ],
                   "foreign_key": {
                     "group": "Accounts",
-                    "entity": "OIDCRequestClaimMapping"
+                    "entity": "OIDC_request_claim_mapping"
                   },
                   "x-nullable": true,
                   "_key": "claim_mapping"
@@ -60405,7 +60405,7 @@
                     "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
                     "foreign_key": {
                       "group": "Accounts",
-                      "entity": "IdpPublicKey"
+                      "entity": "identity_provider_public_key"
                     }
                   },
                   "x-nullable": true,
@@ -60461,7 +60461,7 @@
               "description": "Represents OIDC specific attributes.",
               "foreign_key": {
                 "group": "Accounts",
-                "entity": "OIDCRequest"
+                "entity": "OIDC_request"
               },
               "name": "oidc_attributes",
               "in": "body",
@@ -64234,7 +64234,7 @@
                   ],
                   "foreign_key": {
                     "group": "Accounts",
-                    "entity": "OIDCRequestClaimMapping"
+                    "entity": "OIDC_request_claim_mapping"
                   },
                   "x-nullable": true,
                   "_key": "claim_mapping"
@@ -64288,7 +64288,7 @@
                     "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
                     "foreign_key": {
                       "group": "Accounts",
-                      "entity": "IdpPublicKey"
+                      "entity": "identity_provider_public_key"
                     }
                   },
                   "x-nullable": true,
@@ -64344,7 +64344,7 @@
               "description": "Represents OIDC specific attributes.",
               "foreign_key": {
                 "group": "Accounts",
-                "entity": "OIDCRequest"
+                "entity": "OIDC_request"
               },
               "name": "oidc_attributes",
               "in": "body",
