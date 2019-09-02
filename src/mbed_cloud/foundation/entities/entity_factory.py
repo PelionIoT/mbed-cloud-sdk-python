@@ -27,19 +27,19 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.firmware_image`
 - :meth:`EntityFactory.firmware_manifest`
 - :meth:`EntityFactory.identity_provider`
-- :meth:`EntityFactory.idppublickey`
+- :meth:`EntityFactory.identity_provider_public_key`
 - :meth:`EntityFactory.light_theme_color`
 - :meth:`EntityFactory.light_theme_image`
 - :meth:`EntityFactory.login_history`
 - :meth:`EntityFactory.login_profile`
-- :meth:`EntityFactory.oidcrequest`
-- :meth:`EntityFactory.oidcrequestclaimmapping`
+- :meth:`EntityFactory.oidc_request`
+- :meth:`EntityFactory.oidc_request_claim_mapping`
 - :meth:`EntityFactory.parent_account`
 - :meth:`EntityFactory.password_policy`
 - :meth:`EntityFactory.policy`
 - :meth:`EntityFactory.policy_group`
 - :meth:`EntityFactory.pre_shared_key`
-- :meth:`EntityFactory.saml2request`
+- :meth:`EntityFactory.saml2_request`
 - :meth:`EntityFactory.server_credentials`
 - :meth:`EntityFactory.subtenant_api_key`
 - :meth:`EntityFactory.subtenant_dark_theme_color`
@@ -1353,20 +1353,20 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
-    def idppublickey(self, key=None, kid=None):
-        """Creates a local `IdpPublicKey` instance, using the shared SDK context.
+    def identity_provider_public_key(self, key=None, kid=None):
+        """Creates a local `IdentityProviderPublicKey` instance, using the shared SDK context.
 
         :param key: The public key.
         :type key: str
         :param kid: The public key ID.
         :type kid: str
         
-        :return: A new instance of a IdpPublicKey Foundation Entity.
-        :rtype: mbed_cloud.foundation.entities.accounts.idppublickey.IdpPublicKey
+        :return: A new instance of a IdentityProviderPublicKey Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.identity_provider_public_key.IdentityProviderPublicKey
         """
-        from mbed_cloud.foundation import IdpPublicKey
+        from mbed_cloud.foundation import IdentityProviderPublicKey
 
-        return IdpPublicKey(_client=self._client, key=key, kid=kid)
+        return IdentityProviderPublicKey(_client=self._client, key=key, kid=kid)
 
     def light_theme_color(self, color=None, reference=None, updated_at=None):
         """Creates a local `LightThemeColor` instance, using the shared SDK context.
@@ -1438,7 +1438,7 @@ class EntityFactory:
 
         return LoginProfile(_client=self._client, id=id, name=name)
 
-    def oidcrequest(
+    def oidc_request(
         self,
         authorization_endpoint=None,
         auto_enrollment=None,
@@ -1503,7 +1503,7 @@ class EntityFactory:
         :type userinfo_endpoint: str
         
         :return: A new instance of a OIDCRequest Foundation Entity.
-        :rtype: mbed_cloud.foundation.entities.accounts.oidcrequest.OIDCRequest
+        :rtype: mbed_cloud.foundation.entities.accounts.oidc_request.OIDCRequest
         """
         from mbed_cloud.foundation import OIDCRequest
 
@@ -1527,7 +1527,7 @@ class EntityFactory:
             userinfo_endpoint=userinfo_endpoint,
         )
 
-    def oidcrequestclaimmapping(
+    def oidc_request_claim_mapping(
         self,
         email=None,
         email_verified=None,
@@ -1562,7 +1562,7 @@ class EntityFactory:
         :type updated_at_pattern: str
         
         :return: A new instance of a OIDCRequestClaimMapping Foundation Entity.
-        :rtype: mbed_cloud.foundation.entities.accounts.oidcrequestclaimmapping.OIDCRequestClaimMapping
+        :rtype: mbed_cloud.foundation.entities.accounts.oidc_request_claim_mapping.OIDCRequestClaimMapping
         """
         from mbed_cloud.foundation import OIDCRequestClaimMapping
 
@@ -1712,7 +1712,7 @@ class EntityFactory:
 
         return PreSharedKey(_client=self._client, created_at=created_at, endpoint_name=endpoint_name, id=id)
 
-    def saml2request(
+    def saml2_request(
         self,
         entity_descriptor=None,
         idp_entity_id=None,
@@ -1741,7 +1741,7 @@ class EntityFactory:
         :type sso_endpoint: str
         
         :return: A new instance of a SAML2Request Foundation Entity.
-        :rtype: mbed_cloud.foundation.entities.accounts.saml2request.SAML2Request
+        :rtype: mbed_cloud.foundation.entities.accounts.saml2_request.SAML2Request
         """
         from mbed_cloud.foundation import SAML2Request
 
