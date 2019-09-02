@@ -33194,7 +33194,7 @@ entities:
       entity_fieldname: oidc_attributes
       external_param: true
       foreign_key:
-        entity: OIDC_request
+        entity: oidc_request
         group: Accounts
       in: body
       name: oidc_attributes
@@ -33211,7 +33211,7 @@ entities:
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
         foreign_key:
-          entity: OIDC_request_claim_mapping
+          entity: oidc_request_claim_mapping
           group: Accounts
         properties:
         - _key: email
@@ -35727,7 +35727,7 @@ entities:
       entity_fieldname: oidc_attributes
       external_param: true
       foreign_key:
-        entity: OIDC_request
+        entity: oidc_request
         group: Accounts
       in: body
       name: oidc_attributes
@@ -35744,7 +35744,7 @@ entities:
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
         foreign_key:
-          entity: OIDC_request_claim_mapping
+          entity: oidc_request_claim_mapping
           group: Accounts
         properties:
         - _key: email
@@ -38694,7 +38694,7 @@ entities:
   swagger_models:
   - LoginProfile
   tags: []
-- _key: OIDC_request
+- _key: oidc_request
   field_renames: []
   fields:
   - _key: authorization_endpoint
@@ -38715,7 +38715,7 @@ entities:
     api_fieldname: claim_mapping
     description: Mapping for non-standard OIDC claim names.
     foreign_key:
-      entity: OIDC_request_claim_mapping
+      entity: oidc_request_claim_mapping
       group: Accounts
     properties:
     - _key: email
@@ -38856,7 +38856,7 @@ entities:
     enum:
     - POST
     - GET
-    enum_reference: OIDC_request_token_mode_enum
+    enum_reference: oidc_request_token_mode_enum
     readOnly: true
     required: false
     type: string
@@ -38881,7 +38881,7 @@ entities:
   swagger_models:
   - OIDCInfo
   tags: []
-- _key: OIDC_request_claim_mapping
+- _key: oidc_request_claim_mapping
   field_renames: []
   fields:
   - _key: email
@@ -41274,7 +41274,7 @@ entities:
   - PreSharedKeyWithoutSecret
   tags:
   - PreSharedKeys
-- _key: SAML2_request
+- _key: saml2_request
   field_renames: []
   fields:
   - _key: entity_descriptor
@@ -45686,7 +45686,7 @@ entities:
       entity_fieldname: oidc_attributes
       external_param: true
       foreign_key:
-        entity: OIDC_request
+        entity: oidc_request
         group: Accounts
       in: body
       name: oidc_attributes
@@ -45703,7 +45703,7 @@ entities:
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
         foreign_key:
-          entity: OIDC_request_claim_mapping
+          entity: oidc_request_claim_mapping
           group: Accounts
         properties:
         - _key: email
@@ -48508,7 +48508,7 @@ entities:
       entity_fieldname: oidc_attributes
       external_param: true
       foreign_key:
-        entity: OIDC_request
+        entity: oidc_request
         group: Accounts
       in: body
       name: oidc_attributes
@@ -48525,7 +48525,7 @@ entities:
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
         foreign_key:
-          entity: OIDC_request_claim_mapping
+          entity: oidc_request_claim_mapping
           group: Accounts
         properties:
         - _key: email
@@ -69354,9 +69354,9 @@ enums:
   - desktop_background_landscape
   - desktop_background_portrait
   - desktop_background_square
-- _key: OIDC_request_token_mode_enum
-  entity_name: OIDC_request
-  enum_name: OIDC_request_token_mode_enum
+- _key: oidc_request_token_mode_enum
+  entity_name: oidc_request
+  enum_name: oidc_request_token_mode_enum
   field_name: token_request_mode
   group_id: Accounts
   values:
@@ -69679,9 +69679,9 @@ groups:
   - subtenant_policy_group
   - identity_provider
   - subtenant_identity_provider
-  - SAML2_request
-  - OIDC_request
-  - OIDC_request_claim_mapping
+  - saml2_request
+  - oidc_request
+  - oidc_request_claim_mapping
   - identity_provider_public_key
   enums:
   - policy_inherited_type_enum
@@ -69705,7 +69705,7 @@ groups:
   - subtenant_identity_provider_status_enum
   - subtenant_identity_provider_order_enum
   - subtenant_identity_provider_algorithm_enum
-  - OIDC_request_token_mode_enum
+  - oidc_request_token_mode_enum
 - _key: Branding
   entities:
   - dark_theme_color
