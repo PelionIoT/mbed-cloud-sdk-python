@@ -26,6 +26,7 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.device_group`
 - :meth:`EntityFactory.firmware_image`
 - :meth:`EntityFactory.firmware_manifest`
+- :meth:`EntityFactory.identity_provider`
 - :meth:`EntityFactory.light_theme_color`
 - :meth:`EntityFactory.light_theme_image`
 - :meth:`EntityFactory.login_history`
@@ -39,6 +40,7 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.subtenant_api_key`
 - :meth:`EntityFactory.subtenant_dark_theme_color`
 - :meth:`EntityFactory.subtenant_dark_theme_image`
+- :meth:`EntityFactory.subtenant_identity_provider`
 - :meth:`EntityFactory.subtenant_light_theme_color`
 - :meth:`EntityFactory.subtenant_light_theme_image`
 - :meth:`EntityFactory.subtenant_policy_group`
@@ -1295,6 +1297,58 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
+    def identity_provider(
+        self,
+        account_id=None,
+        created_at=None,
+        description=None,
+        id=None,
+        is_default=None,
+        name=None,
+        saml2_attributes=None,
+        status=None,
+        updated_at=None,
+    ):
+        """Creates a local `IdentityProvider` instance, using the shared SDK context.
+
+        :param account_id: The ID of the account the identity provider belongs to.
+        :type account_id: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param description: Description for the identity provider.
+        :type description: str
+        :param id: Entity ID.
+        :type id: str
+        :param is_default: Flag indicating whether this is the global default identity
+            provider.
+        :type is_default: bool
+        :param name: Name of the identity provider.
+        :type name: str
+        :param saml2_attributes: Represents SAML2 specific attributes in responses.
+        :type saml2_attributes: dict
+        :param status: Status of the identity provider.
+        :type status: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        
+        :return: A new instance of a IdentityProvider Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.identity_provider.IdentityProvider
+        """
+        from mbed_cloud.foundation import IdentityProvider
+
+        return IdentityProvider(
+            _client=self._client,
+            account_id=account_id,
+            created_at=created_at,
+            description=description,
+            id=id,
+            is_default=is_default,
+            name=name,
+            saml2_attributes=saml2_attributes,
+            status=status,
+            updated_at=updated_at,
+        )
+
     def light_theme_color(self, color=None, reference=None, updated_at=None):
         """Creates a local `LightThemeColor` instance, using the shared SDK context.
 
@@ -1618,6 +1672,58 @@ class EntityFactory:
 
         return SubtenantDarkThemeImage(
             _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at
+        )
+
+    def subtenant_identity_provider(
+        self,
+        account_id=None,
+        created_at=None,
+        description=None,
+        id=None,
+        is_default=None,
+        name=None,
+        saml2_attributes=None,
+        status=None,
+        updated_at=None,
+    ):
+        """Creates a local `SubtenantIdentityProvider` instance, using the shared SDK context.
+
+        :param account_id: The ID of the account the identity provider belongs to.
+        :type account_id: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param description: Description for the identity provider.
+        :type description: str
+        :param id: Entity ID.
+        :type id: str
+        :param is_default: Flag indicating whether this is the global default identity
+            provider.
+        :type is_default: bool
+        :param name: Name of the identity provider.
+        :type name: str
+        :param saml2_attributes: Represents SAML2 specific attributes in responses.
+        :type saml2_attributes: dict
+        :param status: Status of the identity provider.
+        :type status: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        
+        :return: A new instance of a SubtenantIdentityProvider Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.subtenant_identity_provider.SubtenantIdentityProvider
+        """
+        from mbed_cloud.foundation import SubtenantIdentityProvider
+
+        return SubtenantIdentityProvider(
+            _client=self._client,
+            account_id=account_id,
+            created_at=created_at,
+            description=description,
+            id=id,
+            is_default=is_default,
+            name=name,
+            saml2_attributes=saml2_attributes,
+            status=status,
+            updated_at=updated_at,
         )
 
     def subtenant_light_theme_color(self, color=None, reference=None, updated_at=None):

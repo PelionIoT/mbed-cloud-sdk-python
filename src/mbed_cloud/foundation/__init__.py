@@ -15,6 +15,7 @@ Accounts
 - :mod:`mbed_cloud.foundation.entities.accounts.account`
 - :mod:`mbed_cloud.foundation.entities.accounts.active_session`
 - :mod:`mbed_cloud.foundation.entities.accounts.api_key`
+- :mod:`mbed_cloud.foundation.entities.accounts.identity_provider`
 - :mod:`mbed_cloud.foundation.entities.accounts.login_history`
 - :mod:`mbed_cloud.foundation.entities.accounts.login_profile`
 - :mod:`mbed_cloud.foundation.entities.accounts.parent_account`
@@ -22,6 +23,7 @@ Accounts
 - :mod:`mbed_cloud.foundation.entities.accounts.policy`
 - :mod:`mbed_cloud.foundation.entities.accounts.policy_group`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_api_key`
+- :mod:`mbed_cloud.foundation.entities.accounts.subtenant_identity_provider`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_policy_group`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation`
@@ -95,6 +97,7 @@ will share the same context as other Entities. There is more information in the 
     accounts = pelion_dm_sdk.foundation.account()
     active_sessions = pelion_dm_sdk.foundation.active_session()
     api_keys = pelion_dm_sdk.foundation.api_key()
+    identity_providers = pelion_dm_sdk.foundation.identity_provider()
     login_historys = pelion_dm_sdk.foundation.login_history()
     login_profiles = pelion_dm_sdk.foundation.login_profile()
     parent_accounts = pelion_dm_sdk.foundation.parent_account()
@@ -102,6 +105,7 @@ will share the same context as other Entities. There is more information in the 
     policys = pelion_dm_sdk.foundation.policy()
     policy_groups = pelion_dm_sdk.foundation.policy_group()
     subtenant_api_keys = pelion_dm_sdk.foundation.subtenant_api_key()
+    subtenant_identity_providers = pelion_dm_sdk.foundation.subtenant_identity_provider()
     subtenant_policy_groups = pelion_dm_sdk.foundation.subtenant_policy_group()
     subtenant_users = pelion_dm_sdk.foundation.subtenant_user()
     subtenant_user_invitations = pelion_dm_sdk.foundation.subtenant_user_invitation()
@@ -145,6 +149,7 @@ How to import Entities directly:
     from mbed_cloud.foundation import Account
     from mbed_cloud.foundation import ActiveSession
     from mbed_cloud.foundation import ApiKey
+    from mbed_cloud.foundation import IdentityProvider
     from mbed_cloud.foundation import LoginHistory
     from mbed_cloud.foundation import LoginProfile
     from mbed_cloud.foundation import ParentAccount
@@ -152,6 +157,7 @@ How to import Entities directly:
     from mbed_cloud.foundation import Policy
     from mbed_cloud.foundation import PolicyGroup
     from mbed_cloud.foundation import SubtenantApiKey
+    from mbed_cloud.foundation import SubtenantIdentityProvider
     from mbed_cloud.foundation import SubtenantPolicyGroup
     from mbed_cloud.foundation import SubtenantUser
     from mbed_cloud.foundation import SubtenantUserInvitation
@@ -194,6 +200,7 @@ How to import Entities directly:
 from mbed_cloud.foundation.entities.accounts.account import Account
 from mbed_cloud.foundation.entities.accounts.active_session import ActiveSession
 from mbed_cloud.foundation.entities.accounts.api_key import ApiKey
+from mbed_cloud.foundation.entities.accounts.identity_provider import IdentityProvider
 from mbed_cloud.foundation.entities.accounts.login_history import LoginHistory
 from mbed_cloud.foundation.entities.accounts.login_profile import LoginProfile
 from mbed_cloud.foundation.entities.accounts.parent_account import ParentAccount
@@ -201,6 +208,7 @@ from mbed_cloud.foundation.entities.accounts.password_policy import PasswordPoli
 from mbed_cloud.foundation.entities.accounts.policy import Policy
 from mbed_cloud.foundation.entities.accounts.policy_group import PolicyGroup
 from mbed_cloud.foundation.entities.accounts.subtenant_api_key import SubtenantApiKey
+from mbed_cloud.foundation.entities.accounts.subtenant_identity_provider import SubtenantIdentityProvider
 from mbed_cloud.foundation.entities.accounts.subtenant_policy_group import SubtenantPolicyGroup
 from mbed_cloud.foundation.entities.accounts.subtenant_user import SubtenantUser
 from mbed_cloud.foundation.entities.accounts.subtenant_user_invitation import SubtenantUserInvitation
@@ -260,6 +268,7 @@ __all__ = [
     "DeviceGroup",
     "FirmwareImage",
     "FirmwareManifest",
+    "IdentityProvider",
     "LightThemeColor",
     "LightThemeImage",
     "LoginHistory",
@@ -273,6 +282,7 @@ __all__ = [
     "SubtenantApiKey",
     "SubtenantDarkThemeColor",
     "SubtenantDarkThemeImage",
+    "SubtenantIdentityProvider",
     "SubtenantLightThemeColor",
     "SubtenantLightThemeImage",
     "SubtenantPolicyGroup",

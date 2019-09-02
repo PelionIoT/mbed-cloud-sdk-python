@@ -14,10 +14,16 @@ Accounts
 - :class:`mbed_cloud.foundation.entities.accounts.enums.AccountStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.ApiKeyOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.ApiKeyStatusEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderAlgorithmEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderOrderEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.PolicyGroupOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.PolicyInheritedTypeEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantApiKeyOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantApiKeyStatusEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantIdentityProviderAlgorithmEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantIdentityProviderOrderEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantIdentityProviderStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantPolicyGroupOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantUserOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantUserStatusEnum`
@@ -88,10 +94,16 @@ How to import Enums:
     from mbed_cloud.foundation.enums import AccountStatusEnum
     from mbed_cloud.foundation.enums import ApiKeyOrderEnum
     from mbed_cloud.foundation.enums import ApiKeyStatusEnum
+    from mbed_cloud.foundation.enums import IdentityProviderAlgorithmEnum
+    from mbed_cloud.foundation.enums import IdentityProviderOrderEnum
+    from mbed_cloud.foundation.enums import IdentityProviderStatusEnum
     from mbed_cloud.foundation.enums import PolicyGroupOrderEnum
     from mbed_cloud.foundation.enums import PolicyInheritedTypeEnum
     from mbed_cloud.foundation.enums import SubtenantApiKeyOrderEnum
     from mbed_cloud.foundation.enums import SubtenantApiKeyStatusEnum
+    from mbed_cloud.foundation.enums import SubtenantIdentityProviderAlgorithmEnum
+    from mbed_cloud.foundation.enums import SubtenantIdentityProviderOrderEnum
+    from mbed_cloud.foundation.enums import SubtenantIdentityProviderStatusEnum
     from mbed_cloud.foundation.enums import SubtenantPolicyGroupOrderEnum
     from mbed_cloud.foundation.enums import SubtenantUserOrderEnum
     from mbed_cloud.foundation.enums import SubtenantUserStatusEnum
@@ -139,10 +151,16 @@ from mbed_cloud.foundation.entities.accounts.enums import AccountOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import AccountStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import ApiKeyOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import ApiKeyStatusEnum
+from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderAlgorithmEnum
+from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderOrderEnum
+from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import PolicyGroupOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import PolicyInheritedTypeEnum
 from mbed_cloud.foundation.entities.accounts.enums import SubtenantApiKeyOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import SubtenantApiKeyStatusEnum
+from mbed_cloud.foundation.entities.accounts.enums import SubtenantIdentityProviderAlgorithmEnum
+from mbed_cloud.foundation.entities.accounts.enums import SubtenantIdentityProviderOrderEnum
+from mbed_cloud.foundation.entities.accounts.enums import SubtenantIdentityProviderStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import SubtenantPolicyGroupOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import SubtenantUserOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import SubtenantUserStatusEnum
@@ -189,10 +207,16 @@ __all__ = [
     "AccountStatusEnum",
     "ApiKeyOrderEnum",
     "ApiKeyStatusEnum",
+    "IdentityProviderAlgorithmEnum",
+    "IdentityProviderOrderEnum",
+    "IdentityProviderStatusEnum",
     "PolicyGroupOrderEnum",
     "PolicyInheritedTypeEnum",
     "SubtenantApiKeyOrderEnum",
     "SubtenantApiKeyStatusEnum",
+    "SubtenantIdentityProviderAlgorithmEnum",
+    "SubtenantIdentityProviderOrderEnum",
+    "SubtenantIdentityProviderStatusEnum",
     "SubtenantPolicyGroupOrderEnum",
     "SubtenantUserOrderEnum",
     "SubtenantUserStatusEnum",
