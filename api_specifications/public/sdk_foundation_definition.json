@@ -18,7 +18,11 @@
         "policy_group",
         "subtenant_policy_group",
         "identity_provider",
-        "subtenant_identity_provider"
+        "subtenant_identity_provider",
+        "SAML2Request",
+        "OIDCRequest",
+        "OIDCRequestClaimMapping",
+        "IdpPublicKey"
       ],
       "enums": [
         "policy_inherited_type_enum",
@@ -41,7 +45,8 @@
         "identity_provider_algorithm_enum",
         "subtenant_identity_provider_status_enum",
         "subtenant_identity_provider_order_enum",
-        "subtenant_identity_provider_algorithm_enum"
+        "subtenant_identity_provider_algorithm_enum",
+        "OIDCRequest_token_request_mode_enum"
       ],
       "_key": "Accounts"
     },
@@ -586,6 +591,17 @@
       ],
       "group_id": "Branding",
       "_key": "light_theme_image_reference_enum"
+    },
+    {
+      "entity_name": "OIDCRequest",
+      "field_name": "token_request_mode",
+      "enum_name": "OIDCRequest_token_request_mode_enum",
+      "values": [
+        "GET",
+        "POST"
+      ],
+      "group_id": "Accounts",
+      "_key": "OIDCRequest_token_request_mode_enum"
     },
     {
       "entity_name": "policy_group",
@@ -43483,6 +43499,10 @@
                       "_key": "updated_at_pattern"
                     }
                   ],
+                  "foreign_key": {
+                    "group": "Accounts",
+                    "entity": "OIDCRequestClaimMapping"
+                  },
                   "x-nullable": true,
                   "_key": "claim_mapping"
                 },
@@ -43532,7 +43552,11 @@
                         "_key": "kid"
                       }
                     ],
-                    "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded."
+                    "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "IdpPublicKey"
+                    }
                   },
                   "x-nullable": true,
                   "_key": "keys"
@@ -43585,6 +43609,10 @@
                 }
               ],
               "description": "Represents OIDC specific attributes.",
+              "foreign_key": {
+                "group": "Accounts",
+                "entity": "OIDCRequest"
+              },
               "name": "oidc_attributes",
               "in": "body",
               "schema_param": true,
@@ -47001,6 +47029,10 @@
                       "_key": "updated_at_pattern"
                     }
                   ],
+                  "foreign_key": {
+                    "group": "Accounts",
+                    "entity": "OIDCRequestClaimMapping"
+                  },
                   "x-nullable": true,
                   "_key": "claim_mapping"
                 },
@@ -47050,7 +47082,11 @@
                         "_key": "kid"
                       }
                     ],
-                    "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded."
+                    "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "IdpPublicKey"
+                    }
                   },
                   "x-nullable": true,
                   "_key": "keys"
@@ -47103,6 +47139,10 @@
                 }
               ],
               "description": "Represents OIDC specific attributes.",
+              "foreign_key": {
+                "group": "Accounts",
+                "entity": "OIDCRequest"
+              },
               "name": "oidc_attributes",
               "in": "body",
               "schema_param": true,
@@ -47833,6 +47873,35 @@
       ],
       "group_id": "Accounts",
       "_key": "identity_provider"
+    },
+    {
+      "swagger_models": [
+        "IdpPublicKey"
+      ],
+      "primary_key_field": null,
+      "methods": [],
+      "fields": [
+        {
+          "type": "string",
+          "description": "The public key.",
+          "api_fieldname": "key",
+          "readOnly": true,
+          "required": false,
+          "_key": "key"
+        },
+        {
+          "type": "string",
+          "description": "The public key ID.",
+          "api_fieldname": "kid",
+          "readOnly": true,
+          "required": false,
+          "_key": "kid"
+        }
+      ],
+      "field_renames": [],
+      "tags": [],
+      "group_id": "Accounts",
+      "_key": "IdpPublicKey"
     },
     {
       "swagger_models": [
@@ -51121,6 +51190,345 @@
     },
     {
       "swagger_models": [
+        "OIDCInfo"
+      ],
+      "primary_key_field": null,
+      "methods": [],
+      "fields": [
+        {
+          "type": "string",
+          "description": "URL of the OAuth 2.0 authorization endpoint.",
+          "x-nullable": true,
+          "api_fieldname": "authorization_endpoint",
+          "readOnly": true,
+          "required": false,
+          "_key": "authorization_endpoint"
+        },
+        {
+          "type": "boolean",
+          "description": "For future use.",
+          "x-nullable": true,
+          "api_fieldname": "auto_enrollment",
+          "readOnly": true,
+          "required": false,
+          "_key": "auto_enrollment"
+        },
+        {
+          "description": "Mapping for non-standard OIDC claim names.",
+          "type": "object",
+          "properties": [
+            {
+              "type": "string",
+              "description": "Custom claim name for 'email'.",
+              "example": "email_address",
+              "x-nullable": true,
+              "_key": "email"
+            },
+            {
+              "type": "string",
+              "description": "Custom claim name for 'email_verified'.",
+              "x-nullable": true,
+              "_key": "email_verified"
+            },
+            {
+              "type": "string",
+              "description": "Custom claim name for 'family_name'.",
+              "x-nullable": true,
+              "_key": "family_name"
+            },
+            {
+              "type": "string",
+              "description": "Custom claim name for 'given_name'.",
+              "x-nullable": true,
+              "_key": "given_name"
+            },
+            {
+              "type": "string",
+              "description": "Custom claim name for 'name'.",
+              "x-nullable": true,
+              "_key": "name"
+            },
+            {
+              "type": "string",
+              "description": "Custom claim name for 'phone_number'.",
+              "x-nullable": true,
+              "_key": "phone_number"
+            },
+            {
+              "type": "string",
+              "description": "Custom claim name for 'sub'.",
+              "x-nullable": true,
+              "_key": "sub"
+            },
+            {
+              "type": "string",
+              "description": "Custom claim name for 'updated_at'.",
+              "x-nullable": true,
+              "_key": "updated_at"
+            },
+            {
+              "type": "string",
+              "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+              "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+              "x-nullable": true,
+              "_key": "updated_at_pattern"
+            }
+          ],
+          "foreign_key": {
+            "group": "Accounts",
+            "entity": "OIDCRequestClaimMapping"
+          },
+          "x-nullable": true,
+          "api_fieldname": "claim_mapping",
+          "readOnly": true,
+          "required": false,
+          "_key": "claim_mapping"
+        },
+        {
+          "type": "string",
+          "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+          "x-nullable": true,
+          "api_fieldname": "client_id",
+          "readOnly": true,
+          "required": false,
+          "_key": "client_id"
+        },
+        {
+          "type": "string",
+          "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+          "x-nullable": true,
+          "api_fieldname": "client_secret",
+          "readOnly": true,
+          "required": false,
+          "_key": "client_secret"
+        },
+        {
+          "type": "string",
+          "description": "URL of the provider's end session endpoint.",
+          "x-nullable": true,
+          "api_fieldname": "end_session_endpoint",
+          "readOnly": true,
+          "required": false,
+          "_key": "end_session_endpoint"
+        },
+        {
+          "type": "string",
+          "description": "Issuer of the identity provider.",
+          "api_fieldname": "issuer",
+          "readOnly": true,
+          "required": false,
+          "_key": "issuer"
+        },
+        {
+          "type": "string",
+          "description": "URL of the provider's JSON web key set document.",
+          "x-nullable": true,
+          "api_fieldname": "jwks_uri",
+          "readOnly": true,
+          "required": false,
+          "_key": "jwks_uri"
+        },
+        {
+          "type": "array",
+          "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+          "items": {
+            "type": "object",
+            "properties": [
+              {
+                "type": "string",
+                "description": "The public key.",
+                "_key": "key"
+              },
+              {
+                "type": "string",
+                "description": "The public key ID.",
+                "_key": "kid"
+              }
+            ],
+            "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+            "foreign_key": {
+              "group": "Accounts",
+              "entity": "IdpPublicKey"
+            }
+          },
+          "x-nullable": true,
+          "api_fieldname": "keys",
+          "readOnly": true,
+          "required": false,
+          "_key": "keys"
+        },
+        {
+          "type": "string",
+          "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+          "x-nullable": true,
+          "api_fieldname": "redirect_uri",
+          "readOnly": true,
+          "required": false,
+          "_key": "redirect_uri"
+        },
+        {
+          "type": "string",
+          "description": "URL of the provider's token revocation endpoint.",
+          "x-nullable": true,
+          "api_fieldname": "revocation_endpoint",
+          "readOnly": true,
+          "required": false,
+          "_key": "revocation_endpoint"
+        },
+        {
+          "type": "string",
+          "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+          "example": "openid email",
+          "api_fieldname": "scopes",
+          "readOnly": true,
+          "required": false,
+          "_key": "scopes"
+        },
+        {
+          "type": "string",
+          "description": "URL of the OAuth 2.0 authorization endpoint.",
+          "x-nullable": true,
+          "api_fieldname": "token_endpoint",
+          "readOnly": true,
+          "required": false,
+          "_key": "token_endpoint"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "POST",
+            "GET"
+          ],
+          "default": "POST",
+          "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+          "api_fieldname": "token_request_mode",
+          "readOnly": true,
+          "required": false,
+          "enum_reference": "OIDCRequest_token_request_mode_enum",
+          "_key": "token_request_mode"
+        },
+        {
+          "type": "string",
+          "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+          "example": "oidc.data",
+          "api_fieldname": "token_response_path",
+          "readOnly": true,
+          "required": false,
+          "_key": "token_response_path"
+        },
+        {
+          "type": "string",
+          "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+          "x-nullable": true,
+          "api_fieldname": "userinfo_endpoint",
+          "readOnly": true,
+          "required": false,
+          "_key": "userinfo_endpoint"
+        }
+      ],
+      "field_renames": [],
+      "tags": [],
+      "group_id": "Accounts",
+      "_key": "OIDCRequest"
+    },
+    {
+      "swagger_models": [
+        "OIDCClaimMapping"
+      ],
+      "primary_key_field": null,
+      "methods": [],
+      "fields": [
+        {
+          "type": "string",
+          "description": "Custom claim name for 'email'.",
+          "example": "email_address",
+          "x-nullable": true,
+          "api_fieldname": "email",
+          "readOnly": true,
+          "required": false,
+          "_key": "email"
+        },
+        {
+          "type": "string",
+          "description": "Custom claim name for 'email_verified'.",
+          "x-nullable": true,
+          "api_fieldname": "email_verified",
+          "readOnly": true,
+          "required": false,
+          "_key": "email_verified"
+        },
+        {
+          "type": "string",
+          "description": "Custom claim name for 'family_name'.",
+          "x-nullable": true,
+          "api_fieldname": "family_name",
+          "readOnly": true,
+          "required": false,
+          "_key": "family_name"
+        },
+        {
+          "type": "string",
+          "description": "Custom claim name for 'given_name'.",
+          "x-nullable": true,
+          "api_fieldname": "given_name",
+          "readOnly": true,
+          "required": false,
+          "_key": "given_name"
+        },
+        {
+          "type": "string",
+          "description": "Custom claim name for 'name'.",
+          "x-nullable": true,
+          "api_fieldname": "name",
+          "readOnly": true,
+          "required": false,
+          "_key": "name"
+        },
+        {
+          "type": "string",
+          "description": "Custom claim name for 'phone_number'.",
+          "x-nullable": true,
+          "api_fieldname": "phone_number",
+          "readOnly": true,
+          "required": false,
+          "_key": "phone_number"
+        },
+        {
+          "type": "string",
+          "description": "Custom claim name for 'sub'.",
+          "x-nullable": true,
+          "api_fieldname": "sub",
+          "readOnly": true,
+          "required": false,
+          "_key": "sub"
+        },
+        {
+          "type": "string",
+          "description": "Custom claim name for 'updated_at'.",
+          "x-nullable": true,
+          "api_fieldname": "updated_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "updated_at"
+        },
+        {
+          "type": "string",
+          "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+          "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+          "x-nullable": true,
+          "api_fieldname": "updated_at_pattern",
+          "readOnly": true,
+          "required": false,
+          "_key": "updated_at_pattern"
+        }
+      ],
+      "field_renames": [],
+      "tags": [],
+      "group_id": "Accounts",
+      "_key": "OIDCRequestClaimMapping"
+    },
+    {
+      "swagger_models": [
         "ParentAccountInfo"
       ],
       "primary_key_field": "id",
@@ -54068,6 +54476,72 @@
       ],
       "group_id": "Security",
       "_key": "pre_shared_key"
+    },
+    {
+      "swagger_models": [
+        "SAML2Req"
+      ],
+      "primary_key_field": null,
+      "methods": [],
+      "fields": [
+        {
+          "type": "string",
+          "format": "byte",
+          "maxLength": 65535,
+          "description": "Contains an entity descriptor document for the identity provider. Can be used as an alternative method to provide the identity provider's attributes.",
+          "api_fieldname": "entity_descriptor",
+          "readOnly": true,
+          "required": false,
+          "_key": "entity_descriptor"
+        },
+        {
+          "type": "string",
+          "description": "Entity ID of the identity provider.",
+          "api_fieldname": "idp_entity_id",
+          "readOnly": true,
+          "required": false,
+          "_key": "idp_entity_id"
+        },
+        {
+          "type": "array",
+          "description": "List of public X509 certificates of the identity provider. Certificates must be in PEM format.",
+          "items": {
+            "type": "string"
+          },
+          "api_fieldname": "idp_x509_certs",
+          "readOnly": true,
+          "required": false,
+          "_key": "idp_x509_certs"
+        },
+        {
+          "type": "string",
+          "description": "URL of the identity provider's SLO endpoint.",
+          "api_fieldname": "slo_endpoint",
+          "readOnly": true,
+          "required": false,
+          "_key": "slo_endpoint"
+        },
+        {
+          "type": "string",
+          "description": "Entity ID of the service provider. We recommend that you leave it empty and let the system generate it.",
+          "api_fieldname": "sp_entity_id",
+          "readOnly": true,
+          "required": false,
+          "_key": "sp_entity_id"
+        },
+        {
+          "type": "string",
+          "description": "URL of the identity provider's SSO endpoint.",
+          "api_fieldname": "sso_endpoint",
+          "readOnly": true,
+          "required": false,
+          "_key": "sso_endpoint"
+        }
+      ],
+      "field_renames": [],
+      "tags": [],
+      "group_id": "Accounts",
+      "_key": "SAML2Request"
     },
     {
       "swagger_models": [
@@ -59875,6 +60349,10 @@
                       "_key": "updated_at_pattern"
                     }
                   ],
+                  "foreign_key": {
+                    "group": "Accounts",
+                    "entity": "OIDCRequestClaimMapping"
+                  },
                   "x-nullable": true,
                   "_key": "claim_mapping"
                 },
@@ -59924,7 +60402,11 @@
                         "_key": "kid"
                       }
                     ],
-                    "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded."
+                    "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "IdpPublicKey"
+                    }
                   },
                   "x-nullable": true,
                   "_key": "keys"
@@ -59977,6 +60459,10 @@
                 }
               ],
               "description": "Represents OIDC specific attributes.",
+              "foreign_key": {
+                "group": "Accounts",
+                "entity": "OIDCRequest"
+              },
               "name": "oidc_attributes",
               "in": "body",
               "schema_param": true,
@@ -63746,6 +64232,10 @@
                       "_key": "updated_at_pattern"
                     }
                   ],
+                  "foreign_key": {
+                    "group": "Accounts",
+                    "entity": "OIDCRequestClaimMapping"
+                  },
                   "x-nullable": true,
                   "_key": "claim_mapping"
                 },
@@ -63795,7 +64285,11 @@
                         "_key": "kid"
                       }
                     ],
-                    "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded."
+                    "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "IdpPublicKey"
+                    }
                   },
                   "x-nullable": true,
                   "_key": "keys"
@@ -63848,6 +64342,10 @@
                 }
               ],
               "description": "Represents OIDC specific attributes.",
+              "foreign_key": {
+                "group": "Accounts",
+                "entity": "OIDCRequest"
+              },
               "name": "oidc_attributes",
               "in": "body",
               "schema_param": true,

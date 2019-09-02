@@ -33193,6 +33193,9 @@ entities:
       description: Represents OIDC specific attributes.
       entity_fieldname: oidc_attributes
       external_param: true
+      foreign_key:
+        entity: OIDCRequest
+        group: Accounts
       in: body
       name: oidc_attributes
       parameter_fieldname: oidc_attributes
@@ -33207,6 +33210,9 @@ entities:
         x-nullable: true
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
+        foreign_key:
+          entity: OIDCRequestClaimMapping
+          group: Accounts
         properties:
         - _key: email
           description: Custom claim name for 'email'.
@@ -33275,6 +33281,9 @@ entities:
         items:
           description: Represents provider's public key and key ID used to sign ID
             tokens. PEM-encoded.
+          foreign_key:
+            entity: IdpPublicKey
+            group: Accounts
           properties:
           - _key: key
             description: The public key.
@@ -35717,6 +35726,9 @@ entities:
       description: Represents OIDC specific attributes.
       entity_fieldname: oidc_attributes
       external_param: true
+      foreign_key:
+        entity: OIDCRequest
+        group: Accounts
       in: body
       name: oidc_attributes
       parameter_fieldname: oidc_attributes
@@ -35731,6 +35743,9 @@ entities:
         x-nullable: true
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
+        foreign_key:
+          entity: OIDCRequestClaimMapping
+          group: Accounts
         properties:
         - _key: email
           description: Custom claim name for 'email'.
@@ -35799,6 +35814,9 @@ entities:
         items:
           description: Represents provider's public key and key ID used to sign ID
             tokens. PEM-encoded.
+          foreign_key:
+            entity: IdpPublicKey
+            group: Accounts
           properties:
           - _key: key
             description: The public key.
@@ -36255,6 +36273,27 @@ entities:
   - IdentityProviderUpdateReq
   tags:
   - Account - identity providers
+- _key: IdpPublicKey
+  field_renames: []
+  fields:
+  - _key: key
+    api_fieldname: key
+    description: The public key.
+    readOnly: true
+    required: false
+    type: string
+  - _key: kid
+    api_fieldname: kid
+    description: The public key ID.
+    readOnly: true
+    required: false
+    type: string
+  group_id: Accounts
+  methods: []
+  primary_key_field: null
+  swagger_models:
+  - IdpPublicKey
+  tags: []
 - _key: light_theme_color
   field_renames: []
   fields:
@@ -38655,6 +38694,268 @@ entities:
   swagger_models:
   - LoginProfile
   tags: []
+- _key: OIDCRequest
+  field_renames: []
+  fields:
+  - _key: authorization_endpoint
+    api_fieldname: authorization_endpoint
+    description: URL of the OAuth 2.0 authorization endpoint.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: auto_enrollment
+    api_fieldname: auto_enrollment
+    description: For future use.
+    readOnly: true
+    required: false
+    type: boolean
+    x-nullable: true
+  - _key: claim_mapping
+    api_fieldname: claim_mapping
+    description: Mapping for non-standard OIDC claim names.
+    foreign_key:
+      entity: OIDCRequestClaimMapping
+      group: Accounts
+    properties:
+    - _key: email
+      description: Custom claim name for 'email'.
+      example: email_address
+      type: string
+      x-nullable: true
+    - _key: email_verified
+      description: Custom claim name for 'email_verified'.
+      type: string
+      x-nullable: true
+    - _key: family_name
+      description: Custom claim name for 'family_name'.
+      type: string
+      x-nullable: true
+    - _key: given_name
+      description: Custom claim name for 'given_name'.
+      type: string
+      x-nullable: true
+    - _key: name
+      description: Custom claim name for 'name'.
+      type: string
+      x-nullable: true
+    - _key: phone_number
+      description: Custom claim name for 'phone_number'.
+      type: string
+      x-nullable: true
+    - _key: sub
+      description: Custom claim name for 'sub'.
+      type: string
+      x-nullable: true
+    - _key: updated_at
+      description: Custom claim name for 'updated_at'.
+      type: string
+      x-nullable: true
+    - _key: updated_at_pattern
+      description: Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat
+        class.
+      example: yyyy-MM-dd'T'HH:mm:ssXXX
+      type: string
+      x-nullable: true
+    readOnly: true
+    required: false
+    type: object
+    x-nullable: true
+  - _key: client_id
+    api_fieldname: client_id
+    description: Client ID needed to authenticate and gain access to identity provider's
+      API.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: client_secret
+    api_fieldname: client_secret
+    description: Client secret needed to authenticate and gain access to identity
+      provider's API.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: end_session_endpoint
+    api_fieldname: end_session_endpoint
+    description: URL of the provider's end session endpoint.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: issuer
+    api_fieldname: issuer
+    description: Issuer of the identity provider.
+    readOnly: true
+    required: false
+    type: string
+  - _key: jwks_uri
+    api_fieldname: jwks_uri
+    description: URL of the provider's JSON web key set document.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: keys
+    api_fieldname: keys
+    description: Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.
+    items:
+      description: Represents provider's public key and key ID used to sign ID tokens.
+        PEM-encoded.
+      foreign_key:
+        entity: IdpPublicKey
+        group: Accounts
+      properties:
+      - _key: key
+        description: The public key.
+        type: string
+      - _key: kid
+        description: The public key ID.
+        type: string
+      type: object
+    readOnly: true
+    required: false
+    type: array
+    x-nullable: true
+  - _key: redirect_uri
+    api_fieldname: redirect_uri
+    description: The URI needed to authenticate and gain access to identity provider's
+      API. Leave this empty to use the default redirect URI.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: revocation_endpoint
+    api_fieldname: revocation_endpoint
+    description: URL of the provider's token revocation endpoint.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: scopes
+    api_fieldname: scopes
+    description: Space-separated list of scopes sent in the authentication request.
+      When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).
+    example: openid email
+    readOnly: true
+    required: false
+    type: string
+  - _key: token_endpoint
+    api_fieldname: token_endpoint
+    description: URL of the OAuth 2.0 authorization endpoint.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: token_request_mode
+    api_fieldname: token_request_mode
+    default: POST
+    description: One way to obtain the access token. Since the request results in
+      the transmission of clear-text credentials, the client must use the POST mode.
+    enum:
+    - POST
+    - GET
+    enum_reference: OIDCRequest_token_request_mode_enum
+    readOnly: true
+    required: false
+    type: string
+  - _key: token_response_path
+    api_fieldname: token_response_path
+    description: Path to the standard data in the token response. Levels in the JSON
+      structure must be separated by '.' (dot) characters.
+    example: oidc.data
+    readOnly: true
+    required: false
+    type: string
+  - _key: userinfo_endpoint
+    api_fieldname: userinfo_endpoint
+    description: URL of the OAuth 2.0 UserInfo endpoint.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  group_id: Accounts
+  methods: []
+  primary_key_field: null
+  swagger_models:
+  - OIDCInfo
+  tags: []
+- _key: OIDCRequestClaimMapping
+  field_renames: []
+  fields:
+  - _key: email
+    api_fieldname: email
+    description: Custom claim name for 'email'.
+    example: email_address
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: email_verified
+    api_fieldname: email_verified
+    description: Custom claim name for 'email_verified'.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: family_name
+    api_fieldname: family_name
+    description: Custom claim name for 'family_name'.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: given_name
+    api_fieldname: given_name
+    description: Custom claim name for 'given_name'.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: name
+    api_fieldname: name
+    description: Custom claim name for 'name'.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: phone_number
+    api_fieldname: phone_number
+    description: Custom claim name for 'phone_number'.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: sub
+    api_fieldname: sub
+    description: Custom claim name for 'sub'.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: updated_at
+    api_fieldname: updated_at
+    description: Custom claim name for 'updated_at'.
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  - _key: updated_at_pattern
+    api_fieldname: updated_at_pattern
+    description: Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat
+      class.
+    example: yyyy-MM-dd'T'HH:mm:ssXXX
+    readOnly: true
+    required: false
+    type: string
+    x-nullable: true
+  group_id: Accounts
+  methods: []
+  primary_key_field: null
+  swagger_models:
+  - OIDCClaimMapping
+  tags: []
 - _key: parent_account
   field_renames: []
   fields:
@@ -40973,6 +41274,58 @@ entities:
   - PreSharedKeyWithoutSecret
   tags:
   - PreSharedKeys
+- _key: SAML2Request
+  field_renames: []
+  fields:
+  - _key: entity_descriptor
+    api_fieldname: entity_descriptor
+    description: Contains an entity descriptor document for the identity provider.
+      Can be used as an alternative method to provide the identity provider's attributes.
+    format: byte
+    maxLength: 65535
+    readOnly: true
+    required: false
+    type: string
+  - _key: idp_entity_id
+    api_fieldname: idp_entity_id
+    description: Entity ID of the identity provider.
+    readOnly: true
+    required: false
+    type: string
+  - _key: idp_x509_certs
+    api_fieldname: idp_x509_certs
+    description: List of public X509 certificates of the identity provider. Certificates
+      must be in PEM format.
+    items:
+      type: string
+    readOnly: true
+    required: false
+    type: array
+  - _key: slo_endpoint
+    api_fieldname: slo_endpoint
+    description: URL of the identity provider's SLO endpoint.
+    readOnly: true
+    required: false
+    type: string
+  - _key: sp_entity_id
+    api_fieldname: sp_entity_id
+    description: Entity ID of the service provider. We recommend that you leave it
+      empty and let the system generate it.
+    readOnly: true
+    required: false
+    type: string
+  - _key: sso_endpoint
+    api_fieldname: sso_endpoint
+    description: URL of the identity provider's SSO endpoint.
+    readOnly: true
+    required: false
+    type: string
+  group_id: Accounts
+  methods: []
+  primary_key_field: null
+  swagger_models:
+  - SAML2Req
+  tags: []
 - _key: server_credentials
   field_renames: []
   fields:
@@ -45332,6 +45685,9 @@ entities:
       description: Represents OIDC specific attributes.
       entity_fieldname: oidc_attributes
       external_param: true
+      foreign_key:
+        entity: OIDCRequest
+        group: Accounts
       in: body
       name: oidc_attributes
       parameter_fieldname: oidc_attributes
@@ -45346,6 +45702,9 @@ entities:
         x-nullable: true
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
+        foreign_key:
+          entity: OIDCRequestClaimMapping
+          group: Accounts
         properties:
         - _key: email
           description: Custom claim name for 'email'.
@@ -45414,6 +45773,9 @@ entities:
         items:
           description: Represents provider's public key and key ID used to sign ID
             tokens. PEM-encoded.
+          foreign_key:
+            entity: IdpPublicKey
+            group: Accounts
           properties:
           - _key: key
             description: The public key.
@@ -48145,6 +48507,9 @@ entities:
       description: Represents OIDC specific attributes.
       entity_fieldname: oidc_attributes
       external_param: true
+      foreign_key:
+        entity: OIDCRequest
+        group: Accounts
       in: body
       name: oidc_attributes
       parameter_fieldname: oidc_attributes
@@ -48159,6 +48524,9 @@ entities:
         x-nullable: true
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
+        foreign_key:
+          entity: OIDCRequestClaimMapping
+          group: Accounts
         properties:
         - _key: email
           description: Custom claim name for 'email'.
@@ -48227,6 +48595,9 @@ entities:
         items:
           description: Represents provider's public key and key ID used to sign ID
             tokens. PEM-encoded.
+          foreign_key:
+            entity: IdpPublicKey
+            group: Accounts
           properties:
           - _key: key
             description: The public key.
@@ -68983,6 +69354,14 @@ enums:
   - desktop_background_landscape
   - desktop_background_portrait
   - desktop_background_square
+- _key: OIDCRequest_token_request_mode_enum
+  entity_name: OIDCRequest
+  enum_name: OIDCRequest_token_request_mode_enum
+  field_name: token_request_mode
+  group_id: Accounts
+  values:
+  - GET
+  - POST
 - _key: policy_group_order_enum
   entity_name: policy_group
   enum_name: policy_group_order_enum
@@ -69300,6 +69679,10 @@ groups:
   - subtenant_policy_group
   - identity_provider
   - subtenant_identity_provider
+  - SAML2Request
+  - OIDCRequest
+  - OIDCRequestClaimMapping
+  - IdpPublicKey
   enums:
   - policy_inherited_type_enum
   - user_status_enum
@@ -69322,6 +69705,7 @@ groups:
   - subtenant_identity_provider_status_enum
   - subtenant_identity_provider_order_enum
   - subtenant_identity_provider_algorithm_enum
+  - OIDCRequest_token_request_mode_enum
 - _key: Branding
   entities:
   - dark_theme_color
