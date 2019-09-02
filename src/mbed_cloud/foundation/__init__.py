@@ -161,13 +161,13 @@ How to import Entities directly:
     from mbed_cloud.foundation import IdentityProviderPublicKey
     from mbed_cloud.foundation import LoginHistory
     from mbed_cloud.foundation import LoginProfile
-    from mbed_cloud.foundation import OIDCRequest
-    from mbed_cloud.foundation import OIDCRequestClaimMapping
+    from mbed_cloud.foundation import OidcRequest
+    from mbed_cloud.foundation import OidcRequestClaimMapping
     from mbed_cloud.foundation import ParentAccount
     from mbed_cloud.foundation import PasswordPolicy
     from mbed_cloud.foundation import Policy
     from mbed_cloud.foundation import PolicyGroup
-    from mbed_cloud.foundation import SAML2Request
+    from mbed_cloud.foundation import Saml2Request
     from mbed_cloud.foundation import SubtenantApiKey
     from mbed_cloud.foundation import SubtenantIdentityProvider
     from mbed_cloud.foundation import SubtenantPolicyGroup
@@ -216,13 +216,13 @@ from mbed_cloud.foundation.entities.accounts.identity_provider import IdentityPr
 from mbed_cloud.foundation.entities.accounts.identity_provider_public_key import IdentityProviderPublicKey
 from mbed_cloud.foundation.entities.accounts.login_history import LoginHistory
 from mbed_cloud.foundation.entities.accounts.login_profile import LoginProfile
-from mbed_cloud.foundation.entities.accounts.oidc_request import OIDCRequest
-from mbed_cloud.foundation.entities.accounts.oidc_request_claim_mapping import OIDCRequestClaimMapping
+from mbed_cloud.foundation.entities.accounts.oidc_request import OidcRequest
+from mbed_cloud.foundation.entities.accounts.oidc_request_claim_mapping import OidcRequestClaimMapping
 from mbed_cloud.foundation.entities.accounts.parent_account import ParentAccount
 from mbed_cloud.foundation.entities.accounts.password_policy import PasswordPolicy
 from mbed_cloud.foundation.entities.accounts.policy import Policy
 from mbed_cloud.foundation.entities.accounts.policy_group import PolicyGroup
-from mbed_cloud.foundation.entities.accounts.saml2_request import SAML2Request
+from mbed_cloud.foundation.entities.accounts.saml2_request import Saml2Request
 from mbed_cloud.foundation.entities.accounts.subtenant_api_key import SubtenantApiKey
 from mbed_cloud.foundation.entities.accounts.subtenant_identity_provider import SubtenantIdentityProvider
 from mbed_cloud.foundation.entities.accounts.subtenant_policy_group import SubtenantPolicyGroup
@@ -290,14 +290,14 @@ __all__ = [
     "LightThemeImage",
     "LoginHistory",
     "LoginProfile",
-    "OIDCRequest",
-    "OIDCRequestClaimMapping",
+    "OidcRequest",
+    "OidcRequestClaimMapping",
     "ParentAccount",
     "PasswordPolicy",
     "Policy",
     "PolicyGroup",
     "PreSharedKey",
-    "SAML2Request",
+    "Saml2Request",
     "ServerCredentials",
     "SubtenantApiKey",
     "SubtenantDarkThemeColor",

@@ -1,12 +1,12 @@
 """
 .. warning::
-    OIDCRequestClaimMapping should not be imported directly from this module as the
+    OidcRequestClaimMapping should not be imported directly from this module as the
     organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-Foundation Entity: OIDCRequestClaimMapping
+Foundation Entity: OidcRequestClaimMapping
 ==========================================
 
-The OIDCRequestClaimMapping entity does not have any methods, all actions must be performed via
+The OidcRequestClaimMapping entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
 Entity Usage and Importing
@@ -21,11 +21,11 @@ will share the same context as other Entities. There is more information in the 
     pelion_dm_sdk = SDK()
     oidc_request_claim_mappings = pelion_dm_sdk.foundation.oidc_request_claim_mapping()
 
-How to import OIDCRequestClaimMapping directly:
+How to import OidcRequestClaimMapping directly:
 
 .. code-block:: python
     
-    from mbed_cloud.foundation import OIDCRequestClaimMapping
+    from mbed_cloud.foundation import OidcRequestClaimMapping
 
 ------------
 """
@@ -40,8 +40,8 @@ from mbed_cloud.foundation.common import fields
 from mbed_cloud.foundation import enums
 
 
-class OIDCRequestClaimMapping(Entity):
-    """Represents the `OIDCRequestClaimMapping` entity in Pelion Device Management"""
+class OidcRequestClaimMapping(Entity):
+    """Represents the `OidcRequestClaimMapping` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
     _api_fieldnames = [
@@ -78,7 +78,7 @@ class OIDCRequestClaimMapping(Entity):
         updated_at=None,
         updated_at_pattern=None,
     ):
-        """Creates a local `OIDCRequestClaimMapping` instance
+        """Creates a local `OidcRequestClaimMapping` instance
 
         Parameters can be supplied on creation of the instance or given by
         setting the properties on the instance after creation.

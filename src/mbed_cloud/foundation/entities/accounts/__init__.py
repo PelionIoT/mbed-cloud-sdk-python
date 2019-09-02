@@ -43,13 +43,13 @@ How to import Accounts Entities:
     from mbed_cloud.foundation import IdentityProviderPublicKey
     from mbed_cloud.foundation import LoginHistory
     from mbed_cloud.foundation import LoginProfile
-    from mbed_cloud.foundation import OIDCRequest
-    from mbed_cloud.foundation import OIDCRequestClaimMapping
+    from mbed_cloud.foundation import OidcRequest
+    from mbed_cloud.foundation import OidcRequestClaimMapping
     from mbed_cloud.foundation import ParentAccount
     from mbed_cloud.foundation import PasswordPolicy
     from mbed_cloud.foundation import Policy
     from mbed_cloud.foundation import PolicyGroup
-    from mbed_cloud.foundation import SAML2Request
+    from mbed_cloud.foundation import Saml2Request
     from mbed_cloud.foundation import SubtenantApiKey
     from mbed_cloud.foundation import SubtenantIdentityProvider
     from mbed_cloud.foundation import SubtenantPolicyGroup

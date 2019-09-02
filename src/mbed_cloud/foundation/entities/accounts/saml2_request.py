@@ -1,12 +1,12 @@
 """
 .. warning::
-    SAML2Request should not be imported directly from this module as the
+    Saml2Request should not be imported directly from this module as the
     organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-Foundation Entity: SAML2Request
+Foundation Entity: Saml2Request
 ===============================
 
-The SAML2Request entity does not have any methods, all actions must be performed via
+The Saml2Request entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
 Entity Usage and Importing
@@ -21,11 +21,11 @@ will share the same context as other Entities. There is more information in the 
     pelion_dm_sdk = SDK()
     saml2_requests = pelion_dm_sdk.foundation.saml2_request()
 
-How to import SAML2Request directly:
+How to import Saml2Request directly:
 
 .. code-block:: python
     
-    from mbed_cloud.foundation import SAML2Request
+    from mbed_cloud.foundation import Saml2Request
 
 ------------
 """
@@ -40,8 +40,8 @@ from mbed_cloud.foundation.common import fields
 from mbed_cloud.foundation import enums
 
 
-class SAML2Request(Entity):
-    """Represents the `SAML2Request` entity in Pelion Device Management"""
+class Saml2Request(Entity):
+    """Represents the `Saml2Request` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
     _api_fieldnames = [
@@ -72,7 +72,7 @@ class SAML2Request(Entity):
         sp_entity_id=None,
         sso_endpoint=None,
     ):
-        """Creates a local `SAML2Request` instance
+        """Creates a local `Saml2Request` instance
 
         Parameters can be supplied on creation of the instance or given by
         setting the properties on the instance after creation.

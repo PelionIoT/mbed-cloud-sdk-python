@@ -300,7 +300,7 @@ class SubtenantIdentityProvider(Entity):
         :type discovery: bool
         
         :param oidc_attributes: Represents OIDC specific attributes.
-        :type oidc_attributes: mbed_cloud.foundation.entities.OIDCRequest
+        :type oidc_attributes: mbed_cloud.foundation.entities.OidcRequest
         
         :rtype: SubtenantIdentityProvider
         """
@@ -533,7 +533,7 @@ class SubtenantIdentityProvider(Entity):
         :type discovery: bool
         
         :param oidc_attributes: Represents OIDC specific attributes.
-        :type oidc_attributes: mbed_cloud.foundation.entities.OIDCRequest
+        :type oidc_attributes: mbed_cloud.foundation.entities.OidcRequest
         
         :rtype: SubtenantIdentityProvider
         """

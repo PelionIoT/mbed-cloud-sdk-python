@@ -1,12 +1,12 @@
 """
 .. warning::
-    OIDCRequest should not be imported directly from this module as the
+    OidcRequest should not be imported directly from this module as the
     organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-Foundation Entity: OIDCRequest
+Foundation Entity: OidcRequest
 ==============================
 
-The OIDCRequest entity does not have any methods, all actions must be performed via
+The OidcRequest entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
 Entity Usage and Importing
@@ -21,11 +21,11 @@ will share the same context as other Entities. There is more information in the 
     pelion_dm_sdk = SDK()
     oidc_requests = pelion_dm_sdk.foundation.oidc_request()
 
-How to import OIDCRequest directly:
+How to import OidcRequest directly:
 
 .. code-block:: python
     
-    from mbed_cloud.foundation import OIDCRequest
+    from mbed_cloud.foundation import OidcRequest
 
 ------------
 """
@@ -40,8 +40,8 @@ from mbed_cloud.foundation.common import fields
 from mbed_cloud.foundation import enums
 
 
-class OIDCRequest(Entity):
-    """Represents the `OIDCRequest` entity in Pelion Device Management"""
+class OidcRequest(Entity):
+    """Represents the `OidcRequest` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
     _api_fieldnames = [
@@ -92,7 +92,7 @@ class OIDCRequest(Entity):
         token_response_path=None,
         userinfo_endpoint=None,
     ):
-        """Creates a local `OIDCRequest` instance
+        """Creates a local `OidcRequest` instance
 
         Parameters can be supplied on creation of the instance or given by
         setting the properties on the instance after creation.
@@ -149,13 +149,13 @@ class OIDCRequest(Entity):
 
         # inline imports for avoiding circular references and bulk imports
 
-        from mbed_cloud.foundation.entities.accounts.oidc_request_claim_mapping import OIDCRequestClaimMapping
+        from mbed_cloud.foundation.entities.accounts.oidc_request_claim_mapping import OidcRequestClaimMapping
         from mbed_cloud.foundation.entities.accounts.identity_provider_public_key import IdentityProviderPublicKey
 
         # fields
         self._authorization_endpoint = fields.StringField(value=authorization_endpoint)
         self._auto_enrollment = fields.BooleanField(value=auto_enrollment)
-        self._claim_mapping = fields.DictField(value=claim_mapping, entity=OIDCRequestClaimMapping)
+        self._claim_mapping = fields.DictField(value=claim_mapping, entity=OidcRequestClaimMapping)
         self._client_id = fields.StringField(value=client_id)
         self._client_secret = fields.StringField(value=client_secret)
         self._end_session_endpoint = fields.StringField(value=end_session_endpoint)
@@ -166,7 +166,7 @@ class OIDCRequest(Entity):
         self._revocation_endpoint = fields.StringField(value=revocation_endpoint)
         self._scopes = fields.StringField(value=scopes)
         self._token_endpoint = fields.StringField(value=token_endpoint)
-        self._token_request_mode = fields.StringField(value=token_request_mode, enum=enums.OIDCRequestTokenModeEnum)
+        self._token_request_mode = fields.StringField(value=token_request_mode, enum=enums.OidcRequestTokenModeEnum)
         self._token_response_path = fields.StringField(value=token_response_path)
         self._userinfo_endpoint = fields.StringField(value=userinfo_endpoint)
 
@@ -192,7 +192,7 @@ class OIDCRequest(Entity):
     def claim_mapping(self):
         """Mapping for non-standard OIDC claim names.
         
-        :rtype: dict[OIDCRequestClaimMapping]
+        :rtype: dict[OidcRequestClaimMapping]
         """
 
         return self._claim_mapping.value

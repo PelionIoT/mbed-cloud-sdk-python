@@ -1457,7 +1457,7 @@ class EntityFactory:
         token_response_path=None,
         userinfo_endpoint=None,
     ):
-        """Creates a local `OIDCRequest` instance, using the shared SDK context.
+        """Creates a local `OidcRequest` instance, using the shared SDK context.
 
         :param authorization_endpoint: URL of the OAuth 2.0 authorization endpoint.
         :type authorization_endpoint: str
@@ -1502,12 +1502,12 @@ class EntityFactory:
         :param userinfo_endpoint: URL of the OAuth 2.0 UserInfo endpoint.
         :type userinfo_endpoint: str
         
-        :return: A new instance of a OIDCRequest Foundation Entity.
-        :rtype: mbed_cloud.foundation.entities.accounts.oidc_request.OIDCRequest
+        :return: A new instance of a OidcRequest Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.oidc_request.OidcRequest
         """
-        from mbed_cloud.foundation import OIDCRequest
+        from mbed_cloud.foundation import OidcRequest
 
-        return OIDCRequest(
+        return OidcRequest(
             _client=self._client,
             authorization_endpoint=authorization_endpoint,
             auto_enrollment=auto_enrollment,
@@ -1539,7 +1539,7 @@ class EntityFactory:
         updated_at=None,
         updated_at_pattern=None,
     ):
-        """Creates a local `OIDCRequestClaimMapping` instance, using the shared SDK context.
+        """Creates a local `OidcRequestClaimMapping` instance, using the shared SDK context.
 
         :param email: Custom claim name for 'email'.
         :type email: str
@@ -1561,12 +1561,12 @@ class EntityFactory:
             SimpleDateFormat class.
         :type updated_at_pattern: str
         
-        :return: A new instance of a OIDCRequestClaimMapping Foundation Entity.
-        :rtype: mbed_cloud.foundation.entities.accounts.oidc_request_claim_mapping.OIDCRequestClaimMapping
+        :return: A new instance of a OidcRequestClaimMapping Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.oidc_request_claim_mapping.OidcRequestClaimMapping
         """
-        from mbed_cloud.foundation import OIDCRequestClaimMapping
+        from mbed_cloud.foundation import OidcRequestClaimMapping
 
-        return OIDCRequestClaimMapping(
+        return OidcRequestClaimMapping(
             _client=self._client,
             email=email,
             email_verified=email_verified,
@@ -1721,7 +1721,7 @@ class EntityFactory:
         sp_entity_id=None,
         sso_endpoint=None,
     ):
-        """Creates a local `SAML2Request` instance, using the shared SDK context.
+        """Creates a local `Saml2Request` instance, using the shared SDK context.
 
         :param entity_descriptor: Contains an entity descriptor document for the identity provider.
             Can be used as an alternative method to provide the identity
@@ -1740,12 +1740,12 @@ class EntityFactory:
         :param sso_endpoint: URL of the identity provider's SSO endpoint.
         :type sso_endpoint: str
         
-        :return: A new instance of a SAML2Request Foundation Entity.
-        :rtype: mbed_cloud.foundation.entities.accounts.saml2_request.SAML2Request
+        :return: A new instance of a Saml2Request Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.saml2_request.Saml2Request
         """
-        from mbed_cloud.foundation import SAML2Request
+        from mbed_cloud.foundation import Saml2Request
 
-        return SAML2Request(
+        return Saml2Request(
             _client=self._client,
             entity_descriptor=entity_descriptor,
             idp_entity_id=idp_entity_id,
