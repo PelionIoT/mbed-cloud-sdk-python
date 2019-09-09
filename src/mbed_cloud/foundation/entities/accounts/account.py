@@ -184,7 +184,8 @@ class Account(Entity):
         :param admin_full_name: The full name of the admin user created for this account. Present
             only in the response for account creation.
         :type admin_full_name: str
-        :param admin_id: The ID of the admin user created for this account.
+        :param admin_id: The ID of the admin user created for this account. Present only in
+            the response for the account creation.
         :type admin_id: str
         :param admin_key: The admin API key created for this account. Present only in the
             response for account creation.
@@ -419,7 +420,8 @@ class Account(Entity):
 
     @property
     def admin_id(self):
-        """The ID of the admin user created for this account.
+        """The ID of the admin user created for this account. Present only in the
+        response for the account creation.
         
         api example: '01619571e2e89242ac12000600000000'
         
