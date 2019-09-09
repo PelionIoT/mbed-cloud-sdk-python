@@ -6263,51 +6263,6 @@ definitions:
         format: date-time
         type: string
         x-nullable: true
-  UpdatedResponse:
-    description: Represents a response to an update request.
-    properties:
-      code:
-        description: Response code.
-        example: 200
-        format: int32
-        type: integer
-      id:
-        description: Entity ID.
-        example: 01619571dad80242ac12000600000000
-        pattern: '[a-f0-9]{32}'
-        type: string
-      message:
-        description: A human readable message with detailed info.
-        example: success
-        type: string
-      object:
-        description: 'Entity name: ''user'', ''api-key'', ''group'', ''policy'' or
-          ''account''.'
-        enum:
-        - user
-        - api-key
-        - group
-        - policy
-        - account
-        type: string
-      request_id:
-        description: Request ID.
-        example: 0161991d63150242ac12000600000000
-        pattern: '[a-f0-9]{32}'
-        type: string
-      type:
-        description: 'Response type: success.'
-        enum:
-        - success
-        type: string
-    required:
-    - code
-    - id
-    - message
-    - object
-    - request_id
-    - type
-    type: object
   UploadChunkInfo:
     properties:
       created_at: &id013
@@ -9607,7 +9562,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/ApiKeyInfoResp'
         '400':
           description: Error in input data.
           schema:
@@ -9748,7 +9703,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/ApiKeyInfoResp'
         '400':
           description: Error in input data.
           schema:
@@ -13047,7 +13002,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/UserInfoResp'
         '400':
           description: Error in input data.
           schema:
@@ -13188,7 +13143,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/UserInfoResp'
         '400':
           description: Error in input data.
           schema:
@@ -13505,7 +13460,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/ApiKeyInfoResp'
         '400':
           description: Error in input data.
           schema:
@@ -13616,7 +13571,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/ApiKeyInfoResp'
         '400':
           description: Error in input data.
           schema:
@@ -13820,7 +13775,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/ApiKeyInfoResp'
         '400':
           description: Error in input data.
           schema:
@@ -13951,7 +13906,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/ApiKeyInfoResp'
         '400':
           description: Error in input data.
           schema:
@@ -25105,7 +25060,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/UserInfoResp'
         '400':
           description: Error in input data.
           schema:
@@ -25236,7 +25191,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/UserInfoResp'
         '400':
           description: Error in input data.
           schema:
