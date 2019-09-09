@@ -83,6 +83,8 @@ class EntityFactory:
         admin_name=None,
         admin_password=None,
         aliases=None,
+        business_model=None,
+        business_model_history=None,
         city=None,
         company=None,
         contact=None,
@@ -143,6 +145,11 @@ class EntityFactory:
         :type admin_password: str
         :param aliases: An array of aliases.
         :type aliases: list
+        :param business_model: Business model for this account. Manageable by the root admin
+            only.
+        :type business_model: str
+        :param business_model_history: Business model history for this account.
+        :type business_model_history: list
         :param city: The city part of the postal address.
         :type city: str
         :param company: The name of the company.
@@ -232,6 +239,8 @@ class EntityFactory:
             admin_name=admin_name,
             admin_password=admin_password,
             aliases=aliases,
+            business_model=business_model,
+            business_model_history=business_model_history,
             city=city,
             company=company,
             contact=contact,

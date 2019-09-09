@@ -69,6 +69,8 @@ class Account(Entity):
         "admin_name",
         "admin_password",
         "aliases",
+        "business_model",
+        "business_model_history",
         "city",
         "company",
         "contact",
@@ -126,6 +128,8 @@ class Account(Entity):
         admin_name=None,
         admin_password=None,
         aliases=None,
+        business_model=None,
+        business_model_history=None,
         city=None,
         company=None,
         contact=None,
@@ -193,6 +197,11 @@ class Account(Entity):
         :type admin_password: str
         :param aliases: An array of aliases.
         :type aliases: list
+        :param business_model: Business model for this account. Manageable by the root admin
+            only.
+        :type business_model: str
+        :param business_model_history: Business model history for this account.
+        :type business_model_history: list
         :param city: The city part of the postal address.
         :type city: str
         :param company: The name of the company.
@@ -285,6 +294,8 @@ class Account(Entity):
         self._admin_name = fields.StringField(value=admin_name)
         self._admin_password = fields.StringField(value=admin_password)
         self._aliases = fields.ListField(value=aliases)
+        self._business_model = fields.StringField(value=business_model, enum=enums.AccountBusinessModelEnum)
+        self._business_model_history = fields.ListField(value=business_model_history)
         self._city = fields.StringField(value=city)
         self._company = fields.StringField(value=company)
         self._contact = fields.StringField(value=contact)
@@ -492,6 +503,36 @@ class Account(Entity):
         """
 
         self._aliases.set(value)
+
+    @property
+    def business_model(self):
+        """Business model for this account. Manageable by the root admin only.
+        
+        api example: 'api_calls_1_business_model'
+        
+        :rtype: str
+        """
+
+        return self._business_model.value
+
+    @business_model.setter
+    def business_model(self, value):
+        """Set value of `business_model`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._business_model.set(value)
+
+    @property
+    def business_model_history(self):
+        """Business model history for this account.
+        
+        :rtype: list
+        """
+
+        return self._business_model_history.value
 
     @property
     def city(self):
@@ -1181,6 +1222,8 @@ class Account(Entity):
             body_params["admin_password"] = self._admin_password.to_api()
         if self._aliases.value_set:
             body_params["aliases"] = self._aliases.to_api()
+        if self._business_model.value_set:
+            body_params["business_model"] = self._business_model.to_api()
         if self._city.value_set:
             body_params["city"] = self._city.to_api()
         if self._company.value_set:
@@ -1478,7 +1521,7 @@ class Account(Entity):
         :type page_size: int
         
         :param include: Comma-separated additional data to return. Currently supported:
-            limits, policies, sub_accounts.
+            limits, policies, sub_accounts, history.
         :type include: str
         
         :param format: Format information for the query response. Supported:
@@ -1737,7 +1780,7 @@ class Account(Entity):
         :type limit: int
         
         :param include: Comma-separated additional data to return. Currently supported:
-            limits, policies, sub_accounts.
+            limits, policies, sub_accounts, history.
         :type include: str
         
         :param format: Format information for the query response. Supported:
@@ -1889,7 +1932,7 @@ class Account(Entity):
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}>`_.
         
         :param include: Comma-separated additional data to return. Currently supported:
-            limits, policies, sub_accounts.
+            limits, policies, sub_accounts, history.
         :type include: str
         
         :param properties: Property name to return from account-specific properties.
@@ -2021,6 +2064,8 @@ class Account(Entity):
             body_params["address_line2"] = self._address_line2.to_api()
         if self._aliases.value_set:
             body_params["aliases"] = self._aliases.to_api()
+        if self._business_model.value_set:
+            body_params["business_model"] = self._business_model.to_api()
         if self._city.value_set:
             body_params["city"] = self._city.to_api()
         if self._company.value_set:

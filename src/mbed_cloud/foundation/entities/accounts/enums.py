@@ -8,6 +8,7 @@ Accounts Enums
 
 This module contains all Enums used by Foundation Entities in the Accounts category:
 
+- :class:`AccountBusinessModelEnum`
 - :class:`AccountMfaStatusEnum`
 - :class:`AccountOrderEnum`
 - :class:`AccountStatusEnum`
@@ -37,6 +38,7 @@ How to import Enums:
 
 .. code-block:: python
     
+    from mbed_cloud.foundation.enums import AccountBusinessModelEnum
     from mbed_cloud.foundation.enums import AccountMfaStatusEnum
     from mbed_cloud.foundation.enums import AccountOrderEnum
     from mbed_cloud.foundation.enums import AccountStatusEnum
@@ -69,6 +71,22 @@ from builtins import str  # noqa
 from builtins import object
 
 from mbed_cloud.foundation.common.enum_base import BaseEnum
+
+
+class AccountBusinessModelEnum(BaseEnum):
+    """Represents expected values of `AccountBusinessModelEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ACTIVE_DEVICE_BUSINESS_MODEL = "active_device_business_model"
+    API_CALLS_1_BUSINESS_MODEL = "api_calls_1_business_model"
+
+    values = frozenset(("active_device_business_model", "api_calls_1_business_model"))
 
 
 class AccountMfaStatusEnum(BaseEnum):

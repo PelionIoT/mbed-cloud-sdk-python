@@ -9,6 +9,7 @@ following is a list of all enums in the Foundation Interface ordered by the enti
 Accounts
 --------
 
+- :class:`mbed_cloud.foundation.entities.accounts.enums.AccountBusinessModelEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.AccountMfaStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.AccountOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.AccountStatusEnum`
@@ -90,6 +91,7 @@ How to import Enums:
 
 .. code-block:: python
     
+    from mbed_cloud.foundation.enums import AccountBusinessModelEnum
     from mbed_cloud.foundation.enums import AccountMfaStatusEnum
     from mbed_cloud.foundation.enums import AccountOrderEnum
     from mbed_cloud.foundation.enums import AccountStatusEnum
@@ -148,6 +150,7 @@ How to import Enums:
 ------------
 """
 
+from mbed_cloud.foundation.entities.accounts.enums import AccountBusinessModelEnum
 from mbed_cloud.foundation.entities.accounts.enums import AccountMfaStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import AccountOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import AccountStatusEnum
@@ -205,6 +208,7 @@ from mbed_cloud.foundation.entities.security.enums import TrustedCertificateStat
 
 
 __all__ = [
+    "AccountBusinessModelEnum",
     "AccountMfaStatusEnum",
     "AccountOrderEnum",
     "AccountStatusEnum",
