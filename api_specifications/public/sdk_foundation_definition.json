@@ -37,6 +37,7 @@
         "subtenant_api_key_order_enum",
         "account_status_enum",
         "account_mfa_status_enum",
+        "account_business_model_enum",
         "account_order_enum",
         "policy_group_order_enum",
         "subtenant_policy_group_order_enum",
@@ -142,6 +143,17 @@
     }
   ],
   "enums": [
+    {
+      "entity_name": "account",
+      "field_name": "business_model",
+      "enum_name": "account_business_model_enum",
+      "values": [
+        "active_device_business_model",
+        "api_calls_1_business_model"
+      ],
+      "group_id": "Accounts",
+      "_key": "account_business_model_enum"
+    },
     {
       "entity_name": "account",
       "field_name": "mfa_status",
@@ -1652,6 +1664,23 @@
             },
             {
               "type": "string",
+              "default": "active_device_business_model",
+              "example": "api_calls_1_business_model",
+              "description": "Business model for this account. Manageable by the root admin only.",
+              "enum": [
+                "active_device_business_model",
+                "api_calls_1_business_model"
+              ],
+              "api_fieldname": "business_model",
+              "entity_fieldname": "business_model",
+              "parameter_fieldname": "business_model",
+              "in": "body",
+              "required": false,
+              "enum_reference": "account_business_model_enum",
+              "_key": "business_model"
+            },
+            {
+              "type": "string",
               "maxLength": 100,
               "x-nullable": true,
               "example": "Cambridge",
@@ -1909,6 +1938,49 @@
                     "api_fieldname": "aliases",
                     "entity_fieldname": "aliases",
                     "_key": "aliases"
+                  },
+                  {
+                    "type": "string",
+                    "default": "active_device_business_model",
+                    "example": "api_calls_1_business_model",
+                    "description": "Business model for this account. Manageable by the root admin only.",
+                    "enum": [
+                      "active_device_business_model",
+                      "api_calls_1_business_model"
+                    ],
+                    "api_fieldname": "business_model",
+                    "entity_fieldname": "business_model",
+                    "_key": "business_model"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Business model history for this account.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "default": "active_device_business_model",
+                          "example": "api_calls_1_business_model",
+                          "description": "Business model for this account. Manageable by the root admin only.",
+                          "enum": [
+                            "active_device_business_model",
+                            "api_calls_1_business_model"
+                          ],
+                          "_key": "business_model"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updated_at"
+                        }
+                      ]
+                    },
+                    "api_fieldname": "business_model_history",
+                    "entity_fieldname": "business_model_history",
+                    "_key": "business_model_history"
                   },
                   {
                     "type": "string",
@@ -2439,6 +2511,45 @@
                             "pattern": "[\\w\\-._]{8,100}"
                           },
                           "_key": "aliases"
+                        },
+                        {
+                          "type": "string",
+                          "default": "active_device_business_model",
+                          "example": "api_calls_1_business_model",
+                          "description": "Business model for this account. Manageable by the root admin only.",
+                          "enum": [
+                            "active_device_business_model",
+                            "api_calls_1_business_model"
+                          ],
+                          "_key": "business_model"
+                        },
+                        {
+                          "type": "array",
+                          "description": "Business model history for this account.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "string",
+                                "default": "active_device_business_model",
+                                "example": "api_calls_1_business_model",
+                                "description": "Business model for this account. Manageable by the root admin only.",
+                                "enum": [
+                                  "active_device_business_model",
+                                  "api_calls_1_business_model"
+                                ],
+                                "_key": "business_model"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updated_at"
+                              }
+                            ]
+                          },
+                          "_key": "business_model_history"
                         },
                         {
                           "type": "string",
@@ -3160,7 +3271,8 @@
             "expiration",
             "admin_id",
             "admin_key",
-            "password_recovery_expiration"
+            "password_recovery_expiration",
+            "business_model_history"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -4925,7 +5037,7 @@
             {
               "name": "include",
               "in": "query",
-              "description": "Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.",
+              "description": "Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts, history.",
               "required": false,
               "type": "string",
               "entity_fieldname": "include",
@@ -5090,6 +5202,45 @@
                             "pattern": "[\\w\\-._]{8,100}"
                           },
                           "_key": "aliases"
+                        },
+                        {
+                          "type": "string",
+                          "default": "active_device_business_model",
+                          "example": "api_calls_1_business_model",
+                          "description": "Business model for this account. Manageable by the root admin only.",
+                          "enum": [
+                            "active_device_business_model",
+                            "api_calls_1_business_model"
+                          ],
+                          "_key": "business_model"
+                        },
+                        {
+                          "type": "array",
+                          "description": "Business model history for this account.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "string",
+                                "default": "active_device_business_model",
+                                "example": "api_calls_1_business_model",
+                                "description": "Business model for this account. Manageable by the root admin only.",
+                                "enum": [
+                                  "active_device_business_model",
+                                  "api_calls_1_business_model"
+                                ],
+                                "_key": "business_model"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updated_at"
+                              }
+                            ]
+                          },
+                          "_key": "business_model_history"
                         },
                         {
                           "type": "string",
@@ -5556,6 +5707,45 @@
                                   "pattern": "[\\w\\-._]{8,100}"
                                 },
                                 "_key": "aliases"
+                              },
+                              {
+                                "type": "string",
+                                "default": "active_device_business_model",
+                                "example": "api_calls_1_business_model",
+                                "description": "Business model for this account. Manageable by the root admin only.",
+                                "enum": [
+                                  "active_device_business_model",
+                                  "api_calls_1_business_model"
+                                ],
+                                "_key": "business_model"
+                              },
+                              {
+                                "type": "array",
+                                "description": "Business model history for this account.",
+                                "items": {
+                                  "type": "object",
+                                  "properties": [
+                                    {
+                                      "type": "string",
+                                      "default": "active_device_business_model",
+                                      "example": "api_calls_1_business_model",
+                                      "description": "Business model for this account. Manageable by the root admin only.",
+                                      "enum": [
+                                        "active_device_business_model",
+                                        "api_calls_1_business_model"
+                                      ],
+                                      "_key": "business_model"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "example": "2018-02-14T15:24:14Z",
+                                      "description": "Last update UTC time RFC3339.",
+                                      "_key": "updated_at"
+                                    }
+                                  ]
+                                },
+                                "_key": "business_model_history"
                               },
                               {
                                 "type": "string",
@@ -6411,6 +6601,49 @@
                   },
                   {
                     "type": "string",
+                    "default": "active_device_business_model",
+                    "example": "api_calls_1_business_model",
+                    "description": "Business model for this account. Manageable by the root admin only.",
+                    "enum": [
+                      "active_device_business_model",
+                      "api_calls_1_business_model"
+                    ],
+                    "api_fieldname": "business_model",
+                    "entity_fieldname": "business_model",
+                    "_key": "business_model"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Business model history for this account.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "default": "active_device_business_model",
+                          "example": "api_calls_1_business_model",
+                          "description": "Business model for this account. Manageable by the root admin only.",
+                          "enum": [
+                            "active_device_business_model",
+                            "api_calls_1_business_model"
+                          ],
+                          "_key": "business_model"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updated_at"
+                        }
+                      ]
+                    },
+                    "api_fieldname": "business_model_history",
+                    "entity_fieldname": "business_model_history",
+                    "_key": "business_model_history"
+                  },
+                  {
+                    "type": "string",
                     "maxLength": 100,
                     "x-nullable": true,
                     "example": "Cambridge",
@@ -6938,6 +7171,45 @@
                             "pattern": "[\\w\\-._]{8,100}"
                           },
                           "_key": "aliases"
+                        },
+                        {
+                          "type": "string",
+                          "default": "active_device_business_model",
+                          "example": "api_calls_1_business_model",
+                          "description": "Business model for this account. Manageable by the root admin only.",
+                          "enum": [
+                            "active_device_business_model",
+                            "api_calls_1_business_model"
+                          ],
+                          "_key": "business_model"
+                        },
+                        {
+                          "type": "array",
+                          "description": "Business model history for this account.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "string",
+                                "default": "active_device_business_model",
+                                "example": "api_calls_1_business_model",
+                                "description": "Business model for this account. Manageable by the root admin only.",
+                                "enum": [
+                                  "active_device_business_model",
+                                  "api_calls_1_business_model"
+                                ],
+                                "_key": "business_model"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updated_at"
+                              }
+                            ]
+                          },
+                          "_key": "business_model_history"
                         },
                         {
                           "type": "string",
@@ -7605,7 +7877,9 @@
             "admin_key",
             "admin_password",
             "admin_full_name",
-            "password_recovery_expiration"
+            "password_recovery_expiration",
+            "business_model",
+            "business_model_history"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -7637,7 +7911,7 @@
             {
               "name": "include",
               "in": "query",
-              "description": "Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.",
+              "description": "Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts, history.",
               "required": false,
               "type": "string",
               "entity_fieldname": "include",
@@ -7765,6 +8039,49 @@
                     "api_fieldname": "aliases",
                     "entity_fieldname": "aliases",
                     "_key": "aliases"
+                  },
+                  {
+                    "type": "string",
+                    "default": "active_device_business_model",
+                    "example": "api_calls_1_business_model",
+                    "description": "Business model for this account. Manageable by the root admin only.",
+                    "enum": [
+                      "active_device_business_model",
+                      "api_calls_1_business_model"
+                    ],
+                    "api_fieldname": "business_model",
+                    "entity_fieldname": "business_model",
+                    "_key": "business_model"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Business model history for this account.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "default": "active_device_business_model",
+                          "example": "api_calls_1_business_model",
+                          "description": "Business model for this account. Manageable by the root admin only.",
+                          "enum": [
+                            "active_device_business_model",
+                            "api_calls_1_business_model"
+                          ],
+                          "_key": "business_model"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updated_at"
+                        }
+                      ]
+                    },
+                    "api_fieldname": "business_model_history",
+                    "entity_fieldname": "business_model_history",
+                    "_key": "business_model_history"
                   },
                   {
                     "type": "string",
@@ -8295,6 +8612,45 @@
                             "pattern": "[\\w\\-._]{8,100}"
                           },
                           "_key": "aliases"
+                        },
+                        {
+                          "type": "string",
+                          "default": "active_device_business_model",
+                          "example": "api_calls_1_business_model",
+                          "description": "Business model for this account. Manageable by the root admin only.",
+                          "enum": [
+                            "active_device_business_model",
+                            "api_calls_1_business_model"
+                          ],
+                          "_key": "business_model"
+                        },
+                        {
+                          "type": "array",
+                          "description": "Business model history for this account.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "string",
+                                "default": "active_device_business_model",
+                                "example": "api_calls_1_business_model",
+                                "description": "Business model for this account. Manageable by the root admin only.",
+                                "enum": [
+                                  "active_device_business_model",
+                                  "api_calls_1_business_model"
+                                ],
+                                "_key": "business_model"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updated_at"
+                              }
+                            ]
+                          },
+                          "_key": "business_model_history"
                         },
                         {
                           "type": "string",
@@ -9034,7 +9390,9 @@
             "admin_key",
             "admin_password",
             "admin_full_name",
-            "password_recovery_expiration"
+            "password_recovery_expiration",
+            "business_model",
+            "business_model_history"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -9729,6 +10087,23 @@
             },
             {
               "type": "string",
+              "default": "active_device_business_model",
+              "example": "api_calls_1_business_model",
+              "description": "Business model for this account. Manageable by the root admin only.",
+              "enum": [
+                "active_device_business_model",
+                "api_calls_1_business_model"
+              ],
+              "api_fieldname": "business_model",
+              "entity_fieldname": "business_model",
+              "parameter_fieldname": "business_model",
+              "in": "body",
+              "required": false,
+              "enum_reference": "account_business_model_enum",
+              "_key": "business_model"
+            },
+            {
+              "type": "string",
               "maxLength": 100,
               "x-nullable": true,
               "example": "Cambridge",
@@ -10124,6 +10499,49 @@
                     "api_fieldname": "aliases",
                     "entity_fieldname": "aliases",
                     "_key": "aliases"
+                  },
+                  {
+                    "type": "string",
+                    "default": "active_device_business_model",
+                    "example": "api_calls_1_business_model",
+                    "description": "Business model for this account. Manageable by the root admin only.",
+                    "enum": [
+                      "active_device_business_model",
+                      "api_calls_1_business_model"
+                    ],
+                    "api_fieldname": "business_model",
+                    "entity_fieldname": "business_model",
+                    "_key": "business_model"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Business model history for this account.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "default": "active_device_business_model",
+                          "example": "api_calls_1_business_model",
+                          "description": "Business model for this account. Manageable by the root admin only.",
+                          "enum": [
+                            "active_device_business_model",
+                            "api_calls_1_business_model"
+                          ],
+                          "_key": "business_model"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updated_at"
+                        }
+                      ]
+                    },
+                    "api_fieldname": "business_model_history",
+                    "entity_fieldname": "business_model_history",
+                    "_key": "business_model_history"
                   },
                   {
                     "type": "string",
@@ -10654,6 +11072,45 @@
                             "pattern": "[\\w\\-._]{8,100}"
                           },
                           "_key": "aliases"
+                        },
+                        {
+                          "type": "string",
+                          "default": "active_device_business_model",
+                          "example": "api_calls_1_business_model",
+                          "description": "Business model for this account. Manageable by the root admin only.",
+                          "enum": [
+                            "active_device_business_model",
+                            "api_calls_1_business_model"
+                          ],
+                          "_key": "business_model"
+                        },
+                        {
+                          "type": "array",
+                          "description": "Business model history for this account.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "string",
+                                "default": "active_device_business_model",
+                                "example": "api_calls_1_business_model",
+                                "description": "Business model for this account. Manageable by the root admin only.",
+                                "enum": [
+                                  "active_device_business_model",
+                                  "api_calls_1_business_model"
+                                ],
+                                "_key": "business_model"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updated_at"
+                              }
+                            ]
+                          },
+                          "_key": "business_model_history"
                         },
                         {
                           "type": "string",
@@ -11443,7 +11900,8 @@
             "admin_email",
             "admin_key",
             "admin_password",
-            "admin_full_name"
+            "admin_full_name",
+            "business_model_history"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -12951,6 +13409,52 @@
           "readOnly": false,
           "required": false,
           "_key": "aliases"
+        },
+        {
+          "type": "string",
+          "default": "active_device_business_model",
+          "example": "api_calls_1_business_model",
+          "description": "Business model for this account. Manageable by the root admin only.",
+          "enum": [
+            "active_device_business_model",
+            "api_calls_1_business_model"
+          ],
+          "api_fieldname": "business_model",
+          "readOnly": false,
+          "required": false,
+          "enum_reference": "account_business_model_enum",
+          "_key": "business_model"
+        },
+        {
+          "type": "array",
+          "description": "Business model history for this account.",
+          "items": {
+            "type": "object",
+            "properties": [
+              {
+                "type": "string",
+                "default": "active_device_business_model",
+                "example": "api_calls_1_business_model",
+                "description": "Business model for this account. Manageable by the root admin only.",
+                "enum": [
+                  "active_device_business_model",
+                  "api_calls_1_business_model"
+                ],
+                "_key": "business_model"
+              },
+              {
+                "type": "string",
+                "format": "date-time",
+                "example": "2018-02-14T15:24:14Z",
+                "description": "Last update UTC time RFC3339.",
+                "_key": "updated_at"
+              }
+            ]
+          },
+          "api_fieldname": "business_model_history",
+          "readOnly": true,
+          "required": false,
+          "_key": "business_model_history"
         },
         {
           "type": "string",

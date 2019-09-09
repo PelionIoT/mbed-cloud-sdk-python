@@ -46,6 +46,8 @@ definitions:
         maxItems: 10
         type: array
         x-nullable: true
+      business_model:
+        $ref: '#/definitions/BusinessModel'
       city:
         description: The city part of the postal address. Required for commercial
           accounts only.
@@ -184,6 +186,13 @@ definitions:
           pattern: '[\w\-._]{8,100}'
           type: string
         maxItems: 10
+        type: array
+      business_model:
+        $ref: '#/definitions/BusinessModel'
+      business_model_history:
+        description: Business model history for this account.
+        items:
+          $ref: '#/definitions/BusinessModelHistory'
         type: array
       city:
         description: The city part of the postal address.
@@ -607,6 +616,8 @@ definitions:
         maxItems: 10
         type: array
         x-nullable: true
+      business_model:
+        $ref: '#/definitions/BusinessModel'
       city:
         description: The city part of the postal address. Required for commercial
           accounts only.
@@ -1465,6 +1476,24 @@ definitions:
     - completet_at
     - full_report_file
     - errors_report_file
+    type: object
+  BusinessModel:
+    default: active_device_business_model
+    description: Business model for this account. Manageable by the root admin only.
+    enum:
+    - active_device_business_model
+    - api_calls_1_business_model
+    example: api_calls_1_business_model
+    type: string
+  BusinessModelHistory:
+    properties:
+      business_model:
+        $ref: '#/definitions/BusinessModel'
+      updated_at:
+        description: Last update UTC time RFC3339.
+        example: '2018-02-14T15:24:14Z'
+        format: date-time
+        type: string
     type: object
   CampaignDeviceMetadata:
     properties:
@@ -8821,7 +8850,7 @@ paths:
         required: false
         type: string
       - description: 'Comma-separated additional data to return. Currently supported:
-          limits, policies, sub_accounts.'
+          limits, policies, sub_accounts, history.'
         in: query
         name: include
         required: false
@@ -9142,7 +9171,7 @@ paths:
         required: true
         type: string
       - description: 'Comma-separated additional data to return. Currently supported:
-          limits, policies, sub_accounts.'
+          limits, policies, sub_accounts, history.'
         in: query
         name: include
         required: false
