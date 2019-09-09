@@ -11678,7 +11678,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/GroupSummary'
         '400':
           description: Error in input data, for example, the user or API key does
             not exist.
@@ -11748,7 +11748,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/GroupSummary'
         '400':
           description: Error in input data, for example, the group name is too long.
           schema:
@@ -11814,7 +11814,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/GroupSummary'
         '400':
           description: Error in input data, for example, the array of API keys is
             missing.
@@ -11943,7 +11943,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/GroupSummary'
         '400':
           description: Error in input data, for example, the last user to remove from
             Administrators group.
@@ -22580,7 +22580,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/GroupSummary'
         '400':
           description: Error in input data, for example, the user or API key does
             not exist.
@@ -22645,7 +22645,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/GroupSummary'
         '400':
           description: Error in input data, for example, the group name is too long.
           schema:
@@ -22706,7 +22706,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/GroupSummary'
         '400':
           description: Error in input data, for example, the array of API keys is
             missing.
@@ -22837,7 +22837,7 @@ paths:
         '200':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/UpdatedResponse'
+            $ref: '#/definitions/GroupSummary'
         '400':
           description: Error in input data, for example, the user removing themselves
             from the Administrators group.
