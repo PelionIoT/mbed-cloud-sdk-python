@@ -37,6 +37,7 @@ class Client(object):
         """
         self.config = config
         self.session = requests.Session()
+        self.session.trust_env = False
         self.session.headers.update(
             {
                 "Authorization": "Bearer %s" % self.config.api_key,
