@@ -254,14 +254,101 @@ entities:
     required: false
     type: integer
     x-nullable: true
+  - _key: limitations
+    api_fieldname: limitations
+    description: List of account limitation objects.
+    items:
+      description: This object represents an account limitation.
+      properties:
+      - _key: billing_period
+        description: Billing period of the account limitation.
+        format: int32
+        type: integer
+      - _key: created_at
+        description: Creation UTC time RFC3339.
+        example: '2018-02-13T09:35:20Z'
+        format: date-time
+        type: string
+      - _key: description
+        description: Description of the account limitation.
+        readOnly: true
+        type: string
+      - _key: etag
+        description: API resource entity version.
+        example: '1'
+        type: string
+      - _key: id
+        description: Entity ID.
+        example: 01619571d01d0242ac12000600000000
+        type: string
+      - _key: inherited
+        description: Flag indicating whether this limitation is inherited.
+        readOnly: true
+        type: boolean
+      - _key: inherited_from
+        description: Indicates where this limit is inherited from.
+        readOnly: true
+        type: string
+      - _key: inherited_type
+        description: Indicates the type of the entity where the limitation is inherited
+          from.
+        readOnly: true
+        type: string
+      - _key: limit
+        description: The value of the limit.
+        format: int32
+        type: integer
+      - _key: name
+        description: Name of the account limitation.
+        type: string
+      - _key: object
+        description: 'Entity name: always ''limitation'''
+        enum:
+        - user
+        - api-key
+        - group
+        - account
+        - account_template
+        - trusted_cert
+        - list
+        - error
+        - agreement
+        - signed_agreement
+        - policy
+        - limitation
+        - identity_provider
+        - user_session
+        - user_invitation
+        - notification_entry
+        - branding_color
+        - branding_image
+        type: string
+      - _key: quota
+        description: Quota of the account limitation.
+        format: int32
+        type: integer
+      - _key: updated_at
+        description: Last update UTC time RFC3339.
+        example: '2018-02-14T15:24:14Z'
+        format: date-time
+        type: string
+      type: object
+    readOnly: true
+    required: false
+    type: array
   - _key: limits
     additionalProperties:
       type: string
     api_fieldname: limits
+    deprecated: true
     description: List of limits as key-value pairs if requested.
     readOnly: true
     required: false
     type: object
+    x-deprecation:
+      comment: Superseded by the limitations parameter.
+      end_of_life_at: '2020-08-27T12:03:58+00:00'
+      issued_at: '2019-08-27T12:03:58+00:00'
     x-nullable: true
   - _key: mfa_status
     api_fieldname: mfa_status
@@ -991,6 +1078,7 @@ entities:
     - expiration
     - admin_id
     - admin_key
+    - limitations
     - password_recovery_expiration
     - business_model_history
     field_renames: []
@@ -1489,13 +1577,99 @@ entities:
           minimum: 1
           type: integer
           x-nullable: true
+        - _key: limitations
+          api_fieldname: limitations
+          description: List of account limitation objects.
+          entity_fieldname: limitations
+          items:
+            description: This object represents an account limitation.
+            properties:
+            - _key: billing_period
+              description: Billing period of the account limitation.
+              format: int32
+              type: integer
+            - _key: created_at
+              description: Creation UTC time RFC3339.
+              example: '2018-02-13T09:35:20Z'
+              format: date-time
+              type: string
+            - _key: description
+              description: Description of the account limitation.
+              readOnly: true
+              type: string
+            - _key: etag
+              description: API resource entity version.
+              example: '1'
+              type: string
+            - _key: id
+              description: Entity ID.
+              example: 01619571d01d0242ac12000600000000
+              type: string
+            - _key: inherited
+              description: Flag indicating whether this limitation is inherited.
+              readOnly: true
+              type: boolean
+            - _key: inherited_from
+              description: Indicates where this limit is inherited from.
+              readOnly: true
+              type: string
+            - _key: inherited_type
+              description: Indicates the type of the entity where the limitation is
+                inherited from.
+              readOnly: true
+              type: string
+            - _key: limit
+              description: The value of the limit.
+              format: int32
+              type: integer
+            - _key: name
+              description: Name of the account limitation.
+              type: string
+            - _key: object
+              description: 'Entity name: always ''limitation'''
+              enum:
+              - user
+              - api-key
+              - group
+              - account
+              - account_template
+              - trusted_cert
+              - list
+              - error
+              - agreement
+              - signed_agreement
+              - policy
+              - limitation
+              - identity_provider
+              - user_session
+              - user_invitation
+              - notification_entry
+              - branding_color
+              - branding_image
+              type: string
+            - _key: quota
+              description: Quota of the account limitation.
+              format: int32
+              type: integer
+            - _key: updated_at
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
+          type: array
         - _key: limits
           additionalProperties:
             type: string
           api_fieldname: limits
+          deprecated: true
           description: List of limits as key-value pairs if requested.
           entity_fieldname: limits
           type: object
+          x-deprecation:
+            comment: Superseded by the limitations parameter.
+            end_of_life_at: '2020-08-27T12:03:58+00:00'
+            issued_at: '2019-08-27T12:03:58+00:00'
           x-nullable: true
         - _key: mfa_status
           api_fieldname: mfa_status
@@ -1904,11 +2078,95 @@ entities:
               minimum: 1
               type: integer
               x-nullable: true
+            - _key: limitations
+              description: List of account limitation objects.
+              items:
+                description: This object represents an account limitation.
+                properties:
+                - _key: billing_period
+                  description: Billing period of the account limitation.
+                  format: int32
+                  type: integer
+                - _key: created_at
+                  description: Creation UTC time RFC3339.
+                  example: '2018-02-13T09:35:20Z'
+                  format: date-time
+                  type: string
+                - _key: description
+                  description: Description of the account limitation.
+                  readOnly: true
+                  type: string
+                - _key: etag
+                  description: API resource entity version.
+                  example: '1'
+                  type: string
+                - _key: id
+                  description: Entity ID.
+                  example: 01619571d01d0242ac12000600000000
+                  type: string
+                - _key: inherited
+                  description: Flag indicating whether this limitation is inherited.
+                  readOnly: true
+                  type: boolean
+                - _key: inherited_from
+                  description: Indicates where this limit is inherited from.
+                  readOnly: true
+                  type: string
+                - _key: inherited_type
+                  description: Indicates the type of the entity where the limitation
+                    is inherited from.
+                  readOnly: true
+                  type: string
+                - _key: limit
+                  description: The value of the limit.
+                  format: int32
+                  type: integer
+                - _key: name
+                  description: Name of the account limitation.
+                  type: string
+                - _key: object
+                  description: 'Entity name: always ''limitation'''
+                  enum:
+                  - user
+                  - api-key
+                  - group
+                  - account
+                  - account_template
+                  - trusted_cert
+                  - list
+                  - error
+                  - agreement
+                  - signed_agreement
+                  - policy
+                  - limitation
+                  - identity_provider
+                  - user_session
+                  - user_invitation
+                  - notification_entry
+                  - branding_color
+                  - branding_image
+                  type: string
+                - _key: quota
+                  description: Quota of the account limitation.
+                  format: int32
+                  type: integer
+                - _key: updated_at
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
+              type: array
             - _key: limits
               additionalProperties:
                 type: string
+              deprecated: true
               description: List of limits as key-value pairs if requested.
               type: object
+              x-deprecation:
+                comment: Superseded by the limitations parameter.
+                end_of_life_at: '2020-08-27T12:03:58+00:00'
+                issued_at: '2019-08-27T12:03:58+00:00'
               x-nullable: true
             - _key: mfa_status
               description: The enforcement status of multi-factor authentication,
@@ -2357,7 +2615,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: id
       external_param: false
       in: path
@@ -2669,7 +2927,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: id
       external_param: false
       in: path
@@ -3003,7 +3261,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: id
       external_param: false
       in: path
@@ -3315,7 +3573,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: id
       external_param: false
       in: path
@@ -3939,11 +4197,95 @@ entities:
               minimum: 1
               type: integer
               x-nullable: true
+            - _key: limitations
+              description: List of account limitation objects.
+              items:
+                description: This object represents an account limitation.
+                properties:
+                - _key: billing_period
+                  description: Billing period of the account limitation.
+                  format: int32
+                  type: integer
+                - _key: created_at
+                  description: Creation UTC time RFC3339.
+                  example: '2018-02-13T09:35:20Z'
+                  format: date-time
+                  type: string
+                - _key: description
+                  description: Description of the account limitation.
+                  readOnly: true
+                  type: string
+                - _key: etag
+                  description: API resource entity version.
+                  example: '1'
+                  type: string
+                - _key: id
+                  description: Entity ID.
+                  example: 01619571d01d0242ac12000600000000
+                  type: string
+                - _key: inherited
+                  description: Flag indicating whether this limitation is inherited.
+                  readOnly: true
+                  type: boolean
+                - _key: inherited_from
+                  description: Indicates where this limit is inherited from.
+                  readOnly: true
+                  type: string
+                - _key: inherited_type
+                  description: Indicates the type of the entity where the limitation
+                    is inherited from.
+                  readOnly: true
+                  type: string
+                - _key: limit
+                  description: The value of the limit.
+                  format: int32
+                  type: integer
+                - _key: name
+                  description: Name of the account limitation.
+                  type: string
+                - _key: object
+                  description: 'Entity name: always ''limitation'''
+                  enum:
+                  - user
+                  - api-key
+                  - group
+                  - account
+                  - account_template
+                  - trusted_cert
+                  - list
+                  - error
+                  - agreement
+                  - signed_agreement
+                  - policy
+                  - limitation
+                  - identity_provider
+                  - user_session
+                  - user_invitation
+                  - notification_entry
+                  - branding_color
+                  - branding_image
+                  type: string
+                - _key: quota
+                  description: Quota of the account limitation.
+                  format: int32
+                  type: integer
+                - _key: updated_at
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
+              type: array
             - _key: limits
               additionalProperties:
                 type: string
+              deprecated: true
               description: List of limits as key-value pairs if requested.
               type: object
+              x-deprecation:
+                comment: Superseded by the limitations parameter.
+                end_of_life_at: '2020-08-27T12:03:58+00:00'
+                issued_at: '2019-08-27T12:03:58+00:00'
               x-nullable: true
             - _key: mfa_status
               description: The enforcement status of multi-factor authentication,
@@ -4321,11 +4663,95 @@ entities:
                   minimum: 1
                   type: integer
                   x-nullable: true
+                - _key: limitations
+                  description: List of account limitation objects.
+                  items:
+                    description: This object represents an account limitation.
+                    properties:
+                    - _key: billing_period
+                      description: Billing period of the account limitation.
+                      format: int32
+                      type: integer
+                    - _key: created_at
+                      description: Creation UTC time RFC3339.
+                      example: '2018-02-13T09:35:20Z'
+                      format: date-time
+                      type: string
+                    - _key: description
+                      description: Description of the account limitation.
+                      readOnly: true
+                      type: string
+                    - _key: etag
+                      description: API resource entity version.
+                      example: '1'
+                      type: string
+                    - _key: id
+                      description: Entity ID.
+                      example: 01619571d01d0242ac12000600000000
+                      type: string
+                    - _key: inherited
+                      description: Flag indicating whether this limitation is inherited.
+                      readOnly: true
+                      type: boolean
+                    - _key: inherited_from
+                      description: Indicates where this limit is inherited from.
+                      readOnly: true
+                      type: string
+                    - _key: inherited_type
+                      description: Indicates the type of the entity where the limitation
+                        is inherited from.
+                      readOnly: true
+                      type: string
+                    - _key: limit
+                      description: The value of the limit.
+                      format: int32
+                      type: integer
+                    - _key: name
+                      description: Name of the account limitation.
+                      type: string
+                    - _key: object
+                      description: 'Entity name: always ''limitation'''
+                      enum:
+                      - user
+                      - api-key
+                      - group
+                      - account
+                      - account_template
+                      - trusted_cert
+                      - list
+                      - error
+                      - agreement
+                      - signed_agreement
+                      - policy
+                      - limitation
+                      - identity_provider
+                      - user_session
+                      - user_invitation
+                      - notification_entry
+                      - branding_color
+                      - branding_image
+                      type: string
+                    - _key: quota
+                      description: Quota of the account limitation.
+                      format: int32
+                      type: integer
+                    - _key: updated_at
+                      description: Last update UTC time RFC3339.
+                      example: '2018-02-14T15:24:14Z'
+                      format: date-time
+                      type: string
+                    type: object
+                  type: array
                 - _key: limits
                   additionalProperties:
                     type: string
+                  deprecated: true
                   description: List of limits as key-value pairs if requested.
                   type: object
+                  x-deprecation:
+                    comment: Superseded by the limitations parameter.
+                    end_of_life_at: '2020-08-27T12:03:58+00:00'
+                    issued_at: '2019-08-27T12:03:58+00:00'
                   x-nullable: true
                 - _key: mfa_status
                   description: The enforcement status of multi-factor authentication,
@@ -4809,6 +5235,7 @@ entities:
     - admin_key
     - admin_password
     - admin_full_name
+    - limitations
     - password_recovery_expiration
     - business_model
     - business_model_history
@@ -5086,13 +5513,99 @@ entities:
           minimum: 1
           type: integer
           x-nullable: true
+        - _key: limitations
+          api_fieldname: limitations
+          description: List of account limitation objects.
+          entity_fieldname: limitations
+          items:
+            description: This object represents an account limitation.
+            properties:
+            - _key: billing_period
+              description: Billing period of the account limitation.
+              format: int32
+              type: integer
+            - _key: created_at
+              description: Creation UTC time RFC3339.
+              example: '2018-02-13T09:35:20Z'
+              format: date-time
+              type: string
+            - _key: description
+              description: Description of the account limitation.
+              readOnly: true
+              type: string
+            - _key: etag
+              description: API resource entity version.
+              example: '1'
+              type: string
+            - _key: id
+              description: Entity ID.
+              example: 01619571d01d0242ac12000600000000
+              type: string
+            - _key: inherited
+              description: Flag indicating whether this limitation is inherited.
+              readOnly: true
+              type: boolean
+            - _key: inherited_from
+              description: Indicates where this limit is inherited from.
+              readOnly: true
+              type: string
+            - _key: inherited_type
+              description: Indicates the type of the entity where the limitation is
+                inherited from.
+              readOnly: true
+              type: string
+            - _key: limit
+              description: The value of the limit.
+              format: int32
+              type: integer
+            - _key: name
+              description: Name of the account limitation.
+              type: string
+            - _key: object
+              description: 'Entity name: always ''limitation'''
+              enum:
+              - user
+              - api-key
+              - group
+              - account
+              - account_template
+              - trusted_cert
+              - list
+              - error
+              - agreement
+              - signed_agreement
+              - policy
+              - limitation
+              - identity_provider
+              - user_session
+              - user_invitation
+              - notification_entry
+              - branding_color
+              - branding_image
+              type: string
+            - _key: quota
+              description: Quota of the account limitation.
+              format: int32
+              type: integer
+            - _key: updated_at
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
+          type: array
         - _key: limits
           additionalProperties:
             type: string
           api_fieldname: limits
+          deprecated: true
           description: List of limits as key-value pairs if requested.
           entity_fieldname: limits
           type: object
+          x-deprecation:
+            comment: Superseded by the limitations parameter.
+            end_of_life_at: '2020-08-27T12:03:58+00:00'
+            issued_at: '2019-08-27T12:03:58+00:00'
           x-nullable: true
         - _key: mfa_status
           api_fieldname: mfa_status
@@ -5501,11 +6014,95 @@ entities:
               minimum: 1
               type: integer
               x-nullable: true
+            - _key: limitations
+              description: List of account limitation objects.
+              items:
+                description: This object represents an account limitation.
+                properties:
+                - _key: billing_period
+                  description: Billing period of the account limitation.
+                  format: int32
+                  type: integer
+                - _key: created_at
+                  description: Creation UTC time RFC3339.
+                  example: '2018-02-13T09:35:20Z'
+                  format: date-time
+                  type: string
+                - _key: description
+                  description: Description of the account limitation.
+                  readOnly: true
+                  type: string
+                - _key: etag
+                  description: API resource entity version.
+                  example: '1'
+                  type: string
+                - _key: id
+                  description: Entity ID.
+                  example: 01619571d01d0242ac12000600000000
+                  type: string
+                - _key: inherited
+                  description: Flag indicating whether this limitation is inherited.
+                  readOnly: true
+                  type: boolean
+                - _key: inherited_from
+                  description: Indicates where this limit is inherited from.
+                  readOnly: true
+                  type: string
+                - _key: inherited_type
+                  description: Indicates the type of the entity where the limitation
+                    is inherited from.
+                  readOnly: true
+                  type: string
+                - _key: limit
+                  description: The value of the limit.
+                  format: int32
+                  type: integer
+                - _key: name
+                  description: Name of the account limitation.
+                  type: string
+                - _key: object
+                  description: 'Entity name: always ''limitation'''
+                  enum:
+                  - user
+                  - api-key
+                  - group
+                  - account
+                  - account_template
+                  - trusted_cert
+                  - list
+                  - error
+                  - agreement
+                  - signed_agreement
+                  - policy
+                  - limitation
+                  - identity_provider
+                  - user_session
+                  - user_invitation
+                  - notification_entry
+                  - branding_color
+                  - branding_image
+                  type: string
+                - _key: quota
+                  description: Quota of the account limitation.
+                  format: int32
+                  type: integer
+                - _key: updated_at
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
+              type: array
             - _key: limits
               additionalProperties:
                 type: string
+              deprecated: true
               description: List of limits as key-value pairs if requested.
               type: object
+              x-deprecation:
+                comment: Superseded by the limitations parameter.
+                end_of_life_at: '2020-08-27T12:03:58+00:00'
+                issued_at: '2019-08-27T12:03:58+00:00'
               x-nullable: true
             - _key: mfa_status
               description: The enforcement status of multi-factor authentication,
@@ -5937,6 +6534,7 @@ entities:
     - admin_key
     - admin_password
     - admin_full_name
+    - limitations
     - password_recovery_expiration
     - business_model
     - business_model_history
@@ -6222,13 +6820,99 @@ entities:
           minimum: 1
           type: integer
           x-nullable: true
+        - _key: limitations
+          api_fieldname: limitations
+          description: List of account limitation objects.
+          entity_fieldname: limitations
+          items:
+            description: This object represents an account limitation.
+            properties:
+            - _key: billing_period
+              description: Billing period of the account limitation.
+              format: int32
+              type: integer
+            - _key: created_at
+              description: Creation UTC time RFC3339.
+              example: '2018-02-13T09:35:20Z'
+              format: date-time
+              type: string
+            - _key: description
+              description: Description of the account limitation.
+              readOnly: true
+              type: string
+            - _key: etag
+              description: API resource entity version.
+              example: '1'
+              type: string
+            - _key: id
+              description: Entity ID.
+              example: 01619571d01d0242ac12000600000000
+              type: string
+            - _key: inherited
+              description: Flag indicating whether this limitation is inherited.
+              readOnly: true
+              type: boolean
+            - _key: inherited_from
+              description: Indicates where this limit is inherited from.
+              readOnly: true
+              type: string
+            - _key: inherited_type
+              description: Indicates the type of the entity where the limitation is
+                inherited from.
+              readOnly: true
+              type: string
+            - _key: limit
+              description: The value of the limit.
+              format: int32
+              type: integer
+            - _key: name
+              description: Name of the account limitation.
+              type: string
+            - _key: object
+              description: 'Entity name: always ''limitation'''
+              enum:
+              - user
+              - api-key
+              - group
+              - account
+              - account_template
+              - trusted_cert
+              - list
+              - error
+              - agreement
+              - signed_agreement
+              - policy
+              - limitation
+              - identity_provider
+              - user_session
+              - user_invitation
+              - notification_entry
+              - branding_color
+              - branding_image
+              type: string
+            - _key: quota
+              description: Quota of the account limitation.
+              format: int32
+              type: integer
+            - _key: updated_at
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
+          type: array
         - _key: limits
           additionalProperties:
             type: string
           api_fieldname: limits
+          deprecated: true
           description: List of limits as key-value pairs if requested.
           entity_fieldname: limits
           type: object
+          x-deprecation:
+            comment: Superseded by the limitations parameter.
+            end_of_life_at: '2020-08-27T12:03:58+00:00'
+            issued_at: '2019-08-27T12:03:58+00:00'
           x-nullable: true
         - _key: mfa_status
           api_fieldname: mfa_status
@@ -6637,11 +7321,95 @@ entities:
               minimum: 1
               type: integer
               x-nullable: true
+            - _key: limitations
+              description: List of account limitation objects.
+              items:
+                description: This object represents an account limitation.
+                properties:
+                - _key: billing_period
+                  description: Billing period of the account limitation.
+                  format: int32
+                  type: integer
+                - _key: created_at
+                  description: Creation UTC time RFC3339.
+                  example: '2018-02-13T09:35:20Z'
+                  format: date-time
+                  type: string
+                - _key: description
+                  description: Description of the account limitation.
+                  readOnly: true
+                  type: string
+                - _key: etag
+                  description: API resource entity version.
+                  example: '1'
+                  type: string
+                - _key: id
+                  description: Entity ID.
+                  example: 01619571d01d0242ac12000600000000
+                  type: string
+                - _key: inherited
+                  description: Flag indicating whether this limitation is inherited.
+                  readOnly: true
+                  type: boolean
+                - _key: inherited_from
+                  description: Indicates where this limit is inherited from.
+                  readOnly: true
+                  type: string
+                - _key: inherited_type
+                  description: Indicates the type of the entity where the limitation
+                    is inherited from.
+                  readOnly: true
+                  type: string
+                - _key: limit
+                  description: The value of the limit.
+                  format: int32
+                  type: integer
+                - _key: name
+                  description: Name of the account limitation.
+                  type: string
+                - _key: object
+                  description: 'Entity name: always ''limitation'''
+                  enum:
+                  - user
+                  - api-key
+                  - group
+                  - account
+                  - account_template
+                  - trusted_cert
+                  - list
+                  - error
+                  - agreement
+                  - signed_agreement
+                  - policy
+                  - limitation
+                  - identity_provider
+                  - user_session
+                  - user_invitation
+                  - notification_entry
+                  - branding_color
+                  - branding_image
+                  type: string
+                - _key: quota
+                  description: Quota of the account limitation.
+                  format: int32
+                  type: integer
+                - _key: updated_at
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
+              type: array
             - _key: limits
               additionalProperties:
                 type: string
+              deprecated: true
               description: List of limits as key-value pairs if requested.
               type: object
+              x-deprecation:
+                comment: Superseded by the limitations parameter.
+                end_of_life_at: '2020-08-27T12:03:58+00:00'
+                issued_at: '2019-08-27T12:03:58+00:00'
               x-nullable: true
             - _key: mfa_status
               description: The enforcement status of multi-factor authentication,
@@ -7587,6 +8355,7 @@ entities:
     - admin_key
     - admin_password
     - admin_full_name
+    - limitations
     - business_model_history
     field_renames: []
     fields:
@@ -8128,13 +8897,99 @@ entities:
           minimum: 1
           type: integer
           x-nullable: true
+        - _key: limitations
+          api_fieldname: limitations
+          description: List of account limitation objects.
+          entity_fieldname: limitations
+          items:
+            description: This object represents an account limitation.
+            properties:
+            - _key: billing_period
+              description: Billing period of the account limitation.
+              format: int32
+              type: integer
+            - _key: created_at
+              description: Creation UTC time RFC3339.
+              example: '2018-02-13T09:35:20Z'
+              format: date-time
+              type: string
+            - _key: description
+              description: Description of the account limitation.
+              readOnly: true
+              type: string
+            - _key: etag
+              description: API resource entity version.
+              example: '1'
+              type: string
+            - _key: id
+              description: Entity ID.
+              example: 01619571d01d0242ac12000600000000
+              type: string
+            - _key: inherited
+              description: Flag indicating whether this limitation is inherited.
+              readOnly: true
+              type: boolean
+            - _key: inherited_from
+              description: Indicates where this limit is inherited from.
+              readOnly: true
+              type: string
+            - _key: inherited_type
+              description: Indicates the type of the entity where the limitation is
+                inherited from.
+              readOnly: true
+              type: string
+            - _key: limit
+              description: The value of the limit.
+              format: int32
+              type: integer
+            - _key: name
+              description: Name of the account limitation.
+              type: string
+            - _key: object
+              description: 'Entity name: always ''limitation'''
+              enum:
+              - user
+              - api-key
+              - group
+              - account
+              - account_template
+              - trusted_cert
+              - list
+              - error
+              - agreement
+              - signed_agreement
+              - policy
+              - limitation
+              - identity_provider
+              - user_session
+              - user_invitation
+              - notification_entry
+              - branding_color
+              - branding_image
+              type: string
+            - _key: quota
+              description: Quota of the account limitation.
+              format: int32
+              type: integer
+            - _key: updated_at
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
+          type: array
         - _key: limits
           additionalProperties:
             type: string
           api_fieldname: limits
+          deprecated: true
           description: List of limits as key-value pairs if requested.
           entity_fieldname: limits
           type: object
+          x-deprecation:
+            comment: Superseded by the limitations parameter.
+            end_of_life_at: '2020-08-27T12:03:58+00:00'
+            issued_at: '2019-08-27T12:03:58+00:00'
           x-nullable: true
         - _key: mfa_status
           api_fieldname: mfa_status
@@ -8543,11 +9398,95 @@ entities:
               minimum: 1
               type: integer
               x-nullable: true
+            - _key: limitations
+              description: List of account limitation objects.
+              items:
+                description: This object represents an account limitation.
+                properties:
+                - _key: billing_period
+                  description: Billing period of the account limitation.
+                  format: int32
+                  type: integer
+                - _key: created_at
+                  description: Creation UTC time RFC3339.
+                  example: '2018-02-13T09:35:20Z'
+                  format: date-time
+                  type: string
+                - _key: description
+                  description: Description of the account limitation.
+                  readOnly: true
+                  type: string
+                - _key: etag
+                  description: API resource entity version.
+                  example: '1'
+                  type: string
+                - _key: id
+                  description: Entity ID.
+                  example: 01619571d01d0242ac12000600000000
+                  type: string
+                - _key: inherited
+                  description: Flag indicating whether this limitation is inherited.
+                  readOnly: true
+                  type: boolean
+                - _key: inherited_from
+                  description: Indicates where this limit is inherited from.
+                  readOnly: true
+                  type: string
+                - _key: inherited_type
+                  description: Indicates the type of the entity where the limitation
+                    is inherited from.
+                  readOnly: true
+                  type: string
+                - _key: limit
+                  description: The value of the limit.
+                  format: int32
+                  type: integer
+                - _key: name
+                  description: Name of the account limitation.
+                  type: string
+                - _key: object
+                  description: 'Entity name: always ''limitation'''
+                  enum:
+                  - user
+                  - api-key
+                  - group
+                  - account
+                  - account_template
+                  - trusted_cert
+                  - list
+                  - error
+                  - agreement
+                  - signed_agreement
+                  - policy
+                  - limitation
+                  - identity_provider
+                  - user_session
+                  - user_invitation
+                  - notification_entry
+                  - branding_color
+                  - branding_image
+                  type: string
+                - _key: quota
+                  description: Quota of the account limitation.
+                  format: int32
+                  type: integer
+                - _key: updated_at
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
+              type: array
             - _key: limits
               additionalProperties:
                 type: string
+              deprecated: true
               description: List of limits as key-value pairs if requested.
               type: object
+              x-deprecation:
+                comment: Superseded by the limitations parameter.
+                end_of_life_at: '2020-08-27T12:03:58+00:00'
+                issued_at: '2019-08-27T12:03:58+00:00'
               x-nullable: true
             - _key: mfa_status
               description: The enforcement status of multi-factor authentication,
@@ -44105,7 +45044,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -44331,7 +45270,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -44614,7 +45553,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -45033,7 +45972,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -45278,7 +46217,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -45558,7 +46497,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -47647,7 +48586,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: false
       in: path
@@ -49537,7 +50476,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -49762,7 +50701,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -50045,7 +50984,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -50462,7 +51401,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -50707,7 +51646,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -50985,7 +51924,7 @@ entities:
     fields:
     - _key: account_id
       api_fieldname: account_id
-      description: Account ID.
+      description: The ID of the account.
       entity_fieldname: account_id
       external_param: true
       in: path
@@ -52489,7 +53428,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: users
-    description: 'List users of the group with details.
+    description: 'List a group''s users, with details.
 
 
       **Example:**

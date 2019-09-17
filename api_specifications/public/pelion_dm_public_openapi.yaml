@@ -285,11 +285,21 @@ definitions:
         minimum: 1
         type: integer
         x-nullable: true
+      limitations:
+        description: List of account limitation objects.
+        items:
+          $ref: '#/definitions/AccountLimitation'
+        type: array
       limits:
         additionalProperties:
           type: string
+        deprecated: true
         description: List of limits as key-value pairs if requested.
         type: object
+        x-deprecation:
+          comment: Superseded by the limitations parameter.
+          end_of_life_at: '2020-08-27T12:03:58+00:00'
+          issued_at: '2019-08-27T12:03:58+00:00'
         x-nullable: true
       mfa_status:
         description: The enforcement status of multi-factor authentication, either
@@ -450,6 +460,128 @@ definitions:
         type: string
       total_count:
         description: The total number of records, if requested.
+        example: 20
+        format: int32
+        type: integer
+    required:
+    - data
+    - has_more
+    - limit
+    - object
+    - total_count
+    type: object
+  AccountLimitation:
+    description: This object represents an account limitation.
+    properties:
+      billing_period:
+        description: Billing period of the account limitation.
+        format: int32
+        type: integer
+      created_at:
+        description: Creation UTC time RFC3339.
+        example: '2018-02-13T09:35:20Z'
+        format: date-time
+        type: string
+      description:
+        description: Description of the account limitation.
+        readOnly: true
+        type: string
+      etag:
+        description: API resource entity version.
+        example: '1'
+        type: string
+      id:
+        description: Entity ID.
+        example: 01619571d01d0242ac12000600000000
+        type: string
+      inherited:
+        description: Flag indicating whether this limitation is inherited.
+        readOnly: true
+        type: boolean
+      inherited_from:
+        description: Indicates where this limit is inherited from.
+        readOnly: true
+        type: string
+      inherited_type:
+        description: Indicates the type of the entity where the limitation is inherited
+          from.
+        readOnly: true
+        type: string
+      limit:
+        description: The value of the limit.
+        format: int32
+        type: integer
+      name:
+        description: Name of the account limitation.
+        type: string
+      object:
+        description: 'Entity name: always ''limitation'''
+        enum:
+        - user
+        - api-key
+        - group
+        - account
+        - account_template
+        - trusted_cert
+        - list
+        - error
+        - agreement
+        - signed_agreement
+        - policy
+        - limitation
+        - identity_provider
+        - user_session
+        - user_invitation
+        - notification_entry
+        - branding_color
+        - branding_image
+        type: string
+      quota:
+        description: Quota of the account limitation.
+        format: int32
+        type: integer
+      updated_at:
+        description: Last update UTC time RFC3339.
+        example: '2018-02-14T15:24:14Z'
+        format: date-time
+        type: string
+    type: object
+  AccountLimitationList:
+    properties:
+      after:
+        description: The entity ID to fetch after the given one.
+        example: 01619571f3c00242ac12000600000000
+        type: string
+      data:
+        description: A list of entities.
+        items:
+          $ref: '#/definitions/AccountLimitation'
+        type: array
+      has_more:
+        description: Flag indicating whether there is more results.
+        example: false
+        type: boolean
+      limit:
+        description: 'The number of results to return, (range: 2-1000), or equals
+          to `total_count`'
+        example: 50
+        format: int32
+        type: integer
+      object:
+        description: 'Entity name: always ''list'''
+        enum:
+        - list
+        type: string
+      order:
+        description: 'The order of the records to return based on creation time. Available
+          values: ASC, DESC; by default ASC.'
+        enum:
+        - ASC
+        - DESC
+        type: string
+      total_count:
+        description: The total number or records, if requested. It might be returned
+          also for small lists.
         example: 20
         format: int32
         type: integer
@@ -4144,6 +4276,10 @@ definitions:
     required:
     - name
     type: object
+  GroupIdList:
+    items:
+      type: string
+    type: array
   GroupSummary:
     description: This object contains basic information about groups.
     properties:
@@ -9520,6 +9656,7 @@ paths:
     delete:
       consumes:
       - application/json
+      deprecated: true
       description: 'Remove API key from groups.
 
 
@@ -9583,6 +9720,11 @@ paths:
       summary: Remove API key from groups.
       tags:
       - Tenant accounts - API keys
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/remove/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve groups associated with the API key.
@@ -9661,6 +9803,7 @@ paths:
     post:
       consumes:
       - application/json
+      deprecated: true
       description: 'Add API key to groups.
 
 
@@ -9728,6 +9871,147 @@ paths:
       summary: Add API key to a list of groups.
       tags:
       - Tenant accounts - API keys
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/add/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/api-keys/{apikey_id}/groups/add:
+    post:
+      consumes:
+      - application/json
+      description: 'Add an API key to groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/add
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: addAccountApiKeyToListedGroups
+      parameters:
+      - description: The ID of the Account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the API key to add to the group.
+        in: path
+        name: apikey_id
+        required: true
+        type: string
+      - description: A list of IDs of groups to update.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/GroupIdList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoResp'
+        '400':
+          description: Error in input data.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An account or API key with the specified ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The API key is a member of the group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add API key to a list of groups.
+      tags:
+      - Tenant accounts - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/api-keys/{apikey_id}/groups/remove:
+    post:
+      consumes:
+      - application/json
+      description: 'Remove an API key from groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/remove
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: removeAccountApiKeyFromListedGroups
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the API key to remove from the group.
+        in: path
+        name: apikey_id
+        required: true
+        type: string
+      - description: A list of IDs of the groups to update.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/GroupIdList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoResp'
+        '400':
+          description: Error in input data.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An account or API key with the specified ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Remove API key from groups.
+      tags:
+      - Tenant accounts - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/api-keys/{apikey_id}/reset-secret:
     post:
@@ -9789,7 +10073,80 @@ paths:
       tags:
       - Tenant accounts - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/branding-colors:
+    delete:
+      description: 'Delete account branding colors for all themes.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors
+        -H ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllAccountColors
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Colors have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account or branding colors not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete all colors.
+      tags:
+      - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-colors/dark:
+    delete:
+      description: 'Delete account dark theme branding colors.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark
+        -H ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllAccountDarkColors
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Colors have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account or branding colors not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete colors in the dark theme.
+      tags:
+      - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve dark theme branding colors for an account.
 
@@ -9806,7 +10163,7 @@ paths:
         ```'
       operationId: getAccountDarkColors
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -9843,7 +10200,7 @@ paths:
         \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"#f3f93e\" }]'\n```"
       operationId: bulkSetAccountDarkColors
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -9899,7 +10256,7 @@ paths:
         ```'
       operationId: resetAccountDarkColor
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -9947,7 +10304,7 @@ paths:
         ```'
       operationId: getAccountDarkColor
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10003,7 +10360,7 @@ paths:
         ```'
       operationId: setAccountDarkColor
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10048,6 +10405,42 @@ paths:
       - Tenant user interface configuration - colors
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-colors/light:
+    delete:
+      description: 'Delete account light theme branding colors.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light
+        -H ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllAccountLightColors
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Colors have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account or branding colors not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete colors in the light theme.
+      tags:
+      - Tenant user interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve light theme branding colors for an account.
 
@@ -10064,7 +10457,7 @@ paths:
         ```'
       operationId: getAccountLightColors
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10101,7 +10494,7 @@ paths:
         \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"purple\" }]'\n```"
       operationId: bulkSetAccountLightColors
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10157,7 +10550,7 @@ paths:
         ```'
       operationId: resetAccountLightColor
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10204,7 +10597,7 @@ paths:
         ```'
       operationId: getAccountLightColor
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10260,7 +10653,7 @@ paths:
         ```'
       operationId: setAccountLightColor
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10304,7 +10697,80 @@ paths:
       tags:
       - Tenant user interface configuration - colors
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/branding-images:
+    delete:
+      description: 'Delete account branding images for all themes.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images
+        -H ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllAccountImages
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Images have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account or branding images not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete all images.
+      tags:
+      - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/dark:
+    delete:
+      description: 'Delete account dark theme branding images.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark
+        -H ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllAccountDarkImages
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Images have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account or branding images not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete images in the dark theme.
+      tags:
+      - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the metadata of all dark theme branding images.
 
@@ -10321,7 +10787,7 @@ paths:
         ```'
       operationId: getAllAccountDarkImageData
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10366,7 +10832,7 @@ paths:
         ```'
       operationId: getAccountDarkImageData
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10417,7 +10883,7 @@ paths:
         ```'
       operationId: clearAccountDarkImage
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10472,7 +10938,7 @@ paths:
         ```'
       operationId: uploadAccountDarkImage
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10531,7 +10997,7 @@ paths:
         PNG or JPEG format.
       operationId: uploadAccountDarkImageMultipart
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10582,6 +11048,42 @@ paths:
       - Tenant user interface configuration - images
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-images/light:
+    delete:
+      description: 'Delete account light theme branding images.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light
+        -H ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllAccountLightImages
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Images have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account or branding images not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete images in the light theme.
+      tags:
+      - Tenant user interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the metadata of all light theme branding images.
 
@@ -10598,7 +11100,7 @@ paths:
         ```'
       operationId: getAllAccountLightImageData
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10643,7 +11145,7 @@ paths:
         ```'
       operationId: getAccountLightImageData
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10692,7 +11194,7 @@ paths:
         ```'
       operationId: clearAccountLightImage
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10747,7 +11249,7 @@ paths:
         ```'
       operationId: uploadAccountLightImage
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10806,7 +11308,7 @@ paths:
         format.
       operationId: uploadAccountLightImageMultipart
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -10863,7 +11365,7 @@ paths:
       description: Retrieve identity providers in an array.
       operationId: getAllAccountIdentityProviders
       parameters:
-      - description: Account ID.
+      - description: The ID of the account.
         in: path
         name: account_id
         required: true
@@ -11252,6 +11754,86 @@ paths:
       summary: Refreshes the OIDC signing keys.
       tags:
       - Tenant accounts - identity providers
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/limitations:
+    get:
+      description: An endpoint for retrieving all limitations of an account.
+      operationId: aggregatorGetAccountLimitations
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: Filter for finding account limitations by inheritance. True returns
+          also inherited limitations. False returns only non-inherited ones.
+        in: query
+        name: inherited__eq
+        required: false
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AccountLimitationList'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account with the given ID not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get all limitations of an account.
+      tags:
+      - Tenant accounts - limitations
+      x-filter:
+        inherited:
+        - eq
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/limitations/{limitation_id}:
+    get:
+      description: An endpoint for retrieving a limitation of an account.
+      operationId: aggregatorGetAccountLimitation
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the limitation to be fetched.
+        in: path
+        name: limitation_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AccountLimitation'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Limitation or account with the given ID not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get a limitation of an account.
+      tags:
+      - Tenant accounts - limitations
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/notifications:
     get:
@@ -11729,6 +12311,7 @@ paths:
     delete:
       consumes:
       - application/json
+      deprecated: true
       description: 'Remove API keys from groups.
 
 
@@ -11791,6 +12374,11 @@ paths:
       summary: Remove API keys from a group.
       tags:
       - Tenant accounts - policy groups
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys/remove
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'List the API keys of the group with details.
@@ -11866,10 +12454,211 @@ paths:
       tags:
       - Tenant accounts - policy groups
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+    post:
+      deprecated: true
+      description: 'Add API keys to account groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
+      operationId: addApiKeysToAccountGroup
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the group to retrieve API keys for.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of API keys to add to the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoRespList'
+        '400':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoRespList'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An account or group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The API Key is a member of the group or account already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add API keys to Account group.
+      tags:
+      - Tenant accounts - policy groups
+      x-deprecation:
+        comment: This endpoint is deprecated. use POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys/add/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/policy-groups/{group_id}/api-keys/add:
+    post:
+      description: 'Add API keys to account groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys/add
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
+      operationId: addListedApiKeysToAccountGroup
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the group to retrieve API keys for.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of API keys to add to the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoRespList'
+        '400':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoRespList'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An account or group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The API key is a member of the account group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add API keys to account group.
+      tags:
+      - Tenant accounts - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/policy-groups/{group_id}/api-keys/remove:
+    post:
+      consumes:
+      - application/json
+      description: 'Remove API keys from groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys/remove
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''{"apikeys": ["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]}''
+
+        ```'
+      operationId: removeListedApiKeysFromAccountGroup
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the group to remove API keys from.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of API keys to remove from the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/GroupSummary'
+        '400':
+          description: Error in input data, for example, the array of API keys is
+            missing.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An account or group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Remove API keys from a group.
+      tags:
+      - Tenant accounts - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/policy-groups/{group_id}/users:
     delete:
       consumes:
       - application/json
+      deprecated: true
       description: "Remove users from groups.\n\n**Example:**\n```\ncurl -X DELETE\
         \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json'\
@@ -11920,9 +12709,14 @@ paths:
       summary: Remove users from a group.
       tags:
       - Tenant accounts - policy groups
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users/remove/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'List users of the group with details.
+      description: 'List a group''s users, with details.
 
 
         **Example:**
@@ -12015,6 +12809,193 @@ paths:
         - eq
         - in
         - nin
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+    post:
+      deprecated: true
+      description: 'Add users to account group.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
+      operationId: addUsersToAccountGroup
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the group to retrieve API keys for.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of API keys to add to the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoRespList'
+        '400':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoRespList'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An account or group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The user is a member of the account group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add users to account group.
+      tags:
+      - Tenant accounts - policy groups
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users/add/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/policy-groups/{group_id}/users/add:
+    post:
+      description: 'Add users to account group.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users/add
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
+      operationId: addListedUsersToAccountGroup
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the group to retrieve API keys for.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of API keys to add to the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoRespList'
+        '400':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoRespList'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An account or group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The user is a member of the account group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add users to account group.
+      tags:
+      - Tenant accounts - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/policy-groups/{group_id}/users/remove:
+    post:
+      consumes:
+      - application/json
+      description: "Remove users from groups.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users\
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json'\
+        \ \\\n-d '{\"users\": [\"0162056a9a1586f30242590700000000\",\"0117056a9a1586f30242590700000000\"\
+        ]}'\n```"
+      operationId: removeListedUsersFromAccountGroup
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the group to remove users from.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of users to remove from the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/GroupSummary'
+        '400':
+          description: Error in input data, for example, the last user to remove from
+            Administrators group.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An account or group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Remove users from a group.
+      tags:
+      - Tenant accounts - policy groups
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/trusted-certificates:
     get:
@@ -12960,6 +13941,7 @@ paths:
     delete:
       consumes:
       - application/json
+      deprecated: true
       description: 'Remove user from groups.
 
 
@@ -13023,6 +14005,11 @@ paths:
       summary: Remove user from groups.
       tags:
       - Tenant accounts - users
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/remove/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve user''s groups.
@@ -13101,6 +14088,7 @@ paths:
     post:
       consumes:
       - application/json
+      deprecated: true
       description: 'Add user to groups.
 
 
@@ -13166,6 +14154,147 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Add user to a list of groups.
+      tags:
+      - Tenant accounts - users
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/add/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/users/{user_id}/groups/add:
+    post:
+      consumes:
+      - application/json
+      description: 'Add a user to groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/add
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: addAccountUserToListedGroups
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the user to add to the group.
+        in: path
+        name: user_id
+        required: true
+        type: string
+      - description: A list of IDs of the groups to update.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/GroupIdList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/UserInfoResp'
+        '400':
+          description: Error in input data.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An account, user, or group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The user is a member of the group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add user to a list of groups.
+      tags:
+      - Tenant accounts - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/accounts/{account_id}/users/{user_id}/groups/remove:
+    post:
+      consumes:
+      - application/json
+      description: 'Remove a user from groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/remove
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: removeAccountUserFromListedGroups
+      parameters:
+      - description: The ID of the account.
+        in: path
+        name: account_id
+        required: true
+        type: string
+      - description: The ID of the user to remove from the group.
+        in: path
+        name: user_id
+        required: true
+        type: string
+      - description: A list of IDs of the groups to update.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/GroupIdList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/UserInfoResp'
+        '400':
+          description: Error in input data.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An account, user, or group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Remove user from groups.
       tags:
       - Tenant accounts - users
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -13429,6 +14558,7 @@ paths:
     delete:
       consumes:
       - application/json
+      deprecated: true
       description: 'Remove API key from groups.
 
 
@@ -13445,16 +14575,14 @@ paths:
         -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
 
         ```'
-      operationId: removeMyApiKeyFromGroups
+      operationId: removeMyApiKeyListedGroups
       parameters:
       - description: A list of IDs of groups to update.
         in: body
         name: body
         required: true
         schema:
-          items:
-            type: string
-          type: array
+          $ref: '#/definitions/GroupIdList'
       produces:
       - application/json
       responses:
@@ -13477,6 +14605,11 @@ paths:
       summary: Remove API key from groups.
       tags:
       - Account - API keys
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/remove/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve groups associated with the API key.
@@ -13540,6 +14673,7 @@ paths:
     post:
       consumes:
       - application/json
+      deprecated: true
       description: 'Add API key to groups.
 
 
@@ -13590,6 +14724,119 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Add API key to a list of groups.
+      tags:
+      - Account - API keys
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/add/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/api-keys/me/groups/add:
+    post:
+      consumes:
+      - application/json
+      description: 'Add API key to groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/add/
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: addMyApiKeyToListedGroups
+      parameters:
+      - description: A list of IDs of the groups to update.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/GroupIdList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoResp'
+        '400':
+          description: Error in input data.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The API key is a member of the group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add API key to a list of groups.
+      tags:
+      - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/api-keys/me/groups/remove:
+    post:
+      consumes:
+      - application/json
+      description: 'Remove API key from groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/remove
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: removeMyApiKeyFromListedGroups
+      parameters:
+      - description: A list of IDs of groups to update.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/GroupIdList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoResp'
+        '400':
+          description: Error in input data.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Remove API key from groups.
       tags:
       - Account - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -13738,6 +14985,7 @@ paths:
     delete:
       consumes:
       - application/json
+      deprecated: true
       description: 'Remove API key from groups.
 
 
@@ -13796,6 +15044,11 @@ paths:
       summary: Remove API key from groups.
       tags:
       - Account - API keys
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/remove/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve groups associated with the API key.
@@ -13869,6 +15122,7 @@ paths:
     post:
       consumes:
       - application/json
+      deprecated: true
       description: 'Add API key to groups.
 
 
@@ -13929,6 +15183,137 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Add API key to a list of groups.
+      tags:
+      - Account - API keys
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/add/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/api-keys/{apikey_id}/groups/add:
+    post:
+      consumes:
+      - application/json
+      description: 'Add API key to groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/add
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: addApiKeyToListedGroups
+      parameters:
+      - description: The ID of the API key to add to the group.
+        in: path
+        name: apikey_id
+        required: true
+        type: string
+      - description: A list of IDs of the groups to update.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/GroupIdList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoResp'
+        '400':
+          description: Error in input data.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A group or API key with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The API key is a member of the group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add API key to a list of groups.
+      tags:
+      - Account - API keys
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/api-keys/{apikey_id}/groups/remove:
+    post:
+      consumes:
+      - application/json
+      description: 'Remove API key from groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/remove
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: removeApiKeyFromListedGroups
+      parameters:
+      - description: The ID of the API key to remove from the group.
+        in: path
+        name: apikey_id
+        required: true
+        type: string
+      - description: A list of IDs of the groups to update.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/GroupIdList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/ApiKeyInfoResp'
+        '400':
+          description: Error in input data.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: An API key with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Remove API key from groups.
       tags:
       - Account - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -14411,7 +15796,70 @@ paths:
             $ref: '#/definitions/InternalServerErrorResponse'
       summary: Get raw billing data of the firmware updates for the month.
       x-origin: /home/circleci/project/billing/public/swagger-public-apis.yaml
+  /v3/branding-colors:
+    delete:
+      description: 'Delete account branding colors for all themes.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors -H
+        ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllColors
+      parameters: []
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Colors have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account branding colors not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete all colors.
+      tags:
+      - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-colors/dark:
+    delete:
+      description: 'Delete account dark theme branding colors.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark
+        -H ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllDarkColors
+      parameters: []
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Colors have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account branding colors not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete colors in the dark theme.
+      tags:
+      - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the dark theme branding colors.
 
@@ -14635,6 +16083,37 @@ paths:
       - User interface configuration - colors
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-colors/light:
+    delete:
+      description: 'Delete account light theme branding colors.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light
+        -H ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllLightColors
+      parameters: []
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Colors have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account branding colors not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete colors in the light theme.
+      tags:
+      - User interface configuration - colors
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the light theme branding colors.
 
@@ -14857,7 +16336,70 @@ paths:
       tags:
       - User interface configuration - colors
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/branding-images:
+    delete:
+      description: 'Delete account branding images for all themes.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-images -H
+        ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllImages
+      parameters: []
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Images have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account branding images not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete all images.
+      tags:
+      - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/dark:
+    delete:
+      description: 'Delete account dark theme branding images.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-images/dark
+        -H ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllDarkImages
+      parameters: []
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Images have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account branding images not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete images in the dark theme.
+      tags:
+      - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve metadata for all dark theme branding images.
 
@@ -15103,6 +16645,37 @@ paths:
       - User interface configuration - images
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/branding-images/light:
+    delete:
+      description: 'Delete account light theme branding images.
+
+
+        **Example usage:**
+
+        `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-images/light
+        -H ''Authorization: Bearer API_KEY''`'
+      operationId: deleteAllLightImages
+      parameters: []
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Images have been deleted successfully.
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Account branding images not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Delete images in the light theme.
+      tags:
+      - User interface configuration - images
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the metadata of all light theme branding images.
 
@@ -22146,6 +23719,72 @@ paths:
       tags:
       - Account - identity providers
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/limitations:
+    get:
+      description: An endpoint for retrieving all limitations of an account.
+      operationId: getAccountLimitations
+      parameters:
+      - description: Filter for finding account limitations by inheritance. True returns
+          also inherited limitations. False returns only non-inherited ones.
+        in: query
+        name: inherited__eq
+        required: false
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AccountLimitationList'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get all limitations of an account.
+      tags:
+      - Account - limitations
+      x-filter:
+        inherited:
+        - eq
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/limitations/{limitation_id}:
+    get:
+      description: An endpoint for retrieving a limitation of an account.
+      operationId: getAccountLimitation
+      parameters:
+      - description: The ID of the limitation to be fetched.
+        in: path
+        name: limitation_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AccountLimitation'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Limitation with the given ID not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get a limitation of an account.
+      tags:
+      - Account - limitations
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/metrics:
     get:
       description: This REST API is used to get account-specific statistics.
@@ -22626,6 +24265,7 @@ paths:
     delete:
       consumes:
       - application/json
+      deprecated: true
       description: 'Remove API keys from groups.
 
 
@@ -22683,6 +24323,11 @@ paths:
       summary: Remove API keys from a group.
       tags:
       - Account - policy groups
+      x-deprecation:
+        comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/remove/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Manage policy groups.
@@ -22753,10 +24398,196 @@ paths:
       tags:
       - Account - policy groups
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+    post:
+      deprecated: true
+      description: 'Add API keys to the group.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
+      operationId: addApiKeysToGroup
+      parameters:
+      - description: The ID of the group.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of API keys to add to the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/GroupSummary'
+        '400':
+          description: Error in input data, for example, the group Id does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The API key is a member of the group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add API keys to the group.
+      tags:
+      - Account - policy groups
+      x-deprecation:
+        comment: This endpoint is deprecated, use POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/add/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/policy-groups/{group_id}/api-keys/add:
+    post:
+      description: 'Add API keys to the group.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
+      operationId: addListedApiKeysToGroup
+      parameters:
+      - description: The ID of the group.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of API keys to add to the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/GroupSummary'
+        '400':
+          description: Error in input data, for example, the group Id does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The API key is a member of the group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add API Keys to the group.
+      tags:
+      - Account - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/policy-groups/{group_id}/api-keys/remove:
+    post:
+      consumes:
+      - application/json
+      description: 'Remove API keys from groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/remove
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: removeListedApiKeysFromGroup
+      parameters:
+      - description: The ID of the group.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of API keys to remove from the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/GroupSummary'
+        '400':
+          description: Error in input data, for example, the array of API keys is
+            missing.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Remove API keys from a group.
+      tags:
+      - Account - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/policy-groups/{group_id}/users:
     delete:
       consumes:
       - application/json
+      deprecated: true
       description: 'Manage policy groups.
 
 
@@ -22814,6 +24645,11 @@ paths:
       summary: Remove users from a group.
       tags:
       - Account - policy groups
+      x-deprecation:
+        comment: This endpoint is deprecated, POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/remove/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve users of a group with details.
@@ -22904,6 +24740,191 @@ paths:
         - eq
         - in
         - nin
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+    post:
+      deprecated: true
+      description: 'Add users to the group.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
+      operationId: addUsersToGroup.
+      parameters:
+      - description: The ID of the group.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of API keys to add to the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/GroupSummary'
+        '400':
+          description: Error in input data, for example, the group Id does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The user is a member of the group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add users to the group.
+      tags:
+      - Account - policy groups
+      x-deprecation:
+        comment: This endpoint is deprecated, POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/add/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/policy-groups/{group_id}/users/add:
+    post:
+      description: 'Add users to the group.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/add
+        \
+
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
+      operationId: addListedUsersToGroup.
+      parameters:
+      - description: The ID of the group.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of API keys to add to the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/GroupSummary'
+        '400':
+          description: Error in input data, for example, the group Id does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The user is a member of the group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add users to the group.
+      tags:
+      - Account - policy groups
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/policy-groups/{group_id}/users/remove:
+    post:
+      consumes:
+      - application/json
+      description: 'Manage policy groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/remove
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: removeListedUsersFromGroup
+      parameters:
+      - description: The ID of the group.
+        in: path
+        name: group_id
+        required: true
+        type: string
+      - description: A list of users to remove from the group.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubjectList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/GroupSummary'
+        '400':
+          description: Error in input data, for example, the user removing themselves
+            from the Administrators group.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Remove users from a group.
+      tags:
+      - Account - policy groups
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/server-credentials:
     get:
@@ -25023,6 +27044,7 @@ paths:
     delete:
       consumes:
       - application/json
+      deprecated: true
       description: 'Remove user from groups.
 
 
@@ -25081,6 +27103,11 @@ paths:
       summary: Remove user from groups.
       tags:
       - Account - users
+      x-deprecation:
+        comment: This endpoint is deprecated, use POST https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/remove/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve groups of the user.
@@ -25154,6 +27181,7 @@ paths:
     post:
       consumes:
       - application/json
+      deprecated: true
       description: 'Add user to groups.
 
 
@@ -25214,6 +27242,137 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Add user to a list of groups.
+      tags:
+      - Account - users
+      x-deprecation:
+        comment: This endpoint is deprecated, use POST https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/add/
+        end_of_life_at: '2020-07-11T11:04:57+00:00'
+        issued_at: '2019-07-11T11:04:57+00:00'
+        links: []
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/users/{user_id}/groups/add:
+    post:
+      consumes:
+      - application/json
+      description: 'Add user to groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/add
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: addUserToListedGroups
+      parameters:
+      - description: The ID of the user to add to the group.
+        in: path
+        name: user_id
+        required: true
+        type: string
+      - description: A list of IDs of the groups to update.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/GroupIdList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/UserInfoResp'
+        '400':
+          description: Error in input data.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A user or group with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: The user is a member of the group already.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add user to a list of groups.
+      tags:
+      - Account - users
+      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/users/{user_id}/groups/remove:
+    post:
+      consumes:
+      - application/json
+      description: 'Remove user from groups.
+
+
+        **Example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/remove
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''["0162056a9a1586f30242590700000000","0117056a9a1586f30242590700000000"]''
+
+        ```'
+      operationId: removeUserFromListedGroups
+      parameters:
+      - description: The ID of the user to remove from the group.
+        in: path
+        name: user_id
+        required: true
+        type: string
+      - description: A list of IDs of the groups to update.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/GroupIdList'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/UserInfoResp'
+        '400':
+          description: Error in input data.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A user with that ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Remove user from groups.
       tags:
       - Account - users
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml

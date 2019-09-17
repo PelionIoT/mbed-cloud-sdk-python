@@ -2137,8 +2137,125 @@
                     "_key": "idle_timeout"
                   },
                   {
+                    "type": "array",
+                    "description": "List of account limitation objects.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Billing period of the account limitation.",
+                          "_key": "billing_period"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-13T09:35:20Z",
+                          "description": "Creation UTC time RFC3339.",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Description of the account limitation.",
+                          "readOnly": true,
+                          "_key": "description"
+                        },
+                        {
+                          "type": "string",
+                          "example": "1",
+                          "description": "API resource entity version.",
+                          "_key": "etag"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571d01d0242ac12000600000000",
+                          "description": "Entity ID.",
+                          "_key": "id"
+                        },
+                        {
+                          "type": "boolean",
+                          "description": "Flag indicating whether this limitation is inherited.",
+                          "readOnly": true,
+                          "_key": "inherited"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Indicates where this limit is inherited from.",
+                          "readOnly": true,
+                          "_key": "inherited_from"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Indicates the type of the entity where the limitation is inherited from.",
+                          "readOnly": true,
+                          "_key": "inherited_type"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "The value of the limit.",
+                          "_key": "limit"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the account limitation.",
+                          "_key": "name"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'limitation'",
+                          "enum": [
+                            "user",
+                            "api-key",
+                            "group",
+                            "account",
+                            "account_template",
+                            "trusted_cert",
+                            "list",
+                            "error",
+                            "agreement",
+                            "signed_agreement",
+                            "policy",
+                            "limitation",
+                            "identity_provider",
+                            "user_session",
+                            "user_invitation",
+                            "notification_entry",
+                            "branding_color",
+                            "branding_image"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Quota of the account limitation.",
+                          "_key": "quota"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updated_at"
+                        }
+                      ],
+                      "description": "This object represents an account limitation."
+                    },
+                    "api_fieldname": "limitations",
+                    "entity_fieldname": "limitations",
+                    "_key": "limitations"
+                  },
+                  {
                     "type": "object",
                     "x-nullable": true,
+                    "deprecated": true,
+                    "x-deprecation": {
+                      "issued_at": "2019-08-27T12:03:58+00:00",
+                      "end_of_life_at": "2020-08-27T12:03:58+00:00",
+                      "comment": "Superseded by the limitations parameter."
+                    },
                     "description": "List of limits as key-value pairs if requested.",
                     "additionalProperties": {
                       "type": "string"
@@ -2674,8 +2791,123 @@
                           "_key": "idle_timeout"
                         },
                         {
+                          "type": "array",
+                          "description": "List of account limitation objects.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Billing period of the account limitation.",
+                                "_key": "billing_period"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-13T09:35:20Z",
+                                "description": "Creation UTC time RFC3339.",
+                                "_key": "created_at"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Description of the account limitation.",
+                                "readOnly": true,
+                                "_key": "description"
+                              },
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "API resource entity version.",
+                                "_key": "etag"
+                              },
+                              {
+                                "type": "string",
+                                "example": "01619571d01d0242ac12000600000000",
+                                "description": "Entity ID.",
+                                "_key": "id"
+                              },
+                              {
+                                "type": "boolean",
+                                "description": "Flag indicating whether this limitation is inherited.",
+                                "readOnly": true,
+                                "_key": "inherited"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Indicates where this limit is inherited from.",
+                                "readOnly": true,
+                                "_key": "inherited_from"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Indicates the type of the entity where the limitation is inherited from.",
+                                "readOnly": true,
+                                "_key": "inherited_type"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "The value of the limit.",
+                                "_key": "limit"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Name of the account limitation.",
+                                "_key": "name"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Entity name: always 'limitation'",
+                                "enum": [
+                                  "user",
+                                  "api-key",
+                                  "group",
+                                  "account",
+                                  "account_template",
+                                  "trusted_cert",
+                                  "list",
+                                  "error",
+                                  "agreement",
+                                  "signed_agreement",
+                                  "policy",
+                                  "limitation",
+                                  "identity_provider",
+                                  "user_session",
+                                  "user_invitation",
+                                  "notification_entry",
+                                  "branding_color",
+                                  "branding_image"
+                                ],
+                                "_key": "object"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Quota of the account limitation.",
+                                "_key": "quota"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updated_at"
+                              }
+                            ],
+                            "description": "This object represents an account limitation."
+                          },
+                          "_key": "limitations"
+                        },
+                        {
                           "type": "object",
                           "x-nullable": true,
+                          "deprecated": true,
+                          "x-deprecation": {
+                            "issued_at": "2019-08-27T12:03:58+00:00",
+                            "end_of_life_at": "2020-08-27T12:03:58+00:00",
+                            "comment": "Superseded by the limitations parameter."
+                          },
                           "description": "List of limits as key-value pairs if requested.",
                           "additionalProperties": {
                             "type": "string"
@@ -3271,6 +3503,7 @@
             "expiration",
             "admin_id",
             "admin_key",
+            "limitations",
             "password_recovery_expiration",
             "business_model_history"
           ],
@@ -3291,7 +3524,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "id",
@@ -3710,7 +3943,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "id",
@@ -4151,7 +4384,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "id",
@@ -4570,7 +4803,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "id",
@@ -5365,8 +5598,123 @@
                           "_key": "idle_timeout"
                         },
                         {
+                          "type": "array",
+                          "description": "List of account limitation objects.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Billing period of the account limitation.",
+                                "_key": "billing_period"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-13T09:35:20Z",
+                                "description": "Creation UTC time RFC3339.",
+                                "_key": "created_at"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Description of the account limitation.",
+                                "readOnly": true,
+                                "_key": "description"
+                              },
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "API resource entity version.",
+                                "_key": "etag"
+                              },
+                              {
+                                "type": "string",
+                                "example": "01619571d01d0242ac12000600000000",
+                                "description": "Entity ID.",
+                                "_key": "id"
+                              },
+                              {
+                                "type": "boolean",
+                                "description": "Flag indicating whether this limitation is inherited.",
+                                "readOnly": true,
+                                "_key": "inherited"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Indicates where this limit is inherited from.",
+                                "readOnly": true,
+                                "_key": "inherited_from"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Indicates the type of the entity where the limitation is inherited from.",
+                                "readOnly": true,
+                                "_key": "inherited_type"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "The value of the limit.",
+                                "_key": "limit"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Name of the account limitation.",
+                                "_key": "name"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Entity name: always 'limitation'",
+                                "enum": [
+                                  "user",
+                                  "api-key",
+                                  "group",
+                                  "account",
+                                  "account_template",
+                                  "trusted_cert",
+                                  "list",
+                                  "error",
+                                  "agreement",
+                                  "signed_agreement",
+                                  "policy",
+                                  "limitation",
+                                  "identity_provider",
+                                  "user_session",
+                                  "user_invitation",
+                                  "notification_entry",
+                                  "branding_color",
+                                  "branding_image"
+                                ],
+                                "_key": "object"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Quota of the account limitation.",
+                                "_key": "quota"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updated_at"
+                              }
+                            ],
+                            "description": "This object represents an account limitation."
+                          },
+                          "_key": "limitations"
+                        },
+                        {
                           "type": "object",
                           "x-nullable": true,
+                          "deprecated": true,
+                          "x-deprecation": {
+                            "issued_at": "2019-08-27T12:03:58+00:00",
+                            "end_of_life_at": "2020-08-27T12:03:58+00:00",
+                            "comment": "Superseded by the limitations parameter."
+                          },
                           "description": "List of limits as key-value pairs if requested.",
                           "additionalProperties": {
                             "type": "string"
@@ -5870,8 +6218,123 @@
                                 "_key": "idle_timeout"
                               },
                               {
+                                "type": "array",
+                                "description": "List of account limitation objects.",
+                                "items": {
+                                  "type": "object",
+                                  "properties": [
+                                    {
+                                      "type": "integer",
+                                      "format": "int32",
+                                      "description": "Billing period of the account limitation.",
+                                      "_key": "billing_period"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "example": "2018-02-13T09:35:20Z",
+                                      "description": "Creation UTC time RFC3339.",
+                                      "_key": "created_at"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "description": "Description of the account limitation.",
+                                      "readOnly": true,
+                                      "_key": "description"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "example": "1",
+                                      "description": "API resource entity version.",
+                                      "_key": "etag"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "example": "01619571d01d0242ac12000600000000",
+                                      "description": "Entity ID.",
+                                      "_key": "id"
+                                    },
+                                    {
+                                      "type": "boolean",
+                                      "description": "Flag indicating whether this limitation is inherited.",
+                                      "readOnly": true,
+                                      "_key": "inherited"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "description": "Indicates where this limit is inherited from.",
+                                      "readOnly": true,
+                                      "_key": "inherited_from"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "description": "Indicates the type of the entity where the limitation is inherited from.",
+                                      "readOnly": true,
+                                      "_key": "inherited_type"
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "format": "int32",
+                                      "description": "The value of the limit.",
+                                      "_key": "limit"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "description": "Name of the account limitation.",
+                                      "_key": "name"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "description": "Entity name: always 'limitation'",
+                                      "enum": [
+                                        "user",
+                                        "api-key",
+                                        "group",
+                                        "account",
+                                        "account_template",
+                                        "trusted_cert",
+                                        "list",
+                                        "error",
+                                        "agreement",
+                                        "signed_agreement",
+                                        "policy",
+                                        "limitation",
+                                        "identity_provider",
+                                        "user_session",
+                                        "user_invitation",
+                                        "notification_entry",
+                                        "branding_color",
+                                        "branding_image"
+                                      ],
+                                      "_key": "object"
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "format": "int32",
+                                      "description": "Quota of the account limitation.",
+                                      "_key": "quota"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "example": "2018-02-14T15:24:14Z",
+                                      "description": "Last update UTC time RFC3339.",
+                                      "_key": "updated_at"
+                                    }
+                                  ],
+                                  "description": "This object represents an account limitation."
+                                },
+                                "_key": "limitations"
+                              },
+                              {
                                 "type": "object",
                                 "x-nullable": true,
+                                "deprecated": true,
+                                "x-deprecation": {
+                                  "issued_at": "2019-08-27T12:03:58+00:00",
+                                  "end_of_life_at": "2020-08-27T12:03:58+00:00",
+                                  "comment": "Superseded by the limitations parameter."
+                                },
                                 "description": "List of limits as key-value pairs if requested.",
                                 "additionalProperties": {
                                   "type": "string"
@@ -6797,8 +7260,125 @@
                     "_key": "idle_timeout"
                   },
                   {
+                    "type": "array",
+                    "description": "List of account limitation objects.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Billing period of the account limitation.",
+                          "_key": "billing_period"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-13T09:35:20Z",
+                          "description": "Creation UTC time RFC3339.",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Description of the account limitation.",
+                          "readOnly": true,
+                          "_key": "description"
+                        },
+                        {
+                          "type": "string",
+                          "example": "1",
+                          "description": "API resource entity version.",
+                          "_key": "etag"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571d01d0242ac12000600000000",
+                          "description": "Entity ID.",
+                          "_key": "id"
+                        },
+                        {
+                          "type": "boolean",
+                          "description": "Flag indicating whether this limitation is inherited.",
+                          "readOnly": true,
+                          "_key": "inherited"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Indicates where this limit is inherited from.",
+                          "readOnly": true,
+                          "_key": "inherited_from"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Indicates the type of the entity where the limitation is inherited from.",
+                          "readOnly": true,
+                          "_key": "inherited_type"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "The value of the limit.",
+                          "_key": "limit"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the account limitation.",
+                          "_key": "name"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'limitation'",
+                          "enum": [
+                            "user",
+                            "api-key",
+                            "group",
+                            "account",
+                            "account_template",
+                            "trusted_cert",
+                            "list",
+                            "error",
+                            "agreement",
+                            "signed_agreement",
+                            "policy",
+                            "limitation",
+                            "identity_provider",
+                            "user_session",
+                            "user_invitation",
+                            "notification_entry",
+                            "branding_color",
+                            "branding_image"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Quota of the account limitation.",
+                          "_key": "quota"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updated_at"
+                        }
+                      ],
+                      "description": "This object represents an account limitation."
+                    },
+                    "api_fieldname": "limitations",
+                    "entity_fieldname": "limitations",
+                    "_key": "limitations"
+                  },
+                  {
                     "type": "object",
                     "x-nullable": true,
+                    "deprecated": true,
+                    "x-deprecation": {
+                      "issued_at": "2019-08-27T12:03:58+00:00",
+                      "end_of_life_at": "2020-08-27T12:03:58+00:00",
+                      "comment": "Superseded by the limitations parameter."
+                    },
                     "description": "List of limits as key-value pairs if requested.",
                     "additionalProperties": {
                       "type": "string"
@@ -7334,8 +7914,123 @@
                           "_key": "idle_timeout"
                         },
                         {
+                          "type": "array",
+                          "description": "List of account limitation objects.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Billing period of the account limitation.",
+                                "_key": "billing_period"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-13T09:35:20Z",
+                                "description": "Creation UTC time RFC3339.",
+                                "_key": "created_at"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Description of the account limitation.",
+                                "readOnly": true,
+                                "_key": "description"
+                              },
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "API resource entity version.",
+                                "_key": "etag"
+                              },
+                              {
+                                "type": "string",
+                                "example": "01619571d01d0242ac12000600000000",
+                                "description": "Entity ID.",
+                                "_key": "id"
+                              },
+                              {
+                                "type": "boolean",
+                                "description": "Flag indicating whether this limitation is inherited.",
+                                "readOnly": true,
+                                "_key": "inherited"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Indicates where this limit is inherited from.",
+                                "readOnly": true,
+                                "_key": "inherited_from"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Indicates the type of the entity where the limitation is inherited from.",
+                                "readOnly": true,
+                                "_key": "inherited_type"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "The value of the limit.",
+                                "_key": "limit"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Name of the account limitation.",
+                                "_key": "name"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Entity name: always 'limitation'",
+                                "enum": [
+                                  "user",
+                                  "api-key",
+                                  "group",
+                                  "account",
+                                  "account_template",
+                                  "trusted_cert",
+                                  "list",
+                                  "error",
+                                  "agreement",
+                                  "signed_agreement",
+                                  "policy",
+                                  "limitation",
+                                  "identity_provider",
+                                  "user_session",
+                                  "user_invitation",
+                                  "notification_entry",
+                                  "branding_color",
+                                  "branding_image"
+                                ],
+                                "_key": "object"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Quota of the account limitation.",
+                                "_key": "quota"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updated_at"
+                              }
+                            ],
+                            "description": "This object represents an account limitation."
+                          },
+                          "_key": "limitations"
+                        },
+                        {
                           "type": "object",
                           "x-nullable": true,
+                          "deprecated": true,
+                          "x-deprecation": {
+                            "issued_at": "2019-08-27T12:03:58+00:00",
+                            "end_of_life_at": "2020-08-27T12:03:58+00:00",
+                            "comment": "Superseded by the limitations parameter."
+                          },
                           "description": "List of limits as key-value pairs if requested.",
                           "additionalProperties": {
                             "type": "string"
@@ -7877,6 +8572,7 @@
             "admin_key",
             "admin_password",
             "admin_full_name",
+            "limitations",
             "password_recovery_expiration",
             "business_model",
             "business_model_history"
@@ -8238,8 +8934,125 @@
                     "_key": "idle_timeout"
                   },
                   {
+                    "type": "array",
+                    "description": "List of account limitation objects.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Billing period of the account limitation.",
+                          "_key": "billing_period"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-13T09:35:20Z",
+                          "description": "Creation UTC time RFC3339.",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Description of the account limitation.",
+                          "readOnly": true,
+                          "_key": "description"
+                        },
+                        {
+                          "type": "string",
+                          "example": "1",
+                          "description": "API resource entity version.",
+                          "_key": "etag"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571d01d0242ac12000600000000",
+                          "description": "Entity ID.",
+                          "_key": "id"
+                        },
+                        {
+                          "type": "boolean",
+                          "description": "Flag indicating whether this limitation is inherited.",
+                          "readOnly": true,
+                          "_key": "inherited"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Indicates where this limit is inherited from.",
+                          "readOnly": true,
+                          "_key": "inherited_from"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Indicates the type of the entity where the limitation is inherited from.",
+                          "readOnly": true,
+                          "_key": "inherited_type"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "The value of the limit.",
+                          "_key": "limit"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the account limitation.",
+                          "_key": "name"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'limitation'",
+                          "enum": [
+                            "user",
+                            "api-key",
+                            "group",
+                            "account",
+                            "account_template",
+                            "trusted_cert",
+                            "list",
+                            "error",
+                            "agreement",
+                            "signed_agreement",
+                            "policy",
+                            "limitation",
+                            "identity_provider",
+                            "user_session",
+                            "user_invitation",
+                            "notification_entry",
+                            "branding_color",
+                            "branding_image"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Quota of the account limitation.",
+                          "_key": "quota"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updated_at"
+                        }
+                      ],
+                      "description": "This object represents an account limitation."
+                    },
+                    "api_fieldname": "limitations",
+                    "entity_fieldname": "limitations",
+                    "_key": "limitations"
+                  },
+                  {
                     "type": "object",
                     "x-nullable": true,
+                    "deprecated": true,
+                    "x-deprecation": {
+                      "issued_at": "2019-08-27T12:03:58+00:00",
+                      "end_of_life_at": "2020-08-27T12:03:58+00:00",
+                      "comment": "Superseded by the limitations parameter."
+                    },
                     "description": "List of limits as key-value pairs if requested.",
                     "additionalProperties": {
                       "type": "string"
@@ -8775,8 +9588,123 @@
                           "_key": "idle_timeout"
                         },
                         {
+                          "type": "array",
+                          "description": "List of account limitation objects.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Billing period of the account limitation.",
+                                "_key": "billing_period"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-13T09:35:20Z",
+                                "description": "Creation UTC time RFC3339.",
+                                "_key": "created_at"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Description of the account limitation.",
+                                "readOnly": true,
+                                "_key": "description"
+                              },
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "API resource entity version.",
+                                "_key": "etag"
+                              },
+                              {
+                                "type": "string",
+                                "example": "01619571d01d0242ac12000600000000",
+                                "description": "Entity ID.",
+                                "_key": "id"
+                              },
+                              {
+                                "type": "boolean",
+                                "description": "Flag indicating whether this limitation is inherited.",
+                                "readOnly": true,
+                                "_key": "inherited"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Indicates where this limit is inherited from.",
+                                "readOnly": true,
+                                "_key": "inherited_from"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Indicates the type of the entity where the limitation is inherited from.",
+                                "readOnly": true,
+                                "_key": "inherited_type"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "The value of the limit.",
+                                "_key": "limit"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Name of the account limitation.",
+                                "_key": "name"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Entity name: always 'limitation'",
+                                "enum": [
+                                  "user",
+                                  "api-key",
+                                  "group",
+                                  "account",
+                                  "account_template",
+                                  "trusted_cert",
+                                  "list",
+                                  "error",
+                                  "agreement",
+                                  "signed_agreement",
+                                  "policy",
+                                  "limitation",
+                                  "identity_provider",
+                                  "user_session",
+                                  "user_invitation",
+                                  "notification_entry",
+                                  "branding_color",
+                                  "branding_image"
+                                ],
+                                "_key": "object"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Quota of the account limitation.",
+                                "_key": "quota"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updated_at"
+                              }
+                            ],
+                            "description": "This object represents an account limitation."
+                          },
+                          "_key": "limitations"
+                        },
+                        {
                           "type": "object",
                           "x-nullable": true,
+                          "deprecated": true,
+                          "x-deprecation": {
+                            "issued_at": "2019-08-27T12:03:58+00:00",
+                            "end_of_life_at": "2020-08-27T12:03:58+00:00",
+                            "comment": "Superseded by the limitations parameter."
+                          },
                           "description": "List of limits as key-value pairs if requested.",
                           "additionalProperties": {
                             "type": "string"
@@ -9390,6 +10318,7 @@
             "admin_key",
             "admin_password",
             "admin_full_name",
+            "limitations",
             "password_recovery_expiration",
             "business_model",
             "business_model_history"
@@ -10698,8 +11627,125 @@
                     "_key": "idle_timeout"
                   },
                   {
+                    "type": "array",
+                    "description": "List of account limitation objects.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Billing period of the account limitation.",
+                          "_key": "billing_period"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-13T09:35:20Z",
+                          "description": "Creation UTC time RFC3339.",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Description of the account limitation.",
+                          "readOnly": true,
+                          "_key": "description"
+                        },
+                        {
+                          "type": "string",
+                          "example": "1",
+                          "description": "API resource entity version.",
+                          "_key": "etag"
+                        },
+                        {
+                          "type": "string",
+                          "example": "01619571d01d0242ac12000600000000",
+                          "description": "Entity ID.",
+                          "_key": "id"
+                        },
+                        {
+                          "type": "boolean",
+                          "description": "Flag indicating whether this limitation is inherited.",
+                          "readOnly": true,
+                          "_key": "inherited"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Indicates where this limit is inherited from.",
+                          "readOnly": true,
+                          "_key": "inherited_from"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Indicates the type of the entity where the limitation is inherited from.",
+                          "readOnly": true,
+                          "_key": "inherited_type"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "The value of the limit.",
+                          "_key": "limit"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the account limitation.",
+                          "_key": "name"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Entity name: always 'limitation'",
+                          "enum": [
+                            "user",
+                            "api-key",
+                            "group",
+                            "account",
+                            "account_template",
+                            "trusted_cert",
+                            "list",
+                            "error",
+                            "agreement",
+                            "signed_agreement",
+                            "policy",
+                            "limitation",
+                            "identity_provider",
+                            "user_session",
+                            "user_invitation",
+                            "notification_entry",
+                            "branding_color",
+                            "branding_image"
+                          ],
+                          "_key": "object"
+                        },
+                        {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "Quota of the account limitation.",
+                          "_key": "quota"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updated_at"
+                        }
+                      ],
+                      "description": "This object represents an account limitation."
+                    },
+                    "api_fieldname": "limitations",
+                    "entity_fieldname": "limitations",
+                    "_key": "limitations"
+                  },
+                  {
                     "type": "object",
                     "x-nullable": true,
+                    "deprecated": true,
+                    "x-deprecation": {
+                      "issued_at": "2019-08-27T12:03:58+00:00",
+                      "end_of_life_at": "2020-08-27T12:03:58+00:00",
+                      "comment": "Superseded by the limitations parameter."
+                    },
                     "description": "List of limits as key-value pairs if requested.",
                     "additionalProperties": {
                       "type": "string"
@@ -11235,8 +12281,123 @@
                           "_key": "idle_timeout"
                         },
                         {
+                          "type": "array",
+                          "description": "List of account limitation objects.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Billing period of the account limitation.",
+                                "_key": "billing_period"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-13T09:35:20Z",
+                                "description": "Creation UTC time RFC3339.",
+                                "_key": "created_at"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Description of the account limitation.",
+                                "readOnly": true,
+                                "_key": "description"
+                              },
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "API resource entity version.",
+                                "_key": "etag"
+                              },
+                              {
+                                "type": "string",
+                                "example": "01619571d01d0242ac12000600000000",
+                                "description": "Entity ID.",
+                                "_key": "id"
+                              },
+                              {
+                                "type": "boolean",
+                                "description": "Flag indicating whether this limitation is inherited.",
+                                "readOnly": true,
+                                "_key": "inherited"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Indicates where this limit is inherited from.",
+                                "readOnly": true,
+                                "_key": "inherited_from"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Indicates the type of the entity where the limitation is inherited from.",
+                                "readOnly": true,
+                                "_key": "inherited_type"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "The value of the limit.",
+                                "_key": "limit"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Name of the account limitation.",
+                                "_key": "name"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Entity name: always 'limitation'",
+                                "enum": [
+                                  "user",
+                                  "api-key",
+                                  "group",
+                                  "account",
+                                  "account_template",
+                                  "trusted_cert",
+                                  "list",
+                                  "error",
+                                  "agreement",
+                                  "signed_agreement",
+                                  "policy",
+                                  "limitation",
+                                  "identity_provider",
+                                  "user_session",
+                                  "user_invitation",
+                                  "notification_entry",
+                                  "branding_color",
+                                  "branding_image"
+                                ],
+                                "_key": "object"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Quota of the account limitation.",
+                                "_key": "quota"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updated_at"
+                              }
+                            ],
+                            "description": "This object represents an account limitation."
+                          },
+                          "_key": "limitations"
+                        },
+                        {
                           "type": "object",
                           "x-nullable": true,
+                          "deprecated": true,
+                          "x-deprecation": {
+                            "issued_at": "2019-08-27T12:03:58+00:00",
+                            "end_of_life_at": "2020-08-27T12:03:58+00:00",
+                            "comment": "Superseded by the limitations parameter."
+                          },
                           "description": "List of limits as key-value pairs if requested.",
                           "additionalProperties": {
                             "type": "string"
@@ -11901,6 +13062,7 @@
             "admin_key",
             "admin_password",
             "admin_full_name",
+            "limitations",
             "business_model_history"
           ],
           "group_id": "Accounts",
@@ -13618,8 +14780,126 @@
           "_key": "idle_timeout"
         },
         {
+          "type": "array",
+          "description": "List of account limitation objects.",
+          "items": {
+            "type": "object",
+            "properties": [
+              {
+                "type": "integer",
+                "format": "int32",
+                "description": "Billing period of the account limitation.",
+                "_key": "billing_period"
+              },
+              {
+                "type": "string",
+                "format": "date-time",
+                "example": "2018-02-13T09:35:20Z",
+                "description": "Creation UTC time RFC3339.",
+                "_key": "created_at"
+              },
+              {
+                "type": "string",
+                "description": "Description of the account limitation.",
+                "readOnly": true,
+                "_key": "description"
+              },
+              {
+                "type": "string",
+                "example": "1",
+                "description": "API resource entity version.",
+                "_key": "etag"
+              },
+              {
+                "type": "string",
+                "example": "01619571d01d0242ac12000600000000",
+                "description": "Entity ID.",
+                "_key": "id"
+              },
+              {
+                "type": "boolean",
+                "description": "Flag indicating whether this limitation is inherited.",
+                "readOnly": true,
+                "_key": "inherited"
+              },
+              {
+                "type": "string",
+                "description": "Indicates where this limit is inherited from.",
+                "readOnly": true,
+                "_key": "inherited_from"
+              },
+              {
+                "type": "string",
+                "description": "Indicates the type of the entity where the limitation is inherited from.",
+                "readOnly": true,
+                "_key": "inherited_type"
+              },
+              {
+                "type": "integer",
+                "format": "int32",
+                "description": "The value of the limit.",
+                "_key": "limit"
+              },
+              {
+                "type": "string",
+                "description": "Name of the account limitation.",
+                "_key": "name"
+              },
+              {
+                "type": "string",
+                "description": "Entity name: always 'limitation'",
+                "enum": [
+                  "user",
+                  "api-key",
+                  "group",
+                  "account",
+                  "account_template",
+                  "trusted_cert",
+                  "list",
+                  "error",
+                  "agreement",
+                  "signed_agreement",
+                  "policy",
+                  "limitation",
+                  "identity_provider",
+                  "user_session",
+                  "user_invitation",
+                  "notification_entry",
+                  "branding_color",
+                  "branding_image"
+                ],
+                "_key": "object"
+              },
+              {
+                "type": "integer",
+                "format": "int32",
+                "description": "Quota of the account limitation.",
+                "_key": "quota"
+              },
+              {
+                "type": "string",
+                "format": "date-time",
+                "example": "2018-02-14T15:24:14Z",
+                "description": "Last update UTC time RFC3339.",
+                "_key": "updated_at"
+              }
+            ],
+            "description": "This object represents an account limitation."
+          },
+          "api_fieldname": "limitations",
+          "readOnly": true,
+          "required": false,
+          "_key": "limitations"
+        },
+        {
           "type": "object",
           "x-nullable": true,
+          "deprecated": true,
+          "x-deprecation": {
+            "issued_at": "2019-08-27T12:03:58+00:00",
+            "end_of_life_at": "2020-08-27T12:03:58+00:00",
+            "comment": "Superseded by the limitations parameter."
+          },
           "description": "List of limits as key-value pairs if requested.",
           "additionalProperties": {
             "type": "string"
@@ -58154,7 +59434,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -58455,7 +59735,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -58837,7 +60117,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -59392,7 +60672,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -59711,7 +60991,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -60124,7 +61404,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -62971,7 +64251,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -65625,7 +66905,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -65926,7 +67206,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -66308,7 +67588,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -66863,7 +68143,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -67182,7 +68462,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -67595,7 +68875,7 @@
             {
               "name": "account_id",
               "in": "path",
-              "description": "Account ID.",
+              "description": "The ID of the account.",
               "required": true,
               "type": "string",
               "entity_fieldname": "account_id",
@@ -69664,7 +70944,7 @@
           "_key": "read"
         },
         {
-          "description": "List users of the group with details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "List a group's users, with details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
