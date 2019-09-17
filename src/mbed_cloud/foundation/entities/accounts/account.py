@@ -86,6 +86,7 @@ class Account(Entity):
         "expiration_warning_threshold",
         "id",
         "idle_timeout",
+        "limitations",
         "limits",
         "mfa_status",
         "notification_emails",
@@ -145,6 +146,7 @@ class Account(Entity):
         expiration_warning_threshold=None,
         id=None,
         idle_timeout=None,
+        limitations=None,
         limits=None,
         mfa_status=None,
         notification_emails=None,
@@ -234,6 +236,8 @@ class Account(Entity):
         :type id: str
         :param idle_timeout: The reference token expiration time, in minutes, for this account.
         :type idle_timeout: int
+        :param limitations: List of account limitation objects.
+        :type limitations: list
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
         :param mfa_status: The enforcement status of multi-factor authentication, either
@@ -312,6 +316,7 @@ class Account(Entity):
         self._expiration_warning_threshold = fields.IntegerField(value=expiration_warning_threshold)
         self._id = fields.StringField(value=id)
         self._idle_timeout = fields.IntegerField(value=idle_timeout)
+        self._limitations = fields.ListField(value=limitations)
         self._limits = fields.DictField(value=limits)
         self._mfa_status = fields.StringField(value=mfa_status, enum=enums.AccountMfaStatusEnum)
         self._notification_emails = fields.ListField(value=notification_emails)
@@ -831,6 +836,15 @@ class Account(Entity):
         """
 
         self._idle_timeout.set(value)
+
+    @property
+    def limitations(self):
+        """List of account limitation objects.
+        
+        :rtype: list
+        """
+
+        return self._limitations.value
 
     @property
     def limits(self):

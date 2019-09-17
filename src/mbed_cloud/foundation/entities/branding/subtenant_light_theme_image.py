@@ -134,7 +134,7 @@ class SubtenantLightThemeImage(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light/{reference}/clear>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :rtype: SubtenantLightThemeImage
@@ -153,7 +153,7 @@ class SubtenantLightThemeImage(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light/{reference}>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :rtype: SubtenantLightThemeImage
@@ -172,7 +172,7 @@ class SubtenantLightThemeImage(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/light/{reference}/upload-multipart>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :param image: The image in PNG or JPEG format as multipart form data. Files can be

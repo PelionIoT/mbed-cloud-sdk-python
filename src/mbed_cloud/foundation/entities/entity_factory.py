@@ -100,6 +100,7 @@ class EntityFactory:
         expiration_warning_threshold=None,
         id=None,
         idle_timeout=None,
+        limitations=None,
         limits=None,
         mfa_status=None,
         notification_emails=None,
@@ -182,6 +183,8 @@ class EntityFactory:
         :type id: str
         :param idle_timeout: The reference token expiration time, in minutes, for this account.
         :type idle_timeout: int
+        :param limitations: List of account limitation objects.
+        :type limitations: list
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
         :param mfa_status: The enforcement status of multi-factor authentication, either
@@ -257,6 +260,7 @@ class EntityFactory:
             expiration_warning_threshold=expiration_warning_threshold,
             id=id,
             idle_timeout=idle_timeout,
+            limitations=limitations,
             limits=limits,
             mfa_status=mfa_status,
             notification_emails=notification_emails,

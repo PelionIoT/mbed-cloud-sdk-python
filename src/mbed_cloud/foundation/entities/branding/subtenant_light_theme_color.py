@@ -143,7 +143,7 @@ class SubtenantLightThemeColor(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-colors/light/{reference}>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :rtype: 
@@ -162,7 +162,7 @@ class SubtenantLightThemeColor(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-colors/light/{reference}>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :rtype: SubtenantLightThemeColor
@@ -181,7 +181,7 @@ class SubtenantLightThemeColor(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-colors/light/{reference}>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :rtype: SubtenantLightThemeColor
