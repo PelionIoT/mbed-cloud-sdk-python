@@ -7751,13 +7751,14 @@ paths:
       tags:
       - Resources
       x-deprecation:
-        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced with [/v2/device-requests/{device-id}](../service-api-references/device-management-connect.html#createAsyncRequest).
+        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced by /v2/device-requests/{device-id}.
           The /v2/device-requests/{device-id} endpoint lets you use your own async-id,
           and simplifies integration by returning cached values as events through
           the event notification channel.
         end_of_life_at: 2020-05-017T00:00:00+00:00
         issued_at: '2019-05-17T15:23:00+00:00'
-        links: []
+        links:
+        - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
       deprecated: true
@@ -7859,13 +7860,14 @@ paths:
       tags:
       - Resources
       x-deprecation:
-        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced with [/v2/device-requests/{device-id}](../service-api-references/device-management-connect.html#createAsyncRequest).
+        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced by /v2/device-requests/{device-id}.
           The /v2/device-requests/{device-id} endpoint lets you use your own async-id,
           and simplifies integration by returning cached values as events through
           the event notification channel.
         end_of_life_at: 2020-05-017T00:00:00+00:00
         issued_at: '2019-05-17T15:23:00+00:00'
-        links: []
+        links:
+        - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     post:
       consumes:
@@ -7970,13 +7972,14 @@ paths:
       tags:
       - Resources
       x-deprecation:
-        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced with [/v2/device-requests/{device-id}](../service-api-references/device-management-connect.html#createAsyncRequest).
+        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced by /v2/device-requests/{device-id}.
           The /v2/device-requests/{device-id} enables you to use your own async-id
           and simplifies the integration by returning also the cached values as events
           via the event notification channel.
         end_of_life_at: 2020-05-017T00:00:00+00:00
         issued_at: '2019-05-17T15:23:00+00:00'
-        links: []
+        links:
+        - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     put:
       consumes:
@@ -8093,13 +8096,14 @@ paths:
       tags:
       - Resources
       x-deprecation:
-        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced with [/v2/device-requests/{device-id}](../service-api-references/device-management-connect.html#createAsyncRequest).
+        comment: /v2/endpoints/{device-id}/{resourcePath} is replaced by /v2/device-requests/{device-id}.
           The /v2/device-requests/{device-id} endpoint lets you use your own async-id,
           and simplifies integration by returning cached values as events through
           the event notification channel.
         end_of_life_at: 2020-05-017T00:00:00+00:00
         issued_at: '2019-05-17T15:23:00+00:00'
-        links: []
+        links:
+        - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/notification/callback:
     delete:
