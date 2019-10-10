@@ -7697,7 +7697,7 @@ paths:
       - Resources
       x-deprecation:
         comment: /v2/endpoints/{device-id}/{resourcePath} is replaced by /v2/device-requests/{device-id}.
-        end_of_life_at: 2020-05-017T00:00:00+00:00
+        end_of_life_at: '2020-05-17T00:00:00+00:00'
         issued_at: '2019-05-17T15:23:00+00:00'
         links:
         - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
@@ -7806,7 +7806,7 @@ paths:
           The /v2/device-requests/{device-id} endpoint lets you use your own async-id,
           and simplifies integration by returning all resource values, cached and
           non-cached, through the event notification channel.
-        end_of_life_at: 2020-05-017T00:00:00+00:00
+        end_of_life_at: '2020-05-17T00:00:00+00:00'
         issued_at: '2019-05-17T15:23:00+00:00'
         links:
         - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
@@ -7915,7 +7915,7 @@ paths:
       - Resources
       x-deprecation:
         comment: /v2/endpoints/{device-id}/{resourcePath} is replaced by /v2/device-requests/{device-id}.
-        end_of_life_at: 2020-05-017T00:00:00+00:00
+        end_of_life_at: '2020-05-17T00:00:00+00:00'
         issued_at: '2019-05-17T15:23:00+00:00'
         links:
         - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
@@ -8036,7 +8036,7 @@ paths:
       - Resources
       x-deprecation:
         comment: /v2/endpoints/{device-id}/{resourcePath} is replaced by /v2/device-requests/{device-id}.
-        end_of_life_at: 2020-05-017T00:00:00+00:00
+        end_of_life_at: '2020-05-17T00:00:00+00:00'
         issued_at: '2019-05-17T15:23:00+00:00'
         links:
         - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
