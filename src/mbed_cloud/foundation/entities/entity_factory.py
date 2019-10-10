@@ -1321,6 +1321,7 @@ class EntityFactory:
         created_at=None,
         description=None,
         id=None,
+        identity_provider_type=None,
         is_default=None,
         name=None,
         saml2_attributes=None,
@@ -1337,6 +1338,8 @@ class EntityFactory:
         :type description: str
         :param id: Entity ID.
         :type id: str
+        :param identity_provider_type: Identity provider type.
+        :type identity_provider_type: str
         :param is_default: Flag indicating whether this is the global default identity
             provider.
         :type is_default: bool
@@ -1360,6 +1363,7 @@ class EntityFactory:
             created_at=created_at,
             description=description,
             id=id,
+            identity_provider_type=identity_provider_type,
             is_default=is_default,
             name=name,
             saml2_attributes=saml2_attributes,
@@ -1437,11 +1441,13 @@ class EntityFactory:
             _client=self._client, date=date, ip_address=ip_address, success=success, user_agent=user_agent
         )
 
-    def login_profile(self, id=None, name=None):
+    def login_profile(self, id=None, login_profile_type=None, name=None):
         """Creates a local `LoginProfile` instance, using the shared SDK context.
 
         :param id: ID of the identity provider.
         :type id: str
+        :param login_profile_type: Identity provider type.
+        :type login_profile_type: str
         :param name: Name of the identity provider.
         :type name: str
         
@@ -1450,7 +1456,7 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import LoginProfile
 
-        return LoginProfile(_client=self._client, id=id, name=name)
+        return LoginProfile(_client=self._client, id=id, login_profile_type=login_profile_type, name=name)
 
     def oidc_request(
         self,

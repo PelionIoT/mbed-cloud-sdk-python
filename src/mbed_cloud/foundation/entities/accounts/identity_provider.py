@@ -59,6 +59,7 @@ class IdentityProvider(Entity):
         "created_at",
         "description",
         "id",
+        "identity_provider_type",
         "is_default",
         "name",
         "saml2_attributes",
@@ -70,10 +71,10 @@ class IdentityProvider(Entity):
     _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {}
+    _renames = {"type": "identity_provider_type"}
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {}
+    _renames_to_api = {"identity_provider_type": "type"}
 
     def __init__(
         self,
@@ -82,6 +83,7 @@ class IdentityProvider(Entity):
         created_at=None,
         description=None,
         id=None,
+        identity_provider_type=None,
         is_default=None,
         name=None,
         saml2_attributes=None,
@@ -105,6 +107,8 @@ class IdentityProvider(Entity):
         :type description: str
         :param id: (Required) Entity ID.
         :type id: str
+        :param identity_provider_type: (Required) Identity provider type.
+        :type identity_provider_type: str
         :param is_default: Flag indicating whether this is the global default identity
             provider.
         :type is_default: bool
@@ -127,6 +131,9 @@ class IdentityProvider(Entity):
         self._created_at = fields.DateTimeField(value=created_at)
         self._description = fields.StringField(value=description)
         self._id = fields.StringField(value=id)
+        self._identity_provider_type = fields.StringField(
+            value=identity_provider_type, enum=enums.IdentityProviderTypeEnum
+        )
         self._is_default = fields.BooleanField(value=is_default)
         self._name = fields.StringField(value=name)
         self._saml2_attributes = fields.DictField(value=saml2_attributes)
@@ -196,6 +203,27 @@ class IdentityProvider(Entity):
         """
 
         self._id.set(value)
+
+    @property
+    def identity_provider_type(self):
+        """Identity provider type.
+
+        This field must be set when creating a new IdentityProvider Entity.
+        
+        :rtype: str
+        """
+
+        return self._identity_provider_type.value
+
+    @identity_provider_type.setter
+    def identity_provider_type(self, value):
+        """Set value of `identity_provider_type`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._identity_provider_type.set(value)
 
     @property
     def is_default(self):
@@ -298,6 +326,8 @@ class IdentityProvider(Entity):
         body_params = {}
         if self._description.value_set:
             body_params["description"] = self._description.to_api()
+        if self._identity_provider_type.value_set:
+            body_params["type"] = self._identity_provider_type.to_api()
         if self._name.value_set:
             body_params["name"] = self._name.to_api()
         # Method parameters are unconditionally sent even if set to None
@@ -527,6 +557,8 @@ class IdentityProvider(Entity):
         body_params = {}
         if self._description.value_set:
             body_params["description"] = self._description.to_api()
+        if self._identity_provider_type.value_set:
+            body_params["type"] = self._identity_provider_type.to_api()
         if self._name.value_set:
             body_params["name"] = self._name.to_api()
         # Method parameters are unconditionally sent even if set to None

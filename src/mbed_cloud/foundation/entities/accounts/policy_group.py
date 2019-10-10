@@ -11,8 +11,11 @@ actions may also be possible on the entity depending on the capabilities present
 This entity has the following methods:
 
 - :meth:`PolicyGroup.api_keys`
+- :meth:`PolicyGroup.create`
+- :meth:`PolicyGroup.delete`
 - :meth:`PolicyGroup.list`
 - :meth:`PolicyGroup.read`
+- :meth:`PolicyGroup.update`
 - :meth:`PolicyGroup.users`
 
 Entity Usage and Importing
@@ -89,7 +92,7 @@ class PolicyGroup(Entity):
         :type created_at: datetime
         :param id: (Required) The ID of the group.
         :type id: str
-        :param name: The name of the group.
+        :param name: (Required) The name of the group.
         :type name: str
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
@@ -167,6 +170,8 @@ class PolicyGroup(Entity):
     @property
     def name(self):
         """The name of the group.
+
+        This field must be set when creating a new PolicyGroup Entity.
         
         api example: 'Administrators'
         
@@ -174,6 +179,16 @@ class PolicyGroup(Entity):
         """
 
         return self._name.value
+
+    @name.setter
+    def name(self, value):
+        """Set value of `name`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._name.set(value)
 
     @property
     def updated_at(self):
@@ -249,6 +264,49 @@ class PolicyGroup(Entity):
             page_size=page_size,
             include=include,
             wraps=self._paginate_api_keys,
+        )
+
+    def create(self, members=None):
+        """Create a new group.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/policy-groups>`_.
+        
+        :param members: Represents arrays of user and API key IDs.
+        :type members: dict
+        
+        :rtype: PolicyGroup
+        """
+
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        # Method parameters are unconditionally sent even if set to None
+        body_params["members"] = fields.DictField(members).to_api()
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
+
+        return self._client.call_api(
+            method="post",
+            path="/v3/policy-groups",
+            content_type="application/json",
+            body_params=body_params,
+            unpack=self,
+        )
+
+    def delete(self):
+        """Delete a group.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/policy-groups/{group_id}>`_.
+        
+        :rtype: PolicyGroup
+        """
+
+        return self._client.call_api(
+            method="delete",
+            path="/v3/policy-groups/{group_id}",
+            content_type="application/json",
+            path_params={"group_id": self._id.to_api()},
+            unpack=self,
         )
 
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
@@ -459,6 +517,29 @@ class PolicyGroup(Entity):
             path="/v3/policy-groups/{group_id}",
             content_type="application/json",
             path_params={"group_id": self._id.to_api()},
+            unpack=self,
+        )
+
+    def update(self):
+        """Update the group name.
+
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/policy-groups/{group_id}>`_.
+        
+        :rtype: PolicyGroup
+        """
+
+        # Conditionally setup the message body, fields which have not been set will not be sent to the API.
+        # This avoids null fields being rejected and allows the default value to be used.
+        body_params = {}
+        if self._name.value_set:
+            body_params["name"] = self._name.to_api()
+
+        return self._client.call_api(
+            method="put",
+            path="/v3/policy-groups/{group_id}",
+            content_type="application/json",
+            path_params={"group_id": self._id.to_api()},
+            body_params=body_params,
             unpack=self,
         )
 

@@ -17,6 +17,8 @@ This module contains all Enums used by Foundation Entities in the Accounts categ
 - :class:`IdentityProviderAlgorithmEnum`
 - :class:`IdentityProviderOrderEnum`
 - :class:`IdentityProviderStatusEnum`
+- :class:`IdentityProviderTypeEnum`
+- :class:`LoginProfileTypeEnum`
 - :class:`OidcRequestTokenModeEnum`
 - :class:`PolicyGroupOrderEnum`
 - :class:`PolicyInheritedTypeEnum`
@@ -47,6 +49,8 @@ How to import Enums:
     from mbed_cloud.foundation.enums import IdentityProviderAlgorithmEnum
     from mbed_cloud.foundation.enums import IdentityProviderOrderEnum
     from mbed_cloud.foundation.enums import IdentityProviderStatusEnum
+    from mbed_cloud.foundation.enums import IdentityProviderTypeEnum
+    from mbed_cloud.foundation.enums import LoginProfileTypeEnum
     from mbed_cloud.foundation.enums import OidcRequestTokenModeEnum
     from mbed_cloud.foundation.enums import PolicyGroupOrderEnum
     from mbed_cloud.foundation.enums import PolicyInheritedTypeEnum
@@ -227,6 +231,42 @@ class IdentityProviderStatusEnum(BaseEnum):
     SUSPENDED = "SUSPENDED"
 
     values = frozenset(("ACTIVE", "SUSPENDED"))
+
+
+class IdentityProviderTypeEnum(BaseEnum):
+    """Represents expected values of `IdentityProviderTypeEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    MBED = "MBED"
+    NATIVE = "NATIVE"
+    OIDC = "OIDC"
+    SAML2 = "SAML2"
+
+    values = frozenset(("MBED", "NATIVE", "OIDC", "SAML2"))
+
+
+class LoginProfileTypeEnum(BaseEnum):
+    """Represents expected values of `LoginProfileTypeEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    MBED = "MBED"
+    NATIVE = "NATIVE"
+    OIDC = "OIDC"
+    SAML2 = "SAML2"
+
+    values = frozenset(("MBED", "NATIVE", "OIDC", "SAML2"))
 
 
 class OidcRequestTokenModeEnum(BaseEnum):

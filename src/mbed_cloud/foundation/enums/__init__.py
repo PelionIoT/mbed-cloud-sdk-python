@@ -18,6 +18,8 @@ Accounts
 - :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderAlgorithmEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderStatusEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderTypeEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.LoginProfileTypeEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.OidcRequestTokenModeEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.PolicyGroupOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.PolicyInheritedTypeEnum`
@@ -100,6 +102,8 @@ How to import Enums:
     from mbed_cloud.foundation.enums import IdentityProviderAlgorithmEnum
     from mbed_cloud.foundation.enums import IdentityProviderOrderEnum
     from mbed_cloud.foundation.enums import IdentityProviderStatusEnum
+    from mbed_cloud.foundation.enums import IdentityProviderTypeEnum
+    from mbed_cloud.foundation.enums import LoginProfileTypeEnum
     from mbed_cloud.foundation.enums import OidcRequestTokenModeEnum
     from mbed_cloud.foundation.enums import PolicyGroupOrderEnum
     from mbed_cloud.foundation.enums import PolicyInheritedTypeEnum
@@ -159,6 +163,8 @@ from mbed_cloud.foundation.entities.accounts.enums import ApiKeyStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderAlgorithmEnum
 from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderStatusEnum
+from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderTypeEnum
+from mbed_cloud.foundation.entities.accounts.enums import LoginProfileTypeEnum
 from mbed_cloud.foundation.entities.accounts.enums import OidcRequestTokenModeEnum
 from mbed_cloud.foundation.entities.accounts.enums import PolicyGroupOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import PolicyInheritedTypeEnum
@@ -217,6 +223,8 @@ __all__ = [
     "IdentityProviderAlgorithmEnum",
     "IdentityProviderOrderEnum",
     "IdentityProviderStatusEnum",
+    "IdentityProviderTypeEnum",
+    "LoginProfileTypeEnum",
     "OidcRequestTokenModeEnum",
     "PolicyGroupOrderEnum",
     "PolicyInheritedTypeEnum",
