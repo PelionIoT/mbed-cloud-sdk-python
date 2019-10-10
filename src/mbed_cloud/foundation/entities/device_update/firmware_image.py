@@ -92,21 +92,21 @@ class FirmwareImage(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param created_at: The time the object was created
+        :param created_at: The time the entity was created.
         :type created_at: datetime
-        :param datafile_checksum: The checksum (sha256) generated for the datafile
+        :param datafile_checksum: The checksum (sha256) generated for the datafile.
         :type datafile_checksum: str
-        :param datafile_size: The size of the datafile in bytes
+        :param datafile_size: The size of the datafile in bytes.
         :type datafile_size: int
         :param datafile_url: The firmware image file URL
         :type datafile_url: str
-        :param description: The description of the object
+        :param description: The description of the object.
         :type description: str
-        :param id: (Required) The firmware image ID
+        :param id: (Required) The firmware image ID.
         :type id: str
-        :param name: The firmware image name
+        :param name: The firmware image name.
         :type name: str
-        :param updated_at: The time the object was updated
+        :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         """
 
@@ -126,7 +126,7 @@ class FirmwareImage(Entity):
 
     @property
     def created_at(self):
-        """The time the object was created
+        """The time the entity was created.
         
         api example: '2017-05-22T12:37:55.576563Z'
         
@@ -137,7 +137,7 @@ class FirmwareImage(Entity):
 
     @property
     def datafile_checksum(self):
-        """The checksum (sha256) generated for the datafile
+        """The checksum (sha256) generated for the datafile.
         
         api example: '0000000000000000000000000000000000000000000000000000000000000000'
         
@@ -148,7 +148,7 @@ class FirmwareImage(Entity):
 
     @property
     def datafile_size(self):
-        """The size of the datafile in bytes
+        """The size of the datafile in bytes.
         
         :rtype: int
         """
@@ -168,7 +168,9 @@ class FirmwareImage(Entity):
 
     @property
     def description(self):
-        """The description of the object
+        """The description of the object.
+        
+        api example: 'a description'
         
         :rtype: str
         """
@@ -187,7 +189,7 @@ class FirmwareImage(Entity):
 
     @property
     def id(self):
-        """The firmware image ID
+        """The firmware image ID.
 
         This field must be set when updating or deleting an existing FirmwareImage Entity.
         
@@ -210,7 +212,7 @@ class FirmwareImage(Entity):
 
     @property
     def name(self):
-        """The firmware image name
+        """The firmware image name.
         
         :rtype: str
         """
@@ -229,7 +231,7 @@ class FirmwareImage(Entity):
 
     @property
     def updated_at(self):
-        """The time the object was updated
+        """The time the entity was updated.
         
         api example: '2017-05-22T12:37:55.576563Z'
         
@@ -241,9 +243,9 @@ class FirmwareImage(Entity):
     def create(self, firmware_image_file):
         """Create an image
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images/>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images>`_.
         
-        :param firmware_image_file: The firmware image file to upload Files can be provided as a file
+        :param firmware_image_file: The firmware image file to upload. Files can be provided as a file
             object or a path to an existing file on disk.
         :type firmware_image_file: file
         
@@ -261,7 +263,7 @@ class FirmwareImage(Entity):
 
             return self._client.call_api(
                 method="post",
-                path="/v3/firmware-images/",
+                path="/v3/firmware-images",
                 stream_params={
                     "description": (None, self._description.to_api(), "text/plain"),
                     "datafile": ("firmware_image_file.bin", firmware_image_file, "application/octet-stream"),
@@ -278,14 +280,14 @@ class FirmwareImage(Entity):
     def delete(self):
         """Delete an image
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images/{image_id}/>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images/{image_id}>`_.
         
         :rtype: FirmwareImage
         """
 
         return self._client.call_api(
             method="delete",
-            path="/v3/firmware-images/{image_id}/",
+            path="/v3/firmware-images/{image_id}",
             content_type="application/json",
             path_params={"image_id": self._id.to_api()},
             unpack=self,
@@ -294,7 +296,7 @@ class FirmwareImage(Entity):
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """List all images
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images/>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images>`_.
 
         **API Filters**
 
@@ -336,7 +338,7 @@ class FirmwareImage(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: ASC or DESC
+        :param order: ASC or DESC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
@@ -348,7 +350,7 @@ class FirmwareImage(Entity):
         :type page_size: int
         
         :param include: A comma-separated list of data fields to return. Currently supported:
-            total_count
+            total_count.
         :type include: str
         
         :return: An iterator object which yields instances of an entity.
@@ -385,13 +387,13 @@ class FirmwareImage(Entity):
     def _paginate_list(self, after=None, filter=None, order=None, limit=None, include=None):
         """List all images
         
-        :param after: The ID of the the item after which to retrieve the next page
+        :param after: The ID of the item after which to retrieve the next page.
         :type after: str
         
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: ASC or DESC
+        :param order: ASC or DESC.
         :type order: str
         
         :param limit: How many objects to retrieve in the page. The minimum limit is 2 and
@@ -400,7 +402,7 @@ class FirmwareImage(Entity):
         :type limit: int
         
         :param include: A comma-separated list of data fields to return. Currently supported:
-            total_count
+            total_count.
         :type include: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse
@@ -416,23 +418,23 @@ class FirmwareImage(Entity):
 
         return self._client.call_api(
             method="get",
-            path="/v3/firmware-images/",
+            path="/v3/firmware-images",
             content_type="application/json",
             query_params=query_params,
             unpack=False,
         )
 
     def read(self):
-        """Get an image
+        """Get an image.
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images/{image_id}/>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images/{image_id}>`_.
         
         :rtype: FirmwareImage
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/firmware-images/{image_id}/",
+            path="/v3/firmware-images/{image_id}",
             content_type="application/json",
             path_params={"image_id": self._id.to_api()},
             unpack=self,

@@ -92,25 +92,25 @@ class CampaignDeviceMetadata(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param campaign_id: (Required) The device's campaign ID
+        :param campaign_id: (Required) The device's campaign ID.
         :type campaign_id: str
-        :param created_at: The time the campaign was created
+        :param created_at: The time the entity was created.
         :type created_at: datetime
-        :param deployment_state: The state of the update campaign on the device
+        :param deployment_state: The state of the update campaign on the device.
         :type deployment_state: str
-        :param description: Description
+        :param description: Description.
         :type description: str
-        :param device_id: The device ID
+        :param device_id: The device ID.
         :type device_id: str
-        :param id: (Required) The metadata record ID
+        :param id: (Required) The metadata record ID.
         :type id: str
-        :param mechanism: How the firmware is delivered (connector or direct)
+        :param mechanism: How the firmware is delivered (connector or direct).
         :type mechanism: str
-        :param mechanism_url: The Device Management Connect URL
+        :param mechanism_url: The Device Management Connect URL.
         :type mechanism_url: str
-        :param name: The record name
+        :param name: The record name.
         :type name: str
-        :param updated_at: The record was modified in the database format: date-time
+        :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         """
 
@@ -134,7 +134,7 @@ class CampaignDeviceMetadata(Entity):
 
     @property
     def campaign_id(self):
-        """The device's campaign ID
+        """The device's campaign ID.
 
         This field must be set when creating a new CampaignDeviceMetadata Entity.
         
@@ -157,7 +157,7 @@ class CampaignDeviceMetadata(Entity):
 
     @property
     def created_at(self):
-        """The time the campaign was created
+        """The time the entity was created.
         
         api example: '2017-05-22T12:37:55.576563Z'
         
@@ -168,7 +168,7 @@ class CampaignDeviceMetadata(Entity):
 
     @property
     def deployment_state(self):
-        """The state of the update campaign on the device
+        """The state of the update campaign on the device.
         
         :rtype: str
         """
@@ -177,7 +177,9 @@ class CampaignDeviceMetadata(Entity):
 
     @property
     def description(self):
-        """Description
+        """Description.
+        
+        api example: 'a description'
         
         :rtype: str
         """
@@ -186,7 +188,7 @@ class CampaignDeviceMetadata(Entity):
 
     @property
     def device_id(self):
-        """The device ID
+        """The device ID.
         
         api example: '015c2fec9bba0000000000010010036f'
         
@@ -197,7 +199,7 @@ class CampaignDeviceMetadata(Entity):
 
     @property
     def id(self):
-        """The metadata record ID
+        """The metadata record ID.
 
         This field must be set when updating or deleting an existing CampaignDeviceMetadata Entity.
         
@@ -220,7 +222,7 @@ class CampaignDeviceMetadata(Entity):
 
     @property
     def mechanism(self):
-        """How the firmware is delivered (connector or direct)
+        """How the firmware is delivered (connector or direct).
         
         api example: 'connector'
         
@@ -231,7 +233,7 @@ class CampaignDeviceMetadata(Entity):
 
     @property
     def mechanism_url(self):
-        """The Device Management Connect URL
+        """The Device Management Connect URL.
         
         :rtype: str
         """
@@ -240,9 +242,7 @@ class CampaignDeviceMetadata(Entity):
 
     @property
     def name(self):
-        """The record name
-        
-        api example: 'default_object_name'
+        """The record name.
         
         :rtype: str
         """
@@ -251,9 +251,9 @@ class CampaignDeviceMetadata(Entity):
 
     @property
     def updated_at(self):
-        """The record was modified in the database format: date-time
+        """The time the entity was updated.
         
-        api example: '2017-05-22T12:37:58.776736Z'
+        api example: '2017-05-22T12:37:55.576563Z'
         
         :rtype: datetime
         """
@@ -263,14 +263,14 @@ class CampaignDeviceMetadata(Entity):
     def read(self):
         """Get a campaign device metadata
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}>`_.
         
         :rtype: CampaignDeviceMetadata
         """
 
         return self._client.call_api(
             method="get",
-            path="/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/",
+            path="/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}",
             content_type="application/json",
             path_params={"campaign_id": self._campaign_id.to_api(), "campaign_device_metadata_id": self._id.to_api()},
             unpack=self,

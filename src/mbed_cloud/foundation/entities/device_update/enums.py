@@ -14,6 +14,8 @@ This module contains all Enums used by Foundation Entities in the DeviceUpdate c
 - :class:`FirmwareImageOrderEnum`
 - :class:`FirmwareManifestOrderEnum`
 - :class:`UpdateCampaignOrderEnum`
+- :class:`UpdateCampaignPhaseEnum`
+- :class:`UpdateCampaignStrategyEnum`
 
 ------------
 
@@ -27,6 +29,8 @@ How to import Enums:
     from mbed_cloud.foundation.enums import FirmwareImageOrderEnum
     from mbed_cloud.foundation.enums import FirmwareManifestOrderEnum
     from mbed_cloud.foundation.enums import UpdateCampaignOrderEnum
+    from mbed_cloud.foundation.enums import UpdateCampaignPhaseEnum
+    from mbed_cloud.foundation.enums import UpdateCampaignStrategyEnum
 
 ------------
 """
@@ -150,3 +154,44 @@ class UpdateCampaignOrderEnum(BaseEnum):
     DESC = "DESC"
 
     values = frozenset(("ASC", "DESC"))
+
+
+class UpdateCampaignPhaseEnum(BaseEnum):
+    """Represents expected values of `UpdateCampaignPhaseEnum`
+
+    This is used by Entities in the "device_update" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ACTIVE = "active"
+    ARCHIVED = "archived"
+    AWAITING_APPROVAL = "awaiting_approval"
+    DELETED = "deleted"
+    DRAFT = "draft"
+    STARTING = "starting"
+    STOPPED = "stopped"
+    STOPPING = "stopping"
+    TIMED = "timed"
+
+    values = frozenset(
+        ("active", "archived", "awaiting_approval", "deleted", "draft", "starting", "stopped", "stopping", "timed")
+    )
+
+
+class UpdateCampaignStrategyEnum(BaseEnum):
+    """Represents expected values of `UpdateCampaignStrategyEnum`
+
+    This is used by Entities in the "device_update" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    CONTINUOUS = "continuous"
+    ONE - SHOT = "one-shot"
+
+    values = frozenset(("continuous", "one-shot"))

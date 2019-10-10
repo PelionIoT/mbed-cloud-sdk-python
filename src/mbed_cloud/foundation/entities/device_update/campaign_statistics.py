@@ -76,7 +76,7 @@ class CampaignStatistics(Entity):
         :type count: int
         :param created_at: 
         :type created_at: datetime
-        :param id: (Required) ID of the event type description
+        :param id: (Required) ID of the event type description.
         :type id: str
         :param summary_status: The event type description.
         :type summary_status: str
@@ -140,7 +140,7 @@ class CampaignStatistics(Entity):
 
     @property
     def id(self):
-        """ID of the event type description
+        """ID of the event type description.
 
         This field must be set when updating or deleting an existing CampaignStatistics Entity.
         
@@ -175,7 +175,7 @@ class CampaignStatistics(Entity):
     def events(self, filter=None, order=None, max_results=None, page_size=None, include=None):
         """Get a list of events grouped by summary
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types>`_.
         
         :param filter: Filtering when listing entities is not supported by the API for this
             entity.
@@ -226,9 +226,9 @@ class CampaignStatistics(Entity):
         )
 
     def list(self, filter=None, order=None, max_results=None, page_size=None, include=None):
-        """Get a list of statistics for a campaign
+        """Get statistics for a campaign
 
-        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/update-campaigns/{campaign_id}/statistics/>`_.
+        `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/update-campaigns/{campaign_id}/statistics>`_.
         
         :param filter: Filtering when listing entities is not supported by the API for this
             entity.
@@ -305,14 +305,14 @@ class CampaignStatistics(Entity):
 
         return self._client.call_api(
             method="get",
-            path="/v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/",
+            path="/v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types",
             content_type="application/json",
             path_params={"campaign_id": self._campaign_id.to_api(), "summary_status_id": self._id.to_api()},
             unpack=False,
         )
 
     def _paginate_list(self, after=None, filter=None, order=None, limit=None, include=None):
-        """Get a list of statistics for a campaign
+        """Get statistics for a campaign
         
         :param after: Not supported by the API.
         :type after: str
@@ -338,14 +338,14 @@ class CampaignStatistics(Entity):
 
         return self._client.call_api(
             method="get",
-            path="/v3/update-campaigns/{campaign_id}/statistics/",
+            path="/v3/update-campaigns/{campaign_id}/statistics",
             content_type="application/json",
             path_params={"campaign_id": self._campaign_id.to_api()},
             unpack=False,
         )
 
     def read(self):
-        """Get a summary status
+        """Get a status summary
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}>`_.
         

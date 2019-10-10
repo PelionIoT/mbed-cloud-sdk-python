@@ -385,25 +385,25 @@ class EntityFactory:
     ):
         """Creates a local `CampaignDeviceMetadata` instance, using the shared SDK context.
 
-        :param campaign_id: The device's campaign ID
+        :param campaign_id: The device's campaign ID.
         :type campaign_id: str
-        :param created_at: The time the campaign was created
+        :param created_at: The time the entity was created.
         :type created_at: datetime
-        :param deployment_state: The state of the update campaign on the device
+        :param deployment_state: The state of the update campaign on the device.
         :type deployment_state: str
-        :param description: Description
+        :param description: Description.
         :type description: str
-        :param device_id: The device ID
+        :param device_id: The device ID.
         :type device_id: str
-        :param id: The metadata record ID
+        :param id: The metadata record ID.
         :type id: str
-        :param mechanism: How the firmware is delivered (connector or direct)
+        :param mechanism: How the firmware is delivered (connector or direct).
         :type mechanism: str
-        :param mechanism_url: The Device Management Connect URL
+        :param mechanism_url: The Device Management Connect URL.
         :type mechanism_url: str
-        :param name: The record name
+        :param name: The record name.
         :type name: str
-        :param updated_at: The record was modified in the database format: date-time
+        :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         
         :return: A new instance of a CampaignDeviceMetadata Foundation Entity.
@@ -434,7 +434,7 @@ class EntityFactory:
         :type count: int
         :param created_at: 
         :type created_at: datetime
-        :param id: ID of the event type description
+        :param id: ID of the event type description.
         :type id: str
         :param summary_status: The event type description.
         :type summary_status: str
@@ -1226,21 +1226,21 @@ class EntityFactory:
     ):
         """Creates a local `FirmwareImage` instance, using the shared SDK context.
 
-        :param created_at: The time the object was created
+        :param created_at: The time the entity was created.
         :type created_at: datetime
-        :param datafile_checksum: The checksum (sha256) generated for the datafile
+        :param datafile_checksum: The checksum (sha256) generated for the datafile.
         :type datafile_checksum: str
-        :param datafile_size: The size of the datafile in bytes
+        :param datafile_size: The size of the datafile in bytes.
         :type datafile_size: int
         :param datafile_url: The firmware image file URL
         :type datafile_url: str
-        :param description: The description of the object
+        :param description: The description of the object.
         :type description: str
-        :param id: The firmware image ID
+        :param id: The firmware image ID.
         :type id: str
-        :param name: The firmware image name
+        :param name: The firmware image name.
         :type name: str
-        :param updated_at: The time the object was updated
+        :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         
         :return: A new instance of a FirmwareImage Foundation Entity.
@@ -1275,25 +1275,25 @@ class EntityFactory:
     ):
         """Creates a local `FirmwareManifest` instance, using the shared SDK context.
 
-        :param created_at: The time the object was created
+        :param created_at: The time the entity was created.
         :type created_at: datetime
         :param datafile_size: The size of the datafile in bytes
         :type datafile_size: int
         :param datafile_url: The URL of the firmware manifest binary
         :type datafile_url: str
-        :param description: The description of the firmware manifest
+        :param description: The description of the firmware manifest.
         :type description: str
-        :param device_class: The class of the device
+        :param device_class: The class of the device.
         :type device_class: str
-        :param id: The firmware manifest ID
+        :param id: The firmware manifest ID.
         :type id: str
-        :param key_table_url: The key table of pre-shared keys for devices
+        :param key_table_url: The key table of pre-shared keys for devices.
         :type key_table_url: str
-        :param name: The name of the object
+        :param name: The name of the object.
         :type name: str
-        :param timestamp: The firmware manifest version as a timestamp
+        :param timestamp: The firmware manifest version as a timestamp.
         :type timestamp: datetime
-        :param updated_at: The time the object was updated
+        :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         
         :return: A new instance of a FirmwareManifest Foundation Entity.
@@ -2376,7 +2376,13 @@ class EntityFactory:
 
     def update_campaign(
         self,
+        active_at=None,
+        approval_required=None,
+        archived_at=None,
+        autostop=None,
         autostop_reason=None,
+        autostop_success_percent=None,
+        campaign_strategy=None,
         created_at=None,
         description=None,
         device_filter=None,
@@ -2388,37 +2394,64 @@ class EntityFactory:
         root_manifest_id=None,
         root_manifest_url=None,
         started_at=None,
+        starting_at=None,
+        stopped_at=None,
+        stopping_at=None,
         updated_at=None,
         when=None,
     ):
         """Creates a local `UpdateCampaign` instance, using the shared SDK context.
 
+        :param active_at: The time the campaign entered the active state.
+        :type active_at: datetime
+        :param approval_required: Flag indicating whether approval is needed to start the campaign.
+        :type approval_required: bool
+        :param archived_at: The time the campaign was archived.
+        :type archived_at: datetime
+        :param autostop: Flag indicating whether the campaign should be auto-stopped on
+            reaching a threshold.
+        :type autostop: bool
         :param autostop_reason: Text description of why a campaign failed to start or why a
             campaign stopped.
         :type autostop_reason: str
-        :param created_at: The time the update campaign was created
+        :param autostop_success_percent: Percent of successful device updates to auto stop the campaign.
+        :type autostop_success_percent: float
+        :param campaign_strategy: How the campaign adds devices. A `one-shot` campaign does not add
+            new devices after it has started. A `continuous` campaign means
+            that devices may be added to the campaign after it has started.
+            The default is `one-shot`.
+        :type campaign_strategy: str
+        :param created_at: The time the entity was created.
         :type created_at: datetime
-        :param description: An optional description of the campaign
+        :param description: An optional description of the campaign.
         :type description: str
-        :param device_filter: The filter for the devices the campaign is targeting at
+        :param device_filter: The filter for the devices the campaign is targeting at.
         :type device_filter: str
         :param device_filter_helper: Helper for creating the device filter string.
         :type device_filter_helper: mbed_cloud.client.api_filter.ApiFilter
-        :param finished: The campaign finish timestamp
+        :param finished: The time the campaign finished.
         :type finished: datetime
-        :param id: The campaign ID
+        :param id: The campaign ID.
         :type id: str
-        :param name: The campaign name
+        :param name: The campaign name.
         :type name: str
-        :param phase: The current phase of the campaign.
+        :param phase: The phase of the campaign.
         :type phase: str
-        :param root_manifest_id: 
+        :param root_manifest_id: The ID of the manifest that will be sent to the device as part of
+            the campaign.
         :type root_manifest_id: str
-        :param root_manifest_url: 
+        :param root_manifest_url: The URL for the manifest that will be sent to the device as part
+            of the campaign.
         :type root_manifest_url: str
-        :param started_at: 
+        :param started_at: The time the campaign was started.
         :type started_at: datetime
-        :param updated_at: The time the object was updated
+        :param starting_at: The time the campaign will be started.
+        :type starting_at: datetime
+        :param stopped_at: The time the campaign was stopped.
+        :type stopped_at: datetime
+        :param stopping_at: The time the campaign will be stopped.
+        :type stopping_at: datetime
+        :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         :param when: The scheduled start time for the campaign. The campaign will start
             within 1 minute when then start time has elapsed.
@@ -2431,7 +2464,13 @@ class EntityFactory:
 
         return UpdateCampaign(
             _client=self._client,
+            active_at=active_at,
+            approval_required=approval_required,
+            archived_at=archived_at,
+            autostop=autostop,
             autostop_reason=autostop_reason,
+            autostop_success_percent=autostop_success_percent,
+            campaign_strategy=campaign_strategy,
             created_at=created_at,
             description=description,
             device_filter=device_filter,
@@ -2443,6 +2482,9 @@ class EntityFactory:
             root_manifest_id=root_manifest_id,
             root_manifest_url=root_manifest_url,
             started_at=started_at,
+            starting_at=starting_at,
+            stopped_at=stopped_at,
+            stopping_at=stopping_at,
             updated_at=updated_at,
             when=when,
         )
