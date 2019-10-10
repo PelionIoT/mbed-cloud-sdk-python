@@ -26,6 +26,7 @@
       ],
       "enums": [
         "policy_inherited_type_enum",
+        "login_profile_type_enum",
         "user_status_enum",
         "user_order_enum",
         "subtenant_user_status_enum",
@@ -42,6 +43,7 @@
         "policy_group_order_enum",
         "subtenant_policy_group_order_enum",
         "identity_provider_status_enum",
+        "identity_provider_type_enum",
         "identity_provider_order_enum",
         "identity_provider_algorithm_enum",
         "subtenant_identity_provider_status_enum",
@@ -534,6 +536,19 @@
       "_key": "identity_provider_status_enum"
     },
     {
+      "entity_name": "identity_provider",
+      "field_name": "identity_provider_type",
+      "enum_name": "identity_provider_type_enum",
+      "values": [
+        "MBED",
+        "NATIVE",
+        "OIDC",
+        "SAML2"
+      ],
+      "group_id": "Accounts",
+      "_key": "identity_provider_type_enum"
+    },
+    {
       "entity_name": "light_theme_color",
       "field_name": "reference",
       "enum_name": "light_theme_color_reference_enum",
@@ -603,6 +618,19 @@
       ],
       "group_id": "Branding",
       "_key": "light_theme_image_reference_enum"
+    },
+    {
+      "entity_name": "login_profile",
+      "field_name": "login_profile_type",
+      "enum_name": "login_profile_type_enum",
+      "values": [
+        "MBED",
+        "NATIVE",
+        "OIDC",
+        "SAML2"
+      ],
+      "group_id": "Accounts",
+      "_key": "login_profile_type_enum"
     },
     {
       "entity_name": "oidc_request",
@@ -13276,7 +13304,7 @@
                                   "OIDC"
                                 ],
                                 "api_fieldname": "type",
-                                "entity_fieldname": "type",
+                                "entity_fieldname": "login_profile_type",
                                 "_key": "type"
                               }
                             ],
@@ -14041,7 +14069,7 @@
                                   "OIDC"
                                 ],
                                 "api_fieldname": "type",
-                                "entity_fieldname": "type",
+                                "entity_fieldname": "login_profile_type",
                                 "_key": "type"
                               }
                             ],
@@ -45169,7 +45197,12 @@
       "methods": [
         {
           "description": "Create a new identity provider.",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "type",
+              "_key": "identity_provider_type"
+            }
+          ],
           "fields": [
             {
               "type": "string",
@@ -45194,6 +45227,23 @@
               "parameter_fieldname": "discovery",
               "required": false,
               "_key": "discovery"
+            },
+            {
+              "type": "string",
+              "description": "Identity provider type.",
+              "enum": [
+                "NATIVE",
+                "MBED",
+                "SAML2",
+                "OIDC"
+              ],
+              "api_fieldname": "type",
+              "entity_fieldname": "identity_provider_type",
+              "parameter_fieldname": "type",
+              "in": "body",
+              "required": true,
+              "enum_reference": "identity_provider_type_enum",
+              "_key": "identity_provider_type"
             },
             {
               "type": "string",
@@ -45652,7 +45702,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "identity_provider_type",
                     "_key": "type"
                   },
                   {
@@ -45925,7 +45975,12 @@
         },
         {
           "description": "Delete an identity provider by ID.",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "type",
+              "_key": "identity_provider_type"
+            }
+          ],
           "fields": [
             {
               "name": "identity_provider_id",
@@ -46195,7 +46250,12 @@
         },
         {
           "description": "Delete a service provider certificate.",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "type",
+              "_key": "identity_provider_type"
+            }
+          ],
           "fields": [
             {
               "type": "string",
@@ -46377,7 +46437,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "identity_provider_type",
                     "_key": "type"
                   },
                   {
@@ -46639,7 +46699,8 @@
             "status",
             "saml2_attributes",
             "account_id",
-            "is_default"
+            "is_default",
+            "identity_provider_type"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -46653,7 +46714,12 @@
         },
         {
           "description": "Generate a new service provider certificate.",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "type",
+              "_key": "identity_provider_type"
+            }
+          ],
           "fields": [
             {
               "type": "string",
@@ -46875,7 +46941,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "identity_provider_type",
                     "_key": "type"
                   },
                   {
@@ -47210,7 +47276,8 @@
             "status",
             "saml2_attributes",
             "account_id",
-            "is_default"
+            "is_default",
+            "identity_provider_type"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -47224,7 +47291,12 @@
         },
         {
           "description": "Retrieve identity providers in an array.",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "type",
+              "_key": "identity_provider_type"
+            }
+          ],
           "fields": [
             {
               "type": "string",
@@ -47705,7 +47777,12 @@
         },
         {
           "description": "Retrieve by ID.",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "type",
+              "_key": "identity_provider_type"
+            }
+          ],
           "fields": [
             {
               "type": "string",
@@ -47880,7 +47957,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "identity_provider_type",
                     "_key": "type"
                   },
                   {
@@ -48142,7 +48219,8 @@
             "status",
             "saml2_attributes",
             "account_id",
-            "is_default"
+            "is_default",
+            "identity_provider_type"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -48156,7 +48234,12 @@
         },
         {
           "description": "Refreshes an OIDC IdP's signing keys.",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "type",
+              "_key": "identity_provider_type"
+            }
+          ],
           "fields": [
             {
               "type": "string",
@@ -48338,7 +48421,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "identity_provider_type",
                     "_key": "type"
                   },
                   {
@@ -48673,7 +48756,8 @@
             "status",
             "saml2_attributes",
             "account_id",
-            "is_default"
+            "is_default",
+            "identity_provider_type"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -48687,7 +48771,12 @@
         },
         {
           "description": "Update an existing identity provider.",
-          "field_renames": [],
+          "field_renames": [
+            {
+              "api_fieldname": "type",
+              "_key": "identity_provider_type"
+            }
+          ],
           "fields": [
             {
               "type": "string",
@@ -48724,6 +48813,23 @@
               "in": "path",
               "required": true,
               "_key": "id"
+            },
+            {
+              "type": "string",
+              "description": "Identity provider type.",
+              "enum": [
+                "NATIVE",
+                "MBED",
+                "SAML2",
+                "OIDC"
+              ],
+              "api_fieldname": "type",
+              "entity_fieldname": "identity_provider_type",
+              "parameter_fieldname": "type",
+              "in": "body",
+              "required": true,
+              "enum_reference": "identity_provider_type_enum",
+              "_key": "identity_provider_type"
             },
             {
               "type": "string",
@@ -49170,7 +49276,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "identity_provider_type",
                     "_key": "type"
                   },
                   {
@@ -49555,6 +49661,21 @@
           "_key": "id"
         },
         {
+          "type": "string",
+          "description": "Identity provider type.",
+          "enum": [
+            "NATIVE",
+            "MBED",
+            "SAML2",
+            "OIDC"
+          ],
+          "api_fieldname": "type",
+          "readOnly": false,
+          "required": true,
+          "enum_reference": "identity_provider_type_enum",
+          "_key": "identity_provider_type"
+        },
+        {
           "type": "boolean",
           "description": "Flag indicating whether this is the global default identity provider.",
           "readOnly": true,
@@ -49651,7 +49772,12 @@
           "_key": "updated_at"
         }
       ],
-      "field_renames": [],
+      "field_renames": [
+        {
+          "api_fieldname": "type",
+          "_key": "identity_provider_type"
+        }
+      ],
       "tags": [
         "Account - identity providers"
       ],
@@ -52959,6 +53085,21 @@
         },
         {
           "type": "string",
+          "description": "Identity provider type.",
+          "readOnly": true,
+          "enum": [
+            "NATIVE",
+            "MBED",
+            "SAML2",
+            "OIDC"
+          ],
+          "api_fieldname": "type",
+          "required": false,
+          "enum_reference": "login_profile_type_enum",
+          "_key": "login_profile_type"
+        },
+        {
+          "type": "string",
           "readOnly": false,
           "description": "Name of the identity provider.",
           "_override": true,
@@ -52967,7 +53108,12 @@
           "_key": "name"
         }
       ],
-      "field_renames": [],
+      "field_renames": [
+        {
+          "api_fieldname": "type",
+          "_key": "login_profile_type"
+        }
+      ],
       "tags": [],
       "group_id": "Accounts",
       "_key": "login_profile"
@@ -53464,8 +53610,10 @@
     {
       "swagger_models": [
         "ApiKeyInfoRespList",
+        "GroupCreationInfo",
         "GroupSummary",
         "GroupSummaryList",
+        "GroupUpdateInfo",
         "UserInfoRespList"
       ],
       "primary_key_field": "id",
@@ -54013,6 +54161,756 @@
           "request_content_type": "application/json",
           "request_body": "json",
           "_key": "api_keys"
+        },
+        {
+          "description": "Create a new group.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' -d '{\"name\": \"MyGroup1\"}'\n```",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "object",
+              "properties": [
+                {
+                  "type": "array",
+                  "description": "An array of API key IDs.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "_key": "apikeys"
+                },
+                {
+                  "type": "array",
+                  "description": "An array of user IDs.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "_key": "users"
+                }
+              ],
+              "description": "Represents arrays of user and API key IDs.",
+              "name": "members",
+              "in": "body",
+              "schema_param": true,
+              "entity_fieldname": "members",
+              "api_fieldname": "members",
+              "external_param": true,
+              "parameter_fieldname": "members",
+              "required": false,
+              "_key": "members"
+            },
+            {
+              "type": "string",
+              "maxLength": 100,
+              "example": "Administrators",
+              "description": "The name of the group.",
+              "api_fieldname": "name",
+              "entity_fieldname": "name",
+              "parameter_fieldname": "name",
+              "in": "body",
+              "required": true,
+              "_key": "name"
+            }
+          ],
+          "method": "post",
+          "mode": "create",
+          "responses": [
+            {
+              "description": "New entity created.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "account_id",
+                  "apikey_count",
+                  "etag",
+                  "id",
+                  "name",
+                  "object",
+                  "user_count"
+                ],
+                "properties": [
+                  {
+                    "type": "string",
+                    "example": "01619571e2e90242ac12000600000000",
+                    "description": "The ID of the account this group belongs to.",
+                    "pattern": "[a-f0-9]{32}",
+                    "api_fieldname": "account_id",
+                    "entity_fieldname": "account_id",
+                    "_key": "account_id"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "The number of API keys in this group.",
+                    "api_fieldname": "apikey_count",
+                    "entity_fieldname": "apikey_count",
+                    "_key": "apikey_count"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-13T09:35:20Z",
+                    "description": "Creation UTC time RFC3339.",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "type": "string",
+                    "example": "1",
+                    "description": "API resource entity version.",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "example": "01619571dec00242ac12000600000000",
+                    "description": "The ID of the group.",
+                    "pattern": "[a-f0-9]{32}",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "Administrators",
+                    "description": "The name of the group.",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "_key": "name"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name: always `group`.",
+                    "enum": [
+                      "group"
+                    ],
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-14T15:24:14Z",
+                    "description": "Last update UTC time RFC3339.",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "The number of users in this group.",
+                    "api_fieldname": "user_count",
+                    "entity_fieldname": "user_count",
+                    "_key": "user_count"
+                  }
+                ],
+                "description": "This object contains basic information about groups.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "subtenant_policy_group"
+                }
+              },
+              "_key": "201"
+            },
+            {
+              "description": "Error in input data, for example, invalid group name.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Authentication failure.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "403"
+            },
+            {
+              "description": "A group with that name already exists.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "409"
+            }
+          ],
+          "path": "/v3/policy-groups",
+          "summary": "Create a new group.",
+          "return_type": "policy_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "policy_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "filter",
+            "id",
+            "created_at",
+            "updated_at",
+            "account_id",
+            "user_count",
+            "apikey_count"
+          ],
+          "group_id": "Accounts",
+          "parameter_map": {
+            "group_id": "id"
+          },
+          "operation_id": "createGroup",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "create"
+        },
+        {
+          "description": "Delete a group.\n\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "field_renames": [],
+          "fields": [
+            {
+              "name": "group_id",
+              "in": "path",
+              "description": "The ID of the group to delete.",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "group_id",
+              "external_param": false,
+              "parameter_fieldname": "group_id",
+              "_key": "id"
+            }
+          ],
+          "method": "delete",
+          "mode": "delete",
+          "responses": [
+            {
+              "description": "Deleted successfully.",
+              "_key": "204"
+            },
+            {
+              "description": "Authentication failure.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden, or Administrators group cannot be removed.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "403"
+            },
+            {
+              "description": "A group with that ID does not exist.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/policy-groups/{group_id}",
+          "summary": "Delete a group.",
+          "return_type": "policy_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "policy_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "filter"
+          ],
+          "group_id": "Accounts",
+          "parameter_map": {
+            "group_id": "id"
+          },
+          "operation_id": "deleteGroup",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "delete"
         },
         {
           "description": "Retrieve all group information.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
@@ -54828,6 +55726,466 @@
           "_key": "read"
         },
         {
+          "description": "Update a group name.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{\"name\": \"TestGroup2\"}'\n```",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "example": "01619571dec00242ac12000600000000",
+              "description": "The ID of the group.",
+              "pattern": "[a-f0-9]{32}",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "group_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
+            },
+            {
+              "type": "string",
+              "maxLength": 100,
+              "example": "Administrators",
+              "description": "The name of the group.",
+              "api_fieldname": "name",
+              "entity_fieldname": "name",
+              "parameter_fieldname": "name",
+              "in": "body",
+              "required": true,
+              "_key": "name"
+            }
+          ],
+          "method": "put",
+          "mode": "update",
+          "responses": [
+            {
+              "description": "Successful operation.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "account_id",
+                  "apikey_count",
+                  "etag",
+                  "id",
+                  "name",
+                  "object",
+                  "user_count"
+                ],
+                "properties": [
+                  {
+                    "type": "string",
+                    "example": "01619571e2e90242ac12000600000000",
+                    "description": "The ID of the account this group belongs to.",
+                    "pattern": "[a-f0-9]{32}",
+                    "api_fieldname": "account_id",
+                    "entity_fieldname": "account_id",
+                    "_key": "account_id"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "The number of API keys in this group.",
+                    "api_fieldname": "apikey_count",
+                    "entity_fieldname": "apikey_count",
+                    "_key": "apikey_count"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-13T09:35:20Z",
+                    "description": "Creation UTC time RFC3339.",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "type": "string",
+                    "example": "1",
+                    "description": "API resource entity version.",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "example": "01619571dec00242ac12000600000000",
+                    "description": "The ID of the group.",
+                    "pattern": "[a-f0-9]{32}",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "_key": "id"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "Administrators",
+                    "description": "The name of the group.",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "_key": "name"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name: always `group`.",
+                    "enum": [
+                      "group"
+                    ],
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-14T15:24:14Z",
+                    "description": "Last update UTC time RFC3339.",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "The number of users in this group.",
+                    "api_fieldname": "user_count",
+                    "entity_fieldname": "user_count",
+                    "_key": "user_count"
+                  }
+                ],
+                "description": "This object contains basic information about groups.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "subtenant_policy_group"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Error in input data, for example, the group name is too long.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Authentication failure.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "403"
+            },
+            {
+              "description": "A group with that ID does not exist.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/policy-groups/{group_id}",
+          "summary": "Update the group name.",
+          "return_type": "policy_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "policy_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "filter",
+            "created_at",
+            "updated_at",
+            "account_id",
+            "user_count",
+            "apikey_count"
+          ],
+          "group_id": "Accounts",
+          "parameter_map": {
+            "group_id": "id"
+          },
+          "operation_id": "updateGroupName",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "update"
+        },
+        {
           "description": "Retrieve users of a group with details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
@@ -55219,7 +56577,7 @@
                                   "OIDC"
                                 ],
                                 "api_fieldname": "type",
-                                "entity_fieldname": "type",
+                                "entity_fieldname": "login_profile_type",
                                 "_key": "type"
                               }
                             ],
@@ -55687,8 +57045,8 @@
           "example": "Administrators",
           "description": "The name of the group.",
           "api_fieldname": "name",
-          "readOnly": true,
-          "required": false,
+          "readOnly": false,
+          "required": true,
           "_key": "name"
         },
         {
@@ -62519,12 +63877,10 @@
                     ],
                     "api_fieldname": "type",
                     "entity_fieldname": "type",
-                    "name": "type",
-                    "in": "body",
-                    "schema_param": true,
-                    "external_param": true,
                     "parameter_fieldname": "type",
+                    "in": "body",
                     "required": true,
+                    "enum_reference": "identity_provider_type_enum",
                     "_key": "type"
                   },
                   {
@@ -63362,12 +64718,10 @@
                     ],
                     "api_fieldname": "type",
                     "entity_fieldname": "type",
-                    "name": "type",
-                    "in": "body",
-                    "schema_param": true,
-                    "external_param": true,
                     "parameter_fieldname": "type",
+                    "in": "body",
                     "required": true,
+                    "enum_reference": "identity_provider_type_enum",
                     "_key": "type"
                   },
                   {
@@ -63893,12 +65247,10 @@
                     ],
                     "api_fieldname": "type",
                     "entity_fieldname": "type",
-                    "name": "type",
-                    "in": "body",
-                    "schema_param": true,
-                    "external_param": true,
                     "parameter_fieldname": "type",
+                    "in": "body",
                     "required": true,
+                    "enum_reference": "identity_provider_type_enum",
                     "_key": "type"
                   },
                   {
@@ -65034,12 +66386,10 @@
                     ],
                     "api_fieldname": "type",
                     "entity_fieldname": "type",
-                    "name": "type",
-                    "in": "body",
-                    "schema_param": true,
-                    "external_param": true,
                     "parameter_fieldname": "type",
+                    "in": "body",
                     "required": true,
+                    "enum_reference": "identity_provider_type_enum",
                     "_key": "type"
                   },
                   {
@@ -65525,12 +66875,10 @@
                     ],
                     "api_fieldname": "type",
                     "entity_fieldname": "type",
-                    "name": "type",
-                    "in": "body",
-                    "schema_param": true,
-                    "external_param": true,
                     "parameter_fieldname": "type",
+                    "in": "body",
                     "required": true,
+                    "enum_reference": "identity_provider_type_enum",
                     "_key": "type"
                   },
                   {
@@ -66390,12 +67738,10 @@
                     ],
                     "api_fieldname": "type",
                     "entity_fieldname": "type",
-                    "name": "type",
-                    "in": "body",
-                    "schema_param": true,
-                    "external_param": true,
                     "parameter_fieldname": "type",
+                    "in": "body",
                     "required": true,
+                    "enum_reference": "identity_provider_type_enum",
                     "_key": "type"
                   },
                   {
@@ -69469,8 +70815,10 @@
     {
       "swagger_models": [
         "ApiKeyInfoRespList",
+        "GroupCreationInfo",
         "GroupSummary",
         "GroupSummaryList",
+        "GroupUpdateInfo",
         "UserInfoRespList"
       ],
       "primary_key_field": "id",
@@ -70030,6 +71378,858 @@
           "request_content_type": "application/json",
           "request_body": "json",
           "_key": "api_keys"
+        },
+        {
+          "description": "Create a new group.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{\"name\": \"MyGroup1\"}'\n```",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "example": "01619571e2e90242ac12000600000000",
+              "description": "The ID of the account this group belongs to.",
+              "pattern": "[a-f0-9]{32}",
+              "api_fieldname": "account_id",
+              "entity_fieldname": "account_id",
+              "parameter_fieldname": "account_id",
+              "in": "path",
+              "required": true,
+              "_key": "account_id"
+            },
+            {
+              "type": "object",
+              "properties": [
+                {
+                  "type": "array",
+                  "description": "An array of API key IDs.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "_key": "apikeys"
+                },
+                {
+                  "type": "array",
+                  "description": "An array of user IDs.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "_key": "users"
+                }
+              ],
+              "description": "Represents arrays of user and API key IDs.",
+              "name": "members",
+              "in": "body",
+              "schema_param": true,
+              "entity_fieldname": "members",
+              "api_fieldname": "members",
+              "external_param": true,
+              "parameter_fieldname": "members",
+              "required": false,
+              "_key": "members"
+            },
+            {
+              "type": "string",
+              "maxLength": 100,
+              "example": "Administrators",
+              "description": "The name of the group.",
+              "api_fieldname": "name",
+              "entity_fieldname": "name",
+              "parameter_fieldname": "name",
+              "in": "body",
+              "required": true,
+              "_key": "name"
+            }
+          ],
+          "method": "post",
+          "mode": "create",
+          "responses": [
+            {
+              "description": "New entity created.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "account_id",
+                  "apikey_count",
+                  "etag",
+                  "id",
+                  "name",
+                  "object",
+                  "user_count"
+                ],
+                "properties": [
+                  {
+                    "type": "string",
+                    "example": "01619571e2e90242ac12000600000000",
+                    "description": "The ID of the account this group belongs to.",
+                    "pattern": "[a-f0-9]{32}",
+                    "api_fieldname": "account_id",
+                    "entity_fieldname": "account_id",
+                    "_key": "account_id"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "The number of API keys in this group.",
+                    "api_fieldname": "apikey_count",
+                    "entity_fieldname": "apikey_count",
+                    "_key": "apikey_count"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-13T09:35:20Z",
+                    "description": "Creation UTC time RFC3339.",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "type": "string",
+                    "example": "1",
+                    "description": "API resource entity version.",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "example": "01619571dec00242ac12000600000000",
+                    "description": "The ID of the group.",
+                    "pattern": "[a-f0-9]{32}",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "parameter_fieldname": "group_id",
+                    "in": "path",
+                    "required": true,
+                    "_key": "id"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "Administrators",
+                    "description": "The name of the group.",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "parameter_fieldname": "name",
+                    "in": "body",
+                    "required": true,
+                    "_key": "name"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name: always `group`.",
+                    "enum": [
+                      "group"
+                    ],
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-14T15:24:14Z",
+                    "description": "Last update UTC time RFC3339.",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "The number of users in this group.",
+                    "api_fieldname": "user_count",
+                    "entity_fieldname": "user_count",
+                    "_key": "user_count"
+                  }
+                ],
+                "description": "This object contains basic information about groups.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "policy_group"
+                }
+              },
+              "_key": "201"
+            },
+            {
+              "description": "Error in input data, for example, invalid group name.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Authentication failure.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "403"
+            },
+            {
+              "description": "An account with the specified ID does not exist.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            },
+            {
+              "description": "A group with that name already exists.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "409"
+            }
+          ],
+          "path": "/v3/accounts/{account_id}/policy-groups",
+          "summary": "Create a new group.",
+          "return_type": "subtenant_policy_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_policy_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "filter",
+            "id",
+            "created_at",
+            "updated_at",
+            "user_count",
+            "apikey_count"
+          ],
+          "group_id": "Accounts",
+          "parameter_map": {
+            "group_id": "id"
+          },
+          "operation_id": "createAccountGroup",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "create"
+        },
+        {
+          "description": "Delete a group.\n\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "field_renames": [],
+          "fields": [
+            {
+              "name": "account_id",
+              "in": "path",
+              "description": "Account ID.",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "account_id",
+              "api_fieldname": "account_id",
+              "external_param": false,
+              "parameter_fieldname": "account_id",
+              "_key": "account_id"
+            },
+            {
+              "name": "group_id",
+              "in": "path",
+              "description": "The ID of the group to delete.",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "group_id",
+              "external_param": false,
+              "parameter_fieldname": "group_id",
+              "_key": "id"
+            }
+          ],
+          "method": "delete",
+          "mode": "delete",
+          "responses": [
+            {
+              "description": "Deleted successfully.",
+              "_key": "204"
+            },
+            {
+              "description": "Authentication failure.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden, or Administrators group cannot be removed.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "403"
+            },
+            {
+              "description": "An account or group with that ID does not exist.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/accounts/{account_id}/policy-groups/{group_id}",
+          "summary": "Delete a group.",
+          "return_type": "subtenant_policy_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_policy_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "filter"
+          ],
+          "group_id": "Accounts",
+          "parameter_map": {
+            "group_id": "id"
+          },
+          "operation_id": "deleteAccountGroup",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "delete"
         },
         {
           "description": "Retrieve all group information.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
@@ -70653,6 +72853,9 @@
                     "description": "The name of the group.",
                     "api_fieldname": "name",
                     "entity_fieldname": "name",
+                    "parameter_fieldname": "name",
+                    "in": "body",
+                    "required": true,
                     "_key": "name"
                   },
                   {
@@ -70942,6 +73145,483 @@
           "request_content_type": "application/json",
           "request_body": "json",
           "_key": "read"
+        },
+        {
+          "description": "Update a group name.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{\"name\": \"TestGroup2\"}'\n```",
+          "field_renames": [],
+          "fields": [
+            {
+              "type": "string",
+              "example": "01619571e2e90242ac12000600000000",
+              "description": "The ID of the account this group belongs to.",
+              "pattern": "[a-f0-9]{32}",
+              "api_fieldname": "account_id",
+              "entity_fieldname": "account_id",
+              "parameter_fieldname": "account_id",
+              "in": "path",
+              "required": true,
+              "_key": "account_id"
+            },
+            {
+              "type": "string",
+              "example": "01619571dec00242ac12000600000000",
+              "description": "The ID of the group.",
+              "pattern": "[a-f0-9]{32}",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "group_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
+            },
+            {
+              "type": "string",
+              "maxLength": 100,
+              "example": "Administrators",
+              "description": "The name of the group.",
+              "api_fieldname": "name",
+              "entity_fieldname": "name",
+              "parameter_fieldname": "name",
+              "in": "body",
+              "required": true,
+              "_key": "name"
+            }
+          ],
+          "method": "put",
+          "mode": "update",
+          "responses": [
+            {
+              "description": "Successful operation.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "account_id",
+                  "apikey_count",
+                  "etag",
+                  "id",
+                  "name",
+                  "object",
+                  "user_count"
+                ],
+                "properties": [
+                  {
+                    "type": "string",
+                    "example": "01619571e2e90242ac12000600000000",
+                    "description": "The ID of the account this group belongs to.",
+                    "pattern": "[a-f0-9]{32}",
+                    "api_fieldname": "account_id",
+                    "entity_fieldname": "account_id",
+                    "_key": "account_id"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "The number of API keys in this group.",
+                    "api_fieldname": "apikey_count",
+                    "entity_fieldname": "apikey_count",
+                    "_key": "apikey_count"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-13T09:35:20Z",
+                    "description": "Creation UTC time RFC3339.",
+                    "api_fieldname": "created_at",
+                    "entity_fieldname": "created_at",
+                    "_key": "created_at"
+                  },
+                  {
+                    "type": "string",
+                    "example": "1",
+                    "description": "API resource entity version.",
+                    "api_fieldname": "etag",
+                    "entity_fieldname": "etag",
+                    "_key": "etag"
+                  },
+                  {
+                    "type": "string",
+                    "example": "01619571dec00242ac12000600000000",
+                    "description": "The ID of the group.",
+                    "pattern": "[a-f0-9]{32}",
+                    "api_fieldname": "id",
+                    "entity_fieldname": "id",
+                    "parameter_fieldname": "group_id",
+                    "in": "path",
+                    "required": true,
+                    "_key": "id"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "Administrators",
+                    "description": "The name of the group.",
+                    "api_fieldname": "name",
+                    "entity_fieldname": "name",
+                    "parameter_fieldname": "name",
+                    "in": "body",
+                    "required": true,
+                    "_key": "name"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name: always `group`.",
+                    "enum": [
+                      "group"
+                    ],
+                    "api_fieldname": "object",
+                    "entity_fieldname": "object",
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2018-02-14T15:24:14Z",
+                    "description": "Last update UTC time RFC3339.",
+                    "api_fieldname": "updated_at",
+                    "entity_fieldname": "updated_at",
+                    "_key": "updated_at"
+                  },
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "The number of users in this group.",
+                    "api_fieldname": "user_count",
+                    "entity_fieldname": "user_count",
+                    "_key": "user_count"
+                  }
+                ],
+                "description": "This object contains basic information about groups.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "policy_group"
+                }
+              },
+              "_key": "200"
+            },
+            {
+              "description": "Error in input data, for example, the group name is too long.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "400"
+            },
+            {
+              "description": "Authentication failure.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "401"
+            },
+            {
+              "description": "Forbidden.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "403"
+            },
+            {
+              "description": "A group with that ID does not exist.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "404"
+            }
+          ],
+          "path": "/v3/accounts/{account_id}/policy-groups/{group_id}",
+          "summary": "Update the group name.",
+          "return_type": "subtenant_policy_group",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_policy_group"
+          },
+          "x_filter": {},
+          "x_deprecation": null,
+          "drop_fields": [
+            "object",
+            "etag",
+            "type",
+            "filter",
+            "created_at",
+            "updated_at",
+            "user_count",
+            "apikey_count"
+          ],
+          "group_id": "Accounts",
+          "parameter_map": {
+            "group_id": "id"
+          },
+          "operation_id": "updateAccountGroupName",
+          "pagination": false,
+          "request_content_type": "application/json",
+          "request_body": "json",
+          "_key": "update"
         },
         {
           "description": "List a group's users, with details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
@@ -71347,7 +74027,7 @@
                                   "OIDC"
                                 ],
                                 "api_fieldname": "type",
-                                "entity_fieldname": "type",
+                                "entity_fieldname": "login_profile_type",
                                 "_key": "type"
                               }
                             ],
@@ -71817,8 +74497,10 @@
           "example": "Administrators",
           "description": "The name of the group.",
           "api_fieldname": "name",
-          "readOnly": true,
-          "required": false,
+          "parameter_fieldname": "name",
+          "in": "body",
+          "required": true,
+          "readOnly": false,
           "_key": "name"
         },
         {
@@ -74780,7 +77462,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "login_profile_type",
                     "_key": "type"
                   }
                 ],
@@ -75183,7 +77865,7 @@
                             "OIDC"
                           ],
                           "api_fieldname": "type",
-                          "entity_fieldname": "type",
+                          "entity_fieldname": "login_profile_type",
                           "_key": "type"
                         }
                       ],
@@ -76967,7 +79649,7 @@
                             "OIDC"
                           ],
                           "api_fieldname": "type",
-                          "entity_fieldname": "type",
+                          "entity_fieldname": "login_profile_type",
                           "_key": "type"
                         }
                       ],
@@ -77494,7 +80176,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "login_profile_type",
                     "_key": "type"
                   }
                 ],
@@ -77885,7 +80567,7 @@
                             "OIDC"
                           ],
                           "api_fieldname": "type",
-                          "entity_fieldname": "type",
+                          "entity_fieldname": "login_profile_type",
                           "_key": "type"
                         }
                       ],
@@ -79027,7 +81709,7 @@
                   "OIDC"
                 ],
                 "api_fieldname": "type",
-                "entity_fieldname": "type",
+                "entity_fieldname": "login_profile_type",
                 "_key": "type"
               }
             ],
@@ -79228,7 +81910,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "login_profile_type",
                     "_key": "type"
                   }
                 ],
@@ -79390,7 +82072,7 @@
                             "OIDC"
                           ],
                           "api_fieldname": "type",
-                          "entity_fieldname": "type",
+                          "entity_fieldname": "login_profile_type",
                           "_key": "type"
                         }
                       ],
@@ -80133,7 +82815,7 @@
                             "OIDC"
                           ],
                           "api_fieldname": "type",
-                          "entity_fieldname": "type",
+                          "entity_fieldname": "login_profile_type",
                           "_key": "type"
                         }
                       ],
@@ -80548,7 +83230,7 @@
                   "OIDC"
                 ],
                 "api_fieldname": "type",
-                "entity_fieldname": "type",
+                "entity_fieldname": "login_profile_type",
                 "_key": "type"
               }
             ],
@@ -86105,7 +88787,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "login_profile_type",
                     "_key": "type"
                   }
                 ],
@@ -86484,7 +89166,7 @@
                             "OIDC"
                           ],
                           "api_fieldname": "type",
-                          "entity_fieldname": "type",
+                          "entity_fieldname": "login_profile_type",
                           "_key": "type"
                         }
                       ],
@@ -87641,7 +90323,7 @@
                                   "OIDC"
                                 ],
                                 "api_fieldname": "type",
-                                "entity_fieldname": "type",
+                                "entity_fieldname": "login_profile_type",
                                 "_key": "type"
                               }
                             ],
@@ -88822,7 +91504,7 @@
                             "OIDC"
                           ],
                           "api_fieldname": "type",
-                          "entity_fieldname": "type",
+                          "entity_fieldname": "login_profile_type",
                           "_key": "type"
                         }
                       ],
@@ -89323,7 +92005,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "login_profile_type",
                     "_key": "type"
                   }
                 ],
@@ -89690,7 +92372,7 @@
                             "OIDC"
                           ],
                           "api_fieldname": "type",
-                          "entity_fieldname": "type",
+                          "entity_fieldname": "login_profile_type",
                           "_key": "type"
                         }
                       ],
@@ -90520,7 +93202,7 @@
                   "OIDC"
                 ],
                 "api_fieldname": "type",
-                "entity_fieldname": "type",
+                "entity_fieldname": "login_profile_type",
                 "_key": "type"
               }
             ],
@@ -90700,7 +93382,7 @@
                       "OIDC"
                     ],
                     "api_fieldname": "type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "login_profile_type",
                     "_key": "type"
                   }
                 ],
@@ -90853,7 +93535,7 @@
                             "OIDC"
                           ],
                           "api_fieldname": "type",
-                          "entity_fieldname": "type",
+                          "entity_fieldname": "login_profile_type",
                           "_key": "type"
                         }
                       ],
@@ -91604,7 +94286,7 @@
                                   "OIDC"
                                 ],
                                 "api_fieldname": "type",
-                                "entity_fieldname": "type",
+                                "entity_fieldname": "login_profile_type",
                                 "_key": "type"
                               }
                             ],
@@ -92026,7 +94708,7 @@
                             "OIDC"
                           ],
                           "api_fieldname": "type",
-                          "entity_fieldname": "type",
+                          "entity_fieldname": "login_profile_type",
                           "_key": "type"
                         }
                       ],
@@ -92433,7 +95115,7 @@
                   "OIDC"
                 ],
                 "api_fieldname": "type",
-                "entity_fieldname": "type",
+                "entity_fieldname": "login_profile_type",
                 "_key": "type"
               }
             ],

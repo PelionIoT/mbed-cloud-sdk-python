@@ -10135,7 +10135,7 @@ entities:
                 - _key: type
                   api_fieldname: type
                   description: Identity provider type.
-                  entity_fieldname: type
+                  entity_fieldname: login_profile_type
                   enum:
                   - NATIVE
                   - MBED
@@ -10722,7 +10722,7 @@ entities:
                 - _key: type
                   api_fieldname: type
                   description: Identity provider type.
-                  entity_fieldname: type
+                  entity_fieldname: login_profile_type
                   enum:
                   - NATIVE
                   - MBED
@@ -34357,7 +34357,9 @@ entities:
   - FirmwareManifestPage
   tags: []
 - _key: identity_provider
-  field_renames: []
+  field_renames:
+  - _key: identity_provider_type
+    api_fieldname: type
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -34387,6 +34389,18 @@ entities:
     description: Entity ID.
     example: 01619571d01d0242ac12000600000000
     pattern: '[a-f0-9]{32}'
+    readOnly: false
+    required: true
+    type: string
+  - _key: identity_provider_type
+    api_fieldname: type
+    description: Identity provider type.
+    enum:
+    - NATIVE
+    - MBED
+    - SAML2
+    - OIDC
+    enum_reference: identity_provider_type_enum
     readOnly: false
     required: true
     type: string
@@ -34477,7 +34491,9 @@ entities:
     - updated_at
     - account_id
     - is_default
-    field_renames: []
+    field_renames:
+    - _key: identity_provider_type
+      api_fieldname: type
     fields:
     - _key: description
       api_fieldname: description
@@ -34502,6 +34518,20 @@ entities:
       parameter_fieldname: discovery
       required: false
       type: boolean
+    - _key: identity_provider_type
+      api_fieldname: type
+      description: Identity provider type.
+      entity_fieldname: identity_provider_type
+      enum: &id005
+      - NATIVE
+      - MBED
+      - SAML2
+      - OIDC
+      enum_reference: identity_provider_type_enum
+      in: body
+      parameter_fieldname: type
+      required: true
+      type: string
     - _key: name
       api_fieldname: name
       description: Name of the identity provider.
@@ -34704,7 +34734,7 @@ entities:
       api_fieldname: status
       description: Status of the identity provider.
       entity_fieldname: status
-      enum: &id005
+      enum: &id006
       - ACTIVE
       - SUSPENDED
       enum_reference: identity_provider_status_enum
@@ -34842,7 +34872,7 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
+          entity_fieldname: identity_provider_type
           enum:
           - NATIVE
           - MBED
@@ -35022,7 +35052,9 @@ entities:
     - etag
     - type
     - filter
-    field_renames: []
+    field_renames:
+    - _key: identity_provider_type
+      api_fieldname: type
     fields:
     - _key: id
       api_fieldname: identity_provider_id
@@ -35214,7 +35246,10 @@ entities:
     - saml2_attributes
     - account_id
     - is_default
-    field_renames: []
+    - identity_provider_type
+    field_renames:
+    - _key: identity_provider_type
+      api_fieldname: type
     fields:
     - _key: id
       api_fieldname: id
@@ -35353,7 +35388,7 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
+          entity_fieldname: identity_provider_type
           enum:
           - NATIVE
           - MBED
@@ -35541,7 +35576,10 @@ entities:
     - saml2_attributes
     - account_id
     - is_default
-    field_renames: []
+    - identity_provider_type
+    field_renames:
+    - _key: identity_provider_type
+      api_fieldname: type
     fields:
     - _key: algorithm
       api_fieldname: algorithm
@@ -35716,7 +35754,7 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
+          entity_fieldname: identity_provider_type
           enum:
           - NATIVE
           - MBED
@@ -35948,7 +35986,9 @@ entities:
     - total_count
     - has_more
     - data
-    field_renames: []
+    field_renames:
+    - _key: identity_provider_type
+      api_fieldname: type
     fields:
     - _key: after
       api_fieldname: after
@@ -36306,7 +36346,10 @@ entities:
     - saml2_attributes
     - account_id
     - is_default
-    field_renames: []
+    - identity_provider_type
+    field_renames:
+    - _key: identity_provider_type
+      api_fieldname: type
     fields:
     - _key: id
       api_fieldname: id
@@ -36441,7 +36484,7 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
+          entity_fieldname: identity_provider_type
           enum:
           - NATIVE
           - MBED
@@ -36629,7 +36672,10 @@ entities:
     - saml2_attributes
     - account_id
     - is_default
-    field_renames: []
+    - identity_provider_type
+    field_renames:
+    - _key: identity_provider_type
+      api_fieldname: type
     fields:
     - _key: id
       api_fieldname: id
@@ -36768,7 +36814,7 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
+          entity_fieldname: identity_provider_type
           enum:
           - NATIVE
           - MBED
@@ -37000,7 +37046,9 @@ entities:
     - updated_at
     - account_id
     - is_default
-    field_renames: []
+    field_renames:
+    - _key: identity_provider_type
+      api_fieldname: type
     fields:
     - _key: description
       api_fieldname: description
@@ -37033,6 +37081,16 @@ entities:
       in: path
       parameter_fieldname: identity_provider_id
       pattern: '[a-f0-9]{32}'
+      required: true
+      type: string
+    - _key: identity_provider_type
+      api_fieldname: type
+      description: Identity provider type.
+      entity_fieldname: identity_provider_type
+      enum: *id005
+      enum_reference: identity_provider_type_enum
+      in: body
+      parameter_fieldname: type
       required: true
       type: string
     - _key: name
@@ -37237,7 +37295,7 @@ entities:
       api_fieldname: status
       description: Status of the identity provider.
       entity_fieldname: status
-      enum: *id005
+      enum: *id006
       enum_reference: identity_provider_status_enum
       in: body
       parameter_fieldname: status
@@ -37366,7 +37424,7 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
+          entity_fieldname: identity_provider_type
           enum:
           - NATIVE
           - MBED
@@ -37696,7 +37754,7 @@ entities:
       api_fieldname: reference
       description: The name of the branding color.
       entity_fieldname: reference
-      enum: &id006
+      enum: &id007
       - error_color
       - primary
       - secondary
@@ -38169,7 +38227,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id006
+      enum: *id007
       enum_reference: light_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -38452,7 +38510,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id006
+      enum: *id007
       enum_reference: light_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -38852,7 +38910,7 @@ entities:
       api_fieldname: reference
       description: Name of the branding images (icon or picture).
       entity_fieldname: reference
-      enum: &id007
+      enum: &id008
       - brand_logo_portrait
       - brand_logo_square
       - brand_logo_landscape
@@ -39366,7 +39424,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id007
+      enum: *id008
       enum_reference: light_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -39645,7 +39703,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id007
+      enum: *id008
       enum_reference: light_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -39995,13 +40053,27 @@ entities:
   - LoginHistory
   tags: []
 - _key: login_profile
-  field_renames: []
+  field_renames:
+  - _key: login_profile_type
+    api_fieldname: type
   fields:
   - _key: id
     _override: true
     api_fieldname: id
     description: ID of the identity provider.
     readOnly: false
+    required: false
+    type: string
+  - _key: login_profile_type
+    api_fieldname: type
+    description: Identity provider type.
+    enum:
+    - NATIVE
+    - MBED
+    - SAML2
+    - OIDC
+    enum_reference: login_profile_type_enum
+    readOnly: true
     required: false
     type: string
   - _key: name
@@ -40437,8 +40509,8 @@ entities:
     description: The name of the group.
     example: Administrators
     maxLength: 100
-    readOnly: true
-    required: false
+    readOnly: false
+    required: true
     type: string
   - _key: updated_at
     api_fieldname: updated_at
@@ -40867,6 +40939,552 @@ entities:
       type: api_key
     return_type: paginated_response(api_key)
     summary: Get the API keys of a group.
+    x_deprecation: null
+    x_filter: {}
+  - _key: create
+    description: 'Create a new group.
+
+
+      **Example:**
+
+      ```
+
+      curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups \
+
+      -H ''Authorization: Bearer <api_key>'' \
+
+      -H ''content-type: application/json'' -d ''{"name": "MyGroup1"}''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - filter
+    - id
+    - created_at
+    - updated_at
+    - account_id
+    - user_count
+    - apikey_count
+    field_renames: []
+    fields:
+    - _key: members
+      api_fieldname: members
+      description: Represents arrays of user and API key IDs.
+      entity_fieldname: members
+      external_param: true
+      in: body
+      name: members
+      parameter_fieldname: members
+      properties:
+      - _key: apikeys
+        description: An array of API key IDs.
+        items:
+          type: string
+        type: array
+      - _key: users
+        description: An array of user IDs.
+        items:
+          type: string
+        type: array
+      required: false
+      schema_param: true
+      type: object
+    - _key: name
+      api_fieldname: name
+      description: The name of the group.
+      entity_fieldname: name
+      example: Administrators
+      in: body
+      maxLength: 100
+      parameter_fieldname: name
+      required: true
+      type: string
+    group_id: Accounts
+    method: post
+    mode: create
+    operation_id: createGroup
+    pagination: false
+    parameter_map:
+      group_id: id
+    path: /v3/policy-groups
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '201'
+      description: New entity created.
+      schema:
+        description: This object contains basic information about groups.
+        foreign_key:
+          entity: subtenant_policy_group
+          group: Accounts
+        properties:
+        - _key: account_id
+          api_fieldname: account_id
+          description: The ID of the account this group belongs to.
+          entity_fieldname: account_id
+          example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: apikey_count
+          api_fieldname: apikey_count
+          description: The number of API keys in this group.
+          entity_fieldname: apikey_count
+          example: 0
+          format: int32
+          type: integer
+        - _key: created_at
+          api_fieldname: created_at
+          description: Creation UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2018-02-13T09:35:20Z'
+          format: date-time
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The ID of the group.
+          entity_fieldname: id
+          example: 01619571dec00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: The name of the group.
+          entity_fieldname: name
+          example: Administrators
+          maxLength: 100
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always `group`.'
+          entity_fieldname: object
+          enum:
+          - group
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        - _key: user_count
+          api_fieldname: user_count
+          description: The number of users in this group.
+          entity_fieldname: user_count
+          example: 1
+          format: int32
+          type: integer
+        required:
+        - account_id
+        - apikey_count
+        - etag
+        - id
+        - name
+        - object
+        - user_count
+        type: object
+    - _key: '400'
+      description: Error in input data, for example, invalid group name.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '409'
+      description: A group with that name already exists.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: policy_group
+    return_type: policy_group
+    summary: Create a new group.
+    x_deprecation: null
+    x_filter: {}
+  - _key: delete
+    description: 'Delete a group.
+
+
+      **Example:**
+
+      ```
+
+      curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - filter
+    field_renames: []
+    fields:
+    - _key: id
+      api_fieldname: group_id
+      description: The ID of the group to delete.
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: group_id
+      parameter_fieldname: group_id
+      required: true
+      type: string
+    group_id: Accounts
+    method: delete
+    mode: delete
+    operation_id: deleteGroup
+    pagination: false
+    parameter_map:
+      group_id: id
+    path: /v3/policy-groups/{group_id}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Deleted successfully.
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden, or Administrators group cannot be removed.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: A group with that ID does not exist.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: policy_group
+    return_type: policy_group
+    summary: Delete a group.
     x_deprecation: null
     x_filter: {}
   - _key: list
@@ -41485,6 +42103,346 @@ entities:
     summary: Get group information.
     x_deprecation: null
     x_filter: {}
+  - _key: update
+    description: 'Update a group name.
+
+
+      **Example:**
+
+      ```
+
+      curl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}
+      \
+
+      -H ''Authorization: Bearer <api_key>'' \
+
+      -H ''content-type: application/json'' \
+
+      -d ''{"name": "TestGroup2"}''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - filter
+    - created_at
+    - updated_at
+    - account_id
+    - user_count
+    - apikey_count
+    field_renames: []
+    fields:
+    - _key: id
+      api_fieldname: id
+      description: The ID of the group.
+      entity_fieldname: id
+      example: 01619571dec00242ac12000600000000
+      in: path
+      parameter_fieldname: group_id
+      pattern: '[a-f0-9]{32}'
+      required: true
+      type: string
+    - _key: name
+      api_fieldname: name
+      description: The name of the group.
+      entity_fieldname: name
+      example: Administrators
+      in: body
+      maxLength: 100
+      parameter_fieldname: name
+      required: true
+      type: string
+    group_id: Accounts
+    method: put
+    mode: update
+    operation_id: updateGroupName
+    pagination: false
+    parameter_map:
+      group_id: id
+    path: /v3/policy-groups/{group_id}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        description: This object contains basic information about groups.
+        foreign_key:
+          entity: subtenant_policy_group
+          group: Accounts
+        properties:
+        - _key: account_id
+          api_fieldname: account_id
+          description: The ID of the account this group belongs to.
+          entity_fieldname: account_id
+          example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: apikey_count
+          api_fieldname: apikey_count
+          description: The number of API keys in this group.
+          entity_fieldname: apikey_count
+          example: 0
+          format: int32
+          type: integer
+        - _key: created_at
+          api_fieldname: created_at
+          description: Creation UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2018-02-13T09:35:20Z'
+          format: date-time
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The ID of the group.
+          entity_fieldname: id
+          example: 01619571dec00242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: The name of the group.
+          entity_fieldname: name
+          example: Administrators
+          maxLength: 100
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always `group`.'
+          entity_fieldname: object
+          enum:
+          - group
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        - _key: user_count
+          api_fieldname: user_count
+          description: The number of users in this group.
+          entity_fieldname: user_count
+          example: 1
+          format: int32
+          type: integer
+        required:
+        - account_id
+        - apikey_count
+        - etag
+        - id
+        - name
+        - object
+        - user_count
+        type: object
+    - _key: '400'
+      description: Error in input data, for example, the group name is too long.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: A group with that ID does not exist.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: policy_group
+    return_type: policy_group
+    summary: Update the group name.
+    x_deprecation: null
+    x_filter: {}
   - _key: users
     description: 'Retrieve users of a group with details.
 
@@ -41821,7 +42779,7 @@ entities:
                 - _key: type
                   api_fieldname: type
                   description: Identity provider type.
-                  entity_fieldname: type
+                  entity_fieldname: login_profile_type
                   enum:
                   - NATIVE
                   - MBED
@@ -42113,8 +43071,10 @@ entities:
   primary_key_field: id
   swagger_models:
   - ApiKeyInfoRespList
+  - GroupCreationInfo
   - GroupSummary
   - GroupSummaryList
+  - GroupUpdateInfo
   - UserInfoRespList
   tags:
   - Account - policy groups
@@ -43262,7 +44222,7 @@ entities:
       api_fieldname: status
       description: The status of the API key.
       entity_fieldname: status
-      enum: &id008
+      enum: &id009
       - ACTIVE
       - INACTIVE
       enum_reference: subtenant_api_key_status_enum
@@ -44619,7 +45579,7 @@ entities:
       api_fieldname: status
       description: The status of the API key.
       entity_fieldname: status
-      enum: *id008
+      enum: *id009
       enum_reference: subtenant_api_key_status_enum
       example: ACTIVE
       in: body
@@ -45057,7 +46017,7 @@ entities:
       api_fieldname: reference
       description: The name of the branding color.
       entity_fieldname: reference
-      enum: &id009
+      enum: &id010
       - error_color
       - primary
       - secondary
@@ -45283,7 +46243,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id009
+      enum: *id010
       enum_reference: subtenant_dark_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -45576,7 +46536,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id009
+      enum: *id010
       enum_reference: subtenant_dark_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -45985,7 +46945,7 @@ entities:
       api_fieldname: reference
       description: Name of the branding images (icon or picture).
       entity_fieldname: reference
-      enum: &id010
+      enum: &id011
       - brand_logo_portrait
       - brand_logo_square
       - brand_logo_landscape
@@ -46230,7 +47190,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id010
+      enum: *id011
       enum_reference: subtenant_dark_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -46520,7 +47480,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id010
+      enum: *id011
       enum_reference: subtenant_dark_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -47196,7 +48156,7 @@ entities:
       api_fieldname: status
       description: Status of the identity provider.
       entity_fieldname: status
-      enum: &id011
+      enum: &id012
       - ACTIVE
       - SUSPENDED
       enum_reference: subtenant_identity_provider_status_enum
@@ -47356,12 +48316,10 @@ entities:
           - MBED
           - SAML2
           - OIDC
-          external_param: true
+          enum_reference: identity_provider_type_enum
           in: body
-          name: type
           parameter_fieldname: type
           required: true
-          schema_param: true
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -47956,12 +48914,10 @@ entities:
           - MBED
           - SAML2
           - OIDC
-          external_param: true
+          enum_reference: identity_provider_type_enum
           in: body
-          name: type
           parameter_fieldname: type
           required: true
-          schema_param: true
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -48350,12 +49306,10 @@ entities:
           - MBED
           - SAML2
           - OIDC
-          external_param: true
+          enum_reference: identity_provider_type_enum
           in: body
-          name: type
           parameter_fieldname: type
           required: true
-          schema_param: true
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -49182,12 +50136,10 @@ entities:
           - MBED
           - SAML2
           - OIDC
-          external_param: true
+          enum_reference: identity_provider_type_enum
           in: body
-          name: type
           parameter_fieldname: type
           required: true
-          schema_param: true
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -49540,12 +50492,10 @@ entities:
           - MBED
           - SAML2
           - OIDC
-          external_param: true
+          enum_reference: identity_provider_type_enum
           in: body
-          name: type
           parameter_fieldname: type
           required: true
-          schema_param: true
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -50018,7 +50968,7 @@ entities:
       api_fieldname: status
       description: Status of the identity provider.
       entity_fieldname: status
-      enum: *id011
+      enum: *id012
       enum_reference: subtenant_identity_provider_status_enum
       in: body
       parameter_fieldname: status
@@ -50169,12 +51119,10 @@ entities:
           - MBED
           - SAML2
           - OIDC
-          external_param: true
+          enum_reference: identity_provider_type_enum
           in: body
-          name: type
           parameter_fieldname: type
           required: true
-          schema_param: true
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -50489,7 +51437,7 @@ entities:
       api_fieldname: reference
       description: The name of the branding color.
       entity_fieldname: reference
-      enum: &id012
+      enum: &id013
       - error_color
       - primary
       - secondary
@@ -50714,7 +51662,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id012
+      enum: *id013
       enum_reference: subtenant_light_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -51007,7 +51955,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id012
+      enum: *id013
       enum_reference: subtenant_light_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -51414,7 +52362,7 @@ entities:
       api_fieldname: reference
       description: Name of the branding images (icon or picture).
       entity_fieldname: reference
-      enum: &id013
+      enum: &id014
       - brand_logo_portrait
       - brand_logo_square
       - brand_logo_landscape
@@ -51659,7 +52607,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id013
+      enum: *id014
       enum_reference: subtenant_light_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -51947,7 +52895,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id013
+      enum: *id014
       enum_reference: subtenant_light_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -52297,9 +53245,11 @@ entities:
     api_fieldname: name
     description: The name of the group.
     example: Administrators
+    in: body
     maxLength: 100
-    readOnly: true
-    required: false
+    parameter_fieldname: name
+    readOnly: false
+    required: true
     type: string
   - _key: updated_at
     api_fieldname: updated_at
@@ -52738,6 +53688,628 @@ entities:
       type: subtenant_api_key
     return_type: paginated_response(subtenant_api_key)
     summary: Get API keys of a group.
+    x_deprecation: null
+    x_filter: {}
+  - _key: create
+    description: 'Create a new group.
+
+
+      **Example:**
+
+      ```
+
+      curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups
+      \
+
+      -H ''Authorization: Bearer <api_key>'' \
+
+      -H ''content-type: application/json'' \
+
+      -d ''{"name": "MyGroup1"}''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - filter
+    - id
+    - created_at
+    - updated_at
+    - user_count
+    - apikey_count
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: The ID of the account this group belongs to.
+      entity_fieldname: account_id
+      example: 01619571e2e90242ac12000600000000
+      in: path
+      parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
+      required: true
+      type: string
+    - _key: members
+      api_fieldname: members
+      description: Represents arrays of user and API key IDs.
+      entity_fieldname: members
+      external_param: true
+      in: body
+      name: members
+      parameter_fieldname: members
+      properties:
+      - _key: apikeys
+        description: An array of API key IDs.
+        items:
+          type: string
+        type: array
+      - _key: users
+        description: An array of user IDs.
+        items:
+          type: string
+        type: array
+      required: false
+      schema_param: true
+      type: object
+    - _key: name
+      api_fieldname: name
+      description: The name of the group.
+      entity_fieldname: name
+      example: Administrators
+      in: body
+      maxLength: 100
+      parameter_fieldname: name
+      required: true
+      type: string
+    group_id: Accounts
+    method: post
+    mode: create
+    operation_id: createAccountGroup
+    pagination: false
+    parameter_map:
+      group_id: id
+    path: /v3/accounts/{account_id}/policy-groups
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '201'
+      description: New entity created.
+      schema:
+        description: This object contains basic information about groups.
+        foreign_key:
+          entity: policy_group
+          group: Accounts
+        properties:
+        - _key: account_id
+          api_fieldname: account_id
+          description: The ID of the account this group belongs to.
+          entity_fieldname: account_id
+          example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: apikey_count
+          api_fieldname: apikey_count
+          description: The number of API keys in this group.
+          entity_fieldname: apikey_count
+          example: 0
+          format: int32
+          type: integer
+        - _key: created_at
+          api_fieldname: created_at
+          description: Creation UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2018-02-13T09:35:20Z'
+          format: date-time
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The ID of the group.
+          entity_fieldname: id
+          example: 01619571dec00242ac12000600000000
+          in: path
+          parameter_fieldname: group_id
+          pattern: '[a-f0-9]{32}'
+          required: true
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: The name of the group.
+          entity_fieldname: name
+          example: Administrators
+          in: body
+          maxLength: 100
+          parameter_fieldname: name
+          required: true
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always `group`.'
+          entity_fieldname: object
+          enum:
+          - group
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        - _key: user_count
+          api_fieldname: user_count
+          description: The number of users in this group.
+          entity_fieldname: user_count
+          example: 1
+          format: int32
+          type: integer
+        required:
+        - account_id
+        - apikey_count
+        - etag
+        - id
+        - name
+        - object
+        - user_count
+        type: object
+    - _key: '400'
+      description: Error in input data, for example, invalid group name.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: An account with the specified ID does not exist.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '409'
+      description: A group with that name already exists.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_policy_group
+    return_type: subtenant_policy_group
+    summary: Create a new group.
+    x_deprecation: null
+    x_filter: {}
+  - _key: delete
+    description: 'Delete a group.
+
+
+      **Example:**
+
+      ```
+
+      curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - filter
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: Account ID.
+      entity_fieldname: account_id
+      external_param: false
+      in: path
+      name: account_id
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: id
+      api_fieldname: group_id
+      description: The ID of the group to delete.
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: group_id
+      parameter_fieldname: group_id
+      required: true
+      type: string
+    group_id: Accounts
+    method: delete
+    mode: delete
+    operation_id: deleteAccountGroup
+    pagination: false
+    parameter_map:
+      group_id: id
+    path: /v3/accounts/{account_id}/policy-groups/{group_id}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '204'
+      description: Deleted successfully.
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden, or Administrators group cannot be removed.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: An account or group with that ID does not exist.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_policy_group
+    return_type: subtenant_policy_group
+    summary: Delete a group.
     x_deprecation: null
     x_filter: {}
   - _key: list
@@ -53243,7 +54815,10 @@ entities:
           description: The name of the group.
           entity_fieldname: name
           example: Administrators
+          in: body
           maxLength: 100
+          parameter_fieldname: name
+          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -53425,6 +55000,361 @@ entities:
       type: subtenant_policy_group
     return_type: subtenant_policy_group
     summary: Get group information.
+    x_deprecation: null
+    x_filter: {}
+  - _key: update
+    description: 'Update a group name.
+
+
+      **Example:**
+
+      ```
+
+      curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/
+      \
+
+      -H ''Authorization: Bearer <api_key>'' \
+
+      -H ''content-type: application/json'' \
+
+      -d ''{"name": "TestGroup2"}''
+
+      ```'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - filter
+    - created_at
+    - updated_at
+    - user_count
+    - apikey_count
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: The ID of the account this group belongs to.
+      entity_fieldname: account_id
+      example: 01619571e2e90242ac12000600000000
+      in: path
+      parameter_fieldname: account_id
+      pattern: '[a-f0-9]{32}'
+      required: true
+      type: string
+    - _key: id
+      api_fieldname: id
+      description: The ID of the group.
+      entity_fieldname: id
+      example: 01619571dec00242ac12000600000000
+      in: path
+      parameter_fieldname: group_id
+      pattern: '[a-f0-9]{32}'
+      required: true
+      type: string
+    - _key: name
+      api_fieldname: name
+      description: The name of the group.
+      entity_fieldname: name
+      example: Administrators
+      in: body
+      maxLength: 100
+      parameter_fieldname: name
+      required: true
+      type: string
+    group_id: Accounts
+    method: put
+    mode: update
+    operation_id: updateAccountGroupName
+    pagination: false
+    parameter_map:
+      group_id: id
+    path: /v3/accounts/{account_id}/policy-groups/{group_id}
+    request_body: json
+    request_content_type: application/json
+    responses:
+    - _key: '200'
+      description: Successful operation.
+      schema:
+        description: This object contains basic information about groups.
+        foreign_key:
+          entity: policy_group
+          group: Accounts
+        properties:
+        - _key: account_id
+          api_fieldname: account_id
+          description: The ID of the account this group belongs to.
+          entity_fieldname: account_id
+          example: 01619571e2e90242ac12000600000000
+          pattern: '[a-f0-9]{32}'
+          type: string
+        - _key: apikey_count
+          api_fieldname: apikey_count
+          description: The number of API keys in this group.
+          entity_fieldname: apikey_count
+          example: 0
+          format: int32
+          type: integer
+        - _key: created_at
+          api_fieldname: created_at
+          description: Creation UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2018-02-13T09:35:20Z'
+          format: date-time
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: The ID of the group.
+          entity_fieldname: id
+          example: 01619571dec00242ac12000600000000
+          in: path
+          parameter_fieldname: group_id
+          pattern: '[a-f0-9]{32}'
+          required: true
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: The name of the group.
+          entity_fieldname: name
+          example: Administrators
+          in: body
+          maxLength: 100
+          parameter_fieldname: name
+          required: true
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always `group`.'
+          entity_fieldname: object
+          enum:
+          - group
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        - _key: user_count
+          api_fieldname: user_count
+          description: The number of users in this group.
+          entity_fieldname: user_count
+          example: 1
+          format: int32
+          type: integer
+        required:
+        - account_id
+        - apikey_count
+        - etag
+        - id
+        - name
+        - object
+        - user_count
+        type: object
+    - _key: '400'
+      description: Error in input data, for example, the group name is too long.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: A group with that ID does not exist.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_policy_group
+    return_type: subtenant_policy_group
+    summary: Update the group name.
     x_deprecation: null
     x_filter: {}
   - _key: users
@@ -53773,7 +55703,7 @@ entities:
                 - _key: type
                   api_fieldname: type
                   description: Identity provider type.
-                  entity_fieldname: type
+                  entity_fieldname: login_profile_type
                   enum:
                   - NATIVE
                   - MBED
@@ -54065,8 +55995,10 @@ entities:
   primary_key_field: id
   swagger_models:
   - ApiKeyInfoRespList
+  - GroupCreationInfo
   - GroupSummary
   - GroupSummaryList
+  - GroupUpdateInfo
   - UserInfoRespList
   tags:
   - Tenant accounts - policy groups
@@ -54335,7 +56267,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: &id014
+      enum: &id015
       - lwm2m
       - bootstrap
       enum_reference: subtenant_trusted_certificate_service_enum
@@ -54347,7 +56279,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id015
+      enum: &id016
       - ACTIVE
       - INACTIVE
       enum_reference: subtenant_trusted_certificate_status_enum
@@ -55948,7 +57880,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: *id014
+      enum: *id015
       enum_reference: subtenant_trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -55958,7 +57890,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id015
+      enum: *id016
       enum_reference: subtenant_trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -56630,7 +58562,7 @@ entities:
       - _key: type
         api_fieldname: type
         description: Identity provider type.
-        entity_fieldname: type
+        entity_fieldname: login_profile_type
         enum:
         - NATIVE
         - MBED
@@ -56876,15 +58808,15 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
-          enum: &id016
+          entity_fieldname: login_profile_type
+          enum: &id017
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           readOnly: true
           type: string
-        required: &id017
+        required: &id018
         - id
         type: object
       parameter_fieldname: login_profiles
@@ -57207,7 +59139,7 @@ entities:
             - _key: type
               api_fieldname: type
               description: Identity provider type.
-              entity_fieldname: type
+              entity_fieldname: login_profile_type
               enum:
               - NATIVE
               - MBED
@@ -58561,7 +60493,7 @@ entities:
             - _key: type
               api_fieldname: type
               description: Identity provider type.
-              entity_fieldname: type
+              entity_fieldname: login_profile_type
               enum:
               - NATIVE
               - MBED
@@ -58967,11 +60899,11 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
-          enum: *id016
+          entity_fieldname: login_profile_type
+          enum: *id017
           readOnly: true
           type: string
-        required: *id017
+        required: *id018
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -59282,7 +61214,7 @@ entities:
             - _key: type
               api_fieldname: type
               description: Identity provider type.
-              entity_fieldname: type
+              entity_fieldname: login_profile_type
               enum:
               - NATIVE
               - MBED
@@ -59934,7 +61866,7 @@ entities:
       - _key: type
         api_fieldname: type
         description: Identity provider type.
-        entity_fieldname: type
+        entity_fieldname: login_profile_type
         enum:
         - NATIVE
         - MBED
@@ -60057,7 +61989,7 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
+          entity_fieldname: login_profile_type
           enum:
           - NATIVE
           - MBED
@@ -60192,7 +62124,7 @@ entities:
             - _key: type
               api_fieldname: type
               description: Identity provider type.
-              entity_fieldname: type
+              entity_fieldname: login_profile_type
               enum:
               - NATIVE
               - MBED
@@ -60748,7 +62680,7 @@ entities:
             - _key: type
               api_fieldname: type
               description: Identity provider type.
-              entity_fieldname: type
+              entity_fieldname: login_profile_type
               enum:
               - NATIVE
               - MBED
@@ -61191,7 +63123,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: &id018
+      enum: &id019
       - lwm2m
       - bootstrap
       enum_reference: trusted_certificate_service_enum
@@ -61203,7 +63135,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id019
+      enum: &id020
       - ACTIVE
       - INACTIVE
       enum_reference: trusted_certificate_status_enum
@@ -63153,7 +65085,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: *id018
+      enum: *id019
       enum_reference: trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -63163,7 +65095,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id019
+      enum: *id020
       enum_reference: trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -65572,7 +67504,7 @@ entities:
       - _key: type
         api_fieldname: type
         description: Identity provider type.
-        entity_fieldname: type
+        entity_fieldname: login_profile_type
         enum:
         - NATIVE
         - MBED
@@ -65799,15 +67731,15 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
-          enum: &id020
+          entity_fieldname: login_profile_type
+          enum: &id021
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           readOnly: true
           type: string
-        required: &id021
+        required: &id022
         - id
         type: object
       parameter_fieldname: login_profiles
@@ -66105,7 +68037,7 @@ entities:
             - _key: type
               api_fieldname: type
               description: Identity provider type.
-              entity_fieldname: type
+              entity_fieldname: login_profile_type
               enum:
               - NATIVE
               - MBED
@@ -66963,7 +68895,7 @@ entities:
                 - _key: type
                   api_fieldname: type
                   description: Identity provider type.
-                  entity_fieldname: type
+                  entity_fieldname: login_profile_type
                   enum:
                   - NATIVE
                   - MBED
@@ -67878,7 +69810,7 @@ entities:
             - _key: type
               api_fieldname: type
               description: Identity provider type.
-              entity_fieldname: type
+              entity_fieldname: login_profile_type
               enum:
               - NATIVE
               - MBED
@@ -68260,11 +70192,11 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
-          enum: *id020
+          entity_fieldname: login_profile_type
+          enum: *id021
           readOnly: true
           type: string
-        required: *id021
+        required: *id022
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -68550,7 +70482,7 @@ entities:
             - _key: type
               api_fieldname: type
               description: Identity provider type.
-              entity_fieldname: type
+              entity_fieldname: login_profile_type
               enum:
               - NATIVE
               - MBED
@@ -68976,7 +70908,7 @@ entities:
       - _key: type
         api_fieldname: type
         description: Identity provider type.
-        entity_fieldname: type
+        entity_fieldname: login_profile_type
         enum:
         - NATIVE
         - MBED
@@ -69088,7 +71020,7 @@ entities:
         - _key: type
           api_fieldname: type
           description: Identity provider type.
-          entity_fieldname: type
+          entity_fieldname: login_profile_type
           enum:
           - NATIVE
           - MBED
@@ -69213,7 +71145,7 @@ entities:
             - _key: type
               api_fieldname: type
               description: Identity provider type.
-              entity_fieldname: type
+              entity_fieldname: login_profile_type
               enum:
               - NATIVE
               - MBED
@@ -69768,7 +71700,7 @@ entities:
                 - _key: type
                   api_fieldname: type
                   description: Identity provider type.
-                  entity_fieldname: type
+                  entity_fieldname: login_profile_type
                   enum:
                   - NATIVE
                   - MBED
@@ -70088,7 +72020,7 @@ entities:
             - _key: type
               api_fieldname: type
               description: Identity provider type.
-              entity_fieldname: type
+              entity_fieldname: login_profile_type
               enum:
               - NATIVE
               - MBED
@@ -70620,6 +72552,16 @@ enums:
   values:
   - ACTIVE
   - SUSPENDED
+- _key: identity_provider_type_enum
+  entity_name: identity_provider
+  enum_name: identity_provider_type_enum
+  field_name: identity_provider_type
+  group_id: Accounts
+  values:
+  - MBED
+  - NATIVE
+  - OIDC
+  - SAML2
 - _key: light_theme_color_reference_enum
   entity_name: light_theme_color
   enum_name: light_theme_color_reference_enum
@@ -70685,6 +72627,16 @@ enums:
   - desktop_background_landscape
   - desktop_background_portrait
   - desktop_background_square
+- _key: login_profile_type_enum
+  entity_name: login_profile
+  enum_name: login_profile_type_enum
+  field_name: login_profile_type
+  group_id: Accounts
+  values:
+  - MBED
+  - NATIVE
+  - OIDC
+  - SAML2
 - _key: oidc_request_token_mode_enum
   entity_name: oidc_request
   enum_name: oidc_request_token_mode_enum
@@ -71016,6 +72968,7 @@ groups:
   - identity_provider_public_key
   enums:
   - policy_inherited_type_enum
+  - login_profile_type_enum
   - user_status_enum
   - user_order_enum
   - subtenant_user_status_enum
@@ -71032,6 +72985,7 @@ groups:
   - policy_group_order_enum
   - subtenant_policy_group_order_enum
   - identity_provider_status_enum
+  - identity_provider_type_enum
   - identity_provider_order_enum
   - identity_provider_algorithm_enum
   - subtenant_identity_provider_status_enum
