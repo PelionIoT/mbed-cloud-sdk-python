@@ -8218,7 +8218,7 @@ paths:
         end_of_life_at: '2019-11-01T00:00:00+00:00'
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
-        - cloud.mbed.com/integrate-web-app/event-notification.html
+        - https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
       deprecated: true
@@ -8292,7 +8292,7 @@ paths:
         end_of_life_at: '2019-11-01T00:00:00+00:00'
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
-        - cloud.mbed.com/integrate-web-app/event-notification.html
+        - https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/notification/websocket:
     delete:
