@@ -282,11 +282,15 @@ class EntityFactory:
             upgraded_at=upgraded_at,
         )
 
-    def active_session(self, account_id=None, ip_address=None, login_time=None, reference_token=None, user_agent=None):
+    def active_session(
+        self, account_id=None, created_at=None, ip_address=None, login_time=None, reference_token=None, user_agent=None
+    ):
         """Creates a local `ActiveSession` instance, using the shared SDK context.
 
         :param account_id: The UUID of the account.
         :type account_id: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
         :param ip_address: IP address of the client.
         :type ip_address: str
         :param login_time: The login time of the user.
@@ -304,6 +308,7 @@ class EntityFactory:
         return ActiveSession(
             _client=self._client,
             account_id=account_id,
+            created_at=created_at,
             ip_address=ip_address,
             login_time=login_time,
             reference_token=reference_token,
