@@ -13859,6 +13859,15 @@
                               },
                               {
                                 "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-13T09:35:20Z",
+                                "description": "Creation UTC time RFC3339.",
+                                "api_fieldname": "created_at",
+                                "entity_fieldname": "created_at",
+                                "_key": "created_at"
+                              },
+                              {
+                                "type": "string",
                                 "example": "127.0.0.1",
                                 "description": "IP address of the client.",
                                 "api_fieldname": "ip_address",
@@ -15319,6 +15328,16 @@
           "readOnly": true,
           "required": false,
           "_key": "account_id"
+        },
+        {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-02-13T09:35:20Z",
+          "description": "Creation UTC time RFC3339.",
+          "api_fieldname": "created_at",
+          "readOnly": true,
+          "required": false,
+          "_key": "created_at"
         },
         {
           "type": "string",
@@ -56251,6 +56270,15 @@
                               },
                               {
                                 "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-13T09:35:20Z",
+                                "description": "Creation UTC time RFC3339.",
+                                "api_fieldname": "created_at",
+                                "entity_fieldname": "created_at",
+                                "_key": "created_at"
+                              },
+                              {
+                                "type": "string",
                                 "example": "127.0.0.1",
                                 "description": "IP address of the client.",
                                 "api_fieldname": "ip_address",
@@ -73701,6 +73729,15 @@
                               },
                               {
                                 "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-13T09:35:20Z",
+                                "description": "Creation UTC time RFC3339.",
+                                "api_fieldname": "created_at",
+                                "entity_fieldname": "created_at",
+                                "_key": "created_at"
+                              },
+                              {
+                                "type": "string",
                                 "example": "127.0.0.1",
                                 "description": "IP address of the client.",
                                 "api_fieldname": "ip_address",
@@ -77483,6 +77520,15 @@
                         },
                         {
                           "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-13T09:35:20Z",
+                          "description": "Creation UTC time RFC3339.",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "string",
                           "example": "127.0.0.1",
                           "description": "IP address of the client.",
                           "api_fieldname": "ip_address",
@@ -79267,6 +79313,15 @@
                         },
                         {
                           "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-13T09:35:20Z",
+                          "description": "Creation UTC time RFC3339.",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "string",
                           "example": "127.0.0.1",
                           "description": "IP address of the client.",
                           "api_fieldname": "ip_address",
@@ -80182,6 +80237,15 @@
                           "api_fieldname": "account_id",
                           "entity_fieldname": "account_id",
                           "_key": "account_id"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-13T09:35:20Z",
+                          "description": "Creation UTC time RFC3339.",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
+                          "_key": "created_at"
                         },
                         {
                           "type": "string",
@@ -81325,6 +81389,15 @@
                 "api_fieldname": "account_id",
                 "entity_fieldname": "account_id",
                 "_key": "account_id"
+              },
+              {
+                "type": "string",
+                "format": "date-time",
+                "example": "2018-02-13T09:35:20Z",
+                "description": "Creation UTC time RFC3339.",
+                "api_fieldname": "created_at",
+                "entity_fieldname": "created_at",
+                "_key": "created_at"
               },
               {
                 "type": "string",
@@ -89333,6 +89406,15 @@
                         },
                         {
                           "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-13T09:35:20Z",
+                          "description": "Creation UTC time RFC3339.",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "string",
                           "example": "127.0.0.1",
                           "description": "IP address of the client.",
                           "api_fieldname": "ip_address",
@@ -90522,6 +90604,15 @@
                               },
                               {
                                 "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-13T09:35:20Z",
+                                "description": "Creation UTC time RFC3339.",
+                                "api_fieldname": "created_at",
+                                "entity_fieldname": "created_at",
+                                "_key": "created_at"
+                              },
+                              {
+                                "type": "string",
                                 "example": "127.0.0.1",
                                 "description": "IP address of the client.",
                                 "api_fieldname": "ip_address",
@@ -91671,6 +91762,15 @@
                         },
                         {
                           "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-13T09:35:20Z",
+                          "description": "Creation UTC time RFC3339.",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "string",
                           "example": "127.0.0.1",
                           "description": "IP address of the client.",
                           "api_fieldname": "ip_address",
@@ -92539,6 +92639,15 @@
                         },
                         {
                           "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-13T09:35:20Z",
+                          "description": "Creation UTC time RFC3339.",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
+                          "_key": "created_at"
+                        },
+                        {
+                          "type": "string",
                           "example": "127.0.0.1",
                           "description": "IP address of the client.",
                           "api_fieldname": "ip_address",
@@ -93359,6 +93468,15 @@
                 "api_fieldname": "account_id",
                 "entity_fieldname": "account_id",
                 "_key": "account_id"
+              },
+              {
+                "type": "string",
+                "format": "date-time",
+                "example": "2018-02-13T09:35:20Z",
+                "description": "Creation UTC time RFC3339.",
+                "api_fieldname": "created_at",
+                "entity_fieldname": "created_at",
+                "_key": "created_at"
               },
               {
                 "type": "string",

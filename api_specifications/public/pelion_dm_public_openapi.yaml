@@ -934,6 +934,11 @@ definitions:
         example: 01619571e2e90242ac12000600000000
         pattern: '[a-f0-9]{32}'
         type: string
+      created_at:
+        description: Creation UTC time RFC3339.
+        example: '2018-02-13T09:35:20Z'
+        format: date-time
+        type: string
       ip_address:
         description: IP address of the client.
         example: 127.0.0.1
