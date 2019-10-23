@@ -7325,8 +7325,8 @@ paths:
 
         Example payload to write value "value1" to resource /5/0/1:
 
-        { "method": "PUT", "uri": "/5/0/1%20?k1=v1&k2=v2%22", "accept": "text/plain",
-        "content-type": "text/plain", "payload-b64": "dmFsdWUxCg==" }
+        { "method": "PUT", "uri": "/5/0/1?k1=v1&k2=v2", "accept": "text/plain", "content-type":
+        "text/plain", "payload-b64": "dmFsdWUxCg==" }
 
 
         Example payload to execute LWM2M resource /123/1/1:
