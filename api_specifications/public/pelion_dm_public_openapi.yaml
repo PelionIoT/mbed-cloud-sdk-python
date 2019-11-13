@@ -5161,6 +5161,14 @@ definitions:
     - type
     - time
     type: object
+  RegisterWebsocketChannel:
+    properties:
+      serialization:
+        description: Serialization configuration for a channel
+        schema:
+          $ref: '#/definitions/SerializationConfigData'
+        type: object
+    type: object
   ReportAccountContactInfo:
     description: Account contact information.
     properties:
@@ -5430,6 +5438,84 @@ definitions:
       sso_endpoint:
         description: URL of the identity provider's SSO endpoint.
         type: string
+    type: object
+  SerializationConfigData:
+    properties:
+      cfg:
+        description: Serialization configuration object according to configuration
+          type.
+        schema:
+          $ref: '#/definitions/SerializationConfigObjectV2'
+        type: object
+      max_chunk_size:
+        description: Maximum number of messages in NotificationMessage container delivered
+          in one request. Default is 10000. Using a very low value for high troughput
+          applications may cause lag in notification delivery, as a new chunk is sent
+          only after the previous one has been acknowledged. Using a high value is
+          recommended and safe, as chunks are sent quickly after notifications are
+          received from devices. See [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic)
+          for more details.
+        example: '500'
+        maximum: 10000
+        minimum: 100
+        type: integer
+      type:
+        default: v2
+        description: 'Serialization type: v2 - specified in NotificationMessage.'
+        enum:
+        - v2
+        example: v2
+        type: string
+    required:
+    - type
+    type: object
+  SerializationConfigObjectV2:
+    properties:
+      deregistrations_as_object:
+        default: false
+        description: 'Defines serialization format for ''de-registrations'' and ''registrations-expired''.
+          If set to true,
+
+          de-registration and registration-expired messages will be represented as
+          json objects and can have
+
+          additional fields: ''uid'', ''timestamp'', ''original-ep'', together with
+          the ''ep'' field. If set to false,
+
+          (default) - de-registration and ''registration-expired'' will be represented
+          by a string,
+
+          containing only data from ''ep'' field.
+
+          '
+        example: 'true'
+        type: boolean
+      include_original_ep:
+        default: false
+        description: 'Include ''original-ep'' message field in serialized objects.
+          This is the endpoint_name from the device.
+
+          '
+        example: 'true'
+        type: boolean
+      include_timestamp:
+        default: false
+        description: 'Include ''timestamp'' message field in serialized objects. The
+          timestamp represents the time that the notification service receives the
+          message and sorts it into the queue. Timestamp provides information of queue
+          length (web-app current time - timestamp = delay).
+
+          '
+        example: 'true'
+        type: boolean
+      include_uid:
+        default: false
+        description: 'Include ''uid'' message field to serialized objects. This is
+          message ID, and can be used for duplicate detection.
+
+          '
+        example: 'true'
+        type: boolean
     type: object
   ServerCredentialsResponseData:
     properties:
@@ -6963,6 +7049,11 @@ definitions:
         description: The headers (key/value) sent with the notification. Optional.
         example: '{"authorization" : "f4b93d6e-4652-4874-82e4-41a3ced0cd56"}'
         type: object
+      serialization:
+        description: Serialization configuration for a channel.
+        schema:
+          $ref: '#/definitions/SerializationConfigData'
+        type: object
       url:
         description: The URL to which the notifications are sent. We recommend that
           you serve this URL over HTTPS.
@@ -6978,6 +7069,11 @@ definitions:
         description: Number of events in the channel's event queue waiting to be delivered.
         example: 0
         type: integer
+      serialization:
+        description: Serialization configuration for a channel.
+        schema:
+          $ref: '#/definitions/SerializationConfigData'
+        type: object
       status:
         default: disconnected
         description: Channel status is 'connected' when the channel has an active
@@ -8139,14 +8235,19 @@ paths:
         \ a notification to an HTTPS based callback URL, Device Management Connect\
         \ presents a valid client certificate to identify itself. The certificate\
         \ is signed by a trusted certificate authorithy (GlobalSign) with a Common\
-        \ Name (CN) set to notifications.mbedcloud.com.\n\n**Example:**\n\nThis example\
-        \ command shows how to set your callback URL and API key. It also sets an\
-        \ optional header authorization. When Device Management Connect calls your\
-        \ callback URL, the call contains the authorization header with the defined\
+        \ Name (CN) set to notifications.mbedcloud.com.\n\n**Configuration options:**\n\
+        \nThe event notification channel provides configurations options defined in\
+        \ [Serialization config](#SerializationConfigObjectV2).\n\n**Example:**\n\n\
+        This example command shows how to set your callback URL and API key. It also\
+        \ sets an optional header authorization. When Device Management Connect calls\
+        \ your callback URL, the call contains the authorization header with the defined\
         \ value.\n\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/callback\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
-        \ \\\n-d '{\n\"url\": \"{callback-url}\",\n\"headers\": {\"authorization\"\
-        \ : \"f4b93d6e-4652-4874-82e4-41a3ced0cd56\"}\n}'\n```"
+        \ \\\n-d '{\n  \"url\": \"{callback-url}\",\n  \"headers\": {\"authorization\"\
+        : \"f4b93d6e-4652-4874-82e4-41a3ced0cd56\"},\n  \"serialization\": {\"type\"\
+        : \"v2\", \"max_chunk_size\": \"100\",\n    \"cfg\": {\"deregistrations_as_object\"\
+        : \"true\", \"include_uid\": \"true\", \"include_timestamp\": \"true\", \"\
+        include_original_ep\": \"true\"\n    }\n  }\n}'\n```"
       operationId: registerWebhook
       parameters:
       - description: A JSON object that contains the optional headers and URL where
@@ -8363,46 +8464,30 @@ paths:
     put:
       consumes:
       - application/json
-      description: '(PREVIEW) Register (or update) a channel using websocket connection
-        to deliver notifications. The websocket channel should be opened by client
-        using `/v2/notification/websocket-connect` endpoint. To get notifications
-        pushed, you must place subscriptions. For more information on notification
-        messages, see [NotificationMessage](#NotificationMessage).
-
-
-        A websocket channel can have only one active websocket connection at a time.
-        If a websocket connection for a channel exists and a new connection to the
-        same channel is made, the connection is accepted and the older connection
-        is closed.
-
-
-        **Expiration of a websocket:**
-
-
-        A websocket channel is expired if the channel does not have an opened websocket
-        connection for a 24-hour period. Channel expiration means the channel is deleted
-        and any undelivered notifications stored in its internal queue is removed.
-        As long as the channel has an opened websocket connection or time between
-        successive websocket connections is less than 24 hours,
-
-        the channel is considered active, notifications are stored in its internal
-        queue and delivered when a websocket connection is active. A channel can be
-        also deleted explicitly with a DELETE call.
-
-
-        More about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).
-
-
-        **Example:**
-
-        ```
-
-        curl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket
-        \
-
-        -H ''Authorization: Bearer <api_key>''
-
-        ```'
+      description: "(PREVIEW) Register (or update) a channel using websocket connection\
+        \ to deliver notifications. The websocket channel should be opened by client\
+        \ using `/v2/notification/websocket-connect` endpoint. To get notifications\
+        \ pushed, you must place subscriptions. For more information on notification\
+        \ messages, see [NotificationMessage](#NotificationMessage).\n\nA websocket\
+        \ channel can have only one active websocket connection at a time. If a websocket\
+        \ connection for a channel exists and a new connection to the same channel\
+        \ is made, the connection is accepted and the older connection is closed.\n\
+        \n**Expiration of a websocket:**\n\nA websocket channel is expired if the\
+        \ channel does not have an opened websocket connection for a 24-hour period.\
+        \ Channel expiration means the channel is deleted and any undelivered notifications\
+        \ stored in its internal queue is removed. As long as the channel has an opened\
+        \ websocket connection or time between successive websocket connections is\
+        \ less than 24 hours,\nthe channel is considered active, notifications are\
+        \ stored in its internal queue and delivered when a websocket connection is\
+        \ active. A channel can be also deleted explicitly with a DELETE call.\n\n\
+        More about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
+        \n**Configuration options:**\n\nThe event notification channel provides configurations\
+        \ options defined in [Serialization config](#SerializationConfigObjectV2)\n\
+        \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
+        \ \\\n-H 'Authorization: Bearer <api_key>'\n-d '{\n  \"serialization\": {\"\
+        type\": \"v2\", \"max_chunk_size\": \"100\",\n    \"cfg\": {\"deregistrations_as_object\"\
+        : \"true\", \"include_uid\": \"true\", \"include_timestamp\": \"true\", \"\
+        include_original_ep\": \"true\"\n    }\n  }\n}\n```"
       operationId: registerWebsocket
       responses:
         200:
@@ -8410,7 +8495,7 @@ paths:
             this operation has no effect, and any subsequent PUT call from a client
             previously registered to a channel results in a 200 OK response.
           schema:
-            $ref: '#/definitions/WebsocketChannel'
+            $ref: '#/definitions/RegisterWebsocketChannel'
         201:
           description: Channel succesfully registered.
           schema:
