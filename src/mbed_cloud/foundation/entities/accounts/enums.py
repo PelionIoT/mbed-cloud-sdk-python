@@ -90,7 +90,7 @@ class AccountBusinessModelEnum(BaseEnum):
     ACTIVE_DEVICE_BUSINESS_MODEL = "active_device_business_model"
     API_CALLS_1_BUSINESS_MODEL = "api_calls_1_business_model"
 
-    values = frozenset(("active_device_business_model", "api_calls_1_business_model"))
+    values = frozenset(("active_device_business_model", "api_calls_1_business_model",))
 
 
 class AccountMfaStatusEnum(BaseEnum):
@@ -106,7 +106,7 @@ class AccountMfaStatusEnum(BaseEnum):
     ENFORCED = "enforced"
     OPTIONAL = "optional"
 
-    values = frozenset(("enforced", "optional"))
+    values = frozenset(("enforced", "optional",))
 
 
 class AccountOrderEnum(BaseEnum):
@@ -122,7 +122,7 @@ class AccountOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class AccountStatusEnum(BaseEnum):
@@ -140,7 +140,7 @@ class AccountStatusEnum(BaseEnum):
     RESTRICTED = "RESTRICTED"
     SUSPENDED = "SUSPENDED"
 
-    values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
+    values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED",))
 
 
 class ApiKeyOrderEnum(BaseEnum):
@@ -156,7 +156,7 @@ class ApiKeyOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class ApiKeyStatusEnum(BaseEnum):
@@ -172,7 +172,7 @@ class ApiKeyStatusEnum(BaseEnum):
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
 
-    values = frozenset(("ACTIVE", "INACTIVE"))
+    values = frozenset(("ACTIVE", "INACTIVE",))
 
 
 class IdentityProviderAlgorithmEnum(BaseEnum):
@@ -197,7 +197,7 @@ class IdentityProviderAlgorithmEnum(BaseEnum):
     RSA3072 = "RSA3072"
 
     values = frozenset(
-        ("EC224", "EC256", "EC384", "EC521", "ECDSA224", "ECDSA256", "ECDSA384", "ECDSA521", "RSA2048", "RSA3072")
+        ("EC224", "EC256", "EC384", "EC521", "ECDSA224", "ECDSA256", "ECDSA384", "ECDSA521", "RSA2048", "RSA3072",)
     )
 
 
@@ -214,7 +214,7 @@ class IdentityProviderOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class IdentityProviderStatusEnum(BaseEnum):
@@ -230,7 +230,7 @@ class IdentityProviderStatusEnum(BaseEnum):
     ACTIVE = "ACTIVE"
     SUSPENDED = "SUSPENDED"
 
-    values = frozenset(("ACTIVE", "SUSPENDED"))
+    values = frozenset(("ACTIVE", "SUSPENDED",))
 
 
 class IdentityProviderTypeEnum(BaseEnum):
@@ -248,7 +248,7 @@ class IdentityProviderTypeEnum(BaseEnum):
     OIDC = "OIDC"
     SAML2 = "SAML2"
 
-    values = frozenset(("MBED", "NATIVE", "OIDC", "SAML2"))
+    values = frozenset(("MBED", "NATIVE", "OIDC", "SAML2",))
 
 
 class LoginProfileTypeEnum(BaseEnum):
@@ -266,7 +266,7 @@ class LoginProfileTypeEnum(BaseEnum):
     OIDC = "OIDC"
     SAML2 = "SAML2"
 
-    values = frozenset(("MBED", "NATIVE", "OIDC", "SAML2"))
+    values = frozenset(("MBED", "NATIVE", "OIDC", "SAML2",))
 
 
 class OidcRequestTokenModeEnum(BaseEnum):
@@ -282,7 +282,7 @@ class OidcRequestTokenModeEnum(BaseEnum):
     GET = "GET"
     POST = "POST"
 
-    values = frozenset(("GET", "POST"))
+    values = frozenset(("GET", "POST",))
 
 
 class PolicyGroupOrderEnum(BaseEnum):
@@ -298,7 +298,7 @@ class PolicyGroupOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class PolicyInheritedTypeEnum(BaseEnum):
@@ -315,7 +315,7 @@ class PolicyInheritedTypeEnum(BaseEnum):
     TEMPLATE = "template"
     TIER_TEMPLATE = "tier_template"
 
-    values = frozenset(("account", "template", "tier_template"))
+    values = frozenset(("account", "template", "tier_template",))
 
 
 class SubtenantApiKeyOrderEnum(BaseEnum):
@@ -331,7 +331,7 @@ class SubtenantApiKeyOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class SubtenantApiKeyStatusEnum(BaseEnum):
@@ -347,7 +347,7 @@ class SubtenantApiKeyStatusEnum(BaseEnum):
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
 
-    values = frozenset(("ACTIVE", "INACTIVE"))
+    values = frozenset(("ACTIVE", "INACTIVE",))
 
 
 class SubtenantIdentityProviderAlgorithmEnum(BaseEnum):
@@ -372,7 +372,7 @@ class SubtenantIdentityProviderAlgorithmEnum(BaseEnum):
     RSA3072 = "RSA3072"
 
     values = frozenset(
-        ("EC224", "EC256", "EC384", "EC521", "ECDSA224", "ECDSA256", "ECDSA384", "ECDSA521", "RSA2048", "RSA3072")
+        ("EC224", "EC256", "EC384", "EC521", "ECDSA224", "ECDSA256", "ECDSA384", "ECDSA521", "RSA2048", "RSA3072",)
     )
 
 
@@ -389,7 +389,7 @@ class SubtenantIdentityProviderOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class SubtenantIdentityProviderStatusEnum(BaseEnum):
@@ -405,7 +405,7 @@ class SubtenantIdentityProviderStatusEnum(BaseEnum):
     ACTIVE = "ACTIVE"
     SUSPENDED = "SUSPENDED"
 
-    values = frozenset(("ACTIVE", "SUSPENDED"))
+    values = frozenset(("ACTIVE", "SUSPENDED",))
 
 
 class SubtenantPolicyGroupOrderEnum(BaseEnum):
@@ -421,7 +421,7 @@ class SubtenantPolicyGroupOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class SubtenantUserOrderEnum(BaseEnum):
@@ -437,7 +437,7 @@ class SubtenantUserOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class SubtenantUserStatusEnum(BaseEnum):
@@ -456,7 +456,7 @@ class SubtenantUserStatusEnum(BaseEnum):
     INVITED = "INVITED"
     RESET = "RESET"
 
-    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET"))
+    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET",))
 
 
 class UserInvitationOrderEnum(BaseEnum):
@@ -472,7 +472,7 @@ class UserInvitationOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class UserOrderEnum(BaseEnum):
@@ -488,7 +488,7 @@ class UserOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class UserStatusEnum(BaseEnum):
@@ -507,4 +507,4 @@ class UserStatusEnum(BaseEnum):
     INVITED = "INVITED"
     RESET = "RESET"
 
-    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET"))
+    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET",))

@@ -60,7 +60,7 @@ class CertificateEnrollmentEnrollResultEnum(BaseEnum):
     FAILURE = "failure"
     SUCCESS = "success"
 
-    values = frozenset(("failure", "success"))
+    values = frozenset(("failure", "success",))
 
 
 class CertificateEnrollmentEnrollStatusEnum(BaseEnum):
@@ -76,7 +76,7 @@ class CertificateEnrollmentEnrollStatusEnum(BaseEnum):
     COMPLETED = "completed"
     NEW = "new"
 
-    values = frozenset(("completed", "new"))
+    values = frozenset(("completed", "new",))
 
 
 class CertificateEnrollmentIncludeEnum(BaseEnum):
@@ -107,7 +107,7 @@ class CertificateEnrollmentOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class CertificateIssuerTypeEnum(BaseEnum):
@@ -123,7 +123,7 @@ class CertificateIssuerTypeEnum(BaseEnum):
     CFSSL_AUTH = "CFSSL_AUTH"
     GLOBAL_SIGN = "GLOBAL_SIGN"
 
-    values = frozenset(("CFSSL_AUTH", "GLOBAL_SIGN"))
+    values = frozenset(("CFSSL_AUTH", "GLOBAL_SIGN",))
 
 
 class SubtenantTrustedCertificateServiceEnum(BaseEnum):
@@ -139,7 +139,7 @@ class SubtenantTrustedCertificateServiceEnum(BaseEnum):
     BOOTSTRAP = "bootstrap"
     LWM2M = "lwm2m"
 
-    values = frozenset(("bootstrap", "lwm2m"))
+    values = frozenset(("bootstrap", "lwm2m",))
 
 
 class SubtenantTrustedCertificateStatusEnum(BaseEnum):
@@ -155,7 +155,7 @@ class SubtenantTrustedCertificateStatusEnum(BaseEnum):
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
 
-    values = frozenset(("ACTIVE", "INACTIVE"))
+    values = frozenset(("ACTIVE", "INACTIVE",))
 
 
 class TrustedCertificateOrderEnum(BaseEnum):
@@ -171,7 +171,7 @@ class TrustedCertificateOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class TrustedCertificateServiceEnum(BaseEnum):
@@ -187,7 +187,7 @@ class TrustedCertificateServiceEnum(BaseEnum):
     BOOTSTRAP = "bootstrap"
     LWM2M = "lwm2m"
 
-    values = frozenset(("bootstrap", "lwm2m"))
+    values = frozenset(("bootstrap", "lwm2m",))
 
 
 class TrustedCertificateStatusEnum(BaseEnum):
@@ -203,4 +203,4 @@ class TrustedCertificateStatusEnum(BaseEnum):
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
 
-    values = frozenset(("ACTIVE", "INACTIVE"))
+    values = frozenset(("ACTIVE", "INACTIVE",))

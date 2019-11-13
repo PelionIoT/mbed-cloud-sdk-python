@@ -402,6 +402,6 @@ class DeviceEvents(Entity):
             method="get",
             path="/v3/device-events/{device_event_id}/",
             content_type="application/json",
-            path_params={"device_event_id": self._id.to_api()},
+            path_params={"device_event_id": self._id.to_api(),},
             unpack=self,
         )

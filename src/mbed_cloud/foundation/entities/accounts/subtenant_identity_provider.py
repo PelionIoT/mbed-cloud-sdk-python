@@ -323,9 +323,9 @@ class SubtenantIdentityProvider(Entity):
             method="post",
             path="/v3/accounts/{account_id}/identity-providers",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api()},
+            path_params={"account_id": self._account_id.to_api(),},
             body_params=body_params,
-            query_params={"discovery": fields.BooleanField(discovery).to_api()},
+            query_params={"discovery": fields.BooleanField(discovery).to_api(),},
             unpack=self,
         )
 
@@ -341,7 +341,7 @@ class SubtenantIdentityProvider(Entity):
             method="delete",
             path="/v3/accounts/{account_id}/identity-providers/{identity_provider_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -357,7 +357,7 @@ class SubtenantIdentityProvider(Entity):
             method="post",
             path="/v3/accounts/{account_id}/identity-providers/{identity_provider_id}/delete-sp-certificate",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -390,7 +390,7 @@ class SubtenantIdentityProvider(Entity):
             method="post",
             path="/v3/accounts/{account_id}/identity-providers/{identity_provider_id}/generate-sp-certificate",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api(),},
             body_params=body_params,
             unpack=self,
         )
@@ -484,7 +484,7 @@ class SubtenantIdentityProvider(Entity):
             method="get",
             path="/v3/accounts/{account_id}/identity-providers",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api()},
+            path_params={"account_id": self._account_id.to_api(),},
             query_params=query_params,
             unpack=False,
         )
@@ -501,7 +501,7 @@ class SubtenantIdentityProvider(Entity):
             method="get",
             path="/v3/accounts/{account_id}/identity-providers/{identity_provider_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -517,7 +517,7 @@ class SubtenantIdentityProvider(Entity):
             method="post",
             path="/v3/accounts/{account_id}/identity-providers/{identity_provider_id}/refresh-jwks",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -556,8 +556,8 @@ class SubtenantIdentityProvider(Entity):
             method="put",
             path="/v3/accounts/{account_id}/identity-providers/{identity_provider_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "identity_provider_id": self._id.to_api(),},
             body_params=body_params,
-            query_params={"discovery": fields.BooleanField(discovery).to_api()},
+            query_params={"discovery": fields.BooleanField(discovery).to_api(),},
             unpack=self,
         )

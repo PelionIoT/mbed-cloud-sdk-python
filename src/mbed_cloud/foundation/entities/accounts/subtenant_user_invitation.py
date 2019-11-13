@@ -309,7 +309,7 @@ class SubtenantUserInvitation(Entity):
             method="post",
             path="/v3/accounts/{account_id}/user-invitations",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api()},
+            path_params={"account_id": self._account_id.to_api(),},
             body_params=body_params,
             unpack=self,
         )
@@ -326,7 +326,7 @@ class SubtenantUserInvitation(Entity):
             method="delete",
             path="/v3/accounts/{account_id}/user-invitations/{invitation_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "invitation_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "invitation_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -342,6 +342,6 @@ class SubtenantUserInvitation(Entity):
             method="get",
             path="/v3/accounts/{account_id}/user-invitations/{invitation_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "invitation_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "invitation_id": self._id.to_api(),},
             unpack=self,
         )

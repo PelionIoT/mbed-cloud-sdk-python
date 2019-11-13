@@ -56,7 +56,7 @@ class DeviceDeployedStateEnum(BaseEnum):
     DEVELOPMENT = "development"
     PRODUCTION = "production"
 
-    values = frozenset(("development", "production"))
+    values = frozenset(("development", "production",))
 
 
 class DeviceEnrollmentBulkCreateStatusEnum(BaseEnum):
@@ -73,7 +73,7 @@ class DeviceEnrollmentBulkCreateStatusEnum(BaseEnum):
     NEW = "new"
     PROCESSING = "processing"
 
-    values = frozenset(("completed", "new", "processing"))
+    values = frozenset(("completed", "new", "processing",))
 
 
 class DeviceEnrollmentBulkDeleteStatusEnum(BaseEnum):
@@ -90,7 +90,7 @@ class DeviceEnrollmentBulkDeleteStatusEnum(BaseEnum):
     NEW = "new"
     PROCESSING = "processing"
 
-    values = frozenset(("completed", "new", "processing"))
+    values = frozenset(("completed", "new", "processing",))
 
 
 class DeviceEnrollmentDenialOrderEnum(BaseEnum):
@@ -106,7 +106,7 @@ class DeviceEnrollmentDenialOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class DeviceEnrollmentOrderEnum(BaseEnum):
@@ -122,7 +122,7 @@ class DeviceEnrollmentOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class DeviceLifecycleStatusEnum(BaseEnum):
@@ -138,7 +138,7 @@ class DeviceLifecycleStatusEnum(BaseEnum):
     BLOCKED = "blocked"
     ENABLED = "enabled"
 
-    values = frozenset(("blocked", "enabled"))
+    values = frozenset(("blocked", "enabled",))
 
 
 class DeviceMechanismEnum(BaseEnum):
@@ -154,7 +154,7 @@ class DeviceMechanismEnum(BaseEnum):
     CONNECTOR = "connector"
     DIRECT = "direct"
 
-    values = frozenset(("connector", "direct"))
+    values = frozenset(("connector", "direct",))
 
 
 class DeviceStateEnum(BaseEnum):
@@ -173,4 +173,4 @@ class DeviceStateEnum(BaseEnum):
     REGISTERED = "registered"
     UNENROLLED = "unenrolled"
 
-    values = frozenset(("bootstrapped", "cloud_enrolling", "deregistered", "registered", "unenrolled"))
+    values = frozenset(("bootstrapped", "cloud_enrolling", "deregistered", "registered", "unenrolled",))

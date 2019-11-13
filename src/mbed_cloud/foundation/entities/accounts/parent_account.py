@@ -55,7 +55,9 @@ class ParentAccount(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(self, _client=None, admin_email=None, admin_name=None, id=None):
+    def __init__(
+        self, _client=None, admin_email=None, admin_name=None, id=None,
+    ):
         """Creates a local `ParentAccount` instance
 
         Parameters can be supplied on creation of the instance or given by

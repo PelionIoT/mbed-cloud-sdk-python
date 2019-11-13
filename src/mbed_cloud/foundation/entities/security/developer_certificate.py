@@ -65,10 +65,14 @@ class DeveloperCertificate(Entity):
     _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {"developer_certificate": "certificate"}
+    _renames = {
+        "developer_certificate": "certificate",
+    }
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {"certificate": "developer_certificate"}
+    _renames_to_api = {
+        "certificate": "developer_certificate",
+    }
 
     def __init__(
         self,
@@ -267,7 +271,7 @@ class DeveloperCertificate(Entity):
             method="delete",
             path="/v3/trusted-certificates/{cert_id}",
             content_type="application/json",
-            path_params={"cert_id": self._id.to_api()},
+            path_params={"cert_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -285,7 +289,7 @@ class DeveloperCertificate(Entity):
             method="get",
             path="/v3/trusted-certificates/{cert_id}",
             content_type="application/json",
-            path_params={"cert_id": self._id.to_api()},
+            path_params={"cert_id": self._id.to_api(),},
             unpack=TrustedCertificate,
         )
 
@@ -301,6 +305,6 @@ class DeveloperCertificate(Entity):
             method="get",
             path="/v3/developer-certificates/{developerCertificateId}",
             content_type="application/json",
-            path_params={"developerCertificateId": self._id.to_api()},
+            path_params={"developerCertificateId": self._id.to_api(),},
             unpack=self,
         )

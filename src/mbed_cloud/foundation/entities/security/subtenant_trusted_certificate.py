@@ -489,7 +489,7 @@ class SubtenantTrustedCertificate(Entity):
             method="post",
             path="/v3/accounts/{account_id}/trusted-certificates",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api()},
+            path_params={"account_id": self._account_id.to_api(),},
             body_params=body_params,
             unpack=self,
         )
@@ -506,7 +506,7 @@ class SubtenantTrustedCertificate(Entity):
             method="delete",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "cert_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "cert_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -524,7 +524,7 @@ class SubtenantTrustedCertificate(Entity):
             method="get",
             path="/v3/developer-certificates/{developerCertificateId}",
             content_type="application/json",
-            path_params={"developerCertificateId": self._id.to_api()},
+            path_params={"developerCertificateId": self._id.to_api(),},
             unpack=DeveloperCertificate,
         )
 
@@ -540,7 +540,7 @@ class SubtenantTrustedCertificate(Entity):
             method="get",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "cert_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "cert_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -572,7 +572,7 @@ class SubtenantTrustedCertificate(Entity):
             method="put",
             path="/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "cert_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "cert_id": self._id.to_api(),},
             body_params=body_params,
             unpack=self,
         )

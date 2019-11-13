@@ -50,12 +50,18 @@ class LoginProfile(Entity):
     _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {"type": "login_profile_type"}
+    _renames = {
+        "type": "login_profile_type",
+    }
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {"login_profile_type": "type"}
+    _renames_to_api = {
+        "login_profile_type": "type",
+    }
 
-    def __init__(self, _client=None, id=None, login_profile_type=None, name=None):
+    def __init__(
+        self, _client=None, id=None, login_profile_type=None, name=None,
+    ):
         """Creates a local `LoginProfile` instance
 
         Parameters can be supplied on creation of the instance or given by

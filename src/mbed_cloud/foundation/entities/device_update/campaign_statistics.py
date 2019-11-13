@@ -60,7 +60,9 @@ class CampaignStatistics(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(self, _client=None, campaign_id=None, count=None, created_at=None, id=None, summary_status=None):
+    def __init__(
+        self, _client=None, campaign_id=None, count=None, created_at=None, id=None, summary_status=None,
+    ):
         """Creates a local `CampaignStatistics` instance
 
         Parameters can be supplied on creation of the instance or given by
@@ -307,7 +309,7 @@ class CampaignStatistics(Entity):
             method="get",
             path="/v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types",
             content_type="application/json",
-            path_params={"campaign_id": self._campaign_id.to_api(), "summary_status_id": self._id.to_api()},
+            path_params={"campaign_id": self._campaign_id.to_api(), "summary_status_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -340,7 +342,7 @@ class CampaignStatistics(Entity):
             method="get",
             path="/v3/update-campaigns/{campaign_id}/statistics",
             content_type="application/json",
-            path_params={"campaign_id": self._campaign_id.to_api()},
+            path_params={"campaign_id": self._campaign_id.to_api(),},
             unpack=False,
         )
 
@@ -356,6 +358,6 @@ class CampaignStatistics(Entity):
             method="get",
             path="/v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}",
             content_type="application/json",
-            path_params={"campaign_id": self._campaign_id.to_api(), "summary_status_id": self._id.to_api()},
+            path_params={"campaign_id": self._campaign_id.to_api(), "summary_status_id": self._id.to_api(),},
             unpack=self,
         )

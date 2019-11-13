@@ -64,10 +64,14 @@ class CampaignDeviceMetadata(Entity):
     _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {"campaign": "campaign_id"}
+    _renames = {
+        "campaign": "campaign_id",
+    }
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {"campaign_id": "campaign"}
+    _renames_to_api = {
+        "campaign_id": "campaign",
+    }
 
     def __init__(
         self,
@@ -272,6 +276,6 @@ class CampaignDeviceMetadata(Entity):
             method="get",
             path="/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}",
             content_type="application/json",
-            path_params={"campaign_id": self._campaign_id.to_api(), "campaign_device_metadata_id": self._id.to_api()},
+            path_params={"campaign_id": self._campaign_id.to_api(), "campaign_device_metadata_id": self._id.to_api(),},
             unpack=self,
         )

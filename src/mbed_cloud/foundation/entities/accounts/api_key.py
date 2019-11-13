@@ -337,7 +337,7 @@ class ApiKey(Entity):
             body_params["status"] = self._status.to_api()
 
         return self._client.call_api(
-            method="post", path="/v3/api-keys", content_type="application/json", body_params=body_params, unpack=self
+            method="post", path="/v3/api-keys", content_type="application/json", body_params=body_params, unpack=self,
         )
 
     def delete(self):
@@ -352,7 +352,7 @@ class ApiKey(Entity):
             method="delete",
             path="/v3/api-keys/{apikey_id}",
             content_type="application/json",
-            path_params={"apikey_id": self._id.to_api()},
+            path_params={"apikey_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -442,7 +442,9 @@ class ApiKey(Entity):
         :rtype: ApiKey
         """
 
-        return self._client.call_api(method="get", path="/v3/api-keys/me", content_type="application/json", unpack=self)
+        return self._client.call_api(
+            method="get", path="/v3/api-keys/me", content_type="application/json", unpack=self,
+        )
 
     def _paginate_list(self, after=None, filter=None, order="ASC", limit=50, include=None):
         """Get all API keys.
@@ -476,7 +478,7 @@ class ApiKey(Entity):
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
-            method="get", path="/v3/api-keys", content_type="application/json", query_params=query_params, unpack=False
+            method="get", path="/v3/api-keys", content_type="application/json", query_params=query_params, unpack=False,
         )
 
     def _paginate_policy_groups(self, after=None, filter=None, order="ASC", limit=50, include=None):
@@ -515,7 +517,7 @@ class ApiKey(Entity):
             path="/v3/api-keys/{apikey_id}/groups",
             content_type="application/json",
             query_params=query_params,
-            path_params={"apikey_id": self._id.to_api()},
+            path_params={"apikey_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -585,7 +587,7 @@ class ApiKey(Entity):
             method="get",
             path="/v3/api-keys/{apikey_id}",
             content_type="application/json",
-            path_params={"apikey_id": self._id.to_api()},
+            path_params={"apikey_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -614,6 +616,6 @@ class ApiKey(Entity):
             path="/v3/api-keys/{apikey_id}",
             content_type="application/json",
             body_params=body_params,
-            path_params={"apikey_id": self._id.to_api()},
+            path_params={"apikey_id": self._id.to_api(),},
             unpack=self,
         )

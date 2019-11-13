@@ -259,7 +259,7 @@ class DeviceGroup(Entity):
             path="/v3/device-groups/{device-group-id}/devices/add/",
             content_type="application/json",
             body_params=body_params,
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -301,7 +301,7 @@ class DeviceGroup(Entity):
             method="delete",
             path="/v3/device-groups/{device-group-id}/",
             content_type="application/json",
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -569,7 +569,7 @@ class DeviceGroup(Entity):
             path="/v3/device-groups/{device-group-id}/devices/",
             content_type="application/json",
             query_params=query_params,
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -624,7 +624,7 @@ class DeviceGroup(Entity):
             method="get",
             path="/v3/device-groups/{device-group-id}/",
             content_type="application/json",
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -650,7 +650,7 @@ class DeviceGroup(Entity):
             path="/v3/device-groups/{device-group-id}/devices/remove/",
             content_type="application/json",
             body_params=body_params,
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -677,6 +677,6 @@ class DeviceGroup(Entity):
             path="/v3/device-groups/{device-group-id}/",
             content_type="application/json",
             body_params=body_params,
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=self,
         )

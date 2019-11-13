@@ -283,7 +283,7 @@ class EntityFactory:
         )
 
     def active_session(
-        self, account_id=None, created_at=None, ip_address=None, login_time=None, reference_token=None, user_agent=None
+        self, account_id=None, created_at=None, ip_address=None, login_time=None, reference_token=None, user_agent=None,
     ):
         """Creates a local `ActiveSession` instance, using the shared SDK context.
 
@@ -430,7 +430,9 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
-    def campaign_statistics(self, campaign_id=None, count=None, created_at=None, id=None, summary_status=None):
+    def campaign_statistics(
+        self, campaign_id=None, count=None, created_at=None, id=None, summary_status=None,
+    ):
         """Creates a local `CampaignStatistics` instance, using the shared SDK context.
 
         :param campaign_id: ID of the associated campaign.
@@ -553,7 +555,7 @@ class EntityFactory:
         )
 
     def certificate_issuer(
-        self, created_at=None, description=None, id=None, issuer_attributes=None, issuer_type=None, name=None
+        self, created_at=None, description=None, id=None, issuer_attributes=None, issuer_type=None, name=None,
     ):
         """Creates a local `CertificateIssuer` instance, using the shared SDK context.
 
@@ -599,7 +601,7 @@ class EntityFactory:
         )
 
     def certificate_issuer_config(
-        self, certificate_issuer_id=None, created_at=None, id=None, reference=None, updated_at=None
+        self, certificate_issuer_id=None, created_at=None, id=None, reference=None, updated_at=None,
     ):
         """Creates a local `CertificateIssuerConfig` instance, using the shared SDK context.
 
@@ -631,7 +633,9 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
-    def dark_theme_color(self, color=None, reference=None, updated_at=None):
+    def dark_theme_color(
+        self, color=None, reference=None, updated_at=None,
+    ):
         """Creates a local `DarkThemeColor` instance, using the shared SDK context.
 
         :param color: The color given as name (purple) or as a hex code.
@@ -646,9 +650,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import DarkThemeColor
 
-        return DarkThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at)
+        return DarkThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at,)
 
-    def dark_theme_image(self, reference=None, static_uri=None, updated_at=None):
+    def dark_theme_image(
+        self, reference=None, static_uri=None, updated_at=None,
+    ):
         """Creates a local `DarkThemeImage` instance, using the shared SDK context.
 
         :param reference: Name of the image.
@@ -663,7 +669,7 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import DarkThemeImage
 
-        return DarkThemeImage(_client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at)
+        return DarkThemeImage(_client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at,)
 
     def developer_certificate(
         self,
@@ -1085,7 +1091,7 @@ class EntityFactory:
         )
 
     def device_enrollment_denial(
-        self, account_id=None, created_at=None, endpoint_name=None, id=None, trusted_certificate_id=None
+        self, account_id=None, created_at=None, endpoint_name=None, id=None, trusted_certificate_id=None,
     ):
         """Creates a local `DeviceEnrollmentDenial` instance, using the shared SDK context.
 
@@ -1376,7 +1382,9 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
-    def identity_provider_public_key(self, key=None, kid=None):
+    def identity_provider_public_key(
+        self, key=None, kid=None,
+    ):
         """Creates a local `IdentityProviderPublicKey` instance, using the shared SDK context.
 
         :param key: The public key.
@@ -1389,9 +1397,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import IdentityProviderPublicKey
 
-        return IdentityProviderPublicKey(_client=self._client, key=key, kid=kid)
+        return IdentityProviderPublicKey(_client=self._client, key=key, kid=kid,)
 
-    def light_theme_color(self, color=None, reference=None, updated_at=None):
+    def light_theme_color(
+        self, color=None, reference=None, updated_at=None,
+    ):
         """Creates a local `LightThemeColor` instance, using the shared SDK context.
 
         :param color: The color given as name (purple) or as a hex code.
@@ -1406,9 +1416,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import LightThemeColor
 
-        return LightThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at)
+        return LightThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at,)
 
-    def light_theme_image(self, reference=None, static_uri=None, updated_at=None):
+    def light_theme_image(
+        self, reference=None, static_uri=None, updated_at=None,
+    ):
         """Creates a local `LightThemeImage` instance, using the shared SDK context.
 
         :param reference: Name of the image.
@@ -1423,9 +1435,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import LightThemeImage
 
-        return LightThemeImage(_client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at)
+        return LightThemeImage(_client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at,)
 
-    def login_history(self, date=None, ip_address=None, success=None, user_agent=None):
+    def login_history(
+        self, date=None, ip_address=None, success=None, user_agent=None,
+    ):
         """Creates a local `LoginHistory` instance, using the shared SDK context.
 
         :param date: UTC time RFC3339 for this login attempt.
@@ -1443,10 +1457,12 @@ class EntityFactory:
         from mbed_cloud.foundation import LoginHistory
 
         return LoginHistory(
-            _client=self._client, date=date, ip_address=ip_address, success=success, user_agent=user_agent
+            _client=self._client, date=date, ip_address=ip_address, success=success, user_agent=user_agent,
         )
 
-    def login_profile(self, id=None, login_profile_type=None, name=None):
+    def login_profile(
+        self, id=None, login_profile_type=None, name=None,
+    ):
         """Creates a local `LoginProfile` instance, using the shared SDK context.
 
         :param id: ID of the identity provider.
@@ -1461,7 +1477,7 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import LoginProfile
 
-        return LoginProfile(_client=self._client, id=id, login_profile_type=login_profile_type, name=name)
+        return LoginProfile(_client=self._client, id=id, login_profile_type=login_profile_type, name=name,)
 
     def oidc_request(
         self,
@@ -1604,7 +1620,9 @@ class EntityFactory:
             updated_at_pattern=updated_at_pattern,
         )
 
-    def parent_account(self, admin_email=None, admin_name=None, id=None):
+    def parent_account(
+        self, admin_email=None, admin_name=None, id=None,
+    ):
         """Creates a local `ParentAccount` instance, using the shared SDK context.
 
         :param admin_email: The email address of the admin user who is the contact person of
@@ -1621,9 +1639,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import ParentAccount
 
-        return ParentAccount(_client=self._client, admin_email=admin_email, admin_name=admin_name, id=id)
+        return ParentAccount(_client=self._client, admin_email=admin_email, admin_name=admin_name, id=id,)
 
-    def password_policy(self, minimum_length=None):
+    def password_policy(
+        self, minimum_length=None,
+    ):
         """Creates a local `PasswordPolicy` instance, using the shared SDK context.
 
         :param minimum_length: Minimum length for the password.
@@ -1634,7 +1654,7 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import PasswordPolicy
 
-        return PasswordPolicy(_client=self._client, minimum_length=minimum_length)
+        return PasswordPolicy(_client=self._client, minimum_length=minimum_length,)
 
     def policy(
         self,
@@ -1682,7 +1702,7 @@ class EntityFactory:
         )
 
     def policy_group(
-        self, account_id=None, apikey_count=None, created_at=None, id=None, name=None, updated_at=None, user_count=None
+        self, account_id=None, apikey_count=None, created_at=None, id=None, name=None, updated_at=None, user_count=None,
     ):
         """Creates a local `PolicyGroup` instance, using the shared SDK context.
 
@@ -1717,7 +1737,9 @@ class EntityFactory:
             user_count=user_count,
         )
 
-    def pre_shared_key(self, created_at=None, endpoint_name=None, id=None):
+    def pre_shared_key(
+        self, created_at=None, endpoint_name=None, id=None,
+    ):
         """Creates a local `PreSharedKey` instance, using the shared SDK context.
 
         :param created_at: The date-time (RFC3339) when this PSK was uploaded to Device
@@ -1735,7 +1757,7 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import PreSharedKey
 
-        return PreSharedKey(_client=self._client, created_at=created_at, endpoint_name=endpoint_name, id=id)
+        return PreSharedKey(_client=self._client, created_at=created_at, endpoint_name=endpoint_name, id=id,)
 
     def saml2_request(
         self,
@@ -1780,7 +1802,9 @@ class EntityFactory:
             sso_endpoint=sso_endpoint,
         )
 
-    def server_credentials(self, created_at=None, id=None, server_certificate=None, server_uri=None):
+    def server_credentials(
+        self, created_at=None, id=None, server_certificate=None, server_uri=None,
+    ):
         """Creates a local `ServerCredentials` instance, using the shared SDK context.
 
         :param created_at: Creation UTC time RFC3339.
@@ -1866,7 +1890,9 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
-    def subtenant_dark_theme_color(self, color=None, reference=None, updated_at=None):
+    def subtenant_dark_theme_color(
+        self, color=None, reference=None, updated_at=None,
+    ):
         """Creates a local `SubtenantDarkThemeColor` instance, using the shared SDK context.
 
         :param color: The color given as name (purple) or as a hex code.
@@ -1881,9 +1907,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import SubtenantDarkThemeColor
 
-        return SubtenantDarkThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at)
+        return SubtenantDarkThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at,)
 
-    def subtenant_dark_theme_image(self, reference=None, static_uri=None, updated_at=None):
+    def subtenant_dark_theme_image(
+        self, reference=None, static_uri=None, updated_at=None,
+    ):
         """Creates a local `SubtenantDarkThemeImage` instance, using the shared SDK context.
 
         :param reference: Name of the image.
@@ -1899,7 +1927,7 @@ class EntityFactory:
         from mbed_cloud.foundation import SubtenantDarkThemeImage
 
         return SubtenantDarkThemeImage(
-            _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at
+            _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at,
         )
 
     def subtenant_identity_provider(
@@ -1954,7 +1982,9 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
-    def subtenant_light_theme_color(self, color=None, reference=None, updated_at=None):
+    def subtenant_light_theme_color(
+        self, color=None, reference=None, updated_at=None,
+    ):
         """Creates a local `SubtenantLightThemeColor` instance, using the shared SDK context.
 
         :param color: The color given as name (purple) or as a hex code.
@@ -1969,9 +1999,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import SubtenantLightThemeColor
 
-        return SubtenantLightThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at)
+        return SubtenantLightThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at,)
 
-    def subtenant_light_theme_image(self, reference=None, static_uri=None, updated_at=None):
+    def subtenant_light_theme_image(
+        self, reference=None, static_uri=None, updated_at=None,
+    ):
         """Creates a local `SubtenantLightThemeImage` instance, using the shared SDK context.
 
         :param reference: Name of the image.
@@ -1987,11 +2019,11 @@ class EntityFactory:
         from mbed_cloud.foundation import SubtenantLightThemeImage
 
         return SubtenantLightThemeImage(
-            _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at
+            _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at,
         )
 
     def subtenant_policy_group(
-        self, account_id=None, apikey_count=None, created_at=None, id=None, name=None, updated_at=None, user_count=None
+        self, account_id=None, apikey_count=None, created_at=None, id=None, name=None, updated_at=None, user_count=None,
     ):
         """Creates a local `SubtenantPolicyGroup` instance, using the shared SDK context.
 
@@ -2671,7 +2703,9 @@ class EntityFactory:
             user_id=user_id,
         )
 
-    def verification_response(self, message=None, successful=None):
+    def verification_response(
+        self, message=None, successful=None,
+    ):
         """Creates a local `VerificationResponse` instance, using the shared SDK context.
 
         :param message: Provides details in case of failure.
@@ -2685,4 +2719,4 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import VerificationResponse
 
-        return VerificationResponse(_client=self._client, message=message, successful=successful)
+        return VerificationResponse(_client=self._client, message=message, successful=successful,)

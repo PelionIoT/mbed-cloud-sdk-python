@@ -71,10 +71,14 @@ class IdentityProvider(Entity):
     _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {"type": "identity_provider_type"}
+    _renames = {
+        "type": "identity_provider_type",
+    }
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {"identity_provider_type": "type"}
+    _renames_to_api = {
+        "identity_provider_type": "type",
+    }
 
     def __init__(
         self,
@@ -342,7 +346,7 @@ class IdentityProvider(Entity):
             path="/v3/identity-providers",
             content_type="application/json",
             body_params=body_params,
-            query_params={"discovery": fields.BooleanField(discovery).to_api()},
+            query_params={"discovery": fields.BooleanField(discovery).to_api(),},
             unpack=self,
         )
 
@@ -358,7 +362,7 @@ class IdentityProvider(Entity):
             method="delete",
             path="/v3/identity-providers/{identity_provider_id}",
             content_type="application/json",
-            path_params={"identity_provider_id": self._id.to_api()},
+            path_params={"identity_provider_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -374,7 +378,7 @@ class IdentityProvider(Entity):
             method="post",
             path="/v3/identity-providers/{identity_provider_id}/delete-sp-certificate",
             content_type="application/json",
-            path_params={"identity_provider_id": self._id.to_api()},
+            path_params={"identity_provider_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -406,7 +410,7 @@ class IdentityProvider(Entity):
             path="/v3/identity-providers/{identity_provider_id}/generate-sp-certificate",
             content_type="application/json",
             body_params=body_params,
-            path_params={"identity_provider_id": self._id.to_api()},
+            path_params={"identity_provider_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -515,7 +519,7 @@ class IdentityProvider(Entity):
             method="get",
             path="/v3/identity-providers/{identity_provider_id}",
             content_type="application/json",
-            path_params={"identity_provider_id": self._id.to_api()},
+            path_params={"identity_provider_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -531,7 +535,7 @@ class IdentityProvider(Entity):
             method="post",
             path="/v3/identity-providers/{identity_provider_id}/refresh-jwks",
             content_type="application/json",
-            path_params={"identity_provider_id": self._id.to_api()},
+            path_params={"identity_provider_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -573,7 +577,7 @@ class IdentityProvider(Entity):
             path="/v3/identity-providers/{identity_provider_id}",
             content_type="application/json",
             body_params=body_params,
-            query_params={"discovery": fields.BooleanField(discovery).to_api()},
-            path_params={"identity_provider_id": self._id.to_api()},
+            query_params={"discovery": fields.BooleanField(discovery).to_api(),},
+            path_params={"identity_provider_id": self._id.to_api(),},
             unpack=self,
         )

@@ -967,7 +967,7 @@ class Device(Entity):
             method="post",
             path="/v3/device-groups/{device-group-id}/devices/add/",
             content_type="application/json",
-            path_params={"device-group-id": fields.StringField(device_group_id).to_api()},
+            path_params={"device-group-id": fields.StringField(device_group_id).to_api(),},
             body_params=body_params,
             unpack=self,
         )
@@ -1027,7 +1027,7 @@ class Device(Entity):
             body_params["vendor_id"] = self._vendor_id.to_api()
 
         return self._client.call_api(
-            method="post", path="/v3/devices/", content_type="application/json", body_params=body_params, unpack=self
+            method="post", path="/v3/devices/", content_type="application/json", body_params=body_params, unpack=self,
         )
 
     def delete(self):
@@ -1042,7 +1042,7 @@ class Device(Entity):
             method="delete",
             path="/v3/devices/{id}/",
             content_type="application/json",
-            path_params={"id": self._id.to_api()},
+            path_params={"id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -1222,7 +1222,7 @@ class Device(Entity):
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
-            method="get", path="/v3/devices/", content_type="application/json", query_params=query_params, unpack=False
+            method="get", path="/v3/devices/", content_type="application/json", query_params=query_params, unpack=False,
         )
 
     def read(self):
@@ -1237,7 +1237,7 @@ class Device(Entity):
             method="get",
             path="/v3/devices/{id}/",
             content_type="application/json",
-            path_params={"id": self._id.to_api()},
+            path_params={"id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -1262,7 +1262,7 @@ class Device(Entity):
             method="post",
             path="/v3/device-groups/{device-group-id}/devices/remove/",
             content_type="application/json",
-            path_params={"device-group-id": fields.StringField(device_group_id).to_api()},
+            path_params={"device-group-id": fields.StringField(device_group_id).to_api(),},
             body_params=body_params,
             unpack=self,
         )
@@ -1326,6 +1326,6 @@ class Device(Entity):
             path="/v3/devices/{id}/",
             content_type="application/json",
             body_params=body_params,
-            path_params={"id": self._id.to_api()},
+            path_params={"id": self._id.to_api(),},
             unpack=self,
         )

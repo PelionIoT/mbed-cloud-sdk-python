@@ -60,7 +60,9 @@ class SubtenantDarkThemeColor(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(self, _client=None, color=None, reference=None, updated_at=None):
+    def __init__(
+        self, _client=None, color=None, reference=None, updated_at=None,
+    ):
         """Creates a local `SubtenantDarkThemeColor` instance
 
         Parameters can be supplied on creation of the instance or given by
@@ -153,7 +155,7 @@ class SubtenantDarkThemeColor(Entity):
             method="delete",
             path="/v3/accounts/{account_id}/branding-colors/dark/{reference}",
             content_type="application/json",
-            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api(),},
             unpack=self,
         )
 
@@ -172,7 +174,7 @@ class SubtenantDarkThemeColor(Entity):
             method="get",
             path="/v3/accounts/{account_id}/branding-colors/dark/{reference}",
             content_type="application/json",
-            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api(),},
             unpack=self,
         )
 
@@ -199,7 +201,7 @@ class SubtenantDarkThemeColor(Entity):
             method="put",
             path="/v3/accounts/{account_id}/branding-colors/dark/{reference}",
             content_type="application/json",
-            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api(),},
             body_params=body_params,
             unpack=self,
         )

@@ -68,10 +68,16 @@ class FirmwareManifest(Entity):
     _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {"datafile": "datafile_url", "key_table": "key_table_url"}
+    _renames = {
+        "datafile": "datafile_url",
+        "key_table": "key_table_url",
+    }
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {"datafile_url": "datafile", "key_table_url": "key_table"}
+    _renames_to_api = {
+        "datafile_url": "datafile",
+        "key_table_url": "key_table",
+    }
 
     def __init__(
         self,
@@ -337,7 +343,7 @@ class FirmwareManifest(Entity):
             method="delete",
             path="/v3/firmware-manifests/{manifest_id}",
             content_type="application/json",
-            path_params={"manifest_id": self._id.to_api()},
+            path_params={"manifest_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -486,6 +492,6 @@ class FirmwareManifest(Entity):
             method="get",
             path="/v3/firmware-manifests/{manifest_id}",
             content_type="application/json",
-            path_params={"manifest_id": self._id.to_api()},
+            path_params={"manifest_id": self._id.to_api(),},
             unpack=self,
         )

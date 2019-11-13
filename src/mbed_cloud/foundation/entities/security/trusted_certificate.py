@@ -494,7 +494,7 @@ class TrustedCertificate(Entity):
             method="delete",
             path="/v3/trusted-certificates/{cert_id}",
             content_type="application/json",
-            path_params={"cert_id": self._id.to_api()},
+            path_params={"cert_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -512,7 +512,7 @@ class TrustedCertificate(Entity):
             method="get",
             path="/v3/developer-certificates/{developerCertificateId}",
             content_type="application/json",
-            path_params={"developerCertificateId": self._id.to_api()},
+            path_params={"developerCertificateId": self._id.to_api(),},
             unpack=DeveloperCertificate,
         )
 
@@ -661,7 +661,7 @@ class TrustedCertificate(Entity):
             method="get",
             path="/v3/trusted-certificates/{cert_id}",
             content_type="application/json",
-            path_params={"cert_id": self._id.to_api()},
+            path_params={"cert_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -694,6 +694,6 @@ class TrustedCertificate(Entity):
             path="/v3/trusted-certificates/{cert_id}",
             content_type="application/json",
             body_params=body_params,
-            path_params={"cert_id": self._id.to_api()},
+            path_params={"cert_id": self._id.to_api(),},
             unpack=self,
         )

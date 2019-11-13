@@ -87,7 +87,7 @@ class CampaignStatisticsIdEnum(BaseEnum):
     SKIPPED = "skipped"
     SUCCESS = "success"
 
-    values = frozenset(("fail", "info", "skipped", "success"))
+    values = frozenset(("fail", "info", "skipped", "success",))
 
 
 class CampaignStatisticsSummaryStatusEnum(BaseEnum):
@@ -105,7 +105,7 @@ class CampaignStatisticsSummaryStatusEnum(BaseEnum):
     SKIPPED = "SKIPPED"
     SUCCESS = "SUCCESS"
 
-    values = frozenset(("FAIL", "INFO", "SKIPPED", "SUCCESS"))
+    values = frozenset(("FAIL", "INFO", "SKIPPED", "SUCCESS",))
 
 
 class FirmwareImageOrderEnum(BaseEnum):
@@ -121,7 +121,7 @@ class FirmwareImageOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class FirmwareManifestOrderEnum(BaseEnum):
@@ -137,7 +137,7 @@ class FirmwareManifestOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class UpdateCampaignOrderEnum(BaseEnum):
@@ -153,7 +153,7 @@ class UpdateCampaignOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class UpdateCampaignPhaseEnum(BaseEnum):
@@ -177,7 +177,7 @@ class UpdateCampaignPhaseEnum(BaseEnum):
     TIMED = "timed"
 
     values = frozenset(
-        ("active", "archived", "awaiting_approval", "deleted", "draft", "starting", "stopped", "stopping", "timed")
+        ("active", "archived", "awaiting_approval", "deleted", "draft", "starting", "stopped", "stopping", "timed",)
     )
 
 
@@ -194,4 +194,4 @@ class UpdateCampaignStrategyEnum(BaseEnum):
     CONTINUOUS = "continuous"
     ONE - SHOT = "one-shot"
 
-    values = frozenset(("continuous", "one-shot"))
+    values = frozenset(("continuous", "one-shot",))

@@ -66,10 +66,14 @@ class FirmwareImage(Entity):
     _sdk_fieldnames = _api_fieldnames
 
     # Renames to be performed by the SDK when receiving data {<API Field Name>: <SDK Field Name>}
-    _renames = {"datafile": "datafile_url"}
+    _renames = {
+        "datafile": "datafile_url",
+    }
 
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
-    _renames_to_api = {"datafile_url": "datafile"}
+    _renames_to_api = {
+        "datafile_url": "datafile",
+    }
 
     def __init__(
         self,
@@ -289,7 +293,7 @@ class FirmwareImage(Entity):
             method="delete",
             path="/v3/firmware-images/{image_id}",
             content_type="application/json",
-            path_params={"image_id": self._id.to_api()},
+            path_params={"image_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -436,6 +440,6 @@ class FirmwareImage(Entity):
             method="get",
             path="/v3/firmware-images/{image_id}",
             content_type="application/json",
-            path_params={"image_id": self._id.to_api()},
+            path_params={"image_id": self._id.to_api(),},
             unpack=self,
         )

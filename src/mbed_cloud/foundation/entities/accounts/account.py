@@ -1269,7 +1269,7 @@ class Account(Entity):
             method="post",
             path="/v3/accounts",
             content_type="application/json",
-            query_params={"action": fields.StringField(action).to_api()},
+            query_params={"action": fields.StringField(action).to_api(),},
             body_params=body_params,
             unpack=self,
         )
@@ -1642,7 +1642,7 @@ class Account(Entity):
             path="/v3/accounts/{account_id}/api-keys",
             content_type="application/json",
             query_params=query_params,
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1675,7 +1675,7 @@ class Account(Entity):
             method="get",
             path="/v3/accounts/{account_id}/branding-colors/dark",
             content_type="application/json",
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1708,7 +1708,7 @@ class Account(Entity):
             method="get",
             path="/v3/accounts/{account_id}/branding-images/dark",
             content_type="application/json",
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1741,7 +1741,7 @@ class Account(Entity):
             method="get",
             path="/v3/accounts/{account_id}/branding-colors/light",
             content_type="application/json",
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1774,7 +1774,7 @@ class Account(Entity):
             method="get",
             path="/v3/accounts/{account_id}/branding-images/light",
             content_type="application/json",
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1820,7 +1820,7 @@ class Account(Entity):
         query_params["properties"] = fields.StringField(properties).to_api()
 
         return self._client.call_api(
-            method="get", path="/v3/accounts", content_type="application/json", query_params=query_params, unpack=False
+            method="get", path="/v3/accounts", content_type="application/json", query_params=query_params, unpack=False,
         )
 
     def _paginate_trusted_certificates(self, after=None, filter=None, order="ASC", limit=50, include=None):
@@ -1859,7 +1859,7 @@ class Account(Entity):
             path="/v3/accounts/{account_id}/trusted-certificates",
             content_type="application/json",
             query_params=query_params,
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1898,7 +1898,7 @@ class Account(Entity):
             path="/v3/accounts/{account_id}/user-invitations",
             content_type="application/json",
             query_params=query_params,
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1938,7 +1938,7 @@ class Account(Entity):
             path="/v3/accounts/{account_id}/users",
             content_type="application/json",
             query_params=query_params,
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1961,7 +1961,7 @@ class Account(Entity):
             method="get",
             path="/v3/accounts/{account_id}",
             content_type="application/json",
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             query_params={
                 "include": fields.StringField(include).to_api(),
                 "properties": fields.StringField(properties).to_api(),
@@ -2128,7 +2128,7 @@ class Account(Entity):
             path="/v3/accounts/{account_id}",
             content_type="application/json",
             body_params=body_params,
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=self,
         )
 

@@ -657,7 +657,7 @@ class User(Entity):
             method="post",
             path="/v3/users",
             content_type="application/json",
-            query_params={"action": fields.StringField(action).to_api()},
+            query_params={"action": fields.StringField(action).to_api(),},
             body_params=body_params,
             unpack=self,
         )
@@ -674,7 +674,7 @@ class User(Entity):
             method="delete",
             path="/v3/users/{user_id}",
             content_type="application/json",
-            path_params={"user_id": self._id.to_api()},
+            path_params={"user_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -790,7 +790,7 @@ class User(Entity):
         query_params["include"] = fields.StringField(include).to_api()
 
         return self._client.call_api(
-            method="get", path="/v3/users", content_type="application/json", query_params=query_params, unpack=False
+            method="get", path="/v3/users", content_type="application/json", query_params=query_params, unpack=False,
         )
 
     def _paginate_policy_groups(self, after=None, filter=None, order="ASC", limit=50, include=None):
@@ -829,7 +829,7 @@ class User(Entity):
             path="/v3/users/{user_id}/groups",
             content_type="application/json",
             query_params=query_params,
-            path_params={"user_id": self._id.to_api()},
+            path_params={"user_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -899,7 +899,7 @@ class User(Entity):
             method="get",
             path="/v3/users/{user_id}",
             content_type="application/json",
-            path_params={"user_id": self._id.to_api()},
+            path_params={"user_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -938,6 +938,6 @@ class User(Entity):
             path="/v3/users/{user_id}",
             content_type="application/json",
             body_params=body_params,
-            path_params={"user_id": self._id.to_api()},
+            path_params={"user_id": self._id.to_api(),},
             unpack=self,
         )

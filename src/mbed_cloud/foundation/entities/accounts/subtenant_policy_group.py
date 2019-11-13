@@ -301,7 +301,7 @@ class SubtenantPolicyGroup(Entity):
             method="post",
             path="/v3/accounts/{account_id}/policy-groups",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api()},
+            path_params={"account_id": self._account_id.to_api(),},
             body_params=body_params,
             unpack=self,
         )
@@ -318,7 +318,7 @@ class SubtenantPolicyGroup(Entity):
             method="delete",
             path="/v3/accounts/{account_id}/policy-groups/{group_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "group_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "group_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -433,7 +433,7 @@ class SubtenantPolicyGroup(Entity):
             method="get",
             path="/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "group_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "group_id": self._id.to_api(),},
             query_params=query_params,
             unpack=False,
         )
@@ -473,7 +473,7 @@ class SubtenantPolicyGroup(Entity):
             method="get",
             path="/v3/accounts/{account_id}/policy-groups",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api()},
+            path_params={"account_id": self._account_id.to_api(),},
             query_params=query_params,
             unpack=False,
         )
@@ -513,7 +513,7 @@ class SubtenantPolicyGroup(Entity):
             method="get",
             path="/v3/accounts/{account_id}/policy-groups/{group_id}/users",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "group_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "group_id": self._id.to_api(),},
             query_params=query_params,
             unpack=False,
         )
@@ -530,7 +530,7 @@ class SubtenantPolicyGroup(Entity):
             method="get",
             path="/v3/accounts/{account_id}/policy-groups/{group_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "group_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "group_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -552,7 +552,7 @@ class SubtenantPolicyGroup(Entity):
             method="put",
             path="/v3/accounts/{account_id}/policy-groups/{group_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "group_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "group_id": self._id.to_api(),},
             body_params=body_params,
             unpack=self,
         )

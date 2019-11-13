@@ -314,7 +314,7 @@ class UserInvitation(Entity):
             method="delete",
             path="/v3/user-invitations/{invitation_id}",
             content_type="application/json",
-            path_params={"invitation_id": self._id.to_api()},
+            path_params={"invitation_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -443,6 +443,6 @@ class UserInvitation(Entity):
             method="get",
             path="/v3/user-invitations/{invitation_id}",
             content_type="application/json",
-            path_params={"invitation_id": self._id.to_api()},
+            path_params={"invitation_id": self._id.to_api(),},
             unpack=self,
         )

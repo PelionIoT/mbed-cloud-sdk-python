@@ -305,7 +305,7 @@ class PolicyGroup(Entity):
             method="delete",
             path="/v3/policy-groups/{group_id}",
             content_type="application/json",
-            path_params={"group_id": self._id.to_api()},
+            path_params={"group_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -421,7 +421,7 @@ class PolicyGroup(Entity):
             path="/v3/policy-groups/{group_id}/api-keys",
             content_type="application/json",
             query_params=query_params,
-            path_params={"group_id": self._id.to_api()},
+            path_params={"group_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -500,7 +500,7 @@ class PolicyGroup(Entity):
             path="/v3/policy-groups/{group_id}/users",
             content_type="application/json",
             query_params=query_params,
-            path_params={"group_id": self._id.to_api()},
+            path_params={"group_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -516,7 +516,7 @@ class PolicyGroup(Entity):
             method="get",
             path="/v3/policy-groups/{group_id}",
             content_type="application/json",
-            path_params={"group_id": self._id.to_api()},
+            path_params={"group_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -538,7 +538,7 @@ class PolicyGroup(Entity):
             method="put",
             path="/v3/policy-groups/{group_id}",
             content_type="application/json",
-            path_params={"group_id": self._id.to_api()},
+            path_params={"group_id": self._id.to_api(),},
             body_params=body_params,
             unpack=self,
         )

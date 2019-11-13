@@ -60,7 +60,7 @@ class DeviceEnrollmentDenial(Entity):
     _renames_to_api = {}
 
     def __init__(
-        self, _client=None, account_id=None, created_at=None, endpoint_name=None, id=None, trusted_certificate_id=None
+        self, _client=None, account_id=None, created_at=None, endpoint_name=None, id=None, trusted_certificate_id=None,
     ):
         """Creates a local `DeviceEnrollmentDenial` instance
 
@@ -277,6 +277,6 @@ class DeviceEnrollmentDenial(Entity):
             method="get",
             path="/v3/device-enrollment-denials/{device_enrollment_denial_id}",
             content_type="application/json",
-            path_params={"device_enrollment_denial_id": fields.StringField(device_enrollment_denial_id).to_api()},
+            path_params={"device_enrollment_denial_id": fields.StringField(device_enrollment_denial_id).to_api(),},
             unpack=self,
         )

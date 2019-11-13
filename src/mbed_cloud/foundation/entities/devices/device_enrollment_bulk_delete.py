@@ -289,7 +289,7 @@ class DeviceEnrollmentBulkDelete(Entity):
                 method="post",
                 path="/v3/device-enrollments-bulk-deletes",
                 stream_params={
-                    "enrollment_identities": ("enrollment_identities.csv", enrollment_identities, "text/csv")
+                    "enrollment_identities": ("enrollment_identities.csv", enrollment_identities, "text/csv"),
                 },
                 unpack=self,
             )
@@ -331,6 +331,6 @@ class DeviceEnrollmentBulkDelete(Entity):
             method="get",
             path="/v3/device-enrollments-bulk-deletes/{id}",
             content_type="application/json",
-            path_params={"id": self._id.to_api()},
+            path_params={"id": self._id.to_api(),},
             unpack=self,
         )

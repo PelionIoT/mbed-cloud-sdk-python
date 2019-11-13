@@ -350,7 +350,7 @@ class SubtenantApiKey(Entity):
             method="post",
             path="/v3/accounts/{account_id}/api-keys",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api()},
+            path_params={"account_id": self._account_id.to_api(),},
             body_params=body_params,
             unpack=self,
         )
@@ -367,7 +367,7 @@ class SubtenantApiKey(Entity):
             method="delete",
             path="/v3/accounts/{account_id}/api-keys/{apikey_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "apikey_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "apikey_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -406,7 +406,7 @@ class SubtenantApiKey(Entity):
             method="get",
             path="/v3/accounts/{account_id}/api-keys/{apikey_id}/groups",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "apikey_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "apikey_id": self._id.to_api(),},
             query_params=query_params,
             unpack=False,
         )
@@ -477,7 +477,7 @@ class SubtenantApiKey(Entity):
             method="get",
             path="/v3/accounts/{account_id}/api-keys/{apikey_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "apikey_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "apikey_id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -505,7 +505,7 @@ class SubtenantApiKey(Entity):
             method="put",
             path="/v3/accounts/{account_id}/api-keys/{apikey_id}",
             content_type="application/json",
-            path_params={"account_id": self._account_id.to_api(), "apikey_id": self._id.to_api()},
+            path_params={"account_id": self._account_id.to_api(), "apikey_id": self._id.to_api(),},
             body_params=body_params,
             unpack=self,
         )
