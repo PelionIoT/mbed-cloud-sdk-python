@@ -3968,21 +3968,49 @@ definitions:
     properties:
       created_at: *id013
       datafile:
-        description: The URL of the firmware manifest binary
+        description: The URL of the ASN.1 DER-encoded firmware manifest binary.
         example: http://example.com/12345678901234567890123456789012
+        format: uri
         type: string
       datafile_size:
-        description: The size of the datafile in bytes
+        description: The size of the firmware manifest in bytes.
         format: int64
         type: integer
+      delivered_payload_digest:
+        description: Digest (SHA256, hex-encoded) of the payload to deliver to the
+          device.
+        example: c520fc771c0482ad39e983d27cf725a7c724fe58c616129a34a420d1941068bc
+        format: hex
+        type: string
+      delivered_payload_size:
+        description: The size in bytes of the payload to deliver to the device.
+        format: int64
+        type: integer
+      delivered_payload_type:
+        description: Type of the payload to deliver to the device (full or delta image).
+        enum:
+        - full
+        - delta
+        type: string
+      delivered_payload_url:
+        description: The URL of the payload to deliver to the device.
+        example: http://example.com/abcdefghijklmnopqrstuvwxyz
+        format: uri
+        type: string
       description:
         description: The description of the firmware manifest.
         example: ''
         maxLength: 2000
         type: string
       device_class:
-        description: The class of the device.
+        description: The device class ID.
         example: 00000000-0000-0000-0000-000000000000
+        format: uuid
+        type: string
+      device_vendor:
+        description: The device vendor ID.
+        example: 00000000-0000-0000-0000-000000000000
+        format: uuid
         type: string
       etag: *id014
       id:
@@ -3991,22 +4019,46 @@ definitions:
         type: string
       key_table:
         description: The key table of pre-shared keys for devices.
-        example: http://example.com
+        example: http://example.com/key-table
         format: uri
         type: string
+      manifest_schema_version:
+        description: Version of the manifest schema (1 or 3).
+        enum:
+        - '1'
+        - '3'
+        type: string
       name:
-        description: The name of the object.
-        example: default_object_name
+        description: The name of the manifest.
+        example: manifest_name
         maxLength: 128
         type: string
       object:
         description: 'Entity name: always ''firmware-manifest''.'
+        type: string
+      parsed_raw_manifest:
+        description: 'Raw manifest in JSON format, parsed from ASN.1 DER encoding.
+
+          Fields may change. Backwards compatibility is not guaranteed.
+
+          Recommended for debugging only.
+
+          '
+        type: object
+      precursor_payload_digest:
+        description: Digest (SHA256, hex-encoded) of the currently installed payload.
+        example: 54d640fcd687c9b13420b9be66a265494899002aad1b7370cfb3dbfd7fbec42f
         type: string
       timestamp:
         description: The firmware manifest version as a timestamp.
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
+      update_priority:
+        description: Update priority, passed to the application callback when an update
+          is performed. Allows the application to make application-specific decisions.
+        format: int64
+        type: integer
       updated_at: *id015
   FirmwareManifestEqNeqFilter:
     properties:

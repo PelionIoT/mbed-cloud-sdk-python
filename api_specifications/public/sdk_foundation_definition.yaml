@@ -33706,15 +33706,49 @@ entities:
     type: string
   - _key: datafile_size
     api_fieldname: datafile_size
-    description: The size of the datafile in bytes
+    description: The size of the firmware manifest in bytes.
     format: int64
     readOnly: true
     required: false
     type: integer
   - _key: datafile_url
     api_fieldname: datafile
-    description: The URL of the firmware manifest binary
+    description: The URL of the ASN.1 DER-encoded firmware manifest binary.
     example: http://example.com/12345678901234567890123456789012
+    format: uri
+    readOnly: true
+    required: false
+    type: string
+  - _key: delivered_payload_digest
+    api_fieldname: delivered_payload_digest
+    description: Digest (SHA256, hex-encoded) of the payload to deliver to the device.
+    example: c520fc771c0482ad39e983d27cf725a7c724fe58c616129a34a420d1941068bc
+    format: hex
+    readOnly: true
+    required: false
+    type: string
+  - _key: delivered_payload_size
+    api_fieldname: delivered_payload_size
+    description: The size in bytes of the payload to deliver to the device.
+    format: int64
+    readOnly: true
+    required: false
+    type: integer
+  - _key: delivered_payload_type
+    api_fieldname: delivered_payload_type
+    description: Type of the payload to deliver to the device (full or delta image).
+    enum:
+    - full
+    - delta
+    enum_reference: firmware_manifest_delivered_payload_type_enum
+    readOnly: true
+    required: false
+    type: string
+  - _key: delivered_payload_url
+    api_fieldname: delivered_payload_url
+    description: The URL of the payload to deliver to the device.
+    example: http://example.com/abcdefghijklmnopqrstuvwxyz
+    format: uri
     readOnly: true
     required: false
     type: string
@@ -33728,8 +33762,17 @@ entities:
     type: string
   - _key: device_class
     api_fieldname: device_class
-    description: The class of the device.
+    description: The device class ID.
     example: 00000000-0000-0000-0000-000000000000
+    format: uuid
+    readOnly: true
+    required: false
+    type: string
+  - _key: device_vendor
+    api_fieldname: device_vendor
+    description: The device vendor ID.
+    example: 00000000-0000-0000-0000-000000000000
+    format: uuid
     readOnly: true
     required: false
     type: string
@@ -33743,17 +33786,46 @@ entities:
   - _key: key_table_url
     api_fieldname: key_table
     description: The key table of pre-shared keys for devices.
-    example: http://example.com
+    example: http://example.com/key-table
     format: uri
+    readOnly: true
+    required: false
+    type: string
+  - _key: manifest_schema_version
+    api_fieldname: manifest_schema_version
+    description: Version of the manifest schema (1 or 3).
+    enum:
+    - '1'
+    - '3'
+    enum_reference: firmware_manifest_schema_version_enum
     readOnly: true
     required: false
     type: string
   - _key: name
     api_fieldname: name
-    description: The name of the object.
-    example: default_object_name
+    description: The name of the manifest.
+    example: manifest_name
     maxLength: 128
     readOnly: false
+    required: false
+    type: string
+  - _key: parsed_raw_manifest
+    api_fieldname: parsed_raw_manifest
+    description: 'Raw manifest in JSON format, parsed from ASN.1 DER encoding.
+
+      Fields may change. Backwards compatibility is not guaranteed.
+
+      Recommended for debugging only.
+
+      '
+    readOnly: true
+    required: false
+    type: object
+  - _key: precursor_payload_digest
+    api_fieldname: precursor_payload_digest
+    description: Digest (SHA256, hex-encoded) of the currently installed payload.
+    example: 54d640fcd687c9b13420b9be66a265494899002aad1b7370cfb3dbfd7fbec42f
+    readOnly: true
     required: false
     type: string
   - _key: timestamp
@@ -33764,6 +33836,14 @@ entities:
     readOnly: true
     required: false
     type: string
+  - _key: update_priority
+    api_fieldname: update_priority
+    description: Update priority, passed to the application callback when an update
+      is performed. Allows the application to make application-specific decisions.
+    format: int64
+    readOnly: true
+    required: false
+    type: integer
   - _key: updated_at
     api_fieldname: updated_at
     description: The time the entity was updated.
@@ -33808,10 +33888,19 @@ entities:
     - filter
     - created_at
     - updated_at
+    - manifest_schema_version
     - datafile_size
+    - delivered_payload_url
+    - delivered_payload_size
+    - delivered_payload_digest
+    - delivered_payload_type
+    - precursor_payload_digest
     - device_class
+    - device_vendor
+    - update_priority
     - id
     - timestamp
+    - parsed_raw_manifest
     - datafile_url
     - key_table_url
     field_renames:
@@ -33854,9 +33943,9 @@ entities:
       type: file
     - _key: name
       api_fieldname: name
-      description: The name of the object.
+      description: The name of the manifest.
       entity_fieldname: name
-      example: default_object_name
+      example: manifest_name
       in: stream
       maxLength: 128
       parameter_fieldname: name
@@ -33893,16 +33982,47 @@ entities:
           type: string
         datafile:
           api_fieldname: datafile
-          description: The URL of the firmware manifest binary
+          description: The URL of the ASN.1 DER-encoded firmware manifest binary.
           entity_fieldname: datafile_url
           example: http://example.com/12345678901234567890123456789012
+          format: uri
           type: string
         datafile_size:
           api_fieldname: datafile_size
-          description: The size of the datafile in bytes
+          description: The size of the firmware manifest in bytes.
           entity_fieldname: datafile_size
           format: int64
           type: integer
+        delivered_payload_digest:
+          api_fieldname: delivered_payload_digest
+          description: Digest (SHA256, hex-encoded) of the payload to deliver to the
+            device.
+          entity_fieldname: delivered_payload_digest
+          example: c520fc771c0482ad39e983d27cf725a7c724fe58c616129a34a420d1941068bc
+          format: hex
+          type: string
+        delivered_payload_size:
+          api_fieldname: delivered_payload_size
+          description: The size in bytes of the payload to deliver to the device.
+          entity_fieldname: delivered_payload_size
+          format: int64
+          type: integer
+        delivered_payload_type:
+          api_fieldname: delivered_payload_type
+          description: Type of the payload to deliver to the device (full or delta
+            image).
+          entity_fieldname: delivered_payload_type
+          enum:
+          - full
+          - delta
+          type: string
+        delivered_payload_url:
+          api_fieldname: delivered_payload_url
+          description: The URL of the payload to deliver to the device.
+          entity_fieldname: delivered_payload_url
+          example: http://example.com/abcdefghijklmnopqrstuvwxyz
+          format: uri
+          type: string
         description:
           api_fieldname: description
           description: The description of the firmware manifest.
@@ -33912,9 +34032,17 @@ entities:
           type: string
         device_class:
           api_fieldname: device_class
-          description: The class of the device.
+          description: The device class ID.
           entity_fieldname: device_class
           example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          type: string
+        device_vendor:
+          api_fieldname: device_vendor
+          description: The device vendor ID.
+          entity_fieldname: device_vendor
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
           type: string
         etag:
           api_fieldname: etag
@@ -33932,20 +34060,45 @@ entities:
           api_fieldname: key_table
           description: The key table of pre-shared keys for devices.
           entity_fieldname: key_table_url
-          example: http://example.com
+          example: http://example.com/key-table
           format: uri
+          type: string
+        manifest_schema_version:
+          api_fieldname: manifest_schema_version
+          description: Version of the manifest schema (1 or 3).
+          entity_fieldname: manifest_schema_version
+          enum:
+          - '1'
+          - '3'
           type: string
         name:
           api_fieldname: name
-          description: The name of the object.
+          description: The name of the manifest.
           entity_fieldname: name
-          example: default_object_name
+          example: manifest_name
           maxLength: 128
           type: string
         object:
           api_fieldname: object
           description: 'Entity name: always ''firmware-manifest''.'
           entity_fieldname: object
+          type: string
+        parsed_raw_manifest:
+          api_fieldname: parsed_raw_manifest
+          description: 'Raw manifest in JSON format, parsed from ASN.1 DER encoding.
+
+            Fields may change. Backwards compatibility is not guaranteed.
+
+            Recommended for debugging only.
+
+            '
+          entity_fieldname: parsed_raw_manifest
+          type: object
+        precursor_payload_digest:
+          api_fieldname: precursor_payload_digest
+          description: Digest (SHA256, hex-encoded) of the currently installed payload.
+          entity_fieldname: precursor_payload_digest
+          example: 54d640fcd687c9b13420b9be66a265494899002aad1b7370cfb3dbfd7fbec42f
           type: string
         timestamp:
           api_fieldname: timestamp
@@ -33954,6 +34107,14 @@ entities:
           example: '2017-05-22T12:37:55.576563Z'
           format: date-time
           type: string
+        update_priority:
+          api_fieldname: update_priority
+          description: Update priority, passed to the application callback when an
+            update is performed. Allows the application to make application-specific
+            decisions.
+          entity_fieldname: update_priority
+          format: int64
+          type: integer
         updated_at:
           api_fieldname: updated_at
           description: The time the entity was updated.
@@ -34208,21 +34369,50 @@ entities:
               format: date-time
               type: string
             datafile:
-              description: The URL of the firmware manifest binary
+              description: The URL of the ASN.1 DER-encoded firmware manifest binary.
               example: http://example.com/12345678901234567890123456789012
+              format: uri
               type: string
             datafile_size:
-              description: The size of the datafile in bytes
+              description: The size of the firmware manifest in bytes.
               format: int64
               type: integer
+            delivered_payload_digest:
+              description: Digest (SHA256, hex-encoded) of the payload to deliver
+                to the device.
+              example: c520fc771c0482ad39e983d27cf725a7c724fe58c616129a34a420d1941068bc
+              format: hex
+              type: string
+            delivered_payload_size:
+              description: The size in bytes of the payload to deliver to the device.
+              format: int64
+              type: integer
+            delivered_payload_type:
+              description: Type of the payload to deliver to the device (full or delta
+                image).
+              enum:
+              - full
+              - delta
+              type: string
+            delivered_payload_url:
+              description: The URL of the payload to deliver to the device.
+              example: http://example.com/abcdefghijklmnopqrstuvwxyz
+              format: uri
+              type: string
             description:
               description: The description of the firmware manifest.
               example: ''
               maxLength: 2000
               type: string
             device_class:
-              description: The class of the device.
+              description: The device class ID.
               example: 00000000-0000-0000-0000-000000000000
+              format: uuid
+              type: string
+            device_vendor:
+              description: The device vendor ID.
+              example: 00000000-0000-0000-0000-000000000000
+              format: uuid
               type: string
             etag:
               api_fieldname: etag
@@ -34236,22 +34426,48 @@ entities:
               type: string
             key_table:
               description: The key table of pre-shared keys for devices.
-              example: http://example.com
+              example: http://example.com/key-table
               format: uri
               type: string
+            manifest_schema_version:
+              description: Version of the manifest schema (1 or 3).
+              enum:
+              - '1'
+              - '3'
+              type: string
             name:
-              description: The name of the object.
-              example: default_object_name
+              description: The name of the manifest.
+              example: manifest_name
               maxLength: 128
               type: string
             object:
               description: 'Entity name: always ''firmware-manifest''.'
+              type: string
+            parsed_raw_manifest:
+              description: 'Raw manifest in JSON format, parsed from ASN.1 DER encoding.
+
+                Fields may change. Backwards compatibility is not guaranteed.
+
+                Recommended for debugging only.
+
+                '
+              type: object
+            precursor_payload_digest:
+              description: Digest (SHA256, hex-encoded) of the currently installed
+                payload.
+              example: 54d640fcd687c9b13420b9be66a265494899002aad1b7370cfb3dbfd7fbec42f
               type: string
             timestamp:
               description: The firmware manifest version as a timestamp.
               example: '2017-05-22T12:37:55.576563Z'
               format: date-time
               type: string
+            update_priority:
+              description: Update priority, passed to the application callback when
+                an update is performed. Allows the application to make application-specific
+                decisions.
+              format: int64
+              type: integer
             updated_at:
               api_fieldname: updated_at
               description: The time the entity was updated.
@@ -34372,11 +34588,20 @@ entities:
     - filter
     - created_at
     - updated_at
+    - manifest_schema_version
     - datafile_size
+    - delivered_payload_url
+    - delivered_payload_size
+    - delivered_payload_digest
+    - delivered_payload_type
+    - precursor_payload_digest
     - description
     - device_class
+    - device_vendor
+    - update_priority
     - name
     - timestamp
+    - parsed_raw_manifest
     - datafile_url
     - key_table_url
     field_renames:
@@ -34421,16 +34646,47 @@ entities:
           type: string
         datafile:
           api_fieldname: datafile
-          description: The URL of the firmware manifest binary
+          description: The URL of the ASN.1 DER-encoded firmware manifest binary.
           entity_fieldname: datafile_url
           example: http://example.com/12345678901234567890123456789012
+          format: uri
           type: string
         datafile_size:
           api_fieldname: datafile_size
-          description: The size of the datafile in bytes
+          description: The size of the firmware manifest in bytes.
           entity_fieldname: datafile_size
           format: int64
           type: integer
+        delivered_payload_digest:
+          api_fieldname: delivered_payload_digest
+          description: Digest (SHA256, hex-encoded) of the payload to deliver to the
+            device.
+          entity_fieldname: delivered_payload_digest
+          example: c520fc771c0482ad39e983d27cf725a7c724fe58c616129a34a420d1941068bc
+          format: hex
+          type: string
+        delivered_payload_size:
+          api_fieldname: delivered_payload_size
+          description: The size in bytes of the payload to deliver to the device.
+          entity_fieldname: delivered_payload_size
+          format: int64
+          type: integer
+        delivered_payload_type:
+          api_fieldname: delivered_payload_type
+          description: Type of the payload to deliver to the device (full or delta
+            image).
+          entity_fieldname: delivered_payload_type
+          enum:
+          - full
+          - delta
+          type: string
+        delivered_payload_url:
+          api_fieldname: delivered_payload_url
+          description: The URL of the payload to deliver to the device.
+          entity_fieldname: delivered_payload_url
+          example: http://example.com/abcdefghijklmnopqrstuvwxyz
+          format: uri
+          type: string
         description:
           api_fieldname: description
           description: The description of the firmware manifest.
@@ -34440,9 +34696,17 @@ entities:
           type: string
         device_class:
           api_fieldname: device_class
-          description: The class of the device.
+          description: The device class ID.
           entity_fieldname: device_class
           example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          type: string
+        device_vendor:
+          api_fieldname: device_vendor
+          description: The device vendor ID.
+          entity_fieldname: device_vendor
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
           type: string
         etag:
           api_fieldname: etag
@@ -34460,20 +34724,45 @@ entities:
           api_fieldname: key_table
           description: The key table of pre-shared keys for devices.
           entity_fieldname: key_table_url
-          example: http://example.com
+          example: http://example.com/key-table
           format: uri
+          type: string
+        manifest_schema_version:
+          api_fieldname: manifest_schema_version
+          description: Version of the manifest schema (1 or 3).
+          entity_fieldname: manifest_schema_version
+          enum:
+          - '1'
+          - '3'
           type: string
         name:
           api_fieldname: name
-          description: The name of the object.
+          description: The name of the manifest.
           entity_fieldname: name
-          example: default_object_name
+          example: manifest_name
           maxLength: 128
           type: string
         object:
           api_fieldname: object
           description: 'Entity name: always ''firmware-manifest''.'
           entity_fieldname: object
+          type: string
+        parsed_raw_manifest:
+          api_fieldname: parsed_raw_manifest
+          description: 'Raw manifest in JSON format, parsed from ASN.1 DER encoding.
+
+            Fields may change. Backwards compatibility is not guaranteed.
+
+            Recommended for debugging only.
+
+            '
+          entity_fieldname: parsed_raw_manifest
+          type: object
+        precursor_payload_digest:
+          api_fieldname: precursor_payload_digest
+          description: Digest (SHA256, hex-encoded) of the currently installed payload.
+          entity_fieldname: precursor_payload_digest
+          example: 54d640fcd687c9b13420b9be66a265494899002aad1b7370cfb3dbfd7fbec42f
           type: string
         timestamp:
           api_fieldname: timestamp
@@ -34482,6 +34771,14 @@ entities:
           example: '2017-05-22T12:37:55.576563Z'
           format: date-time
           type: string
+        update_priority:
+          api_fieldname: update_priority
+          description: Update priority, passed to the application callback when an
+            update is performed. Allows the application to make application-specific
+            decisions.
+          entity_fieldname: update_priority
+          format: int64
+          type: integer
         updated_at:
           api_fieldname: updated_at
           description: The time the entity was updated.
@@ -73341,6 +73638,14 @@ enums:
   values:
   - ASC
   - DESC
+- _key: firmware_manifest_delivered_payload_type_enum
+  entity_name: firmware_manifest
+  enum_name: firmware_manifest_delivered_payload_type_enum
+  field_name: delivered_payload_type
+  group_id: Device_Update
+  values:
+  - delta
+  - full
 - _key: firmware_manifest_order_enum
   entity_name: firmware_manifest
   enum_name: firmware_manifest_order_enum
@@ -73349,6 +73654,14 @@ enums:
   values:
   - ASC
   - DESC
+- _key: firmware_manifest_schema_version_enum
+  entity_name: firmware_manifest
+  enum_name: firmware_manifest_schema_version_enum
+  field_name: manifest_schema_version
+  group_id: Device_Update
+  values:
+  - '1'
+  - '3'
 - _key: identity_provider_algorithm_enum
   entity_name: identity_provider
   enum_name: identity_provider_algorithm_enum
@@ -73879,6 +74192,8 @@ groups:
   - campaign_statistics_summary_status_enum
   - campaign_statistics_id_enum
   - firmware_image_order_enum
+  - firmware_manifest_schema_version_enum
+  - firmware_manifest_delivered_payload_type_enum
   - firmware_manifest_order_enum
 - _key: Devices
   entities:

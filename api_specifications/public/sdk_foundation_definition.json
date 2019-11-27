@@ -93,6 +93,8 @@
         "campaign_statistics_summary_status_enum",
         "campaign_statistics_id_enum",
         "firmware_image_order_enum",
+        "firmware_manifest_schema_version_enum",
+        "firmware_manifest_delivered_payload_type_enum",
         "firmware_manifest_order_enum"
       ],
       "_key": "Device_Update"
@@ -487,6 +489,17 @@
     },
     {
       "entity_name": "firmware_manifest",
+      "field_name": "delivered_payload_type",
+      "enum_name": "firmware_manifest_delivered_payload_type_enum",
+      "values": [
+        "delta",
+        "full"
+      ],
+      "group_id": "Device_Update",
+      "_key": "firmware_manifest_delivered_payload_type_enum"
+    },
+    {
+      "entity_name": "firmware_manifest",
       "field_name": "order",
       "enum_name": "firmware_manifest_order_enum",
       "values": [
@@ -495,6 +508,17 @@
       ],
       "group_id": "Device_Update",
       "_key": "firmware_manifest_order_enum"
+    },
+    {
+      "entity_name": "firmware_manifest",
+      "field_name": "manifest_schema_version",
+      "enum_name": "firmware_manifest_schema_version_enum",
+      "values": [
+        "1",
+        "3"
+      ],
+      "group_id": "Device_Update",
+      "_key": "firmware_manifest_schema_version_enum"
     },
     {
       "entity_name": "identity_provider",
@@ -44223,10 +44247,10 @@
               "_key": "key_table_file"
             },
             {
-              "description": "The name of the object.",
+              "description": "The name of the manifest.",
               "type": "string",
               "maxLength": 128,
-              "example": "default_object_name",
+              "example": "manifest_name",
               "api_fieldname": "name",
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
@@ -44276,19 +44300,70 @@
                     "api_fieldname": "object",
                     "entity_fieldname": "object"
                   },
-                  "datafile": {
-                    "description": "The URL of the firmware manifest binary",
+                  "manifest_schema_version": {
+                    "description": "Version of the manifest schema (1 or 3).",
                     "type": "string",
+                    "enum": [
+                      "1",
+                      "3"
+                    ],
+                    "api_fieldname": "manifest_schema_version",
+                    "entity_fieldname": "manifest_schema_version"
+                  },
+                  "datafile": {
+                    "description": "The URL of the ASN.1 DER-encoded firmware manifest binary.",
+                    "type": "string",
+                    "format": "uri",
                     "example": "http://example.com/12345678901234567890123456789012",
                     "api_fieldname": "datafile",
                     "entity_fieldname": "datafile_url"
                   },
                   "datafile_size": {
-                    "description": "The size of the datafile in bytes",
-                    "format": "int64",
+                    "description": "The size of the firmware manifest in bytes.",
                     "type": "integer",
+                    "format": "int64",
                     "api_fieldname": "datafile_size",
                     "entity_fieldname": "datafile_size"
+                  },
+                  "delivered_payload_url": {
+                    "description": "The URL of the payload to deliver to the device.",
+                    "type": "string",
+                    "format": "uri",
+                    "example": "http://example.com/abcdefghijklmnopqrstuvwxyz",
+                    "api_fieldname": "delivered_payload_url",
+                    "entity_fieldname": "delivered_payload_url"
+                  },
+                  "delivered_payload_size": {
+                    "description": "The size in bytes of the payload to deliver to the device.",
+                    "type": "integer",
+                    "format": "int64",
+                    "api_fieldname": "delivered_payload_size",
+                    "entity_fieldname": "delivered_payload_size"
+                  },
+                  "delivered_payload_digest": {
+                    "description": "Digest (SHA256, hex-encoded) of the payload to deliver to the device.",
+                    "type": "string",
+                    "format": "hex",
+                    "example": "c520fc771c0482ad39e983d27cf725a7c724fe58c616129a34a420d1941068bc",
+                    "api_fieldname": "delivered_payload_digest",
+                    "entity_fieldname": "delivered_payload_digest"
+                  },
+                  "delivered_payload_type": {
+                    "description": "Type of the payload to deliver to the device (full or delta image).",
+                    "type": "string",
+                    "enum": [
+                      "full",
+                      "delta"
+                    ],
+                    "api_fieldname": "delivered_payload_type",
+                    "entity_fieldname": "delivered_payload_type"
+                  },
+                  "precursor_payload_digest": {
+                    "description": "Digest (SHA256, hex-encoded) of the currently installed payload.",
+                    "type": "string",
+                    "example": "54d640fcd687c9b13420b9be66a265494899002aad1b7370cfb3dbfd7fbec42f",
+                    "api_fieldname": "precursor_payload_digest",
+                    "entity_fieldname": "precursor_payload_digest"
                   },
                   "description": {
                     "description": "The description of the firmware manifest.",
@@ -44299,17 +44374,33 @@
                     "entity_fieldname": "description"
                   },
                   "device_class": {
-                    "description": "The class of the device.",
+                    "description": "The device class ID.",
                     "type": "string",
+                    "format": "uuid",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "api_fieldname": "device_class",
                     "entity_fieldname": "device_class"
+                  },
+                  "device_vendor": {
+                    "description": "The device vendor ID.",
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "00000000-0000-0000-0000-000000000000",
+                    "api_fieldname": "device_vendor",
+                    "entity_fieldname": "device_vendor"
+                  },
+                  "update_priority": {
+                    "description": "Update priority, passed to the application callback when an update is performed. Allows the application to make application-specific decisions.",
+                    "type": "integer",
+                    "format": "int64",
+                    "api_fieldname": "update_priority",
+                    "entity_fieldname": "update_priority"
                   },
                   "key_table": {
                     "description": "The key table of pre-shared keys for devices.",
                     "type": "string",
                     "format": "uri",
-                    "example": "http://example.com",
+                    "example": "http://example.com/key-table",
                     "api_fieldname": "key_table",
                     "entity_fieldname": "key_table_url"
                   },
@@ -44321,10 +44412,10 @@
                     "entity_fieldname": "id"
                   },
                   "name": {
-                    "description": "The name of the object.",
+                    "description": "The name of the manifest.",
                     "type": "string",
                     "maxLength": 128,
-                    "example": "default_object_name",
+                    "example": "manifest_name",
                     "api_fieldname": "name",
                     "entity_fieldname": "name"
                   },
@@ -44335,6 +44426,12 @@
                     "type": "string",
                     "api_fieldname": "timestamp",
                     "entity_fieldname": "timestamp"
+                  },
+                  "parsed_raw_manifest": {
+                    "description": "Raw manifest in JSON format, parsed from ASN.1 DER encoding.\nFields may change. Backwards compatibility is not guaranteed.\nRecommended for debugging only.\n",
+                    "type": "object",
+                    "api_fieldname": "parsed_raw_manifest",
+                    "entity_fieldname": "parsed_raw_manifest"
                   },
                   "_key": "properties"
                 }
@@ -44371,10 +44468,19 @@
             "filter",
             "created_at",
             "updated_at",
+            "manifest_schema_version",
             "datafile_size",
+            "delivered_payload_url",
+            "delivered_payload_size",
+            "delivered_payload_digest",
+            "delivered_payload_type",
+            "precursor_payload_digest",
             "device_class",
+            "device_vendor",
+            "update_priority",
             "id",
             "timestamp",
+            "parsed_raw_manifest",
             "datafile_url",
             "key_table_url"
           ],
@@ -44588,15 +44694,54 @@
                           "description": "Entity name: always 'firmware-manifest'.",
                           "type": "string"
                         },
-                        "datafile": {
-                          "description": "The URL of the firmware manifest binary",
+                        "manifest_schema_version": {
+                          "description": "Version of the manifest schema (1 or 3).",
                           "type": "string",
+                          "enum": [
+                            "1",
+                            "3"
+                          ]
+                        },
+                        "datafile": {
+                          "description": "The URL of the ASN.1 DER-encoded firmware manifest binary.",
+                          "type": "string",
+                          "format": "uri",
                           "example": "http://example.com/12345678901234567890123456789012"
                         },
                         "datafile_size": {
-                          "description": "The size of the datafile in bytes",
-                          "format": "int64",
-                          "type": "integer"
+                          "description": "The size of the firmware manifest in bytes.",
+                          "type": "integer",
+                          "format": "int64"
+                        },
+                        "delivered_payload_url": {
+                          "description": "The URL of the payload to deliver to the device.",
+                          "type": "string",
+                          "format": "uri",
+                          "example": "http://example.com/abcdefghijklmnopqrstuvwxyz"
+                        },
+                        "delivered_payload_size": {
+                          "description": "The size in bytes of the payload to deliver to the device.",
+                          "type": "integer",
+                          "format": "int64"
+                        },
+                        "delivered_payload_digest": {
+                          "description": "Digest (SHA256, hex-encoded) of the payload to deliver to the device.",
+                          "type": "string",
+                          "format": "hex",
+                          "example": "c520fc771c0482ad39e983d27cf725a7c724fe58c616129a34a420d1941068bc"
+                        },
+                        "delivered_payload_type": {
+                          "description": "Type of the payload to deliver to the device (full or delta image).",
+                          "type": "string",
+                          "enum": [
+                            "full",
+                            "delta"
+                          ]
+                        },
+                        "precursor_payload_digest": {
+                          "description": "Digest (SHA256, hex-encoded) of the currently installed payload.",
+                          "type": "string",
+                          "example": "54d640fcd687c9b13420b9be66a265494899002aad1b7370cfb3dbfd7fbec42f"
                         },
                         "description": {
                           "description": "The description of the firmware manifest.",
@@ -44605,15 +44750,27 @@
                           "example": ""
                         },
                         "device_class": {
-                          "description": "The class of the device.",
+                          "description": "The device class ID.",
                           "type": "string",
+                          "format": "uuid",
                           "example": "00000000-0000-0000-0000-000000000000"
+                        },
+                        "device_vendor": {
+                          "description": "The device vendor ID.",
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "00000000-0000-0000-0000-000000000000"
+                        },
+                        "update_priority": {
+                          "description": "Update priority, passed to the application callback when an update is performed. Allows the application to make application-specific decisions.",
+                          "type": "integer",
+                          "format": "int64"
                         },
                         "key_table": {
                           "description": "The key table of pre-shared keys for devices.",
                           "type": "string",
                           "format": "uri",
-                          "example": "http://example.com"
+                          "example": "http://example.com/key-table"
                         },
                         "id": {
                           "description": "The firmware manifest ID.",
@@ -44621,16 +44778,20 @@
                           "example": "12345678901234567890123456789012"
                         },
                         "name": {
-                          "description": "The name of the object.",
+                          "description": "The name of the manifest.",
                           "type": "string",
                           "maxLength": 128,
-                          "example": "default_object_name"
+                          "example": "manifest_name"
                         },
                         "timestamp": {
                           "description": "The firmware manifest version as a timestamp.",
                           "format": "date-time",
                           "example": "2017-05-22T12:37:55.576563Z",
                           "type": "string"
+                        },
+                        "parsed_raw_manifest": {
+                          "description": "Raw manifest in JSON format, parsed from ASN.1 DER encoding.\nFields may change. Backwards compatibility is not guaranteed.\nRecommended for debugging only.\n",
+                          "type": "object"
                         },
                         "_key": "properties"
                       }
@@ -44891,19 +45052,70 @@
                     "api_fieldname": "object",
                     "entity_fieldname": "object"
                   },
-                  "datafile": {
-                    "description": "The URL of the firmware manifest binary",
+                  "manifest_schema_version": {
+                    "description": "Version of the manifest schema (1 or 3).",
                     "type": "string",
+                    "enum": [
+                      "1",
+                      "3"
+                    ],
+                    "api_fieldname": "manifest_schema_version",
+                    "entity_fieldname": "manifest_schema_version"
+                  },
+                  "datafile": {
+                    "description": "The URL of the ASN.1 DER-encoded firmware manifest binary.",
+                    "type": "string",
+                    "format": "uri",
                     "example": "http://example.com/12345678901234567890123456789012",
                     "api_fieldname": "datafile",
                     "entity_fieldname": "datafile_url"
                   },
                   "datafile_size": {
-                    "description": "The size of the datafile in bytes",
-                    "format": "int64",
+                    "description": "The size of the firmware manifest in bytes.",
                     "type": "integer",
+                    "format": "int64",
                     "api_fieldname": "datafile_size",
                     "entity_fieldname": "datafile_size"
+                  },
+                  "delivered_payload_url": {
+                    "description": "The URL of the payload to deliver to the device.",
+                    "type": "string",
+                    "format": "uri",
+                    "example": "http://example.com/abcdefghijklmnopqrstuvwxyz",
+                    "api_fieldname": "delivered_payload_url",
+                    "entity_fieldname": "delivered_payload_url"
+                  },
+                  "delivered_payload_size": {
+                    "description": "The size in bytes of the payload to deliver to the device.",
+                    "type": "integer",
+                    "format": "int64",
+                    "api_fieldname": "delivered_payload_size",
+                    "entity_fieldname": "delivered_payload_size"
+                  },
+                  "delivered_payload_digest": {
+                    "description": "Digest (SHA256, hex-encoded) of the payload to deliver to the device.",
+                    "type": "string",
+                    "format": "hex",
+                    "example": "c520fc771c0482ad39e983d27cf725a7c724fe58c616129a34a420d1941068bc",
+                    "api_fieldname": "delivered_payload_digest",
+                    "entity_fieldname": "delivered_payload_digest"
+                  },
+                  "delivered_payload_type": {
+                    "description": "Type of the payload to deliver to the device (full or delta image).",
+                    "type": "string",
+                    "enum": [
+                      "full",
+                      "delta"
+                    ],
+                    "api_fieldname": "delivered_payload_type",
+                    "entity_fieldname": "delivered_payload_type"
+                  },
+                  "precursor_payload_digest": {
+                    "description": "Digest (SHA256, hex-encoded) of the currently installed payload.",
+                    "type": "string",
+                    "example": "54d640fcd687c9b13420b9be66a265494899002aad1b7370cfb3dbfd7fbec42f",
+                    "api_fieldname": "precursor_payload_digest",
+                    "entity_fieldname": "precursor_payload_digest"
                   },
                   "description": {
                     "description": "The description of the firmware manifest.",
@@ -44914,17 +45126,33 @@
                     "entity_fieldname": "description"
                   },
                   "device_class": {
-                    "description": "The class of the device.",
+                    "description": "The device class ID.",
                     "type": "string",
+                    "format": "uuid",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "api_fieldname": "device_class",
                     "entity_fieldname": "device_class"
+                  },
+                  "device_vendor": {
+                    "description": "The device vendor ID.",
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "00000000-0000-0000-0000-000000000000",
+                    "api_fieldname": "device_vendor",
+                    "entity_fieldname": "device_vendor"
+                  },
+                  "update_priority": {
+                    "description": "Update priority, passed to the application callback when an update is performed. Allows the application to make application-specific decisions.",
+                    "type": "integer",
+                    "format": "int64",
+                    "api_fieldname": "update_priority",
+                    "entity_fieldname": "update_priority"
                   },
                   "key_table": {
                     "description": "The key table of pre-shared keys for devices.",
                     "type": "string",
                     "format": "uri",
-                    "example": "http://example.com",
+                    "example": "http://example.com/key-table",
                     "api_fieldname": "key_table",
                     "entity_fieldname": "key_table_url"
                   },
@@ -44936,10 +45164,10 @@
                     "entity_fieldname": "id"
                   },
                   "name": {
-                    "description": "The name of the object.",
+                    "description": "The name of the manifest.",
                     "type": "string",
                     "maxLength": 128,
-                    "example": "default_object_name",
+                    "example": "manifest_name",
                     "api_fieldname": "name",
                     "entity_fieldname": "name"
                   },
@@ -44950,6 +45178,12 @@
                     "type": "string",
                     "api_fieldname": "timestamp",
                     "entity_fieldname": "timestamp"
+                  },
+                  "parsed_raw_manifest": {
+                    "description": "Raw manifest in JSON format, parsed from ASN.1 DER encoding.\nFields may change. Backwards compatibility is not guaranteed.\nRecommended for debugging only.\n",
+                    "type": "object",
+                    "api_fieldname": "parsed_raw_manifest",
+                    "entity_fieldname": "parsed_raw_manifest"
                   },
                   "_key": "properties"
                 }
@@ -44986,11 +45220,20 @@
             "filter",
             "created_at",
             "updated_at",
+            "manifest_schema_version",
             "datafile_size",
+            "delivered_payload_url",
+            "delivered_payload_size",
+            "delivered_payload_digest",
+            "delivered_payload_type",
+            "precursor_payload_digest",
             "description",
             "device_class",
+            "device_vendor",
+            "update_priority",
             "name",
             "timestamp",
+            "parsed_raw_manifest",
             "datafile_url",
             "key_table_url"
           ],
@@ -45017,22 +45260,65 @@
           "_key": "created_at"
         },
         {
-          "description": "The size of the datafile in bytes",
-          "format": "int64",
+          "description": "The size of the firmware manifest in bytes.",
           "type": "integer",
+          "format": "int64",
           "api_fieldname": "datafile_size",
           "readOnly": true,
           "required": false,
           "_key": "datafile_size"
         },
         {
-          "description": "The URL of the firmware manifest binary",
+          "description": "The URL of the ASN.1 DER-encoded firmware manifest binary.",
           "type": "string",
+          "format": "uri",
           "example": "http://example.com/12345678901234567890123456789012",
           "api_fieldname": "datafile",
           "readOnly": true,
           "required": false,
           "_key": "datafile_url"
+        },
+        {
+          "description": "Digest (SHA256, hex-encoded) of the payload to deliver to the device.",
+          "type": "string",
+          "format": "hex",
+          "example": "c520fc771c0482ad39e983d27cf725a7c724fe58c616129a34a420d1941068bc",
+          "api_fieldname": "delivered_payload_digest",
+          "readOnly": true,
+          "required": false,
+          "_key": "delivered_payload_digest"
+        },
+        {
+          "description": "The size in bytes of the payload to deliver to the device.",
+          "type": "integer",
+          "format": "int64",
+          "api_fieldname": "delivered_payload_size",
+          "readOnly": true,
+          "required": false,
+          "_key": "delivered_payload_size"
+        },
+        {
+          "description": "Type of the payload to deliver to the device (full or delta image).",
+          "type": "string",
+          "enum": [
+            "full",
+            "delta"
+          ],
+          "api_fieldname": "delivered_payload_type",
+          "readOnly": true,
+          "required": false,
+          "enum_reference": "firmware_manifest_delivered_payload_type_enum",
+          "_key": "delivered_payload_type"
+        },
+        {
+          "description": "The URL of the payload to deliver to the device.",
+          "type": "string",
+          "format": "uri",
+          "example": "http://example.com/abcdefghijklmnopqrstuvwxyz",
+          "api_fieldname": "delivered_payload_url",
+          "readOnly": true,
+          "required": false,
+          "_key": "delivered_payload_url"
         },
         {
           "description": "The description of the firmware manifest.",
@@ -45045,13 +45331,24 @@
           "_key": "description"
         },
         {
-          "description": "The class of the device.",
+          "description": "The device class ID.",
           "type": "string",
+          "format": "uuid",
           "example": "00000000-0000-0000-0000-000000000000",
           "api_fieldname": "device_class",
           "readOnly": true,
           "required": false,
           "_key": "device_class"
+        },
+        {
+          "description": "The device vendor ID.",
+          "type": "string",
+          "format": "uuid",
+          "example": "00000000-0000-0000-0000-000000000000",
+          "api_fieldname": "device_vendor",
+          "readOnly": true,
+          "required": false,
+          "_key": "device_vendor"
         },
         {
           "description": "The firmware manifest ID.",
@@ -45066,21 +45363,51 @@
           "description": "The key table of pre-shared keys for devices.",
           "type": "string",
           "format": "uri",
-          "example": "http://example.com",
+          "example": "http://example.com/key-table",
           "api_fieldname": "key_table",
           "readOnly": true,
           "required": false,
           "_key": "key_table_url"
         },
         {
-          "description": "The name of the object.",
+          "description": "Version of the manifest schema (1 or 3).",
+          "type": "string",
+          "enum": [
+            "1",
+            "3"
+          ],
+          "api_fieldname": "manifest_schema_version",
+          "readOnly": true,
+          "required": false,
+          "enum_reference": "firmware_manifest_schema_version_enum",
+          "_key": "manifest_schema_version"
+        },
+        {
+          "description": "The name of the manifest.",
           "type": "string",
           "maxLength": 128,
-          "example": "default_object_name",
+          "example": "manifest_name",
           "api_fieldname": "name",
           "readOnly": false,
           "required": false,
           "_key": "name"
+        },
+        {
+          "description": "Raw manifest in JSON format, parsed from ASN.1 DER encoding.\nFields may change. Backwards compatibility is not guaranteed.\nRecommended for debugging only.\n",
+          "type": "object",
+          "api_fieldname": "parsed_raw_manifest",
+          "readOnly": true,
+          "required": false,
+          "_key": "parsed_raw_manifest"
+        },
+        {
+          "description": "Digest (SHA256, hex-encoded) of the currently installed payload.",
+          "type": "string",
+          "example": "54d640fcd687c9b13420b9be66a265494899002aad1b7370cfb3dbfd7fbec42f",
+          "api_fieldname": "precursor_payload_digest",
+          "readOnly": true,
+          "required": false,
+          "_key": "precursor_payload_digest"
         },
         {
           "description": "The firmware manifest version as a timestamp.",
@@ -45091,6 +45418,15 @@
           "readOnly": true,
           "required": false,
           "_key": "timestamp"
+        },
+        {
+          "description": "Update priority, passed to the application callback when an update is performed. Allows the application to make application-specific decisions.",
+          "type": "integer",
+          "format": "int64",
+          "api_fieldname": "update_priority",
+          "readOnly": true,
+          "required": false,
+          "_key": "update_priority"
         },
         {
           "type": "string",
