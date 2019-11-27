@@ -55,12 +55,21 @@ class FirmwareManifest(Entity):
         "created_at",
         "datafile_size",
         "datafile_url",
+        "delivered_payload_digest",
+        "delivered_payload_size",
+        "delivered_payload_type",
+        "delivered_payload_url",
         "description",
         "device_class",
+        "device_vendor",
         "id",
         "key_table_url",
+        "manifest_schema_version",
         "name",
+        "parsed_raw_manifest",
+        "precursor_payload_digest",
         "timestamp",
+        "update_priority",
         "updated_at",
     ]
 
@@ -85,12 +94,21 @@ class FirmwareManifest(Entity):
         created_at=None,
         datafile_size=None,
         datafile_url=None,
+        delivered_payload_digest=None,
+        delivered_payload_size=None,
+        delivered_payload_type=None,
+        delivered_payload_url=None,
         description=None,
         device_class=None,
+        device_vendor=None,
         id=None,
         key_table_url=None,
+        manifest_schema_version=None,
         name=None,
+        parsed_raw_manifest=None,
+        precursor_payload_digest=None,
         timestamp=None,
+        update_priority=None,
         updated_at=None,
     ):
         """Creates a local `FirmwareManifest` instance
@@ -104,22 +122,46 @@ class FirmwareManifest(Entity):
 
         :param created_at: The time the entity was created.
         :type created_at: datetime
-        :param datafile_size: The size of the datafile in bytes
+        :param datafile_size: The size of the firmware manifest in bytes.
         :type datafile_size: int
-        :param datafile_url: The URL of the firmware manifest binary
+        :param datafile_url: The URL of the ASN.1 DER-encoded firmware manifest binary.
         :type datafile_url: str
+        :param delivered_payload_digest: Digest (SHA256, hex-encoded) of the payload to deliver to the
+            device.
+        :type delivered_payload_digest: str
+        :param delivered_payload_size: The size in bytes of the payload to deliver to the device.
+        :type delivered_payload_size: int
+        :param delivered_payload_type: Type of the payload to deliver to the device (full or delta
+            image).
+        :type delivered_payload_type: str
+        :param delivered_payload_url: The URL of the payload to deliver to the device.
+        :type delivered_payload_url: str
         :param description: The description of the firmware manifest.
         :type description: str
-        :param device_class: The class of the device.
+        :param device_class: The device class ID.
         :type device_class: str
+        :param device_vendor: The device vendor ID.
+        :type device_vendor: str
         :param id: (Required) The firmware manifest ID.
         :type id: str
         :param key_table_url: The key table of pre-shared keys for devices.
         :type key_table_url: str
-        :param name: The name of the object.
+        :param manifest_schema_version: Version of the manifest schema (1 or 3).
+        :type manifest_schema_version: str
+        :param name: The name of the manifest.
         :type name: str
+        :param parsed_raw_manifest: Raw manifest in JSON format, parsed from ASN.1 DER encoding.
+            Fields may change. Backwards compatibility is not guaranteed.
+            Recommended for debugging only.
+        :type parsed_raw_manifest: dict
+        :param precursor_payload_digest: Digest (SHA256, hex-encoded) of the currently installed payload.
+        :type precursor_payload_digest: str
         :param timestamp: The firmware manifest version as a timestamp.
         :type timestamp: datetime
+        :param update_priority: Update priority, passed to the application callback when an update
+            is performed. Allows the application to make application-specific
+            decisions.
+        :type update_priority: int
         :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         """
@@ -132,12 +174,25 @@ class FirmwareManifest(Entity):
         self._created_at = fields.DateTimeField(value=created_at)
         self._datafile_size = fields.IntegerField(value=datafile_size)
         self._datafile_url = fields.StringField(value=datafile_url)
+        self._delivered_payload_digest = fields.StringField(value=delivered_payload_digest)
+        self._delivered_payload_size = fields.IntegerField(value=delivered_payload_size)
+        self._delivered_payload_type = fields.StringField(
+            value=delivered_payload_type, enum=enums.FirmwareManifestDeliveredPayloadTypeEnum
+        )
+        self._delivered_payload_url = fields.StringField(value=delivered_payload_url)
         self._description = fields.StringField(value=description)
         self._device_class = fields.StringField(value=device_class)
+        self._device_vendor = fields.StringField(value=device_vendor)
         self._id = fields.StringField(value=id)
         self._key_table_url = fields.StringField(value=key_table_url)
+        self._manifest_schema_version = fields.StringField(
+            value=manifest_schema_version, enum=enums.FirmwareManifestSchemaVersionEnum
+        )
         self._name = fields.StringField(value=name)
+        self._parsed_raw_manifest = fields.DictField(value=parsed_raw_manifest)
+        self._precursor_payload_digest = fields.StringField(value=precursor_payload_digest)
         self._timestamp = fields.DateTimeField(value=timestamp)
+        self._update_priority = fields.IntegerField(value=update_priority)
         self._updated_at = fields.DateTimeField(value=updated_at)
 
     @property
@@ -153,7 +208,7 @@ class FirmwareManifest(Entity):
 
     @property
     def datafile_size(self):
-        """The size of the datafile in bytes
+        """The size of the firmware manifest in bytes.
         
         :rtype: int
         """
@@ -162,7 +217,7 @@ class FirmwareManifest(Entity):
 
     @property
     def datafile_url(self):
-        """The URL of the firmware manifest binary
+        """The URL of the ASN.1 DER-encoded firmware manifest binary.
         
         api example: 'http://example.com/12345678901234567890123456789012'
         
@@ -170,6 +225,46 @@ class FirmwareManifest(Entity):
         """
 
         return self._datafile_url.value
+
+    @property
+    def delivered_payload_digest(self):
+        """Digest (SHA256, hex-encoded) of the payload to deliver to the device.
+        
+        api example: 'c520fc771c0482ad39e983d27cf725a7c724fe58c616129a34a420d1941068bc'
+        
+        :rtype: str
+        """
+
+        return self._delivered_payload_digest.value
+
+    @property
+    def delivered_payload_size(self):
+        """The size in bytes of the payload to deliver to the device.
+        
+        :rtype: int
+        """
+
+        return self._delivered_payload_size.value
+
+    @property
+    def delivered_payload_type(self):
+        """Type of the payload to deliver to the device (full or delta image).
+        
+        :rtype: str
+        """
+
+        return self._delivered_payload_type.value
+
+    @property
+    def delivered_payload_url(self):
+        """The URL of the payload to deliver to the device.
+        
+        api example: 'http://example.com/abcdefghijklmnopqrstuvwxyz'
+        
+        :rtype: str
+        """
+
+        return self._delivered_payload_url.value
 
     @property
     def description(self):
@@ -192,7 +287,7 @@ class FirmwareManifest(Entity):
 
     @property
     def device_class(self):
-        """The class of the device.
+        """The device class ID.
         
         api example: '00000000-0000-0000-0000-000000000000'
         
@@ -200,6 +295,17 @@ class FirmwareManifest(Entity):
         """
 
         return self._device_class.value
+
+    @property
+    def device_vendor(self):
+        """The device vendor ID.
+        
+        api example: '00000000-0000-0000-0000-000000000000'
+        
+        :rtype: str
+        """
+
+        return self._device_vendor.value
 
     @property
     def id(self):
@@ -228,7 +334,7 @@ class FirmwareManifest(Entity):
     def key_table_url(self):
         """The key table of pre-shared keys for devices.
         
-        api example: 'http://example.com'
+        api example: 'http://example.com/key-table'
         
         :rtype: str
         """
@@ -236,10 +342,19 @@ class FirmwareManifest(Entity):
         return self._key_table_url.value
 
     @property
-    def name(self):
-        """The name of the object.
+    def manifest_schema_version(self):
+        """Version of the manifest schema (1 or 3).
         
-        api example: 'default_object_name'
+        :rtype: str
+        """
+
+        return self._manifest_schema_version.value
+
+    @property
+    def name(self):
+        """The name of the manifest.
+        
+        api example: 'manifest_name'
         
         :rtype: str
         """
@@ -257,6 +372,30 @@ class FirmwareManifest(Entity):
         self._name.set(value)
 
     @property
+    def parsed_raw_manifest(self):
+        """Raw manifest in JSON format, parsed from ASN.1 DER encoding.
+        Fields may
+        change. Backwards compatibility is not guaranteed.
+        Recommended for debugging
+        only.
+        
+        :rtype: dict
+        """
+
+        return self._parsed_raw_manifest.value
+
+    @property
+    def precursor_payload_digest(self):
+        """Digest (SHA256, hex-encoded) of the currently installed payload.
+        
+        api example: '54d640fcd687c9b13420b9be66a265494899002aad1b7370cfb3dbfd7fbec42f'
+        
+        :rtype: str
+        """
+
+        return self._precursor_payload_digest.value
+
+    @property
     def timestamp(self):
         """The firmware manifest version as a timestamp.
         
@@ -266,6 +405,16 @@ class FirmwareManifest(Entity):
         """
 
         return self._timestamp.value
+
+    @property
+    def update_priority(self):
+        """Update priority, passed to the application callback when an update is
+        performed. Allows the application to make application-specific decisions.
+        
+        :rtype: int
+        """
+
+        return self._update_priority.value
 
     @property
     def updated_at(self):

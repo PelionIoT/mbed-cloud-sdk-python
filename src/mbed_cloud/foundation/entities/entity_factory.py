@@ -1276,34 +1276,67 @@ class EntityFactory:
         created_at=None,
         datafile_size=None,
         datafile_url=None,
+        delivered_payload_digest=None,
+        delivered_payload_size=None,
+        delivered_payload_type=None,
+        delivered_payload_url=None,
         description=None,
         device_class=None,
+        device_vendor=None,
         id=None,
         key_table_url=None,
+        manifest_schema_version=None,
         name=None,
+        parsed_raw_manifest=None,
+        precursor_payload_digest=None,
         timestamp=None,
+        update_priority=None,
         updated_at=None,
     ):
         """Creates a local `FirmwareManifest` instance, using the shared SDK context.
 
         :param created_at: The time the entity was created.
         :type created_at: datetime
-        :param datafile_size: The size of the datafile in bytes
+        :param datafile_size: The size of the firmware manifest in bytes.
         :type datafile_size: int
-        :param datafile_url: The URL of the firmware manifest binary
+        :param datafile_url: The URL of the ASN.1 DER-encoded firmware manifest binary.
         :type datafile_url: str
+        :param delivered_payload_digest: Digest (SHA256, hex-encoded) of the payload to deliver to the
+            device.
+        :type delivered_payload_digest: str
+        :param delivered_payload_size: The size in bytes of the payload to deliver to the device.
+        :type delivered_payload_size: int
+        :param delivered_payload_type: Type of the payload to deliver to the device (full or delta
+            image).
+        :type delivered_payload_type: str
+        :param delivered_payload_url: The URL of the payload to deliver to the device.
+        :type delivered_payload_url: str
         :param description: The description of the firmware manifest.
         :type description: str
-        :param device_class: The class of the device.
+        :param device_class: The device class ID.
         :type device_class: str
+        :param device_vendor: The device vendor ID.
+        :type device_vendor: str
         :param id: The firmware manifest ID.
         :type id: str
         :param key_table_url: The key table of pre-shared keys for devices.
         :type key_table_url: str
-        :param name: The name of the object.
+        :param manifest_schema_version: Version of the manifest schema (1 or 3).
+        :type manifest_schema_version: str
+        :param name: The name of the manifest.
         :type name: str
+        :param parsed_raw_manifest: Raw manifest in JSON format, parsed from ASN.1 DER encoding.
+            Fields may change. Backwards compatibility is not guaranteed.
+            Recommended for debugging only.
+        :type parsed_raw_manifest: dict
+        :param precursor_payload_digest: Digest (SHA256, hex-encoded) of the currently installed payload.
+        :type precursor_payload_digest: str
         :param timestamp: The firmware manifest version as a timestamp.
         :type timestamp: datetime
+        :param update_priority: Update priority, passed to the application callback when an update
+            is performed. Allows the application to make application-specific
+            decisions.
+        :type update_priority: int
         :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         
@@ -1317,12 +1350,21 @@ class EntityFactory:
             created_at=created_at,
             datafile_size=datafile_size,
             datafile_url=datafile_url,
+            delivered_payload_digest=delivered_payload_digest,
+            delivered_payload_size=delivered_payload_size,
+            delivered_payload_type=delivered_payload_type,
+            delivered_payload_url=delivered_payload_url,
             description=description,
             device_class=device_class,
+            device_vendor=device_vendor,
             id=id,
             key_table_url=key_table_url,
+            manifest_schema_version=manifest_schema_version,
             name=name,
+            parsed_raw_manifest=parsed_raw_manifest,
+            precursor_payload_digest=precursor_payload_digest,
             timestamp=timestamp,
+            update_priority=update_priority,
             updated_at=updated_at,
         )
 

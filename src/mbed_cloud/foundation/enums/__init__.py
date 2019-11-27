@@ -54,7 +54,9 @@ Device_Update
 - :class:`mbed_cloud.foundation.entities.device_update.enums.CampaignStatisticsIdEnum`
 - :class:`mbed_cloud.foundation.entities.device_update.enums.CampaignStatisticsSummaryStatusEnum`
 - :class:`mbed_cloud.foundation.entities.device_update.enums.FirmwareImageOrderEnum`
+- :class:`mbed_cloud.foundation.entities.device_update.enums.FirmwareManifestDeliveredPayloadTypeEnum`
 - :class:`mbed_cloud.foundation.entities.device_update.enums.FirmwareManifestOrderEnum`
+- :class:`mbed_cloud.foundation.entities.device_update.enums.FirmwareManifestSchemaVersionEnum`
 - :class:`mbed_cloud.foundation.entities.device_update.enums.UpdateCampaignOrderEnum`
 - :class:`mbed_cloud.foundation.entities.device_update.enums.UpdateCampaignPhaseEnum`
 - :class:`mbed_cloud.foundation.entities.device_update.enums.UpdateCampaignStrategyEnum`
@@ -132,7 +134,9 @@ How to import Enums:
     from mbed_cloud.foundation.enums import CampaignStatisticsIdEnum
     from mbed_cloud.foundation.enums import CampaignStatisticsSummaryStatusEnum
     from mbed_cloud.foundation.enums import FirmwareImageOrderEnum
+    from mbed_cloud.foundation.enums import FirmwareManifestDeliveredPayloadTypeEnum
     from mbed_cloud.foundation.enums import FirmwareManifestOrderEnum
+    from mbed_cloud.foundation.enums import FirmwareManifestSchemaVersionEnum
     from mbed_cloud.foundation.enums import UpdateCampaignOrderEnum
     from mbed_cloud.foundation.enums import UpdateCampaignPhaseEnum
     from mbed_cloud.foundation.enums import UpdateCampaignStrategyEnum
@@ -195,7 +199,9 @@ from mbed_cloud.foundation.entities.device_update.enums import CampaignDeviceMet
 from mbed_cloud.foundation.entities.device_update.enums import CampaignStatisticsIdEnum
 from mbed_cloud.foundation.entities.device_update.enums import CampaignStatisticsSummaryStatusEnum
 from mbed_cloud.foundation.entities.device_update.enums import FirmwareImageOrderEnum
+from mbed_cloud.foundation.entities.device_update.enums import FirmwareManifestDeliveredPayloadTypeEnum
 from mbed_cloud.foundation.entities.device_update.enums import FirmwareManifestOrderEnum
+from mbed_cloud.foundation.entities.device_update.enums import FirmwareManifestSchemaVersionEnum
 from mbed_cloud.foundation.entities.device_update.enums import UpdateCampaignOrderEnum
 from mbed_cloud.foundation.entities.device_update.enums import UpdateCampaignPhaseEnum
 from mbed_cloud.foundation.entities.device_update.enums import UpdateCampaignStrategyEnum
@@ -257,7 +263,9 @@ __all__ = [
     "CampaignStatisticsIdEnum",
     "CampaignStatisticsSummaryStatusEnum",
     "FirmwareImageOrderEnum",
+    "FirmwareManifestDeliveredPayloadTypeEnum",
     "FirmwareManifestOrderEnum",
+    "FirmwareManifestSchemaVersionEnum",
     "UpdateCampaignOrderEnum",
     "UpdateCampaignPhaseEnum",
     "UpdateCampaignStrategyEnum",
