@@ -5381,8 +5381,6 @@ definitions:
     properties:
       active_devices:
         $ref: '#/definitions/ActiveDevicesCounter'
-      bootstraps:
-        $ref: '#/definitions/BootstrapsCounter'
       device_to_pelion_messages:
         $ref: '#/definitions/DeviceToPelionMessagesCounter'
       firmware_updates:
@@ -5412,8 +5410,6 @@ definitions:
         $ref: '#/definitions/RestApiRequestsWithUserTokenCounter'
       sda_tokens:
         $ref: '#/definitions/SdaTokensCounter'
-      transactions:
-        $ref: '#/definitions/TransactionsCounter'
     required:
     - generated
     - period_start
