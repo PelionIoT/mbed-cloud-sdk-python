@@ -33084,7 +33084,8 @@ entities:
       type: string
     - _key: firmware_image_file
       api_fieldname: datafile
-      description: The firmware image file to upload.
+      description: The firmware image file to upload. File name must not exceed 100
+        characters.
       entity_fieldname: firmware_image_file
       external_param: true
       in: stream
@@ -33922,7 +33923,7 @@ entities:
     - _key: firmware_manifest_file
       api_fieldname: datafile
       description: The manifest file to create. The API gateway enforces the account-specific
-        file size.
+        file size. File name must not exceed 100 characters.
       entity_fieldname: firmware_manifest_file
       external_param: true
       in: stream
@@ -33933,7 +33934,7 @@ entities:
     - _key: key_table_file
       api_fieldname: key_table
       description: The key table of pre-shared keys for devices. The table is generated
-        by the manifest tool.
+        by the manifest tool. File name must not exceed 100 characters.
       entity_fieldname: key_table_file
       external_param: true
       in: stream

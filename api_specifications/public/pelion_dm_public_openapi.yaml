@@ -22581,7 +22581,8 @@ paths:
         '
       operationId: Firmware_Image_create
       parameters:
-      - description: The firmware image file to upload.
+      - description: The firmware image file to upload. File name must not exceed
+          100 characters.
         in: formData
         name: datafile
         required: true
@@ -23783,7 +23784,7 @@ paths:
       operationId: Firmware_Manifest_create
       parameters:
       - description: The manifest file to create. The API gateway enforces the account-specific
-          file size.
+          file size. File name must not exceed 100 characters.
         in: formData
         name: datafile
         required: true
@@ -23794,7 +23795,7 @@ paths:
         required: false
         type: string
       - description: The key table of pre-shared keys for devices. The table is generated
-          by the manifest tool.
+          by the manifest tool. File name must not exceed 100 characters.
         in: formData
         name: key_table
         required: false
