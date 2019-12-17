@@ -433,13 +433,15 @@ class FirmwareManifest(Entity):
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-manifests/>`_.
         
         :param firmware_manifest_file: The manifest file to create. The API gateway enforces the account-
-            specific file size. Files can be provided as a file object or a path
-            to an existing file on disk.
+            specific file size. File name must not exceed 100 characters. Files
+            can be provided as a file object or a path to an existing file on
+            disk.
         :type firmware_manifest_file: file
         
         :param key_table_file: The key table of pre-shared keys for devices. The table is generated
-            by the manifest tool. Files can be provided as a file object or a path
-            to an existing file on disk.
+            by the manifest tool. File name must not exceed 100 characters. Files
+            can be provided as a file object or a path to an existing file on
+            disk.
         :type key_table_file: file
         
         :rtype: FirmwareManifest

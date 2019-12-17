@@ -249,8 +249,9 @@ class FirmwareImage(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/firmware-images>`_.
         
-        :param firmware_image_file: The firmware image file to upload. Files can be provided as a file
-            object or a path to an existing file on disk.
+        :param firmware_image_file: The firmware image file to upload. File name must not exceed 100
+            characters. Files can be provided as a file object or a path to an
+            existing file on disk.
         :type firmware_image_file: file
         
         :rtype: FirmwareImage
