@@ -18534,7 +18534,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Get update campaign metadata for a specific device.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get update campaign metadata for a specific device.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "campaign",
@@ -18907,7 +18907,7 @@
                       "properties": [
                         {
                           "type": "string",
-                          "example": "00000000000000000000000000000000",
+                          "example": "016e652be671000000000001001001e5",
                           "description": "ID of the associated campaign.",
                           "_key": "campaign_id"
                         },
@@ -19240,7 +19240,7 @@
                       "properties": [
                         {
                           "type": "string",
-                          "example": "00000000000000000000000000000000",
+                          "example": "016e652be6710000000000010010013d",
                           "description": "ID of the associated campaign.",
                           "_key": "campaign_id"
                         },
@@ -19536,7 +19536,7 @@
           "fields": [
             {
               "type": "string",
-              "example": "00000000000000000000000000000000",
+              "example": "016e652be6710000000000010010013d",
               "description": "ID of the associated campaign.",
               "api_fieldname": "campaign_id",
               "entity_fieldname": "campaign_id",
@@ -19574,7 +19574,7 @@
                 "properties": [
                   {
                     "type": "string",
-                    "example": "00000000000000000000000000000000",
+                    "example": "016e652be6710000000000010010013d",
                     "description": "ID of the associated campaign.",
                     "api_fieldname": "campaign_id",
                     "entity_fieldname": "campaign_id",
@@ -19818,7 +19818,7 @@
       "fields": [
         {
           "type": "string",
-          "example": "00000000000000000000000000000000",
+          "example": "016e652be6710000000000010010013d",
           "description": "ID of the associated campaign.",
           "api_fieldname": "campaign_id",
           "readOnly": false,
@@ -19894,7 +19894,7 @@
           "fields": [
             {
               "type": "string",
-              "example": "00000000000000000000000000000000",
+              "example": "016e652be671000000000001001001e5",
               "description": "ID of the associated campaign.",
               "api_fieldname": "campaign_id",
               "entity_fieldname": "campaign_id",
@@ -19934,7 +19934,7 @@
                 "properties": [
                   {
                     "type": "string",
-                    "example": "00000000000000000000000000000000",
+                    "example": "016e652be671000000000001001001e5",
                     "description": "ID of the associated campaign.",
                     "api_fieldname": "campaign_id",
                     "entity_fieldname": "campaign_id",
@@ -20187,7 +20187,7 @@
       "fields": [
         {
           "type": "string",
-          "example": "00000000000000000000000000000000",
+          "example": "016e652be671000000000001001001e5",
           "description": "ID of the associated campaign.",
           "api_fieldname": "campaign_id",
           "readOnly": false,
@@ -43445,14 +43445,14 @@
                   "datafile": {
                     "description": "The firmware image file URL.",
                     "type": "string",
-                    "example": "http://example.com/00000000000000000000000000000000",
+                    "example": "http://bucket.com/myimage.elf",
                     "api_fieldname": "datafile",
                     "entity_fieldname": "datafile_url"
                   },
                   "datafile_checksum": {
                     "description": "The checksum (sha256) generated for the datafile.",
                     "type": "string",
-                    "example": "0000000000000000000000000000000000000000000000000000000000000000",
+                    "example": "e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e",
                     "api_fieldname": "datafile_checksum",
                     "entity_fieldname": "datafile_checksum"
                   },
@@ -43474,7 +43474,7 @@
                   "id": {
                     "description": "The firmware image ID.",
                     "type": "string",
-                    "example": "00000000000000000000000000000000",
+                    "example": "016e652be671000000000001001001e5",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
                   },
@@ -43733,12 +43733,12 @@
                         "datafile": {
                           "description": "The firmware image file URL.",
                           "type": "string",
-                          "example": "http://example.com/00000000000000000000000000000000"
+                          "example": "http://bucket.com/myimage.elf"
                         },
                         "datafile_checksum": {
                           "description": "The checksum (sha256) generated for the datafile.",
                           "type": "string",
-                          "example": "0000000000000000000000000000000000000000000000000000000000000000"
+                          "example": "e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e"
                         },
                         "datafile_size": {
                           "description": "The size of the datafile in bytes.",
@@ -43754,7 +43754,7 @@
                         "id": {
                           "description": "The firmware image ID.",
                           "type": "string",
-                          "example": "00000000000000000000000000000000"
+                          "example": "016e652be671000000000001001001e5"
                         },
                         "name": {
                           "description": "The firmware image name.",
@@ -43956,7 +43956,7 @@
             {
               "description": "The firmware image ID.",
               "type": "string",
-              "example": "00000000000000000000000000000000",
+              "example": "016e652be671000000000001001001e5",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "image_id",
@@ -44009,14 +44009,14 @@
                   "datafile": {
                     "description": "The firmware image file URL.",
                     "type": "string",
-                    "example": "http://example.com/00000000000000000000000000000000",
+                    "example": "http://bucket.com/myimage.elf",
                     "api_fieldname": "datafile",
                     "entity_fieldname": "datafile_url"
                   },
                   "datafile_checksum": {
                     "description": "The checksum (sha256) generated for the datafile.",
                     "type": "string",
-                    "example": "0000000000000000000000000000000000000000000000000000000000000000",
+                    "example": "e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e",
                     "api_fieldname": "datafile_checksum",
                     "entity_fieldname": "datafile_checksum"
                   },
@@ -44038,7 +44038,7 @@
                   "id": {
                     "description": "The firmware image ID.",
                     "type": "string",
-                    "example": "00000000000000000000000000000000",
+                    "example": "016e652be671000000000001001001e5",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
                   },
@@ -44115,7 +44115,7 @@
         {
           "description": "The checksum (sha256) generated for the datafile.",
           "type": "string",
-          "example": "0000000000000000000000000000000000000000000000000000000000000000",
+          "example": "e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e",
           "api_fieldname": "datafile_checksum",
           "readOnly": true,
           "required": false,
@@ -44133,7 +44133,7 @@
         {
           "description": "The firmware image file URL.",
           "type": "string",
-          "example": "http://example.com/00000000000000000000000000000000",
+          "example": "http://bucket.com/myimage.elf",
           "api_fieldname": "datafile",
           "readOnly": true,
           "required": false,
@@ -44152,7 +44152,7 @@
         {
           "description": "The firmware image ID.",
           "type": "string",
-          "example": "00000000000000000000000000000000",
+          "example": "016e652be671000000000001001001e5",
           "api_fieldname": "id",
           "readOnly": false,
           "required": true,
@@ -44314,7 +44314,7 @@
                     "description": "The URL of the ASN.1 DER-encoded firmware manifest binary.",
                     "type": "string",
                     "format": "uri",
-                    "example": "http://example.com/12345678901234567890123456789012",
+                    "example": "http://bucket.com/mymanifest.manifest",
                     "api_fieldname": "datafile",
                     "entity_fieldname": "datafile_url"
                   },
@@ -44329,7 +44329,7 @@
                     "description": "The URL of the payload to deliver to the device.",
                     "type": "string",
                     "format": "uri",
-                    "example": "http://example.com/abcdefghijklmnopqrstuvwxyz",
+                    "example": "http://bucket.com/myimage.elf",
                     "api_fieldname": "delivered_payload_url",
                     "entity_fieldname": "delivered_payload_url"
                   },
@@ -44377,7 +44377,7 @@
                     "description": "The device class ID.",
                     "type": "string",
                     "format": "uuid",
-                    "example": "00000000-0000-0000-0000-000000000000",
+                    "example": "42c4d8de-704d-546e-b9d3-1ce1eb316167",
                     "api_fieldname": "device_class",
                     "entity_fieldname": "device_class"
                   },
@@ -44385,7 +44385,7 @@
                     "description": "The device vendor ID.",
                     "type": "string",
                     "format": "uuid",
-                    "example": "00000000-0000-0000-0000-000000000000",
+                    "example": "5d645eae-c231-5a89-9764-2e655cd94fa8",
                     "api_fieldname": "device_vendor",
                     "entity_fieldname": "device_vendor"
                   },
@@ -44706,7 +44706,7 @@
                           "description": "The URL of the ASN.1 DER-encoded firmware manifest binary.",
                           "type": "string",
                           "format": "uri",
-                          "example": "http://example.com/12345678901234567890123456789012"
+                          "example": "http://bucket.com/mymanifest.manifest"
                         },
                         "datafile_size": {
                           "description": "The size of the firmware manifest in bytes.",
@@ -44717,7 +44717,7 @@
                           "description": "The URL of the payload to deliver to the device.",
                           "type": "string",
                           "format": "uri",
-                          "example": "http://example.com/abcdefghijklmnopqrstuvwxyz"
+                          "example": "http://bucket.com/myimage.elf"
                         },
                         "delivered_payload_size": {
                           "description": "The size in bytes of the payload to deliver to the device.",
@@ -44753,13 +44753,13 @@
                           "description": "The device class ID.",
                           "type": "string",
                           "format": "uuid",
-                          "example": "00000000-0000-0000-0000-000000000000"
+                          "example": "42c4d8de-704d-546e-b9d3-1ce1eb316167"
                         },
                         "device_vendor": {
                           "description": "The device vendor ID.",
                           "type": "string",
                           "format": "uuid",
-                          "example": "00000000-0000-0000-0000-000000000000"
+                          "example": "5d645eae-c231-5a89-9764-2e655cd94fa8"
                         },
                         "update_priority": {
                           "description": "Update priority, passed to the application callback when an update is performed. Allows the application to make application-specific decisions.",
@@ -45066,7 +45066,7 @@
                     "description": "The URL of the ASN.1 DER-encoded firmware manifest binary.",
                     "type": "string",
                     "format": "uri",
-                    "example": "http://example.com/12345678901234567890123456789012",
+                    "example": "http://bucket.com/mymanifest.manifest",
                     "api_fieldname": "datafile",
                     "entity_fieldname": "datafile_url"
                   },
@@ -45081,7 +45081,7 @@
                     "description": "The URL of the payload to deliver to the device.",
                     "type": "string",
                     "format": "uri",
-                    "example": "http://example.com/abcdefghijklmnopqrstuvwxyz",
+                    "example": "http://bucket.com/myimage.elf",
                     "api_fieldname": "delivered_payload_url",
                     "entity_fieldname": "delivered_payload_url"
                   },
@@ -45129,7 +45129,7 @@
                     "description": "The device class ID.",
                     "type": "string",
                     "format": "uuid",
-                    "example": "00000000-0000-0000-0000-000000000000",
+                    "example": "42c4d8de-704d-546e-b9d3-1ce1eb316167",
                     "api_fieldname": "device_class",
                     "entity_fieldname": "device_class"
                   },
@@ -45137,7 +45137,7 @@
                     "description": "The device vendor ID.",
                     "type": "string",
                     "format": "uuid",
-                    "example": "00000000-0000-0000-0000-000000000000",
+                    "example": "5d645eae-c231-5a89-9764-2e655cd94fa8",
                     "api_fieldname": "device_vendor",
                     "entity_fieldname": "device_vendor"
                   },
@@ -45272,7 +45272,7 @@
           "description": "The URL of the ASN.1 DER-encoded firmware manifest binary.",
           "type": "string",
           "format": "uri",
-          "example": "http://example.com/12345678901234567890123456789012",
+          "example": "http://bucket.com/mymanifest.manifest",
           "api_fieldname": "datafile",
           "readOnly": true,
           "required": false,
@@ -45314,7 +45314,7 @@
           "description": "The URL of the payload to deliver to the device.",
           "type": "string",
           "format": "uri",
-          "example": "http://example.com/abcdefghijklmnopqrstuvwxyz",
+          "example": "http://bucket.com/myimage.elf",
           "api_fieldname": "delivered_payload_url",
           "readOnly": true,
           "required": false,
@@ -45334,7 +45334,7 @@
           "description": "The device class ID.",
           "type": "string",
           "format": "uuid",
-          "example": "00000000-0000-0000-0000-000000000000",
+          "example": "42c4d8de-704d-546e-b9d3-1ce1eb316167",
           "api_fieldname": "device_class",
           "readOnly": true,
           "required": false,
@@ -45344,7 +45344,7 @@
           "description": "The device vendor ID.",
           "type": "string",
           "format": "uuid",
-          "example": "00000000-0000-0000-0000-000000000000",
+          "example": "5d645eae-c231-5a89-9764-2e655cd94fa8",
           "api_fieldname": "device_vendor",
           "readOnly": true,
           "required": false,
@@ -86880,7 +86880,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Archive a campaign.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/archive \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Archive a campaign.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc649000000000001001000b8/archive \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -87030,7 +87030,7 @@
             {
               "description": "The filter for the devices the campaign is targeting at.",
               "type": "string",
-              "example": "id__eq=00000000000000000000000000000000",
+              "example": "state__eq=registered",
               "api_fieldname": "device_filter",
               "entity_fieldname": "device_filter",
               "parameter_fieldname": "device_filter",
@@ -87065,7 +87065,7 @@
             {
               "description": "The ID of the manifest that will be sent to the device as part of the campaign.",
               "type": "string",
-              "example": "00000000000000000000000000000000",
+              "example": "016e83dce36a00000000000100100102",
               "api_fieldname": "root_manifest_id",
               "entity_fieldname": "root_manifest_id",
               "parameter_fieldname": "root_manifest_id",
@@ -87182,7 +87182,7 @@
                   "device_filter": {
                     "description": "The filter for the devices the campaign is targeting at.",
                     "type": "string",
-                    "example": "id__eq=00000000000000000000000000000000",
+                    "example": "state__eq=registered",
                     "api_fieldname": "device_filter",
                     "entity_fieldname": "device_filter"
                   },
@@ -87197,7 +87197,7 @@
                   "id": {
                     "description": "The campaign ID.",
                     "type": "string",
-                    "example": "00000000000000000000000000000000",
+                    "example": "016e83ddc648000000000001001000f5",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
                   },
@@ -87212,14 +87212,14 @@
                   "root_manifest_id": {
                     "description": "The ID of the manifest that will be sent to the device as part of the campaign.",
                     "type": "string",
-                    "example": "00000000000000000000000000000000",
+                    "example": "016e83dce36a00000000000100100102",
                     "api_fieldname": "root_manifest_id",
                     "entity_fieldname": "root_manifest_id"
                   },
                   "root_manifest_url": {
                     "description": "The URL for the manifest that will be sent to the device as part of the campaign.",
                     "type": "string",
-                    "example": "http://example.com/00000000000000000000000000000000",
+                    "example": "https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102",
                     "api_fieldname": "root_manifest_url",
                     "entity_fieldname": "root_manifest_url"
                   },
@@ -88020,7 +88020,7 @@
                         "device_filter": {
                           "description": "The filter for the devices the campaign is targeting at.",
                           "type": "string",
-                          "example": "id__eq=00000000000000000000000000000000"
+                          "example": "state__eq=registered"
                         },
                         "finished": {
                           "description": "The time the campaign finished.",
@@ -88031,7 +88031,7 @@
                         "id": {
                           "description": "The campaign ID.",
                           "type": "string",
-                          "example": "00000000000000000000000000000000"
+                          "example": "016e83ddc648000000000001001000f5"
                         },
                         "name": {
                           "description": "The campaign name.",
@@ -88042,12 +88042,12 @@
                         "root_manifest_id": {
                           "description": "The ID of the manifest that will be sent to the device as part of the campaign.",
                           "type": "string",
-                          "example": "00000000000000000000000000000000"
+                          "example": "016e83dce36a00000000000100100102"
                         },
                         "root_manifest_url": {
                           "description": "The URL for the manifest that will be sent to the device as part of the campaign.",
                           "type": "string",
-                          "example": "http://example.com/00000000000000000000000000000000"
+                          "example": "https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102"
                         },
                         "starting_at": {
                           "description": "The time the campaign will be started.",
@@ -88357,7 +88357,7 @@
             {
               "description": "The campaign ID.",
               "type": "string",
-              "example": "00000000000000000000000000000000",
+              "example": "016e83ddc648000000000001001000f5",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "campaign_id",
@@ -88474,7 +88474,7 @@
                   "device_filter": {
                     "description": "The filter for the devices the campaign is targeting at.",
                     "type": "string",
-                    "example": "id__eq=00000000000000000000000000000000",
+                    "example": "state__eq=registered",
                     "api_fieldname": "device_filter",
                     "entity_fieldname": "device_filter"
                   },
@@ -88489,7 +88489,7 @@
                   "id": {
                     "description": "The campaign ID.",
                     "type": "string",
-                    "example": "00000000000000000000000000000000",
+                    "example": "016e83ddc648000000000001001000f5",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
                   },
@@ -88504,14 +88504,14 @@
                   "root_manifest_id": {
                     "description": "The ID of the manifest that will be sent to the device as part of the campaign.",
                     "type": "string",
-                    "example": "00000000000000000000000000000000",
+                    "example": "016e83dce36a00000000000100100102",
                     "api_fieldname": "root_manifest_id",
                     "entity_fieldname": "root_manifest_id"
                   },
                   "root_manifest_url": {
                     "description": "The URL for the manifest that will be sent to the device as part of the campaign.",
                     "type": "string",
-                    "example": "http://example.com/00000000000000000000000000000000",
+                    "example": "https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102",
                     "api_fieldname": "root_manifest_url",
                     "entity_fieldname": "root_manifest_url"
                   },
@@ -88673,7 +88673,7 @@
           "_key": "read"
         },
         {
-          "description": "Start a campaign.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/start \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Start a campaign.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/start \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -88755,7 +88755,7 @@
           "_key": "start"
         },
         {
-          "description": "Stop a campaign. Stopping is a process that requires the campaign go through several [phases](../updating-firmware/running-update-campaigns.html#stopping).\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/stop \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Stop a campaign. Stopping is a process that requires the campaign go through several [phases](../updating-firmware/running-update-campaigns.html#stopping).\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -88889,7 +88889,7 @@
             {
               "description": "The filter for the devices the campaign is targeting at.",
               "type": "string",
-              "example": "id__eq=00000000000000000000000000000000",
+              "example": "state__eq=registered",
               "api_fieldname": "device_filter",
               "entity_fieldname": "device_filter",
               "parameter_fieldname": "device_filter",
@@ -88912,7 +88912,7 @@
             {
               "description": "The campaign ID.",
               "type": "string",
-              "example": "00000000000000000000000000000000",
+              "example": "016e83ddc648000000000001001000f5",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "campaign_id",
@@ -88935,7 +88935,7 @@
             {
               "description": "The ID of the manifest that will be sent to the device as part of the campaign.",
               "type": "string",
-              "example": "00000000000000000000000000000000",
+              "example": "016e83dce36a00000000000100100102",
               "api_fieldname": "root_manifest_id",
               "entity_fieldname": "root_manifest_id",
               "parameter_fieldname": "root_manifest_id",
@@ -89052,7 +89052,7 @@
                   "device_filter": {
                     "description": "The filter for the devices the campaign is targeting at.",
                     "type": "string",
-                    "example": "id__eq=00000000000000000000000000000000",
+                    "example": "state__eq=registered",
                     "api_fieldname": "device_filter",
                     "entity_fieldname": "device_filter"
                   },
@@ -89067,7 +89067,7 @@
                   "id": {
                     "description": "The campaign ID.",
                     "type": "string",
-                    "example": "00000000000000000000000000000000",
+                    "example": "016e83ddc648000000000001001000f5",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
                   },
@@ -89082,14 +89082,14 @@
                   "root_manifest_id": {
                     "description": "The ID of the manifest that will be sent to the device as part of the campaign.",
                     "type": "string",
-                    "example": "00000000000000000000000000000000",
+                    "example": "016e83dce36a00000000000100100102",
                     "api_fieldname": "root_manifest_id",
                     "entity_fieldname": "root_manifest_id"
                   },
                   "root_manifest_url": {
                     "description": "The URL for the manifest that will be sent to the device as part of the campaign.",
                     "type": "string",
-                    "example": "http://example.com/00000000000000000000000000000000",
+                    "example": "https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102",
                     "api_fieldname": "root_manifest_url",
                     "entity_fieldname": "root_manifest_url"
                   },
@@ -89343,7 +89343,7 @@
         {
           "description": "The filter for the devices the campaign is targeting at.",
           "type": "string",
-          "example": "id__eq=00000000000000000000000000000000",
+          "example": "state__eq=registered",
           "api_fieldname": "device_filter",
           "readOnly": false,
           "required": true,
@@ -89375,7 +89375,7 @@
         {
           "description": "The campaign ID.",
           "type": "string",
-          "example": "00000000000000000000000000000000",
+          "example": "016e83ddc648000000000001001000f5",
           "api_fieldname": "id",
           "readOnly": false,
           "required": true,
@@ -89414,7 +89414,7 @@
         {
           "description": "The ID of the manifest that will be sent to the device as part of the campaign.",
           "type": "string",
-          "example": "00000000000000000000000000000000",
+          "example": "016e83dce36a00000000000100100102",
           "api_fieldname": "root_manifest_id",
           "readOnly": false,
           "required": false,
@@ -89423,7 +89423,7 @@
         {
           "description": "The URL for the manifest that will be sent to the device as part of the campaign.",
           "type": "string",
-          "example": "http://example.com/00000000000000000000000000000000",
+          "example": "https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102",
           "api_fieldname": "root_manifest_url",
           "readOnly": true,
           "required": false,

@@ -3701,7 +3701,7 @@ definitions:
     properties:
       campaign_id:
         description: ID of the associated campaign.
-        example: '00000000000000000000000000000000'
+        example: 016e652be671000000000001001001e5
         type: string
       count:
         example: 10
@@ -3770,7 +3770,7 @@ definitions:
     properties:
       campaign_id:
         description: ID of the associated campaign.
-        example: '00000000000000000000000000000000'
+        example: 016e652be6710000000000010010013d
         type: string
       count:
         example: 10
@@ -3906,11 +3906,11 @@ definitions:
       created_at: *id013
       datafile:
         description: The firmware image file URL.
-        example: http://example.com/00000000000000000000000000000000
+        example: http://bucket.com/myimage.elf
         type: string
       datafile_checksum:
         description: The checksum (sha256) generated for the datafile.
-        example: '0000000000000000000000000000000000000000000000000000000000000000'
+        example: e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e
         type: string
       datafile_size:
         description: The size of the datafile in bytes.
@@ -3924,7 +3924,7 @@ definitions:
       etag: *id014
       id:
         description: The firmware image ID.
-        example: '00000000000000000000000000000000'
+        example: 016e652be671000000000001001001e5
         type: string
       name:
         description: The firmware image name.
@@ -4033,7 +4033,7 @@ definitions:
       created_at: *id013
       datafile:
         description: The URL of the ASN.1 DER-encoded firmware manifest binary.
-        example: http://example.com/12345678901234567890123456789012
+        example: http://bucket.com/mymanifest.manifest
         format: uri
         type: string
       datafile_size:
@@ -4058,7 +4058,7 @@ definitions:
         type: string
       delivered_payload_url:
         description: The URL of the payload to deliver to the device.
-        example: http://example.com/abcdefghijklmnopqrstuvwxyz
+        example: http://bucket.com/myimage.elf
         format: uri
         type: string
       description:
@@ -4068,12 +4068,12 @@ definitions:
         type: string
       device_class:
         description: The device class ID.
-        example: 00000000-0000-0000-0000-000000000000
+        example: 42c4d8de-704d-546e-b9d3-1ce1eb316167
         format: uuid
         type: string
       device_vendor:
         description: The device vendor ID.
-        example: 00000000-0000-0000-0000-000000000000
+        example: 5d645eae-c231-5a89-9764-2e655cd94fa8
         format: uuid
         type: string
       etag: *id014
@@ -6393,7 +6393,7 @@ definitions:
         type: string
       device_filter:
         description: The filter for the devices the campaign is targeting at.
-        example: id__eq=00000000000000000000000000000000
+        example: state__eq=registered
         type: string
       etag: *id014
       finished:
@@ -6403,7 +6403,7 @@ definitions:
         type: string
       id:
         description: The campaign ID.
-        example: '00000000000000000000000000000000'
+        example: 016e83ddc648000000000001001000f5
         type: string
       name:
         description: The campaign name.
@@ -6429,12 +6429,12 @@ definitions:
       root_manifest_id:
         description: The ID of the manifest that will be sent to the device as part
           of the campaign.
-        example: '00000000000000000000000000000000'
+        example: 016e83dce36a00000000000100100102
         type: string
       root_manifest_url:
         description: The URL for the manifest that will be sent to the device as part
           of the campaign.
-        example: http://example.com/00000000000000000000000000000000
+        example: https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102
         type: string
       started_at:
         description: The time the campaign was started.
@@ -6640,7 +6640,7 @@ definitions:
         type: string
       device_filter:
         description: The filter for the devices the campaign is targeted at.
-        example: id__eq=00000000000000000000000000000000
+        example: state__eq=registered
         type: string
       name:
         default: default_object_name
@@ -6648,7 +6648,7 @@ definitions:
         maxLength: 128
         type: string
       root_manifest_id:
-        example: '12345678901234567890123456789012'
+        example: 016e83b46477000000000001001001f3
         maxLength: 32
         minLength: 32
         type: string
@@ -6672,7 +6672,7 @@ definitions:
         type: string
       device_filter:
         description: The filter for the devices the campaign is targeting at.
-        example: id__eq=00000000000000000000000000000000
+        example: state__eq=registered
         type: string
       name:
         description: The campaign's name.
@@ -6680,7 +6680,7 @@ definitions:
         maxLength: 128
         type: string
       root_manifest_id:
-        example: '00000000000000000000000000000000'
+        example: 016e83dce36a00000000000100100201
         maxLength: 32
         type: string
   UploadChunkInfo:
@@ -6752,11 +6752,11 @@ definitions:
       etag: *id014
       firmware_image_id:
         description: ID of the firmware image - empty until the upload job is complete.
-        example: '00000000000000000000000000000000'
+        example: 016e652be671000000000001001001a8
         type: string
       id:
         description: The upload job ID.
-        example: '00000000000000000000000000000000'
+        example: 016e652be671000000000001001001e5
         type: string
       name: &id029
         description: Human-readable name.
@@ -26805,7 +26805,7 @@ paths:
 
         ```
 
-        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/archive
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc649000000000001001000b8/archive
         \
 
         -H ''Authorization: <valid access token>''
@@ -26906,7 +26906,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata/12345678901234567890123456789012
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6
         \
 
         -H ''Authorization: <valid access token>''
@@ -27001,7 +27001,7 @@ paths:
 
         ```
 
-        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/start
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/start
         \
 
         -H ''Authorization: <valid access token>''
@@ -27230,7 +27230,7 @@ paths:
 
         ```
 
-        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/stop
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop
         \
 
         -H ''Authorization: <valid access token>''

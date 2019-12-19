@@ -13531,7 +13531,7 @@ entities:
 
       ```
 
-      curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata/12345678901234567890123456789012
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6
       \
 
       -H ''Authorization: <valid access token>''
@@ -13696,7 +13696,7 @@ entities:
   - _key: campaign_id
     api_fieldname: campaign_id
     description: ID of the associated campaign.
-    example: '00000000000000000000000000000000'
+    example: 016e652be6710000000000010010013d
     readOnly: false
     required: true
     type: string
@@ -13831,7 +13831,7 @@ entities:
             properties:
             - _key: campaign_id
               description: ID of the associated campaign.
-              example: '00000000000000000000000000000000'
+              example: 016e652be671000000000001001001e5
               type: string
             - _key: count
               example: 10
@@ -14083,7 +14083,7 @@ entities:
             properties:
             - _key: campaign_id
               description: ID of the associated campaign.
-              example: '00000000000000000000000000000000'
+              example: 016e652be6710000000000010010013d
               type: string
             - _key: count
               example: 10
@@ -14273,7 +14273,7 @@ entities:
       api_fieldname: campaign_id
       description: ID of the associated campaign.
       entity_fieldname: campaign_id
-      example: '00000000000000000000000000000000'
+      example: 016e652be6710000000000010010013d
       in: path
       parameter_fieldname: campaign_id
       required: true
@@ -14315,7 +14315,7 @@ entities:
           api_fieldname: campaign_id
           description: ID of the associated campaign.
           entity_fieldname: campaign_id
-          example: '00000000000000000000000000000000'
+          example: 016e652be6710000000000010010013d
           type: string
         - _key: count
           api_fieldname: count
@@ -14473,7 +14473,7 @@ entities:
   - _key: campaign_id
     api_fieldname: campaign_id
     description: ID of the associated campaign.
-    example: '00000000000000000000000000000000'
+    example: 016e652be671000000000001001001e5
     readOnly: false
     required: true
     type: string
@@ -14556,7 +14556,7 @@ entities:
       api_fieldname: campaign_id
       description: ID of the associated campaign.
       entity_fieldname: campaign_id
-      example: '00000000000000000000000000000000'
+      example: 016e652be671000000000001001001e5
       in: path
       parameter_fieldname: campaign_id
       required: true
@@ -14599,7 +14599,7 @@ entities:
           api_fieldname: campaign_id
           description: ID of the associated campaign.
           entity_fieldname: campaign_id
-          example: '00000000000000000000000000000000'
+          example: 016e652be671000000000001001001e5
           type: string
         - _key: count
           api_fieldname: count
@@ -32983,7 +32983,7 @@ entities:
   - _key: datafile_checksum
     api_fieldname: datafile_checksum
     description: The checksum (sha256) generated for the datafile.
-    example: '0000000000000000000000000000000000000000000000000000000000000000'
+    example: e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e
     readOnly: true
     required: false
     type: string
@@ -32997,7 +32997,7 @@ entities:
   - _key: datafile_url
     api_fieldname: datafile
     description: The firmware image file URL.
-    example: http://example.com/00000000000000000000000000000000
+    example: http://bucket.com/myimage.elf
     readOnly: true
     required: false
     type: string
@@ -33012,7 +33012,7 @@ entities:
   - _key: id
     api_fieldname: id
     description: The firmware image ID.
-    example: '00000000000000000000000000000000'
+    example: 016e652be671000000000001001001e5
     readOnly: false
     required: true
     type: string
@@ -33135,13 +33135,13 @@ entities:
           api_fieldname: datafile
           description: The firmware image file URL.
           entity_fieldname: datafile_url
-          example: http://example.com/00000000000000000000000000000000
+          example: http://bucket.com/myimage.elf
           type: string
         datafile_checksum:
           api_fieldname: datafile_checksum
           description: The checksum (sha256) generated for the datafile.
           entity_fieldname: datafile_checksum
-          example: '0000000000000000000000000000000000000000000000000000000000000000'
+          example: e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e
           type: string
         datafile_size:
           api_fieldname: datafile_size
@@ -33166,7 +33166,7 @@ entities:
           api_fieldname: id
           description: The firmware image ID.
           entity_fieldname: id
-          example: '00000000000000000000000000000000'
+          example: 016e652be671000000000001001001e5
           type: string
         name:
           api_fieldname: name
@@ -33425,11 +33425,11 @@ entities:
               type: string
             datafile:
               description: The firmware image file URL.
-              example: http://example.com/00000000000000000000000000000000
+              example: http://bucket.com/myimage.elf
               type: string
             datafile_checksum:
               description: The checksum (sha256) generated for the datafile.
-              example: '0000000000000000000000000000000000000000000000000000000000000000'
+              example: e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e
               type: string
             datafile_size:
               description: The size of the datafile in bytes.
@@ -33448,7 +33448,7 @@ entities:
               type: string
             id:
               description: The firmware image ID.
-              example: '00000000000000000000000000000000'
+              example: 016e652be671000000000001001001e5
               type: string
             name:
               description: The firmware image name.
@@ -33585,7 +33585,7 @@ entities:
       api_fieldname: id
       description: The firmware image ID.
       entity_fieldname: id
-      example: '00000000000000000000000000000000'
+      example: 016e652be671000000000001001001e5
       in: path
       parameter_fieldname: image_id
       required: true
@@ -33619,13 +33619,13 @@ entities:
           api_fieldname: datafile
           description: The firmware image file URL.
           entity_fieldname: datafile_url
-          example: http://example.com/00000000000000000000000000000000
+          example: http://bucket.com/myimage.elf
           type: string
         datafile_checksum:
           api_fieldname: datafile_checksum
           description: The checksum (sha256) generated for the datafile.
           entity_fieldname: datafile_checksum
-          example: '0000000000000000000000000000000000000000000000000000000000000000'
+          example: e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e
           type: string
         datafile_size:
           api_fieldname: datafile_size
@@ -33650,7 +33650,7 @@ entities:
           api_fieldname: id
           description: The firmware image ID.
           entity_fieldname: id
-          example: '00000000000000000000000000000000'
+          example: 016e652be671000000000001001001e5
           type: string
         name:
           api_fieldname: name
@@ -33715,7 +33715,7 @@ entities:
   - _key: datafile_url
     api_fieldname: datafile
     description: The URL of the ASN.1 DER-encoded firmware manifest binary.
-    example: http://example.com/12345678901234567890123456789012
+    example: http://bucket.com/mymanifest.manifest
     format: uri
     readOnly: true
     required: false
@@ -33748,7 +33748,7 @@ entities:
   - _key: delivered_payload_url
     api_fieldname: delivered_payload_url
     description: The URL of the payload to deliver to the device.
-    example: http://example.com/abcdefghijklmnopqrstuvwxyz
+    example: http://bucket.com/myimage.elf
     format: uri
     readOnly: true
     required: false
@@ -33764,7 +33764,7 @@ entities:
   - _key: device_class
     api_fieldname: device_class
     description: The device class ID.
-    example: 00000000-0000-0000-0000-000000000000
+    example: 42c4d8de-704d-546e-b9d3-1ce1eb316167
     format: uuid
     readOnly: true
     required: false
@@ -33772,7 +33772,7 @@ entities:
   - _key: device_vendor
     api_fieldname: device_vendor
     description: The device vendor ID.
-    example: 00000000-0000-0000-0000-000000000000
+    example: 5d645eae-c231-5a89-9764-2e655cd94fa8
     format: uuid
     readOnly: true
     required: false
@@ -33985,7 +33985,7 @@ entities:
           api_fieldname: datafile
           description: The URL of the ASN.1 DER-encoded firmware manifest binary.
           entity_fieldname: datafile_url
-          example: http://example.com/12345678901234567890123456789012
+          example: http://bucket.com/mymanifest.manifest
           format: uri
           type: string
         datafile_size:
@@ -34021,7 +34021,7 @@ entities:
           api_fieldname: delivered_payload_url
           description: The URL of the payload to deliver to the device.
           entity_fieldname: delivered_payload_url
-          example: http://example.com/abcdefghijklmnopqrstuvwxyz
+          example: http://bucket.com/myimage.elf
           format: uri
           type: string
         description:
@@ -34035,14 +34035,14 @@ entities:
           api_fieldname: device_class
           description: The device class ID.
           entity_fieldname: device_class
-          example: 00000000-0000-0000-0000-000000000000
+          example: 42c4d8de-704d-546e-b9d3-1ce1eb316167
           format: uuid
           type: string
         device_vendor:
           api_fieldname: device_vendor
           description: The device vendor ID.
           entity_fieldname: device_vendor
-          example: 00000000-0000-0000-0000-000000000000
+          example: 5d645eae-c231-5a89-9764-2e655cd94fa8
           format: uuid
           type: string
         etag:
@@ -34371,7 +34371,7 @@ entities:
               type: string
             datafile:
               description: The URL of the ASN.1 DER-encoded firmware manifest binary.
-              example: http://example.com/12345678901234567890123456789012
+              example: http://bucket.com/mymanifest.manifest
               format: uri
               type: string
             datafile_size:
@@ -34397,7 +34397,7 @@ entities:
               type: string
             delivered_payload_url:
               description: The URL of the payload to deliver to the device.
-              example: http://example.com/abcdefghijklmnopqrstuvwxyz
+              example: http://bucket.com/myimage.elf
               format: uri
               type: string
             description:
@@ -34407,12 +34407,12 @@ entities:
               type: string
             device_class:
               description: The device class ID.
-              example: 00000000-0000-0000-0000-000000000000
+              example: 42c4d8de-704d-546e-b9d3-1ce1eb316167
               format: uuid
               type: string
             device_vendor:
               description: The device vendor ID.
-              example: 00000000-0000-0000-0000-000000000000
+              example: 5d645eae-c231-5a89-9764-2e655cd94fa8
               format: uuid
               type: string
             etag:
@@ -34649,7 +34649,7 @@ entities:
           api_fieldname: datafile
           description: The URL of the ASN.1 DER-encoded firmware manifest binary.
           entity_fieldname: datafile_url
-          example: http://example.com/12345678901234567890123456789012
+          example: http://bucket.com/mymanifest.manifest
           format: uri
           type: string
         datafile_size:
@@ -34685,7 +34685,7 @@ entities:
           api_fieldname: delivered_payload_url
           description: The URL of the payload to deliver to the device.
           entity_fieldname: delivered_payload_url
-          example: http://example.com/abcdefghijklmnopqrstuvwxyz
+          example: http://bucket.com/myimage.elf
           format: uri
           type: string
         description:
@@ -34699,14 +34699,14 @@ entities:
           api_fieldname: device_class
           description: The device class ID.
           entity_fieldname: device_class
-          example: 00000000-0000-0000-0000-000000000000
+          example: 42c4d8de-704d-546e-b9d3-1ce1eb316167
           format: uuid
           type: string
         device_vendor:
           api_fieldname: device_vendor
           description: The device vendor ID.
           entity_fieldname: device_vendor
-          example: 00000000-0000-0000-0000-000000000000
+          example: 5d645eae-c231-5a89-9764-2e655cd94fa8
           format: uuid
           type: string
         etag:
@@ -66101,7 +66101,7 @@ entities:
   - _key: device_filter
     api_fieldname: device_filter
     description: The filter for the devices the campaign is targeting at.
-    example: id__eq=00000000000000000000000000000000
+    example: state__eq=registered
     readOnly: false
     required: true
     type: string
@@ -66129,7 +66129,7 @@ entities:
   - _key: id
     api_fieldname: id
     description: The campaign ID.
-    example: '00000000000000000000000000000000'
+    example: 016e83ddc648000000000001001000f5
     readOnly: false
     required: true
     type: string
@@ -66162,7 +66162,7 @@ entities:
     api_fieldname: root_manifest_id
     description: The ID of the manifest that will be sent to the device as part of
       the campaign.
-    example: '00000000000000000000000000000000'
+    example: 016e83dce36a00000000000100100102
     readOnly: false
     required: false
     type: string
@@ -66170,7 +66170,7 @@ entities:
     api_fieldname: root_manifest_url
     description: The URL for the manifest that will be sent to the device as part
       of the campaign.
-    example: http://example.com/00000000000000000000000000000000
+    example: https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102
     readOnly: true
     required: false
     type: string
@@ -66235,7 +66235,7 @@ entities:
 
       ```
 
-      curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/archive
+      curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc649000000000001001000b8/archive
       \
 
       -H ''Authorization: <valid access token>''
@@ -66392,7 +66392,7 @@ entities:
       api_fieldname: device_filter
       description: The filter for the devices the campaign is targeting at.
       entity_fieldname: device_filter
-      example: id__eq=00000000000000000000000000000000
+      example: state__eq=registered
       in: body
       parameter_fieldname: device_filter
       required: false
@@ -66424,7 +66424,7 @@ entities:
       description: The ID of the manifest that will be sent to the device as part
         of the campaign.
       entity_fieldname: root_manifest_id
-      example: '00000000000000000000000000000000'
+      example: 016e83dce36a00000000000100100102
       in: body
       parameter_fieldname: root_manifest_id
       required: false
@@ -66518,7 +66518,7 @@ entities:
           api_fieldname: device_filter
           description: The filter for the devices the campaign is targeting at.
           entity_fieldname: device_filter
-          example: id__eq=00000000000000000000000000000000
+          example: state__eq=registered
           type: string
         etag:
           api_fieldname: etag
@@ -66537,7 +66537,7 @@ entities:
           api_fieldname: id
           description: The campaign ID.
           entity_fieldname: id
-          example: '00000000000000000000000000000000'
+          example: 016e83ddc648000000000001001000f5
           type: string
         name:
           api_fieldname: name
@@ -66571,14 +66571,14 @@ entities:
           description: The ID of the manifest that will be sent to the device as part
             of the campaign.
           entity_fieldname: root_manifest_id
-          example: '00000000000000000000000000000000'
+          example: 016e83dce36a00000000000100100102
           type: string
         root_manifest_url:
           api_fieldname: root_manifest_url
           description: The URL for the manifest that will be sent to the device as
             part of the campaign.
           entity_fieldname: root_manifest_url
-          example: http://example.com/00000000000000000000000000000000
+          example: https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102
           type: string
         started_at:
           api_fieldname: started_at
@@ -67299,7 +67299,7 @@ entities:
               type: string
             device_filter:
               description: The filter for the devices the campaign is targeting at.
-              example: id__eq=00000000000000000000000000000000
+              example: state__eq=registered
               type: string
             etag:
               api_fieldname: etag
@@ -67314,7 +67314,7 @@ entities:
               type: string
             id:
               description: The campaign ID.
-              example: '00000000000000000000000000000000'
+              example: 016e83ddc648000000000001001000f5
               type: string
             name:
               description: The campaign name.
@@ -67340,12 +67340,12 @@ entities:
             root_manifest_id:
               description: The ID of the manifest that will be sent to the device
                 as part of the campaign.
-              example: '00000000000000000000000000000000'
+              example: 016e83dce36a00000000000100100102
               type: string
             root_manifest_url:
               description: The URL for the manifest that will be sent to the device
                 as part of the campaign.
-              example: http://example.com/00000000000000000000000000000000
+              example: https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102
               type: string
             started_at:
               description: The time the campaign was started.
@@ -67571,7 +67571,7 @@ entities:
       api_fieldname: id
       description: The campaign ID.
       entity_fieldname: id
-      example: '00000000000000000000000000000000'
+      example: 016e83ddc648000000000001001000f5
       in: path
       parameter_fieldname: campaign_id
       required: true
@@ -67665,7 +67665,7 @@ entities:
           api_fieldname: device_filter
           description: The filter for the devices the campaign is targeting at.
           entity_fieldname: device_filter
-          example: id__eq=00000000000000000000000000000000
+          example: state__eq=registered
           type: string
         etag:
           api_fieldname: etag
@@ -67684,7 +67684,7 @@ entities:
           api_fieldname: id
           description: The campaign ID.
           entity_fieldname: id
-          example: '00000000000000000000000000000000'
+          example: 016e83ddc648000000000001001000f5
           type: string
         name:
           api_fieldname: name
@@ -67718,14 +67718,14 @@ entities:
           description: The ID of the manifest that will be sent to the device as part
             of the campaign.
           entity_fieldname: root_manifest_id
-          example: '00000000000000000000000000000000'
+          example: 016e83dce36a00000000000100100102
           type: string
         root_manifest_url:
           api_fieldname: root_manifest_url
           description: The URL for the manifest that will be sent to the device as
             part of the campaign.
           entity_fieldname: root_manifest_url
-          example: http://example.com/00000000000000000000000000000000
+          example: https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102
           type: string
         started_at:
           api_fieldname: started_at
@@ -67827,7 +67827,7 @@ entities:
 
       ```
 
-      curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/start
+      curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/start
       \
 
       -H ''Authorization: <valid access token>''
@@ -67906,7 +67906,7 @@ entities:
 
       ```
 
-      curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/stop
+      curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop
       \
 
       -H ''Authorization: <valid access token>''
@@ -68047,7 +68047,7 @@ entities:
       api_fieldname: device_filter
       description: The filter for the devices the campaign is targeting at.
       entity_fieldname: device_filter
-      example: id__eq=00000000000000000000000000000000
+      example: state__eq=registered
       in: body
       parameter_fieldname: device_filter
       required: false
@@ -68068,7 +68068,7 @@ entities:
       api_fieldname: id
       description: The campaign ID.
       entity_fieldname: id
-      example: '00000000000000000000000000000000'
+      example: 016e83ddc648000000000001001000f5
       in: path
       parameter_fieldname: campaign_id
       required: true
@@ -68088,7 +68088,7 @@ entities:
       description: The ID of the manifest that will be sent to the device as part
         of the campaign.
       entity_fieldname: root_manifest_id
-      example: '00000000000000000000000000000000'
+      example: 016e83dce36a00000000000100100102
       in: body
       parameter_fieldname: root_manifest_id
       required: false
@@ -68182,7 +68182,7 @@ entities:
           api_fieldname: device_filter
           description: The filter for the devices the campaign is targeting at.
           entity_fieldname: device_filter
-          example: id__eq=00000000000000000000000000000000
+          example: state__eq=registered
           type: string
         etag:
           api_fieldname: etag
@@ -68201,7 +68201,7 @@ entities:
           api_fieldname: id
           description: The campaign ID.
           entity_fieldname: id
-          example: '00000000000000000000000000000000'
+          example: 016e83ddc648000000000001001000f5
           type: string
         name:
           api_fieldname: name
@@ -68235,14 +68235,14 @@ entities:
           description: The ID of the manifest that will be sent to the device as part
             of the campaign.
           entity_fieldname: root_manifest_id
-          example: '00000000000000000000000000000000'
+          example: 016e83dce36a00000000000100100102
           type: string
         root_manifest_url:
           api_fieldname: root_manifest_url
           description: The URL for the manifest that will be sent to the device as
             part of the campaign.
           entity_fieldname: root_manifest_url
-          example: http://example.com/00000000000000000000000000000000
+          example: https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102
           type: string
         started_at:
           api_fieldname: started_at
