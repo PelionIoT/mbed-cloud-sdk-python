@@ -32996,7 +32996,7 @@ entities:
     type: integer
   - _key: datafile_url
     api_fieldname: datafile
-    description: The firmware image file URL
+    description: The firmware image file URL.
     example: http://example.com/00000000000000000000000000000000
     readOnly: true
     required: false
@@ -33133,7 +33133,7 @@ entities:
           type: string
         datafile:
           api_fieldname: datafile
-          description: The firmware image file URL
+          description: The firmware image file URL.
           entity_fieldname: datafile_url
           example: http://example.com/00000000000000000000000000000000
           type: string
@@ -33424,7 +33424,7 @@ entities:
               format: date-time
               type: string
             datafile:
-              description: The firmware image file URL
+              description: The firmware image file URL.
               example: http://example.com/00000000000000000000000000000000
               type: string
             datafile_checksum:
@@ -33617,7 +33617,7 @@ entities:
           type: string
         datafile:
           api_fieldname: datafile
-          description: The firmware image file URL
+          description: The firmware image file URL.
           entity_fieldname: datafile_url
           example: http://example.com/00000000000000000000000000000000
           type: string

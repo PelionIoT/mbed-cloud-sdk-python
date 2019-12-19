@@ -43443,7 +43443,7 @@
                     "entity_fieldname": "object"
                   },
                   "datafile": {
-                    "description": "The firmware image file URL",
+                    "description": "The firmware image file URL.",
                     "type": "string",
                     "example": "http://example.com/00000000000000000000000000000000",
                     "api_fieldname": "datafile",
@@ -43731,7 +43731,7 @@
                           "type": "string"
                         },
                         "datafile": {
-                          "description": "The firmware image file URL",
+                          "description": "The firmware image file URL.",
                           "type": "string",
                           "example": "http://example.com/00000000000000000000000000000000"
                         },
@@ -44007,7 +44007,7 @@
                     "entity_fieldname": "object"
                   },
                   "datafile": {
-                    "description": "The firmware image file URL",
+                    "description": "The firmware image file URL.",
                     "type": "string",
                     "example": "http://example.com/00000000000000000000000000000000",
                     "api_fieldname": "datafile",
@@ -44131,7 +44131,7 @@
           "_key": "datafile_size"
         },
         {
-          "description": "The firmware image file URL",
+          "description": "The firmware image file URL.",
           "type": "string",
           "example": "http://example.com/00000000000000000000000000000000",
           "api_fieldname": "datafile",

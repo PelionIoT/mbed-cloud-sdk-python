@@ -3898,7 +3898,7 @@ definitions:
     properties:
       created_at: *id013
       datafile:
-        description: The firmware image file URL
+        description: The firmware image file URL.
         example: http://example.com/00000000000000000000000000000000
         type: string
       datafile_checksum:
