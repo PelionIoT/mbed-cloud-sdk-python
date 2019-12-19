@@ -1243,7 +1243,7 @@ class EntityFactory:
         :type datafile_checksum: str
         :param datafile_size: The size of the datafile in bytes.
         :type datafile_size: int
-        :param datafile_url: The firmware image file URL
+        :param datafile_url: The firmware image file URL.
         :type datafile_url: str
         :param description: The description of the object.
         :type description: str
