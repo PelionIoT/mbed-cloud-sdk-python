@@ -367,7 +367,7 @@ class UpdateCampaign(Entity):
 
         This field must be set when creating a new UpdateCampaign Entity.
         
-        api example: 'id__eq=00000000000000000000000000000000'
+        api example: 'state__eq=registered'
         
         :rtype: str
         """
@@ -430,7 +430,7 @@ class UpdateCampaign(Entity):
 
         This field must be set when updating or deleting an existing UpdateCampaign Entity.
         
-        api example: '00000000000000000000000000000000'
+        api example: '016e83ddc648000000000001001000f5'
         
         :rtype: str
         """
@@ -482,7 +482,7 @@ class UpdateCampaign(Entity):
         """The ID of the manifest that will be sent to the device as part of the
         campaign.
         
-        api example: '00000000000000000000000000000000'
+        api example: '016e83dce36a00000000000100100102'
         
         :rtype: str
         """
@@ -504,7 +504,8 @@ class UpdateCampaign(Entity):
         """The URL for the manifest that will be sent to the device as part of the
         campaign.
         
-        api example: 'http://example.com/00000000000000000000000000000000'
+        api example: 'https://api.us-east-1.mbedcloud.com/v3/firmware-
+            manifests/016e83dce36a00000000000100100102'
         
         :rtype: str
         """

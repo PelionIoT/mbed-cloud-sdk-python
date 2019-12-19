@@ -143,7 +143,7 @@ class FirmwareImage(Entity):
     def datafile_checksum(self):
         """The checksum (sha256) generated for the datafile.
         
-        api example: '0000000000000000000000000000000000000000000000000000000000000000'
+        api example: 'e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e'
         
         :rtype: str
         """
@@ -163,7 +163,7 @@ class FirmwareImage(Entity):
     def datafile_url(self):
         """The firmware image file URL.
         
-        api example: 'http://example.com/00000000000000000000000000000000'
+        api example: 'http://bucket.com/myimage.elf'
         
         :rtype: str
         """
@@ -197,7 +197,7 @@ class FirmwareImage(Entity):
 
         This field must be set when updating or deleting an existing FirmwareImage Entity.
         
-        api example: '00000000000000000000000000000000'
+        api example: '016e652be671000000000001001001e5'
         
         :rtype: str
         """

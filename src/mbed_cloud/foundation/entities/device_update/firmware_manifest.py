@@ -219,7 +219,7 @@ class FirmwareManifest(Entity):
     def datafile_url(self):
         """The URL of the ASN.1 DER-encoded firmware manifest binary.
         
-        api example: 'http://example.com/12345678901234567890123456789012'
+        api example: 'http://bucket.com/mymanifest.manifest'
         
         :rtype: str
         """
@@ -259,7 +259,7 @@ class FirmwareManifest(Entity):
     def delivered_payload_url(self):
         """The URL of the payload to deliver to the device.
         
-        api example: 'http://example.com/abcdefghijklmnopqrstuvwxyz'
+        api example: 'http://bucket.com/myimage.elf'
         
         :rtype: str
         """
@@ -289,7 +289,7 @@ class FirmwareManifest(Entity):
     def device_class(self):
         """The device class ID.
         
-        api example: '00000000-0000-0000-0000-000000000000'
+        api example: '42c4d8de-704d-546e-b9d3-1ce1eb316167'
         
         :rtype: str
         """
@@ -300,7 +300,7 @@ class FirmwareManifest(Entity):
     def device_vendor(self):
         """The device vendor ID.
         
-        api example: '00000000-0000-0000-0000-000000000000'
+        api example: '5d645eae-c231-5a89-9764-2e655cd94fa8'
         
         :rtype: str
         """
