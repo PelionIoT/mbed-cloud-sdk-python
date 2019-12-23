@@ -1255,6 +1255,10 @@ definitions:
         example: 200
         type: integer
     type: object
+  AudienceItem:
+    description: Audience item, device ID or endpoint name.
+    pattern: ^ep:[a-zA-Z0-9 -]{1,57}$|^id:[0-9a-fA-F]{32}$
+    type: string
   BadRequestErrorResponse:
     description: 400 Bad request response.
     properties:
@@ -1386,7 +1390,7 @@ definitions:
         type: string
       reference:
         description: Color name.
-        enum: &id020
+        enum: &id024
         - error_color
         - primary
         - secondary
@@ -1466,7 +1470,7 @@ definitions:
         type: string
       reference:
         description: Name of the image.
-        enum: &id021
+        enum: &id025
         - brand_logo_portrait
         - brand_logo_square
         - brand_logo_landscape
@@ -2268,6 +2272,60 @@ definitions:
     - reference
     - certificate_issuer_id
     type: object
+  CreateTrustAnchorRequest:
+    properties:
+      description:
+        description: The description of the new trust anchor key pair.
+        format: Free text
+        maxLength: 256
+        minLength: 1
+        type: string
+    required:
+    - description
+    type: object
+  CreateTrustAnchorResponse:
+    properties:
+      created_at: &id016
+        description: Creation UTC time.
+        example: '2017-01-01T00:00:00Z'
+        format: date-time
+        type: string
+      description:
+        description: Notes about the trust anchor.
+        format: free text
+        maxLength: 256
+        minLength: 1
+        type: string
+      etag: &id017
+        description: Entity instance signature, 1 or Unix timestamp of last customer
+          update.
+        example: '1'
+        type: string
+      fingerprint:
+        description: The SHA256 of the trust anchor public key; the prefix 'mbed.ta.'
+          followed by the trust anchor public key as a SHA256 hash in Base64-encoded
+          DER format.
+        format: byte
+        type: string
+      id: &id018
+        description: The ID of the entity.
+        example: 01612df56f3b0a580a010fc700000000
+        pattern: '[A-Fa-f0-9]{32}'
+        type: string
+      public_key:
+        description: The generated trust anchor public key in PEM format.
+        format: byte
+        type: string
+      public_key_der:
+        description: The generated trust anchor public key in Base64-encoded DER format.
+        format: byte
+        type: string
+      updated_at: &id019
+        description: Update UTC time.
+        example: '2017-01-01T00:00:00Z'
+        format: date-time
+        type: string
+    type: object
   CredentialsResponseData:
     properties:
       certificate:
@@ -3026,7 +3084,7 @@ definitions:
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
-      custom_attributes: &id023
+      custom_attributes: &id027
         additionalProperties:
           maxLength: 128
           pattern: ^[A-Za-z].*
@@ -3038,7 +3096,7 @@ definitions:
           key: value
         maxProperties: 10
         type: object
-      description: &id024
+      description: &id028
         description: The description of the group.
         example: Devices on the factory floor.
         maxLength: 2000
@@ -3055,7 +3113,7 @@ definitions:
         description: The group ID.
         example: 015c3029f6f7000000000001001000c3
         type: string
-      name: &id025
+      name: &id029
         description: Name of the group.
         example: My devices
         maxLength: 128
@@ -4267,6 +4325,46 @@ definitions:
     - type
     - code
     type: object
+  GetTrustAnchorsResponse:
+    properties:
+      after:
+        description: An offset token for the current page.
+        example: '01631667477600000000000100100374'
+        pattern: '[A-Fa-f0-9]{32}'
+        type: string
+      data:
+        description: The list of trust anchors of the account.
+        items:
+          $ref: '#/definitions/TrustAnchorResponse'
+        type: array
+      has_more:
+        description: Indicates whether additional results are available.
+        example: false
+        type: boolean
+      limit:
+        default: 50
+        description: Indicates how many objects to retrieve in the page. The minimum
+          limit is 2 and the maximum is 1000. Limit values outside of this range are
+          set to the closest limit.
+        maximum: 1000
+        minimum: 2
+        type: integer
+      object:
+        description: The type of this API object is a `list`.
+        example: list
+        type: string
+      order:
+        description: Indicates how to order the entries based on when they were created.
+        enum:
+        - ASC
+        - DESC
+        example: DESC
+        type: string
+      total_count:
+        example: 1
+        format: integer
+        type: integer
+    type: object
   GlobalSignCredentials:
     description: 'Describes the credentials required to connect to the GlobalSign
       account.
@@ -4685,6 +4783,15 @@ definitions:
     - type
     - code
     type: object
+  KeyValue:
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+    required:
+    - key
+    - value
   ListOfPreSharedKeysWithoutSecret:
     properties:
       after:
@@ -6070,6 +6177,58 @@ definitions:
     required:
     - quota_usage
     type: object
+  TokenRequest:
+    properties:
+      aud:
+        description: 'Array of \<type\>:\<identity\> tuples representing devices for
+          which access is being requested. There must be at least one id/ep tuple.<br/>
+          \<type\> ::= id|ep <br/> \<identity\>::=[a-zA-Z0-9+/=- ]+ <br/>\<audience\>
+          :== \<type\> ":" \<identity\>  <br/> \<identity\> can be up to 60 characters
+          long, and can contain spaces. <br/>
+
+          The audience array can contain up to 50 tuples. If IAM does not authorize
+          even one item in the list, Secure Device Access does not authorize the whole
+          request and does not return an access token (access denied).'
+        items:
+          $ref: '#/definitions/AudienceItem'
+        maxItems: 50
+        minItems: 1
+        type: array
+      cnf:
+        description: The Android application proof-of-possession public key.
+        format: The public key in PEM format.
+        type: string
+      grant_type:
+        description: Hardcoded - can only be "client_credentials".
+        type: string
+      scope:
+        description: The space-delimited list of operations that user is requesting
+          permission for. The array must contain at least one scope item. A scope
+          item can have up to 60 characters. A scope list can hold up to 20 scope
+          items. <br/> \<scope\>::=[a-zA-Z][a-zA-Z0-9-]* <br/> \<scope-list\>::= \<scope\>
+          | \<scope\> " " | \<scope\> " " \<scope-list\> <br/> The scope being requested
+          must match the action that the Android application eventually performs on
+          the IoT device. The device matches the scope in the access token to the
+          action requested in the operation bundle.
+        format: scope-item scope-item ...
+        type: string
+    required:
+    - grant_type
+    - aud
+    - scope
+    - cnf
+    type: object
+  TokenResponse:
+    properties:
+      access_token:
+        description: The generated CWT (CBOR Web Token) access token as a Base64 string.
+        format: byte
+        type: string
+      granted_until:
+        description: Grant expiration UTC time RFC3339.
+        format: date-time
+        type: string
+    type: object
   TransactionsCounter:
     description: A transaction is a data block of 512 bytes processed by Device Management.
       It can be sent either by the device (device --> Device Management) or received
@@ -6079,6 +6238,33 @@ definitions:
     format: int64
     minimum: 0
     type: integer
+  TrustAnchorResponse:
+    properties:
+      created_at: *id016
+      description:
+        description: The updated notes about the trust anchor.
+        format: free text
+        maxLength: 256
+        minLength: 1
+        type: string
+      etag: *id017
+      fingerprint:
+        description: The SHA256 of the trust anchor public key; the prefix 'mbed.ta.'
+          followed by the trust anchor public key as a SHA256 hash in Base64-encoded
+          DER format.
+        format: byte
+        type: string
+      id: *id018
+      public_key:
+        description: The trust anchor public key in PEM format.
+        format: byte
+        type: string
+      public_key_der:
+        description: The generated trust anchor public key in Base64-encoded DER format.
+        format: byte
+        type: string
+      updated_at: *id019
+    type: object
   TrustedCertificateReq:
     description: Represents a trusted certificate in upload requests.
     properties:
@@ -6375,7 +6561,7 @@ definitions:
         example: '85.00'
         format: double
         type: number
-      campaign_strategy: &id016
+      campaign_strategy: &id020
         default: one-shot
         description: How the campaign adds devices. A `one-shot` campaign does not
           add new devices after it has started. A `continuous` campaign means that
@@ -6632,7 +6818,7 @@ definitions:
       autostop_success_percent:
         default: 100.0
         type: number
-      campaign_strategy: *id016
+      campaign_strategy: *id020
       description:
         description: An optional description of the campaign.
         example: a description
@@ -6683,6 +6869,44 @@ definitions:
         example: 016e83dce36a00000000000100100201
         maxLength: 32
         type: string
+  UpdateTrustAnchorRequest:
+    properties:
+      description:
+        description: The new description for the trust anchor.
+        format: free text
+        maxLength: 256
+        minLength: 1
+        type: string
+    required:
+    - description
+    type: object
+  UpdateTrustAnchorResponse:
+    properties:
+      created_at: *id016
+      description:
+        description: The updated notes about the trust anchor.
+        format: free text
+        maxLength: 256
+        minLength: 1
+        type: string
+      etag: *id017
+      fingerprint:
+        description: The SHA256 of the trust anchor public key; the prefix 'mbed.ta.'
+          followed by the trust anchor public key as a SHA256 hash in Base64-encoded
+          DER format.
+        format: byte
+        type: string
+      id: *id018
+      public_key:
+        description: The trust anchor public key in PEM format.
+        format: byte
+        type: string
+      public_key_der:
+        description: The generated trust anchor public key in Base64-encoded DER format.
+        format: byte
+        type: string
+      updated_at: *id019
+    type: object
   UploadChunkInfo:
     properties:
       created_at: *id013
@@ -6744,7 +6968,7 @@ definitions:
         example: false
         type: boolean
       created_at: *id013
-      description: &id028
+      description: &id032
         description: Human-readable description.
         example: New Linux update for my devices
         maxLength: 2000
@@ -6758,7 +6982,7 @@ definitions:
         description: The upload job ID.
         example: 016e652be671000000000001001001e5
         type: string
-      name: &id029
+      name: &id033
         description: Human-readable name.
         example: New Linux update
         maxLength: 128
@@ -7531,6 +7755,286 @@ info:
   title: Pelion Device Management API
   version: '3'
 paths:
+  //ace-auth/token:
+    post:
+      description: "Generate a signed CWT (CBOR Web Token). The SDA Android SDK uses\
+        \ this API to gain access to perform actions on the devices specified in the\
+        \ audience (aud).\n<br>\nAuthorized for roles: Service, ServiceAdministrator\n\
+        <br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/ace-auth/token\
+        \ \\\n-H 'Authorization: <valid JWT>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-d '{\n  \"grant_type\":\"client_credentials\",\n  \"aud\":[\"id:f90b1017e52f4c70ad92684e802c9249\"\
+        ,\"ep:dev1\"],\n  \"scope\":\"turn-led-on\",\n  \"cnf\":\"-----BEGIN PUBLIC\
+        \ KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ...XwIDAQAB-----END PUBLIC KEY-----\"\
+        \n}'\n```\n"
+      operationId: createAceAuthToken
+      parameters:
+      - description: Create access token request.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/TokenRequest'
+      responses:
+        '200':
+          description: A signed CWT (CBOR Web Token) access token.
+          schema:
+            $ref: '#/definitions/TokenResponse'
+        '400':
+          description: 'Bad request. Returns the standard error object detailing the
+            error message and, optionally, the invalid fields.
+
+            '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: 'Authentication failure. The provided header is invalid or
+            missing.
+
+            Returns the standard error object detailing the error message and, optionally,
+            the invalid fields.
+
+            '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      tags:
+      - Security and identity - secure device access
+      x-origin: /home/circleci/project/sda-service/public/sda.yaml
+  //v3/trust-anchors:
+    get:
+      description: 'Get all trust anchors that match the account ID specified in the
+        JWT.
+
+        <br>
+
+        Authorized for roles: Service, ServiceAdministrator
+
+        <br>
+
+        **Usage example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/trust-anchors \
+
+        -H ''Authorization: <valid JWT>''
+
+        ```
+
+        '
+      operationId: getTrustAnchors
+      parameters:
+      - description: Indicates how many objects to retrieve in the page. The minimum
+          limit is 2 and the maximum is 1000. Limit values outside of this range are
+          set to the closest limit.
+        in: query
+        maximum: 1000
+        minimum: 2
+        name: limit
+        type: integer
+      - description: Indicates how to order the entries based on when they were created.
+          `ASC` by default.
+        enum:
+        - ASC
+        - DESC
+        in: query
+        name: order
+        type: string
+      - description: The ID of the item after which to retrieve the next page.
+        in: query
+        name: after
+        pattern: '[A-Fa-f0-9]{32}'
+        type: string
+      - description: 'Comma-separated list of data fields to return. Currently supported:
+          `total_count`.'
+        in: query
+        name: include
+        type: string
+      responses:
+        '200':
+          description: 'Returns the list of trust anchors associated to the account_id
+            specified in the access token.
+
+            '
+          schema:
+            $ref: '#/definitions/GetTrustAnchorsResponse'
+        '400':
+          description: 'Bad request. Returns the standard error object detailing the
+            error message and, optionally, the invalid fields.
+
+            '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: 'Authentication failure. The provided header is invalid or
+            missing.
+
+            Returns the standard error object detailing the error message and, optionally,
+            the invalid fields.
+
+            '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      tags:
+      - Security and identity - secure device access
+      x-origin: /home/circleci/project/sda-service/public/sda.yaml
+    post:
+      description: "Create a trust anchor key pair and return the public key and creation\
+        \ time.\nEach account can have one trust anchor only. This API fails if a\
+        \ trust anchor already exists for the account.\n<br>\nAuthorized for roles:\
+        \ Service, ServiceAdministrator\n<br>\n**Usage example:**\n```\ncurl -X POST\
+        \ https://api.us-east-1.mbedcloud.com/v3/trust-anchors \\\n-H 'Authorization:\
+        \ <valid JWT>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n\
+        -d '{\n  \"description\": \"Trust anchor for room lighting controller.\"\n\
+        }'\n```\n"
+      operationId: createTrustAnchor
+      parameters:
+      - description: Request a new trust anchor.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateTrustAnchorRequest'
+      responses:
+        '201':
+          description: Trust anchor created.
+          schema:
+            $ref: '#/definitions/CreateTrustAnchorResponse'
+        '400':
+          description: 'Bad request. Returns the standard error object detailing the
+            error message and, optionally, the invalid fields.
+
+            '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: 'Authentication failure. The provided header is invalid or
+            missing.
+
+            Returns the standard error object detailing the error message and, optionally,
+            the invalid fields.
+
+            '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: 'Account limit exceeded. There is already a trust anchor defined
+            for the account.
+
+            Returns the standard error object detailing the error message.
+
+            '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      tags:
+      - Security and identity - secure device access
+      x-origin: /home/circleci/project/sda-service/public/sda.yaml
+  //v3/trust-anchors/{trust_anchor_id}:
+    delete:
+      description: 'Delete the specified trust anchor. Unrecoverable.
+
+        <br>
+
+        Authorized for roles: Service, ServiceAdministrator
+
+        <br>
+
+        **Usage example:**
+
+        ```
+
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trust-anchors/8e0a9494cc95b750ec6c81464eb06725
+        \
+
+        -H ''Authorization: <valid JWT>'' \
+
+        ```
+
+        '
+      operationId: deleteTrustAnchor
+      parameters:
+      - description: The id of the trust anchor to be deleted
+        in: path
+        name: trust_anchor_id
+        pattern: '[A-Fa-f0-9]{32}'
+        required: true
+        type: string
+      responses:
+        '204':
+          description: Trust anchor deleted.
+        '400':
+          description: 'Bad request. Returns the standard error object detailing the
+            error message and, optionally, the invalid fields.
+
+            '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: 'Authentication failure. The provided header is invalid or
+            missing.
+
+            Returns the standard error object detailing the error message and, optionally,
+            the invalid fields.
+
+            '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: The trust anchor to be deleted was not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      tags:
+      - Security and identity - secure device access
+      x-origin: /home/circleci/project/sda-service/public/sda.yaml
+    put:
+      description: "Updates a trust anchor description attribute.\n<br>\nAuthorized\
+        \ for roles: Service, ServiceAdministrator\n<br>\n**Usage example:**\n```\n\
+        curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trust-anchors/8e0a9494cc95b750ec6c81464eb06725\
+        \ \\\n-H 'Authorization: <valid JWT>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-d '{\n  \"description\": \"Trust anchor for ambient light module\"\n\
+        }'\n```\n"
+      operationId: updateTrustAnchor
+      parameters:
+      - description: The id of the trust anchor to be updated
+        in: path
+        name: trust_anchor_id
+        pattern: '[A-Fa-f0-9]{32}'
+        required: true
+        type: string
+      - description: Update trust anchor request.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/UpdateTrustAnchorRequest'
+      responses:
+        '200':
+          description: Trust anchor updated.
+          schema:
+            $ref: '#/definitions/UpdateTrustAnchorResponse'
+        '400':
+          description: 'Bad request. Returns the standard error object detailing the
+            error message and, optionally, the invalid fields.
+
+            '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: 'Authentication failure. The provided header is invalid or
+            missing.
+
+            Returns the standard error object detailing the error message and, optionally,
+            the invalid fields.
+
+            '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: The trust anchor to be updated was not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      tags:
+      - Security and identity - secure device access
+      x-origin: /home/circleci/project/sda-service/public/sda.yaml
   /v2/device-requests/{device-id}:
     post:
       consumes:
@@ -8413,11 +8917,11 @@ paths:
         ```'
       operationId: deregisterWebhook
       responses:
-        204: &id019
+        204: &id023
           description: Successfully deleted.
-        401: &id017
+        401: &id021
           description: Unauthorized.
-        403: &id018
+        403: &id022
           description: Forbidden. The authorization token used is not an API key.
         404:
           description: Callback URL does not exist.
@@ -8446,8 +8950,8 @@ paths:
           description: URL found.
           schema:
             $ref: '#/definitions/Webhook'
-        401: *id017
-        403: *id018
+        401: *id021
+        403: *id022
         404:
           description: The callback URL does not exist.
       summary: Check callback URL.
@@ -8517,8 +9021,8 @@ paths:
         400:
           description: Given URL is not accessible, or other type of channel already
             exists.
-        401: *id017
-        403: *id018
+        401: *id021
+        403: *id022
         415:
           description: Unsupported Media Type.
       summary: Register a callback URL.
@@ -8568,7 +9072,7 @@ paths:
           description: Success. The body can contain "REMOVED" if it was deleted with
             this call or "ALREADY_DELETED" if it was deleted before and not purged
             yet.
-        401: *id017
+        401: *id021
       summary: Delete notification Long Poll channel.
       tags:
       - Notifications
@@ -8631,7 +9135,7 @@ paths:
           description: No new notifications.
         400:
           description: Other type of channel already exists.
-        401: *id017
+        401: *id021
         409:
           description: Conflict. Long poll request exists already.
         410:
@@ -8674,9 +9178,9 @@ paths:
         ```'
       operationId: deleteWebsocket
       responses:
-        204: *id019
-        401: *id017
-        403: *id018
+        204: *id023
+        401: *id021
+        403: *id022
         404:
           description: Websocket channel doesn't exist.
       summary: (PREVIEW) Delete websocket channel.
@@ -8707,8 +9211,8 @@ paths:
           description: Websocket found.
           schema:
             $ref: '#/definitions/WebsocketChannel'
-        401: *id017
-        403: *id018
+        401: *id021
+        403: *id022
         404:
           description: No channel has been registered.
       summary: (PREVIEW) Get websocket channel information.
@@ -8760,8 +9264,8 @@ paths:
             $ref: '#/definitions/WebsocketChannel'
         400:
           description: Other type of channel already exists.
-        401: *id017
-        403: *id018
+        401: *id021
+        403: *id022
       summary: (PREVIEW) Register a websocket channel.
       tags:
       - Notifications
@@ -8831,7 +9335,7 @@ paths:
           description: Switching protocols.
         400:
           description: Required header(s) missing.
-        401: *id017
+        401: *id021
         426:
           description: Upgrade required. Connect and/or Upgrade headers missing.
       summary: (PREVIEW) Open the websocket.
@@ -10550,7 +11054,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -10598,7 +11102,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -10654,7 +11158,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -10844,7 +11348,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -10891,7 +11395,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -10947,7 +11451,7 @@ paths:
         required: true
         type: string
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -11126,7 +11630,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -11177,7 +11681,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -11232,7 +11736,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -11291,7 +11795,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -11439,7 +11943,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -11488,7 +11992,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -11543,7 +12047,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -11602,7 +12106,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -16236,7 +16740,7 @@ paths:
       operationId: resetDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -16279,7 +16783,7 @@ paths:
       operationId: getDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -16330,7 +16834,7 @@ paths:
       operationId: setDarkColor
       parameters:
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -16490,7 +16994,7 @@ paths:
       operationId: resetLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -16533,7 +17037,7 @@ paths:
       operationId: getLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -16584,7 +17088,7 @@ paths:
       operationId: setLightColor
       parameters:
       - description: The name of the branding color.
-        enum: *id020
+        enum: *id024
         in: path
         name: reference
         required: true
@@ -16736,7 +17240,7 @@ paths:
       operationId: getDarkImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -16782,7 +17286,7 @@ paths:
       operationId: clearDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -16832,7 +17336,7 @@ paths:
       operationId: uploadDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -16886,7 +17390,7 @@ paths:
       operationId: uploadDarkImageMultipart
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -17014,7 +17518,7 @@ paths:
       operationId: getLightImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -17060,7 +17564,7 @@ paths:
       operationId: clearLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -17110,7 +17614,7 @@ paths:
       operationId: uploadLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -17164,7 +17668,7 @@ paths:
       operationId: uploadLightImageMultipart
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id021
+        enum: *id025
         in: path
         name: reference
         required: true
@@ -17639,7 +18143,7 @@ paths:
         '
       operationId: deleteCertificateIssuerConfigByID
       parameters:
-      - &id022
+      - &id026
         description: 'The ID of the certificate issuer configuration.
 
           '
@@ -17676,7 +18180,7 @@ paths:
         '
       operationId: getCertificateIssuerConfigByID
       parameters:
-      - *id022
+      - *id026
       responses:
         '200':
           description: OK.
@@ -17714,7 +18218,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/CertificateIssuerConfigRequest'
-      - *id022
+      - *id026
       responses:
         '200':
           description: OK.
@@ -19892,9 +20396,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id023
-            description: *id024
-            name: *id025
+            custom_attributes: *id027
+            description: *id028
+            name: *id029
           type: object
       responses:
         '201':
@@ -19986,9 +20490,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id023
-            description: *id024
-            name: *id025
+            custom_attributes: *id027
+            description: *id028
+            name: *id029
           type: object
       responses:
         '200':
@@ -20614,7 +21118,7 @@ paths:
       summary: Get a page of devices.
       tags:
       - Device directory - groups
-      x-filter: &id026
+      x-filter: &id030
         account_id:
         - eq
         - neq
@@ -21986,7 +22490,7 @@ paths:
       summary: List all devices.
       tags:
       - Device directory - devices
-      x-filter: *id026
+      x-filter: *id030
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     post:
       description: Create a new device.
@@ -22231,7 +22735,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: &id027
+        schema: &id031
           properties:
             category:
               description: The reference of the block category.
@@ -22295,7 +22799,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: *id027
+        schema: *id031
       responses:
         '204':
           description: Ok - Device suspended.
@@ -22900,8 +23404,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id028
-            name: *id029
+            description: *id032
+            name: *id033
           type: object
       responses:
         201:
@@ -23038,8 +23542,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id028
-            name: *id029
+            description: *id032
+            name: *id033
           type: object
       responses:
         200:
