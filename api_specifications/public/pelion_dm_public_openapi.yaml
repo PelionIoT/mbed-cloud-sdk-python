@@ -7796,6 +7796,7 @@ paths:
             '
           schema:
             $ref: '#/definitions/ErrorResponse'
+      summary: Get an access token to use with a device.
       tags:
       - Security and identity - secure device access
       x-origin: /home/circleci/project/sda-service/public/sda.yaml
@@ -7874,6 +7875,7 @@ paths:
             '
           schema:
             $ref: '#/definitions/ErrorResponse'
+      summary: Get the account's trust anchor used to sign the access token.
       tags:
       - Security and identity - secure device access
       x-origin: /home/circleci/project/sda-service/public/sda.yaml
@@ -7925,6 +7927,7 @@ paths:
             '
           schema:
             $ref: '#/definitions/ErrorResponse'
+      summary: Create a new trust anchor for the account.
       tags:
       - Security and identity - secure device access
       x-origin: /home/circleci/project/sda-service/public/sda.yaml
@@ -7982,6 +7985,7 @@ paths:
           description: The trust anchor to be deleted was not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
+      summary: Delete a trust anchor.
       tags:
       - Security and identity - secure device access
       x-origin: /home/circleci/project/sda-service/public/sda.yaml
@@ -8032,6 +8036,7 @@ paths:
           description: The trust anchor to be updated was not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
+      summary: Update trust anchor attributes (description).
       tags:
       - Security and identity - secure device access
       x-origin: /home/circleci/project/sda-service/public/sda.yaml
