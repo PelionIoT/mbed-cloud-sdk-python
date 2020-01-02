@@ -2504,7 +2504,8 @@ class EntityFactory:
         :type created_at: datetime
         :param description: An optional description of the campaign.
         :type description: str
-        :param device_filter: The filter for the devices the campaign is targeting at.
+        :param device_filter: The filter for the devices the campaign targets. Refer to this
+            using the filter ID.
         :type device_filter: str
         :param device_filter_helper: Helper for creating the device filter string.
         :type device_filter_helper: mbed_cloud.client.api_filter.ApiFilter
