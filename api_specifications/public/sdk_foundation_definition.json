@@ -86962,7 +86962,7 @@
           "_key": "archive"
         },
         {
-          "description": "Create an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\\n-H 'Authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"campaign_strategy\": \"one-shot\",\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"id__eq=123400000000000000000000000ae45\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\",\n}'\n```\n",
+          "description": "Create an update campaign.\n\nTo include a filter for targeted devices, refer to the filter using `<filter_id>` in the message body.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\\n-H 'Authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"campaign_strategy\": \"one-shot\",\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"<filter_id>\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\",\n}'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -87028,7 +87028,7 @@
               "_key": "description"
             },
             {
-              "description": "The filter for the devices the campaign is targeting at.",
+              "description": "The filter for the devices the campaign targets. Refer to this using the filter ID.",
               "type": "string",
               "example": "state__eq=registered",
               "api_fieldname": "device_filter",
@@ -87180,7 +87180,7 @@
                     "entity_fieldname": "description"
                   },
                   "device_filter": {
-                    "description": "The filter for the devices the campaign is targeting at.",
+                    "description": "The filter for the devices the campaign targets. Refer to this using the filter ID.",
                     "type": "string",
                     "example": "state__eq=registered",
                     "api_fieldname": "device_filter",
@@ -88018,7 +88018,7 @@
                           "example": "This campaign updates Class XX devices to version 1.34"
                         },
                         "device_filter": {
-                          "description": "The filter for the devices the campaign is targeting at.",
+                          "description": "The filter for the devices the campaign targets. Refer to this using the filter ID.",
                           "type": "string",
                           "example": "state__eq=registered"
                         },
@@ -88472,7 +88472,7 @@
                     "entity_fieldname": "description"
                   },
                   "device_filter": {
-                    "description": "The filter for the devices the campaign is targeting at.",
+                    "description": "The filter for the devices the campaign targets. Refer to this using the filter ID.",
                     "type": "string",
                     "example": "state__eq=registered",
                     "api_fieldname": "device_filter",
@@ -88837,7 +88837,7 @@
           "_key": "stop"
         },
         {
-          "description": "Modify an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>' \\\nd '{\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"id__eq=123400000000000000000000000ae45\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\",\n}'\n```\n",
+          "description": "Modify an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>' \\\nd '{\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"123400000000000000000000000ae45\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\",\n}'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -88887,7 +88887,7 @@
               "_key": "description"
             },
             {
-              "description": "The filter for the devices the campaign is targeting at.",
+              "description": "The filter for the devices the campaign targets. Refer to this using the filter ID.",
               "type": "string",
               "example": "state__eq=registered",
               "api_fieldname": "device_filter",
@@ -89050,7 +89050,7 @@
                     "entity_fieldname": "description"
                   },
                   "device_filter": {
-                    "description": "The filter for the devices the campaign is targeting at.",
+                    "description": "The filter for the devices the campaign targets. Refer to this using the filter ID.",
                     "type": "string",
                     "example": "state__eq=registered",
                     "api_fieldname": "device_filter",
@@ -89341,7 +89341,7 @@
           "_key": "description"
         },
         {
-          "description": "The filter for the devices the campaign is targeting at.",
+          "description": "The filter for the devices the campaign targets. Refer to this using the filter ID.",
           "type": "string",
           "example": "state__eq=registered",
           "api_fieldname": "device_filter",

@@ -66100,7 +66100,8 @@ entities:
     type: string
   - _key: device_filter
     api_fieldname: device_filter
-    description: The filter for the devices the campaign is targeting at.
+    description: The filter for the devices the campaign targets. Refer to this using
+      the filter ID.
     example: state__eq=registered
     readOnly: false
     required: true
@@ -66305,13 +66306,13 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: create
-    description: "Create an update campaign.\n<br>\n**Usage example:**\n```\ncurl\
-      \ -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\\n-H 'Authorization:\
-      \ <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+    description: "Create an update campaign.\n\nTo include a filter for targeted devices,\
+      \ refer to the filter using `<filter_id>` in the message body.\n<br>\n**Usage\
+      \ example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns\
+      \ \\\n-H 'Authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8'\
       \ \\\n-d '{\n  \"campaign_strategy\": \"one-shot\",\n  \"description\": \"Campaign\
-      \ is for ...\",\n  \"device_filter\": \"id__eq=123400000000000000000000000ae45\"\
-      ,\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\"\
-      ,\n}'\n```\n"
+      \ is for ...\",\n  \"device_filter\": \"<filter_id>\",\n  \"name\": \"campaign\"\
+      ,\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\",\n}'\n```\n"
     drop_fields:
     - object
     - etag
@@ -66390,7 +66391,8 @@ entities:
       type: string
     - _key: device_filter
       api_fieldname: device_filter
-      description: The filter for the devices the campaign is targeting at.
+      description: The filter for the devices the campaign targets. Refer to this
+        using the filter ID.
       entity_fieldname: device_filter
       example: state__eq=registered
       in: body
@@ -66516,7 +66518,8 @@ entities:
           type: string
         device_filter:
           api_fieldname: device_filter
-          description: The filter for the devices the campaign is targeting at.
+          description: The filter for the devices the campaign targets. Refer to this
+            using the filter ID.
           entity_fieldname: device_filter
           example: state__eq=registered
           type: string
@@ -67298,7 +67301,8 @@ entities:
               maxLength: 2000
               type: string
             device_filter:
-              description: The filter for the devices the campaign is targeting at.
+              description: The filter for the devices the campaign targets. Refer
+                to this using the filter ID.
               example: state__eq=registered
               type: string
             etag:
@@ -67663,7 +67667,8 @@ entities:
           type: string
         device_filter:
           api_fieldname: device_filter
-          description: The filter for the devices the campaign is targeting at.
+          description: The filter for the devices the campaign targets. Refer to this
+            using the filter ID.
           entity_fieldname: device_filter
           example: state__eq=registered
           type: string
@@ -67979,7 +67984,7 @@ entities:
     description: "Modify an update campaign.\n<br>\n**Usage example:**\n```\ncurl\
       \ -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012\
       \ \\\n-H 'Authorization: <valid access token>' \\\nd '{\n  \"description\":\
-      \ \"Campaign is for ...\",\n  \"device_filter\": \"id__eq=123400000000000000000000000ae45\"\
+      \ \"Campaign is for ...\",\n  \"device_filter\": \"123400000000000000000000000ae45\"\
       ,\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\"\
       ,\n}'\n```\n"
     drop_fields:
@@ -68045,7 +68050,8 @@ entities:
       type: string
     - _key: device_filter
       api_fieldname: device_filter
-      description: The filter for the devices the campaign is targeting at.
+      description: The filter for the devices the campaign targets. Refer to this
+        using the filter ID.
       entity_fieldname: device_filter
       example: state__eq=registered
       in: body
@@ -68180,7 +68186,8 @@ entities:
           type: string
         device_filter:
           api_fieldname: device_filter
-          description: The filter for the devices the campaign is targeting at.
+          description: The filter for the devices the campaign targets. Refer to this
+            using the filter ID.
           entity_fieldname: device_filter
           example: state__eq=registered
           type: string
