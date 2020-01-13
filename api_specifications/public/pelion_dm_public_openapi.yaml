@@ -8998,11 +8998,11 @@ paths:
         \ 24 hours. More about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
         \n**Supported callback URL protocols:**\n\nCurrently, only HTTP and HTTPS\
         \ protocols are supported.\n\n**HTTPS callback URLs:**\n\nWhen delivering\
-        \ a notification to an HTTPS based callback URL, Device Management Connect\
-        \ presents a valid client certificate to identify itself. The certificate\
-        \ is signed by a trusted certificate authorithy (GlobalSign) with a Common\
-        \ Name (CN) set to notifications.mbedcloud.com.\n\n**Configuration options:**\n\
-        \nThe event notification channel provides configurations options defined in\
+        \ a notification to an HTTPS-based callback URL, Device Management Connect\
+        \ identifies itself with a valid client certificate. The certificate is signed\
+        \ by a trusted certificate authority (GlobalSign), with a Common Name (CN)\
+        \ set to `notifications.mbedcloud.com`.\n\n**Configuration options:**\n\n\
+        The event notification channel provides configurations options defined in\
         \ [Serialization config](#SerializationConfigObjectV2).\n\n**Example:**\n\n\
         This example command shows how to set your callback URL and API key. It also\
         \ sets an optional header authorization. When Device Management Connect calls\
@@ -9238,19 +9238,19 @@ paths:
         \ channel can have only one active websocket connection at a time. If a websocket\
         \ connection for a channel exists and a new connection to the same channel\
         \ is made, the connection is accepted and the older connection is closed.\n\
-        \n**Note**: Only one websocket channel for each API key can be active. If\
-        \ you register a new websocket channel while another one is active, it replaces\
-        \ the active one. There can be only one notification channel at a time for\
-        \ each API key. If another type of channel is already present, you need to\
-        \ delete it before registering a websocket channel.\n\n**Expiration of a websocket:**\n\
-        \nA websocket channel is expired if the channel does not have an opened websocket\
-        \ connection for a 24-hour period. Channel expiration means the channel is\
-        \ deleted and any undelivered notifications stored in its internal queue is\
-        \ removed. As long as the channel has an opened websocket connection or time\
-        \ between successive websocket connections is less than 24 hours,\nthe channel\
-        \ is considered active, notifications are stored in its internal queue and\
-        \ delivered when a websocket connection is active. A channel can be also deleted\
-        \ explicitly with a DELETE call.\n\nMore about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
+        \n**Note**: Only one websocket channel for each API key can be active at a\
+        \ time. If you register a new websocket channel while another one is active,\
+        \ it replaces the previously active one. If another type of channel is already\
+        \ present, you need to delete it before registering a websocket channel. \
+        \  \n\n**Expiration of a websocket:**\n\nA websocket channel is expired if\
+        \ the channel does not have an opened websocket connection for a 24-hour period.\
+        \ Channel expiration means the channel is deleted and any undelivered notifications\
+        \ stored in its internal queue is removed. As long as the channel has an opened\
+        \ websocket connection or time between successive websocket connections is\
+        \ less than 24 hours,\nthe channel is considered active, notifications are\
+        \ stored in its internal queue and delivered when a websocket connection is\
+        \ active. A channel can be also deleted explicitly with a DELETE call.\n\n\
+        More about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
         \n**Configuration options:**\n\nThe event notification channel provides configurations\
         \ options defined in [Serialization config](#SerializationConfigObjectV2)\n\
         \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
@@ -9283,20 +9283,30 @@ paths:
       description: "\n(PREVIEW) A websocket channel can have only one active connection\
         \ at a time. If a websocket connection for a channel exists and a new connection\
         \ to the same channel is made, the connection is accepted and the older connection\
-        \ is closed.\n\nOnce the socket has been opened, it may be closed with one\
-        \ of the following status codes.\n\n<table>\n  <thead>\n    <tr>\n      <th>Code</th>\n\
-        \      <th>Description</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n\
-        \      <td><b>1000</b></td>\n      <td>Socket closed by the client.</td>\n\
+        \ is closed.\n\nOnce the socket has been opened, the server may close it with\
+        \ one of the following status codes.\n\n<table>\n  <thead>\n    <tr>\n   \
+        \   <th>Code</th>\n      <th>Description</th>\n    </tr>\n  </thead>\n  <tbody>\n\
+        \    <tr>\n      <td><b>1000</b></td>\n      <td>Socket closed by the client.</td>\n\
         \    </tr>\n    <tr>\n      <td><b>1001</b></td>\n      <td>Going away. Set\
-        \ when another socket opens on the used channel, the channel is deleted with\
-        \ a REST call, or the server is shutting down.</td>\n    </tr>\n    <tr>\n\
-        \      <td><b>1008</b></td>\n      <td>Policy violation. Set when the API\
-        \ key is missing or invalid.</td>\n    </tr>\n    <tr>\n      <td><b>1011</b></td>\n\
-        \      <td>Unexpected condition. Socket is closed with this status at an attempt\
-        \ to open a socket to a nonexistent channel (without a prior PUT request).\
-        \ This code is also used to indicate closing socket for any other unexpected\
-        \ condition in the server.</td>\n    </tr>\n  </tbody>\n</table>\n\n\n**Example:**\n\
-        ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\
+        \ when another socket opens on the used channel or the channel is deleted\
+        \ with a REST call.</td>\n    </tr>\n    <tr>\n      <td><b>1006</b></td>\n\
+        \      <td>Abnormal closure. The client should reconnect after receiving this\
+        \ status code. A short reconnect delay is recommended.</td>\n    </tr>\n \
+        \   <tr>\n      <td><b>1008</b></td>\n      <td>Policy violation. Set when\
+        \ the API key is missing or invalid.</td>\n    </tr>\n    <tr>\n      <td><b>1011</b></td>\n\
+        \      <td>Unexpected condition. The socket is closed with this status in\
+        \ an attempt to open a socket to a nonexistent channel (without a prior PUT\
+        \ request). This code is also used to indicate a closing socket for any other\
+        \ unexpected condition in the server.</td>\n    </tr>\n    <tr>\n      <td><b>1012</b></td>\n\
+        \      <td>Service restart. Set when the server restarts for update, maintenance,\
+        \ and so on. The client should reconnect after receiving this status code.\
+        \ A short reconnect delay is recommended.</td>\n    </tr>\n  </tbody>\n</table>\n\
+        \n**Expected client behaviour:**\n\nIf the connection is closed with code\
+        \ 1006 or 1012, the client should try to reconnect to maintain the notification\
+        \ flow. The client might disconnect several times in a relatively short period,\
+        \ for example, during service updates. This is normal. The desired client\
+        \ behavior is to reconnect after each disconnect.\n\n**Example:**\n```\ncurl\
+        \ -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\
         \ \\\n-H \"Authorization:Bearer {apikey}\" \\\n-H \"Connection:upgrade\" \\\
         \n-H \"Upgrade:websocket\" \\\n-H \"Sec-WebSocket-Version: 13\" \\\n-H \"\
         Sec-WebSocket-Key: {base64nonce}\" \\\n-N -I\n```"
