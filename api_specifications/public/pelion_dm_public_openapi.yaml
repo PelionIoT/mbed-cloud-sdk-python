@@ -9575,8 +9575,6 @@ paths:
       responses:
         204:
           description: Successfully removed subscription.
-        404:
-          description: Endpoint or resource not found.
       summary: Remove a subscription.
       tags:
       - Subscriptions
