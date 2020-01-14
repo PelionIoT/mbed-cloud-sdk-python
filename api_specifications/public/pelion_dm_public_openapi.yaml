@@ -8991,23 +8991,27 @@ paths:
         \ type of channel is already present, you need to delete it before setting\
         \ the callback URL.\n\n**Expiration of a callback URL:**\n\nA callback can\
         \ expire when Device Management cannot deliver a notification due to a connection\
-        \ timeout or an error response (4xx or 5xx). After each delivery failure,\
-        \ Device Management sets an exponential back off time and makes a retry attempt\
-        \ after that. The first retry delay is 1 second, then 2s, 4s, 8s, up to maximum\
-        \ delay of two minutes. The callback URL is removed if all retries fail within\
-        \ 24 hours. More about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
-        \n**Supported callback URL protocols:**\n\nCurrently, only HTTP and HTTPS\
-        \ protocols are supported.\n\n**HTTPS callback URLs:**\n\nWhen delivering\
-        \ a notification to an HTTPS-based callback URL, Device Management Connect\
-        \ identifies itself with a valid client certificate. The certificate is signed\
-        \ by a trusted certificate authority (GlobalSign), with a Common Name (CN)\
-        \ set to `notifications.mbedcloud.com`.\n\n**Configuration options:**\n\n\
-        The event notification channel provides configurations options defined in\
-        \ [Serialization config](#SerializationConfigObjectV2).\n\n**Example:**\n\n\
-        This example command shows how to set your callback URL and API key. It also\
-        \ sets an optional header authorization. When Device Management Connect calls\
-        \ your callback URL, the call contains the authorization header with the defined\
-        \ value.\n\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/callback\
+        \ timeout or error response (4xx or 5xx). After each delivery failure, Device\
+        \ Management sets an exponential back-off time and makes a retry attempt after\
+        \ that. The first retry delay is 1 second, then 2s, 4s, 8s, up to a maximum\
+        \ delay of two minutes. The retry delay is applied when the response is received,\
+        \ or in case of timeout, after the timeout expires. The request timeout is\
+        \ 20 seconds; in the case of timeout, the first retry happens 20 + 1 seconds\
+        \ after the first delivery attempt, then 20 + 2 seconds, and so on. The callback\
+        \ URL is removed if all retries fail within 24 hours. More about [notification\
+        \ sending logic](../integrate-web-app/event-notification.html#notification-sending-logic)\
+        \ in the Device Management documentation.\n\n**Supported callback URL protocols:**\n\
+        \nCurrently, only HTTP and HTTPS protocols are supported.\n\n**HTTPS callback\
+        \ URLs:**\n\nWhen delivering a notification to an HTTPS-based callback URL,\
+        \ Device Management Connect identifies itself with a valid client certificate.\
+        \ The certificate is signed by a trusted certificate authority (GlobalSign),\
+        \ with a Common Name (CN) set to `notifications.mbedcloud.com`.\n\n**Configuration\
+        \ options:**\n\nThe event notification channel provides configurations options\
+        \ defined in [Serialization config](#SerializationConfigObjectV2).\n\n**Example:**\n\
+        \nThis example command shows how to set your callback URL and API key. It\
+        \ also sets an optional header authorization. When Device Management Connect\
+        \ calls your callback URL, the call contains the authorization header with\
+        \ the defined value.\n\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/callback\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
         \ \\\n-d '{\n  \"url\": \"{callback-url}\",\n  \"headers\": {\"authorization\"\
         : \"f4b93d6e-4652-4874-82e4-41a3ced0cd56\"},\n  \"serialization\": {\"type\"\
