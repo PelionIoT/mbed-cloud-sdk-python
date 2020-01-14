@@ -5518,9 +5518,9 @@ definitions:
           accuracy and UTC time zone.
         format: date-time
         type: string
-      rest_api_requests_with_api_key_tokens:
+      rest_api_requests_with_api_key_token:
         $ref: '#/definitions/RestApiRequestsWithApiKeyTokenCounter'
-      rest_api_requests_with_user_tokens:
+      rest_api_requests_with_user_token:
         $ref: '#/definitions/RestApiRequestsWithUserTokenCounter'
       sda_tokens:
         $ref: '#/definitions/SdaTokensCounter'
