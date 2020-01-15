@@ -109,7 +109,7 @@ class DeviceEvents(Entity):
         :type device_id: str
         :param event_type: Event code
         :type event_type: str
-        :param event_type_category: Category code which groups the event type by a summary category.
+        :param event_type_category: Category code that groups the event type by a summary category.
         :type event_type_category: str
         :param event_type_description: Generic description of the event.
         :type event_type_description: str
@@ -213,7 +213,7 @@ class DeviceEvents(Entity):
 
     @property
     def event_type_category(self):
-        """Category code which groups the event type by a summary category.
+        """Category code that groups the event type by a summary category.
         
         api example: 'FAIL_MANIFEST_REJECTED'
         

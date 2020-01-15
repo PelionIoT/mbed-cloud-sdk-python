@@ -204,7 +204,8 @@ class Device(Entity):
         :type device_execution_mode: int
         :param device_key: The fingerprint of the device certificate.
         :type device_key: str
-        :param endpoint_name: The endpoint name given to the device.
+        :param endpoint_name: The endpoint name given to the device. The endpoint_name is from
+            the device certificate and is set by factory tool.
         :type endpoint_name: str
         :param endpoint_type: The endpoint type of the device. For example, the device is a
             gateway.
@@ -215,7 +216,8 @@ class Device(Entity):
         :type firmware_checksum: str
         :param groups: An array containing an ID of each group this device belongs to.
         :type groups: list
-        :param host_gateway: The ID of the host gateway, if appropriate.
+        :param host_gateway: The ID of the host gateway, if appropriate. A device behind Edge
+            has this host_gateway set.
         :type host_gateway: str
         :param id: (Required) The ID of the device. The device ID is used across all Device
             Management APIs.
@@ -238,26 +240,52 @@ class Device(Entity):
         :param last_system_suspended_updated_at: The timestamp of the most recent system block activity.
         :type last_system_suspended_updated_at: datetime
         :param lifecycle_status: The lifecycle status of the device.
+            * Enabled: The device is
+            allowed to connect to Pelion Device Management.
+            * Blocked: The
+            device is prevented from connecting to Pelion Device Management.
+            Device can be, for example, 'suspended'.
         :type lifecycle_status: str
         :param manifest: DEPRECATED: The URL for the current device manifest.
         :type manifest: str
         :param manifest_timestamp: The timestamp of the current manifest version.
         :type manifest_timestamp: datetime
-        :param mechanism: The ID of the channel used to communicate with the device.
+        :param mechanism: NOT USED: The ID of the channel used to communicate with the
+            device.
         :type mechanism: str
-        :param mechanism_url: The address of the connector to use.
+        :param mechanism_url: NOT USED: The address of the connector to use.
         :type mechanism_url: str
-        :param name: The name of the device.
+        :param name: The name given by the web application for the device. Device
+            itself provides only the endpoint_name.
         :type name: str
-        :param operator_suspended: Is the device suspended by the operator?
+        :param operator_suspended: Device has been suspended by operator.
         :type operator_suspended: bool
-        :param serial_number: The serial number of the device.
+        :param serial_number: The [serial number](../provisioning-process/provisioning-
+            information.html#serial-number) of the device. The serial number
+            is injected by the factory tool during manufacturing.
         :type serial_number: str
         :param state: The current state of the device.
+            * Unenrolled: The device has been
+            created, but has not yet bootstrapped or connected to Device
+            Management.
+            * Cloud_enrolling: The device is bootstrapping for the
+            first time. This state is set only while bootstrapping is in
+            progress. For example, an external CA gives an error, and the
+            device tries to bootstrap again after few seconds.
+            * Bootstrapped:
+            The device has bootstrapped, and has credentials to connect to
+            Device Management.
+            * Registered: The device has registered with
+            Pelion Device Management. [Device commands](../service-api-
+            references/device-management-connect.html#createAsyncRequest) can
+            be queued. The device sends events for
+            [subscribed](../connecting/resource-change-webapp.html) resources.
+            * Deregistered: The device has requested deregistration, or its
+            registration has expired.
         :type state: str
         :param system_suspended: Is the device suspended by the system?
         :type system_suspended: bool
-        :param updated_at: The time the object was updated.
+        :param updated_at: The time this data object was updated.
         :type updated_at: datetime
         :param vendor_id: The device vendor ID.
         :type vendor_id: str
@@ -475,7 +503,7 @@ class Device(Entity):
     def description(self):
         """The description of the device.
         
-        api example: 'description'
+        api example: 'Temperature measuring device'
         
         :rtype: str
         """
@@ -564,7 +592,8 @@ class Device(Entity):
 
     @property
     def endpoint_name(self):
-        """The endpoint name given to the device.
+        """The endpoint name given to the device. The endpoint_name is from the device
+        certificate and is set by factory tool.
         
         api example: '00000000-0000-0000-0000-000000000000'
         
@@ -625,7 +654,8 @@ class Device(Entity):
 
     @property
     def host_gateway(self):
-        """The ID of the host gateway, if appropriate.
+        """The ID of the host gateway, if appropriate. A device behind Edge has this
+        host_gateway set.
         
         :rtype: str
         """
@@ -759,6 +789,11 @@ class Device(Entity):
     @property
     def lifecycle_status(self):
         """The lifecycle status of the device.
+        * Enabled: The device is allowed to
+        connect to Pelion Device Management.
+        * Blocked: The device is prevented from
+        connecting to Pelion Device Management. Device can be, for example,
+        'suspended'.
         
         api example: 'enabled'
         
@@ -799,7 +834,7 @@ class Device(Entity):
 
     @property
     def mechanism(self):
-        """The ID of the channel used to communicate with the device.
+        """NOT USED: The ID of the channel used to communicate with the device.
         
         :rtype: str
         """
@@ -818,7 +853,7 @@ class Device(Entity):
 
     @property
     def mechanism_url(self):
-        """The address of the connector to use.
+        """NOT USED: The address of the connector to use.
         
         :rtype: str
         """
@@ -837,7 +872,8 @@ class Device(Entity):
 
     @property
     def name(self):
-        """The name of the device.
+        """The name given by the web application for the device. Device itself provides
+        only the endpoint_name.
         
         api example: '00000000-0000-0000-0000-000000000000'
         
@@ -858,7 +894,7 @@ class Device(Entity):
 
     @property
     def operator_suspended(self):
-        """Is the device suspended by the operator?
+        """Device has been suspended by operator.
         
         :rtype: bool
         """
@@ -867,7 +903,9 @@ class Device(Entity):
 
     @property
     def serial_number(self):
-        """The serial number of the device.
+        """The [serial number](../provisioning-process/provisioning-
+        information.html#serial-number) of the device. The serial number is injected
+        by the factory tool during manufacturing.
         
         api example: '00000000-0000-0000-0000-000000000000'
         
@@ -889,6 +927,22 @@ class Device(Entity):
     @property
     def state(self):
         """The current state of the device.
+        * Unenrolled: The device has been created,
+        but has not yet bootstrapped or connected to Device Management.
+        *
+        Cloud_enrolling: The device is bootstrapping for the first time. This state is
+        set only while bootstrapping is in progress. For example, an external CA gives
+        an error, and the device tries to bootstrap again after few seconds.
+        *
+        Bootstrapped: The device has bootstrapped, and has credentials to connect to
+        Device Management.
+        * Registered: The device has registered with Pelion Device
+        Management. [Device commands](../service-api-references/device-management-
+        connect.html#createAsyncRequest) can be queued. The device sends events for
+        [subscribed](../connecting/resource-change-webapp.html) resources.
+        *
+        Deregistered: The device has requested deregistration, or its registration has
+        expired.
         
         :rtype: str
         """
@@ -916,7 +970,7 @@ class Device(Entity):
 
     @property
     def updated_at(self):
-        """The time the object was updated.
+        """The time this data object was updated.
         
         api example: '2017-05-22T12:37:55.576563Z'
         

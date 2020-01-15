@@ -85,7 +85,7 @@ class DeviceGroup(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param created_at: The time the campaign was created.
+        :param created_at: The time the group was created.
         :type created_at: datetime
         :param custom_attributes: Up to ten custom key-value attributes. Keys cannot begin with a
             number. Both key and value are limited to 128 characters. Updating
@@ -99,7 +99,7 @@ class DeviceGroup(Entity):
         :type id: str
         :param name: Name of the group.
         :type name: str
-        :param updated_at: The time the object was updated.
+        :param updated_at: The time this object was updated.
         :type updated_at: datetime
         """
 
@@ -118,7 +118,7 @@ class DeviceGroup(Entity):
 
     @property
     def created_at(self):
-        """The time the campaign was created.
+        """The time the group was created.
         
         api example: '2017-05-22T12:37:55.576563Z'
         
@@ -228,7 +228,7 @@ class DeviceGroup(Entity):
 
     @property
     def updated_at(self):
-        """The time the object was updated.
+        """The time this object was updated.
         
         api example: '2017-05-22T12:37:55.576563Z'
         
