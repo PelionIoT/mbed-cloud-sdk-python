@@ -2537,7 +2537,7 @@ definitions:
         type: string
       description:
         description: The description of the device.
-        example: description
+        example: Temperature measuring device
         maxLength: 2000
         type: string
       device_class:
@@ -2567,7 +2567,8 @@ definitions:
         maxLength: 512
         type: string
       endpoint_name:
-        description: The endpoint name given to the device.
+        description: The endpoint name given to the device. The endpoint_name is from
+          the device certificate and is set by factory tool.
         example: 00000000-0000-0000-0000-000000000000
         readOnly: true
         type: string
@@ -2598,7 +2599,8 @@ definitions:
           type: string
         type: array
       host_gateway:
-        description: The ID of the host gateway, if appropriate.
+        description: The ID of the host gateway, if appropriate. A device behind Edge
+          has this host_gateway set.
         example: ''
         type: string
       id:
@@ -2647,7 +2649,12 @@ definitions:
         format: date-time
         type: string
       lifecycle_status:
-        description: The lifecycle status of the device.
+        description: 'The lifecycle status of the device.
+
+          * Enabled: The device is allowed to connect to Pelion Device Management.
+
+          * Blocked: The device is prevented from connecting to Pelion Device Management.
+          Device can be, for example, ''suspended''.'
         enum:
         - enabled
         - blocked
@@ -2663,17 +2670,19 @@ definitions:
         format: date-time
         type: string
       mechanism:
-        description: The ID of the channel used to communicate with the device.
+        description: 'NOT USED: The ID of the channel used to communicate with the
+          device.'
         enum:
         - connector
         - direct
         type: string
       mechanism_url:
-        description: The address of the connector to use.
+        description: 'NOT USED: The address of the connector to use.'
         example: ''
         type: string
       name:
-        description: The name of the device.
+        description: The name given by the web application for the device. Device
+          itself provides only the endpoint_name.
         example: 00000000-0000-0000-0000-000000000000
         maxLength: 128
         type: string
@@ -2682,14 +2691,34 @@ definitions:
         example: device
         type: string
       operator_suspended:
-        description: Is the device suspended by the operator?
+        description: Device has been suspended by operator.
         type: boolean
       serial_number:
-        description: The serial number of the device.
+        description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+          of the device. The serial number is injected by the factory tool during
+          manufacturing.
         example: 00000000-0000-0000-0000-000000000000
         type: string
       state:
-        description: The current state of the device.
+        description: 'The current state of the device.
+
+          * Unenrolled: The device has been created, but has not yet bootstrapped
+          or connected to Device Management.
+
+          * Cloud_enrolling: The device is bootstrapping for the first time. This
+          state is set only while bootstrapping is in progress. For example, an external
+          CA gives an error, and the device tries to bootstrap again after few seconds.
+
+          * Bootstrapped: The device has bootstrapped, and has credentials to connect
+          to Device Management.
+
+          * Registered: The device has registered with Pelion Device Management. [Device
+          commands](../service-api-references/device-management-connect.html#createAsyncRequest)
+          can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+          resources.
+
+          * Deregistered: The device has requested deregistration, or its registration
+          has expired.'
         enum:
         - unenrolled
         - cloud_enrolling
@@ -2701,7 +2730,7 @@ definitions:
         description: Is the device suspended by the system?
         type: boolean
       updated_at:
-        description: The time the object was updated.
+        description: The time this data object was updated.
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
@@ -2995,7 +3024,7 @@ definitions:
         maxLength: 100
         type: string
       event_type_category:
-        description: Category code which groups the event type by a summary category.
+        description: Category code that groups the event type by a summary category.
         example: FAIL_MANIFEST_REJECTED
         type: string
       event_type_description:
@@ -3080,7 +3109,7 @@ definitions:
   DeviceGroup:
     properties:
       created_at:
-        description: The time the campaign was created.
+        description: The time the group was created.
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
@@ -3123,7 +3152,7 @@ definitions:
         example: device-group
         type: string
       updated_at:
-        description: The time the object was updated.
+        description: The time this object was updated.
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
@@ -3324,7 +3353,7 @@ definitions:
   DeviceQuery:
     properties:
       created_at:
-        description: The timestamp of when the device was created in Device Directory.
+        description: The timestamp of when the query was created.
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
@@ -19211,7 +19240,7 @@ paths:
 
         **Example:**
 
-        Get all defined categories of why device is blocked from the device management
+        Get all defined device suspension categories:
 
         ```
 
@@ -19224,7 +19253,7 @@ paths:
       operationId: Block_Categories_list
       parameters:
       - description: This endpoint doesn't support paging. Parameter is accepted for
-          API compatibility. Value is ignored
+          API compatibility. Value is ignored.
         in: query
         maximum: 1000
         minimum: 2
@@ -19235,7 +19264,7 @@ paths:
         name: order
         type: string
       - description: This endpoint doesn't support paging. Parameter is accepted for
-          API compatibility. Value is ignored
+          API compatibility. Value is ignored.
         in: query
         name: after
         type: string
@@ -19944,31 +19973,15 @@ paths:
       x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-events/:
     get:
-      description: 'List all device events for an account.
-
-
-        **Example:**
-
-        Following example gets device-events limiting returned results to max 5 events
-
-        ```
-
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \
-
-        -H ''Authorization: Bearer <API key>''
-
-        ```
-
-        or to get events for certain device filter based on device_id:
-
-        ```
-
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=<device_id>
-        \
-
-        -H ''Authorization: Bearer <API key>''
-
-        ```'
+      description: "List all or a filtered list of device events for the account.\
+        \ Device events are events significant to operation or lifetime, such as creation,\
+        \ firmware update, and suspension.\n\nTo see statistics for device connectivity\
+        \ and usage, use the [Statistics API](../service-api-references/connect-statistics.html).\n\
+        \n **Example:**\n Following example gets device-events limiting returned results\
+        \ to max 5 events\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5\
+        \ \\\n -H 'Authorization: Bearer <API key>'\n ```\n or to get events for certain\
+        \ device filter based on device_id:\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=<device_id>\
+        \ \\\n -H 'Authorization: Bearer <API key>'\n ```"
       operationId: Device_Event_list
       parameters:
       - description: How many objects to retrieve in the page (2-1000). Limit values
@@ -19994,7 +20007,7 @@ paths:
       - description: "URL-encoded query string parameter to filter returned data.\n\
           \n##### Filtering\n\n`?filter={URL encoded query string}`\n\nThe query string\
           \ is made up of key/value pairs separated by ampersands. So for a query\
-          \ of\n`key1=value1&key2=value2&key3=value3`, this would be encoded as `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`.\n\
+          \ of\n`key1=value1&key2=value2&key3=value3`, this is encoded as `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`.\n\
           \n###### Filterable fields:\n\nThe below table lists all filterable fields:\n\
           \n<table>\n  <thead>\n    <tr>\n      <th>Field</th>\n      <th>= / __eq\
           \ / __neq</th>\n      <th>__in /  __nin</th>\n      <th>__lte / __gte</th>\n\
@@ -20166,12 +20179,13 @@ paths:
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-events/{device_event_id}/:
     get:
-      description: 'Retrieve a specific device event.
+      description: '"Retrieve a specific device event. See ''/v3/device-events/''
+        for information on device events, and how to get the device_event_id."
 
 
         **Example:**
 
-        To fetch a specific event you can use the ''id'' field form the ''/v3/device-events''.
+        To fetch a specific event you can use the ''id'' field from ''/v3/device-events''.
         Form of ''016c03d40a4e000000000001001003b4''
 
         ```
@@ -20443,7 +20457,8 @@ paths:
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/{device-group-id}/:
     delete:
-      description: Delete a group.
+      description: Delete a group. This deletes the group, but not the devices in
+        the group.
       operationId: Group_delete
       parameters:
       - description: The ID of the group.
@@ -20467,7 +20482,9 @@ paths:
       - Device directory - groups
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     get:
-      description: Get a group.
+      description: Returns [DeviceGroup](../service-api-references/device-directory.html#DeviceGroup)
+        info what contains info of the group, for example, name and updated date.
+        To list the devices in the group, use '/v3/device-groups/{device-group-id}/devices/'.
       operationId: Group_retrieve
       parameters:
       - description: The group ID
@@ -20497,7 +20514,7 @@ paths:
       - Device directory - groups
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     put:
-      description: Modify the attributes of a group.
+      description: Modify the attributes of a group, such as the description.
       operationId: Group_update
       parameters:
       - in: path
@@ -20537,7 +20554,7 @@ paths:
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/{device-group-id}/devices/:
     get:
-      description: Get a page of devices.
+      description: Get a page of devices in a specified group.
       operationId: Group_members_retrieve
       parameters:
       - in: path
@@ -21311,7 +21328,7 @@ paths:
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-groups/{device-group-id}/devices/add/:
     post:
-      description: Add one device to a group.
+      description: Add one device to a group. A device can be in multiple groups.
       operationId: Group_members_add
       parameters:
       - description: The ID of the group.
@@ -21408,32 +21425,33 @@ paths:
           \n##### Filtering\n\n`?filter={URL encoded query string}`\n\nThe query string\
           \ is made up of key/value pairs separated by ampersands. So for a query\
           \ of\n`key1=value1&key2=value2&key3=value3`, this would be encoded as: `?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3`.\n\
-          \nThe below table lists all filterable fields:\n\n<table>\n  <thead>\n \
-          \   <tr>\n      <th>Field</th>\n      <th>= / __eq / __neq</th>\n      <th>__in\
-          \ /  __nin</th>\n      <th>__lte / __gte</th>\n    <tr>\n  <thead>\n  <tbody>\n\
-          \    <tr>\n      <td>created_at</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>etag</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>id</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>name</td>\n\
+          \n###### Filterable fields\n\nThe below table lists all filterable fields:\n\
+          \n<table>\n  <thead>\n    <tr>\n      <th>Field</th>\n      <th>= / __eq\
+          \ / __neq</th>\n      <th>__in /  __nin</th>\n      <th>__lte / __gte</th>\n\
+          \    <tr>\n  <thead>\n  <tbody>\n    <tr>\n      <td>created_at</td>\n \
+          \     <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n  \
+          \  </tr>\n    <tr>\n      <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>id</td>\n \
+          \     <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n  \
+          \  </tr>\n    <tr>\n      <td>name</td>\n      <td>\u2713</td>\n      <td>\u2713\
+          </td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>query</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n \
-          \   </tr>\n    <tr>\n      <td>query</td>\n      <td>\u2713</td>\n     \
-          \ <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>updated_at</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe examples below show the queries\
-          \ in *unencoded* form.\n\n###### By device query properties (all properties\
-          \ are filterable):\n\nFor example:\n`description={value}`\n\n###### On date-time\
-          \ fields:\n\nDate-time fields should be specified in UTC RFC3339 format\
-          \ `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted\nvariations:\n\n\
-          * UTC RFC3339 with milliseconds, for example, 2016-11-30T16:25:12.1234Z.\n\
-          * UTC RFC3339 without milliseconds, for example, 2016-11-30T16:25:12Z.\n\
-          * UTC RFC3339 shortened - without milliseconds and punctuation, for example,\
-          \ 20161130T162512Z.\n\nDate-time filtering supports three operators:\n\n\
-          * Equality.\n* Greater than or equal to &ndash; field name suffixed with\
-          \ `__gte`.\n* Less than or equal to &ndash; field name suffixed with `__lte`.\n\
-          \nLower and upper limits to a date-time range may be specified by including\
-          \ both the `__gte` and `__lte` forms in\nthe filter: `{field name}[|__lte|__gte]={UTC\
-          \ RFC3339 date-time}`.\n\n##### Multi-field example\n\n`query_id=0158d38771f70000000000010010038c&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \   </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n  </tbody>\n</table>\n\
+          &nbsp;\n\nThe examples below show the queries in *unencoded* form.\n\n######\
+          \ By device query properties (all properties are filterable):\n\nFor example:\n\
+          `description={value}`\n\n###### On date-time fields:\n\nDate-time fields\
+          \ should be specified in UTC RFC3339 format `YYYY-MM-DDThh:mm:ss.msZ`. There\
+          \ are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds, for\
+          \ example, 2016-11-30T16:25:12.1234Z.\n* UTC RFC3339 without milliseconds,\
+          \ for example, 2016-11-30T16:25:12Z.\n* UTC RFC3339 shortened - without\
+          \ milliseconds and punctuation, for example, 20161130T162512Z.\n\nDate-time\
+          \ filtering supports three operators:\n\n* Equality.\n* Greater than or\
+          \ equal to &ndash; field name suffixed with `__gte`.\n* Less than or equal\
+          \ to &ndash; field name suffixed with `__lte`.\n\nLower and upper limits\
+          \ to a date-time range may be specified by including both the `__gte` and\
+          \ `__lte` forms in\nthe filter: `{field name}[|__lte|__gte]={UTC RFC3339\
+          \ date-time}`.\n\n##### Multi-field example\n\n`query_id=0158d38771f70000000000010010038c&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
           \nEncoded:\n\n`filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z`\n\
           \n##### Filtering with filter operators\n\nString field filtering supports\
           \ the following operators:\n\n* Equality: `__eq`.\n* Non-equality: `__neq`.\n\
@@ -21670,7 +21688,7 @@ paths:
   /v3/devicelog/:
     get:
       deprecated: true
-      description: 'DEPRECATED: List all device events. Use `/v3/device-events/` instead.'
+      description: 'DEPRECATED: This API is replaced with `/v3/device-events/`.'
       operationId: Device_Log_list
       parameters:
       - description: How many objects to retrieve in the page (2-1000). Limit values
@@ -21840,7 +21858,7 @@ paths:
         '401':
           description: Not authenticated.
         '404':
-          description: Unable to find page
+          description: Unable to find page.
       summary: 'DEPRECATED: List all device events.'
       tags:
       - Device directory - events
@@ -21879,8 +21897,7 @@ paths:
   /v3/devicelog/{device_event_id}/:
     get:
       deprecated: true
-      description: Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/
-        instead).
+      description: 'DEPRECATED: This API is replaced by `/v3/device-events/` and `/v3/device-events/{device_event_id}/`.'
       operationId: Device_Log_retrieve
       parameters:
       - in: path
@@ -21904,7 +21921,7 @@ paths:
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devices/:
     get:
-      description: 'List all devices.
+      description: 'List all devices enrolled to Device Management for the account.
 
 
         **Example:**
@@ -22513,7 +22530,9 @@ paths:
       x-filter: *id030
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     post:
-      description: Create a new device.
+      description: Create a new device in Device Management. Usually you do not need
+        to create a device this way, as it is automatically created when it bootstraps
+        or connects to Device Management.
       operationId: Device_create
       parameters:
       - in: body
@@ -22612,10 +22631,12 @@ paths:
   /v3/devices/{id}/:
     delete:
       description: Delete device. Only available for devices with a developer certificate.
-        Attempting to delete a device with a production certicate returns a 400 response.
+        Attempting to delete a device with a production certificate returns a 400
+        response.
       operationId: Device_destroy
       parameters:
-      - description: The ID of the device.
+      - description: The [Device ID](../connecting/device-identity.html) created by
+          Device Management.
         in: path
         name: id
         required: true
@@ -22634,7 +22655,10 @@ paths:
       - Device directory - devices
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     get:
-      description: 'Retrieve information about a specific device.
+      description: 'Retrieve information about a specific device. This API returns
+        [DeviceData](../service-api-references/device-directory.html#devicedata).
+        If you want to see the structure of resources in the device or the actual
+        resource values, use the [Connect API](../service-api-references/device-management-connect.html).
 
 
         **Example:**
@@ -22651,7 +22675,8 @@ paths:
         ```'
       operationId: Device_retrieve
       parameters:
-      - description: The ID of the device.
+      - description: The [Device ID](../connecting/device-identity.html) created by
+          Device Management.
         in: path
         name: id
         required: true
@@ -22693,7 +22718,8 @@ paths:
         ```'
       operationId: Device_update
       parameters:
-      - description: The ID of the device.
+      - description: The [Device ID](../connecting/device-identity.html) created by
+          Device Management.
         in: path
         name: id
         required: true
@@ -22721,15 +22747,23 @@ paths:
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devices/{id}/resume:
     post:
-      description: 'Returning a device to service restores connectivity to the device.
-        All API functionality is restored.
+      description: '[Returning a device to service](../device-management/device-suspension.html#suspending-and-resuming-connection-to-devices-with-the-apis)
+        allows the device to connect to Device Management again. The connection is
+        established according to the device''s reconnection logic. The device reports
+        a [registration event](../service-api-references/device-management-connect.html#notificationmessage)
+        through a [notification channel](../integrate-web-app/event-notification.html).
+
+
+        The default reconnection logic is a progressive back-off for 2, 4, 8, or 16
+        seconds, up to one week. All API functionality is restored.
 
 
         **Example:**
 
-        Following example enables device to connect again to Pelion Device Management.
-        Note that the category must match the reason why device was suspended. This
-        device was reported stolen but was now found.
+
+        The following example enables a device to reconnect to Pelion Device Management.
+        The category must match the reason device was suspended. This device was reported
+        stolen, but was found:
 
         ```
 
@@ -22784,33 +22818,25 @@ paths:
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devices/{id}/suspend:
     post:
-      description: 'Suspending a device prevents it from connecting to Device Management.
-        If a device is currently connected, it will be disconnected. Some API operations
-        will fail while a device is suspended.
-
-
-        ***Example:*
-
-        Following example suspends a device with category "Lost or stolen". You can
-        see available categories with ''/v3/device-block-categories/''.
-
-        ```
-
-        curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/<device_id>/suspend
-        \
-
-        -H ''Authorization: Bearer <api_key>'' \
-
-        -H ''content-type: application/json'' \
-
-        -d ''{ "category": "lost_or_stolen", "description": "EXAMPLE: Customer contacted
-        via phone and reported device being stolen. Specific time of the theft was
-        not know. Device last used in May/2019"}''
-
-        ```'
+      description: "[Suspending a device](../device-management/device-suspension.html)\
+        \ prevents it from connecting to Device Management. If a device is currently\
+        \ connected, it disconnects and shows as deregistered.\n\nYou can also receive\
+        \ [deregistration events](../service-api-references/device-management-connect.html#notificationmessage)\
+        \ in [notification channels](../integrate-web-app/event-notification.html).\n\
+        \nAPI operations needing device transactions fail while a device is suspended.\n\
+        \nExample use case to use suspending is that device is reported lost or stolen.\
+        \ You can block the device to connect and this way prevent  device to cause\
+        \ unreliable data to your system.\n\n ***Example:*\n\n The following example\
+        \ suspends a device with category \"Lost or stolen\". You can see available\
+        \ categories with '/v3/device-block-categories/'.\n ```\n curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/<device_id>/suspend\
+        \ \\\n -H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json'\
+        \ \\\n -d '{ \"category\": \"lost_or_stolen\", \"description\": \"EXAMPLE:\
+        \ Customer contacted via phone and reported device being stolen. Specific\
+        \ time of the theft was not know. Device last used in May/2019\"}'\n ```"
       operationId: Device_suspend
       parameters:
-      - description: The ID of the device.
+      - description: The [Device ID](../connecting/device-identity.html) created by
+          Device Management.
         in: path
         name: id
         required: true

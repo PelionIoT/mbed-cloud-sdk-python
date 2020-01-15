@@ -23301,7 +23301,7 @@ entities:
   - _key: description
     api_fieldname: description
     description: The description of the device.
-    example: description
+    example: Temperature measuring device
     maxLength: 2000
     readOnly: false
     required: false
@@ -23342,7 +23342,8 @@ entities:
     type: string
   - _key: endpoint_name
     api_fieldname: endpoint_name
-    description: The endpoint name given to the device.
+    description: The endpoint name given to the device. The endpoint_name is from
+      the device certificate and is set by factory tool.
     example: 00000000-0000-0000-0000-000000000000
     readOnly: true
     required: false
@@ -23381,7 +23382,8 @@ entities:
     type: array
   - _key: host_gateway
     api_fieldname: host_gateway
-    description: The ID of the host gateway, if appropriate.
+    description: The ID of the host gateway, if appropriate. A device behind Edge
+      has this host_gateway set.
     example: ''
     readOnly: false
     required: false
@@ -23457,7 +23459,12 @@ entities:
     type: string
   - _key: lifecycle_status
     api_fieldname: lifecycle_status
-    description: The lifecycle status of the device.
+    description: 'The lifecycle status of the device.
+
+      * Enabled: The device is allowed to connect to Pelion Device Management.
+
+      * Blocked: The device is prevented from connecting to Pelion Device Management.
+      Device can be, for example, ''suspended''.'
     enum:
     - enabled
     - blocked
@@ -23483,7 +23490,7 @@ entities:
     type: string
   - _key: mechanism
     api_fieldname: mechanism
-    description: The ID of the channel used to communicate with the device.
+    description: 'NOT USED: The ID of the channel used to communicate with the device.'
     enum:
     - connector
     - direct
@@ -23493,14 +23500,15 @@ entities:
     type: string
   - _key: mechanism_url
     api_fieldname: mechanism_url
-    description: The address of the connector to use.
+    description: 'NOT USED: The address of the connector to use.'
     example: ''
     readOnly: false
     required: false
     type: string
   - _key: name
     api_fieldname: name
-    description: The name of the device.
+    description: The name given by the web application for the device. Device itself
+      provides only the endpoint_name.
     example: 00000000-0000-0000-0000-000000000000
     maxLength: 128
     readOnly: false
@@ -23508,20 +23516,39 @@ entities:
     type: string
   - _key: operator_suspended
     api_fieldname: operator_suspended
-    description: Is the device suspended by the operator?
+    description: Device has been suspended by operator.
     readOnly: true
     required: false
     type: boolean
   - _key: serial_number
     api_fieldname: serial_number
-    description: The serial number of the device.
+    description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+      of the device. The serial number is injected by the factory tool during manufacturing.
     example: 00000000-0000-0000-0000-000000000000
     readOnly: false
     required: false
     type: string
   - _key: state
     api_fieldname: state
-    description: The current state of the device.
+    description: 'The current state of the device.
+
+      * Unenrolled: The device has been created, but has not yet bootstrapped or connected
+      to Device Management.
+
+      * Cloud_enrolling: The device is bootstrapping for the first time. This state
+      is set only while bootstrapping is in progress. For example, an external CA
+      gives an error, and the device tries to bootstrap again after few seconds.
+
+      * Bootstrapped: The device has bootstrapped, and has credentials to connect
+      to Device Management.
+
+      * Registered: The device has registered with Pelion Device Management. [Device
+      commands](../service-api-references/device-management-connect.html#createAsyncRequest)
+      can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+      resources.
+
+      * Deregistered: The device has requested deregistration, or its registration
+      has expired.'
     enum:
     - unenrolled
     - cloud_enrolling
@@ -23540,7 +23567,7 @@ entities:
     type: boolean
   - _key: updated_at
     api_fieldname: updated_at
-    description: The time the object was updated.
+    description: The time this data object was updated.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
     readOnly: true
@@ -23556,7 +23583,7 @@ entities:
   group_id: Devices
   methods:
   - _key: add_to_group
-    description: Add one device to a group.
+    description: Add one device to a group. A device can be in multiple groups.
     drop_fields:
     - object
     - etag
@@ -23753,7 +23780,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: create
-    description: Create a new device.
+    description: Create a new device in Device Management. Usually you do not need
+      to create a device this way, as it is automatically created when it bootstraps
+      or connects to Device Management.
     drop_fields:
     - object
     - etag
@@ -23850,7 +23879,7 @@ entities:
       api_fieldname: description
       description: The description of the device.
       entity_fieldname: description
-      example: description
+      example: Temperature measuring device
       in: body
       maxLength: 2000
       parameter_fieldname: description
@@ -23899,7 +23928,8 @@ entities:
       type: string
     - _key: endpoint_name
       api_fieldname: endpoint_name
-      description: The endpoint name given to the device.
+      description: The endpoint name given to the device. The endpoint_name is from
+        the device certificate and is set by factory tool.
       entity_fieldname: endpoint_name
       example: 00000000-0000-0000-0000-000000000000
       in: body
@@ -23919,7 +23949,8 @@ entities:
       type: string
     - _key: host_gateway
       api_fieldname: host_gateway
-      description: The ID of the host gateway, if appropriate.
+      description: The ID of the host gateway, if appropriate. A device behind Edge
+        has this host_gateway set.
       entity_fieldname: host_gateway
       example: ''
       in: body
@@ -23949,7 +23980,7 @@ entities:
       type: string
     - _key: mechanism
       api_fieldname: mechanism
-      description: The ID of the channel used to communicate with the device.
+      description: 'NOT USED: The ID of the channel used to communicate with the device.'
       entity_fieldname: mechanism
       enum:
       - connector
@@ -23961,7 +23992,7 @@ entities:
       type: string
     - _key: mechanism_url
       api_fieldname: mechanism_url
-      description: The address of the connector to use.
+      description: 'NOT USED: The address of the connector to use.'
       entity_fieldname: mechanism_url
       example: ''
       in: body
@@ -23970,7 +24001,8 @@ entities:
       type: string
     - _key: name
       api_fieldname: name
-      description: The name of the device.
+      description: The name given by the web application for the device. Device itself
+        provides only the endpoint_name.
       entity_fieldname: name
       example: 00000000-0000-0000-0000-000000000000
       in: body
@@ -23980,7 +24012,8 @@ entities:
       type: string
     - _key: serial_number
       api_fieldname: serial_number
-      description: The serial number of the device.
+      description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+        of the device. The serial number is injected by the factory tool during manufacturing.
       entity_fieldname: serial_number
       example: 00000000-0000-0000-0000-000000000000
       in: body
@@ -23989,7 +24022,25 @@ entities:
       type: string
     - _key: state
       api_fieldname: state
-      description: The current state of the device.
+      description: 'The current state of the device.
+
+        * Unenrolled: The device has been created, but has not yet bootstrapped or
+        connected to Device Management.
+
+        * Cloud_enrolling: The device is bootstrapping for the first time. This state
+        is set only while bootstrapping is in progress. For example, an external CA
+        gives an error, and the device tries to bootstrap again after few seconds.
+
+        * Bootstrapped: The device has bootstrapped, and has credentials to connect
+        to Device Management.
+
+        * Registered: The device has registered with Pelion Device Management. [Device
+        commands](../service-api-references/device-management-connect.html#createAsyncRequest)
+        can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+        resources.
+
+        * Deregistered: The device has requested deregistration, or its registration
+        has expired.'
       entity_fieldname: state
       enum:
       - unenrolled
@@ -24108,7 +24159,7 @@ entities:
           api_fieldname: description
           description: The description of the device.
           entity_fieldname: description
-          example: description
+          example: Temperature measuring device
           maxLength: 2000
           type: string
         device_class:
@@ -24145,7 +24196,8 @@ entities:
           type: string
         endpoint_name:
           api_fieldname: endpoint_name
-          description: The endpoint name given to the device.
+          description: The endpoint name given to the device. The endpoint_name is
+            from the device certificate and is set by factory tool.
           entity_fieldname: endpoint_name
           example: 00000000-0000-0000-0000-000000000000
           readOnly: true
@@ -24189,7 +24241,8 @@ entities:
           type: array
         host_gateway:
           api_fieldname: host_gateway
-          description: The ID of the host gateway, if appropriate.
+          description: The ID of the host gateway, if appropriate. A device behind
+            Edge has this host_gateway set.
           entity_fieldname: host_gateway
           example: ''
           type: string
@@ -24256,7 +24309,12 @@ entities:
           type: string
         lifecycle_status:
           api_fieldname: lifecycle_status
-          description: The lifecycle status of the device.
+          description: 'The lifecycle status of the device.
+
+            * Enabled: The device is allowed to connect to Pelion Device Management.
+
+            * Blocked: The device is prevented from connecting to Pelion Device Management.
+            Device can be, for example, ''suspended''.'
           entity_fieldname: lifecycle_status
           enum:
           - enabled
@@ -24278,7 +24336,8 @@ entities:
           type: string
         mechanism:
           api_fieldname: mechanism
-          description: The ID of the channel used to communicate with the device.
+          description: 'NOT USED: The ID of the channel used to communicate with the
+            device.'
           entity_fieldname: mechanism
           enum:
           - connector
@@ -24286,13 +24345,14 @@ entities:
           type: string
         mechanism_url:
           api_fieldname: mechanism_url
-          description: The address of the connector to use.
+          description: 'NOT USED: The address of the connector to use.'
           entity_fieldname: mechanism_url
           example: ''
           type: string
         name:
           api_fieldname: name
-          description: The name of the device.
+          description: The name given by the web application for the device. Device
+            itself provides only the endpoint_name.
           entity_fieldname: name
           example: 00000000-0000-0000-0000-000000000000
           maxLength: 128
@@ -24305,18 +24365,39 @@ entities:
           type: string
         operator_suspended:
           api_fieldname: operator_suspended
-          description: Is the device suspended by the operator?
+          description: Device has been suspended by operator.
           entity_fieldname: operator_suspended
           type: boolean
         serial_number:
           api_fieldname: serial_number
-          description: The serial number of the device.
+          description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+            of the device. The serial number is injected by the factory tool during
+            manufacturing.
           entity_fieldname: serial_number
           example: 00000000-0000-0000-0000-000000000000
           type: string
         state:
           api_fieldname: state
-          description: The current state of the device.
+          description: 'The current state of the device.
+
+            * Unenrolled: The device has been created, but has not yet bootstrapped
+            or connected to Device Management.
+
+            * Cloud_enrolling: The device is bootstrapping for the first time. This
+            state is set only while bootstrapping is in progress. For example, an
+            external CA gives an error, and the device tries to bootstrap again after
+            few seconds.
+
+            * Bootstrapped: The device has bootstrapped, and has credentials to connect
+            to Device Management.
+
+            * Registered: The device has registered with Pelion Device Management.
+            [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest)
+            can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+            resources.
+
+            * Deregistered: The device has requested deregistration, or its registration
+            has expired.'
           entity_fieldname: state
           enum:
           - unenrolled
@@ -24332,7 +24413,7 @@ entities:
           type: boolean
         updated_at:
           api_fieldname: updated_at
-          description: The time the object was updated.
+          description: The time this data object was updated.
           entity_fieldname: updated_at
           example: '2017-05-22T12:37:55.576563Z'
           format: date-time
@@ -24361,7 +24442,7 @@ entities:
     x_filter: {}
   - _key: delete
     description: Delete device. Only available for devices with a developer certificate.
-      Attempting to delete a device with a production certicate returns a 400 response.
+      Attempting to delete a device with a production certificate returns a 400 response.
     drop_fields:
     - object
     - etag
@@ -24371,7 +24452,8 @@ entities:
     fields:
     - _key: id
       api_fieldname: id
-      description: The ID of the device.
+      description: The [Device ID](../connecting/device-identity.html) created by
+        Device Management.
       entity_fieldname: id
       external_param: false
       in: path
@@ -24405,7 +24487,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: 'List all devices.
+    description: 'List all devices enrolled to Device Management for the account.
 
 
       **Example:**
@@ -24706,7 +24788,7 @@ entities:
               type: string
             description:
               description: The description of the device.
-              example: description
+              example: Temperature measuring device
               maxLength: 2000
               type: string
             device_class:
@@ -24738,7 +24820,8 @@ entities:
               maxLength: 512
               type: string
             endpoint_name:
-              description: The endpoint name given to the device.
+              description: The endpoint name given to the device. The endpoint_name
+                is from the device certificate and is set by factory tool.
               example: 00000000-0000-0000-0000-000000000000
               readOnly: true
               type: string
@@ -24770,7 +24853,8 @@ entities:
                 type: string
               type: array
             host_gateway:
-              description: The ID of the host gateway, if appropriate.
+              description: The ID of the host gateway, if appropriate. A device behind
+                Edge has this host_gateway set.
               example: ''
               type: string
             id:
@@ -24819,7 +24903,12 @@ entities:
               format: date-time
               type: string
             lifecycle_status:
-              description: The lifecycle status of the device.
+              description: 'The lifecycle status of the device.
+
+                * Enabled: The device is allowed to connect to Pelion Device Management.
+
+                * Blocked: The device is prevented from connecting to Pelion Device
+                Management. Device can be, for example, ''suspended''.'
               enum:
               - enabled
               - blocked
@@ -24835,17 +24924,19 @@ entities:
               format: date-time
               type: string
             mechanism:
-              description: The ID of the channel used to communicate with the device.
+              description: 'NOT USED: The ID of the channel used to communicate with
+                the device.'
               enum:
               - connector
               - direct
               type: string
             mechanism_url:
-              description: The address of the connector to use.
+              description: 'NOT USED: The address of the connector to use.'
               example: ''
               type: string
             name:
-              description: The name of the device.
+              description: The name given by the web application for the device. Device
+                itself provides only the endpoint_name.
               example: 00000000-0000-0000-0000-000000000000
               maxLength: 128
               type: string
@@ -24854,14 +24945,35 @@ entities:
               example: device
               type: string
             operator_suspended:
-              description: Is the device suspended by the operator?
+              description: Device has been suspended by operator.
               type: boolean
             serial_number:
-              description: The serial number of the device.
+              description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+                of the device. The serial number is injected by the factory tool during
+                manufacturing.
               example: 00000000-0000-0000-0000-000000000000
               type: string
             state:
-              description: The current state of the device.
+              description: 'The current state of the device.
+
+                * Unenrolled: The device has been created, but has not yet bootstrapped
+                or connected to Device Management.
+
+                * Cloud_enrolling: The device is bootstrapping for the first time.
+                This state is set only while bootstrapping is in progress. For example,
+                an external CA gives an error, and the device tries to bootstrap again
+                after few seconds.
+
+                * Bootstrapped: The device has bootstrapped, and has credentials to
+                connect to Device Management.
+
+                * Registered: The device has registered with Pelion Device Management.
+                [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest)
+                can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+                resources.
+
+                * Deregistered: The device has requested deregistration, or its registration
+                has expired.'
               enum:
               - unenrolled
               - cloud_enrolling
@@ -24873,7 +24985,7 @@ entities:
               description: Is the device suspended by the system?
               type: boolean
             updated_at:
-              description: The time the object was updated.
+              description: The time this data object was updated.
               example: '2017-05-22T12:37:55.576563Z'
               format: date-time
               type: string
@@ -25101,7 +25213,9 @@ entities:
       - in
       - nin
   - _key: read
-    description: 'Retrieve information about a specific device.
+    description: 'Retrieve information about a specific device. This API returns [DeviceData](../service-api-references/device-directory.html#devicedata).
+      If you want to see the structure of resources in the device or the actual resource
+      values, use the [Connect API](../service-api-references/device-management-connect.html).
 
 
       **Example:**
@@ -25269,7 +25383,7 @@ entities:
           api_fieldname: description
           description: The description of the device.
           entity_fieldname: description
-          example: description
+          example: Temperature measuring device
           maxLength: 2000
           type: string
         device_class:
@@ -25306,7 +25420,8 @@ entities:
           type: string
         endpoint_name:
           api_fieldname: endpoint_name
-          description: The endpoint name given to the device.
+          description: The endpoint name given to the device. The endpoint_name is
+            from the device certificate and is set by factory tool.
           entity_fieldname: endpoint_name
           example: 00000000-0000-0000-0000-000000000000
           readOnly: true
@@ -25350,7 +25465,8 @@ entities:
           type: array
         host_gateway:
           api_fieldname: host_gateway
-          description: The ID of the host gateway, if appropriate.
+          description: The ID of the host gateway, if appropriate. A device behind
+            Edge has this host_gateway set.
           entity_fieldname: host_gateway
           example: ''
           type: string
@@ -25417,7 +25533,12 @@ entities:
           type: string
         lifecycle_status:
           api_fieldname: lifecycle_status
-          description: The lifecycle status of the device.
+          description: 'The lifecycle status of the device.
+
+            * Enabled: The device is allowed to connect to Pelion Device Management.
+
+            * Blocked: The device is prevented from connecting to Pelion Device Management.
+            Device can be, for example, ''suspended''.'
           entity_fieldname: lifecycle_status
           enum:
           - enabled
@@ -25439,7 +25560,8 @@ entities:
           type: string
         mechanism:
           api_fieldname: mechanism
-          description: The ID of the channel used to communicate with the device.
+          description: 'NOT USED: The ID of the channel used to communicate with the
+            device.'
           entity_fieldname: mechanism
           enum:
           - connector
@@ -25447,13 +25569,14 @@ entities:
           type: string
         mechanism_url:
           api_fieldname: mechanism_url
-          description: The address of the connector to use.
+          description: 'NOT USED: The address of the connector to use.'
           entity_fieldname: mechanism_url
           example: ''
           type: string
         name:
           api_fieldname: name
-          description: The name of the device.
+          description: The name given by the web application for the device. Device
+            itself provides only the endpoint_name.
           entity_fieldname: name
           example: 00000000-0000-0000-0000-000000000000
           maxLength: 128
@@ -25466,18 +25589,39 @@ entities:
           type: string
         operator_suspended:
           api_fieldname: operator_suspended
-          description: Is the device suspended by the operator?
+          description: Device has been suspended by operator.
           entity_fieldname: operator_suspended
           type: boolean
         serial_number:
           api_fieldname: serial_number
-          description: The serial number of the device.
+          description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+            of the device. The serial number is injected by the factory tool during
+            manufacturing.
           entity_fieldname: serial_number
           example: 00000000-0000-0000-0000-000000000000
           type: string
         state:
           api_fieldname: state
-          description: The current state of the device.
+          description: 'The current state of the device.
+
+            * Unenrolled: The device has been created, but has not yet bootstrapped
+            or connected to Device Management.
+
+            * Cloud_enrolling: The device is bootstrapping for the first time. This
+            state is set only while bootstrapping is in progress. For example, an
+            external CA gives an error, and the device tries to bootstrap again after
+            few seconds.
+
+            * Bootstrapped: The device has bootstrapped, and has credentials to connect
+            to Device Management.
+
+            * Registered: The device has registered with Pelion Device Management.
+            [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest)
+            can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+            resources.
+
+            * Deregistered: The device has requested deregistration, or its registration
+            has expired.'
           entity_fieldname: state
           enum:
           - unenrolled
@@ -25493,7 +25637,7 @@ entities:
           type: boolean
         updated_at:
           api_fieldname: updated_at
-          description: The time the object was updated.
+          description: The time this data object was updated.
           entity_fieldname: updated_at
           example: '2017-05-22T12:37:55.576563Z'
           format: date-time
@@ -26214,7 +26358,7 @@ entities:
       api_fieldname: description
       description: The description of the device.
       entity_fieldname: description
-      example: description
+      example: Temperature measuring device
       in: body
       maxLength: 2000
       parameter_fieldname: description
@@ -26232,7 +26376,8 @@ entities:
       type: string
     - _key: endpoint_name
       api_fieldname: endpoint_name
-      description: The endpoint name given to the device.
+      description: The endpoint name given to the device. The endpoint_name is from
+        the device certificate and is set by factory tool.
       entity_fieldname: endpoint_name
       example: 00000000-0000-0000-0000-000000000000
       in: body
@@ -26252,7 +26397,8 @@ entities:
       type: string
     - _key: host_gateway
       api_fieldname: host_gateway
-      description: The ID of the host gateway, if appropriate.
+      description: The ID of the host gateway, if appropriate. A device behind Edge
+        has this host_gateway set.
       entity_fieldname: host_gateway
       example: ''
       in: body
@@ -26271,7 +26417,8 @@ entities:
       type: string
     - _key: name
       api_fieldname: name
-      description: The name of the device.
+      description: The name given by the web application for the device. Device itself
+        provides only the endpoint_name.
       entity_fieldname: name
       example: 00000000-0000-0000-0000-000000000000
       in: body
@@ -26376,7 +26523,7 @@ entities:
           api_fieldname: description
           description: The description of the device.
           entity_fieldname: description
-          example: description
+          example: Temperature measuring device
           maxLength: 2000
           type: string
         device_class:
@@ -26413,7 +26560,8 @@ entities:
           type: string
         endpoint_name:
           api_fieldname: endpoint_name
-          description: The endpoint name given to the device.
+          description: The endpoint name given to the device. The endpoint_name is
+            from the device certificate and is set by factory tool.
           entity_fieldname: endpoint_name
           example: 00000000-0000-0000-0000-000000000000
           readOnly: true
@@ -26457,7 +26605,8 @@ entities:
           type: array
         host_gateway:
           api_fieldname: host_gateway
-          description: The ID of the host gateway, if appropriate.
+          description: The ID of the host gateway, if appropriate. A device behind
+            Edge has this host_gateway set.
           entity_fieldname: host_gateway
           example: ''
           type: string
@@ -26524,7 +26673,12 @@ entities:
           type: string
         lifecycle_status:
           api_fieldname: lifecycle_status
-          description: The lifecycle status of the device.
+          description: 'The lifecycle status of the device.
+
+            * Enabled: The device is allowed to connect to Pelion Device Management.
+
+            * Blocked: The device is prevented from connecting to Pelion Device Management.
+            Device can be, for example, ''suspended''.'
           entity_fieldname: lifecycle_status
           enum:
           - enabled
@@ -26546,7 +26700,8 @@ entities:
           type: string
         mechanism:
           api_fieldname: mechanism
-          description: The ID of the channel used to communicate with the device.
+          description: 'NOT USED: The ID of the channel used to communicate with the
+            device.'
           entity_fieldname: mechanism
           enum:
           - connector
@@ -26554,13 +26709,14 @@ entities:
           type: string
         mechanism_url:
           api_fieldname: mechanism_url
-          description: The address of the connector to use.
+          description: 'NOT USED: The address of the connector to use.'
           entity_fieldname: mechanism_url
           example: ''
           type: string
         name:
           api_fieldname: name
-          description: The name of the device.
+          description: The name given by the web application for the device. Device
+            itself provides only the endpoint_name.
           entity_fieldname: name
           example: 00000000-0000-0000-0000-000000000000
           maxLength: 128
@@ -26573,18 +26729,39 @@ entities:
           type: string
         operator_suspended:
           api_fieldname: operator_suspended
-          description: Is the device suspended by the operator?
+          description: Device has been suspended by operator.
           entity_fieldname: operator_suspended
           type: boolean
         serial_number:
           api_fieldname: serial_number
-          description: The serial number of the device.
+          description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+            of the device. The serial number is injected by the factory tool during
+            manufacturing.
           entity_fieldname: serial_number
           example: 00000000-0000-0000-0000-000000000000
           type: string
         state:
           api_fieldname: state
-          description: The current state of the device.
+          description: 'The current state of the device.
+
+            * Unenrolled: The device has been created, but has not yet bootstrapped
+            or connected to Device Management.
+
+            * Cloud_enrolling: The device is bootstrapping for the first time. This
+            state is set only while bootstrapping is in progress. For example, an
+            external CA gives an error, and the device tries to bootstrap again after
+            few seconds.
+
+            * Bootstrapped: The device has bootstrapped, and has credentials to connect
+            to Device Management.
+
+            * Registered: The device has registered with Pelion Device Management.
+            [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest)
+            can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+            resources.
+
+            * Deregistered: The device has requested deregistration, or its registration
+            has expired.'
           entity_fieldname: state
           enum:
           - unenrolled
@@ -26600,7 +26777,7 @@ entities:
           type: boolean
         updated_at:
           api_fieldname: updated_at
-          description: The time the object was updated.
+          description: The time this data object was updated.
           entity_fieldname: updated_at
           example: '2017-05-22T12:37:55.576563Z'
           format: date-time
@@ -29873,7 +30050,7 @@ entities:
     type: string
   - _key: event_type_category
     api_fieldname: event_type_category
-    description: Category code which groups the event type by a summary category.
+    description: Category code that groups the event type by a summary category.
     example: FAIL_MANIFEST_REJECTED
     readOnly: true
     required: false
@@ -29899,31 +30076,15 @@ entities:
   group_id: Devices
   methods:
   - _key: list
-    description: 'List all device events for an account.
-
-
-      **Example:**
-
-      Following example gets device-events limiting returned results to max 5 events
-
-      ```
-
-      curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \
-
-      -H ''Authorization: Bearer <API key>''
-
-      ```
-
-      or to get events for certain device filter based on device_id:
-
-      ```
-
-      curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=<device_id>
-      \
-
-      -H ''Authorization: Bearer <API key>''
-
-      ```'
+    description: "List all or a filtered list of device events for the account. Device\
+      \ events are events significant to operation or lifetime, such as creation,\
+      \ firmware update, and suspension.\n\nTo see statistics for device connectivity\
+      \ and usage, use the [Statistics API](../service-api-references/connect-statistics.html).\n\
+      \n **Example:**\n Following example gets device-events limiting returned results\
+      \ to max 5 events\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5\
+      \ \\\n -H 'Authorization: Bearer <API key>'\n ```\n or to get events for certain\
+      \ device filter based on device_id:\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=<device_id>\
+      \ \\\n -H 'Authorization: Bearer <API key>'\n ```"
     drop_fields:
     - object
     - etag
@@ -30079,8 +30240,7 @@ entities:
               maxLength: 100
               type: string
             - _key: event_type_category
-              description: Category code which groups the event type by a summary
-                category.
+              description: Category code that groups the event type by a summary category.
               example: FAIL_MANIFEST_REJECTED
               type: string
             - _key: event_type_description
@@ -30168,12 +30328,13 @@ entities:
       - eq
       - neq
   - _key: read
-    description: 'Retrieve a specific device event.
+    description: '"Retrieve a specific device event. See ''/v3/device-events/'' for
+      information on device events, and how to get the device_event_id."
 
 
       **Example:**
 
-      To fetch a specific event you can use the ''id'' field form the ''/v3/device-events''.
+      To fetch a specific event you can use the ''id'' field from ''/v3/device-events''.
       Form of ''016c03d40a4e000000000001001003b4''
 
       ```
@@ -30285,7 +30446,7 @@ entities:
           type: string
         - _key: event_type_category
           api_fieldname: event_type_category
-          description: Category code which groups the event type by a summary category.
+          description: Category code that groups the event type by a summary category.
           entity_fieldname: event_type_category
           example: FAIL_MANIFEST_REJECTED
           type: string
@@ -30338,7 +30499,7 @@ entities:
   fields:
   - _key: created_at
     api_fieldname: created_at
-    description: The time the campaign was created.
+    description: The time the group was created.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
     readOnly: true
@@ -30391,7 +30552,7 @@ entities:
     type: string
   - _key: updated_at
     api_fieldname: updated_at
-    description: The time the object was updated.
+    description: The time this object was updated.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
     readOnly: true
@@ -30400,7 +30561,7 @@ entities:
   group_id: Devices
   methods:
   - _key: add_device
-    description: Add one device to a group.
+    description: Add one device to a group. A device can be in multiple groups.
     drop_fields:
     - object
     - etag
@@ -30672,7 +30833,7 @@ entities:
         properties:
         - _key: created_at
           api_fieldname: created_at
-          description: The time the campaign was created.
+          description: The time the group was created.
           entity_fieldname: created_at
           example: '2017-05-22T12:37:55.576563Z'
           format: date-time
@@ -30731,7 +30892,7 @@ entities:
           type: string
         - _key: updated_at
           api_fieldname: updated_at
-          description: The time the object was updated.
+          description: The time this object was updated.
           entity_fieldname: updated_at
           example: '2017-05-22T12:37:55.576563Z'
           format: date-time
@@ -30890,7 +31051,8 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: delete
-    description: Delete a group.
+    description: Delete a group. This deletes the group, but not the devices in the
+      group.
     drop_fields:
     - object
     - etag
@@ -31026,7 +31188,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: devices
-    description: Get a page of devices.
+    description: Get a page of devices in a specified group.
     drop_fields:
     - object
     - etag
@@ -31327,7 +31489,7 @@ entities:
               type: string
             description:
               description: The description of the device.
-              example: description
+              example: Temperature measuring device
               maxLength: 2000
               type: string
             device_class:
@@ -31359,7 +31521,8 @@ entities:
               maxLength: 512
               type: string
             endpoint_name:
-              description: The endpoint name given to the device.
+              description: The endpoint name given to the device. The endpoint_name
+                is from the device certificate and is set by factory tool.
               example: 00000000-0000-0000-0000-000000000000
               readOnly: true
               type: string
@@ -31391,7 +31554,8 @@ entities:
                 type: string
               type: array
             host_gateway:
-              description: The ID of the host gateway, if appropriate.
+              description: The ID of the host gateway, if appropriate. A device behind
+                Edge has this host_gateway set.
               example: ''
               type: string
             id:
@@ -31440,7 +31604,12 @@ entities:
               format: date-time
               type: string
             lifecycle_status:
-              description: The lifecycle status of the device.
+              description: 'The lifecycle status of the device.
+
+                * Enabled: The device is allowed to connect to Pelion Device Management.
+
+                * Blocked: The device is prevented from connecting to Pelion Device
+                Management. Device can be, for example, ''suspended''.'
               enum:
               - enabled
               - blocked
@@ -31456,17 +31625,19 @@ entities:
               format: date-time
               type: string
             mechanism:
-              description: The ID of the channel used to communicate with the device.
+              description: 'NOT USED: The ID of the channel used to communicate with
+                the device.'
               enum:
               - connector
               - direct
               type: string
             mechanism_url:
-              description: The address of the connector to use.
+              description: 'NOT USED: The address of the connector to use.'
               example: ''
               type: string
             name:
-              description: The name of the device.
+              description: The name given by the web application for the device. Device
+                itself provides only the endpoint_name.
               example: 00000000-0000-0000-0000-000000000000
               maxLength: 128
               type: string
@@ -31475,14 +31646,35 @@ entities:
               example: device
               type: string
             operator_suspended:
-              description: Is the device suspended by the operator?
+              description: Device has been suspended by operator.
               type: boolean
             serial_number:
-              description: The serial number of the device.
+              description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+                of the device. The serial number is injected by the factory tool during
+                manufacturing.
               example: 00000000-0000-0000-0000-000000000000
               type: string
             state:
-              description: The current state of the device.
+              description: 'The current state of the device.
+
+                * Unenrolled: The device has been created, but has not yet bootstrapped
+                or connected to Device Management.
+
+                * Cloud_enrolling: The device is bootstrapping for the first time.
+                This state is set only while bootstrapping is in progress. For example,
+                an external CA gives an error, and the device tries to bootstrap again
+                after few seconds.
+
+                * Bootstrapped: The device has bootstrapped, and has credentials to
+                connect to Device Management.
+
+                * Registered: The device has registered with Pelion Device Management.
+                [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest)
+                can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+                resources.
+
+                * Deregistered: The device has requested deregistration, or its registration
+                has expired.'
               enum:
               - unenrolled
               - cloud_enrolling
@@ -31494,7 +31686,7 @@ entities:
               description: Is the device suspended by the system?
               type: boolean
             updated_at:
-              description: The time the object was updated.
+              description: The time this data object was updated.
               example: '2017-05-22T12:37:55.576563Z'
               format: date-time
               type: string
@@ -31986,7 +32178,7 @@ entities:
               group: Devices
             properties:
             - _key: created_at
-              description: The time the campaign was created.
+              description: The time the group was created.
               example: '2017-05-22T12:37:55.576563Z'
               format: date-time
               type: string
@@ -32029,7 +32221,7 @@ entities:
               example: device-group
               type: string
             - _key: updated_at
-              description: The time the object was updated.
+              description: The time this object was updated.
               example: '2017-05-22T12:37:55.576563Z'
               format: date-time
               type: string
@@ -32201,7 +32393,9 @@ entities:
       - lte
       - gte
   - _key: read
-    description: Get a group.
+    description: Returns [DeviceGroup](../service-api-references/device-directory.html#DeviceGroup)
+      info what contains info of the group, for example, name and updated date. To
+      list the devices in the group, use '/v3/device-groups/{device-group-id}/devices/'.
     drop_fields:
     - object
     - etag
@@ -32244,7 +32438,7 @@ entities:
         properties:
         - _key: created_at
           api_fieldname: created_at
-          description: The time the campaign was created.
+          description: The time the group was created.
           entity_fieldname: created_at
           example: '2017-05-22T12:37:55.576563Z'
           format: date-time
@@ -32303,7 +32497,7 @@ entities:
           type: string
         - _key: updated_at
           api_fieldname: updated_at
-          description: The time the object was updated.
+          description: The time this object was updated.
           entity_fieldname: updated_at
           example: '2017-05-22T12:37:55.576563Z'
           format: date-time
@@ -32659,7 +32853,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
-    description: Modify the attributes of a group.
+    description: Modify the attributes of a group, such as the description.
     drop_fields:
     - object
     - etag
@@ -32742,7 +32936,7 @@ entities:
         properties:
         - _key: created_at
           api_fieldname: created_at
-          description: The time the campaign was created.
+          description: The time the group was created.
           entity_fieldname: created_at
           example: '2017-05-22T12:37:55.576563Z'
           format: date-time
@@ -32801,7 +32995,7 @@ entities:
           type: string
         - _key: updated_at
           api_fieldname: updated_at
-          description: The time the object was updated.
+          description: The time this object was updated.
           entity_fieldname: updated_at
           example: '2017-05-22T12:37:55.576563Z'
           format: date-time

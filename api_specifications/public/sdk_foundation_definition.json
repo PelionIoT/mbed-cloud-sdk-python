@@ -31176,7 +31176,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Add one device to a group.",
+          "description": "Add one device to a group. A device can be in multiple groups.",
           "field_renames": [],
           "fields": [
             {
@@ -31462,7 +31462,7 @@
           "_key": "add_to_group"
         },
         {
-          "description": "Create a new device.",
+          "description": "Create a new device in Device Management. Usually you do not need to create a device this way, as it is automatically created when it bootstraps or connects to Device Management.",
           "field_renames": [],
           "fields": [
             {
@@ -31545,7 +31545,7 @@
               "type": "string",
               "maxLength": 2000,
               "description": "The description of the device.",
-              "example": "description",
+              "example": "Temperature measuring device",
               "api_fieldname": "description",
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
@@ -31596,7 +31596,7 @@
             },
             {
               "type": "string",
-              "description": "The endpoint name given to the device.",
+              "description": "The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.",
               "example": "00000000-0000-0000-0000-000000000000",
               "readOnly": true,
               "api_fieldname": "endpoint_name",
@@ -31620,7 +31620,7 @@
             },
             {
               "type": "string",
-              "description": "The ID of the host gateway, if appropriate.",
+              "description": "The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.",
               "example": "",
               "api_fieldname": "host_gateway",
               "entity_fieldname": "host_gateway",
@@ -31659,7 +31659,7 @@
                 "direct"
               ],
               "type": "string",
-              "description": "The ID of the channel used to communicate with the device.",
+              "description": "NOT USED: The ID of the channel used to communicate with the device.",
               "api_fieldname": "mechanism",
               "entity_fieldname": "mechanism",
               "parameter_fieldname": "mechanism",
@@ -31670,7 +31670,7 @@
             },
             {
               "type": "string",
-              "description": "The address of the connector to use.",
+              "description": "NOT USED: The address of the connector to use.",
               "example": "",
               "api_fieldname": "mechanism_url",
               "entity_fieldname": "mechanism_url",
@@ -31682,7 +31682,7 @@
             {
               "type": "string",
               "maxLength": 128,
-              "description": "The name of the device.",
+              "description": "The name given by the web application for the device. Device itself provides only the endpoint_name.",
               "example": "00000000-0000-0000-0000-000000000000",
               "api_fieldname": "name",
               "entity_fieldname": "name",
@@ -31693,7 +31693,7 @@
             },
             {
               "type": "string",
-              "description": "The serial number of the device.",
+              "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
               "example": "00000000-0000-0000-0000-000000000000",
               "api_fieldname": "serial_number",
               "entity_fieldname": "serial_number",
@@ -31711,7 +31711,7 @@
                 "deregistered"
               ],
               "type": "string",
-              "description": "The current state of the device.",
+              "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
               "api_fieldname": "state",
               "entity_fieldname": "state",
               "parameter_fieldname": "state",
@@ -31778,7 +31778,7 @@
                   },
                   "operator_suspended": {
                     "type": "boolean",
-                    "description": "Is the device suspended by the operator?",
+                    "description": "Device has been suspended by operator.",
                     "api_fieldname": "operator_suspended",
                     "entity_fieldname": "operator_suspended"
                   },
@@ -31842,7 +31842,7 @@
                       "enabled",
                       "blocked"
                     ],
-                    "description": "The lifecycle status of the device.",
+                    "description": "The lifecycle status of the device.\n* Enabled: The device is allowed to connect to Pelion Device Management.\n* Blocked: The device is prevented from connecting to Pelion Device Management. Device can be, for example, 'suspended'.",
                     "example": "enabled",
                     "api_fieldname": "lifecycle_status",
                     "entity_fieldname": "lifecycle_status"
@@ -31936,7 +31936,7 @@
                     "type": "string",
                     "maxLength": 2000,
                     "description": "The description of the device.",
-                    "example": "description",
+                    "example": "Temperature measuring device",
                     "api_fieldname": "description",
                     "entity_fieldname": "description"
                   },
@@ -31965,7 +31965,7 @@
                   },
                   "endpoint_name": {
                     "type": "string",
-                    "description": "The endpoint name given to the device.",
+                    "description": "The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "readOnly": true,
                     "api_fieldname": "endpoint_name",
@@ -31996,7 +31996,7 @@
                   },
                   "host_gateway": {
                     "type": "string",
-                    "description": "The ID of the host gateway, if appropriate.",
+                    "description": "The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.",
                     "example": "",
                     "api_fieldname": "host_gateway",
                     "entity_fieldname": "host_gateway"
@@ -32022,13 +32022,13 @@
                       "direct"
                     ],
                     "type": "string",
-                    "description": "The ID of the channel used to communicate with the device.",
+                    "description": "NOT USED: The ID of the channel used to communicate with the device.",
                     "api_fieldname": "mechanism",
                     "entity_fieldname": "mechanism"
                   },
                   "mechanism_url": {
                     "type": "string",
-                    "description": "The address of the connector to use.",
+                    "description": "NOT USED: The address of the connector to use.",
                     "example": "",
                     "api_fieldname": "mechanism_url",
                     "entity_fieldname": "mechanism_url"
@@ -32036,7 +32036,7 @@
                   "name": {
                     "type": "string",
                     "maxLength": 128,
-                    "description": "The name of the device.",
+                    "description": "The name given by the web application for the device. Device itself provides only the endpoint_name.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "api_fieldname": "name",
                     "entity_fieldname": "name"
@@ -32050,7 +32050,7 @@
                   },
                   "serial_number": {
                     "type": "string",
-                    "description": "The serial number of the device.",
+                    "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "api_fieldname": "serial_number",
                     "entity_fieldname": "serial_number"
@@ -32064,7 +32064,7 @@
                       "deregistered"
                     ],
                     "type": "string",
-                    "description": "The current state of the device.",
+                    "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
                     "api_fieldname": "state",
                     "entity_fieldname": "state"
                   },
@@ -32072,7 +32072,7 @@
                     "format": "date-time",
                     "example": "2017-05-22T12:37:55.576563Z",
                     "type": "string",
-                    "description": "The time the object was updated.",
+                    "description": "The time this data object was updated.",
                     "api_fieldname": "updated_at",
                     "entity_fieldname": "updated_at"
                   },
@@ -32156,11 +32156,11 @@
           "_key": "create"
         },
         {
-          "description": "Delete device. Only available for devices with a developer certificate. Attempting to delete a device with a production certicate returns a 400 response.",
+          "description": "Delete device. Only available for devices with a developer certificate. Attempting to delete a device with a production certificate returns a 400 response.",
           "field_renames": [],
           "fields": [
             {
-              "description": "The ID of the device.",
+              "description": "The [Device ID](../connecting/device-identity.html) created by Device Management.",
               "in": "path",
               "name": "id",
               "required": true,
@@ -32216,7 +32216,7 @@
           "_key": "delete"
         },
         {
-          "description": "List all devices.\n\n**Example:**\nFollowing example filters devices according to state field and returns only devices in 'registered' state:\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/devices?filter=state%3Dregistered \\\n-H 'Authorization: Bearer <API key>'\n```",
+          "description": "List all devices enrolled to Device Management for the account.\n\n**Example:**\nFollowing example filters devices according to state field and returns only devices in 'registered' state:\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/devices?filter=state%3Dregistered \\\n-H 'Authorization: Bearer <API key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -32324,7 +32324,7 @@
                         },
                         "operator_suspended": {
                           "type": "boolean",
-                          "description": "Is the device suspended by the operator?"
+                          "description": "Device has been suspended by operator."
                         },
                         "last_operator_suspended_category": {
                           "type": "string",
@@ -32372,7 +32372,7 @@
                             "enabled",
                             "blocked"
                           ],
-                          "description": "The lifecycle status of the device.",
+                          "description": "The lifecycle status of the device.\n* Enabled: The device is allowed to connect to Pelion Device Management.\n* Blocked: The device is prevented from connecting to Pelion Device Management. Device can be, for example, 'suspended'.",
                           "example": "enabled"
                         },
                         "account_id": {
@@ -32444,7 +32444,7 @@
                           "type": "string",
                           "maxLength": 2000,
                           "description": "The description of the device.",
-                          "example": "description"
+                          "example": "Temperature measuring device"
                         },
                         "device_class": {
                           "type": "string",
@@ -32465,7 +32465,7 @@
                         },
                         "endpoint_name": {
                           "type": "string",
-                          "description": "The endpoint name given to the device.",
+                          "description": "The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.",
                           "example": "00000000-0000-0000-0000-000000000000",
                           "readOnly": true
                         },
@@ -32488,7 +32488,7 @@
                         },
                         "host_gateway": {
                           "type": "string",
-                          "description": "The ID of the host gateway, if appropriate.",
+                          "description": "The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.",
                           "example": ""
                         },
                         "manifest": {
@@ -32508,17 +32508,17 @@
                             "direct"
                           ],
                           "type": "string",
-                          "description": "The ID of the channel used to communicate with the device."
+                          "description": "NOT USED: The ID of the channel used to communicate with the device."
                         },
                         "mechanism_url": {
                           "type": "string",
-                          "description": "The address of the connector to use.",
+                          "description": "NOT USED: The address of the connector to use.",
                           "example": ""
                         },
                         "name": {
                           "type": "string",
                           "maxLength": 128,
-                          "description": "The name of the device.",
+                          "description": "The name given by the web application for the device. Device itself provides only the endpoint_name.",
                           "example": "00000000-0000-0000-0000-000000000000"
                         },
                         "object": {
@@ -32528,7 +32528,7 @@
                         },
                         "serial_number": {
                           "type": "string",
-                          "description": "The serial number of the device.",
+                          "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
                           "example": "00000000-0000-0000-0000-000000000000"
                         },
                         "state": {
@@ -32540,13 +32540,13 @@
                             "deregistered"
                           ],
                           "type": "string",
-                          "description": "The current state of the device."
+                          "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired."
                         },
                         "updated_at": {
                           "format": "date-time",
                           "example": "2017-05-22T12:37:55.576563Z",
                           "type": "string",
-                          "description": "The time the object was updated."
+                          "description": "The time this data object was updated."
                         },
                         "vendor_id": {
                           "type": "string",
@@ -33002,7 +33002,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve information about a specific device.\n\n**Example:**\nFollowing example must be updated with the device's ID to the URL. The id is from of \"01667c6e992c00000000000100100370\"\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/<device_ID> \\\n-H 'Authorization: Bearer <API key>'\n```",
+          "description": "Retrieve information about a specific device. This API returns [DeviceData](../service-api-references/device-directory.html#devicedata). If you want to see the structure of resources in the device or the actual resource values, use the [Connect API](../service-api-references/device-management-connect.html).\n\n**Example:**\nFollowing example must be updated with the device's ID to the URL. The id is from of \"01667c6e992c00000000000100100370\"\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/<device_ID> \\\n-H 'Authorization: Bearer <API key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -33063,7 +33063,7 @@
                   },
                   "operator_suspended": {
                     "type": "boolean",
-                    "description": "Is the device suspended by the operator?",
+                    "description": "Device has been suspended by operator.",
                     "api_fieldname": "operator_suspended",
                     "entity_fieldname": "operator_suspended"
                   },
@@ -33127,7 +33127,7 @@
                       "enabled",
                       "blocked"
                     ],
-                    "description": "The lifecycle status of the device.",
+                    "description": "The lifecycle status of the device.\n* Enabled: The device is allowed to connect to Pelion Device Management.\n* Blocked: The device is prevented from connecting to Pelion Device Management. Device can be, for example, 'suspended'.",
                     "example": "enabled",
                     "api_fieldname": "lifecycle_status",
                     "entity_fieldname": "lifecycle_status"
@@ -33221,7 +33221,7 @@
                     "type": "string",
                     "maxLength": 2000,
                     "description": "The description of the device.",
-                    "example": "description",
+                    "example": "Temperature measuring device",
                     "api_fieldname": "description",
                     "entity_fieldname": "description"
                   },
@@ -33250,7 +33250,7 @@
                   },
                   "endpoint_name": {
                     "type": "string",
-                    "description": "The endpoint name given to the device.",
+                    "description": "The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "readOnly": true,
                     "api_fieldname": "endpoint_name",
@@ -33281,7 +33281,7 @@
                   },
                   "host_gateway": {
                     "type": "string",
-                    "description": "The ID of the host gateway, if appropriate.",
+                    "description": "The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.",
                     "example": "",
                     "api_fieldname": "host_gateway",
                     "entity_fieldname": "host_gateway"
@@ -33307,13 +33307,13 @@
                       "direct"
                     ],
                     "type": "string",
-                    "description": "The ID of the channel used to communicate with the device.",
+                    "description": "NOT USED: The ID of the channel used to communicate with the device.",
                     "api_fieldname": "mechanism",
                     "entity_fieldname": "mechanism"
                   },
                   "mechanism_url": {
                     "type": "string",
-                    "description": "The address of the connector to use.",
+                    "description": "NOT USED: The address of the connector to use.",
                     "example": "",
                     "api_fieldname": "mechanism_url",
                     "entity_fieldname": "mechanism_url"
@@ -33321,7 +33321,7 @@
                   "name": {
                     "type": "string",
                     "maxLength": 128,
-                    "description": "The name of the device.",
+                    "description": "The name given by the web application for the device. Device itself provides only the endpoint_name.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "api_fieldname": "name",
                     "entity_fieldname": "name"
@@ -33335,7 +33335,7 @@
                   },
                   "serial_number": {
                     "type": "string",
-                    "description": "The serial number of the device.",
+                    "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "api_fieldname": "serial_number",
                     "entity_fieldname": "serial_number"
@@ -33349,7 +33349,7 @@
                       "deregistered"
                     ],
                     "type": "string",
-                    "description": "The current state of the device.",
+                    "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
                     "api_fieldname": "state",
                     "entity_fieldname": "state"
                   },
@@ -33357,7 +33357,7 @@
                     "format": "date-time",
                     "example": "2017-05-22T12:37:55.576563Z",
                     "type": "string",
-                    "description": "The time the object was updated.",
+                    "description": "The time this data object was updated.",
                     "api_fieldname": "updated_at",
                     "entity_fieldname": "updated_at"
                   },
@@ -34353,7 +34353,7 @@
               "type": "string",
               "maxLength": 2000,
               "description": "The description of the device.",
-              "example": "description",
+              "example": "Temperature measuring device",
               "api_fieldname": "description",
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
@@ -34375,7 +34375,7 @@
             },
             {
               "type": "string",
-              "description": "The endpoint name given to the device.",
+              "description": "The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.",
               "example": "00000000-0000-0000-0000-000000000000",
               "readOnly": true,
               "api_fieldname": "endpoint_name",
@@ -34399,7 +34399,7 @@
             },
             {
               "type": "string",
-              "description": "The ID of the host gateway, if appropriate.",
+              "description": "The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.",
               "example": "",
               "api_fieldname": "host_gateway",
               "entity_fieldname": "host_gateway",
@@ -34422,7 +34422,7 @@
             {
               "type": "string",
               "maxLength": 128,
-              "description": "The name of the device.",
+              "description": "The name given by the web application for the device. Device itself provides only the endpoint_name.",
               "example": "00000000-0000-0000-0000-000000000000",
               "api_fieldname": "name",
               "entity_fieldname": "name",
@@ -34478,7 +34478,7 @@
                   },
                   "operator_suspended": {
                     "type": "boolean",
-                    "description": "Is the device suspended by the operator?",
+                    "description": "Device has been suspended by operator.",
                     "api_fieldname": "operator_suspended",
                     "entity_fieldname": "operator_suspended"
                   },
@@ -34542,7 +34542,7 @@
                       "enabled",
                       "blocked"
                     ],
-                    "description": "The lifecycle status of the device.",
+                    "description": "The lifecycle status of the device.\n* Enabled: The device is allowed to connect to Pelion Device Management.\n* Blocked: The device is prevented from connecting to Pelion Device Management. Device can be, for example, 'suspended'.",
                     "example": "enabled",
                     "api_fieldname": "lifecycle_status",
                     "entity_fieldname": "lifecycle_status"
@@ -34636,7 +34636,7 @@
                     "type": "string",
                     "maxLength": 2000,
                     "description": "The description of the device.",
-                    "example": "description",
+                    "example": "Temperature measuring device",
                     "api_fieldname": "description",
                     "entity_fieldname": "description"
                   },
@@ -34665,7 +34665,7 @@
                   },
                   "endpoint_name": {
                     "type": "string",
-                    "description": "The endpoint name given to the device.",
+                    "description": "The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "readOnly": true,
                     "api_fieldname": "endpoint_name",
@@ -34696,7 +34696,7 @@
                   },
                   "host_gateway": {
                     "type": "string",
-                    "description": "The ID of the host gateway, if appropriate.",
+                    "description": "The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.",
                     "example": "",
                     "api_fieldname": "host_gateway",
                     "entity_fieldname": "host_gateway"
@@ -34722,13 +34722,13 @@
                       "direct"
                     ],
                     "type": "string",
-                    "description": "The ID of the channel used to communicate with the device.",
+                    "description": "NOT USED: The ID of the channel used to communicate with the device.",
                     "api_fieldname": "mechanism",
                     "entity_fieldname": "mechanism"
                   },
                   "mechanism_url": {
                     "type": "string",
-                    "description": "The address of the connector to use.",
+                    "description": "NOT USED: The address of the connector to use.",
                     "example": "",
                     "api_fieldname": "mechanism_url",
                     "entity_fieldname": "mechanism_url"
@@ -34736,7 +34736,7 @@
                   "name": {
                     "type": "string",
                     "maxLength": 128,
-                    "description": "The name of the device.",
+                    "description": "The name given by the web application for the device. Device itself provides only the endpoint_name.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "api_fieldname": "name",
                     "entity_fieldname": "name"
@@ -34750,7 +34750,7 @@
                   },
                   "serial_number": {
                     "type": "string",
-                    "description": "The serial number of the device.",
+                    "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "api_fieldname": "serial_number",
                     "entity_fieldname": "serial_number"
@@ -34764,7 +34764,7 @@
                       "deregistered"
                     ],
                     "type": "string",
-                    "description": "The current state of the device.",
+                    "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
                     "api_fieldname": "state",
                     "entity_fieldname": "state"
                   },
@@ -34772,7 +34772,7 @@
                     "format": "date-time",
                     "example": "2017-05-22T12:37:55.576563Z",
                     "type": "string",
-                    "description": "The time the object was updated.",
+                    "description": "The time this data object was updated.",
                     "api_fieldname": "updated_at",
                     "entity_fieldname": "updated_at"
                   },
@@ -34974,7 +34974,7 @@
           "type": "string",
           "maxLength": 2000,
           "description": "The description of the device.",
-          "example": "description",
+          "example": "Temperature measuring device",
           "api_fieldname": "description",
           "readOnly": false,
           "required": false,
@@ -35017,7 +35017,7 @@
         },
         {
           "type": "string",
-          "description": "The endpoint name given to the device.",
+          "description": "The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.",
           "example": "00000000-0000-0000-0000-000000000000",
           "readOnly": true,
           "api_fieldname": "endpoint_name",
@@ -35067,7 +35067,7 @@
         },
         {
           "type": "string",
-          "description": "The ID of the host gateway, if appropriate.",
+          "description": "The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.",
           "example": "",
           "api_fieldname": "host_gateway",
           "readOnly": false,
@@ -35160,7 +35160,7 @@
             "enabled",
             "blocked"
           ],
-          "description": "The lifecycle status of the device.",
+          "description": "The lifecycle status of the device.\n* Enabled: The device is allowed to connect to Pelion Device Management.\n* Blocked: The device is prevented from connecting to Pelion Device Management. Device can be, for example, 'suspended'.",
           "example": "enabled",
           "api_fieldname": "lifecycle_status",
           "readOnly": true,
@@ -35193,7 +35193,7 @@
             "direct"
           ],
           "type": "string",
-          "description": "The ID of the channel used to communicate with the device.",
+          "description": "NOT USED: The ID of the channel used to communicate with the device.",
           "api_fieldname": "mechanism",
           "readOnly": false,
           "required": false,
@@ -35202,7 +35202,7 @@
         },
         {
           "type": "string",
-          "description": "The address of the connector to use.",
+          "description": "NOT USED: The address of the connector to use.",
           "example": "",
           "api_fieldname": "mechanism_url",
           "readOnly": false,
@@ -35212,7 +35212,7 @@
         {
           "type": "string",
           "maxLength": 128,
-          "description": "The name of the device.",
+          "description": "The name given by the web application for the device. Device itself provides only the endpoint_name.",
           "example": "00000000-0000-0000-0000-000000000000",
           "api_fieldname": "name",
           "readOnly": false,
@@ -35221,7 +35221,7 @@
         },
         {
           "type": "boolean",
-          "description": "Is the device suspended by the operator?",
+          "description": "Device has been suspended by operator.",
           "api_fieldname": "operator_suspended",
           "readOnly": true,
           "required": false,
@@ -35229,7 +35229,7 @@
         },
         {
           "type": "string",
-          "description": "The serial number of the device.",
+          "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
           "example": "00000000-0000-0000-0000-000000000000",
           "api_fieldname": "serial_number",
           "readOnly": false,
@@ -35245,7 +35245,7 @@
             "deregistered"
           ],
           "type": "string",
-          "description": "The current state of the device.",
+          "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
           "api_fieldname": "state",
           "readOnly": false,
           "required": false,
@@ -35264,7 +35264,7 @@
           "format": "date-time",
           "example": "2017-05-22T12:37:55.576563Z",
           "type": "string",
-          "description": "The time the object was updated.",
+          "description": "The time this data object was updated.",
           "api_fieldname": "updated_at",
           "readOnly": true,
           "required": false,
@@ -39201,7 +39201,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "List all device events for an account.\n\n**Example:**\nFollowing example gets device-events limiting returned results to max 5 events\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \\\n-H 'Authorization: Bearer <API key>'\n```\nor to get events for certain device filter based on device_id:\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=<device_id> \\\n-H 'Authorization: Bearer <API key>'\n```",
+          "description": "List all or a filtered list of device events for the account. Device events are events significant to operation or lifetime, such as creation, firmware update, and suspension.\n\nTo see statistics for device connectivity and usage, use the [Statistics API](../service-api-references/connect-statistics.html).\n\n **Example:**\n Following example gets device-events limiting returned results to max 5 events\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \\\n -H 'Authorization: Bearer <API key>'\n ```\n or to get events for certain device filter based on device_id:\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=<device_id> \\\n -H 'Authorization: Bearer <API key>'\n ```",
           "field_renames": [],
           "fields": [
             {
@@ -39338,7 +39338,7 @@
                         {
                           "type": "string",
                           "example": "FAIL_MANIFEST_REJECTED",
-                          "description": "Category code which groups the event type by a summary category.",
+                          "description": "Category code that groups the event type by a summary category.",
                           "_key": "event_type_category"
                         },
                         {
@@ -39524,7 +39524,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve a specific device event.\n\n**Example:**\nTo fetch a specific event you can use the 'id' field form the '/v3/device-events'. Form of '016c03d40a4e000000000001001003b4'\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events/<device_event_id> \\\n-H 'Authorization: Bearer <API key>'\n```",
+          "description": "\"Retrieve a specific device event. See '/v3/device-events/' for information on device events, and how to get the device_event_id.\"\n\n**Example:**\nTo fetch a specific event you can use the 'id' field from '/v3/device-events'. Form of '016c03d40a4e000000000001001003b4'\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events/<device_event_id> \\\n-H 'Authorization: Bearer <API key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -39624,7 +39624,7 @@
                   {
                     "type": "string",
                     "example": "FAIL_MANIFEST_REJECTED",
-                    "description": "Category code which groups the event type by a summary category.",
+                    "description": "Category code that groups the event type by a summary category.",
                     "api_fieldname": "event_type_category",
                     "entity_fieldname": "event_type_category",
                     "_key": "event_type_category"
@@ -39799,7 +39799,7 @@
         {
           "type": "string",
           "example": "FAIL_MANIFEST_REJECTED",
-          "description": "Category code which groups the event type by a summary category.",
+          "description": "Category code that groups the event type by a summary category.",
           "api_fieldname": "event_type_category",
           "readOnly": true,
           "required": false,
@@ -39847,7 +39847,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Add one device to a group.",
+          "description": "Add one device to a group. A device can be in multiple groups.",
           "field_renames": [],
           "fields": [
             {
@@ -40197,7 +40197,7 @@
                   {
                     "type": "string",
                     "format": "date-time",
-                    "description": "The time the campaign was created.",
+                    "description": "The time the group was created.",
                     "example": "2017-05-22T12:37:55.576563Z",
                     "api_fieldname": "created_at",
                     "entity_fieldname": "created_at",
@@ -40272,7 +40272,7 @@
                   {
                     "type": "string",
                     "format": "date-time",
-                    "description": "The time the object was updated.",
+                    "description": "The time this object was updated.",
                     "example": "2017-05-22T12:37:55.576563Z",
                     "api_fieldname": "updated_at",
                     "entity_fieldname": "updated_at",
@@ -40537,7 +40537,7 @@
           "_key": "create"
         },
         {
-          "description": "Delete a group.",
+          "description": "Delete a group. This deletes the group, but not the devices in the group.",
           "field_renames": [],
           "fields": [
             {
@@ -40734,7 +40734,7 @@
           "_key": "delete"
         },
         {
-          "description": "Get a page of devices.",
+          "description": "Get a page of devices in a specified group.",
           "field_renames": [],
           "fields": [
             {
@@ -40858,7 +40858,7 @@
                         },
                         "operator_suspended": {
                           "type": "boolean",
-                          "description": "Is the device suspended by the operator?"
+                          "description": "Device has been suspended by operator."
                         },
                         "last_operator_suspended_category": {
                           "type": "string",
@@ -40906,7 +40906,7 @@
                             "enabled",
                             "blocked"
                           ],
-                          "description": "The lifecycle status of the device.",
+                          "description": "The lifecycle status of the device.\n* Enabled: The device is allowed to connect to Pelion Device Management.\n* Blocked: The device is prevented from connecting to Pelion Device Management. Device can be, for example, 'suspended'.",
                           "example": "enabled"
                         },
                         "account_id": {
@@ -40978,7 +40978,7 @@
                           "type": "string",
                           "maxLength": 2000,
                           "description": "The description of the device.",
-                          "example": "description"
+                          "example": "Temperature measuring device"
                         },
                         "device_class": {
                           "type": "string",
@@ -40999,7 +40999,7 @@
                         },
                         "endpoint_name": {
                           "type": "string",
-                          "description": "The endpoint name given to the device.",
+                          "description": "The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.",
                           "example": "00000000-0000-0000-0000-000000000000",
                           "readOnly": true
                         },
@@ -41022,7 +41022,7 @@
                         },
                         "host_gateway": {
                           "type": "string",
-                          "description": "The ID of the host gateway, if appropriate.",
+                          "description": "The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.",
                           "example": ""
                         },
                         "manifest": {
@@ -41042,17 +41042,17 @@
                             "direct"
                           ],
                           "type": "string",
-                          "description": "The ID of the channel used to communicate with the device."
+                          "description": "NOT USED: The ID of the channel used to communicate with the device."
                         },
                         "mechanism_url": {
                           "type": "string",
-                          "description": "The address of the connector to use.",
+                          "description": "NOT USED: The address of the connector to use.",
                           "example": ""
                         },
                         "name": {
                           "type": "string",
                           "maxLength": 128,
-                          "description": "The name of the device.",
+                          "description": "The name given by the web application for the device. Device itself provides only the endpoint_name.",
                           "example": "00000000-0000-0000-0000-000000000000"
                         },
                         "object": {
@@ -41062,7 +41062,7 @@
                         },
                         "serial_number": {
                           "type": "string",
-                          "description": "The serial number of the device.",
+                          "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
                           "example": "00000000-0000-0000-0000-000000000000"
                         },
                         "state": {
@@ -41074,13 +41074,13 @@
                             "deregistered"
                           ],
                           "type": "string",
-                          "description": "The current state of the device."
+                          "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired."
                         },
                         "updated_at": {
                           "format": "date-time",
                           "example": "2017-05-22T12:37:55.576563Z",
                           "type": "string",
-                          "description": "The time the object was updated."
+                          "description": "The time this data object was updated."
                         },
                         "vendor_id": {
                           "type": "string",
@@ -41835,7 +41835,7 @@
                         {
                           "type": "string",
                           "format": "date-time",
-                          "description": "The time the campaign was created.",
+                          "description": "The time the group was created.",
                           "example": "2017-05-22T12:37:55.576563Z",
                           "_key": "created_at"
                         },
@@ -41894,7 +41894,7 @@
                         {
                           "type": "string",
                           "format": "date-time",
-                          "description": "The time the object was updated.",
+                          "description": "The time this object was updated.",
                           "example": "2017-05-22T12:37:55.576563Z",
                           "_key": "updated_at"
                         }
@@ -42197,7 +42197,7 @@
           "_key": "list"
         },
         {
-          "description": "Get a group.",
+          "description": "Returns [DeviceGroup](../service-api-references/device-directory.html#DeviceGroup) info what contains info of the group, for example, name and updated date. To list the devices in the group, use '/v3/device-groups/{device-group-id}/devices/'.",
           "field_renames": [],
           "fields": [
             {
@@ -42223,7 +42223,7 @@
                   {
                     "type": "string",
                     "format": "date-time",
-                    "description": "The time the campaign was created.",
+                    "description": "The time the group was created.",
                     "example": "2017-05-22T12:37:55.576563Z",
                     "api_fieldname": "created_at",
                     "entity_fieldname": "created_at",
@@ -42298,7 +42298,7 @@
                   {
                     "type": "string",
                     "format": "date-time",
-                    "description": "The time the object was updated.",
+                    "description": "The time this object was updated.",
                     "example": "2017-05-22T12:37:55.576563Z",
                     "api_fieldname": "updated_at",
                     "entity_fieldname": "updated_at",
@@ -42851,7 +42851,7 @@
           "_key": "remove_device"
         },
         {
-          "description": "Modify the attributes of a group.",
+          "description": "Modify the attributes of a group, such as the description.",
           "field_renames": [],
           "fields": [
             {
@@ -42926,7 +42926,7 @@
                   {
                     "type": "string",
                     "format": "date-time",
-                    "description": "The time the campaign was created.",
+                    "description": "The time the group was created.",
                     "example": "2017-05-22T12:37:55.576563Z",
                     "api_fieldname": "created_at",
                     "entity_fieldname": "created_at",
@@ -43001,7 +43001,7 @@
                   {
                     "type": "string",
                     "format": "date-time",
-                    "description": "The time the object was updated.",
+                    "description": "The time this object was updated.",
                     "example": "2017-05-22T12:37:55.576563Z",
                     "api_fieldname": "updated_at",
                     "entity_fieldname": "updated_at",
@@ -43269,7 +43269,7 @@
         {
           "type": "string",
           "format": "date-time",
-          "description": "The time the campaign was created.",
+          "description": "The time the group was created.",
           "example": "2017-05-22T12:37:55.576563Z",
           "api_fieldname": "created_at",
           "readOnly": true,
@@ -43334,7 +43334,7 @@
         {
           "type": "string",
           "format": "date-time",
-          "description": "The time the object was updated.",
+          "description": "The time this object was updated.",
           "example": "2017-05-22T12:37:55.576563Z",
           "api_fieldname": "updated_at",
           "readOnly": true,
