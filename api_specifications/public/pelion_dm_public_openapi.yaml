@@ -9316,17 +9316,19 @@ paths:
       description: "\n(PREVIEW) A websocket channel can have only one active connection\
         \ at a time. If a websocket connection for a channel exists and a new connection\
         \ to the same channel is made, the connection is accepted and the older connection\
-        \ is closed.\n\nOnce the socket has been opened, the server may close it with\
-        \ one of the following status codes.\n\n<table>\n  <thead>\n    <tr>\n   \
-        \   <th>Code</th>\n      <th>Description</th>\n    </tr>\n  </thead>\n  <tbody>\n\
-        \    <tr>\n      <td><b>1000</b></td>\n      <td>Socket closed by the client.</td>\n\
-        \    </tr>\n    <tr>\n      <td><b>1001</b></td>\n      <td>Going away. Set\
-        \ when another socket opens on the used channel or the channel is deleted\
-        \ with a REST call.</td>\n    </tr>\n    <tr>\n      <td><b>1006</b></td>\n\
-        \      <td>Abnormal closure. The client should reconnect after receiving this\
-        \ status code. A short reconnect delay is recommended.</td>\n    </tr>\n \
-        \   <tr>\n      <td><b>1008</b></td>\n      <td>Policy violation. Set when\
-        \ the API key is missing or invalid.</td>\n    </tr>\n    <tr>\n      <td><b>1011</b></td>\n\
+        \ is closed.\n\nA websocket client library should be used when connecting\
+        \ to this endpoint.\n\nOnce the socket has been opened, the server may close\
+        \ it with one of the following status codes.\n\n<table>\n  <thead>\n    <tr>\n\
+        \      <th>Code</th>\n      <th>Description</th>\n    </tr>\n  </thead>\n\
+        \  <tbody>\n    <tr>\n      <td><b>1000</b></td>\n      <td>Socket closed\
+        \ normally by the client, or by the server when the channel is deleted with\
+        \ a REST call.</td>\n    </tr>\n    <tr>\n      <td><b>1001</b></td>\n   \
+        \   <td>Going away. Set when another socket opens on the used channel.</td>\n\
+        \    </tr>\n    <tr>\n      <td><b>1006</b></td>\n      <td>Abnormal closure.\
+        \ The client should reconnect after receiving this status code. A short reconnect\
+        \ delay is recommended.</td>\n    </tr>\n    <tr>\n      <td><b>1008</b></td>\n\
+        \      <td>Policy violation. Set if the API key is lost or invalidated after\
+        \ a successful WebSocket handshake.</td>\n    </tr>\n    <tr>\n      <td><b>1011</b></td>\n\
         \      <td>Unexpected condition. The socket is closed with this status in\
         \ an attempt to open a socket to a nonexistent channel (without a prior PUT\
         \ request). This code is also used to indicate a closing socket for any other\
@@ -9389,6 +9391,9 @@ paths:
         401: *id021
         426:
           description: Upgrade required. Connect and/or Upgrade headers missing.
+        429:
+          description: While a WebSocket handshake is still in progress, no new WebSocket
+            requests with the same authorization token will be accepted.
       summary: (PREVIEW) Open the websocket.
       tags:
       - Notifications
