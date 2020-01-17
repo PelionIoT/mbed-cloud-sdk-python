@@ -8101,6 +8101,23 @@ paths:
         contacting the device.
 
 
+        **Example**: Read the value of Resource "/3200/0/5501". If the value is not
+        in cache, the read command will go all the way to the device.
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v2/device-requests/{device_id}?async-id={async-response-id}
+        \
+
+        -H ''Authorization: Bearer {api_key}'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''{"method": "GET", "uri": "/3200/0/5501"}''
+
+        ```
+
+
         The server puts the requests in a queue if it cannot reach the device at the
         time of the request. The queue
 
