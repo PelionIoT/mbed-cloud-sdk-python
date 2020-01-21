@@ -8959,6 +8959,10 @@ paths:
       description: 'Deletes the callback URL.
 
 
+        Deleting the callback URL also removes the channel''s notification queue.
+        Any unsent notifications are lost when the channel is deleted.
+
+
         **Example:**
 
         ```
@@ -9222,6 +9226,9 @@ paths:
         API key. This is required to change the channel from websocket to another
         type.
 
+
+        Deleting the websocket channel also removes the channel''s notification queue.
+        Any unsent notifications are lost when the channel is deleted.
 
         **Example:**
 
