@@ -435,7 +435,7 @@ class ApiKey(Entity):
         )
 
     def me(self):
-        """Get API key details.
+        """Get current API key.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/me>`_.
         
@@ -482,7 +482,7 @@ class ApiKey(Entity):
         )
 
     def _paginate_policy_groups(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get groups of the API key.
+        """Get policy groups of an API key.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -522,7 +522,7 @@ class ApiKey(Entity):
         )
 
     def policy_groups(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get groups of the API key.
+        """Get policy groups of an API key.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}/groups>`_.
         
@@ -576,7 +576,7 @@ class ApiKey(Entity):
         )
 
     def read(self):
-        """Get API key details.
+        """Get API key.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/api-keys/{apikey_id}>`_.
         

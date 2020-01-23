@@ -118,6 +118,7 @@ class EntityFactory:
         status=None,
         template_id=None,
         tier=None,
+        tier_history=None,
         updated_at=None,
         upgraded_at=None,
     ):
@@ -222,6 +223,8 @@ class EntityFactory:
             account, `2`: partner tier. Other values are reserved for the
             future.
         :type tier: str
+        :param tier_history: Tier history for this account.
+        :type tier_history: list
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
         :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
@@ -278,6 +281,7 @@ class EntityFactory:
             status=status,
             template_id=template_id,
             tier=tier,
+            tier_history=tier_history,
             updated_at=updated_at,
             upgraded_at=upgraded_at,
         )
@@ -1531,10 +1535,12 @@ class EntityFactory:
         )
 
     def login_profile(
-        self, id=None, login_profile_type=None, name=None,
+        self, foreign_id=None, id=None, login_profile_type=None, name=None,
     ):
         """Creates a local `LoginProfile` instance, using the shared SDK context.
 
+        :param foreign_id: The ID of the user in the identity provider's service.
+        :type foreign_id: str
         :param id: ID of the identity provider.
         :type id: str
         :param login_profile_type: Identity provider type.
@@ -1547,7 +1553,9 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import LoginProfile
 
-        return LoginProfile(_client=self._client, id=id, login_profile_type=login_profile_type, name=name,)
+        return LoginProfile(
+            _client=self._client, foreign_id=foreign_id, id=id, login_profile_type=login_profile_type, name=name,
+        )
 
     def oidc_request(
         self,

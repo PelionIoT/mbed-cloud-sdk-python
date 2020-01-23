@@ -276,7 +276,7 @@ class DeveloperCertificate(Entity):
         )
 
     def get_trusted_certificate_info(self):
-        """Get trusted certificate by ID.
+        """Get a trusted certificate.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/trusted-certificates/{cert_id}>`_.
         

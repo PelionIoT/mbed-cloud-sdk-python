@@ -225,7 +225,7 @@ class SubtenantPolicyGroup(Entity):
         return self._user_count.value
 
     def api_keys(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get API keys of a group.
+        """Get API keys in a group.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys>`_.
         
@@ -323,7 +323,7 @@ class SubtenantPolicyGroup(Entity):
         )
 
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get all group information.
+        """Get policy groups.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/policy-groups>`_.
 
@@ -399,7 +399,7 @@ class SubtenantPolicyGroup(Entity):
         )
 
     def _paginate_api_keys(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get API keys of a group.
+        """Get API keys in a group.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -439,7 +439,7 @@ class SubtenantPolicyGroup(Entity):
         )
 
     def _paginate_list(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get all group information.
+        """Get policy groups.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -479,7 +479,7 @@ class SubtenantPolicyGroup(Entity):
         )
 
     def _paginate_users(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get users of a group.
+        """Get users in a policy group.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -519,7 +519,7 @@ class SubtenantPolicyGroup(Entity):
         )
 
     def read(self):
-        """Get group information.
+        """Get policy group.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/policy-groups/{group_id}>`_.
         
@@ -558,7 +558,7 @@ class SubtenantPolicyGroup(Entity):
         )
 
     def users(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get users of a group.
+        """Get users in a policy group.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/policy-groups/{group_id}/users>`_.
 

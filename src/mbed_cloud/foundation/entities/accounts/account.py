@@ -104,6 +104,7 @@ class Account(Entity):
         "status",
         "template_id",
         "tier",
+        "tier_history",
         "updated_at",
         "upgraded_at",
     ]
@@ -164,6 +165,7 @@ class Account(Entity):
         status=None,
         template_id=None,
         tier=None,
+        tier_history=None,
         updated_at=None,
         upgraded_at=None,
     ):
@@ -275,6 +277,8 @@ class Account(Entity):
             account, `2`: partner tier. Other values are reserved for the
             future.
         :type tier: str
+        :param tier_history: Tier history for this account.
+        :type tier_history: list
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
         :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
@@ -334,6 +338,7 @@ class Account(Entity):
         self._status = fields.StringField(value=status, enum=enums.AccountStatusEnum)
         self._template_id = fields.StringField(value=template_id)
         self._tier = fields.StringField(value=tier)
+        self._tier_history = fields.ListField(value=tier_history)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._upgraded_at = fields.DateTimeField(value=upgraded_at)
 
@@ -1102,6 +1107,15 @@ class Account(Entity):
         return self._tier.value
 
     @property
+    def tier_history(self):
+        """Tier history for this account.
+        
+        :rtype: list
+        """
+
+        return self._tier_history.value
+
+    @property
     def updated_at(self):
         """Last update UTC time RFC3339.
         
@@ -1581,7 +1595,7 @@ class Account(Entity):
         )
 
     def me(self, include=None, properties=None):
-        """Get account info.
+        """Get account information.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/me>`_.
         
@@ -1824,7 +1838,7 @@ class Account(Entity):
         )
 
     def _paginate_trusted_certificates(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get all trusted certificates.
+        """Get trusted certificates.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1864,7 +1878,7 @@ class Account(Entity):
         )
 
     def _paginate_user_invitations(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get the details of all user invitations.
+        """Get user invitations.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1903,7 +1917,7 @@ class Account(Entity):
         )
 
     def _paginate_users(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get the details of all users.
+        """Get users.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1943,7 +1957,7 @@ class Account(Entity):
         )
 
     def read(self, include=None, properties=None):
-        """Get account info.
+        """Get account information.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}>`_.
         
@@ -1970,7 +1984,7 @@ class Account(Entity):
         )
 
     def trusted_certificates(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get all trusted certificates.
+        """Get trusted certificates.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates>`_.
 
@@ -2133,7 +2147,7 @@ class Account(Entity):
         )
 
     def user_invitations(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get the details of all user invitations.
+        """Get user invitations.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations>`_.
 
@@ -2208,7 +2222,7 @@ class Account(Entity):
         )
 
     def users(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get the details of all users.
+        """Get users.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users>`_.
 

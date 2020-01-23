@@ -508,7 +508,7 @@ class IdentityProvider(Entity):
         )
 
     def read(self):
-        """Get identity provider by ID.
+        """Get identity provider.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/identity-providers/{identity_provider_id}>`_.
         

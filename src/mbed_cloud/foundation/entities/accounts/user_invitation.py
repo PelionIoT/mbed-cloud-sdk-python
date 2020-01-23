@@ -319,7 +319,7 @@ class UserInvitation(Entity):
         )
 
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get the details of all user invitations.
+        """Get user invitations.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations>`_.
 
@@ -394,7 +394,7 @@ class UserInvitation(Entity):
         )
 
     def _paginate_list(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get the details of all user invitations.
+        """Get user invitations.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str

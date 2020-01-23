@@ -490,7 +490,7 @@ class SubtenantIdentityProvider(Entity):
         )
 
     def read(self):
-        """Retrieve identity provider by ID.
+        """Get an identity provider.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/identity-providers/{identity_provider_id}>`_.
         

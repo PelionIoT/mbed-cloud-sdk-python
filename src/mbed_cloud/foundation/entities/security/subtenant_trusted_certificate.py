@@ -495,7 +495,7 @@ class SubtenantTrustedCertificate(Entity):
         )
 
     def delete(self):
-        """Delete trusted certificate by ID.
+        """Delete a trusted certificate by ID.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates/{cert_id}>`_.
         
@@ -529,7 +529,7 @@ class SubtenantTrustedCertificate(Entity):
         )
 
     def read(self):
-        """Get trusted certificate by ID.
+        """Get a trusted certificate.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates/{cert_id}>`_.
         

@@ -692,7 +692,7 @@ class SubtenantUser(Entity):
         )
 
     def _paginate_policy_groups(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get user's groups.
+        """Get policy groups for a user.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -732,7 +732,7 @@ class SubtenantUser(Entity):
         )
 
     def policy_groups(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get user's groups.
+        """Get policy groups for a user.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users/{user_id}/groups>`_.
         
