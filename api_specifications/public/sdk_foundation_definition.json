@@ -1082,7 +1082,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Retrieve API keys in an array, optionally filtered by the owner.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of API keys, optionally filtered by the owner.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -3266,6 +3266,29 @@
                           "_key": "tier"
                         },
                         {
+                          "type": "array",
+                          "description": "Tier history for this account.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                                "_key": "tier"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updatedAt"
+                              }
+                            ]
+                          },
+                          "_key": "tier_history"
+                        },
+                        {
                           "type": "string",
                           "format": "date-time",
                           "example": "2018-02-14T15:24:14Z",
@@ -3303,6 +3326,31 @@
                     "api_fieldname": "tier",
                     "entity_fieldname": "tier",
                     "_key": "tier"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Tier history for this account.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "1",
+                          "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                          "_key": "tier"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updatedAt"
+                        }
+                      ]
+                    },
+                    "api_fieldname": "tier_history",
+                    "entity_fieldname": "tier_history",
+                    "_key": "tier_history"
                   },
                   {
                     "type": "string",
@@ -3588,7 +3636,8 @@
             "admin_key",
             "limitations",
             "password_recovery_expiration",
-            "business_model_history"
+            "business_model_history",
+            "tier_history"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -5321,7 +5370,7 @@
           "_key": "light_theme_branding_images"
         },
         {
-          "description": "Returns an array of account objects, optionally filtered by status and tier level.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of tenant accounts, optionally filtered by status and tier level.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -6693,6 +6742,29 @@
                                 "_key": "tier"
                               },
                               {
+                                "type": "array",
+                                "description": "Tier history for this account.",
+                                "items": {
+                                  "type": "object",
+                                  "properties": [
+                                    {
+                                      "type": "string",
+                                      "example": "1",
+                                      "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                                      "_key": "tier"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "example": "2018-02-14T15:24:14Z",
+                                      "description": "Last update UTC time RFC3339.",
+                                      "_key": "updatedAt"
+                                    }
+                                  ]
+                                },
+                                "_key": "tier_history"
+                              },
+                              {
                                 "type": "string",
                                 "format": "date-time",
                                 "example": "2018-02-14T15:24:14Z",
@@ -6724,6 +6796,29 @@
                           "example": "1",
                           "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
                           "_key": "tier"
+                        },
+                        {
+                          "type": "array",
+                          "description": "Tier history for this account.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                                "_key": "tier"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updatedAt"
+                              }
+                            ]
+                          },
+                          "_key": "tier_history"
                         },
                         {
                           "type": "string",
@@ -7010,7 +7105,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve detailed information about the account.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve information about the account.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -8389,6 +8484,29 @@
                           "_key": "tier"
                         },
                         {
+                          "type": "array",
+                          "description": "Tier history for this account.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                                "_key": "tier"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updatedAt"
+                              }
+                            ]
+                          },
+                          "_key": "tier_history"
+                        },
+                        {
                           "type": "string",
                           "format": "date-time",
                           "example": "2018-02-14T15:24:14Z",
@@ -8426,6 +8544,31 @@
                     "api_fieldname": "tier",
                     "entity_fieldname": "tier",
                     "_key": "tier"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Tier history for this account.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "1",
+                          "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                          "_key": "tier"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updatedAt"
+                        }
+                      ]
+                    },
+                    "api_fieldname": "tier_history",
+                    "entity_fieldname": "tier_history",
+                    "_key": "tier_history"
                   },
                   {
                     "type": "string",
@@ -8598,7 +8741,7 @@
             }
           ],
           "path": "/v3/accounts/me",
-          "summary": "Get account info.",
+          "summary": "Get account information.",
           "return_type": "account",
           "return_info": {
             "self": true,
@@ -8658,7 +8801,8 @@
             "limitations",
             "password_recovery_expiration",
             "business_model",
-            "business_model_history"
+            "business_model_history",
+            "tier_history"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -10063,6 +10207,29 @@
                           "_key": "tier"
                         },
                         {
+                          "type": "array",
+                          "description": "Tier history for this account.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                                "_key": "tier"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updatedAt"
+                              }
+                            ]
+                          },
+                          "_key": "tier_history"
+                        },
+                        {
                           "type": "string",
                           "format": "date-time",
                           "example": "2018-02-14T15:24:14Z",
@@ -10100,6 +10267,31 @@
                     "api_fieldname": "tier",
                     "entity_fieldname": "tier",
                     "_key": "tier"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Tier history for this account.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "1",
+                          "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                          "_key": "tier"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updatedAt"
+                        }
+                      ]
+                    },
+                    "api_fieldname": "tier_history",
+                    "entity_fieldname": "tier_history",
+                    "_key": "tier_history"
                   },
                   {
                     "type": "string",
@@ -10345,7 +10537,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}",
-          "summary": "Get account info.",
+          "summary": "Get account information.",
           "return_type": "account",
           "return_info": {
             "self": true,
@@ -10404,7 +10596,8 @@
             "limitations",
             "password_recovery_expiration",
             "business_model",
-            "business_model_history"
+            "business_model_history",
+            "tier_history"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -10417,7 +10610,7 @@
           "_key": "read"
         },
         {
-          "description": "Retrieve trusted certificates in an array.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of trusted certificates.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -10976,7 +11169,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/trusted-certificates",
-          "summary": "Get all trusted certificates.",
+          "summary": "Get trusted certificates.",
           "return_type": "paginated_response(subtenant_trusted_certificate)",
           "return_info": {
             "self": false,
@@ -12756,6 +12949,29 @@
                           "_key": "tier"
                         },
                         {
+                          "type": "array",
+                          "description": "Tier history for this account.",
+                          "items": {
+                            "type": "object",
+                            "properties": [
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                                "_key": "tier"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updatedAt"
+                              }
+                            ]
+                          },
+                          "_key": "tier_history"
+                        },
+                        {
                           "type": "string",
                           "format": "date-time",
                           "example": "2018-02-14T15:24:14Z",
@@ -12793,6 +13009,31 @@
                     "api_fieldname": "tier",
                     "entity_fieldname": "tier",
                     "_key": "tier"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Tier history for this account.",
+                    "items": {
+                      "type": "object",
+                      "properties": [
+                        {
+                          "type": "string",
+                          "example": "1",
+                          "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                          "_key": "tier"
+                        },
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2018-02-14T15:24:14Z",
+                          "description": "Last update UTC time RFC3339.",
+                          "_key": "updatedAt"
+                        }
+                      ]
+                    },
+                    "api_fieldname": "tier_history",
+                    "entity_fieldname": "tier_history",
+                    "_key": "tier_history"
                   },
                   {
                     "type": "string",
@@ -13146,7 +13387,8 @@
             "admin_password",
             "admin_full_name",
             "limitations",
-            "business_model_history"
+            "business_model_history",
+            "tier_history"
           ],
           "group_id": "Accounts",
           "parameter_map": {
@@ -13165,7 +13407,7 @@
           "_key": "update"
         },
         {
-          "description": "Retrieve details of all active user invitations sent for new or existing users.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of active user invitations.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -13330,6 +13572,14 @@
                               "id"
                             ],
                             "properties": [
+                              {
+                                "type": "string",
+                                "description": "The ID of the user in the identity provider's service.",
+                                "readOnly": true,
+                                "api_fieldname": "foreign_id",
+                                "entity_fieldname": "foreign_id",
+                                "_key": "foreign_id"
+                              },
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
@@ -13694,7 +13944,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/user-invitations",
-          "summary": "Get the details of all user invitations.",
+          "summary": "Get user invitations.",
           "return_type": "paginated_response(subtenant_user_invitation)",
           "return_info": {
             "self": false,
@@ -13733,7 +13983,7 @@
           "_key": "user_invitations"
         },
         {
-          "description": "Retrieve details of all users.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of users.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -14104,6 +14354,14 @@
                               "id"
                             ],
                             "properties": [
+                              {
+                                "type": "string",
+                                "description": "The ID of the user in the identity provider's service.",
+                                "readOnly": true,
+                                "api_fieldname": "foreign_id",
+                                "entity_fieldname": "foreign_id",
+                                "_key": "foreign_id"
+                              },
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
@@ -14513,7 +14771,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/users",
-          "summary": "Get the details of all users.",
+          "summary": "Get users.",
           "return_type": "paginated_response(subtenant_user)",
           "return_info": {
             "self": false,
@@ -15302,6 +15560,32 @@
           "_key": "tier"
         },
         {
+          "type": "array",
+          "description": "Tier history for this account.",
+          "items": {
+            "type": "object",
+            "properties": [
+              {
+                "type": "string",
+                "example": "1",
+                "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                "_key": "tier"
+              },
+              {
+                "type": "string",
+                "format": "date-time",
+                "example": "2018-02-14T15:24:14Z",
+                "description": "Last update UTC time RFC3339.",
+                "_key": "updatedAt"
+              }
+            ]
+          },
+          "api_fieldname": "tier_history",
+          "readOnly": true,
+          "required": false,
+          "_key": "tier_history"
+        },
+        {
           "type": "string",
           "format": "date-time",
           "example": "2018-02-14T15:24:14Z",
@@ -15329,7 +15613,7 @@
         "Tenant accounts - API keys",
         "Tenant accounts - users",
         "Tenant accounts - user invitations",
-        "Tenant device security - certificates",
+        "Tenant security and identity - certificates",
         "Tenant user interface configuration - colors",
         "Tenant user interface configuration - images"
       ],
@@ -16142,7 +16426,7 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve API keys in an array, optionally filtered by the owner.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of API keys, optionally filtered by the owner.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -16594,7 +16878,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve API key details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/me \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve details of current API key.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/me \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [],
           "method": "get",
@@ -16889,7 +17173,7 @@
             }
           ],
           "path": "/v3/api-keys/me",
-          "summary": "Get API key details.",
+          "summary": "Get current API key.",
           "return_type": "api_key",
           "return_info": {
             "self": true,
@@ -16927,7 +17211,7 @@
           "_key": "me"
         },
         {
-          "description": "Retrieve groups associated with the API key.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of policy groups associated with an API key.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -17410,7 +17694,7 @@
             }
           ],
           "path": "/v3/api-keys/{apikey_id}/groups",
-          "summary": "Get groups of the API key.",
+          "summary": "Get policy groups of an API key.",
           "return_type": "paginated_response(policy_group)",
           "return_info": {
             "self": false,
@@ -17442,7 +17726,7 @@
           "_key": "policy_groups"
         },
         {
-          "description": "Retrieve API key details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve details of an API key.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -17823,7 +18107,7 @@
             }
           ],
           "path": "/v3/api-keys/{apikey_id}",
-          "summary": "Get API key details.",
+          "summary": "Get API key.",
           "return_type": "api_key",
           "return_info": {
             "self": true,
@@ -30192,7 +30476,7 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve a trusted certificate by ID.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve a trusted certificate.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [
             {
               "api_fieldname": "developer_certificate",
@@ -30637,7 +30921,7 @@
             }
           ],
           "path": "/v3/trusted-certificates/{cert_id}",
-          "summary": "Get trusted certificate by ID.",
+          "summary": "Get a trusted certificate.",
           "return_type": "trusted_certificate",
           "return_info": {
             "self": false,
@@ -31159,7 +31443,7 @@
       ],
       "tags": [
         "Device security - developer class certificates",
-        "Device security - certificates"
+        "Security and identity - certificates"
       ],
       "group_id": "Security",
       "_key": "developer_certificate"
@@ -47560,7 +47844,7 @@
           "_key": "generate_service_provider_certificate"
         },
         {
-          "description": "Retrieve identity providers in an array.",
+          "description": "Retrieve an array of identity providers.",
           "field_renames": [
             {
               "api_fieldname": "type",
@@ -48046,7 +48330,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve by ID.",
+          "description": "Retrieve an identity provider.",
           "field_renames": [
             {
               "api_fieldname": "type",
@@ -48468,7 +48752,7 @@
             }
           ],
           "path": "/v3/identity-providers/{identity_provider_id}",
-          "summary": "Get identity provider by ID.",
+          "summary": "Get identity provider.",
           "return_type": "identity_provider",
           "return_info": {
             "self": true,
@@ -53346,6 +53630,14 @@
       "fields": [
         {
           "type": "string",
+          "description": "The ID of the user in the identity provider's service.",
+          "readOnly": true,
+          "api_fieldname": "foreign_id",
+          "required": false,
+          "_key": "foreign_id"
+        },
+        {
+          "type": "string",
           "description": "ID of the identity provider.",
           "readOnly": false,
           "_override": true,
@@ -53889,7 +54181,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Manage policy groups.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of API keys associated with a policy group.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -54401,7 +54693,7 @@
             }
           ],
           "path": "/v3/policy-groups/{group_id}/api-keys",
-          "summary": "Get the API keys of a group.",
+          "summary": "Get the API keys of a policy group.",
           "return_type": "paginated_response(api_key)",
           "return_info": {
             "self": false,
@@ -55183,7 +55475,7 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve all group information.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of policy groups.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -55581,7 +55873,7 @@
             }
           ],
           "path": "/v3/policy-groups",
-          "summary": "Get all group information.",
+          "summary": "Get policy groups.",
           "return_type": "paginated_response(policy_group)",
           "return_info": {
             "self": true,
@@ -55620,7 +55912,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve general information about a group.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve a policy group.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -55964,7 +56256,7 @@
             }
           ],
           "path": "/v3/policy-groups/{group_id}",
-          "summary": "Get group information.",
+          "summary": "Get a policy group.",
           "return_type": "policy_group",
           "return_info": {
             "self": true,
@@ -56456,7 +56748,7 @@
           "_key": "update"
         },
         {
-          "description": "Retrieve users of a group with details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of users associated with a policy group.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -56827,6 +57119,14 @@
                               "id"
                             ],
                             "properties": [
+                              {
+                                "type": "string",
+                                "description": "The ID of the user in the identity provider's service.",
+                                "readOnly": true,
+                                "api_fieldname": "foreign_id",
+                                "entity_fieldname": "foreign_id",
+                                "_key": "foreign_id"
+                              },
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
@@ -57236,7 +57536,7 @@
             }
           ],
           "path": "/v3/policy-groups/{group_id}/users",
-          "summary": "Get users of a group.",
+          "summary": "Get users of a policy group.",
           "return_type": "paginated_response(user)",
           "return_info": {
             "self": false,
@@ -59388,7 +59688,7 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve groups associated with the API key.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of policy groups associated with an API key.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -59883,7 +60183,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/api-keys/{apikey_id}/groups",
-          "summary": "Get groups associated with the API key.",
+          "summary": "Get policy groups of an API key.",
           "return_type": "paginated_response(subtenant_policy_group)",
           "return_info": {
             "self": false,
@@ -59915,7 +60215,7 @@
           "_key": "policy_groups"
         },
         {
-          "description": "Retrieve API key details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\\n -H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve details of an API key.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\\n -H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -61065,7 +61365,7 @@
       "primary_key_field": "reference",
       "methods": [
         {
-          "description": "Resets the branding color of a tenant account to its dark theme default.\n\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Resets the branding color to its dark theme default.\n\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -61748,7 +62048,7 @@
           "_key": "read"
         },
         {
-          "description": "Update a dark theme branding color of a tenant account.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark/primary \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{ \"color\": \"#f3f93e\" }'\n```",
+          "description": "Update a dark theme branding color.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark/primary \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{ \"color\": \"#f3f93e\" }'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -65876,7 +66176,7 @@
           "_key": "generate_service_provider_certificate"
         },
         {
-          "description": "Retrieve identity providers in an array.",
+          "description": "Retrieve an array of identity providers.",
           "field_renames": [],
           "fields": [
             {
@@ -66460,7 +66760,7 @@
           "_key": "list"
         },
         {
-          "description": "Manage identity providers of a tenant account.",
+          "description": "Retrieve an identity provider.",
           "field_renames": [],
           "fields": [
             {
@@ -66909,7 +67209,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/identity-providers/{identity_provider_id}",
-          "summary": "Retrieve identity provider by ID.",
+          "summary": "Get an identity provider.",
           "return_type": "subtenant_identity_provider",
           "return_info": {
             "self": true,
@@ -68524,7 +68824,7 @@
       "primary_key_field": "reference",
       "methods": [
         {
-          "description": "Resets the branding color of a tenant account to its light theme default.\n\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Resets the branding color to its light theme default.\n\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference} \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -69207,7 +69507,7 @@
           "_key": "read"
         },
         {
-          "description": "Update a light theme branding color of a tenant account.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light/primary \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{ \"color\": \"purple\" }'\n```",
+          "description": "Update a light theme branding color.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light/primary \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{ \"color\": \"purple\" }'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -71103,7 +71403,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "List the API keys of the group with details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of API keys associated with a policy group.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -71627,7 +71927,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys",
-          "summary": "Get API keys of a group.",
+          "summary": "Get API keys in a group.",
           "return_type": "paginated_response(subtenant_api_key)",
           "return_info": {
             "self": false,
@@ -72511,7 +72811,7 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve all group information.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of policy groups.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -72994,7 +73294,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/policy-groups",
-          "summary": "Get all group information.",
+          "summary": "Get policy groups.",
           "return_type": "paginated_response(subtenant_policy_group)",
           "return_info": {
             "self": true,
@@ -73033,7 +73333,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve general information about the group.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve policy group details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -73395,7 +73695,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/policy-groups/{group_id}",
-          "summary": "Get group information.",
+          "summary": "Get policy group.",
           "return_type": "subtenant_policy_group",
           "return_info": {
             "self": true,
@@ -73903,7 +74203,7 @@
           "_key": "update"
         },
         {
-          "description": "List a group's users, with details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of users associated with a policy group.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -74286,6 +74586,14 @@
                               "id"
                             ],
                             "properties": [
+                              {
+                                "type": "string",
+                                "description": "The ID of the user in the identity provider's service.",
+                                "readOnly": true,
+                                "api_fieldname": "foreign_id",
+                                "entity_fieldname": "foreign_id",
+                                "_key": "foreign_id"
+                              },
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
@@ -74695,7 +75003,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/policy-groups/{group_id}/users",
-          "summary": "Get users of a group.",
+          "summary": "Get users in a policy group.",
           "return_type": "paginated_response(subtenant_user)",
           "return_info": {
             "self": false,
@@ -74829,7 +75137,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Upload new trusted certificates.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d {\"name\": \"myCert1\", \"description\": \"very important cert\", \"certificate\": \"certificate_data\", \"service\": \"lwm2m\"}\n```",
+          "description": "Upload new trusted certificate.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d {\"name\": \"myCert1\", \"description\": \"very important cert\", \"certificate\": \"certificate_data\", \"service\": \"lwm2m\"}\n```",
           "field_renames": [],
           "fields": [
             {
@@ -75489,7 +75797,7 @@
           "_key": "create"
         },
         {
-          "description": "Delete the trusted certificate.\n\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Delete a trusted certificate.\n\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -75756,7 +76064,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
-          "summary": "Delete trusted certificate by ID.",
+          "summary": "Delete a trusted certificate by ID.",
           "return_type": "subtenant_trusted_certificate",
           "return_info": {
             "self": true,
@@ -76191,7 +76499,7 @@
           "_key": "get_developer_certificate_info"
         },
         {
-          "description": "Retrieve a trusted certificate by ID.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve a trusted certificate.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -76677,7 +76985,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
-          "summary": "Get trusted certificate by ID.",
+          "summary": "Get a trusted certificate.",
           "return_type": "subtenant_trusted_certificate",
           "return_info": {
             "self": true,
@@ -76719,7 +77027,7 @@
           "_key": "read"
         },
         {
-          "description": "Update existing trusted certificates.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \\\n -H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json' \\\n -d {\"description\": \"very important cert\"}\n ```",
+          "description": "Update a trusted certificate.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \\\n -H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json' \\\n -d {\"description\": \"very important cert\"}\n ```",
           "field_renames": [],
           "fields": [
             {
@@ -77595,7 +77903,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Tenant device security - certificates",
+        "Tenant security and identity - certificates",
         "Device security - developer class certificates"
       ],
       "group_id": "Security",
@@ -77721,6 +78029,14 @@
                   "id"
                 ],
                 "properties": [
+                  {
+                    "type": "string",
+                    "description": "The ID of the user in the identity provider's service.",
+                    "readOnly": true,
+                    "api_fieldname": "foreign_id",
+                    "entity_fieldname": "foreign_id",
+                    "_key": "foreign_id"
+                  },
                   {
                     "type": "string",
                     "description": "ID of the identity provider.",
@@ -78133,6 +78449,14 @@
                         "id"
                       ],
                       "properties": [
+                        {
+                          "type": "string",
+                          "description": "The ID of the user in the identity provider's service.",
+                          "readOnly": true,
+                          "api_fieldname": "foreign_id",
+                          "entity_fieldname": "foreign_id",
+                          "_key": "foreign_id"
+                        },
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
@@ -79044,7 +79368,7 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve user's groups.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of policy groups associated with a user.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -79539,7 +79863,7 @@
             }
           ],
           "path": "/v3/accounts/{account_id}/users/{user_id}/groups",
-          "summary": "Get user's groups.",
+          "summary": "Get policy groups for a user.",
           "return_type": "paginated_response(subtenant_policy_group)",
           "return_info": {
             "self": false,
@@ -79926,6 +80250,14 @@
                         "id"
                       ],
                       "properties": [
+                        {
+                          "type": "string",
+                          "description": "The ID of the user in the identity provider's service.",
+                          "readOnly": true,
+                          "api_fieldname": "foreign_id",
+                          "entity_fieldname": "foreign_id",
+                          "_key": "foreign_id"
+                        },
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
@@ -80455,6 +80787,14 @@
                 "properties": [
                   {
                     "type": "string",
+                    "description": "The ID of the user in the identity provider's service.",
+                    "readOnly": true,
+                    "api_fieldname": "foreign_id",
+                    "entity_fieldname": "foreign_id",
+                    "_key": "foreign_id"
+                  },
+                  {
+                    "type": "string",
                     "description": "ID of the identity provider.",
                     "readOnly": false,
                     "_override": true,
@@ -80853,6 +81193,14 @@
                         "id"
                       ],
                       "properties": [
+                        {
+                          "type": "string",
+                          "description": "The ID of the user in the identity provider's service.",
+                          "readOnly": true,
+                          "api_fieldname": "foreign_id",
+                          "entity_fieldname": "foreign_id",
+                          "_key": "foreign_id"
+                        },
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
@@ -82006,6 +82354,14 @@
             "properties": [
               {
                 "type": "string",
+                "description": "The ID of the user in the identity provider's service.",
+                "readOnly": true,
+                "api_fieldname": "foreign_id",
+                "entity_fieldname": "foreign_id",
+                "_key": "foreign_id"
+              },
+              {
+                "type": "string",
                 "description": "ID of the identity provider.",
                 "readOnly": false,
                 "_override": true,
@@ -82207,6 +82563,14 @@
                 "properties": [
                   {
                     "type": "string",
+                    "description": "The ID of the user in the identity provider's service.",
+                    "readOnly": true,
+                    "api_fieldname": "foreign_id",
+                    "entity_fieldname": "foreign_id",
+                    "_key": "foreign_id"
+                  },
+                  {
+                    "type": "string",
                     "description": "ID of the identity provider.",
                     "readOnly": false,
                     "_override": true,
@@ -82367,6 +82731,14 @@
                         "id"
                       ],
                       "properties": [
+                        {
+                          "type": "string",
+                          "description": "The ID of the user in the identity provider's service.",
+                          "readOnly": true,
+                          "api_fieldname": "foreign_id",
+                          "entity_fieldname": "foreign_id",
+                          "_key": "foreign_id"
+                        },
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
@@ -83112,6 +83484,14 @@
                       "properties": [
                         {
                           "type": "string",
+                          "description": "The ID of the user in the identity provider's service.",
+                          "readOnly": true,
+                          "api_fieldname": "foreign_id",
+                          "entity_fieldname": "foreign_id",
+                          "_key": "foreign_id"
+                        },
+                        {
+                          "type": "string",
                           "description": "ID of the identity provider.",
                           "readOnly": false,
                           "_override": true,
@@ -83525,6 +83905,14 @@
               "id"
             ],
             "properties": [
+              {
+                "type": "string",
+                "description": "The ID of the user in the identity provider's service.",
+                "readOnly": true,
+                "api_fieldname": "foreign_id",
+                "entity_fieldname": "foreign_id",
+                "_key": "foreign_id"
+              },
               {
                 "type": "string",
                 "description": "ID of the identity provider.",
@@ -84926,7 +85314,7 @@
           "_key": "get_developer_certificate_info"
         },
         {
-          "description": "Retrieve trusted certificates in an array.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of trusted certificates.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -85468,7 +85856,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve a trusted certificate by ID.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve a trusted certificate.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -85919,7 +86307,7 @@
             }
           ],
           "path": "/v3/trusted-certificates/{cert_id}",
-          "summary": "Get trusted certificate by ID.",
+          "summary": "Get a trusted certificate.",
           "return_type": "trusted_certificate",
           "return_info": {
             "self": true,
@@ -86863,7 +87251,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Device security - certificates",
+        "Security and identity - certificates",
         "Device security - developer class certificates"
       ],
       "group_id": "Security",
@@ -89609,6 +89997,14 @@
                 "properties": [
                   {
                     "type": "string",
+                    "description": "The ID of the user in the identity provider's service.",
+                    "readOnly": true,
+                    "api_fieldname": "foreign_id",
+                    "entity_fieldname": "foreign_id",
+                    "_key": "foreign_id"
+                  },
+                  {
+                    "type": "string",
                     "description": "ID of the identity provider.",
                     "readOnly": false,
                     "_override": true,
@@ -89995,6 +90391,14 @@
                         "id"
                       ],
                       "properties": [
+                        {
+                          "type": "string",
+                          "description": "The ID of the user in the identity provider's service.",
+                          "readOnly": true,
+                          "api_fieldname": "foreign_id",
+                          "entity_fieldname": "foreign_id",
+                          "_key": "foreign_id"
+                        },
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
@@ -90807,7 +91211,7 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve the details of all users.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of users.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/users \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -91163,6 +91567,14 @@
                             "properties": [
                               {
                                 "type": "string",
+                                "description": "The ID of the user in the identity provider's service.",
+                                "readOnly": true,
+                                "api_fieldname": "foreign_id",
+                                "entity_fieldname": "foreign_id",
+                                "_key": "foreign_id"
+                              },
+                              {
+                                "type": "string",
                                 "description": "ID of the identity provider.",
                                 "readOnly": false,
                                 "_override": true,
@@ -91484,7 +91896,7 @@
             }
           ],
           "path": "/v3/users",
-          "summary": "Get the details of all users.",
+          "summary": "Get users.",
           "return_type": "paginated_response(user)",
           "return_info": {
             "self": true,
@@ -91535,7 +91947,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve groups of the user.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of policy groups associated with a user.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -92000,7 +92412,7 @@
             }
           ],
           "path": "/v3/users/{user_id}/groups",
-          "summary": "Get groups of the user.",
+          "summary": "Get policy groups for a user.",
           "return_type": "paginated_response(policy_group)",
           "return_info": {
             "self": false,
@@ -92351,6 +92763,14 @@
                         "id"
                       ],
                       "properties": [
+                        {
+                          "type": "string",
+                          "description": "The ID of the user in the identity provider's service.",
+                          "readOnly": true,
+                          "api_fieldname": "foreign_id",
+                          "entity_fieldname": "foreign_id",
+                          "_key": "foreign_id"
+                        },
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
@@ -92854,6 +93274,14 @@
                 "properties": [
                   {
                     "type": "string",
+                    "description": "The ID of the user in the identity provider's service.",
+                    "readOnly": true,
+                    "api_fieldname": "foreign_id",
+                    "entity_fieldname": "foreign_id",
+                    "_key": "foreign_id"
+                  },
+                  {
+                    "type": "string",
                     "description": "ID of the identity provider.",
                     "readOnly": false,
                     "_override": true,
@@ -93228,6 +93656,14 @@
                         "id"
                       ],
                       "properties": [
+                        {
+                          "type": "string",
+                          "description": "The ID of the user in the identity provider's service.",
+                          "readOnly": true,
+                          "api_fieldname": "foreign_id",
+                          "entity_fieldname": "foreign_id",
+                          "_key": "foreign_id"
+                        },
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
@@ -94069,6 +94505,14 @@
             "properties": [
               {
                 "type": "string",
+                "description": "The ID of the user in the identity provider's service.",
+                "readOnly": true,
+                "api_fieldname": "foreign_id",
+                "entity_fieldname": "foreign_id",
+                "_key": "foreign_id"
+              },
+              {
+                "type": "string",
                 "description": "ID of the identity provider.",
                 "readOnly": false,
                 "_override": true,
@@ -94249,6 +94693,14 @@
                 "properties": [
                   {
                     "type": "string",
+                    "description": "The ID of the user in the identity provider's service.",
+                    "readOnly": true,
+                    "api_fieldname": "foreign_id",
+                    "entity_fieldname": "foreign_id",
+                    "_key": "foreign_id"
+                  },
+                  {
+                    "type": "string",
                     "description": "ID of the identity provider.",
                     "readOnly": false,
                     "_override": true,
@@ -94400,6 +94852,14 @@
                         "id"
                       ],
                       "properties": [
+                        {
+                          "type": "string",
+                          "description": "The ID of the user in the identity provider's service.",
+                          "readOnly": true,
+                          "api_fieldname": "foreign_id",
+                          "entity_fieldname": "foreign_id",
+                          "_key": "foreign_id"
+                        },
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
@@ -95003,7 +95463,7 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve details for all the active user invitations.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/user-invitations \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Retrieve an array of active user invitations sent by email.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/user-invitations \\\n-H 'Authorization: Bearer <api_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -95151,6 +95611,14 @@
                               "id"
                             ],
                             "properties": [
+                              {
+                                "type": "string",
+                                "description": "The ID of the user in the identity provider's service.",
+                                "readOnly": true,
+                                "api_fieldname": "foreign_id",
+                                "entity_fieldname": "foreign_id",
+                                "_key": "foreign_id"
+                              },
                               {
                                 "type": "string",
                                 "description": "ID of the identity provider.",
@@ -95429,7 +95897,7 @@
             }
           ],
           "path": "/v3/user-invitations",
-          "summary": "Get the details of all user invitations.",
+          "summary": "Get user invitations.",
           "return_type": "paginated_response(user_invitation)",
           "return_info": {
             "self": true,
@@ -95573,6 +96041,14 @@
                         "id"
                       ],
                       "properties": [
+                        {
+                          "type": "string",
+                          "description": "The ID of the user in the identity provider's service.",
+                          "readOnly": true,
+                          "api_fieldname": "foreign_id",
+                          "entity_fieldname": "foreign_id",
+                          "_key": "foreign_id"
+                        },
                         {
                           "type": "string",
                           "description": "ID of the identity provider.",
@@ -95980,6 +96456,14 @@
               "id"
             ],
             "properties": [
+              {
+                "type": "string",
+                "description": "The ID of the user in the identity provider's service.",
+                "readOnly": true,
+                "api_fieldname": "foreign_id",
+                "entity_fieldname": "foreign_id",
+                "_key": "foreign_id"
+              },
               {
                 "type": "string",
                 "description": "ID of the identity provider.",

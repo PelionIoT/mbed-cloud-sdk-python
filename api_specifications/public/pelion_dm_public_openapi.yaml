@@ -407,6 +407,11 @@ definitions:
           account, `2`: partner tier. Other values are reserved for the future.'
         example: '1'
         type: string
+      tier_history:
+        description: Tier history for this account.
+        items:
+          $ref: '#/definitions/TierHistory'
+        type: array
       updated_at:
         description: Last update UTC time RFC3339.
         example: '2018-02-14T15:24:14Z'
@@ -4893,6 +4898,10 @@ definitions:
   LoginProfile:
     description: Represents a user login profile in Device Management.
     properties:
+      foreign_id:
+        description: The ID of the user in the identity provider's service.
+        readOnly: true
+        type: string
       id:
         description: ID of the identity provider.
         type: string
@@ -6205,6 +6214,19 @@ definitions:
         type: array
     required:
     - quota_usage
+    type: object
+  TierHistory:
+    properties:
+      tier:
+        description: 'The tier level of the account; `0`: free tier, `1`: commercial
+          account, `2`: partner tier. Other values are reserved for the future.'
+        example: '1'
+        type: string
+      updatedAt:
+        description: Last update UTC time RFC3339.
+        example: '2018-02-14T15:24:14Z'
+        format: date-time
+        type: string
     type: object
   TokenRequest:
     properties:
@@ -9737,7 +9759,7 @@ paths:
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v3/accounts:
     get:
-      description: 'Returns an array of account objects, optionally filtered by status
+      description: 'Retrieve an array of tenant accounts, optionally filtered by status
         and tier level.
 
 
@@ -9931,7 +9953,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/me:
     get:
-      description: 'Retrieve detailed information about the account.
+      description: 'Retrieve information about the account.
 
 
         **Example:**
@@ -9972,7 +9994,7 @@ paths:
           description: Forbidden.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get account info.
+      summary: Get account information.
       tags:
       - Account - profile
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -10028,7 +10050,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/me/notifications:
     get:
-      description: Retrieve notifications for an account.
+      description: Retrieve an array of email notification logs.
       operationId: getNofificationEntries
       parameters:
       - default: 50
@@ -10069,16 +10091,16 @@ paths:
           description: Forbidden
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get notification events for an account.
+      summary: Get logs of email notifications.
       tags:
       - Account - email notification logs
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/me/notifications/{notification_id}:
     get:
-      description: An endpoint for retrieving notification event details.
+      description: Retrieve an email notification log entry.
       operationId: getNofificationEntry
       parameters:
-      - description: The ID of the notification entry to be retrieved.
+      - description: The ID of the log entry to be retrieved.
         in: path
         name: notification_id
         required: true
@@ -10106,9 +10128,9 @@ paths:
           description: No entry found for the given ID.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get notification event details.
+      summary: Get an email notification.
       tags:
-      - Account Admin
+      - Account - email notification logs
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}:
     get:
@@ -10162,7 +10184,7 @@ paths:
           description: Account with the given ID not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get account info.
+      summary: Get account information.
       tags:
       - Tenant accounts - accounts
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -10228,7 +10250,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/api-keys:
     get:
-      description: 'Retrieve API keys in an array, optionally filtered by the owner.
+      description: 'Retrieve an array of API keys, optionally filtered by the owner.
 
 
         **Example:**
@@ -10422,7 +10444,8 @@ paths:
       - Tenant accounts - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: "Retrieve API key details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
+      description: "Retrieve details of an API key.\n\n**Example:**\n```\ncurl -X\
+        \ GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
         \ \\\n -H 'Authorization: Bearer <api_key>'\n```"
       operationId: getAccountApiKey
       parameters:
@@ -10597,7 +10620,7 @@ paths:
         links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Retrieve groups associated with the API key.
+      description: 'Retrieve an array of policy groups associated with an API key.
 
 
         **Example:**
@@ -10666,7 +10689,7 @@ paths:
           description: An account or API key with the specified ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get groups associated with the API key.
+      summary: Get policy groups of an API key.
       tags:
       - Tenant accounts - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -11064,8 +11087,8 @@ paths:
     put:
       consumes:
       - application/json
-      description: "Update an array of dark theme branding colors of a tenant account.\n\
-        \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark\
+      description: "Update an array of dark theme branding colors.\n\n**Example:**\n\
+        ```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
         \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"#f3f93e\" }]'\n```"
       operationId: bulkSetAccountDarkColors
@@ -11110,8 +11133,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-colors/dark/{reference}:
     delete:
-      description: 'Resets the branding color of a tenant account to its dark theme
-        default.
+      description: 'Resets the branding color to its dark theme default.
 
 
         **Example:**
@@ -11211,7 +11233,7 @@ paths:
     put:
       consumes:
       - application/json
-      description: 'Update a dark theme branding color of a tenant account.
+      description: 'Update a dark theme branding color.
 
 
         **Example:**
@@ -11358,8 +11380,8 @@ paths:
     put:
       consumes:
       - application/json
-      description: "Update an array of light theme branding colors of a tenant account.\n\
-        \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light\
+      description: "Update an array of light theme branding colors.\n\n**Example:**\n\
+        ```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
         \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"purple\" }]'\n```"
       operationId: bulkSetAccountLightColors
@@ -11404,8 +11426,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/branding-colors/light/{reference}:
     delete:
-      description: 'Resets the branding color of a tenant account to its light theme
-        default.
+      description: 'Resets the branding color to its light theme default.
 
 
         **Example:**
@@ -11504,7 +11525,7 @@ paths:
     put:
       consumes:
       - application/json
-      description: 'Update a light theme branding color of a tenant account.
+      description: 'Update a light theme branding color.
 
 
         **Example:**
@@ -12232,7 +12253,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Retrieve identity providers in an array.
+      description: Retrieve an array of identity providers.
       operationId: getAllAccountIdentityProviders
       parameters:
       - description: The ID of the account.
@@ -12384,7 +12405,7 @@ paths:
       - Tenant accounts - identity providers
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: Manage identity providers of a tenant account.
+      description: Retrieve an identity provider.
       operationId: getAccountIdentityProvider
       parameters:
       - description: Account ID.
@@ -12416,7 +12437,7 @@ paths:
           description: Account or identity provider not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Retrieve identity provider by ID.
+      summary: Get an identity provider.
       tags:
       - Tenant accounts - identity providers
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -12627,7 +12648,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/limitations:
     get:
-      description: An endpoint for retrieving all limitations of an account.
+      description: Retrieve an array of entitlement limitations.
       operationId: aggregatorGetAccountLimitations
       parameters:
       - description: The ID of the account.
@@ -12660,16 +12681,16 @@ paths:
           description: Account with the given ID not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get all limitations of an account.
+      summary: Get entitlement limitations.
       tags:
-      - Tenant accounts - limitations
+      - Tenant accounts - entitlement limitations
       x-filter:
         inherited:
         - eq
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/limitations/{limitation_id}:
     get:
-      description: An endpoint for retrieving a limitation of an account.
+      description: Retrieve an entitlement limitation.
       operationId: aggregatorGetAccountLimitation
       parameters:
       - description: The ID of the account.
@@ -12701,13 +12722,13 @@ paths:
           description: Limitation or account with the given ID not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get a limitation of an account.
+      summary: Get an entitlement limitation.
       tags:
-      - Tenant accounts - limitations
+      - Tenant accounts - entitlement limitations
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/notifications:
     get:
-      description: Retrieve notifications.
+      description: Retrieve an array of email notification logs.
       operationId: getAccountNofificationEntries
       parameters:
       - description: Account ID.
@@ -12757,13 +12778,13 @@ paths:
           description: Account with the given ID not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get the notification events of an account.
+      summary: Get email notifications.
       tags:
       - Tenant accounts - email notification logs
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/notifications/{notification_id}:
     get:
-      description: An endpoint for retrieving notification event details of an account.
+      description: Retrieve an email notifications log entry.
       operationId: getAccountNofificationEntry
       parameters:
       - description: The ID of the account for which this notification should be retrieved.
@@ -12799,13 +12820,13 @@ paths:
           description: No entry found for the given ID.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get a notification event of an account.
+      summary: Get an email notification.
       tags:
-      - Aggregator Account Admin
+      - Tenant accounts - email notification logs
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/policy-groups:
     get:
-      description: 'Retrieve all group information.
+      description: 'Retrieve an array of policy groups.
 
 
         **Example:**
@@ -12874,7 +12895,7 @@ paths:
           description: An account with the specified ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get all group information.
+      summary: Get policy groups.
       tags:
       - Tenant accounts - policy groups
       x-filter:
@@ -12994,7 +13015,7 @@ paths:
       - Tenant accounts - policy groups
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Retrieve general information about the group.
+      description: 'Retrieve policy group details.
 
 
         **Example:**
@@ -13038,7 +13059,7 @@ paths:
           description: An account or group with that ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get group information.
+      summary: Get policy group.
       tags:
       - Tenant accounts - policy groups
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -13251,7 +13272,7 @@ paths:
         links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'List the API keys of the group with details.
+      description: 'Retrieve an array of API keys associated with a policy group.
 
 
         **Example:**
@@ -13320,7 +13341,7 @@ paths:
           description: An account or group with that ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get API keys of a group.
+      summary: Get API keys in a group.
       tags:
       - Tenant accounts - policy groups
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -13586,7 +13607,7 @@ paths:
         links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'List a group''s users, with details.
+      description: 'Retrieve an array of users associated with a policy group.
 
 
         **Example:**
@@ -13671,7 +13692,7 @@ paths:
           description: An account or group with that ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get users of a group.
+      summary: Get users in a policy group.
       tags:
       - Tenant accounts - policy groups
       x-filter:
@@ -13869,7 +13890,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/trusted-certificates:
     get:
-      description: 'Retrieve trusted certificates in an array.
+      description: 'Retrieve an array of trusted certificates.
 
 
         **Example:**
@@ -13996,9 +14017,9 @@ paths:
           description: An account with the given ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get all trusted certificates.
+      summary: Get trusted certificates.
       tags:
-      - Tenant device security - certificates
+      - Tenant security and identity - certificates
       x-filter:
         device_execution_mode:
         - eq
@@ -14025,7 +14046,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 'Upload new trusted certificates.
+      description: 'Upload new trusted certificate.
 
 
         **Example:**
@@ -14082,11 +14103,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload new trusted certificate.
       tags:
-      - Tenant device security - certificates
+      - Tenant security and identity - certificates
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/trusted-certificates/{cert_id}:
     delete:
-      description: 'Delete the trusted certificate.
+      description: 'Delete a trusted certificate.
 
 
         **Example:**
@@ -14128,12 +14149,12 @@ paths:
           description: Account or certificate with the given ID not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Delete trusted certificate by ID.
+      summary: Delete a trusted certificate by ID.
       tags:
-      - Tenant device security - certificates
+      - Tenant security and identity - certificates
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Retrieve a trusted certificate by ID.
+      description: 'Retrieve a trusted certificate.
 
 
         **Example:**
@@ -14177,15 +14198,15 @@ paths:
           description: Account or certificate with the given ID not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get trusted certificate by ID.
+      summary: Get a trusted certificate.
       tags:
-      - Tenant device security - certificates
+      - Tenant security and identity - certificates
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
       - application/json
-      description: "Update existing trusted certificates.\n\n**Example:**\n```\ncurl\
-        \ -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}\
+      description: "Update a trusted certificate.\n\n**Example:**\n```\ncurl -X PUT\
+        \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}\
         \ \\\n -H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json'\
         \ \\\n -d {\"description\": \"very important cert\"}\n ```"
       operationId: updateAccountCertificate
@@ -14232,12 +14253,11 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update trusted certificate.
       tags:
-      - Tenant device security - certificates
+      - Tenant security and identity - certificates
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/user-invitations:
     get:
-      description: 'Retrieve details of all active user invitations sent for new or
-        existing users.
+      description: 'Retrieve an array of active user invitations.
 
 
         **Example:**
@@ -14300,7 +14320,7 @@ paths:
           description: An account with the specified ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get the details of all user invitations.
+      summary: Get user invitations.
       tags:
       - Tenant accounts - user invitations
       x-filter:
@@ -14463,7 +14483,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/users:
     get:
-      description: 'Retrieve details of all users.
+      description: 'Retrieve an array of users.
 
 
         **Example:**
@@ -14553,7 +14573,7 @@ paths:
           description: An account with the given ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get the details of all users.
+      summary: Get users.
       tags:
       - Tenant accounts - users
       x-filter:
@@ -14882,7 +14902,7 @@ paths:
         links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Retrieve user''s groups.
+      description: 'Retrieve an array of policy groups associated with a user.
 
 
         **Example:**
@@ -14951,7 +14971,7 @@ paths:
           description: An account or user with the specified ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get user's groups.
+      summary: Get policy groups for a user.
       tags:
       - Tenant accounts - users
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -15218,7 +15238,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/api-keys:
     get:
-      description: 'Retrieve API keys in an array, optionally filtered by the owner.
+      description: 'Retrieve an array of API keys, optionally filtered by the owner.
 
 
         **Example:**
@@ -15343,7 +15363,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/api-keys/me:
     get:
-      description: 'Retrieve API key details.
+      description: 'Retrieve details of current API key.
 
 
         **Example:**
@@ -15372,7 +15392,7 @@ paths:
           description: Forbidden.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get API key details.
+      summary: Get current API key.
       tags:
       - Account - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -15482,7 +15502,8 @@ paths:
         links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Retrieve groups associated with the API key.
+      description: 'Retrieve an array of policy groups associated with the current
+        API key.
 
 
         **Example:**
@@ -15536,7 +15557,7 @@ paths:
           description: Forbidden.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get groups of the API key.
+      summary: Get policy groups of the current API key.
       tags:
       - Account - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -15754,7 +15775,7 @@ paths:
       - Account - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Retrieve API key details.
+      description: 'Retrieve details of an API key.
 
 
         **Example:**
@@ -15792,7 +15813,7 @@ paths:
           description: API key with the specified ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get API key details.
+      summary: Get API key.
       tags:
       - Account - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -15921,7 +15942,7 @@ paths:
         links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Retrieve groups associated with the API key.
+      description: 'Retrieve an array of policy groups associated with an API key.
 
 
         **Example:**
@@ -15985,7 +16006,7 @@ paths:
           description: An API key with the given ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get groups of the API key.
+      summary: Get policy groups of an API key.
       tags:
       - Account - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -24516,7 +24537,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Retrieve identity providers in an array.
+      description: Retrieve an array of identity providers.
       operationId: getAllIdentityProviders
       parameters:
       - default: 50
@@ -24645,7 +24666,7 @@ paths:
       - Account - identity providers
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: Retrieve by ID.
+      description: Retrieve an identity provider.
       operationId: getIdentityProvider
       parameters:
       - description: The ID of the identity provider to retrieve.
@@ -24672,7 +24693,7 @@ paths:
           description: Identity provider not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get identity provider by ID.
+      summary: Get identity provider.
       tags:
       - Account - identity providers
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -24863,7 +24884,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/limitations:
     get:
-      description: An endpoint for retrieving all limitations of an account.
+      description: Retrieve an array of entitlement limitations.
       operationId: getAccountLimitations
       parameters:
       - description: Filter for finding account limitations by inheritance. True returns
@@ -24887,16 +24908,16 @@ paths:
           description: Forbidden.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get all limitations of an account.
+      summary: Get entitlement limitations.
       tags:
-      - Account - limitations
+      - Account - entitlement limitations
       x-filter:
         inherited:
         - eq
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/limitations/{limitation_id}:
     get:
-      description: An endpoint for retrieving a limitation of an account.
+      description: Retrieve an entitlement limitation.
       operationId: getAccountLimitation
       parameters:
       - description: The ID of the limitation to be fetched.
@@ -24923,9 +24944,9 @@ paths:
           description: Limitation with the given ID not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get a limitation of an account.
+      summary: Get an entitlement limitation.
       tags:
-      - Account - limitations
+      - Account - entitlement limitations
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/metrics:
     get:
@@ -25073,7 +25094,7 @@ paths:
       x-origin: /home/circleci/project/statistics/public/rest-api-v3-external.yaml
   /v3/policy-groups:
     get:
-      description: 'Retrieve all group information.
+      description: 'Retrieve an array of policy groups.
 
 
         **Example:**
@@ -25132,7 +25153,7 @@ paths:
           description: Forbidden.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get all group information.
+      summary: Get policy groups.
       tags:
       - Account - policy groups
       x-filter:
@@ -25235,7 +25256,7 @@ paths:
       - Account - policy groups
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Retrieve general information about a group.
+      description: 'Retrieve a policy group.
 
 
         **Example:**
@@ -25250,7 +25271,7 @@ paths:
         ```'
       operationId: getGroupSummary
       parameters:
-      - description: The ID of the group to retrieve.
+      - description: The ID of the policy group to retrieve.
         in: path
         name: group_id
         required: true
@@ -25274,7 +25295,7 @@ paths:
           description: A group with that ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get group information.
+      summary: Get a policy group.
       tags:
       - Account - policy groups
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -25472,7 +25493,7 @@ paths:
         links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Manage policy groups.
+      description: 'Retrieve an array of API keys associated with a policy group.
 
 
         **Example:**
@@ -25536,7 +25557,7 @@ paths:
           description: A group with that ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get the API keys of a group.
+      summary: Get the API keys of a policy group.
       tags:
       - Account - policy groups
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
@@ -25794,7 +25815,7 @@ paths:
         links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Retrieve users of a group with details.
+      description: 'Retrieve an array of users associated with a policy group.
 
 
         **Example:**
@@ -25874,7 +25895,7 @@ paths:
           description: A group with that ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get users of a group.
+      summary: Get users of a policy group.
       tags:
       - Account - policy groups
       x-filter:
@@ -26511,7 +26532,7 @@ paths:
       x-origin: /home/circleci/project/billing/public/swagger-public-apis.yaml
   /v3/trusted-certificates:
     get:
-      description: 'Retrieve trusted certificates in an array.
+      description: 'Retrieve an array of trusted certificates.
 
 
         **Example:**
@@ -26631,7 +26652,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get all trusted certificates.
       tags:
-      - Device security - certificates
+      - Security and identity - certificates
       x-filter:
         device_execution_mode:
         - eq
@@ -26708,7 +26729,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Upload a new trusted certificate.
       tags:
-      - Device security - certificates
+      - Security and identity - certificates
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/trusted-certificates/{cert_id}:
     delete:
@@ -26751,10 +26772,10 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete a trusted certificate by ID.
       tags:
-      - Device security - certificates
+      - Security and identity - certificates
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Retrieve a trusted certificate by ID.
+      description: 'Retrieve a trusted certificate.
 
 
         **Example:**
@@ -26793,9 +26814,9 @@ paths:
           description: Certificate not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get trusted certificate by ID.
+      summary: Get a trusted certificate.
       tags:
-      - Device security - certificates
+      - Security and identity - certificates
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       consumes:
@@ -26859,7 +26880,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Update trusted certificate.
       tags:
-      - Device security - certificates
+      - Security and identity - certificates
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/update-campaigns:
     get:
@@ -27848,7 +27869,7 @@ paths:
       x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/user-invitations:
     get:
-      description: 'Retrieve details for all the active user invitations.
+      description: 'Retrieve an array of active user invitations sent by email.
 
 
         **Example:**
@@ -27901,7 +27922,7 @@ paths:
           description: Forbidden.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get the details of all user invitations.
+      summary: Get user invitations.
       tags:
       - Account - user invitations
       x-filter:
@@ -28047,7 +28068,7 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/users:
     get:
-      description: 'Retrieve the details of all users.
+      description: 'Retrieve an array of users.
 
 
         **Example:**
@@ -28127,7 +28148,7 @@ paths:
           description: Forbidden.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get the details of all users.
+      summary: Get users.
       tags:
       - Account - users
       x-filter:
@@ -28522,7 +28543,7 @@ paths:
         links: []
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: 'Retrieve groups of the user.
+      description: 'Retrieve an array of policy groups associated with a user.
 
 
         **Example:**
@@ -28586,7 +28607,7 @@ paths:
           description: A user with the given ID does not exist.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Get groups of the user.
+      summary: Get policy groups for a user.
       tags:
       - Account - users
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml

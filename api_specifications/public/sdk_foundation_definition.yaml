@@ -592,6 +592,25 @@ entities:
     readOnly: true
     required: false
     type: string
+  - _key: tier_history
+    api_fieldname: tier_history
+    description: Tier history for this account.
+    items:
+      properties:
+      - _key: tier
+        description: 'The tier level of the account; `0`: free tier, `1`: commercial
+          account, `2`: partner tier. Other values are reserved for the future.'
+        example: '1'
+        type: string
+      - _key: updatedAt
+        description: Last update UTC time RFC3339.
+        example: '2018-02-14T15:24:14Z'
+        format: date-time
+        type: string
+      type: object
+    readOnly: true
+    required: false
+    type: array
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
@@ -611,7 +630,7 @@ entities:
   group_id: Accounts
   methods:
   - _key: api_keys
-    description: 'Retrieve API keys in an array, optionally filtered by the owner.
+    description: 'Retrieve an array of API keys, optionally filtered by the owner.
 
 
       **Example:**
@@ -1081,6 +1100,7 @@ entities:
     - limitations
     - password_recovery_expiration
     - business_model_history
+    - tier_history
     field_renames: []
     fields:
     - _key: action
@@ -2375,6 +2395,23 @@ entities:
                 account, `2`: partner tier. Other values are reserved for the future.'
               example: '1'
               type: string
+            - _key: tier_history
+              description: Tier history for this account.
+              items:
+                properties:
+                - _key: tier
+                  description: 'The tier level of the account; `0`: free tier, `1`:
+                    commercial account, `2`: partner tier. Other values are reserved
+                    for the future.'
+                  example: '1'
+                  type: string
+                - _key: updatedAt
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
+              type: array
             - _key: updated_at
               description: Last update UTC time RFC3339.
               example: '2018-02-14T15:24:14Z'
@@ -2411,6 +2448,24 @@ entities:
           entity_fieldname: tier
           example: '1'
           type: string
+        - _key: tier_history
+          api_fieldname: tier_history
+          description: Tier history for this account.
+          entity_fieldname: tier_history
+          items:
+            properties:
+            - _key: tier
+              description: 'The tier level of the account; `0`: free tier, `1`: commercial
+                account, `2`: partner tier. Other values are reserved for the future.'
+              example: '1'
+              type: string
+            - _key: updatedAt
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
+          type: array
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -3878,7 +3933,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: 'Returns an array of account objects, optionally filtered by status
+    description: 'Retrieve an array of tenant accounts, optionally filtered by status
       and tier level.
 
 
@@ -4962,6 +5017,23 @@ entities:
                     for the future.'
                   example: '1'
                   type: string
+                - _key: tier_history
+                  description: Tier history for this account.
+                  items:
+                    properties:
+                    - _key: tier
+                      description: 'The tier level of the account; `0`: free tier,
+                        `1`: commercial account, `2`: partner tier. Other values are
+                        reserved for the future.'
+                      example: '1'
+                      type: string
+                    - _key: updatedAt
+                      description: Last update UTC time RFC3339.
+                      example: '2018-02-14T15:24:14Z'
+                      format: date-time
+                      type: string
+                    type: object
+                  type: array
                 - _key: updated_at
                   description: Last update UTC time RFC3339.
                   example: '2018-02-14T15:24:14Z'
@@ -4994,6 +5066,23 @@ entities:
                 account, `2`: partner tier. Other values are reserved for the future.'
               example: '1'
               type: string
+            - _key: tier_history
+              description: Tier history for this account.
+              items:
+                properties:
+                - _key: tier
+                  description: 'The tier level of the account; `0`: free tier, `1`:
+                    commercial account, `2`: partner tier. Other values are reserved
+                    for the future.'
+                  example: '1'
+                  type: string
+                - _key: updatedAt
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
+              type: array
             - _key: updated_at
               description: Last update UTC time RFC3339.
               example: '2018-02-14T15:24:14Z'
@@ -5174,7 +5263,7 @@ entities:
       tier:
       - eq
   - _key: me
-    description: 'Retrieve detailed information about the account.
+    description: 'Retrieve information about the account.
 
 
       **Example:**
@@ -5239,6 +5328,7 @@ entities:
     - password_recovery_expiration
     - business_model
     - business_model_history
+    - tier_history
     field_renames: []
     fields:
     - _key: include
@@ -6311,6 +6401,23 @@ entities:
                 account, `2`: partner tier. Other values are reserved for the future.'
               example: '1'
               type: string
+            - _key: tier_history
+              description: Tier history for this account.
+              items:
+                properties:
+                - _key: tier
+                  description: 'The tier level of the account; `0`: free tier, `1`:
+                    commercial account, `2`: partner tier. Other values are reserved
+                    for the future.'
+                  example: '1'
+                  type: string
+                - _key: updatedAt
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
+              type: array
             - _key: updated_at
               description: Last update UTC time RFC3339.
               example: '2018-02-14T15:24:14Z'
@@ -6347,6 +6454,24 @@ entities:
           entity_fieldname: tier
           example: '1'
           type: string
+        - _key: tier_history
+          api_fieldname: tier_history
+          description: Tier history for this account.
+          entity_fieldname: tier_history
+          items:
+            properties:
+            - _key: tier
+              description: 'The tier level of the account; `0`: free tier, `1`: commercial
+                account, `2`: partner tier. Other values are reserved for the future.'
+              example: '1'
+              type: string
+            - _key: updatedAt
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
+          type: array
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -6470,7 +6595,7 @@ entities:
       self: true
       type: account
     return_type: account
-    summary: Get account info.
+    summary: Get account information.
     x_deprecation: null
     x_filter: {}
   - _key: read
@@ -6538,6 +6663,7 @@ entities:
     - password_recovery_expiration
     - business_model
     - business_model_history
+    - tier_history
     field_renames: []
     fields:
     - _key: id
@@ -7618,6 +7744,23 @@ entities:
                 account, `2`: partner tier. Other values are reserved for the future.'
               example: '1'
               type: string
+            - _key: tier_history
+              description: Tier history for this account.
+              items:
+                properties:
+                - _key: tier
+                  description: 'The tier level of the account; `0`: free tier, `1`:
+                    commercial account, `2`: partner tier. Other values are reserved
+                    for the future.'
+                  example: '1'
+                  type: string
+                - _key: updatedAt
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
+              type: array
             - _key: updated_at
               description: Last update UTC time RFC3339.
               example: '2018-02-14T15:24:14Z'
@@ -7654,6 +7797,24 @@ entities:
           entity_fieldname: tier
           example: '1'
           type: string
+        - _key: tier_history
+          api_fieldname: tier_history
+          description: Tier history for this account.
+          entity_fieldname: tier_history
+          items:
+            properties:
+            - _key: tier
+              description: 'The tier level of the account; `0`: free tier, `1`: commercial
+                account, `2`: partner tier. Other values are reserved for the future.'
+              example: '1'
+              type: string
+            - _key: updatedAt
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
+          type: array
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -7825,11 +7986,11 @@ entities:
       self: true
       type: account
     return_type: account
-    summary: Get account info.
+    summary: Get account information.
     x_deprecation: null
     x_filter: {}
   - _key: trusted_certificates
-    description: 'Retrieve trusted certificates in an array.
+    description: 'Retrieve an array of trusted certificates.
 
 
       **Example:**
@@ -8284,7 +8445,7 @@ entities:
       self: false
       type: subtenant_trusted_certificate
     return_type: paginated_response(subtenant_trusted_certificate)
-    summary: Get all trusted certificates.
+    summary: Get trusted certificates.
     x_deprecation: null
     x_filter:
       device_execution_mode:
@@ -8357,6 +8518,7 @@ entities:
     - admin_full_name
     - limitations
     - business_model_history
+    - tier_history
     field_renames: []
     fields:
     - _key: address_line1
@@ -9695,6 +9857,23 @@ entities:
                 account, `2`: partner tier. Other values are reserved for the future.'
               example: '1'
               type: string
+            - _key: tier_history
+              description: Tier history for this account.
+              items:
+                properties:
+                - _key: tier
+                  description: 'The tier level of the account; `0`: free tier, `1`:
+                    commercial account, `2`: partner tier. Other values are reserved
+                    for the future.'
+                  example: '1'
+                  type: string
+                - _key: updatedAt
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
+              type: array
             - _key: updated_at
               description: Last update UTC time RFC3339.
               example: '2018-02-14T15:24:14Z'
@@ -9731,6 +9910,24 @@ entities:
           entity_fieldname: tier
           example: '1'
           type: string
+        - _key: tier_history
+          api_fieldname: tier_history
+          description: Tier history for this account.
+          entity_fieldname: tier_history
+          items:
+            properties:
+            - _key: tier
+              description: 'The tier level of the account; `0`: free tier, `1`: commercial
+                account, `2`: partner tier. Other values are reserved for the future.'
+              example: '1'
+              type: string
+            - _key: updatedAt
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
+          type: array
         - _key: updated_at
           api_fieldname: updated_at
           description: Last update UTC time RFC3339.
@@ -9954,8 +10151,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: user_invitations
-    description: 'Retrieve details of all active user invitations sent for new or
-      existing users.
+    description: 'Retrieve an array of active user invitations.
 
 
       **Example:**
@@ -10118,6 +10314,12 @@ entities:
                   entity: login_profile
                   group: Accounts
                 properties:
+                - _key: foreign_id
+                  api_fieldname: foreign_id
+                  description: The ID of the user in the identity provider's service.
+                  entity_fieldname: foreign_id
+                  readOnly: true
+                  type: string
                 - _key: id
                   _override: true
                   api_fieldname: id
@@ -10377,13 +10579,13 @@ entities:
       self: false
       type: subtenant_user_invitation
     return_type: paginated_response(subtenant_user_invitation)
-    summary: Get the details of all user invitations.
+    summary: Get user invitations.
     x_deprecation: null
     x_filter:
       login_profiles:
       - eq
   - _key: users
-    description: 'Retrieve details of all users.
+    description: 'Retrieve an array of users.
 
 
       **Example:**
@@ -10712,6 +10914,12 @@ entities:
                   entity: login_profile
                   group: Accounts
                 properties:
+                - _key: foreign_id
+                  api_fieldname: foreign_id
+                  description: The ID of the user in the identity provider's service.
+                  entity_fieldname: foreign_id
+                  readOnly: true
+                  type: string
                 - _key: id
                   _override: true
                   api_fieldname: id
@@ -11011,7 +11219,7 @@ entities:
       self: false
       type: subtenant_user
     return_type: paginated_response(subtenant_user)
-    summary: Get the details of all users.
+    summary: Get users.
     x_deprecation: null
     x_filter:
       email:
@@ -11040,7 +11248,7 @@ entities:
   - Tenant accounts - API keys
   - Tenant accounts - users
   - Tenant accounts - user invitations
-  - Tenant device security - certificates
+  - Tenant security and identity - certificates
   - Tenant user interface configuration - colors
   - Tenant user interface configuration - images
 - _key: active_session
@@ -11731,7 +11939,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: 'Retrieve API keys in an array, optionally filtered by the owner.
+    description: 'Retrieve an array of API keys, optionally filtered by the owner.
 
 
       **Example:**
@@ -12073,7 +12281,7 @@ entities:
       owner:
       - eq
   - _key: me
-    description: 'Retrieve API key details.
+    description: 'Retrieve details of current API key.
 
 
       **Example:**
@@ -12323,11 +12531,11 @@ entities:
       self: true
       type: api_key
     return_type: api_key
-    summary: Get API key details.
+    summary: Get current API key.
     x_deprecation: null
     x_filter: {}
   - _key: policy_groups
-    description: 'Retrieve groups associated with the API key.
+    description: 'Retrieve an array of policy groups associated with an API key.
 
 
       **Example:**
@@ -12714,11 +12922,11 @@ entities:
       self: false
       type: policy_group
     return_type: paginated_response(policy_group)
-    summary: Get groups of the API key.
+    summary: Get policy groups of an API key.
     x_deprecation: null
     x_filter: {}
   - _key: read
-    description: 'Retrieve API key details.
+    description: 'Retrieve details of an API key.
 
 
       **Example:**
@@ -13023,7 +13231,7 @@ entities:
       self: true
       type: api_key
     return_type: api_key
-    summary: Get API key details.
+    summary: Get API key.
     x_deprecation: null
     x_filter: {}
   - _key: update
@@ -22355,7 +22563,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: get_trusted_certificate_info
-    description: 'Retrieve a trusted certificate by ID.
+    description: 'Retrieve a trusted certificate.
 
 
       **Example:**
@@ -22721,7 +22929,7 @@ entities:
       self: false
       type: trusted_certificate
     return_type: trusted_certificate
-    summary: Get trusted certificate by ID.
+    summary: Get a trusted certificate.
     unaggregated: true
     x_deprecation: null
     x_filter: {}
@@ -23208,7 +23416,7 @@ entities:
   - TrustedCertificateResp
   tags:
   - Device security - developer class certificates
-  - Device security - certificates
+  - Security and identity - certificates
 - _key: device
   field_renames: []
   fields:
@@ -36622,7 +36830,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: Retrieve identity providers in an array.
+    description: Retrieve an array of identity providers.
     drop_fields:
     - object
     - etag
@@ -36977,7 +37185,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: read
-    description: Retrieve by ID.
+    description: Retrieve an identity provider.
     drop_fields:
     - object
     - etag
@@ -37299,7 +37507,7 @@ entities:
       self: true
       type: identity_provider
     return_type: identity_provider
-    summary: Get identity provider by ID.
+    summary: Get identity provider.
     x_deprecation: null
     x_filter: {}
   - _key: refresh_tokens
@@ -40702,6 +40910,12 @@ entities:
   - _key: login_profile_type
     api_fieldname: type
   fields:
+  - _key: foreign_id
+    api_fieldname: foreign_id
+    description: The ID of the user in the identity provider's service.
+    readOnly: true
+    required: false
+    type: string
   - _key: id
     _override: true
     api_fieldname: id
@@ -41176,7 +41390,7 @@ entities:
   group_id: Accounts
   methods:
   - _key: api_keys
-    description: 'Manage policy groups.
+    description: 'Retrieve an array of API keys associated with a policy group.
 
 
       **Example:**
@@ -41583,7 +41797,7 @@ entities:
       self: false
       type: api_key
     return_type: paginated_response(api_key)
-    summary: Get the API keys of a group.
+    summary: Get the API keys of a policy group.
     x_deprecation: null
     x_filter: {}
   - _key: create
@@ -42133,7 +42347,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: 'Retrieve all group information.
+    description: 'Retrieve an array of policy groups.
 
 
       **Example:**
@@ -42464,13 +42678,13 @@ entities:
       self: true
       type: policy_group
     return_type: paginated_response(policy_group)
-    summary: Get all group information.
+    summary: Get policy groups.
     x_deprecation: null
     x_filter:
       name:
       - eq
   - _key: read
-    description: 'Retrieve general information about a group.
+    description: 'Retrieve a policy group.
 
 
       **Example:**
@@ -42745,7 +42959,7 @@ entities:
       self: true
       type: policy_group
     return_type: policy_group
-    summary: Get group information.
+    summary: Get a policy group.
     x_deprecation: null
     x_filter: {}
   - _key: update
@@ -43089,7 +43303,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: users
-    description: 'Retrieve users of a group with details.
+    description: 'Retrieve an array of users associated with a policy group.
 
 
       **Example:**
@@ -43414,6 +43628,12 @@ entities:
                   entity: login_profile
                   group: Accounts
                 properties:
+                - _key: foreign_id
+                  api_fieldname: foreign_id
+                  description: The ID of the user in the identity provider's service.
+                  entity_fieldname: foreign_id
+                  readOnly: true
+                  type: string
                 - _key: id
                   _override: true
                   api_fieldname: id
@@ -43713,7 +43933,7 @@ entities:
       self: false
       type: user
     return_type: paginated_response(user)
-    summary: Get users of a group.
+    summary: Get users of a policy group.
     x_deprecation: null
     x_filter:
       status:
@@ -45423,7 +45643,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: policy_groups
-    description: 'Retrieve groups associated with the API key.
+    description: 'Retrieve an array of policy groups associated with an API key.
 
 
       **Example:**
@@ -45820,11 +46040,12 @@ entities:
       self: false
       type: subtenant_policy_group
     return_type: paginated_response(subtenant_policy_group)
-    summary: Get groups associated with the API key.
+    summary: Get policy groups of an API key.
     x_deprecation: null
     x_filter: {}
   - _key: read
-    description: "Retrieve API key details.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
+    description: "Retrieve details of an API key.\n\n**Example:**\n```\ncurl -X GET\
+      \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
       \ \\\n -H 'Authorization: Bearer <api_key>'\n```"
     drop_fields:
     - object
@@ -46633,8 +46854,7 @@ entities:
   group_id: Branding
   methods:
   - _key: delete
-    description: 'Resets the branding color of a tenant account to its dark theme
-      default.
+    description: 'Resets the branding color to its dark theme default.
 
 
       **Example:**
@@ -47139,7 +47359,7 @@ entities:
     - notes: Bulk operation is not appriate for SDK's entity model, this functionality
         is covered by the update method.
       operation_id: bulkSetAccountDarkColors
-    description: 'Update a dark theme branding color of a tenant account.
+    description: 'Update a dark theme branding color.
 
 
       **Example:**
@@ -50179,7 +50399,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: Retrieve identity providers in an array.
+    description: Retrieve an array of identity providers.
     drop_fields:
     - object
     - etag
@@ -50608,7 +50828,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: read
-    description: Manage identity providers of a tenant account.
+    description: Retrieve an identity provider.
     drop_fields:
     - object
     - etag
@@ -50956,7 +51176,7 @@ entities:
       self: true
       type: subtenant_identity_provider
     return_type: subtenant_identity_provider
-    summary: Retrieve identity provider by ID.
+    summary: Get an identity provider.
     x_deprecation: null
     x_filter: {}
   - _key: refresh_tokens
@@ -52053,8 +52273,7 @@ entities:
   group_id: Branding
   methods:
   - _key: delete
-    description: 'Resets the branding color of a tenant account to its light theme
-      default.
+    description: 'Resets the branding color to its light theme default.
 
 
       **Example:**
@@ -52558,7 +52777,7 @@ entities:
     - notes: Bulk operation is not appriate for SDK's entity model, this functionality
         is covered by the update method.
       operation_id: bulkSetAccountLightColors
-    description: 'Update a light theme branding color of a tenant account.
+    description: 'Update a light theme branding color.
 
 
       **Example:**
@@ -53922,7 +54141,7 @@ entities:
   group_id: Accounts
   methods:
   - _key: api_keys
-    description: 'List the API keys of the group with details.
+    description: 'Retrieve an array of API keys associated with a policy group.
 
 
       **Example:**
@@ -54339,7 +54558,7 @@ entities:
       self: false
       type: subtenant_api_key
     return_type: paginated_response(subtenant_api_key)
-    summary: Get API keys of a group.
+    summary: Get API keys in a group.
     x_deprecation: null
     x_filter: {}
   - _key: create
@@ -54965,7 +55184,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: 'Retrieve all group information.
+    description: 'Retrieve an array of policy groups.
 
 
       **Example:**
@@ -55355,13 +55574,13 @@ entities:
       self: true
       type: subtenant_policy_group
     return_type: paginated_response(subtenant_policy_group)
-    summary: Get all group information.
+    summary: Get policy groups.
     x_deprecation: null
     x_filter:
       name:
       - eq
   - _key: read
-    description: 'Retrieve general information about the group.
+    description: 'Retrieve policy group details.
 
 
       **Example:**
@@ -55651,7 +55870,7 @@ entities:
       self: true
       type: subtenant_policy_group
     return_type: subtenant_policy_group
-    summary: Get group information.
+    summary: Get policy group.
     x_deprecation: null
     x_filter: {}
   - _key: update
@@ -56010,7 +56229,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: users
-    description: 'List a group''s users, with details.
+    description: 'Retrieve an array of users associated with a policy group.
 
 
       **Example:**
@@ -56345,6 +56564,12 @@ entities:
                   entity: login_profile
                   group: Accounts
                 properties:
+                - _key: foreign_id
+                  api_fieldname: foreign_id
+                  description: The ID of the user in the identity provider's service.
+                  entity_fieldname: foreign_id
+                  readOnly: true
+                  type: string
                 - _key: id
                   _override: true
                   api_fieldname: id
@@ -56644,7 +56869,7 @@ entities:
       self: false
       type: subtenant_user
     return_type: paginated_response(subtenant_user)
-    summary: Get users of a group.
+    summary: Get users in a policy group.
     x_deprecation: null
     x_filter:
       status:
@@ -56828,7 +57053,7 @@ entities:
   group_id: Security
   methods:
   - _key: create
-    description: 'Upload new trusted certificates.
+    description: 'Upload new trusted certificate.
 
 
       **Example:**
@@ -57336,7 +57561,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: delete
-    description: 'Delete the trusted certificate.
+    description: 'Delete a trusted certificate.
 
 
       **Example:**
@@ -57548,7 +57773,7 @@ entities:
       self: true
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
-    summary: Delete trusted certificate by ID.
+    summary: Delete a trusted certificate by ID.
     x_deprecation: null
     x_filter: {}
   - _key: get_developer_certificate_info
@@ -58040,7 +58265,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: read
-    description: 'Retrieve a trusted certificate by ID.
+    description: 'Retrieve a trusted certificate.
 
 
       **Example:**
@@ -58442,12 +58667,12 @@ entities:
       self: true
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
-    summary: Get trusted certificate by ID.
+    summary: Get a trusted certificate.
     x_deprecation: null
     x_filter: {}
   - _key: update
-    description: "Update existing trusted certificates.\n\n**Example:**\n```\ncurl\
-      \ -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}\
+    description: "Update a trusted certificate.\n\n**Example:**\n```\ncurl -X PUT\
+      \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}\
       \ \\\n -H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json'\
       \ \\\n -d {\"description\": \"very important cert\"}\n ```"
     drop_fields:
@@ -58953,7 +59178,7 @@ entities:
   - TrustedCertificateResp
   - TrustedCertificateUpdateReq
   tags:
-  - Tenant device security - certificates
+  - Tenant security and identity - certificates
   - Device security - developer class certificates
 - _key: subtenant_user
   field_renames: []
@@ -59211,6 +59436,12 @@ entities:
         entity: login_profile
         group: Accounts
       properties:
+      - _key: foreign_id
+        api_fieldname: foreign_id
+        description: The ID of the user in the identity provider's service.
+        entity_fieldname: foreign_id
+        readOnly: true
+        type: string
       - _key: id
         _override: true
         api_fieldname: id
@@ -59457,6 +59688,12 @@ entities:
           entity: login_profile
           group: Accounts
         properties:
+        - _key: foreign_id
+          api_fieldname: foreign_id
+          description: The ID of the user in the identity provider's service.
+          entity_fieldname: foreign_id
+          readOnly: true
+          type: string
         - _key: id
           _override: true
           api_fieldname: id
@@ -59795,6 +60032,12 @@ entities:
               entity: login_profile
               group: Accounts
             properties:
+            - _key: foreign_id
+              api_fieldname: foreign_id
+              description: The ID of the user in the identity provider's service.
+              entity_fieldname: foreign_id
+              readOnly: true
+              type: string
             - _key: id
               _override: true
               api_fieldname: id
@@ -60420,7 +60663,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: policy_groups
-    description: 'Retrieve user''s groups.
+    description: 'Retrieve an array of policy groups associated with a user.
 
 
       **Example:**
@@ -60817,7 +61060,7 @@ entities:
       self: false
       type: subtenant_policy_group
     return_type: paginated_response(subtenant_policy_group)
-    summary: Get user's groups.
+    summary: Get policy groups for a user.
     x_deprecation: null
     x_filter: {}
   - _key: read
@@ -61156,6 +61399,12 @@ entities:
               entity: login_profile
               group: Accounts
             properties:
+            - _key: foreign_id
+              api_fieldname: foreign_id
+              description: The ID of the user in the identity provider's service.
+              entity_fieldname: foreign_id
+              readOnly: true
+              type: string
             - _key: id
               _override: true
               api_fieldname: id
@@ -61562,6 +61811,12 @@ entities:
           entity: login_profile
           group: Accounts
         properties:
+        - _key: foreign_id
+          api_fieldname: foreign_id
+          description: The ID of the user in the identity provider's service.
+          entity_fieldname: foreign_id
+          readOnly: true
+          type: string
         - _key: id
           _override: true
           api_fieldname: id
@@ -61884,6 +62139,12 @@ entities:
               entity: login_profile
               group: Accounts
             properties:
+            - _key: foreign_id
+              api_fieldname: foreign_id
+              description: The ID of the user in the identity provider's service.
+              entity_fieldname: foreign_id
+              readOnly: true
+              type: string
             - _key: id
               _override: true
               api_fieldname: id
@@ -62536,6 +62797,12 @@ entities:
         entity: login_profile
         group: Accounts
       properties:
+      - _key: foreign_id
+        api_fieldname: foreign_id
+        description: The ID of the user in the identity provider's service.
+        entity_fieldname: foreign_id
+        readOnly: true
+        type: string
       - _key: id
         _override: true
         api_fieldname: id
@@ -62659,6 +62926,12 @@ entities:
           entity: login_profile
           group: Accounts
         properties:
+        - _key: foreign_id
+          api_fieldname: foreign_id
+          description: The ID of the user in the identity provider's service.
+          entity_fieldname: foreign_id
+          readOnly: true
+          type: string
         - _key: id
           _override: true
           api_fieldname: id
@@ -62794,6 +63067,12 @@ entities:
               entity: login_profile
               group: Accounts
             properties:
+            - _key: foreign_id
+              api_fieldname: foreign_id
+              description: The ID of the user in the identity provider's service.
+              entity_fieldname: foreign_id
+              readOnly: true
+              type: string
             - _key: id
               _override: true
               api_fieldname: id
@@ -63350,6 +63629,12 @@ entities:
               entity: login_profile
               group: Accounts
             properties:
+            - _key: foreign_id
+              api_fieldname: foreign_id
+              description: The ID of the user in the identity provider's service.
+              entity_fieldname: foreign_id
+              readOnly: true
+              type: string
             - _key: id
               _override: true
               api_fieldname: id
@@ -64890,7 +65175,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: 'Retrieve trusted certificates in an array.
+    description: 'Retrieve an array of trusted certificates.
 
 
       **Example:**
@@ -65301,7 +65586,7 @@ entities:
       valid:
       - eq
   - _key: read
-    description: 'Retrieve a trusted certificate by ID.
+    description: 'Retrieve a trusted certificate.
 
 
       **Example:**
@@ -65671,7 +65956,7 @@ entities:
       self: true
       type: trusted_certificate
     return_type: trusted_certificate
-    summary: Get trusted certificate by ID.
+    summary: Get a trusted certificate.
     x_deprecation: null
     x_filter: {}
   - _key: update
@@ -66211,7 +66496,7 @@ entities:
   - TrustedCertificateRespList
   - TrustedCertificateUpdateReq
   tags:
-  - Device security - certificates
+  - Security and identity - certificates
   - Device security - developer class certificates
 - _key: update_campaign
   field_renames: []
@@ -68787,6 +69072,12 @@ entities:
         entity: login_profile
         group: Accounts
       properties:
+      - _key: foreign_id
+        api_fieldname: foreign_id
+        description: The ID of the user in the identity provider's service.
+        entity_fieldname: foreign_id
+        readOnly: true
+        type: string
       - _key: id
         _override: true
         api_fieldname: id
@@ -69014,6 +69305,12 @@ entities:
           entity: login_profile
           group: Accounts
         properties:
+        - _key: foreign_id
+          api_fieldname: foreign_id
+          description: The ID of the user in the identity provider's service.
+          entity_fieldname: foreign_id
+          readOnly: true
+          type: string
         - _key: id
           _override: true
           api_fieldname: id
@@ -69327,6 +69624,12 @@ entities:
               entity: login_profile
               group: Accounts
             properties:
+            - _key: foreign_id
+              api_fieldname: foreign_id
+              description: The ID of the user in the identity provider's service.
+              entity_fieldname: foreign_id
+              readOnly: true
+              type: string
             - _key: id
               _override: true
               api_fieldname: id
@@ -69879,7 +70182,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: 'Retrieve the details of all users.
+    description: 'Retrieve an array of users.
 
 
       **Example:**
@@ -70192,6 +70495,12 @@ entities:
                   entity: login_profile
                   group: Accounts
                 properties:
+                - _key: foreign_id
+                  api_fieldname: foreign_id
+                  description: The ID of the user in the identity provider's service.
+                  entity_fieldname: foreign_id
+                  readOnly: true
+                  type: string
                 - _key: id
                   _override: true
                   api_fieldname: id
@@ -70430,7 +70739,7 @@ entities:
       self: true
       type: user
     return_type: paginated_response(user)
-    summary: Get the details of all users.
+    summary: Get users.
     x_deprecation: null
     x_filter:
       email:
@@ -70442,7 +70751,7 @@ entities:
       - in
       - nin
   - _key: policy_groups
-    description: 'Retrieve groups of the user.
+    description: 'Retrieve an array of policy groups associated with a user.
 
 
       **Example:**
@@ -70810,7 +71119,7 @@ entities:
       self: false
       type: policy_group
     return_type: paginated_response(policy_group)
-    summary: Get groups of the user.
+    summary: Get policy groups for a user.
     x_deprecation: null
     x_filter: {}
   - _key: read
@@ -71114,6 +71423,12 @@ entities:
               entity: login_profile
               group: Accounts
             properties:
+            - _key: foreign_id
+              api_fieldname: foreign_id
+              description: The ID of the user in the identity provider's service.
+              entity_fieldname: foreign_id
+              readOnly: true
+              type: string
             - _key: id
               _override: true
               api_fieldname: id
@@ -71496,6 +71811,12 @@ entities:
           entity: login_profile
           group: Accounts
         properties:
+        - _key: foreign_id
+          api_fieldname: foreign_id
+          description: The ID of the user in the identity provider's service.
+          entity_fieldname: foreign_id
+          readOnly: true
+          type: string
         - _key: id
           _override: true
           api_fieldname: id
@@ -71793,6 +72114,12 @@ entities:
               entity: login_profile
               group: Accounts
             properties:
+            - _key: foreign_id
+              api_fieldname: foreign_id
+              description: The ID of the user in the identity provider's service.
+              entity_fieldname: foreign_id
+              readOnly: true
+              type: string
             - _key: id
               _override: true
               api_fieldname: id
@@ -72219,6 +72546,12 @@ entities:
         entity: login_profile
         group: Accounts
       properties:
+      - _key: foreign_id
+        api_fieldname: foreign_id
+        description: The ID of the user in the identity provider's service.
+        entity_fieldname: foreign_id
+        readOnly: true
+        type: string
       - _key: id
         _override: true
         api_fieldname: id
@@ -72331,6 +72664,12 @@ entities:
           entity: login_profile
           group: Accounts
         properties:
+        - _key: foreign_id
+          api_fieldname: foreign_id
+          description: The ID of the user in the identity provider's service.
+          entity_fieldname: foreign_id
+          readOnly: true
+          type: string
         - _key: id
           _override: true
           api_fieldname: id
@@ -72456,6 +72795,12 @@ entities:
               entity: login_profile
               group: Accounts
             properties:
+            - _key: foreign_id
+              api_fieldname: foreign_id
+              description: The ID of the user in the identity provider's service.
+              entity_fieldname: foreign_id
+              readOnly: true
+              type: string
             - _key: id
               _override: true
               api_fieldname: id
@@ -72864,7 +73209,7 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: 'Retrieve details for all the active user invitations.
+    description: 'Retrieve an array of active user invitations sent by email.
 
 
       **Example:**
@@ -73011,6 +73356,12 @@ entities:
                   entity: login_profile
                   group: Accounts
                 properties:
+                - _key: foreign_id
+                  api_fieldname: foreign_id
+                  description: The ID of the user in the identity provider's service.
+                  entity_fieldname: foreign_id
+                  readOnly: true
+                  type: string
                 - _key: id
                   _override: true
                   api_fieldname: id
@@ -73209,7 +73560,7 @@ entities:
       self: true
       type: user_invitation
     return_type: paginated_response(user_invitation)
-    summary: Get the details of all user invitations.
+    summary: Get user invitations.
     x_deprecation: null
     x_filter:
       login_profiles:
@@ -73331,6 +73682,12 @@ entities:
               entity: login_profile
               group: Accounts
             properties:
+            - _key: foreign_id
+              api_fieldname: foreign_id
+              description: The ID of the user in the identity provider's service.
+              entity_fieldname: foreign_id
+              readOnly: true
+              type: string
             - _key: id
               _override: true
               api_fieldname: id
