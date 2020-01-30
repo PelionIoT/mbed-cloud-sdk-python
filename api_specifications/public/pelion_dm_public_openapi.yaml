@@ -16446,7 +16446,7 @@ paths:
                   company: example-tenant-company-1
                   contact: null
                   country: null
-                  customer_tenant_id: example-customer-tenant-id-1
+                  customer_subtenant_id: example-customer-tenant-id-1
                   email: null
                   id: example-tenant-account-1
                   phone_number: null
@@ -16472,7 +16472,7 @@ paths:
                   company: example-tenant-company-2
                   contact: null
                   country: null
-                  customer_tenant_id: example-customer-tenant-id-2
+                  customer_subtenant_id: example-customer-tenant-id-2
                   email: null
                   id: example-tenant-account-2
                   phone_number: null
