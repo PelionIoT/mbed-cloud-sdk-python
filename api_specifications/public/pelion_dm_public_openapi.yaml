@@ -5514,6 +5514,9 @@ definitions:
         type: string
       country:
         type: string
+      customer_subtenant_id:
+        description: Account tenant ID, valid only for tenants.
+        type: string
       email:
         type: string
       id:
@@ -5640,8 +5643,6 @@ definitions:
     - object
     - account
     - billing_data
-    - subtenants
-    - aggregated
     - month
     type: object
   Resource:
@@ -6023,8 +6024,7 @@ definitions:
         description: If there is next available quota history paged response to fetch.
         type: boolean
       limit:
-        description: Maximum number of quota history entries contained in one paged
-          response.
+        description: Maximum number of quota history entries in one paged response.
         format: int32
         maximum: 1000
         minimum: 2
@@ -6094,9 +6094,7 @@ definitions:
           $ref: '#/definitions/QuotaUsageReport'
         type: array
     required:
-    - metadata
     - quota_usage
-    - aggregated_quota_usage
     type: object
   ServicePackagesResponse:
     description: Contains service package information for currently active service
@@ -6124,6 +6122,94 @@ definitions:
     required:
     - object
     - previous
+  StatisticsSeriesRecord:
+    description: Statistics view record.
+    properties:
+      active_devices:
+        $ref: '#/definitions/ActiveDevicesCounter'
+      device_to_pelion_messages:
+        $ref: '#/definitions/DeviceToPelionMessagesCounter'
+      firmware_updates:
+        $ref: '#/definitions/FirmwareUpdatesCounter'
+      id:
+        description: Metric ID.
+        pattern: '[0-9a-fA-F]{32}'
+        type: string
+      object:
+        description: Always `billing-statistics`.
+        enum:
+        - billing-statistics
+        type: string
+      pelion_to_device_messages:
+        $ref: '#/definitions/PelionToDeviceMessagesCounter'
+      pelion_to_webapp_notifications:
+        $ref: '#/definitions/PelionToWebappNotificationsCounter'
+      rest_api_requests_with_api_key_token:
+        $ref: '#/definitions/RestApiRequestsWithApiKeyTokenCounter'
+      rest_api_requests_with_user_token:
+        $ref: '#/definitions/RestApiRequestsWithUserTokenCounter'
+      sda_tokens:
+        $ref: '#/definitions/SdaTokensCounter'
+      timestamp:
+        description: 'The start of the interval for which the data is aggregated,
+          in RFC3339 date-time format with millisecond accuracy and UTC time zone.
+
+          Each interval includes data for the time greater than or equal to the timestamp
+          and less than the next interval''s starting.'
+        format: date-time
+        type: string
+    required:
+    - object
+    - id
+    - timestamp
+    - active_devices
+    - firmware_updates
+    - sda_tokens
+    type: object
+  StatisticsViewResponse:
+    description: Contains the statistics view of Device Management usage information.
+    properties:
+      after:
+        description: The ID after which to fetch the statistics view.
+        pattern: '[0-9a-fA-F]{32}'
+        type: string
+      data:
+        description: List of statistics view records. Empty list if no records are
+          available.
+        items:
+          $ref: '#/definitions/StatisticsSeriesRecord'
+        type: array
+      has_more:
+        description: Indicates whether a new statistics view response is available.
+        type: boolean
+      limit:
+        default: 50
+        description: Maximum number of statistics view records on a page.
+        format: int32
+        maximum: 1000
+        minimum: 2
+        type: integer
+      object:
+        description: Always `list`.
+        enum:
+        - list
+        type: string
+      order:
+        description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
+        type: string
+      total_count:
+        description: Sum of all statistics view records to return. Included in the
+          response when you use the query parameter include=total_count.
+        format: int64
+        minimum: 0
+        type: integer
+    required:
+    - object
+    - data
+    - has_more
+    - limit
+    - order
+    type: object
   SubjectList:
     description: Represents arrays of user and API key IDs.
     properties:
@@ -16266,11 +16352,11 @@ paths:
   /v3/billing-report:
     get:
       description: "Fetch the billing report generated for the currently authenticated\
-        \ commercial non-tenant account. The billing reports for\ntenant accounts\
-        \ are included in their aggregator's billing report response. The response\
-        \ contains below additional counters\nwhen the account's business model is\
-        \ set to `API calls` in the Admin Console.\n  - rest_api_requests_with_user_token\n\
-        \  - rest_api_requests_with_api_key_token\n  - pelion_to_webapp_notifications\n\
+        \ commercial account. The billing reports for\ntenant accounts are also included\
+        \ in their aggregator's billing report response. The response contains below\
+        \ additional counters\nwhen the account's business model is set to `API calls`\
+        \ by the account administrator.\n  - rest_api_requests_with_user_token\n \
+        \ - rest_api_requests_with_api_key_token\n  - pelion_to_webapp_notifications\n\
         \  - device_to_pelion_messages\n  - pelion_to_device_messages\n\n**Example:**\n\
         ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report?month=2018-07\
         \ \\\n-H 'Authorization: Bearer <api_key>'\n```"
@@ -16433,7 +16519,7 @@ paths:
           schema:
             $ref: '#/definitions/UnauthorizedErrorResponse'
         403:
-          description: Access forbidden if account is not commercial or tenant.
+          description: Access forbidden if account is not commercial.
           examples:
             application/json:
               code: 403
@@ -16474,7 +16560,7 @@ paths:
   /v3/billing-report-active-devices:
     get:
       description: 'Fetch raw billing data for active devices for the currently authenticated
-        commercial non-tenant account.
+        commercial account.
 
 
         This is supplementary data for the billing report. The raw billing data of
@@ -16542,7 +16628,7 @@ paths:
           schema:
             $ref: '#/definitions/UnauthorizedErrorResponse'
         403:
-          description: Access forbidden if account is not commercial or tenant.
+          description: Access forbidden if account is not commercial.
           examples:
             application/json:
               code: 403
@@ -16581,11 +16667,11 @@ paths:
   /v3/billing-report-firmware-updates:
     get:
       description: 'Fetch raw billing data for firmware updates for the currently
-        authenticated commercial non-tenant account.
+        authenticated commercial account.
 
 
         This is supplementary data for the billing report. The raw billing data of
-        the firmware updates for tenant accounts are included in their aggregator''s
+        the firmware updates for tenant accounts are also included in their aggregator''s
         raw billing data of the firmware updates.
 
 
@@ -16649,7 +16735,7 @@ paths:
           schema:
             $ref: '#/definitions/UnauthorizedErrorResponse'
         403:
-          description: Access forbidden if account is not commercial or tenant.
+          description: Access forbidden if account is not commercial.
           examples:
             application/json:
               code: 403
@@ -16684,6 +16770,191 @@ paths:
       summary: Get raw billing data of the firmware updates for the month.
       tags:
       - Usage - billing reports
+      x-origin: /home/circleci/project/billing/public/swagger-public-apis.yaml
+  /v3/billing-statistics:
+    get:
+      description: "Fetch the statistics view of Device Management usage in time series\
+        \ for the currently authenticated commercial account.\nThe response contains\
+        \ the additional counters below, if the account business model is set to `API\
+        \ calls` by the account administrator:\n  - device_to_pelion_messages\n  -\
+        \ pelion_to_device_messages\n  - pelion_to_webapp_notifications\n  - rest_api_requests_with_api_key_token\n\
+        \  - rest_api_requests_with_user_token\n\nThe return data is retrieved during\
+        \ a defined time window and grouped by defined interval.\nThe time window\
+        \ for data retrieval is defined as a range, that can be either absolute (for\
+        \ instance, using timestamps) or relative (referring to the 'period' parameter).\n\
+        Range start is inclusive, while range end is exclusive. The specified range\
+        \ must be equal to or greater than the specified interval.\n\nReturned data\
+        \ does not include any tenant usage.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-statistics?start=2019-11-01T00:00:00.000Z&end=2019-12-01T00:00:00.000Z&interval=1d\
+        \ \\\n     -H 'Authorization: Bearer <api_key>'\n```"
+      operationId: getStatisticsView
+      parameters:
+      - description: 'Start time of the statistics view in RFC3339 date-time format,
+          with millisecond accuracy and UTC time zone.
+
+          The parameter is mandatory if the period is not specified. Do not set the
+          parameter if you have specified the period.
+
+          Fetch data with timestamp greater than or equal to this value. Sample value:
+          2017-02-07T09:20:56.990Z.
+
+          The specified range must be equal to or greater than 5 minutes. Maximum
+          supported range is 98 days when using timestamps to specify the range.'
+        format: date-time
+        in: query
+        name: start
+        required: false
+        type: string
+      - description: 'End time of the statistics view in RFC3339 date-time format
+          with millisecond accuracy and UTC time zone.
+
+          The parameter is mandatory if the period is not specified. Do not set the
+          parameter if you have specified the period.
+
+          Fetch the data with timestamp less than this value. Sample value: 2017-02-07T09:20:56.990Z.
+
+          The specified range must be equal to or greater than 5 minutes. Maximum
+          supported range is 98 days when using timestamps to specify the range.'
+        format: date-time
+        in: query
+        name: end
+        required: false
+        type: string
+      - description: 'Period. Alternative for specifying the range if not using start
+          and end parameters.
+
+          The parameter is mandatory if the start and end parameters are not specified.
+          Do not set the parameter if you have specified the start and end parameters.
+
+          Fetch the data for the period in minutes, hours, days, weeks or months.
+
+          One week is normalized to 7 days. Sample values: 5m, 2h, 3d, 4w, 1mo, 3mo.
+
+          The allowed periods (inclusive) are 5m-141120m/1h-2352h/1d-98d/1w-14w/1mo-3mo.'
+        in: query
+        name: period
+        required: false
+        type: string
+      - description: 'Group the data by this interval in minutes, hours, days, weeks
+          or months.
+
+          One week is normalized to 7 days. Sample values: 5m, 2h, 3d, 4w, 1mo, 3mo.
+
+          Minimum supported interval is 5 minutes. The specified interval must not
+          be greater than the specified range.'
+        in: query
+        name: interval
+        required: true
+        type: string
+      - default: 50
+        description: Maximum number of statistics view records in one paginated response.
+        format: int32
+        in: query
+        maximum: 1000
+        minimum: 2
+        name: limit
+        required: false
+        type: integer
+      - description: Results after specified record ID.
+        in: query
+        name: after
+        pattern: '[0-9a-fA-F]{32}'
+        required: false
+        type: string
+      - description: 'Record order. Acceptable values (case insensitive): ASC, DESC.
+          Default: ASC.'
+        in: query
+        name: order
+        required: false
+        type: string
+      - description: 'Comma-separated additional data to return. Currently supported:
+          total_count.'
+        in: query
+        name: include
+        required: false
+        type: string
+      responses:
+        200:
+          description: Statistics view of Device Management usage for the currently
+            authenticated commercial account.
+          examples:
+            application/json:
+              after: null
+              data:
+              - active_devices: 10
+                firmware_updates: 4286
+                id: 00000000000000000000016e7bcf1800
+                object: billing-statistics
+                sda_tokens: 962
+                timestamp: '2019-11-18T00:00:00.000Z'
+              - active_devices: 0
+                firmware_updates: 6553
+                id: 00000000000000000000016e80f57400
+                object: billing-statistics
+                sda_tokens: 1440
+                timestamp: '2019-11-19T00:00:00.000Z'
+              - active_devices: 0
+                firmware_updates: 0
+                id: 00000000000000000000016e861bd000
+                object: billing-statistics
+                sda_tokens: 0
+                timestamp: '2019-11-20T00:00:00.000Z'
+              has_more: false
+              limit: 50
+              object: list
+              order: asc
+              total_count: 3
+          schema:
+            $ref: '#/definitions/StatisticsViewResponse'
+        400:
+          description: Bad request.
+          examples:
+            application/json:
+              code: 400
+              fields:
+              - message: Parameter missing.
+                name: interval
+              message: One of the request fields has failed validation.
+              object: error
+              request_id: example-request-id
+              type: validation_error
+          schema:
+            $ref: '#/definitions/BadRequestErrorResponse'
+        401:
+          description: Unauthorized access.
+          examples:
+            application/json:
+              code: 401
+              message: Access is denied.
+              object: error
+              request_id: example-request-id
+              type: unauthorized
+          schema:
+            $ref: '#/definitions/UnauthorizedErrorResponse'
+        403:
+          description: Forbidden.
+          examples:
+            application/json:
+              code: 403
+              message: Account is not a commercial account.
+              object: error
+              request_id: example-request-id
+              type: forbidden
+          schema:
+            $ref: '#/definitions/ForbiddenErrorResponse'
+        500:
+          description: Internal server error.
+          examples:
+            application/json:
+              code: 500
+              message: Unexpected internal server error.
+              object: error
+              request_id: example-request-id
+              type: internal_error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      summary: Get statistics view of Device Management usage.
+      tags:
+      - Usage - statistics
       x-origin: /home/circleci/project/billing/public/swagger-public-apis.yaml
   /v3/branding-colors:
     delete:
@@ -26436,8 +26707,7 @@ paths:
         ```'
       operationId: getServicePackageQuotaHistory
       parameters:
-      - description: Maximum number of quota history entries contained in one paged
-          response.
+      - description: Maximum number of quota history entries in one paged response.
         format: int32
         in: query
         maximum: 1000
