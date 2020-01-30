@@ -570,21 +570,17 @@ class EntityFactory:
         :param id: The ID of the certificate issuer.
         :type id: str
         :param issuer_attributes: General attributes for connecting the certificate issuer.
-            When the
-            issuer_type is GLOBAL_SIGN, the value shall be empty.
-            When the
-            issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
+            When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+            When the issuer_type is CFSSL_AUTH, see definition of
+            CfsslAttributes.
         :type issuer_attributes: dict
         :param issuer_type: The type of the certificate issuer.
             - GLOBAL_SIGN:
-              Certificates
-            are issued by GlobalSign service. The users must provide their own
-            GlobalSign account credentials.
+              Certificates are issued by GlobalSign service. The users must
+            provide their own GlobalSign account credentials.
             - CFSSL_AUTH:
-              Certificates are
-            issued by CFSSL authenticated signing service.
-              The users must
-            provide their own CFSSL host_url and credentials.
+              Certificates are issued by CFSSL authenticated signing service.
+              The users must provide their own CFSSL host_url and credentials.
         :type issuer_type: str
         :param name: Certificate issuer name, unique per account.
         :type name: str
@@ -610,8 +606,7 @@ class EntityFactory:
         """Creates a local `CertificateIssuerConfig` instance, using the shared SDK context.
 
         :param certificate_issuer_id: The ID of the certificate issuer.
-            Null if Device Management
-            internal HSM is used.
+            Null if Device Management internal HSM is used.
         :type certificate_issuer_id: str
         :param created_at: Created UTC time RFC3339.
         :type created_at: datetime
@@ -800,16 +795,13 @@ class EntityFactory:
         :param device_execution_mode: The execution mode from the certificate of the device. Defaults to
             inheriting from host_gateway device.
             Permitted values:
-              - 0 -
-            Unspecified execution mode (default if host_gateway invalid or not
-            set). The device firmware uses a certificate that is not
-            identified as a developer or production certificate.
-              - 1 -
-            Development device. The device firmware uses a developer
+              - 0 - Unspecified execution mode (default if host_gateway
+            invalid or not set). The device firmware uses a certificate that
+            is not identified as a developer or production certificate.
+              - 1 - Development device. The device firmware uses a developer
             certificate to communicate with Device Management.
-              - 5 -
-            Production device. The device firmware uses a factory-generated
-            certificate to communicate with Device Management.
+              - 5 - Production device. The device firmware uses a factory-
+            generated certificate to communicate with Device Management.
         :type device_execution_mode: int
         :param device_key: The fingerprint of the device certificate.
         :type device_key: str
@@ -849,11 +841,10 @@ class EntityFactory:
         :param last_system_suspended_updated_at: The timestamp of the most recent system block activity.
         :type last_system_suspended_updated_at: datetime
         :param lifecycle_status: The lifecycle status of the device.
-            * Enabled: The device is
-            allowed to connect to Pelion Device Management.
-            * Blocked: The
-            device is prevented from connecting to Pelion Device Management.
-            Device can be, for example, 'suspended'.
+            * Enabled: The device is allowed to connect to Pelion Device
+            Management.
+            * Blocked: The device is prevented from connecting to Pelion
+            Device Management. Device can be, for example, 'suspended'.
         :type lifecycle_status: str
         :param manifest: DEPRECATED: The URL for the current device manifest.
         :type manifest: str
@@ -874,21 +865,19 @@ class EntityFactory:
             is injected by the factory tool during manufacturing.
         :type serial_number: str
         :param state: The current state of the device.
-            * Unenrolled: The device has been
-            created, but has not yet bootstrapped or connected to Device
-            Management.
-            * Cloud_enrolling: The device is bootstrapping for the
-            first time. This state is set only while bootstrapping is in
-            progress. For example, an external CA gives an error, and the
-            device tries to bootstrap again after few seconds.
-            * Bootstrapped:
-            The device has bootstrapped, and has credentials to connect to
-            Device Management.
-            * Registered: The device has registered with
-            Pelion Device Management. [Device commands](../service-api-
-            references/device-management-connect.html#createAsyncRequest) can
-            be queued. The device sends events for
-            [subscribed](../connecting/resource-change-webapp.html) resources.
+            * Unenrolled: The device has been created, but has not yet
+            bootstrapped or connected to Device Management.
+            * Cloud_enrolling: The device is bootstrapping for the first time.
+            This state is set only while bootstrapping is in progress. For
+            example, an external CA gives an error, and the device tries to
+            bootstrap again after few seconds.
+            * Bootstrapped: The device has bootstrapped, and has credentials
+            to connect to Device Management.
+            * Registered: The device has registered with Pelion Device
+            Management. [Device commands](../service-api-references/device-
+            management-connect.html#createAsyncRequest) can be queued. The
+            device sends events for [subscribed](../connecting/resource-
+            change-webapp.html) resources.
             * Deregistered: The device has requested deregistration, or its
             registration has expired.
         :type state: str
@@ -1012,20 +1001,17 @@ class EntityFactory:
         :param account_id: ID
         :type account_id: str
         :param completed_at: The time the bulk creation task was completed.
-            Null when creating
-            bulk upload or delete.
+            Null when creating bulk upload or delete.
         :type completed_at: datetime
         :param created_at: The time of receiving the bulk creation task.
         :type created_at: datetime
         :param errors_count: The number of enrollment identities with failed processing.
         :type errors_count: int
         :param errors_report_file: Link to error report file.
-            Null when creating bulk upload or
-            delete.
+            Null when creating bulk upload or delete.
         :type errors_report_file: str
         :param full_report_file: Link to full report file.
-            Null when creating bulk upload or
-            delete.
+            Null when creating bulk upload or delete.
         :type full_report_file: str
         :param id: Bulk ID
         :type id: str
@@ -1076,20 +1062,17 @@ class EntityFactory:
         :param account_id: ID
         :type account_id: str
         :param completed_at: The time the bulk creation task was completed.
-            Null when creating
-            bulk upload or delete.
+            Null when creating bulk upload or delete.
         :type completed_at: datetime
         :param created_at: The time of receiving the bulk creation task.
         :type created_at: datetime
         :param errors_count: The number of enrollment identities with failed processing.
         :type errors_count: int
         :param errors_report_file: Link to error report file.
-            Null when creating bulk upload or
-            delete.
+            Null when creating bulk upload or delete.
         :type errors_report_file: str
         :param full_report_file: Link to full report file.
-            Null when creating bulk upload or
-            delete.
+            Null when creating bulk upload or delete.
         :type full_report_file: str
         :param id: Bulk ID
         :type id: str

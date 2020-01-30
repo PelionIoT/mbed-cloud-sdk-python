@@ -76,8 +76,7 @@ class CertificateIssuerConfig(Entity):
         documentation for the setter method.
 
         :param certificate_issuer_id: (Required) The ID of the certificate issuer.
-            Null if Device Management
-            internal HSM is used.
+            Null if Device Management internal HSM is used.
         :type certificate_issuer_id: str
         :param created_at: Created UTC time RFC3339.
         :type created_at: datetime
@@ -104,8 +103,7 @@ class CertificateIssuerConfig(Entity):
     @property
     def certificate_issuer_id(self):
         """The ID of the certificate issuer.
-        Null if Device Management internal HSM is
-        used.
+        Null if Device Management internal HSM is used.
 
         This field must be set when creating a new CertificateIssuerConfig Entity.
         

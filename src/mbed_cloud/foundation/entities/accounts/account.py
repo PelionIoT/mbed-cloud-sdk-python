@@ -1222,10 +1222,10 @@ class Account(Entity):
         
         :param action: Action, either `create` or `enroll`.
             <ul>
-            <li>`create` creates the
-            account where its admin user has ACTIVE status if `admin_password` was
-            defined in the request, or RESET status if no `admin_password` was
-            defined. If the user already exists, its status is not modified. </li>
+            <li>`create` creates the account where its admin user has ACTIVE
+            status if `admin_password` was defined in the request, or RESET status
+            if no `admin_password` was defined. If the user already exists, its
+            status is not modified. </li>
             <li>`enroll` creates the account where its admin user has ENROLLING
             status. If the user already exists, its status is not modified. Email
             to finish enrollment or notify the existing user about the new account

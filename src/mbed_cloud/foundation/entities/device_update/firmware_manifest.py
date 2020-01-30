@@ -374,10 +374,8 @@ class FirmwareManifest(Entity):
     @property
     def parsed_raw_manifest(self):
         """Raw manifest in JSON format, parsed from ASN.1 DER encoding.
-        Fields may
-        change. Backwards compatibility is not guaranteed.
-        Recommended for debugging
-        only.
+        Fields may change. Backwards compatibility is not guaranteed.
+        Recommended for debugging only.
         
         :rtype: dict
         """

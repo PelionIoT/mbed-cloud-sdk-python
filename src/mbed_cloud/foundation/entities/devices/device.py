@@ -191,16 +191,13 @@ class Device(Entity):
         :param device_execution_mode: The execution mode from the certificate of the device. Defaults to
             inheriting from host_gateway device.
             Permitted values:
-              - 0 -
-            Unspecified execution mode (default if host_gateway invalid or not
-            set). The device firmware uses a certificate that is not
-            identified as a developer or production certificate.
-              - 1 -
-            Development device. The device firmware uses a developer
+              - 0 - Unspecified execution mode (default if host_gateway
+            invalid or not set). The device firmware uses a certificate that
+            is not identified as a developer or production certificate.
+              - 1 - Development device. The device firmware uses a developer
             certificate to communicate with Device Management.
-              - 5 -
-            Production device. The device firmware uses a factory-generated
-            certificate to communicate with Device Management.
+              - 5 - Production device. The device firmware uses a factory-
+            generated certificate to communicate with Device Management.
         :type device_execution_mode: int
         :param device_key: The fingerprint of the device certificate.
         :type device_key: str
@@ -240,11 +237,10 @@ class Device(Entity):
         :param last_system_suspended_updated_at: The timestamp of the most recent system block activity.
         :type last_system_suspended_updated_at: datetime
         :param lifecycle_status: The lifecycle status of the device.
-            * Enabled: The device is
-            allowed to connect to Pelion Device Management.
-            * Blocked: The
-            device is prevented from connecting to Pelion Device Management.
-            Device can be, for example, 'suspended'.
+            * Enabled: The device is allowed to connect to Pelion Device
+            Management.
+            * Blocked: The device is prevented from connecting to Pelion
+            Device Management. Device can be, for example, 'suspended'.
         :type lifecycle_status: str
         :param manifest: DEPRECATED: The URL for the current device manifest.
         :type manifest: str
@@ -265,21 +261,19 @@ class Device(Entity):
             is injected by the factory tool during manufacturing.
         :type serial_number: str
         :param state: The current state of the device.
-            * Unenrolled: The device has been
-            created, but has not yet bootstrapped or connected to Device
-            Management.
-            * Cloud_enrolling: The device is bootstrapping for the
-            first time. This state is set only while bootstrapping is in
-            progress. For example, an external CA gives an error, and the
-            device tries to bootstrap again after few seconds.
-            * Bootstrapped:
-            The device has bootstrapped, and has credentials to connect to
-            Device Management.
-            * Registered: The device has registered with
-            Pelion Device Management. [Device commands](../service-api-
-            references/device-management-connect.html#createAsyncRequest) can
-            be queued. The device sends events for
-            [subscribed](../connecting/resource-change-webapp.html) resources.
+            * Unenrolled: The device has been created, but has not yet
+            bootstrapped or connected to Device Management.
+            * Cloud_enrolling: The device is bootstrapping for the first time.
+            This state is set only while bootstrapping is in progress. For
+            example, an external CA gives an error, and the device tries to
+            bootstrap again after few seconds.
+            * Bootstrapped: The device has bootstrapped, and has credentials
+            to connect to Device Management.
+            * Registered: The device has registered with Pelion Device
+            Management. [Device commands](../service-api-references/device-
+            management-connect.html#createAsyncRequest) can be queued. The
+            device sends events for [subscribed](../connecting/resource-
+            change-webapp.html) resources.
             * Deregistered: The device has requested deregistration, or its
             registration has expired.
         :type state: str
@@ -544,14 +538,13 @@ class Device(Entity):
         """The execution mode from the certificate of the device. Defaults to inheriting
         from host_gateway device.
         Permitted values:
-          - 0 - Unspecified execution mode
-        (default if host_gateway invalid or not set). The device firmware uses a
-        certificate that is not identified as a developer or production certificate.
-        - 1 - Development device. The device firmware uses a developer certificate to
-        communicate with Device Management.
-          - 5 - Production device. The device
-        firmware uses a factory-generated certificate to communicate with Device
-        Management.
+          - 0 - Unspecified execution mode (default if host_gateway invalid or not
+        set). The device firmware uses a certificate that is not identified as a
+        developer or production certificate.
+          - 1 - Development device. The device firmware uses a developer certificate
+        to communicate with Device Management.
+          - 5 - Production device. The device firmware uses a factory-generated
+        certificate to communicate with Device Management.
         
         :rtype: int
         """
@@ -789,11 +782,9 @@ class Device(Entity):
     @property
     def lifecycle_status(self):
         """The lifecycle status of the device.
-        * Enabled: The device is allowed to
-        connect to Pelion Device Management.
-        * Blocked: The device is prevented from
-        connecting to Pelion Device Management. Device can be, for example,
-        'suspended'.
+        * Enabled: The device is allowed to connect to Pelion Device Management.
+        * Blocked: The device is prevented from connecting to Pelion Device
+        Management. Device can be, for example, 'suspended'.
         
         api example: 'enabled'
         
@@ -927,22 +918,19 @@ class Device(Entity):
     @property
     def state(self):
         """The current state of the device.
-        * Unenrolled: The device has been created,
-        but has not yet bootstrapped or connected to Device Management.
-        *
-        Cloud_enrolling: The device is bootstrapping for the first time. This state is
-        set only while bootstrapping is in progress. For example, an external CA gives
-        an error, and the device tries to bootstrap again after few seconds.
-        *
-        Bootstrapped: The device has bootstrapped, and has credentials to connect to
+        * Unenrolled: The device has been created, but has not yet bootstrapped or
+        connected to Device Management.
+        * Cloud_enrolling: The device is bootstrapping for the first time. This state
+        is set only while bootstrapping is in progress. For example, an external CA
+        gives an error, and the device tries to bootstrap again after few seconds.
+        * Bootstrapped: The device has bootstrapped, and has credentials to connect to
         Device Management.
-        * Registered: The device has registered with Pelion Device
-        Management. [Device commands](../service-api-references/device-management-
+        * Registered: The device has registered with Pelion Device Management. [Device
+        commands](../service-api-references/device-management-
         connect.html#createAsyncRequest) can be queued. The device sends events for
         [subscribed](../connecting/resource-change-webapp.html) resources.
-        *
-        Deregistered: The device has requested deregistration, or its registration has
-        expired.
+        * Deregistered: The device has requested deregistration, or its registration
+        has expired.
         
         :rtype: str
         """
