@@ -9093,8 +9093,8 @@ paths:
           description: Callback URL does not exist.
       summary: Delete callback URL.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     get:
       description: 'Shows the current callback URL if it exists.
 
@@ -9122,8 +9122,8 @@ paths:
           description: The callback URL does not exist.
       summary: Check callback URL.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     put:
       consumes:
       - application/json
@@ -9197,8 +9197,8 @@ paths:
           description: Unsupported Media Type.
       summary: Register a callback URL.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/notification/channel:
     get:
       description: "Get channel delivery mechanism.\n\n**Example:**\n\n    curl -X\
@@ -9214,8 +9214,8 @@ paths:
           description: Channel was not found.
       summary: Get channel metadata.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/notification/pull:
     delete:
       deprecated: true
@@ -9245,7 +9245,7 @@ paths:
         401: *id021
       summary: Delete notification Long Poll channel.
       tags:
-      - Notifications
+      - Device data - notifications
       x-deprecation:
         comment: Long polling is deprecated and should be used for development purposes
           only.
@@ -9253,7 +9253,7 @@ paths:
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
         - https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     get:
       deprecated: true
       description: 'In this case, notifications are delivered through HTTP long poll
@@ -9319,7 +9319,7 @@ paths:
             "channel exists" state.
       summary: Get notifications using Long Poll
       tags:
-      - Notifications
+      - Device data - notifications
       x-deprecation:
         comment: Long polling is deprecated and should be used for development purposes
           only.
@@ -9327,7 +9327,7 @@ paths:
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
         - https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/notification/websocket:
     delete:
       description: '(PREVIEW) Delete a notification websocket channel bound to the
@@ -9358,8 +9358,8 @@ paths:
           description: Websocket channel doesn't exist.
       summary: (PREVIEW) Delete websocket channel.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     get:
       description: '(PREVIEW) Returns 200 with websocket connection status, if websocket
         channel exists.
@@ -9390,8 +9390,8 @@ paths:
           description: No channel has been registered.
       summary: (PREVIEW) Get websocket channel information.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     put:
       consumes:
       - application/json
@@ -9441,8 +9441,8 @@ paths:
         403: *id022
       summary: (PREVIEW) Register a websocket channel.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/notification/websocket-connect:
     get:
       description: "\n(PREVIEW) A websocket channel can have only one active connection\
@@ -9528,8 +9528,8 @@ paths:
             requests with the same authorization token will be accepted.
       summary: (PREVIEW) Open the websocket.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/subscriptions:
     delete:
       description: 'Removes pre-subscriptions.
