@@ -9330,9 +9330,8 @@ paths:
       x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/notification/websocket:
     delete:
-      description: '(PREVIEW) Delete a notification websocket channel bound to the
-        API key. This is required to change the channel from websocket to another
-        type.
+      description: 'Delete a notification websocket channel bound to the API key.
+        This is required to change the channel from websocket to another type.
 
 
         Deleting the websocket channel also removes the channel''s notification queue.
@@ -9356,13 +9355,13 @@ paths:
         403: *id022
         404:
           description: Websocket channel doesn't exist.
-      summary: (PREVIEW) Delete websocket channel.
+      summary: Delete websocket channel.
       tags:
       - Device data - notifications
       x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     get:
-      description: '(PREVIEW) Returns 200 with websocket connection status, if websocket
-        channel exists.
+      description: 'Returns 200 with websocket connection status, if websocket channel
+        exists.
 
 
         **Example:**
@@ -9388,34 +9387,33 @@ paths:
         403: *id022
         404:
           description: No channel has been registered.
-      summary: (PREVIEW) Get websocket channel information.
+      summary: Get websocket channel information.
       tags:
       - Device data - notifications
       x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     put:
       consumes:
       - application/json
-      description: "(PREVIEW) Register (or update) a channel using websocket connection\
-        \ to deliver notifications. The websocket channel should be opened by client\
-        \ using `/v2/notification/websocket-connect` endpoint. To get notifications\
-        \ pushed, you must place subscriptions. For more information on notification\
-        \ messages, see [NotificationMessage](#NotificationMessage).\n\nA websocket\
-        \ channel can have only one active websocket connection at a time. If a websocket\
-        \ connection for a channel exists and a new connection to the same channel\
-        \ is made, the connection is accepted and the older connection is closed.\n\
-        \n**Note**: Only one websocket channel for each API key can be active at a\
-        \ time. If you register a new websocket channel while another one is active,\
-        \ it replaces the previously active one. If another type of channel is already\
-        \ present, you need to delete it before registering a websocket channel. \
-        \  \n\n**Expiration of a websocket:**\n\nA websocket channel is expired if\
-        \ the channel does not have an opened websocket connection for a 24-hour period.\
-        \ Channel expiration means the channel is deleted and any undelivered notifications\
-        \ stored in its internal queue is removed. As long as the channel has an opened\
-        \ websocket connection or time between successive websocket connections is\
-        \ less than 24 hours,\nthe channel is considered active, notifications are\
-        \ stored in its internal queue and delivered when a websocket connection is\
-        \ active. A channel can be also deleted explicitly with a DELETE call.\n\n\
-        More about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
+      description: "Register (or update) a channel using websocket connection to deliver\
+        \ notifications. The websocket channel should be opened by client using `/v2/notification/websocket-connect`\
+        \ endpoint. To get notifications pushed, you must place subscriptions. For\
+        \ more information on notification messages, see [NotificationMessage](#NotificationMessage).\n\
+        \nA websocket channel can have only one active websocket connection at a time.\
+        \ If a websocket connection for a channel exists and a new connection to the\
+        \ same channel is made, the connection is accepted and the older connection\
+        \ is closed.\n\n**Note**: Only one websocket channel for each API key can\
+        \ be active at a time. If you register a new websocket channel while another\
+        \ one is active, it replaces the previously active one. If another type of\
+        \ channel is already present, you need to delete it before registering a websocket\
+        \ channel.   \n\n**Expiration of a websocket:**\n\nA websocket channel is\
+        \ expired if the channel does not have an opened websocket connection for\
+        \ a 24-hour period. Channel expiration means the channel is deleted and any\
+        \ undelivered notifications stored in its internal queue is removed. As long\
+        \ as the channel has an opened websocket connection or time between successive\
+        \ websocket connections is less than 24 hours,\nthe channel is considered\
+        \ active, notifications are stored in its internal queue and delivered when\
+        \ a websocket connection is active. A channel can be also deleted explicitly\
+        \ with a DELETE call.\n\nMore about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
         \n**Configuration options:**\n\nThe event notification channel provides configurations\
         \ options defined in [Serialization config](#SerializationConfigObjectV2)\n\
         \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
@@ -9439,14 +9437,14 @@ paths:
           description: Other type of channel already exists.
         401: *id021
         403: *id022
-      summary: (PREVIEW) Register a websocket channel.
+      summary: Register a websocket channel.
       tags:
       - Device data - notifications
       x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/notification/websocket-connect:
     get:
-      description: "\n(PREVIEW) A websocket channel can have only one active connection\
-        \ at a time. If a websocket connection for a channel exists and a new connection\
+      description: "\nA websocket channel can have only one active connection at a\
+        \ time. If a websocket connection for a channel exists and a new connection\
         \ to the same channel is made, the connection is accepted and the older connection\
         \ is closed.\n\nA websocket client library should be used when connecting\
         \ to this endpoint.\n\nOnce the socket has been opened, the server may close\
@@ -9526,7 +9524,7 @@ paths:
         429:
           description: While a WebSocket handshake is still in progress, no new WebSocket
             requests with the same authorization token will be accepted.
-      summary: (PREVIEW) Open the websocket.
+      summary: Open the websocket.
       tags:
       - Device data - notifications
       x-origin: /home/circleci/project/notification-service/public/swagger.yaml
