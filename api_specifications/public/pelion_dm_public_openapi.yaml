@@ -293,7 +293,6 @@ definitions:
       limits:
         additionalProperties:
           type: string
-        deprecated: true
         description: List of limits as key-value pairs if requested.
         type: object
         x-deprecation:
@@ -4666,6 +4665,9 @@ definitions:
         enum:
         - identity-provider
         type: string
+      oidc_attributes:
+        $ref: '#/definitions/OIDCInfo'
+        description: OIDC specific attributes.
       saml2_attributes:
         $ref: '#/definitions/SAML2Info'
         description: SAML2 specific attributes.

@@ -2333,7 +2333,6 @@
                   {
                     "type": "object",
                     "x-nullable": true,
-                    "deprecated": true,
                     "x-deprecation": {
                       "issued_at": "2019-08-27T12:03:58+00:00",
                       "end_of_life_at": "2020-08-27T12:03:58+00:00",
@@ -2985,7 +2984,6 @@
                         {
                           "type": "object",
                           "x-nullable": true,
-                          "deprecated": true,
                           "x-deprecation": {
                             "issued_at": "2019-08-27T12:03:58+00:00",
                             "end_of_life_at": "2020-08-27T12:03:58+00:00",
@@ -5841,7 +5839,6 @@
                         {
                           "type": "object",
                           "x-nullable": true,
-                          "deprecated": true,
                           "x-deprecation": {
                             "issued_at": "2019-08-27T12:03:58+00:00",
                             "end_of_life_at": "2020-08-27T12:03:58+00:00",
@@ -6461,7 +6458,6 @@
                               {
                                 "type": "object",
                                 "x-nullable": true,
-                                "deprecated": true,
                                 "x-deprecation": {
                                   "issued_at": "2019-08-27T12:03:58+00:00",
                                   "end_of_life_at": "2020-08-27T12:03:58+00:00",
@@ -7551,7 +7547,6 @@
                   {
                     "type": "object",
                     "x-nullable": true,
-                    "deprecated": true,
                     "x-deprecation": {
                       "issued_at": "2019-08-27T12:03:58+00:00",
                       "end_of_life_at": "2020-08-27T12:03:58+00:00",
@@ -8203,7 +8198,6 @@
                         {
                           "type": "object",
                           "x-nullable": true,
-                          "deprecated": true,
                           "x-deprecation": {
                             "issued_at": "2019-08-27T12:03:58+00:00",
                             "end_of_life_at": "2020-08-27T12:03:58+00:00",
@@ -9274,7 +9268,6 @@
                   {
                     "type": "object",
                     "x-nullable": true,
-                    "deprecated": true,
                     "x-deprecation": {
                       "issued_at": "2019-08-27T12:03:58+00:00",
                       "end_of_life_at": "2020-08-27T12:03:58+00:00",
@@ -9926,7 +9919,6 @@
                         {
                           "type": "object",
                           "x-nullable": true,
-                          "deprecated": true,
                           "x-deprecation": {
                             "issued_at": "2019-08-27T12:03:58+00:00",
                             "end_of_life_at": "2020-08-27T12:03:58+00:00",
@@ -12016,7 +12008,6 @@
                   {
                     "type": "object",
                     "x-nullable": true,
-                    "deprecated": true,
                     "x-deprecation": {
                       "issued_at": "2019-08-27T12:03:58+00:00",
                       "end_of_life_at": "2020-08-27T12:03:58+00:00",
@@ -12668,7 +12659,6 @@
                         {
                           "type": "object",
                           "x-nullable": true,
-                          "deprecated": true,
                           "x-deprecation": {
                             "issued_at": "2019-08-27T12:03:58+00:00",
                             "end_of_life_at": "2020-08-27T12:03:58+00:00",
@@ -15244,7 +15234,6 @@
         {
           "type": "object",
           "x-nullable": true,
-          "deprecated": true,
           "x-deprecation": {
             "issued_at": "2019-08-27T12:03:58+00:00",
             "end_of_life_at": "2020-08-27T12:03:58+00:00",
@@ -46001,13 +45990,10 @@
                 "group": "Accounts",
                 "entity": "oidc_request"
               },
-              "name": "oidc_attributes",
-              "in": "body",
-              "schema_param": true,
-              "entity_fieldname": "oidc_attributes",
               "api_fieldname": "oidc_attributes",
-              "external_param": true,
+              "entity_fieldname": "oidc_attributes",
               "parameter_fieldname": "oidc_attributes",
+              "in": "body",
               "_key": "oidc_attributes"
             },
             {
@@ -46179,6 +46165,203 @@
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "issuer"
+                    ],
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "_key": "oidc_attributes"
                   },
                   {
                     "type": "object",
@@ -46917,6 +47100,203 @@
                   },
                   {
                     "type": "object",
+                    "required": [
+                      "issuer"
+                    ],
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "_key": "oidc_attributes"
+                  },
+                  {
+                    "type": "object",
                     "properties": [
                       {
                         "type": "string",
@@ -47252,6 +47632,7 @@
             "description",
             "status",
             "saml2_attributes",
+            "oidc_attributes",
             "account_id",
             "is_default",
             "identity_provider_type"
@@ -47418,6 +47799,203 @@
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "issuer"
+                    ],
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "_key": "oidc_attributes"
                   },
                   {
                     "type": "object",
@@ -47829,6 +48407,7 @@
             "description",
             "status",
             "saml2_attributes",
+            "oidc_attributes",
             "account_id",
             "is_default",
             "identity_provider_type"
@@ -48001,6 +48580,201 @@
                             "identity-provider"
                           ],
                           "_key": "object"
+                        },
+                        {
+                          "type": "object",
+                          "required": [
+                            "issuer"
+                          ],
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "URL of the OAuth 2.0 authorization endpoint.",
+                              "x-nullable": true,
+                              "_key": "authorization_endpoint"
+                            },
+                            {
+                              "type": "boolean",
+                              "description": "For future use.",
+                              "x-nullable": true,
+                              "_key": "auto_enrollment"
+                            },
+                            {
+                              "description": "Mapping for non-standard OIDC claim names.",
+                              "type": "object",
+                              "properties": [
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'email'.",
+                                  "example": "email_address",
+                                  "x-nullable": true,
+                                  "_key": "email"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'email_verified'.",
+                                  "x-nullable": true,
+                                  "_key": "email_verified"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'family_name'.",
+                                  "x-nullable": true,
+                                  "_key": "family_name"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'given_name'.",
+                                  "x-nullable": true,
+                                  "_key": "given_name"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'name'.",
+                                  "x-nullable": true,
+                                  "_key": "name"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'phone_number'.",
+                                  "x-nullable": true,
+                                  "_key": "phone_number"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'sub'.",
+                                  "x-nullable": true,
+                                  "_key": "sub"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'updated_at'.",
+                                  "x-nullable": true,
+                                  "_key": "updated_at"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                                  "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                                  "x-nullable": true,
+                                  "_key": "updated_at_pattern"
+                                }
+                              ],
+                              "foreign_key": {
+                                "group": "Accounts",
+                                "entity": "oidc_request_claim_mapping"
+                              },
+                              "x-nullable": true,
+                              "_key": "claim_mapping"
+                            },
+                            {
+                              "type": "string",
+                              "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                              "x-nullable": true,
+                              "_key": "client_id"
+                            },
+                            {
+                              "type": "string",
+                              "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                              "x-nullable": true,
+                              "_key": "client_secret"
+                            },
+                            {
+                              "type": "string",
+                              "description": "URL of the provider's end session endpoint.",
+                              "x-nullable": true,
+                              "_key": "end_session_endpoint"
+                            },
+                            {
+                              "type": "string",
+                              "description": "Issuer of the identity provider.",
+                              "_key": "issuer"
+                            },
+                            {
+                              "type": "string",
+                              "description": "URL of the provider's JSON web key set document.",
+                              "x-nullable": true,
+                              "_key": "jwks_uri"
+                            },
+                            {
+                              "type": "array",
+                              "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                              "items": {
+                                "type": "object",
+                                "properties": [
+                                  {
+                                    "type": "string",
+                                    "description": "The public key.",
+                                    "_key": "key"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "description": "The public key ID.",
+                                    "_key": "kid"
+                                  }
+                                ],
+                                "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                                "foreign_key": {
+                                  "group": "Accounts",
+                                  "entity": "identity_provider_public_key"
+                                }
+                              },
+                              "x-nullable": true,
+                              "_key": "keys"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                              "x-nullable": true,
+                              "_key": "redirect_uri"
+                            },
+                            {
+                              "type": "string",
+                              "description": "URL of the provider's token revocation endpoint.",
+                              "x-nullable": true,
+                              "_key": "revocation_endpoint"
+                            },
+                            {
+                              "type": "string",
+                              "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                              "example": "openid email",
+                              "_key": "scopes"
+                            },
+                            {
+                              "type": "string",
+                              "description": "URL of the OAuth 2.0 authorization endpoint.",
+                              "x-nullable": true,
+                              "_key": "token_endpoint"
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "POST",
+                                "GET"
+                              ],
+                              "default": "POST",
+                              "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                              "_key": "token_request_mode"
+                            },
+                            {
+                              "type": "string",
+                              "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                              "example": "oidc.data",
+                              "_key": "token_response_path"
+                            },
+                            {
+                              "type": "string",
+                              "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                              "x-nullable": true,
+                              "_key": "userinfo_endpoint"
+                            }
+                          ],
+                          "description": "Represents OIDC specific attributes.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "oidc_request"
+                          },
+                          "_key": "oidc_attributes"
                         },
                         {
                           "type": "object",
@@ -48437,6 +49211,203 @@
                   },
                   {
                     "type": "object",
+                    "required": [
+                      "issuer"
+                    ],
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "_key": "oidc_attributes"
+                  },
+                  {
+                    "type": "object",
                     "properties": [
                       {
                         "type": "string",
@@ -48772,6 +49743,7 @@
             "description",
             "status",
             "saml2_attributes",
+            "oidc_attributes",
             "account_id",
             "is_default",
             "identity_provider_type"
@@ -48898,6 +49870,203 @@
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "issuer"
+                    ],
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "_key": "oidc_attributes"
                   },
                   {
                     "type": "object",
@@ -49309,6 +50478,7 @@
             "description",
             "status",
             "saml2_attributes",
+            "oidc_attributes",
             "account_id",
             "is_default",
             "identity_provider_type"
@@ -49587,13 +50757,10 @@
                 "group": "Accounts",
                 "entity": "oidc_request"
               },
-              "name": "oidc_attributes",
-              "in": "body",
-              "schema_param": true,
-              "entity_fieldname": "oidc_attributes",
               "api_fieldname": "oidc_attributes",
-              "external_param": true,
+              "entity_fieldname": "oidc_attributes",
               "parameter_fieldname": "oidc_attributes",
+              "in": "body",
               "_key": "oidc_attributes"
             },
             {
@@ -49753,6 +50920,203 @@
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "issuer"
+                    ],
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "_key": "oidc_attributes"
                   },
                   {
                     "type": "object",
@@ -50245,6 +51609,201 @@
           "readOnly": false,
           "required": true,
           "_key": "name"
+        },
+        {
+          "type": "object",
+          "required": false,
+          "properties": [
+            {
+              "type": "string",
+              "description": "URL of the OAuth 2.0 authorization endpoint.",
+              "x-nullable": true,
+              "_key": "authorization_endpoint"
+            },
+            {
+              "type": "boolean",
+              "description": "For future use.",
+              "x-nullable": true,
+              "_key": "auto_enrollment"
+            },
+            {
+              "description": "Mapping for non-standard OIDC claim names.",
+              "type": "object",
+              "properties": [
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'email'.",
+                  "example": "email_address",
+                  "x-nullable": true,
+                  "_key": "email"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'email_verified'.",
+                  "x-nullable": true,
+                  "_key": "email_verified"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'family_name'.",
+                  "x-nullable": true,
+                  "_key": "family_name"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'given_name'.",
+                  "x-nullable": true,
+                  "_key": "given_name"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'name'.",
+                  "x-nullable": true,
+                  "_key": "name"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'phone_number'.",
+                  "x-nullable": true,
+                  "_key": "phone_number"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'sub'.",
+                  "x-nullable": true,
+                  "_key": "sub"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'updated_at'.",
+                  "x-nullable": true,
+                  "_key": "updated_at"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                  "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                  "x-nullable": true,
+                  "_key": "updated_at_pattern"
+                }
+              ],
+              "foreign_key": {
+                "group": "Accounts",
+                "entity": "oidc_request_claim_mapping"
+              },
+              "x-nullable": true,
+              "_key": "claim_mapping"
+            },
+            {
+              "type": "string",
+              "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+              "x-nullable": true,
+              "_key": "client_id"
+            },
+            {
+              "type": "string",
+              "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+              "x-nullable": true,
+              "_key": "client_secret"
+            },
+            {
+              "type": "string",
+              "description": "URL of the provider's end session endpoint.",
+              "x-nullable": true,
+              "_key": "end_session_endpoint"
+            },
+            {
+              "type": "string",
+              "description": "Issuer of the identity provider.",
+              "_key": "issuer"
+            },
+            {
+              "type": "string",
+              "description": "URL of the provider's JSON web key set document.",
+              "x-nullable": true,
+              "_key": "jwks_uri"
+            },
+            {
+              "type": "array",
+              "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+              "items": {
+                "type": "object",
+                "properties": [
+                  {
+                    "type": "string",
+                    "description": "The public key.",
+                    "_key": "key"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The public key ID.",
+                    "_key": "kid"
+                  }
+                ],
+                "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "identity_provider_public_key"
+                }
+              },
+              "x-nullable": true,
+              "_key": "keys"
+            },
+            {
+              "type": "string",
+              "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+              "x-nullable": true,
+              "_key": "redirect_uri"
+            },
+            {
+              "type": "string",
+              "description": "URL of the provider's token revocation endpoint.",
+              "x-nullable": true,
+              "_key": "revocation_endpoint"
+            },
+            {
+              "type": "string",
+              "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+              "example": "openid email",
+              "_key": "scopes"
+            },
+            {
+              "type": "string",
+              "description": "URL of the OAuth 2.0 authorization endpoint.",
+              "x-nullable": true,
+              "_key": "token_endpoint"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "POST",
+                "GET"
+              ],
+              "default": "POST",
+              "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+              "_key": "token_request_mode"
+            },
+            {
+              "type": "string",
+              "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+              "example": "oidc.data",
+              "_key": "token_response_path"
+            },
+            {
+              "type": "string",
+              "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+              "x-nullable": true,
+              "_key": "userinfo_endpoint"
+            }
+          ],
+          "description": "Represents OIDC specific attributes.",
+          "foreign_key": {
+            "group": "Accounts",
+            "entity": "oidc_request"
+          },
+          "api_fieldname": "oidc_attributes",
+          "readOnly": false,
+          "_key": "oidc_attributes"
         },
         {
           "type": "object",
@@ -64184,13 +65743,10 @@
                 "group": "Accounts",
                 "entity": "oidc_request"
               },
-              "name": "oidc_attributes",
-              "in": "body",
-              "schema_param": true,
-              "entity_fieldname": "oidc_attributes",
               "api_fieldname": "oidc_attributes",
-              "external_param": true,
+              "entity_fieldname": "oidc_attributes",
               "parameter_fieldname": "oidc_attributes",
+              "in": "body",
               "_key": "oidc_attributes"
             },
             {
@@ -64371,6 +65927,203 @@
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
+                  },
+                  {
+                    "type": "object",
+                    "required": false,
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "parameter_fieldname": "oidc_attributes",
+                    "in": "body",
+                    "_key": "oidc_attributes"
                   },
                   {
                     "type": "object",
@@ -65215,6 +66968,203 @@
                   },
                   {
                     "type": "object",
+                    "required": false,
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "parameter_fieldname": "oidc_attributes",
+                    "in": "body",
+                    "_key": "oidc_attributes"
+                  },
+                  {
+                    "type": "object",
                     "properties": [
                       {
                         "type": "string",
@@ -65561,6 +67511,7 @@
             "description",
             "status",
             "saml2_attributes",
+            "oidc_attributes",
             "is_default"
           ],
           "group_id": "Accounts",
@@ -65741,6 +67692,203 @@
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
+                  },
+                  {
+                    "type": "object",
+                    "required": false,
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "parameter_fieldname": "oidc_attributes",
+                    "in": "body",
+                    "_key": "oidc_attributes"
                   },
                   {
                     "type": "object",
@@ -66163,6 +68311,7 @@
             "description",
             "status",
             "saml2_attributes",
+            "oidc_attributes",
             "is_default"
           ],
           "group_id": "Accounts",
@@ -66345,6 +68494,201 @@
                             "identity-provider"
                           ],
                           "_key": "object"
+                        },
+                        {
+                          "type": "object",
+                          "required": [
+                            "issuer"
+                          ],
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "URL of the OAuth 2.0 authorization endpoint.",
+                              "x-nullable": true,
+                              "_key": "authorization_endpoint"
+                            },
+                            {
+                              "type": "boolean",
+                              "description": "For future use.",
+                              "x-nullable": true,
+                              "_key": "auto_enrollment"
+                            },
+                            {
+                              "description": "Mapping for non-standard OIDC claim names.",
+                              "type": "object",
+                              "properties": [
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'email'.",
+                                  "example": "email_address",
+                                  "x-nullable": true,
+                                  "_key": "email"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'email_verified'.",
+                                  "x-nullable": true,
+                                  "_key": "email_verified"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'family_name'.",
+                                  "x-nullable": true,
+                                  "_key": "family_name"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'given_name'.",
+                                  "x-nullable": true,
+                                  "_key": "given_name"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'name'.",
+                                  "x-nullable": true,
+                                  "_key": "name"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'phone_number'.",
+                                  "x-nullable": true,
+                                  "_key": "phone_number"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'sub'.",
+                                  "x-nullable": true,
+                                  "_key": "sub"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom claim name for 'updated_at'.",
+                                  "x-nullable": true,
+                                  "_key": "updated_at"
+                                },
+                                {
+                                  "type": "string",
+                                  "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                                  "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                                  "x-nullable": true,
+                                  "_key": "updated_at_pattern"
+                                }
+                              ],
+                              "foreign_key": {
+                                "group": "Accounts",
+                                "entity": "oidc_request_claim_mapping"
+                              },
+                              "x-nullable": true,
+                              "_key": "claim_mapping"
+                            },
+                            {
+                              "type": "string",
+                              "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                              "x-nullable": true,
+                              "_key": "client_id"
+                            },
+                            {
+                              "type": "string",
+                              "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                              "x-nullable": true,
+                              "_key": "client_secret"
+                            },
+                            {
+                              "type": "string",
+                              "description": "URL of the provider's end session endpoint.",
+                              "x-nullable": true,
+                              "_key": "end_session_endpoint"
+                            },
+                            {
+                              "type": "string",
+                              "description": "Issuer of the identity provider.",
+                              "_key": "issuer"
+                            },
+                            {
+                              "type": "string",
+                              "description": "URL of the provider's JSON web key set document.",
+                              "x-nullable": true,
+                              "_key": "jwks_uri"
+                            },
+                            {
+                              "type": "array",
+                              "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                              "items": {
+                                "type": "object",
+                                "properties": [
+                                  {
+                                    "type": "string",
+                                    "description": "The public key.",
+                                    "_key": "key"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "description": "The public key ID.",
+                                    "_key": "kid"
+                                  }
+                                ],
+                                "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                                "foreign_key": {
+                                  "group": "Accounts",
+                                  "entity": "identity_provider_public_key"
+                                }
+                              },
+                              "x-nullable": true,
+                              "_key": "keys"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                              "x-nullable": true,
+                              "_key": "redirect_uri"
+                            },
+                            {
+                              "type": "string",
+                              "description": "URL of the provider's token revocation endpoint.",
+                              "x-nullable": true,
+                              "_key": "revocation_endpoint"
+                            },
+                            {
+                              "type": "string",
+                              "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                              "example": "openid email",
+                              "_key": "scopes"
+                            },
+                            {
+                              "type": "string",
+                              "description": "URL of the OAuth 2.0 authorization endpoint.",
+                              "x-nullable": true,
+                              "_key": "token_endpoint"
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "POST",
+                                "GET"
+                              ],
+                              "default": "POST",
+                              "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                              "_key": "token_request_mode"
+                            },
+                            {
+                              "type": "string",
+                              "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                              "example": "oidc.data",
+                              "_key": "token_response_path"
+                            },
+                            {
+                              "type": "string",
+                              "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                              "x-nullable": true,
+                              "_key": "userinfo_endpoint"
+                            }
+                          ],
+                          "description": "Represents OIDC specific attributes.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "oidc_request"
+                          },
+                          "_key": "oidc_attributes"
                         },
                         {
                           "type": "object",
@@ -66883,6 +69227,203 @@
                   },
                   {
                     "type": "object",
+                    "required": false,
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "parameter_fieldname": "oidc_attributes",
+                    "in": "body",
+                    "_key": "oidc_attributes"
+                  },
+                  {
+                    "type": "object",
                     "properties": [
                       {
                         "type": "string",
@@ -67229,6 +69770,7 @@
             "description",
             "status",
             "saml2_attributes",
+            "oidc_attributes",
             "is_default"
           ],
           "group_id": "Accounts",
@@ -67369,6 +69911,203 @@
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
+                  },
+                  {
+                    "type": "object",
+                    "required": false,
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "parameter_fieldname": "oidc_attributes",
+                    "in": "body",
+                    "_key": "oidc_attributes"
                   },
                   {
                     "type": "object",
@@ -67791,6 +70530,7 @@
             "description",
             "status",
             "saml2_attributes",
+            "oidc_attributes",
             "is_default"
           ],
           "group_id": "Accounts",
@@ -68057,13 +70797,10 @@
                 "group": "Accounts",
                 "entity": "oidc_request"
               },
-              "name": "oidc_attributes",
-              "in": "body",
-              "schema_param": true,
-              "entity_fieldname": "oidc_attributes",
               "api_fieldname": "oidc_attributes",
-              "external_param": true,
+              "entity_fieldname": "oidc_attributes",
               "parameter_fieldname": "oidc_attributes",
+              "in": "body",
               "_key": "oidc_attributes"
             },
             {
@@ -68232,6 +70969,203 @@
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
+                  },
+                  {
+                    "type": "object",
+                    "required": false,
+                    "properties": [
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "authorization_endpoint"
+                      },
+                      {
+                        "type": "boolean",
+                        "description": "For future use.",
+                        "x-nullable": true,
+                        "_key": "auto_enrollment"
+                      },
+                      {
+                        "description": "Mapping for non-standard OIDC claim names.",
+                        "type": "object",
+                        "properties": [
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email'.",
+                            "example": "email_address",
+                            "x-nullable": true,
+                            "_key": "email"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'email_verified'.",
+                            "x-nullable": true,
+                            "_key": "email_verified"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'family_name'.",
+                            "x-nullable": true,
+                            "_key": "family_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'given_name'.",
+                            "x-nullable": true,
+                            "_key": "given_name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'name'.",
+                            "x-nullable": true,
+                            "_key": "name"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'phone_number'.",
+                            "x-nullable": true,
+                            "_key": "phone_number"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'sub'.",
+                            "x-nullable": true,
+                            "_key": "sub"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom claim name for 'updated_at'.",
+                            "x-nullable": true,
+                            "_key": "updated_at"
+                          },
+                          {
+                            "type": "string",
+                            "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                            "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                            "x-nullable": true,
+                            "_key": "updated_at_pattern"
+                          }
+                        ],
+                        "foreign_key": {
+                          "group": "Accounts",
+                          "entity": "oidc_request_claim_mapping"
+                        },
+                        "x-nullable": true,
+                        "_key": "claim_mapping"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_id"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+                        "x-nullable": true,
+                        "_key": "client_secret"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's end session endpoint.",
+                        "x-nullable": true,
+                        "_key": "end_session_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Issuer of the identity provider.",
+                        "_key": "issuer"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's JSON web key set document.",
+                        "x-nullable": true,
+                        "_key": "jwks_uri"
+                      },
+                      {
+                        "type": "array",
+                        "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+                        "items": {
+                          "type": "object",
+                          "properties": [
+                            {
+                              "type": "string",
+                              "description": "The public key.",
+                              "_key": "key"
+                            },
+                            {
+                              "type": "string",
+                              "description": "The public key ID.",
+                              "_key": "kid"
+                            }
+                          ],
+                          "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "identity_provider_public_key"
+                          }
+                        },
+                        "x-nullable": true,
+                        "_key": "keys"
+                      },
+                      {
+                        "type": "string",
+                        "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+                        "x-nullable": true,
+                        "_key": "redirect_uri"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the provider's token revocation endpoint.",
+                        "x-nullable": true,
+                        "_key": "revocation_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+                        "example": "openid email",
+                        "_key": "scopes"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 authorization endpoint.",
+                        "x-nullable": true,
+                        "_key": "token_endpoint"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "POST",
+                          "GET"
+                        ],
+                        "default": "POST",
+                        "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+                        "_key": "token_request_mode"
+                      },
+                      {
+                        "type": "string",
+                        "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+                        "example": "oidc.data",
+                        "_key": "token_response_path"
+                      },
+                      {
+                        "type": "string",
+                        "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+                        "x-nullable": true,
+                        "_key": "userinfo_endpoint"
+                      }
+                    ],
+                    "description": "Represents OIDC specific attributes.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "oidc_request"
+                    },
+                    "api_fieldname": "oidc_attributes",
+                    "entity_fieldname": "oidc_attributes",
+                    "parameter_fieldname": "oidc_attributes",
+                    "in": "body",
+                    "_key": "oidc_attributes"
                   },
                   {
                     "type": "object",
@@ -68725,6 +71659,203 @@
           "required": true,
           "readOnly": false,
           "_key": "name"
+        },
+        {
+          "type": "object",
+          "required": false,
+          "properties": [
+            {
+              "type": "string",
+              "description": "URL of the OAuth 2.0 authorization endpoint.",
+              "x-nullable": true,
+              "_key": "authorization_endpoint"
+            },
+            {
+              "type": "boolean",
+              "description": "For future use.",
+              "x-nullable": true,
+              "_key": "auto_enrollment"
+            },
+            {
+              "description": "Mapping for non-standard OIDC claim names.",
+              "type": "object",
+              "properties": [
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'email'.",
+                  "example": "email_address",
+                  "x-nullable": true,
+                  "_key": "email"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'email_verified'.",
+                  "x-nullable": true,
+                  "_key": "email_verified"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'family_name'.",
+                  "x-nullable": true,
+                  "_key": "family_name"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'given_name'.",
+                  "x-nullable": true,
+                  "_key": "given_name"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'name'.",
+                  "x-nullable": true,
+                  "_key": "name"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'phone_number'.",
+                  "x-nullable": true,
+                  "_key": "phone_number"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'sub'.",
+                  "x-nullable": true,
+                  "_key": "sub"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom claim name for 'updated_at'.",
+                  "x-nullable": true,
+                  "_key": "updated_at"
+                },
+                {
+                  "type": "string",
+                  "description": "Custom pattern for claim 'updated_at' as defined by the Java SimpleDateFormat class.",
+                  "example": "yyyy-MM-dd'T'HH:mm:ssXXX",
+                  "x-nullable": true,
+                  "_key": "updated_at_pattern"
+                }
+              ],
+              "foreign_key": {
+                "group": "Accounts",
+                "entity": "oidc_request_claim_mapping"
+              },
+              "x-nullable": true,
+              "_key": "claim_mapping"
+            },
+            {
+              "type": "string",
+              "description": "Client ID needed to authenticate and gain access to identity provider's API.",
+              "x-nullable": true,
+              "_key": "client_id"
+            },
+            {
+              "type": "string",
+              "description": "Client secret needed to authenticate and gain access to identity provider's API.",
+              "x-nullable": true,
+              "_key": "client_secret"
+            },
+            {
+              "type": "string",
+              "description": "URL of the provider's end session endpoint.",
+              "x-nullable": true,
+              "_key": "end_session_endpoint"
+            },
+            {
+              "type": "string",
+              "description": "Issuer of the identity provider.",
+              "_key": "issuer"
+            },
+            {
+              "type": "string",
+              "description": "URL of the provider's JSON web key set document.",
+              "x-nullable": true,
+              "_key": "jwks_uri"
+            },
+            {
+              "type": "array",
+              "description": "Provider's public keys and key IDs used to sign ID tokens. PEM-encoded.",
+              "items": {
+                "type": "object",
+                "properties": [
+                  {
+                    "type": "string",
+                    "description": "The public key.",
+                    "_key": "key"
+                  },
+                  {
+                    "type": "string",
+                    "description": "The public key ID.",
+                    "_key": "kid"
+                  }
+                ],
+                "description": "Represents provider's public key and key ID used to sign ID tokens. PEM-encoded.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "identity_provider_public_key"
+                }
+              },
+              "x-nullable": true,
+              "_key": "keys"
+            },
+            {
+              "type": "string",
+              "description": "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.",
+              "x-nullable": true,
+              "_key": "redirect_uri"
+            },
+            {
+              "type": "string",
+              "description": "URL of the provider's token revocation endpoint.",
+              "x-nullable": true,
+              "_key": "revocation_endpoint"
+            },
+            {
+              "type": "string",
+              "description": "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).",
+              "example": "openid email",
+              "_key": "scopes"
+            },
+            {
+              "type": "string",
+              "description": "URL of the OAuth 2.0 authorization endpoint.",
+              "x-nullable": true,
+              "_key": "token_endpoint"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "POST",
+                "GET"
+              ],
+              "default": "POST",
+              "description": "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.",
+              "_key": "token_request_mode"
+            },
+            {
+              "type": "string",
+              "description": "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.",
+              "example": "oidc.data",
+              "_key": "token_response_path"
+            },
+            {
+              "type": "string",
+              "description": "URL of the OAuth 2.0 UserInfo endpoint.",
+              "x-nullable": true,
+              "_key": "userinfo_endpoint"
+            }
+          ],
+          "description": "Represents OIDC specific attributes.",
+          "foreign_key": {
+            "group": "Accounts",
+            "entity": "oidc_request"
+          },
+          "api_fieldname": "oidc_attributes",
+          "parameter_fieldname": "oidc_attributes",
+          "in": "body",
+          "readOnly": false,
+          "_key": "oidc_attributes"
         },
         {
           "type": "object",
