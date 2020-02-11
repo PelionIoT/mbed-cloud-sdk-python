@@ -2336,9 +2336,9 @@
                     "x-deprecation": {
                       "issued_at": "2019-08-27T12:03:58+00:00",
                       "end_of_life_at": "2020-08-27T12:03:58+00:00",
-                      "comment": "Superseded by the limitations parameter."
+                      "comment": "Replaced by the limitations parameter."
                     },
-                    "description": "List of limits as key-value pairs if requested.",
+                    "description": "DEPRECATED: Replaced by the limitations parameter.",
                     "additionalProperties": {
                       "type": "string"
                     },
@@ -2987,9 +2987,9 @@
                           "x-deprecation": {
                             "issued_at": "2019-08-27T12:03:58+00:00",
                             "end_of_life_at": "2020-08-27T12:03:58+00:00",
-                            "comment": "Superseded by the limitations parameter."
+                            "comment": "Replaced by the limitations parameter."
                           },
-                          "description": "List of limits as key-value pairs if requested.",
+                          "description": "DEPRECATED: Replaced by the limitations parameter.",
                           "additionalProperties": {
                             "type": "string"
                           },
@@ -5842,9 +5842,9 @@
                           "x-deprecation": {
                             "issued_at": "2019-08-27T12:03:58+00:00",
                             "end_of_life_at": "2020-08-27T12:03:58+00:00",
-                            "comment": "Superseded by the limitations parameter."
+                            "comment": "Replaced by the limitations parameter."
                           },
-                          "description": "List of limits as key-value pairs if requested.",
+                          "description": "DEPRECATED: Replaced by the limitations parameter.",
                           "additionalProperties": {
                             "type": "string"
                           },
@@ -6461,9 +6461,9 @@
                                 "x-deprecation": {
                                   "issued_at": "2019-08-27T12:03:58+00:00",
                                   "end_of_life_at": "2020-08-27T12:03:58+00:00",
-                                  "comment": "Superseded by the limitations parameter."
+                                  "comment": "Replaced by the limitations parameter."
                                 },
-                                "description": "List of limits as key-value pairs if requested.",
+                                "description": "DEPRECATED: Replaced by the limitations parameter.",
                                 "additionalProperties": {
                                   "type": "string"
                                 },
@@ -7550,9 +7550,9 @@
                     "x-deprecation": {
                       "issued_at": "2019-08-27T12:03:58+00:00",
                       "end_of_life_at": "2020-08-27T12:03:58+00:00",
-                      "comment": "Superseded by the limitations parameter."
+                      "comment": "Replaced by the limitations parameter."
                     },
-                    "description": "List of limits as key-value pairs if requested.",
+                    "description": "DEPRECATED: Replaced by the limitations parameter.",
                     "additionalProperties": {
                       "type": "string"
                     },
@@ -8201,9 +8201,9 @@
                           "x-deprecation": {
                             "issued_at": "2019-08-27T12:03:58+00:00",
                             "end_of_life_at": "2020-08-27T12:03:58+00:00",
-                            "comment": "Superseded by the limitations parameter."
+                            "comment": "Replaced by the limitations parameter."
                           },
-                          "description": "List of limits as key-value pairs if requested.",
+                          "description": "DEPRECATED: Replaced by the limitations parameter.",
                           "additionalProperties": {
                             "type": "string"
                           },
@@ -9271,9 +9271,9 @@
                     "x-deprecation": {
                       "issued_at": "2019-08-27T12:03:58+00:00",
                       "end_of_life_at": "2020-08-27T12:03:58+00:00",
-                      "comment": "Superseded by the limitations parameter."
+                      "comment": "Replaced by the limitations parameter."
                     },
-                    "description": "List of limits as key-value pairs if requested.",
+                    "description": "DEPRECATED: Replaced by the limitations parameter.",
                     "additionalProperties": {
                       "type": "string"
                     },
@@ -9922,9 +9922,9 @@
                           "x-deprecation": {
                             "issued_at": "2019-08-27T12:03:58+00:00",
                             "end_of_life_at": "2020-08-27T12:03:58+00:00",
-                            "comment": "Superseded by the limitations parameter."
+                            "comment": "Replaced by the limitations parameter."
                           },
-                          "description": "List of limits as key-value pairs if requested.",
+                          "description": "DEPRECATED: Replaced by the limitations parameter.",
                           "additionalProperties": {
                             "type": "string"
                           },
@@ -12011,9 +12011,9 @@
                     "x-deprecation": {
                       "issued_at": "2019-08-27T12:03:58+00:00",
                       "end_of_life_at": "2020-08-27T12:03:58+00:00",
-                      "comment": "Superseded by the limitations parameter."
+                      "comment": "Replaced by the limitations parameter."
                     },
-                    "description": "List of limits as key-value pairs if requested.",
+                    "description": "DEPRECATED: Replaced by the limitations parameter.",
                     "additionalProperties": {
                       "type": "string"
                     },
@@ -12662,9 +12662,9 @@
                           "x-deprecation": {
                             "issued_at": "2019-08-27T12:03:58+00:00",
                             "end_of_life_at": "2020-08-27T12:03:58+00:00",
-                            "comment": "Superseded by the limitations parameter."
+                            "comment": "Replaced by the limitations parameter."
                           },
-                          "description": "List of limits as key-value pairs if requested.",
+                          "description": "DEPRECATED: Replaced by the limitations parameter.",
                           "additionalProperties": {
                             "type": "string"
                           },
@@ -15237,9 +15237,9 @@
           "x-deprecation": {
             "issued_at": "2019-08-27T12:03:58+00:00",
             "end_of_life_at": "2020-08-27T12:03:58+00:00",
-            "comment": "Superseded by the limitations parameter."
+            "comment": "Replaced by the limitations parameter."
           },
-          "description": "List of limits as key-value pairs if requested.",
+          "description": "DEPRECATED: Replaced by the limitations parameter.",
           "additionalProperties": {
             "type": "string"
           },

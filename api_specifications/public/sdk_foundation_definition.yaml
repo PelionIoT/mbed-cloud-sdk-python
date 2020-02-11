@@ -340,12 +340,12 @@ entities:
     additionalProperties:
       type: string
     api_fieldname: limits
-    description: List of limits as key-value pairs if requested.
+    description: 'DEPRECATED: Replaced by the limitations parameter.'
     readOnly: true
     required: false
     type: object
     x-deprecation:
-      comment: Superseded by the limitations parameter.
+      comment: Replaced by the limitations parameter.
       end_of_life_at: '2020-08-27T12:03:58+00:00'
       issued_at: '2019-08-27T12:03:58+00:00'
     x-nullable: true
@@ -1681,11 +1681,11 @@ entities:
           additionalProperties:
             type: string
           api_fieldname: limits
-          description: List of limits as key-value pairs if requested.
+          description: 'DEPRECATED: Replaced by the limitations parameter.'
           entity_fieldname: limits
           type: object
           x-deprecation:
-            comment: Superseded by the limitations parameter.
+            comment: Replaced by the limitations parameter.
             end_of_life_at: '2020-08-27T12:03:58+00:00'
             issued_at: '2019-08-27T12:03:58+00:00'
           x-nullable: true
@@ -2178,10 +2178,10 @@ entities:
             - _key: limits
               additionalProperties:
                 type: string
-              description: List of limits as key-value pairs if requested.
+              description: 'DEPRECATED: Replaced by the limitations parameter.'
               type: object
               x-deprecation:
-                comment: Superseded by the limitations parameter.
+                comment: Replaced by the limitations parameter.
                 end_of_life_at: '2020-08-27T12:03:58+00:00'
                 issued_at: '2019-08-27T12:03:58+00:00'
               x-nullable: true
@@ -4331,10 +4331,10 @@ entities:
             - _key: limits
               additionalProperties:
                 type: string
-              description: List of limits as key-value pairs if requested.
+              description: 'DEPRECATED: Replaced by the limitations parameter.'
               type: object
               x-deprecation:
-                comment: Superseded by the limitations parameter.
+                comment: Replaced by the limitations parameter.
                 end_of_life_at: '2020-08-27T12:03:58+00:00'
                 issued_at: '2019-08-27T12:03:58+00:00'
               x-nullable: true
@@ -4796,10 +4796,10 @@ entities:
                 - _key: limits
                   additionalProperties:
                     type: string
-                  description: List of limits as key-value pairs if requested.
+                  description: 'DEPRECATED: Replaced by the limitations parameter.'
                   type: object
                   x-deprecation:
-                    comment: Superseded by the limitations parameter.
+                    comment: Replaced by the limitations parameter.
                     end_of_life_at: '2020-08-27T12:03:58+00:00'
                     issued_at: '2019-08-27T12:03:58+00:00'
                   x-nullable: true
@@ -5683,11 +5683,11 @@ entities:
           additionalProperties:
             type: string
           api_fieldname: limits
-          description: List of limits as key-value pairs if requested.
+          description: 'DEPRECATED: Replaced by the limitations parameter.'
           entity_fieldname: limits
           type: object
           x-deprecation:
-            comment: Superseded by the limitations parameter.
+            comment: Replaced by the limitations parameter.
             end_of_life_at: '2020-08-27T12:03:58+00:00'
             issued_at: '2019-08-27T12:03:58+00:00'
           x-nullable: true
@@ -6180,10 +6180,10 @@ entities:
             - _key: limits
               additionalProperties:
                 type: string
-              description: List of limits as key-value pairs if requested.
+              description: 'DEPRECATED: Replaced by the limitations parameter.'
               type: object
               x-deprecation:
-                comment: Superseded by the limitations parameter.
+                comment: Replaced by the limitations parameter.
                 end_of_life_at: '2020-08-27T12:03:58+00:00'
                 issued_at: '2019-08-27T12:03:58+00:00'
               x-nullable: true
@@ -7024,11 +7024,11 @@ entities:
           additionalProperties:
             type: string
           api_fieldname: limits
-          description: List of limits as key-value pairs if requested.
+          description: 'DEPRECATED: Replaced by the limitations parameter.'
           entity_fieldname: limits
           type: object
           x-deprecation:
-            comment: Superseded by the limitations parameter.
+            comment: Replaced by the limitations parameter.
             end_of_life_at: '2020-08-27T12:03:58+00:00'
             issued_at: '2019-08-27T12:03:58+00:00'
           x-nullable: true
@@ -7521,10 +7521,10 @@ entities:
             - _key: limits
               additionalProperties:
                 type: string
-              description: List of limits as key-value pairs if requested.
+              description: 'DEPRECATED: Replaced by the limitations parameter.'
               type: object
               x-deprecation:
-                comment: Superseded by the limitations parameter.
+                comment: Replaced by the limitations parameter.
                 end_of_life_at: '2020-08-27T12:03:58+00:00'
                 issued_at: '2019-08-27T12:03:58+00:00'
               x-nullable: true
@@ -9135,11 +9135,11 @@ entities:
           additionalProperties:
             type: string
           api_fieldname: limits
-          description: List of limits as key-value pairs if requested.
+          description: 'DEPRECATED: Replaced by the limitations parameter.'
           entity_fieldname: limits
           type: object
           x-deprecation:
-            comment: Superseded by the limitations parameter.
+            comment: Replaced by the limitations parameter.
             end_of_life_at: '2020-08-27T12:03:58+00:00'
             issued_at: '2019-08-27T12:03:58+00:00'
           x-nullable: true
@@ -9632,10 +9632,10 @@ entities:
             - _key: limits
               additionalProperties:
                 type: string
-              description: List of limits as key-value pairs if requested.
+              description: 'DEPRECATED: Replaced by the limitations parameter.'
               type: object
               x-deprecation:
-                comment: Superseded by the limitations parameter.
+                comment: Replaced by the limitations parameter.
                 end_of_life_at: '2020-08-27T12:03:58+00:00'
                 issued_at: '2019-08-27T12:03:58+00:00'
               x-nullable: true

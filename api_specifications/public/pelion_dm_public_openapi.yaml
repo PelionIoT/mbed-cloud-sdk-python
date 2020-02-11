@@ -293,10 +293,10 @@ definitions:
       limits:
         additionalProperties:
           type: string
-        description: List of limits as key-value pairs if requested.
+        description: 'DEPRECATED: Replaced by the limitations parameter.'
         type: object
         x-deprecation:
-          comment: Superseded by the limitations parameter.
+          comment: Replaced by the limitations parameter.
           end_of_life_at: '2020-08-27T12:03:58+00:00'
           issued_at: '2019-08-27T12:03:58+00:00'
         x-nullable: true
@@ -4622,6 +4622,7 @@ definitions:
         description: Identity provider type.
         enum:
         - SAML2
+        - OIDC
         type: string
     required:
     - name
@@ -4769,6 +4770,7 @@ definitions:
         description: Identity provider type.
         enum:
         - SAML2
+        - OIDC
         type: string
     required:
     - name
@@ -28489,105 +28491,6 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new user.
-      tags:
-      - Account - users
-      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
-  /v3/users/me:
-    get:
-      description: Retrieve the details of the logged-in user.
-      operationId: getMyUser
-      parameters:
-      - description: Request to regenerate new emergency scratch codes.
-        in: query
-        name: scratch_codes
-        required: false
-        type: string
-      - description: Request to return account-specific user property values according
-          to the given property name.
-        in: query
-        name: properties
-        required: false
-        type: string
-      - description: 'Comma-separated additional data to return. Currently supported:
-          active_sessions.'
-        in: query
-        name: include
-        required: false
-        type: string
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: Successful operation.
-          schema:
-            $ref: '#/definitions/UserInfoResp'
-        '401':
-          description: Authentication failure.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Details of the current user.
-      tags:
-      - Account - users
-      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
-    put:
-      consumes:
-      - application/json
-      description: 'Update user details.
-
-
-        **Example:**
-
-        ```
-
-        curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me \
-
-        -H ''Authorization: Bearer <token>'' \
-
-        -H ''content-type: application/json'' \
-
-        -d ''{"full_name": "fullname"}''
-
-        ```'
-      operationId: updateMyUser
-      parameters:
-      - description: A user object with attributes.
-        in: body
-        name: body
-        required: true
-        schema:
-          $ref: '#/definitions/UserUpdateReq'
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: Successful operation.
-          schema:
-            $ref: '#/definitions/UserInfoResp'
-        '400':
-          description: Error in input data, for example, an invalid email address.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '401':
-          description: Authentication failure.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '404':
-          description: A user with the given ID does not exist.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '409':
-          description: A user with the given username or email already exists.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Update user details.
       tags:
       - Account - users
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
