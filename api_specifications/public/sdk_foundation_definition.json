@@ -1637,7 +1637,7 @@
           "_key": "api_keys"
         },
         {
-          "description": "Create a new account.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{\"display_name\": \"MyAccount1\", \"admin_name\": \"accountAdmin1\", \"email\": \"example_admin@myaccount.info\", \"country\": \"United Kingdom\", \"end_market\": \"Smart City\", \"address_line1\": \"110 Fulbourn Rd\", \"city\": \"Cambridge\", \"contact\": \"J. Doe\", \"company\": \"Arm\"}'\n```",
+          "description": "Create a new account.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '{\"display_name\": \"MyAccount1\", \"aliases\": [ \"my-account\" ], \"admin_name\": \"accountAdmin1\", \"email\": \"example_admin@myaccount.info\", \"country\": \"United Kingdom\", \"end_market\": \"Smart City\", \"address_line1\": \"110 Fulbourn Rd\", \"city\": \"Cambridge\", \"contact\": \"J. Doe\", \"company\": \"Arm\"}'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -1733,7 +1733,7 @@
             {
               "type": "array",
               "maxItems": 10,
-              "description": "An array of aliases.",
+              "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
               "items": {
                 "type": "string",
                 "pattern": "[\\w\\-._]{8,100}"
@@ -1780,7 +1780,7 @@
               "maxLength": 100,
               "x-nullable": true,
               "example": "ARM Holdings Plc",
-              "description": "The name of the company.",
+              "description": "The name of the company used in billing.",
               "api_fieldname": "company",
               "entity_fieldname": "company",
               "parameter_fieldname": "company",
@@ -1843,7 +1843,7 @@
               "maxLength": 100,
               "x-nullable": true,
               "example": "ARM",
-              "description": "The display name for the account.",
+              "description": "The display name for the tenant account.",
               "api_fieldname": "display_name",
               "entity_fieldname": "display_name",
               "parameter_fieldname": "display_name",
@@ -2013,7 +2013,7 @@
                   {
                     "type": "array",
                     "maxItems": 10,
-                    "description": "An array of aliases.",
+                    "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
                     "items": {
                       "type": "string",
                       "pattern": "[\\w\\-._]{8,100}"
@@ -2080,7 +2080,7 @@
                     "maxLength": 100,
                     "x-nullable": true,
                     "example": "ARM Holdings Plc",
-                    "description": "The name of the company.",
+                    "description": "The name of the company used in billing.",
                     "api_fieldname": "company",
                     "entity_fieldname": "company",
                     "_key": "company"
@@ -2148,7 +2148,7 @@
                     "maxLength": 100,
                     "x-nullable": true,
                     "example": "ARM",
-                    "description": "The display name for the account.",
+                    "description": "The display name for the tenant account.",
                     "api_fieldname": "display_name",
                     "entity_fieldname": "display_name",
                     "_key": "display_name"
@@ -2704,7 +2704,7 @@
                         {
                           "type": "array",
                           "maxItems": 10,
-                          "description": "An array of aliases.",
+                          "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
                           "items": {
                             "type": "string",
                             "pattern": "[\\w\\-._]{8,100}"
@@ -2763,7 +2763,7 @@
                           "maxLength": 100,
                           "x-nullable": true,
                           "example": "ARM Holdings Plc",
-                          "description": "The name of the company.",
+                          "description": "The name of the company used in billing.",
                           "_key": "company"
                         },
                         {
@@ -2817,7 +2817,7 @@
                           "maxLength": 100,
                           "x-nullable": true,
                           "example": "ARM",
-                          "description": "The display name for the account.",
+                          "description": "The display name for the tenant account.",
                           "_key": "display_name"
                         },
                         {
@@ -3591,6 +3591,79 @@
                 ]
               },
               "_key": "403"
+            },
+            {
+              "description": "Account with the specified alias exists already.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "409"
             }
           ],
           "path": "/v3/accounts",
@@ -5559,7 +5632,7 @@
                         {
                           "type": "array",
                           "maxItems": 10,
-                          "description": "An array of aliases.",
+                          "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
                           "items": {
                             "type": "string",
                             "pattern": "[\\w\\-._]{8,100}"
@@ -5618,7 +5691,7 @@
                           "maxLength": 100,
                           "x-nullable": true,
                           "example": "ARM Holdings Plc",
-                          "description": "The name of the company.",
+                          "description": "The name of the company used in billing.",
                           "_key": "company"
                         },
                         {
@@ -5672,7 +5745,7 @@
                           "maxLength": 100,
                           "x-nullable": true,
                           "example": "ARM",
-                          "description": "The display name for the account.",
+                          "description": "The display name for the tenant account.",
                           "_key": "display_name"
                         },
                         {
@@ -6178,7 +6251,7 @@
                               {
                                 "type": "array",
                                 "maxItems": 10,
-                                "description": "An array of aliases.",
+                                "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
                                 "items": {
                                   "type": "string",
                                   "pattern": "[\\w\\-._]{8,100}"
@@ -6237,7 +6310,7 @@
                                 "maxLength": 100,
                                 "x-nullable": true,
                                 "example": "ARM Holdings Plc",
-                                "description": "The name of the company.",
+                                "description": "The name of the company used in billing.",
                                 "_key": "company"
                               },
                               {
@@ -6291,7 +6364,7 @@
                                 "maxLength": 100,
                                 "x-nullable": true,
                                 "example": "ARM",
-                                "description": "The display name for the account.",
+                                "description": "The display name for the tenant account.",
                                 "_key": "display_name"
                               },
                               {
@@ -7227,7 +7300,7 @@
                   {
                     "type": "array",
                     "maxItems": 10,
-                    "description": "An array of aliases.",
+                    "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
                     "items": {
                       "type": "string",
                       "pattern": "[\\w\\-._]{8,100}"
@@ -7294,7 +7367,7 @@
                     "maxLength": 100,
                     "x-nullable": true,
                     "example": "ARM Holdings Plc",
-                    "description": "The name of the company.",
+                    "description": "The name of the company used in billing.",
                     "api_fieldname": "company",
                     "entity_fieldname": "company",
                     "_key": "company"
@@ -7362,7 +7435,7 @@
                     "maxLength": 100,
                     "x-nullable": true,
                     "example": "ARM",
-                    "description": "The display name for the account.",
+                    "description": "The display name for the tenant account.",
                     "api_fieldname": "display_name",
                     "entity_fieldname": "display_name",
                     "_key": "display_name"
@@ -7918,7 +7991,7 @@
                         {
                           "type": "array",
                           "maxItems": 10,
-                          "description": "An array of aliases.",
+                          "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
                           "items": {
                             "type": "string",
                             "pattern": "[\\w\\-._]{8,100}"
@@ -7977,7 +8050,7 @@
                           "maxLength": 100,
                           "x-nullable": true,
                           "example": "ARM Holdings Plc",
-                          "description": "The name of the company.",
+                          "description": "The name of the company used in billing.",
                           "_key": "company"
                         },
                         {
@@ -8031,7 +8104,7 @@
                           "maxLength": 100,
                           "x-nullable": true,
                           "example": "ARM",
-                          "description": "The display name for the account.",
+                          "description": "The display name for the tenant account.",
                           "_key": "display_name"
                         },
                         {
@@ -8948,7 +9021,7 @@
                   {
                     "type": "array",
                     "maxItems": 10,
-                    "description": "An array of aliases.",
+                    "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
                     "items": {
                       "type": "string",
                       "pattern": "[\\w\\-._]{8,100}"
@@ -9015,7 +9088,7 @@
                     "maxLength": 100,
                     "x-nullable": true,
                     "example": "ARM Holdings Plc",
-                    "description": "The name of the company.",
+                    "description": "The name of the company used in billing.",
                     "api_fieldname": "company",
                     "entity_fieldname": "company",
                     "_key": "company"
@@ -9083,7 +9156,7 @@
                     "maxLength": 100,
                     "x-nullable": true,
                     "example": "ARM",
-                    "description": "The display name for the account.",
+                    "description": "The display name for the tenant account.",
                     "api_fieldname": "display_name",
                     "entity_fieldname": "display_name",
                     "_key": "display_name"
@@ -9639,7 +9712,7 @@
                         {
                           "type": "array",
                           "maxItems": 10,
-                          "description": "An array of aliases.",
+                          "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
                           "items": {
                             "type": "string",
                             "pattern": "[\\w\\-._]{8,100}"
@@ -9698,7 +9771,7 @@
                           "maxLength": 100,
                           "x-nullable": true,
                           "example": "ARM Holdings Plc",
-                          "description": "The name of the company.",
+                          "description": "The name of the company used in billing.",
                           "_key": "company"
                         },
                         {
@@ -9752,7 +9825,7 @@
                           "maxLength": 100,
                           "x-nullable": true,
                           "example": "ARM",
-                          "description": "The display name for the account.",
+                          "description": "The display name for the tenant account.",
                           "_key": "display_name"
                         },
                         {
@@ -11270,7 +11343,7 @@
             {
               "type": "array",
               "maxItems": 10,
-              "description": "An array of aliases.",
+              "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
               "items": {
                 "type": "string",
                 "pattern": "[\\w\\-._]{8,100}"
@@ -11317,7 +11390,7 @@
               "maxLength": 100,
               "x-nullable": true,
               "example": "ARM Holdings Plc",
-              "description": "The name of the company.",
+              "description": "The name of the company used in billing.",
               "api_fieldname": "company",
               "entity_fieldname": "company",
               "parameter_fieldname": "company",
@@ -11394,7 +11467,7 @@
               "maxLength": 100,
               "x-nullable": true,
               "example": "ARM",
-              "description": "The display name for the account.",
+              "description": "The display name for the tenant account.",
               "api_fieldname": "display_name",
               "entity_fieldname": "display_name",
               "parameter_fieldname": "display_name",
@@ -11688,7 +11761,7 @@
                   {
                     "type": "array",
                     "maxItems": 10,
-                    "description": "An array of aliases.",
+                    "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
                     "items": {
                       "type": "string",
                       "pattern": "[\\w\\-._]{8,100}"
@@ -11755,7 +11828,7 @@
                     "maxLength": 100,
                     "x-nullable": true,
                     "example": "ARM Holdings Plc",
-                    "description": "The name of the company.",
+                    "description": "The name of the company used in billing.",
                     "api_fieldname": "company",
                     "entity_fieldname": "company",
                     "_key": "company"
@@ -11823,7 +11896,7 @@
                     "maxLength": 100,
                     "x-nullable": true,
                     "example": "ARM",
-                    "description": "The display name for the account.",
+                    "description": "The display name for the tenant account.",
                     "api_fieldname": "display_name",
                     "entity_fieldname": "display_name",
                     "_key": "display_name"
@@ -12379,7 +12452,7 @@
                         {
                           "type": "array",
                           "maxItems": 10,
-                          "description": "An array of aliases.",
+                          "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
                           "items": {
                             "type": "string",
                             "pattern": "[\\w\\-._]{8,100}"
@@ -12438,7 +12511,7 @@
                           "maxLength": 100,
                           "x-nullable": true,
                           "example": "ARM Holdings Plc",
-                          "description": "The name of the company.",
+                          "description": "The name of the company used in billing.",
                           "_key": "company"
                         },
                         {
@@ -12492,7 +12565,7 @@
                           "maxLength": 100,
                           "x-nullable": true,
                           "example": "ARM",
-                          "description": "The display name for the account.",
+                          "description": "The display name for the tenant account.",
                           "_key": "display_name"
                         },
                         {
@@ -13339,6 +13412,79 @@
                 ]
               },
               "_key": "404"
+            },
+            {
+              "description": "Account with the specified new alias exists already.",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "message",
+                  "object",
+                  "request_id",
+                  "type"
+                ],
+                "properties": [
+                  {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP response code",
+                    "example": 400,
+                    "_key": "code"
+                  },
+                  {
+                    "type": "array",
+                    "description": "Request fields which failed validation.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "message"
+                      ],
+                      "properties": [
+                        {
+                          "type": "string",
+                          "description": "Message describing the error condition.",
+                          "_key": "message"
+                        },
+                        {
+                          "type": "string",
+                          "description": "Name of the field which caused the error.",
+                          "_key": "name"
+                        }
+                      ]
+                    },
+                    "_key": "fields"
+                  },
+                  {
+                    "type": "string",
+                    "description": "A human readable informative explanation",
+                    "example": "Validation error",
+                    "_key": "message"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Entity name, always `error`.",
+                    "enum": [
+                      "error"
+                    ],
+                    "_key": "object"
+                  },
+                  {
+                    "type": "string",
+                    "description": "ID of the request.",
+                    "example": "0161991d63150242ac12000600000000",
+                    "_key": "request_id"
+                  },
+                  {
+                    "type": "string",
+                    "description": "Error type used to categorise the error.",
+                    "example": "validation_error",
+                    "_key": "type"
+                  }
+                ]
+              },
+              "_key": "409"
             }
           ],
           "path": "/v3/accounts/{account_id}",
@@ -14902,7 +15048,7 @@
         {
           "type": "array",
           "maxItems": 10,
-          "description": "An array of aliases.",
+          "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
           "items": {
             "type": "string",
             "pattern": "[\\w\\-._]{8,100}"
@@ -14974,7 +15120,7 @@
           "maxLength": 100,
           "x-nullable": true,
           "example": "ARM Holdings Plc",
-          "description": "The name of the company.",
+          "description": "The name of the company used in billing.",
           "api_fieldname": "company",
           "readOnly": false,
           "required": false,
@@ -15049,7 +15195,7 @@
           "maxLength": 100,
           "x-nullable": true,
           "example": "ARM",
-          "description": "The display name for the account.",
+          "description": "The display name for the tenant account.",
           "api_fieldname": "display_name",
           "readOnly": false,
           "required": false,
@@ -59436,13 +59582,16 @@
             },
             {
               "type": "integer",
-              "description": "The number of entries per page.",
+              "description": "The number of objects to retrieve on a page (2-1000). Values outside the range are set to the closest limit.",
               "example": 50,
               "api_fieldname": "limit",
               "entity_fieldname": "limit",
               "name": "limit",
               "in": "query",
               "required": false,
+              "default": 50,
+              "minimum": 2,
+              "maximum": 1000,
               "external_param": true,
               "parameter_fieldname": "limit",
               "_key": "limit"

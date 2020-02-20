@@ -39,7 +39,8 @@ definitions:
         type: string
         x-nullable: true
       aliases:
-        description: An array of aliases.
+        description: An array of aliases for the tenant account ID. The aliases must
+          be globally unique.
         items:
           pattern: '[\w\-._]{8,100}'
           type: string
@@ -56,7 +57,8 @@ definitions:
         type: string
         x-nullable: true
       company:
-        description: The name of the company. Required for commercial accounts only.
+        description: The name of the company used in billing. Required for commercial
+          accounts only.
         example: ARM Holdings Plc
         maxLength: 100
         type: string
@@ -88,7 +90,7 @@ definitions:
         type: string
         x-nullable: true
       display_name:
-        description: The display name for the account.
+        description: The display name for the tenant account.
         example: ARM
         maxLength: 100
         type: string
@@ -182,7 +184,8 @@ definitions:
         type: string
         x-nullable: true
       aliases:
-        description: An array of aliases.
+        description: An array of aliases for the tenant account ID. The aliases must
+          be globally unique.
         items:
           pattern: '[\w\-._]{8,100}'
           type: string
@@ -202,7 +205,7 @@ definitions:
         type: string
         x-nullable: true
       company:
-        description: The name of the company.
+        description: The name of the company used in billing.
         example: ARM Holdings Plc
         maxLength: 100
         type: string
@@ -241,7 +244,7 @@ definitions:
         type: string
         x-nullable: true
       display_name:
-        description: The display name for the account.
+        description: The display name for the tenant account.
         example: ARM
         maxLength: 100
         type: string
@@ -612,7 +615,8 @@ definitions:
         type: string
         x-nullable: true
       aliases:
-        description: An array of aliases.
+        description: An array of aliases for the tenant account ID. The aliases must
+          be globally unique.
         items:
           pattern: '[\w\-._]{8,100}'
           type: string
@@ -627,7 +631,8 @@ definitions:
         type: string
         x-nullable: true
       company:
-        description: The name of the company. Required for commercial accounts only.
+        description: The name of the company used in billing. Required for commercial
+          accounts only.
         example: ARM Holdings Plc
         maxLength: 100
         type: string
@@ -654,7 +659,7 @@ definitions:
         type: object
         x-nullable: true
       display_name:
-        description: The display name for the account.
+        description: The display name for the tenant account.
         example: ARM
         maxLength: 100
         type: string
@@ -746,7 +751,8 @@ definitions:
         type: string
         x-nullable: true
       aliases:
-        description: An array of aliases.
+        description: An array of aliases for the tenant account ID. The aliases must
+          be globally unique.
         items:
           pattern: '[\w\-._]{8,100}'
           type: string
@@ -763,7 +769,8 @@ definitions:
         type: string
         x-nullable: true
       company:
-        description: The name of the company. Required for commercial accounts only.
+        description: The name of the company used in billing. Required for commercial
+          accounts only.
         example: ARM Holdings Plc
         maxLength: 100
         type: string
@@ -798,7 +805,7 @@ definitions:
         type: string
         x-nullable: true
       display_name:
-        description: The display name for the account.
+        description: The display name for the tenant account.
         example: ARM
         maxLength: 100
         type: string
@@ -5658,7 +5665,7 @@ definitions:
         type: boolean
       rt:
         description: Application-specific resource type that describes this resource.
-          It is created by the [client side application](../connecting/resource-setup-in-device-management-client.html).
+          It is created by the [client side application](../device-management/resource-setup-in-device-management-client.html).
           Not meant to be a human-readable name for the resource. Multiple resource
           types may be included, separated by a space.
         example: light_sensor
@@ -7671,6 +7678,7 @@ definitions:
       queue_size:
         default: 0
         description: Number of events in the channel's event queue waiting to be delivered.
+          If the server cannot determine the queue size the value will be set to `-1`.
         example: 0
         type: integer
       serialization:
@@ -7681,8 +7689,9 @@ definitions:
       status:
         default: disconnected
         description: Channel status is 'connected' when the channel has an active
-          WebSocket bound to it. The state is 'disconnected' when either the channel
-          or the WebSocket bound to it is closed.
+          WebSocket bound to it. The status is 'disconnected' when either the channel
+          or the WebSocket bound to it is closed and 'unknown' when the server cannot
+          determine it.
         enum:
         - connected
         - disconnected
@@ -8293,7 +8302,7 @@ paths:
         delivered, the status code generated by the server is *429* or *5xx*.
 
 
-        You can write [Notification Rules](../connecting/resource-change-webapp.html#notification-rules)
+        You can write [Notification Rules](../device-management/resource-change-webapp.html#notification-rules)
         for a
 
         resource with PUT command. Please see example of the payload below.
@@ -8460,8 +8469,12 @@ paths:
         ```'
       operationId: listPreSharedKeys
       parameters:
-      - description: The number of entries per page.
+      - default: 50
+        description: The number of objects to retrieve on a page (2-1000). Values
+          outside the range are set to the closest limit.
         in: query
+        maximum: 1000
+        minimum: 2
         name: limit
         required: false
         type: integer
@@ -8782,8 +8795,8 @@ paths:
         type: string
       - description: 'If true, the response comes only from the cache. Default: false.
           Device Management Connect caches the received resource values for the time
-          of [max_age](../connecting/working-with-the-resources.html) defined in the
-          client side.'
+          of [max_age](../device-management/working-with-the-resources.html) defined
+          in the client side.'
         in: query
         name: cacheOnly
         required: false
@@ -8851,7 +8864,7 @@ paths:
       - application/vnd.oma.lwm2m+tlv
       - application/vnd.oma.lwm2m+json
       deprecated: true
-      description: '(DEPRECATED) [Execute a function](../connecting/handle-resource-webapp.html#the-execute-operation)
+      description: '(DEPRECATED) [Execute a function](../device-management/handle-resource-webapp.html#the-execute-operation)
         on an existing resource and create a new Object instance on the device. The
         resource path does not have to exist; you can set it with the call. The maximum
         length of the resource path is 255 characters.
@@ -8961,8 +8974,8 @@ paths:
       - application/vnd.oma.lwm2m+json
       deprecated: true
       description: '(DEPRECATED) With this API, you can [write a new value to existing
-        Resources](../connecting/handle-resource-webapp.html) or use the **write**
-        attribute to set [notification rules](../connecting/resource-change-webapp.html#notification-rules)
+        Resources](../device-management/handle-resource-webapp.html) or use the **write**
+        attribute to set [notification rules](../device-management/resource-change-webapp.html)
         for the Resources. The notification rules only work on the device client side
         and may not be supported by all clients.
 
@@ -9253,7 +9266,7 @@ paths:
       x-deprecation:
         comment: Long polling is deprecated and should be used for development purposes
           only.
-        end_of_life_at: '2020-03-31T00:00:00+00:00'
+        end_of_life_at: '2020-06-30T00:00:00+00:00'
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
         - https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html
@@ -9327,7 +9340,7 @@ paths:
       x-deprecation:
         comment: Long polling is deprecated and should be used for development purposes
           only.
-        end_of_life_at: '2020-03-31T00:00:00+00:00'
+        end_of_life_at: '2020-06-30T00:00:00+00:00'
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
         - https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html
@@ -9601,7 +9614,7 @@ paths:
         \ update. To remove the pre-subscription data, put an empty array as a rule.\n\
         \n**Notification rules**\n\nA web application can place dynamic observation\
         \ rules for individual Object Instances and Resources to define when the device\
-        \ sends observations. More information in [Notification rules](../connecting/resource-change-webapp.html).\n\
+        \ sends observations. More information in [Notification rules](../device-management/resource-change-webapp.html#notification-rules).\n\
         \n**Limits**:\n\n- The maximum length of the endpoint name and endpoint type\
         \ is 64 characters.\n- The maximum length of the resource path is 128 characters.\n\
         - You can listen to 256 separate resource paths.\n- The maximum number of\
@@ -9792,7 +9805,7 @@ paths:
 
         A web application can place dynamic observation rules for individual Object
         Instances and Resources to define when the device sends observations. More
-        information in [Notification rules](../connecting/resource-change-webapp.html).
+        information in [Notification rules](../device-management/resource-change-webapp.html#notification-rules).
 
 
         All manual subscriptions are removed during a full device registration, at
@@ -9985,10 +9998,10 @@ paths:
 
         -H ''content-type: application/json'' \
 
-        -d ''{"display_name": "MyAccount1", "admin_name": "accountAdmin1", "email":
-        "example_admin@myaccount.info", "country": "United Kingdom", "end_market":
-        "Smart City", "address_line1": "110 Fulbourn Rd", "city": "Cambridge", "contact":
-        "J. Doe", "company": "Arm"}''
+        -d ''{"display_name": "MyAccount1", "aliases": [ "my-account" ], "admin_name":
+        "accountAdmin1", "email": "example_admin@myaccount.info", "country": "United
+        Kingdom", "end_market": "Smart City", "address_line1": "110 Fulbourn Rd",
+        "city": "Cambridge", "contact": "J. Doe", "company": "Arm"}''
 
         ```'
       operationId: createAccount
@@ -10033,6 +10046,10 @@ paths:
             $ref: '#/definitions/ErrorResponse'
         '403':
           description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: Account with the specified alias exists already.
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new account.
@@ -10330,6 +10347,10 @@ paths:
             $ref: '#/definitions/ErrorResponse'
         '404':
           description: Account with the given ID not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: Account with the specified new alias exists already.
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Update attributes of an existing account.

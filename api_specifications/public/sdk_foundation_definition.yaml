@@ -80,7 +80,8 @@ entities:
     x-nullable: true
   - _key: aliases
     api_fieldname: aliases
-    description: An array of aliases.
+    description: An array of aliases for the tenant account ID. The aliases must be
+      globally unique.
     items:
       pattern: '[\w\-._]{8,100}'
       type: string
@@ -134,7 +135,7 @@ entities:
     x-nullable: true
   - _key: company
     api_fieldname: company
-    description: The name of the company.
+    description: The name of the company used in billing.
     example: ARM Holdings Plc
     maxLength: 100
     readOnly: false
@@ -194,7 +195,7 @@ entities:
     x-nullable: true
   - _key: display_name
     api_fieldname: display_name
-    description: The display name for the account.
+    description: The display name for the tenant account.
     example: ARM
     maxLength: 100
     readOnly: false
@@ -1061,10 +1062,10 @@ entities:
 
       -H ''content-type: application/json'' \
 
-      -d ''{"display_name": "MyAccount1", "admin_name": "accountAdmin1", "email":
-      "example_admin@myaccount.info", "country": "United Kingdom", "end_market": "Smart
-      City", "address_line1": "110 Fulbourn Rd", "city": "Cambridge", "contact": "J.
-      Doe", "company": "Arm"}''
+      -d ''{"display_name": "MyAccount1", "aliases": [ "my-account" ], "admin_name":
+      "accountAdmin1", "email": "example_admin@myaccount.info", "country": "United
+      Kingdom", "end_market": "Smart City", "address_line1": "110 Fulbourn Rd", "city":
+      "Cambridge", "contact": "J. Doe", "company": "Arm"}''
 
       ```'
     drop_fields:
@@ -1195,7 +1196,8 @@ entities:
       x-nullable: true
     - _key: aliases
       api_fieldname: aliases
-      description: An array of aliases.
+      description: An array of aliases for the tenant account ID. The aliases must
+        be globally unique.
       entity_fieldname: aliases
       in: body
       items:
@@ -1232,7 +1234,7 @@ entities:
       x-nullable: true
     - _key: company
       api_fieldname: company
-      description: The name of the company.
+      description: The name of the company used in billing.
       entity_fieldname: company
       example: ARM Holdings Plc
       in: body
@@ -1285,7 +1287,7 @@ entities:
       x-nullable: true
     - _key: display_name
       api_fieldname: display_name
-      description: The display name for the account.
+      description: The display name for the tenant account.
       entity_fieldname: display_name
       example: ARM
       in: body
@@ -1434,7 +1436,8 @@ entities:
           x-nullable: true
         - _key: aliases
           api_fieldname: aliases
-          description: An array of aliases.
+          description: An array of aliases for the tenant account ID. The aliases
+            must be globally unique.
           entity_fieldname: aliases
           items:
             pattern: '[\w\-._]{8,100}'
@@ -1484,7 +1487,7 @@ entities:
           x-nullable: true
         - _key: company
           api_fieldname: company
-          description: The name of the company.
+          description: The name of the company used in billing.
           entity_fieldname: company
           example: ARM Holdings Plc
           maxLength: 100
@@ -1537,7 +1540,7 @@ entities:
           x-nullable: true
         - _key: display_name
           api_fieldname: display_name
-          description: The display name for the account.
+          description: The display name for the tenant account.
           entity_fieldname: display_name
           example: ARM
           maxLength: 100
@@ -1970,7 +1973,8 @@ entities:
               type: string
               x-nullable: true
             - _key: aliases
-              description: An array of aliases.
+              description: An array of aliases for the tenant account ID. The aliases
+                must be globally unique.
               items:
                 pattern: '[\w\-._]{8,100}'
                 type: string
@@ -2012,7 +2016,7 @@ entities:
               type: string
               x-nullable: true
             - _key: company
-              description: The name of the company.
+              description: The name of the company used in billing.
               example: ARM Holdings Plc
               maxLength: 100
               type: string
@@ -2051,7 +2055,7 @@ entities:
               type: string
               x-nullable: true
             - _key: display_name
-              description: The display name for the account.
+              description: The display name for the tenant account.
               example: ARM
               maxLength: 100
               type: string
@@ -2583,6 +2587,54 @@ entities:
         type: object
     - _key: '403'
       description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '409'
+      description: Account with the specified alias exists already.
       schema:
         properties:
         - _key: code
@@ -4123,7 +4175,8 @@ entities:
               type: string
               x-nullable: true
             - _key: aliases
-              description: An array of aliases.
+              description: An array of aliases for the tenant account ID. The aliases
+                must be globally unique.
               items:
                 pattern: '[\w\-._]{8,100}'
                 type: string
@@ -4165,7 +4218,7 @@ entities:
               type: string
               x-nullable: true
             - _key: company
-              description: The name of the company.
+              description: The name of the company used in billing.
               example: ARM Holdings Plc
               maxLength: 100
               type: string
@@ -4204,7 +4257,7 @@ entities:
               type: string
               x-nullable: true
             - _key: display_name
-              description: The display name for the account.
+              description: The display name for the tenant account.
               example: ARM
               maxLength: 100
               type: string
@@ -4588,7 +4641,8 @@ entities:
                   type: string
                   x-nullable: true
                 - _key: aliases
-                  description: An array of aliases.
+                  description: An array of aliases for the tenant account ID. The
+                    aliases must be globally unique.
                   items:
                     pattern: '[\w\-._]{8,100}'
                     type: string
@@ -4630,7 +4684,7 @@ entities:
                   type: string
                   x-nullable: true
                 - _key: company
-                  description: The name of the company.
+                  description: The name of the company used in billing.
                   example: ARM Holdings Plc
                   maxLength: 100
                   type: string
@@ -4669,7 +4723,7 @@ entities:
                   type: string
                   x-nullable: true
                 - _key: display_name
-                  description: The display name for the account.
+                  description: The display name for the tenant account.
                   example: ARM
                   maxLength: 100
                   type: string
@@ -5436,7 +5490,8 @@ entities:
           x-nullable: true
         - _key: aliases
           api_fieldname: aliases
-          description: An array of aliases.
+          description: An array of aliases for the tenant account ID. The aliases
+            must be globally unique.
           entity_fieldname: aliases
           items:
             pattern: '[\w\-._]{8,100}'
@@ -5486,7 +5541,7 @@ entities:
           x-nullable: true
         - _key: company
           api_fieldname: company
-          description: The name of the company.
+          description: The name of the company used in billing.
           entity_fieldname: company
           example: ARM Holdings Plc
           maxLength: 100
@@ -5539,7 +5594,7 @@ entities:
           x-nullable: true
         - _key: display_name
           api_fieldname: display_name
-          description: The display name for the account.
+          description: The display name for the tenant account.
           entity_fieldname: display_name
           example: ARM
           maxLength: 100
@@ -5972,7 +6027,8 @@ entities:
               type: string
               x-nullable: true
             - _key: aliases
-              description: An array of aliases.
+              description: An array of aliases for the tenant account ID. The aliases
+                must be globally unique.
               items:
                 pattern: '[\w\-._]{8,100}'
                 type: string
@@ -6014,7 +6070,7 @@ entities:
               type: string
               x-nullable: true
             - _key: company
-              description: The name of the company.
+              description: The name of the company used in billing.
               example: ARM Holdings Plc
               maxLength: 100
               type: string
@@ -6053,7 +6109,7 @@ entities:
               type: string
               x-nullable: true
             - _key: display_name
-              description: The display name for the account.
+              description: The display name for the tenant account.
               example: ARM
               maxLength: 100
               type: string
@@ -6777,7 +6833,8 @@ entities:
           x-nullable: true
         - _key: aliases
           api_fieldname: aliases
-          description: An array of aliases.
+          description: An array of aliases for the tenant account ID. The aliases
+            must be globally unique.
           entity_fieldname: aliases
           items:
             pattern: '[\w\-._]{8,100}'
@@ -6827,7 +6884,7 @@ entities:
           x-nullable: true
         - _key: company
           api_fieldname: company
-          description: The name of the company.
+          description: The name of the company used in billing.
           entity_fieldname: company
           example: ARM Holdings Plc
           maxLength: 100
@@ -6880,7 +6937,7 @@ entities:
           x-nullable: true
         - _key: display_name
           api_fieldname: display_name
-          description: The display name for the account.
+          description: The display name for the tenant account.
           entity_fieldname: display_name
           example: ARM
           maxLength: 100
@@ -7313,7 +7370,8 @@ entities:
               type: string
               x-nullable: true
             - _key: aliases
-              description: An array of aliases.
+              description: An array of aliases for the tenant account ID. The aliases
+                must be globally unique.
               items:
                 pattern: '[\w\-._]{8,100}'
                 type: string
@@ -7355,7 +7413,7 @@ entities:
               type: string
               x-nullable: true
             - _key: company
-              description: The name of the company.
+              description: The name of the company used in billing.
               example: ARM Holdings Plc
               maxLength: 100
               type: string
@@ -7394,7 +7452,7 @@ entities:
               type: string
               x-nullable: true
             - _key: display_name
-              description: The display name for the account.
+              description: The display name for the tenant account.
               example: ARM
               maxLength: 100
               type: string
@@ -8536,7 +8594,8 @@ entities:
       x-nullable: true
     - _key: aliases
       api_fieldname: aliases
-      description: An array of aliases.
+      description: An array of aliases for the tenant account ID. The aliases must
+        be globally unique.
       entity_fieldname: aliases
       in: body
       items:
@@ -8571,7 +8630,7 @@ entities:
       x-nullable: true
     - _key: company
       api_fieldname: company
-      description: The name of the company.
+      description: The name of the company used in billing.
       entity_fieldname: company
       example: ARM Holdings Plc
       in: body
@@ -8635,7 +8694,7 @@ entities:
       x-nullable: true
     - _key: display_name
       api_fieldname: display_name
-      description: The display name for the account.
+      description: The display name for the tenant account.
       entity_fieldname: display_name
       example: ARM
       in: body
@@ -8888,7 +8947,8 @@ entities:
           x-nullable: true
         - _key: aliases
           api_fieldname: aliases
-          description: An array of aliases.
+          description: An array of aliases for the tenant account ID. The aliases
+            must be globally unique.
           entity_fieldname: aliases
           items:
             pattern: '[\w\-._]{8,100}'
@@ -8938,7 +8998,7 @@ entities:
           x-nullable: true
         - _key: company
           api_fieldname: company
-          description: The name of the company.
+          description: The name of the company used in billing.
           entity_fieldname: company
           example: ARM Holdings Plc
           maxLength: 100
@@ -8991,7 +9051,7 @@ entities:
           x-nullable: true
         - _key: display_name
           api_fieldname: display_name
-          description: The display name for the account.
+          description: The display name for the tenant account.
           entity_fieldname: display_name
           example: ARM
           maxLength: 100
@@ -9424,7 +9484,8 @@ entities:
               type: string
               x-nullable: true
             - _key: aliases
-              description: An array of aliases.
+              description: An array of aliases for the tenant account ID. The aliases
+                must be globally unique.
               items:
                 pattern: '[\w\-._]{8,100}'
                 type: string
@@ -9466,7 +9527,7 @@ entities:
               type: string
               x-nullable: true
             - _key: company
-              description: The name of the company.
+              description: The name of the company used in billing.
               example: ARM Holdings Plc
               maxLength: 100
               type: string
@@ -9505,7 +9566,7 @@ entities:
               type: string
               x-nullable: true
             - _key: display_name
-              description: The display name for the account.
+              description: The display name for the tenant account.
               example: ARM
               maxLength: 100
               type: string
@@ -10085,6 +10146,54 @@ entities:
         type: object
     - _key: '404'
       description: Account with the given ID not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '409'
+      description: Account with the specified new alias exists already.
       schema:
         properties:
         - _key: code
@@ -45318,11 +45427,15 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: The number of entries per page.
+      default: 50
+      description: The number of objects to retrieve on a page (2-1000). Values outside
+        the range are set to the closest limit.
       entity_fieldname: limit
       example: 50
       external_param: true
       in: query
+      maximum: 1000
+      minimum: 2
       name: limit
       parameter_fieldname: limit
       required: false
