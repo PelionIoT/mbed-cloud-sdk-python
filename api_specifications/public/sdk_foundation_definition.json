@@ -29821,7 +29821,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Create a developer certificate (a certificate that can be flashed to multiple devices to connect to the bootstrap server).\n\n**Note:** The number of developer certificates allowed per account is limited. Please see [Using your own certificate authority](../provisioning-process/using-CA.html).\n\n**Example:**\n```\ncurl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates \\\n-H \"Authorization: Bearer <api_key>\" \\\n-H \"content-type: application/json\" \\\n-d { \"name\": \"<certificate_name>\", \"description\": \"<certificate_description>\" }\n```",
+          "description": "Create a developer certificate (a certificate that can be flashed to multiple devices to connect to the bootstrap server).\n\n**Note:** The number of developer certificates allowed per account is limited. Please see [Setting up a Certificate Authority](../provisioning-process/integrating-with-a-third-party-ca.html#setting-up-a-ca).\n\n**Example:**\n```\ncurl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates \\\n-H \"Authorization: Bearer <api_key>\" \\\n-H \"content-type: application/json\" \\\n-d { \"name\": \"<certificate_name>\", \"description\": \"<certificate_description>\" }\n```",
           "field_renames": [
             {
               "api_fieldname": "developer_certificate",

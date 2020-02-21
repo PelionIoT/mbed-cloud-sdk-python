@@ -2391,13 +2391,13 @@ definitions:
     properties:
       description:
         description: Description for the developer certificate. Maximum 500 characters.
-          Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
+          Please see [TrustedCertificateReq](../service-api-references/account-management.html#trustedcertificatereq).
         maxLength: 500
         type: string
         x-nullable: true
       name:
         description: Name of the developer certificate. Must be unique. Maximum 100
-          characters. Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
+          characters. Please see [TrustedCertificateReq](../service-api-references/account-management.html#trustedcertificatereq).
         maxLength: 100
         type: string
     required:
@@ -18995,7 +18995,7 @@ paths:
 
 
         **Note:** The number of developer certificates allowed per account is limited.
-        Please see [Using your own certificate authority](../provisioning-process/using-CA.html).
+        Please see [Setting up a Certificate Authority](../provisioning-process/integrating-with-a-third-party-ca.html#setting-up-a-ca).
 
 
         **Example:**

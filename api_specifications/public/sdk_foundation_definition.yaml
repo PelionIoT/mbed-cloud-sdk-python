@@ -21900,7 +21900,7 @@ entities:
 
 
       **Note:** The number of developer certificates allowed per account is limited.
-      Please see [Using your own certificate authority](../provisioning-process/using-CA.html).
+      Please see [Setting up a Certificate Authority](../provisioning-process/integrating-with-a-third-party-ca.html#setting-up-a-ca).
 
 
       **Example:**
