@@ -43797,11 +43797,12 @@
               "_key": "description"
             },
             {
-              "description": "The firmware image file to upload. File name must not exceed 100 characters.",
+              "description": "The firmware image file to upload. File name must not exceed 166 characters.",
               "in": "stream",
               "name": "datafile",
               "required": true,
               "type": "file",
+              "maxLength": 166,
               "entity_fieldname": "firmware_image_file",
               "api_fieldname": "datafile",
               "external_param": true,

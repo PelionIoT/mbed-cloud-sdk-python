@@ -23505,8 +23505,9 @@ paths:
       operationId: Firmware_Image_create
       parameters:
       - description: The firmware image file to upload. File name must not exceed
-          100 characters.
+          166 characters.
         in: formData
+        maxLength: 166
         name: datafile
         required: true
         type: file

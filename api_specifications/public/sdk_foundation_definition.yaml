@@ -33584,11 +33584,12 @@ entities:
       type: string
     - _key: firmware_image_file
       api_fieldname: datafile
-      description: The firmware image file to upload. File name must not exceed 100
+      description: The firmware image file to upload. File name must not exceed 166
         characters.
       entity_fieldname: firmware_image_file
       external_param: true
       in: stream
+      maxLength: 166
       name: datafile
       parameter_fieldname: datafile
       required: true
