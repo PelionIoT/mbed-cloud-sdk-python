@@ -2921,8 +2921,8 @@ definitions:
       auto_update:
         type: boolean
       bootstrap_expiration_date:
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
       bootstrapped_timestamp:
         example: '2017-05-22T12:37:55.576563Z'
@@ -2931,8 +2931,8 @@ definitions:
       ca_id:
         type: string
       connector_expiration_date:
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
       created_at:
         example: '2017-05-22T12:37:55.576563Z'
@@ -3216,16 +3216,16 @@ definitions:
   DeviceGteLteFilter:
     properties:
       bootstrap_expiration_date:
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
       bootstrapped_timestamp:
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
       connector_expiration_date:
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
       created_at:
         example: '2017-05-22T12:37:55.576563Z'
@@ -3255,8 +3255,8 @@ definitions:
       auto_update:
         type: boolean
       bootstrap_expiration_date:
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
       bootstrapped_timestamp:
         example: '2017-05-22T12:37:55.576563Z'
@@ -3265,8 +3265,8 @@ definitions:
       ca_id:
         type: string
       connector_expiration_date:
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
       created_at:
         example: '2017-05-22T12:37:55.576563Z'
