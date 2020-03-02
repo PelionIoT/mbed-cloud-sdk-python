@@ -2864,7 +2864,8 @@ definitions:
         description: 'DEPRECATED: Mark this device for automatic firmware update.'
         type: boolean
       ca_id:
-        description: The certificate issuer's ID.
+        description: 'The certificate issuer''s ID. WARNING: This value comes from
+          the device, and should not be changed via the API.'
         example: '00000000000000000000000000000000'
         maxLength: 500
         type: string
@@ -2886,12 +2887,14 @@ definitions:
         maxLength: 2000
         type: string
       device_key:
-        description: The fingerprint of the device certificate.
+        description: 'The fingerprint of the device certificate. WARNING: This value
+          comes from the device, and should not be changed via the API.'
         example: 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
         maxLength: 512
         type: string
       endpoint_name:
-        description: The endpoint name given to the device.
+        description: 'The endpoint name given to the device. WARNING: This value comes
+          from the device, and should not be changed via the API.'
         example: 00000000-0000-0000-0000-000000000000
         maxLength: 64
         readOnly: true
