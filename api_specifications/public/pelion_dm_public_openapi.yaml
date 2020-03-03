@@ -21904,7 +21904,7 @@ paths:
           description: Unable to find page.
       summary: List device queries.
       tags:
-      - Device directory - filter queries
+      - Device directory - device queries
       x-filter:
         created_at:
         - in
@@ -21953,7 +21953,7 @@ paths:
           description: Not authenticated.
       summary: Create a device query.
       tags:
-      - Device directory - filter queries
+      - Device directory - device queries
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/device-queries/{query_id}/:
     delete:
@@ -21976,7 +21976,7 @@ paths:
           description: Unable to delete update device query because it can't be found.
       summary: Delete a device query.
       tags:
-      - Device directory - filter queries
+      - Device directory - device queries
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     get:
       description: Retrieve a specific device query.
@@ -22000,7 +22000,7 @@ paths:
           description: Unable to find device query.
       summary: Retrieve a device query.
       tags:
-      - Device directory - filter queries
+      - Device directory - device queries
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     put:
       description: Update a specifc device query.
@@ -22030,7 +22030,7 @@ paths:
           description: Unable to update device query because it can't be found.
       summary: Update a device query.
       tags:
-      - Device directory - filter queries
+      - Device directory - device queries
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devicelog/:
     get:
