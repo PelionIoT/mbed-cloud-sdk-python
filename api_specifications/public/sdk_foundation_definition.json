@@ -59902,7 +59902,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "PreSharedKeys"
+        "Security and identity - pre-shared keys"
       ],
       "group_id": "Security",
       "_key": "pre_shared_key"

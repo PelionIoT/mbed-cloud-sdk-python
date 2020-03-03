@@ -45665,7 +45665,7 @@ entities:
   - PreSharedKey
   - PreSharedKeyWithoutSecret
   tags:
-  - PreSharedKeys
+  - Security and identity - pre-shared keys
 - _key: saml2_request
   field_renames: []
   fields:

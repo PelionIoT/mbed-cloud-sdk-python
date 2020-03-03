@@ -8499,7 +8499,7 @@ paths:
             or INVALID_LIMIT.
       summary: List PSKs.
       tags:
-      - PreSharedKeys
+      - Security and identity - pre-shared keys
       x-origin: /home/circleci/project/connector-bootstrap/public/swagger.yaml
     post:
       consumes:
@@ -8542,7 +8542,7 @@ paths:
             type: string
       summary: Upload a PSK to Pelion Device Management.
       tags:
-      - PreSharedKeys
+      - Security and identity - pre-shared keys
       x-origin: /home/circleci/project/connector-bootstrap/public/swagger.yaml
   /v2/device-shared-keys/{endpoint_name}:
     delete:
@@ -8582,7 +8582,7 @@ paths:
           description: Authentication failure.
       summary: Remove a PSK.
       tags:
-      - PreSharedKeys
+      - Security and identity - pre-shared keys
       x-origin: /home/circleci/project/connector-bootstrap/public/swagger.yaml
     get:
       description: 'Check if a PSK for an endpoint exists or not. The response does
@@ -8625,7 +8625,7 @@ paths:
           description: The PSK does not exist.
       summary: Get a PSK.
       tags:
-      - PreSharedKeys
+      - Security and identity - pre-shared keys
       x-origin: /home/circleci/project/connector-bootstrap/public/swagger.yaml
   /v2/endpoints/{device-id}:
     get:
