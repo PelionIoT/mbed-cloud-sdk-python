@@ -25388,7 +25388,7 @@ paths:
             $ref: '#/definitions/error-response'
       summary: Provides account-specific statistics for other cloud services.
       tags:
-      - Statistics
+      - Usage - service metrics
       x-origin: /home/circleci/project/statistics/public/rest-api-v3-external.yaml
   /v3/policy-groups:
     get:
