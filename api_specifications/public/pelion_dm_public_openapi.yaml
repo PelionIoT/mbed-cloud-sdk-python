@@ -19301,7 +19301,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new developer certificate to connect to the bootstrap server.
       tags:
-      - Device security - developer class certificates
+      - Security and identity - developer class certificates
       x-origin: /home/circleci/project/connector-ca/public/swagger.yaml
   /v3/developer-certificates/{developerCertificateId}:
     get:
@@ -19577,7 +19577,7 @@ paths:
       summary: Fetch an existing developer certificate to connect to the bootstrap
         server.
       tags:
-      - Device security - developer class certificates
+      - Security and identity - developer class certificates
       x-origin: /home/circleci/project/connector-ca/public/swagger.yaml
   /v3/device-block-categories/:
     get:
@@ -26437,7 +26437,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch all (Bootstrap and LwM2M) server credentials.
       tags:
-      - Service security - server credentials
+      - Security and identity - server credentials
       x-origin: /home/circleci/project/connector-ca/public/swagger.yaml
   /v3/server-credentials/bootstrap:
     get:
@@ -26490,7 +26490,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch bootstrap server credentials.
       tags:
-      - Service security - server credentials
+      - Security and identity - server credentials
       x-origin: /home/circleci/project/connector-ca/public/swagger.yaml
   /v3/server-credentials/lwm2m:
     get:
@@ -26543,7 +26543,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch LwM2M server credentials.
       tags:
-      - Service security - server credentials
+      - Security and identity - server credentials
       x-origin: /home/circleci/project/connector-ca/public/swagger.yaml
   /v3/service-packages:
     get:
