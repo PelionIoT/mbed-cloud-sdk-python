@@ -24372,7 +24372,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Certificate Issuers"
+        "Security and identity - certificate issuers"
       ],
       "group_id": "Security",
       "_key": "certificate_issuer"
@@ -26651,7 +26651,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Certificate Issuers Activation"
+        "Security and identity - certificate issuer configurations"
       ],
       "group_id": "Security",
       "_key": "certificate_issuer_config"

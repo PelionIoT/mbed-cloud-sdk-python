@@ -18412,7 +18412,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Get certificate issuer configurations.
       tags:
-      - Certificate Issuers Activation
+      - Security and identity - certificate issuer configurations
       x-filter:
         reference:
         - eq
@@ -18458,7 +18458,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Create certificate issuer configuration.
       tags:
-      - Certificate Issuers Activation
+      - Security and identity - certificate issuer configurations
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuer-configurations/lwm2m:
     get:
@@ -18488,7 +18488,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Get certificate issuer configuration.
       tags:
-      - Certificate Issuers Activation
+      - Security and identity - certificate issuer configurations
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     put:
       description: "Configure the certificate issuer to be used when creating device\
@@ -18528,7 +18528,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Update certificate issuer configuration.
       tags:
-      - Certificate Issuers Activation
+      - Security and identity - certificate issuer configurations
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}:
     delete:
@@ -18568,7 +18568,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Delete certificate issuer configuration.
       tags:
-      - Certificate Issuers Activation
+      - Security and identity - certificate issuer configurations
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     get:
       description: 'Provides the configured certificate issuer.
@@ -18600,7 +18600,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Get certificate issuer configuration.
       tags:
-      - Certificate Issuers Activation
+      - Security and identity - certificate issuer configurations
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     put:
       description: 'Update the configured certificate issuer configuration.
@@ -18638,7 +18638,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Update certificate issuer configuration.
       tags:
-      - Certificate Issuers Activation
+      - Security and identity - certificate issuer configurations
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuers:
     get:
@@ -18686,7 +18686,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Get certificate issuers list.
       tags:
-      - Certificate Issuers
+      - Security and identity - certificate issuers
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     post:
       description: "Create a certificate issuer.\nThe maximum number of issuers is\
@@ -18758,7 +18758,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Create certificate issuer.
       tags:
-      - Certificate Issuers
+      - Security and identity - certificate issuers
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuers/{certificate-issuer-id}:
     delete:
@@ -18814,7 +18814,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Delete certificate issuer.
       tags:
-      - Certificate Issuers
+      - Security and identity - certificate issuers
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     get:
       operationId: getCertificateIssuer
@@ -18854,7 +18854,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Get certificate issuer by ID.
       tags:
-      - Certificate Issuers
+      - Security and identity - certificate issuers
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     put:
       description: "Update a certificate issuer.\n<br>\n**Example usage:**\n\n```\n\
@@ -18915,7 +18915,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Update certificate issuer.
       tags:
-      - Certificate Issuers
+      - Security and identity - certificate issuers
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuers/{certificate-issuer-id}/verify:
     post:
@@ -18989,7 +18989,7 @@ paths:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Verify certificate issuer.
       tags:
-      - Certificate Issuers
+      - Security and identity - certificate issuers
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/developer-certificates:
     post:

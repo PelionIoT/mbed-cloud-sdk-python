@@ -17863,7 +17863,7 @@ entities:
   - CertificateIssuerUpdateRequest
   - CertificateIssuerVerifyResponse
   tags:
-  - Certificate Issuers
+  - Security and identity - certificate issuers
 - _key: certificate_issuer_config
   field_renames: []
   fields:
@@ -19544,7 +19544,7 @@ entities:
   - CertificateIssuerConfigResponse
   - CreateCertificateIssuerConfig
   tags:
-  - Certificate Issuers Activation
+  - Security and identity - certificate issuer configurations
 - _key: dark_theme_color
   field_renames: []
   fields:
