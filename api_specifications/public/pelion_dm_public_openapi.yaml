@@ -599,6 +599,87 @@ definitions:
     - object
     - total_count
     type: object
+  AccountResponse:
+    description: This object represents an account in responses.
+    properties:
+      alias:
+        description: Alias of the account.
+        example: cust-314159
+        readOnly: true
+        type: string
+      display_name:
+        description: The display name for the account.
+        example: Customer 3.14159
+        readOnly: true
+        type: string
+      id:
+        description: The UUID of the account.
+        example: 01619571e2e90242ac12000600000000
+        readOnly: true
+        type: string
+      parent_id:
+        description: The UUID of the parent account, if it has any.
+        example: 01619571f3c00242ac12000600000000
+        readOnly: true
+        type: string
+      status:
+        description: The status of the account.
+        enum:
+        - ENROLLING
+        - ACTIVE
+        - RESTRICTED
+        - SUSPENDED
+        example: ACTIVE
+        readOnly: true
+        type: string
+    type: object
+  AccountResponseList:
+    properties:
+      after:
+        description: The entity ID to fetch after the given one.
+        example: 01619571f3c00242ac12000600000000
+        readOnly: true
+        type: string
+      data:
+        description: A list of entities.
+        items:
+          $ref: '#/definitions/AccountResponse'
+        readOnly: true
+        type: array
+      has_more:
+        description: Flag indicating whether there is more results.
+        example: false
+        readOnly: true
+        type: boolean
+      limit:
+        description: 'The number of results to return, (range: 2-1000), or equals
+          to `total_count`'
+        example: 50
+        format: int32
+        readOnly: true
+        type: integer
+      object:
+        description: 'Entity name: always ''list'''
+        enum:
+        - list
+        readOnly: true
+        type: string
+      order:
+        description: 'The order of the records to return based on creation time. Available
+          values: ASC, DESC; by default ASC.'
+        enum:
+        - ASC
+        - DESC
+        readOnly: true
+        type: string
+      total_count:
+        description: The total number or records, if requested. It might be returned
+          also for small lists.
+        example: 5
+        format: int32
+        readOnly: true
+        type: integer
+    type: object
   AccountUpdateReq:
     description: Represents an account creation request.
     properties:
@@ -783,7 +864,8 @@ definitions:
         type: string
         x-nullable: true
       contract_number:
-        description: Contract number of the customer.
+        description: Contract number of the customer. An administrator can set this
+          property on tenant accounts only.
         type: string
         x-nullable: true
       country:
@@ -801,7 +883,8 @@ definitions:
         type: object
         x-nullable: true
       customer_number:
-        description: Customer number of the customer.
+        description: Customer number of the customer. An administrator can set this
+          property on tenant accounts only.
         type: string
         x-nullable: true
       display_name:
@@ -1604,6 +1687,7 @@ definitions:
           Null when creating bulk upload or delete.'
         example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
         type: string
+        x-nullable: true
       etag:
         description: etag
         example: '1'
@@ -1615,6 +1699,7 @@ definitions:
           Null when creating bulk upload or delete.'
         example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
         type: string
+        x-nullable: true
       id:
         description: Bulk ID
         pattern: ^[A-Za-z0-9]{32}
@@ -1937,23 +2022,22 @@ definitions:
           $ref: '#/definitions/CertificateIssuerConfigResponse'
         type: array
       has_more: &id002
-        description: Are there more results available.
+        description: More results are available.
         example: false
         type: boolean
       limit: &id003
-        description: How many objects to retrieve in the page. The minimum limit is
-          2 and the maximum is 1000. Limit values outside of this range are set to
-          the closest limit.
+        description: The number of results to return (2-1000). Values outside of this
+          range are set to the closest limit.
         example: 50
         maximum: 1000
         minimum: 2
         type: integer
       object: &id004
-        description: The type of this API object is a `list`.
+        description: The type of this API object is `list`.
         example: list
         type: string
       order: &id005
-        description: The creation time based order of the entries.
+        description: Record order based on creation time.
         example: DESC
         type: string
       total_count: &id006
@@ -1975,11 +2059,9 @@ definitions:
   CertificateIssuerConfigResponse:
     properties:
       certificate_issuer_id:
-        description: 'The ID of the certificate issuer.
+        description: 'Certificate issuer ID.
 
-          Null if Device Management internal HSM is used.
-
-          '
+          Null if Device Management internal HSM is used.'
         example: 01648415a2a30242ac18000500000000
         type: string
         x-nullable: true
@@ -1993,9 +2075,7 @@ definitions:
         example: '1'
         type: string
       id:
-        description: 'The ID of the certificate issuer configuration.
-
-          '
+        description: Certificate issuer ID. configuration.
         example: 01648415a2a30242ac18000500000000
         type: string
       is_custom:
@@ -2034,7 +2114,7 @@ definitions:
         example: '1'
         type: string
       id:
-        description: The ID of the certificate issuer.
+        description: Certificate issuer ID.
         example: 01234567890ABCDEF01234567890ABCDEF
         type: string
       issuer_attributes:
@@ -2042,19 +2122,16 @@ definitions:
           type: string
         description: 'General attributes for connecting the certificate issuer.
 
-          When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+          When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-          When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-          '
+          When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
         example: &id008 {}
         type: object
       issuer_type:
-        description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-          \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-          \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-          \ authenticated signing service.\n  The users must provide their own CFSSL\
-          \ host_url and credentials.\n"
+        description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are\
+          \ issued by GlobalSign service. You must provide your own GlobalSign account\
+          \ credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated\
+          \ signing service.\n  You must provide your own CFSSL host_url and credentials."
         enum:
         - GLOBAL_SIGN
         - CFSSL_AUTH
@@ -2113,31 +2190,26 @@ definitions:
         additionalProperties: *id007
         description: 'General attributes for connecting the certificate issuer.
 
-          When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+          When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-          When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-          '
+          When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
         example: *id008
         type: object
       issuer_credentials:
         additionalProperties: &id009
           type: string
-        description: 'The credentials required for connecting to the certificate issuer.
+        description: 'The credentials required to connect to the certificate issuer.
 
           When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.
 
-          When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
-
-          '
+          When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.'
         example: &id010 {}
         type: object
       issuer_type:
-        description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-          \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-          \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-          \ authenticated signing service.\n  The users must provide their own CFSSL\
-          \ host_url and credentials.\n"
+        description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are\
+          \ issued by GlobalSign service. You must provide your own GlobalSign account\
+          \ credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated\
+          \ signing service.\n  You must provide your own CFSSL host_url and credentials."
         enum:
         - GLOBAL_SIGN
         - CFSSL_AUTH
@@ -2165,22 +2237,18 @@ definitions:
         additionalProperties: *id007
         description: 'General attributes for connecting the certificate issuer.
 
-          When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+          When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-          When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-          '
+          When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
         example: *id008
         type: object
       issuer_credentials:
         additionalProperties: *id009
-        description: 'The credentials required for connecting to the certificate issuer.
+        description: 'The credentials required to connect to the certificate issuer.
 
           When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.
 
-          When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
-
-          '
+          When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.'
         example: *id010
         type: object
       name:
@@ -2191,55 +2259,40 @@ definitions:
   CertificateIssuerVerifyResponse:
     properties:
       message:
-        description: 'Provides details in case of failure.
-
-          '
-        example: message describing the verification failure
+        description: Provides details in case of failure.
+        example: Message describing the verification failure
         type: string
       successful:
-        description: 'Indicates whether the certificate issuer was verified successfully.
-
-          '
+        description: Indicates whether the certificate issuer was verified successfully.
         example: false
         type: boolean
     type: object
   CfsslAttributes:
-    description: 'Describes the attributes required to connect to the CFSSL server.
-
-      '
+    description: Describes the attributes required to connect to the CFSSL server.
     properties:
       cfssl_label:
-        description: 'The label that is used by CFSSL when creating the certificate.
-
-          '
+        description: The label that is used by CFSSL when creating the certificate.
         type: string
       cfssl_profile:
-        description: 'The profile that is configured on the CFSSL server and is used
-          by CFSSL when creating the certificate.
-
-          '
+        description: The profile that is configured on the CFSSL server and used by
+          CFSSL when creating the certificate.
         type: string
       host_url:
-        description: 'The URL to connect to the CFSSL server.
-
-          '
+        description: The URL to connect to the CFSSL server.
+        example: http://my.cfssl.service:5555
         type: string
     required:
     - host_url
     type: object
   CfsslAuthCredentials:
-    description: 'Describes the credentials required when using CFSSL authenticated
+    description: Describes the credentials required when using CFSSL authenticated
       signing.
-
-      '
     properties:
       hmac_hex_key:
         description: 'The key that is used to compute the HMAC of the request using
           the HMAC-SHA-256 algorithm.
 
-          Must contain an even number of hexadecimal characters.
-
-          '
+          Must contain an even number of hexadecimal characters.'
         example: 0010203ABCD708EF
         maxLength: 64
         pattern: ^([a-fA-F0-9][a-fA-F0-9]){1,32}$
@@ -2261,9 +2314,7 @@ definitions:
   CreateCertificateIssuerConfig:
     properties:
       certificate_issuer_id:
-        description: 'The ID of the certificate issuer.
-
-          '
+        description: Certificate issuer ID.
         example: 01648415a2a30242ac18000500000000
         maxLength: 32
         type: string
@@ -2272,9 +2323,7 @@ definitions:
         description: 'The certificate name, as created in the factory, to which the
           certificate issuer configuration applies.
 
-          The following names are reserved and cannot be configured: LwM2M, BOOTSTRAP.
-
-          '
+          The following names are reserved and cannot be configured: LwM2M, BOOTSTRAP.'
         example: customer.dlms
         maxLength: 100
         pattern: (?!mbed\.)[\w-_.]{1,100}
@@ -2705,7 +2754,7 @@ definitions:
         description: Device has been suspended by operator.
         type: boolean
       serial_number:
-        description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+        description: The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
           of the device. The serial number is injected by the factory tool during
           manufacturing.
         example: 00000000-0000-0000-0000-000000000000
@@ -4409,24 +4458,17 @@ definitions:
         type: integer
     type: object
   GlobalSignCredentials:
-    description: 'Describes the credentials required to connect to the GlobalSign
-      account.
+    description: 'The credentials required to connect to the GlobalSign account.
 
-      The values should be taken from GlobalSign support upon account creation.
-
-      '
+      The values should be taken from GlobalSign support upon account creation.'
     properties:
       api_key:
-        description: 'Unique ID for API client (provided by GlobalSign).
-
-          '
+        description: Unique ID for API client (provided by GlobalSign).
         example: e510e289e6cd8947
         maxLength: 1000
         type: string
       api_secret:
-        description: 'API Secret matching the API key (provided by GlobalSign).
-
-          '
+        description: API secret matching the API key (provided by GlobalSign).
         example: a477a8393d17a55ecb2ba6a61f58feb84770b621
         format: password
         maxLength: 250
@@ -4438,9 +4480,7 @@ definitions:
           The certificate wraps a public key that matches a private key provided by
           the customer.
 
-          The certificate must be in PEM format.
-
-          '
+          The certificate must be in PEM format.'
         example: '"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END
           CERTIFICATE-----"'
         maxLength: 3000
@@ -4448,9 +4488,7 @@ definitions:
       passphrase:
         description: 'The passphrase to decrypt the private key in case it is encrypted.
 
-          Empty if the private key is not encrypted.
-
-          '
+          Empty if the private key is not encrypted.'
         example: helloworld
         format: password
         maxLength: 1000
@@ -4462,9 +4500,7 @@ definitions:
           The private key may be encrypted using a symmetric encryption key derived
           from a passphrase.
 
-          The private key must be in PEM format.
-
-          '
+          The private key must be in PEM format.'
         example: '"-----BEGIN RSA PRIVATE KEY-----\nProc-Type: 4,ENCRYPTED\nDEK-Info:
           DES-EDE3-CBC,CCAC26A4133947CB\n\np3KJ4FI3wcz3I0MtiLkrznkjWFvprVmoNywySUGb5IqZViJZqCMEsyU9a9iDsSfP\nZ07cg9GviV21WYIPSxZOQrpy1g1VWILzFnH+J6z8dSH4mxXh0PwdOzYgAeqkrIVM\nJ7KRm6t222dZFjjXK3eEcLmBLGo29XwVJxKHx+l4++gU1LZmeHZR5M8fJ4jejUly\n7sqzPlmRF0N3I4lwKVj+PfQTVz43QoCnpxOjuSEL4liBrc2agY2xH1O0PFyHimz9\n3XM9HR/iuPHW0N2D+NPjXlWKacerupH9d4i9IYIagzB+HTgej8limdo03GmmxcZ6\nYNa58n5yQSaqu0TPRU9DsrKeGjadHTlZQGdzfq1SWsROCnHLrXFKE2ozIG3+hxA5\nujBF/QWpX5+inXUwDJhBxp8isHbPEnBEUUd6ZRzCTjvN0jaUti5B9yFhO2G6mbE8\nCvhyzQK8oJqsjZXnlcpPf95LP+9XbcCDjLSIaWJstzXO9tPiv6+x1MVWmivtRHcC\nSTzpx8jAGCiG6ejLqWB87ZXiZm7ujlCBheHSf5RHwNHhUvoP2JEYalDDRxjcDMSx\n4uV42Np4yJlIQEDlGHcBlXoL7vEukFpuWgkYdpcZy/Ou9qz8mXrpLcu8C8MhLmSC\nixGoR5iRhV7cxoHLyuCzj87eYEA73Xu238DQorSEEuiVFnLzQ2+PJMs4qoI14q/L\notlBDz+Ko6DrU/EZROYmiqMkLKXR2sx9zNAJwPYRs6nSH08tZ3dwqzZbgtP3Wazi\nhLWHt5/En7wQRA5a+/dDEHXSoLvvSQ9jvhclhWf+eCYuq2eH+g54oyJGRSY+8GV7\nujhLxkzl/3OZdhZPWoz4U13KpbSTcNWu5Y7oGDoabw19UbvqmLf1PJkpDH/tQgzB\nxYtsLBRUcofpYoeIiIxfAA4do5WilJc8xqrGhkE4WcHfY24HXAiOvsjbxV+BRprX\n1jtgJpV/9nJESMap+8PxipGUFRGjB83/uwJaa6mLftEKflX8i4MZ+HnqraXERsqA\nWRUcDHIWmFfpzIB3iNuxawVvPH8NdCSPmQ9qTb8Cozl0AuOK2E9S+ke8oiYQScWR\nLdu+zhej7GjuQ9R+Ub+wPWqvOA5qLXejqnCexVScDUuN+z9JWM3N2FG1MwxhAzhP\ndEfoQHoBn6uyOmrVGP6fosV3chqhPoec42KeOAm1xDvx692isaIy1jPgIyPxeqhm\n2Tw4E+02R7dlP8Ljf7JzfLm4oKpWHWlcHeqg24x6lY/wXU1RBcWaTa0AQUwoGm2m\nIQCPfIqOEv/QC2HpO7SVCYkl65KwR0oTd1AzYxdxEq3xHQbh69EL0FGZPVxVCPI+\nhEAyifKy1/tm3l91Rf/kGpHY7nIQKCXH49tmFwix8gke2nZJmRgX7/zAdMOAKeKH\nAaIl4nQtv14EbaasMgnn9qgaDYnWzaReEob2QlQ/WYlTor61+KFpGtcf9jAkgudT\n2op+4CF7wT2+aTXdtkVWfmv++iB8GnlqZdxLvyG1cTYjjYHVFbMSWQnxzQqiE2ms\nQgp+byjWCumpsWTMdTO+d9NkDOo80vDpaRxEgebmhJ0MbX+eFjBgVg==\n-----END
           RSA PRIVATE KEY-----"'
@@ -18331,59 +18367,53 @@ paths:
 
         <br>
 
-        **Example usage:**
-
-
-        ```
-
-        curl \
-
-        -H ''authorization: <valid access token>'' \
-
-        -H ''content-type: application/json;charset=UTF-8'' \
-
-        https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \
+        **Example:**
 
         ```
 
-        ```
-
-        curl \
-
-        -H ''authorization: <valid access token>'' \
-
-        -H ''content-type: application/json;charset=UTF-8'' \
-
-        https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations
         \
 
+        -H ''Authorization: Bearer <valid_access_token>'' \
+
+        -H ''content-type: application/json;charset=UTF-8'' \
+
         ```
 
-        Note: This endpoint does not implement pagination and therefore, list control
-        parameters such as `limit` or `after` will be ignored by the system.
+        <br>
 
-        '
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms
+        \
+
+        -H ''Authorization: Bearer <valid_access_token>'' \
+
+        -H ''content-type: application/json;charset=UTF-8'' \
+
+        ```
+
+        **Note:** This endpoint does not implement pagination, and therefore ignores
+        list control parameters such as `limit` or `after`.'
       operationId: getCertificateIssuerConfigs
       parameters:
-      - description: How many objects to retrieve in the page. The minimum limit is
-          2 and the maximum is 1000. Limit values outside of this range are set to
-          the closest limit.
+      - description: The number of results to return (2-1000). Values outside of this
+          range are set to the closest limit.
         in: query
         maximum: 1000
         minimum: 2
         name: limit
         type: integer
-      - description: The order of the records based on creation time, `ASC` or `DESC`;
-          by default `ASC`.
+      - description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
         in: query
         name: order
         type: string
-      - description: The ID of The item after which to retrieve the next page.
+      - description: The ID of the item after which to retrieve the next page.
         in: query
         name: after
         type: string
       - description: 'Comma-separated list of data fields to return. Currently supported:
-          `total_count`'
+          `total_count`.'
         in: query
         name: include
         type: string
@@ -18418,15 +18448,15 @@ paths:
         - eq
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     post:
-      description: "Configure the certificate issuer to be used when creating the\
-        \ device custom certificates.\n<br>\n**Example usage:**\n\n```\ncurl -X POST\
-        \ \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8'\
-        \ \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations\
-        \ \\\n-d '{\n  \"reference\": \"customer.dlms\",\n  \"certificate_issuer_id\"\
-        : \"01621a36719d507b9d48a91b00000000\"\n}'\n```\n"
+      description: "Configure the certificate issuer to use when creating device custom\
+        \ certificates.\n<br>\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations\
+        \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
+        \ application/json;charset=UTF-8' \\\n-d '{\n  \"reference\": \"customer.dlms\"\
+        ,\n  \"certificate_issuer_id\": \"01621a36719d507b9d48a91b00000000\"\n}'\n\
+        ```"
       operationId: createCertificateIssuerConfig
       parameters:
-      - description: Certificate issuer configuration request
+      - description: Certificate issuer configuration request.
         in: body
         name: CreateCertificateIssuerConfig
         required: true
@@ -18450,10 +18480,8 @@ paths:
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '409':
-          description: 'A certificate issuer configuration with this reference already
+          description: A certificate issuer configuration with this reference already
             exists.
-
-            '
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Create certificate issuer configuration.
@@ -18462,12 +18490,10 @@ paths:
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuer-configurations/lwm2m:
     get:
-      description: 'Provides the configured certificate issuer to be used when creating
+      description: 'Provides the configured certificate issuer used when creating
         device
 
-        certificates for LwM2M communication.<br>
-
-        '
+        certificates for LwM2M.'
       operationId: getCertificateIssuerConfig
       responses:
         '200':
@@ -18491,12 +18517,11 @@ paths:
       - Security and identity - certificate issuer configurations
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     put:
-      description: "Configure the certificate issuer to be used when creating device\
-        \ certificates\nfor LwM2M communication.\n<br>\n**Example usage:**\n\n```\n\
-        curl -X PUT \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type:\
-        \ application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations/lwm2m\
-        \ \\\n-d '{\n  \"certificate_issuer_id\": \"01621a36719d507b9d48a91b00000000\"\
-        \n}'\n```\n"
+      description: "Configure the certificate issuer used when creating device certificates\n\
+        for LwM2M.\n<br>\n**Example:**\n\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations/lwm2m\
+        \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
+        \ application/json;charset=UTF-8' \\\n-d '{\n  \"certificate_issuer_id\":\
+        \ \"01621a36719d507b9d48a91b00000000\"\n}'\n```"
       operationId: updateCertificateIssuerConfig
       parameters:
       - description: Certificate Issuer Configuration Request
@@ -18532,17 +18557,13 @@ paths:
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}:
     delete:
-      description: 'Delete the configured certificate issuer configuration.
+      description: 'Delete certificate issuer configuration.
 
-        You can only delete the configurations of custom certificates.
-
-        '
+        You can only delete custom certificate configurations.'
       operationId: deleteCertificateIssuerConfigByID
       parameters:
       - &id026
-        description: 'The ID of the certificate issuer configuration.
-
-          '
+        description: Certificate issuer ID configuration.
         in: path
         name: certificate-issuer-configuration-id
         required: true
@@ -18571,9 +18592,7 @@ paths:
       - Security and identity - certificate issuer configurations
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     get:
-      description: 'Provides the configured certificate issuer.
-
-        '
+      description: Provides the configured certificate issuer.
       operationId: getCertificateIssuerConfigByID
       parameters:
       - *id026
@@ -18603,12 +18622,10 @@ paths:
       - Security and identity - certificate issuer configurations
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     put:
-      description: 'Update the configured certificate issuer configuration.
-
-        '
+      description: Update certificate issuer configuration.
       operationId: updateCertificateIssuerConfigByID
       parameters:
-      - description: Certificate issuer configuration request
+      - description: Certificate issuer configuration request.
         in: body
         name: CertificateIssuerConfigRequest
         required: true
@@ -18642,32 +18659,27 @@ paths:
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuers:
     get:
-      description: 'Note: This endpoint does not implement pagination and therefore,
-        list control parameters such as `limit` or `after` will be ignored by the
-        system.
-
-        '
+      description: '**Note:** This endpoint does not use pagination, and therefore
+        ignores list control parameters such as `limit` or `after`.'
       operationId: getCertificateIssuers
       parameters:
-      - description: How many objects to retrieve in the page. The minimum limit is
-          2 and the maximum is 1000. Limit values outside of this range are set to
-          the closest limit.
+      - description: The number of results to return (2-1000). Values outside of this
+          range are set to the closest limit.
         in: query
         maximum: 1000
         minimum: 2
         name: limit
         type: integer
-      - description: The order of the records based on creation time, `ASC` or `DESC`;
-          by default `ASC`.
+      - description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
         in: query
         name: order
         type: string
-      - description: The ID of The item after which to retrieve the next page.
+      - description: The ID of the item after which to retrieve the next page.
         in: query
         name: after
         type: string
       - description: 'Comma-separated list of data fields to return. Currently supported:
-          `total_count`'
+          `total_count`.'
         in: query
         name: include
         type: string
@@ -18689,17 +18701,17 @@ paths:
       - Security and identity - certificate issuers
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     post:
-      description: "Create a certificate issuer.\nThe maximum number of issuers is\
-        \ limited to 20 per account.\nMultiple certificate issuers of the same issuer\
-        \ type can be created, provided they have a different name. This allows verification\
-        \ of the certificate issuer configuration before activating it.\n<br>\n**Example\
-        \ usage:**\n\n```\ncurl -X POST \\\n-H 'authorization: Bearer <valid access\
-        \ token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers\
-        \ \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\"\
-        ,\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\"\
-        : null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\"\
-        ,\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\",\n \
-        \     \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END\
+      description: "Create a certificate issuer.\n<br>\nThe maximum number of issuers\
+        \ is limited to 20 per account.\n<br>\nYou can create multiple certificate\
+        \ issuers of the same type, provided they have different names. This allows\
+        \ verification of the certificate issuer configuration before activation.\n\
+        <br>\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers\
+        \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
+        \ application/json;charset=UTF-8' \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\"\
+        ,\n  \"name\": \"GS Issuer\",\n  \"description\": \"Sample GlobalSign certificate\
+        \ issuer\",\n  \"issuer_attributes\": null,\n  \"issuer_credentials\": {\n\
+        \      \"api_key\": \"e510e289e6cd8947\",\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\"\
+        ,\n      \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END\
         \ CERTIFICATE-----\",\n        \"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\\
         nProc-Type: 4,ENCRYPTED\\nDEK-Info: DES-EDE3-CBC,CCAC26A4133947CB\\n\\np3KJ4FI3wcz3I0MtiLkrznkjWFvprVmoNywySUGb5IqZViJZqCMEsyU9a9iDsSfP\\\
         nZ07cg9GviV21WYIPSxZOQrpy1g1VWILzFnH+J6z8dSH4mxXh0PwdOzYgAeqkrIVM\\nJ7KRm6t222dZFjjXK3eEcLmBLGo29XwVJxKHx+l4++gU1LZmeHZR5M8fJ4jejUly\\\
@@ -18715,7 +18727,7 @@ paths:
         nhEAyifKy1/tm3l91Rf/kGpHY7nIQKCXH49tmFwix8gke2nZJmRgX7/zAdMOAKeKH\\nAaIl4nQtv14EbaasMgnn9qgaDYnWzaReEob2QlQ/WYlTor61+KFpGtcf9jAkgudT\\\
         n2op+4CF7wT2+aTXdtkVWfmv++iB8GnlqZdxLvyG1cTYjjYHVFbMSWQnxzQqiE2ms\\nQgp+byjWCumpsWTMdTO+d9NkDOo80vDpaRxEgebmhJ0MbX+eFjBgVg==\\\
         n-----END RSA PRIVATE KEY-----\",\n      \"passphrase\": \"helloworld\"\n\
-        \  }\n}'\n```\n"
+        \  }\n}'\n```"
       operationId: createCertificateIssuer
       parameters:
       - description: Certificate issuer request.
@@ -18731,9 +18743,7 @@ paths:
             $ref: '#/definitions/CertificateIssuerInfo'
         '400':
           description: 'Validation error: The data used to create the certificate
-            issuer failed validation.
-
-            '
+            issuer failed validation.'
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '401':
@@ -18745,15 +18755,11 @@ paths:
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '409':
-          description: 'Conflict. A certificate issuer with this name already exists.
-
-            '
+          description: Conflict. A certificate issuer with this name already exists.
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '424':
-          description: 'The request failed due to customer configured external service.
-
-            '
+          description: The request failed due to customer configured external service.
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Create certificate issuer.
@@ -18766,27 +18772,21 @@ paths:
 
         <br>
 
-        **Example usage:**
-
-
-        ```
-
-        curl -X DELETE \
-
-        -H ''authorization: <valid access token>'' \
-
-        https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000
+        **Example:**
 
         ```
 
-        '
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000
+        \
+
+        -H ''Authorization: Bearer <valid_access_token>'' \
+
+        ```'
       operationId: deleteCertificateIssuer
       parameters:
-      - description: 'Certificate issuer ID. <br> The ID of the certificate issuer.
+      - description: 'Certificate issuer ID.
 
-          An active certificate issuer may not be deleted.
-
-          '
+          An active certificate issuer cannot be deleted.'
         in: path
         name: certificate-issuer-id
         required: true
@@ -18795,9 +18795,7 @@ paths:
         '204':
           description: Certificate issuer deleted.
         '400':
-          description: 'Validation error: An active certificate issuer cannot be deleted.
-
-            '
+          description: 'Validation error: An active certificate issuer cannot be deleted.'
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '401':
@@ -18819,11 +18817,7 @@ paths:
     get:
       operationId: getCertificateIssuer
       parameters:
-      - description: 'Certificate issuer ID.
-
-          The ID of the certificate issuer.
-
-          '
+      - description: Certificate issuer ID.
         in: path
         name: certificate-issuer-id
         required: true
@@ -18835,9 +18829,7 @@ paths:
             $ref: '#/definitions/CertificateIssuerInfo'
         '400':
           description: 'Validation error: The data used to get the certificate issuer
-            failed validation.
-
-            '
+            failed validation.'
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '401':
@@ -18857,16 +18849,15 @@ paths:
       - Security and identity - certificate issuers
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
     put:
-      description: "Update a certificate issuer.\n<br>\n**Example usage:**\n\n```\n\
-        curl -X PUT \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type:\
-        \ application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000\
-        \ \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\"\
-        ,\n  \"name\": \"GlobalSign Issuer\"\n}'\n```\n"
+      description: "Update a certificate issuer.\n<br>\n**Example:**\n\n```\ncurl\
+        \ -X PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000\
+        \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
+        \ application/json;charset=UTF-8' \\\n-d '{\n  \"description\": \"Sample GlobalSign\
+        \ certificate issuer - updated.\",\n  \"name\": \"GlobalSign Issuer\"\n}'\n\
+        ```"
       operationId: updateCertificateIssuer
       parameters:
-      - description: 'Certificate issuer ID. <br> The ID of the certificate issuer.
-
-          '
+      - description: Certificate issuer ID.
         in: path
         name: certificate-issuer-id
         required: true
@@ -18884,9 +18875,7 @@ paths:
             $ref: '#/definitions/CertificateIssuerInfo'
         '400':
           description: 'Validation error: The data used to update the certificate
-            issuer failed validation.
-
-            '
+            issuer failed validation.'
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '401':
@@ -18902,15 +18891,11 @@ paths:
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '409':
-          description: 'Conflict. A certificate issuer with this name already exists.
-
-            '
+          description: Conflict. A certificate issuer with this name already exists.
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '424':
-          description: 'The request failed due to customer configured external service.
-
-            '
+          description: The request failed due to customer-configured external service.
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Update certificate issuer.
@@ -18919,11 +18904,9 @@ paths:
       x-origin: /home/circleci/project/cloud-vault/public/swagger.yaml
   /v3/certificate-issuers/{certificate-issuer-id}/verify:
     post:
-      description: 'A utility API that can be used to validate the user configuration
-        before activating a certificate issuer.
-
-        Verifies that the certificate issuer is accessible and can be used to generate
-        certificates by Device Management.
+      description: 'Validates the certificate issuer by sending a signing request
+        for a test certificate. This should be done before the configuration is made
+        active.
 
         <br>
 
@@ -18931,31 +18914,25 @@ paths:
 
         The API requests the 3rd party CA to sign a test certificate.
 
-        For some 3rd party CAs, this operation may make use of the account quota.
+        For some 3rd party CAs, this operation may use the account quota.
 
         <br>
 
-        **Example usage:**
-
+        **Example:**
 
         ```
 
-        curl -X POST \
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify
+        \
 
-        -H ''authorization: <valid access token>'' \
+        -H ''Authorization: Bearer <valid_access_token>'' \
 
         -H ''content-type: application/json;charset=UTF-8'' \
 
-        https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify
-
-        ```
-
-        '
+        ```'
       operationId: verifyCertificateIssuer
       parameters:
-      - description: 'Certificate issuer ID. <br> The ID of the certificate issuer.
-
-          '
+      - description: Certificate issuer ID.
         in: path
         name: certificate-issuer-id
         required: true
@@ -18982,9 +18959,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
         '424':
-          description: 'The request failed due to customer configured external service.
-
-            '
+          description: The request failed due to customer configured external service.
           schema:
             $ref: '#/definitions/ErrorObjectResponse'
       summary: Verify certificate issuer.
@@ -19898,7 +19873,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get a list of enrollments per account.
       tags:
-      - Public API
+      - Device ownership - enrollments
       x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
     post:
       description: 'When the device connects to the bootstrap server and provides
@@ -19949,7 +19924,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a single enrollment.
       tags:
-      - Public API
+      - Device ownership - enrollments
       x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-enrollments-bulk-deletes:
     post:
@@ -19980,7 +19955,7 @@ paths:
         \       , Whitespace around quotation marks is also trimmed.\n\n```\n\n**A\
         \ file containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\"\
         , First line is ignored.\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,\
-        \ Invalid version identifier.\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,\
+        \ Invalid version identifier.\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23,\
         \ Too-short identity.\n\"\", Empty quotation marks are an invalid identity.\n\
         \" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\
         \ \", Whitespace inside quotation marks is not trimmed, causing an error.\n\
@@ -20009,7 +19984,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Bulk delete.
       tags:
-      - Public API
+      - Device ownership - enrollments
       x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-enrollments-bulk-deletes/{id}:
     get:
@@ -20091,7 +20066,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get bulk delete entity.
       tags:
-      - Public API
+      - Device ownership - enrollments
       x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-enrollments-bulk-uploads:
     post:
@@ -20152,7 +20127,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Bulk upload.
       tags:
-      - Public API
+      - Device ownership - enrollments
       x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-enrollments-bulk-uploads/{id}:
     get:
@@ -20234,7 +20209,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get bulk upload entity.
       tags:
-      - Public API
+      - Device ownership - enrollments
       x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-enrollments/{id}:
     delete:
@@ -20276,7 +20251,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Delete an enrollment by ID.
       tags:
-      - Public API
+      - Device ownership - enrollments
       x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
     get:
       description: 'Check detailed enrollment info, for example, date of claim or
@@ -20316,7 +20291,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Get details of an single enrollment by ID.
       tags:
-      - Public API
+      - Device ownership - enrollments
       x-origin: /home/circleci/project/enrollment-service/public/swagger.yaml
   /v3/device-events/:
     get:

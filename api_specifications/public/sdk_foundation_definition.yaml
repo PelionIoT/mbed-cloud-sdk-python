@@ -15867,7 +15867,7 @@ entities:
     x-nullable: true
   - _key: id
     api_fieldname: id
-    description: The ID of the certificate issuer.
+    description: Certificate issuer ID.
     example: 01234567890ABCDEF01234567890ABCDEF
     readOnly: false
     required: true
@@ -15878,21 +15878,19 @@ entities:
     api_fieldname: issuer_attributes
     description: 'General attributes for connecting the certificate issuer.
 
-      When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+      When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-      When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-      '
+      When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
     example: []
     readOnly: false
     required: false
     type: object
   - _key: issuer_type
     api_fieldname: issuer_type
-    description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-      \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-      \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated\
-      \ signing service.\n  The users must provide their own CFSSL host_url and credentials.\n"
+    description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are issued\
+      \ by GlobalSign service. You must provide your own GlobalSign account credentials.\n\
+      - CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n\
+      \  You must provide your own CFSSL host_url and credentials."
     enum:
     - GLOBAL_SIGN
     - CFSSL_AUTH
@@ -15912,17 +15910,17 @@ entities:
   group_id: Security
   methods:
   - _key: create
-    description: "Create a certificate issuer.\nThe maximum number of issuers is limited\
-      \ to 20 per account.\nMultiple certificate issuers of the same issuer type can\
-      \ be created, provided they have a different name. This allows verification\
-      \ of the certificate issuer configuration before activating it.\n<br>\n**Example\
-      \ usage:**\n\n```\ncurl -X POST \\\n-H 'authorization: Bearer <valid access\
-      \ token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers\
-      \ \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\"\
-      ,\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\"\
-      : null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\"\
-      ,\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\",\n   \
-      \   \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END\
+    description: "Create a certificate issuer.\n<br>\nThe maximum number of issuers\
+      \ is limited to 20 per account.\n<br>\nYou can create multiple certificate issuers\
+      \ of the same type, provided they have different names. This allows verification\
+      \ of the certificate issuer configuration before activation.\n<br>\n**Example:**\n\
+      ```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers\
+      \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
+      \ application/json;charset=UTF-8' \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\"\
+      ,\n  \"name\": \"GS Issuer\",\n  \"description\": \"Sample GlobalSign certificate\
+      \ issuer\",\n  \"issuer_attributes\": null,\n  \"issuer_credentials\": {\n \
+      \     \"api_key\": \"e510e289e6cd8947\",\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\"\
+      ,\n      \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END\
       \ CERTIFICATE-----\",\n        \"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\\
       nProc-Type: 4,ENCRYPTED\\nDEK-Info: DES-EDE3-CBC,CCAC26A4133947CB\\n\\np3KJ4FI3wcz3I0MtiLkrznkjWFvprVmoNywySUGb5IqZViJZqCMEsyU9a9iDsSfP\\\
       nZ07cg9GviV21WYIPSxZOQrpy1g1VWILzFnH+J6z8dSH4mxXh0PwdOzYgAeqkrIVM\\nJ7KRm6t222dZFjjXK3eEcLmBLGo29XwVJxKHx+l4++gU1LZmeHZR5M8fJ4jejUly\\\
@@ -15938,7 +15936,7 @@ entities:
       nhEAyifKy1/tm3l91Rf/kGpHY7nIQKCXH49tmFwix8gke2nZJmRgX7/zAdMOAKeKH\\nAaIl4nQtv14EbaasMgnn9qgaDYnWzaReEob2QlQ/WYlTor61+KFpGtcf9jAkgudT\\\
       n2op+4CF7wT2+aTXdtkVWfmv++iB8GnlqZdxLvyG1cTYjjYHVFbMSWQnxzQqiE2ms\\nQgp+byjWCumpsWTMdTO+d9NkDOo80vDpaRxEgebmhJ0MbX+eFjBgVg==\\\
       n-----END RSA PRIVATE KEY-----\",\n      \"passphrase\": \"helloworld\"\n  }\n\
-      }'\n```\n"
+      }'\n```"
     drop_fields:
     - object
     - etag
@@ -15965,11 +15963,9 @@ entities:
       api_fieldname: issuer_attributes
       description: 'General attributes for connecting the certificate issuer.
 
-        When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+        When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-        When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-        '
+        When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
       entity_fieldname: issuer_attributes
       example: []
       in: body
@@ -15980,13 +15976,11 @@ entities:
       additionalProperties:
         type: string
       api_fieldname: issuer_credentials
-      description: 'The credentials required for connecting to the certificate issuer.
+      description: 'The credentials required to connect to the certificate issuer.
 
         When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.
 
-        When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
-
-        '
+        When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.'
       entity_fieldname: issuer_credentials
       example: []
       external_param: true
@@ -15998,11 +15992,10 @@ entities:
       type: object
     - _key: issuer_type
       api_fieldname: issuer_type
-      description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-        \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-        \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-        \ authenticated signing service.\n  The users must provide their own CFSSL\
-        \ host_url and credentials.\n"
+      description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are issued\
+        \ by GlobalSign service. You must provide your own GlobalSign account credentials.\n\
+        - CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n\
+        \  You must provide your own CFSSL host_url and credentials."
       entity_fieldname: issuer_type
       enum:
       - GLOBAL_SIGN
@@ -16064,7 +16057,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: The ID of the certificate issuer.
+          description: Certificate issuer ID.
           entity_fieldname: id
           example: 01234567890ABCDEF01234567890ABCDEF
           type: string
@@ -16074,21 +16067,18 @@ entities:
           api_fieldname: issuer_attributes
           description: 'General attributes for connecting the certificate issuer.
 
-            When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+            When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-            '
+            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
           entity_fieldname: issuer_attributes
           example: []
           type: object
         - _key: issuer_type
           api_fieldname: issuer_type
-          description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-            \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-            \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-            \ authenticated signing service.\n  The users must provide their own CFSSL\
-            \ host_url and credentials.\n"
+          description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are\
+            \ issued by GlobalSign service. You must provide your own GlobalSign account\
+            \ credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated\
+            \ signing service.\n  You must provide your own CFSSL host_url and credentials."
           entity_fieldname: issuer_type
           enum:
           - GLOBAL_SIGN
@@ -16113,9 +16103,7 @@ entities:
         type: object
     - _key: '400'
       description: 'Validation error: The data used to create the certificate issuer
-        failed validation.
-
-        '
+        failed validation.'
       schema:
         properties:
         - _key: code
@@ -16235,9 +16223,7 @@ entities:
         - type
         type: object
     - _key: '409'
-      description: 'Conflict. A certificate issuer with this name already exists.
-
-        '
+      description: Conflict. A certificate issuer with this name already exists.
       schema:
         properties:
         - _key: code
@@ -16277,9 +16263,7 @@ entities:
         - type
         type: object
     - _key: '424'
-      description: 'The request failed due to customer configured external service.
-
-        '
+      description: The request failed due to customer configured external service.
       schema:
         properties:
         - _key: code
@@ -16331,20 +16315,16 @@ entities:
 
       <br>
 
-      **Example usage:**
-
-
-      ```
-
-      curl -X DELETE \
-
-      -H ''authorization: <valid access token>'' \
-
-      https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000
+      **Example:**
 
       ```
 
-      '
+      curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000
+      \
+
+      -H ''Authorization: Bearer <valid_access_token>'' \
+
+      ```'
     drop_fields:
     - object
     - etag
@@ -16354,11 +16334,9 @@ entities:
     fields:
     - _key: id
       api_fieldname: certificate-issuer-id
-      description: 'Certificate issuer ID. <br> The ID of the certificate issuer.
+      description: 'Certificate issuer ID.
 
-        An active certificate issuer may not be deleted.
-
-        '
+        An active certificate issuer cannot be deleted.'
       entity_fieldname: id
       external_param: false
       in: path
@@ -16380,9 +16358,7 @@ entities:
     - _key: '204'
       description: Certificate issuer deleted.
     - _key: '400'
-      description: 'Validation error: An active certificate issuer cannot be deleted.
-
-        '
+      description: 'Validation error: An active certificate issuer cannot be deleted.'
       schema:
         properties:
         - _key: code
@@ -16550,10 +16526,8 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: 'Note: This endpoint does not implement pagination and therefore,
-      list control parameters such as `limit` or `after` will be ignored by the system.
-
-      '
+    description: '**Note:** This endpoint does not use pagination, and therefore ignores
+      list control parameters such as `limit` or `after`.'
     drop_fields:
     - object
     - etag
@@ -16566,7 +16540,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The ID of The item after which to retrieve the next page.
+      description: The ID of the item after which to retrieve the next page.
       entity_fieldname: after
       example: '01631667477600000000000100100374'
       external_param: true
@@ -16578,7 +16552,7 @@ entities:
     - _key: include
       api_fieldname: include
       description: 'Comma-separated list of data fields to return. Currently supported:
-        `total_count`'
+        `total_count`.'
       entity_fieldname: include
       external_param: true
       in: query
@@ -16588,9 +16562,8 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: How many objects to retrieve in the page. The minimum limit is
-        2 and the maximum is 1000. Limit values outside of this range are set to the
-        closest limit.
+      description: The number of results to return (2-1000). Values outside of this
+        range are set to the closest limit.
       entity_fieldname: limit
       example: 50
       external_param: true
@@ -16603,8 +16576,7 @@ entities:
       type: integer
     - _key: order
       api_fieldname: order
-      description: The order of the records based on creation time, `ASC` or `DESC`;
-        by default `ASC`.
+      description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
       entity_fieldname: order
       example: DESC
       external_param: true
@@ -16638,7 +16610,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The ID of The item after which to retrieve the next page.
+          description: The ID of the item after which to retrieve the next page.
           entity_fieldname: after
           example: '01631667477600000000000100100374'
           external_param: true
@@ -16672,7 +16644,7 @@ entities:
               example: '1'
               type: string
             - _key: id
-              description: The ID of the certificate issuer.
+              description: Certificate issuer ID.
               example: 01234567890ABCDEF01234567890ABCDEF
               type: string
             - _key: issuer_attributes
@@ -16680,19 +16652,17 @@ entities:
                 type: string
               description: 'General attributes for connecting the certificate issuer.
 
-                When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+                When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-                When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-                '
+                When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
               example: []
               type: object
             - _key: issuer_type
-              description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n\
-                \  Certificates are issued by GlobalSign service. The users must provide\
-                \ their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates\
-                \ are issued by CFSSL authenticated signing service.\n  The users\
-                \ must provide their own CFSSL host_url and credentials.\n"
+              description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates\
+                \ are issued by GlobalSign service. You must provide your own GlobalSign\
+                \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by\
+                \ CFSSL authenticated signing service.\n  You must provide your own\
+                \ CFSSL host_url and credentials."
               enum:
               - GLOBAL_SIGN
               - CFSSL_AUTH
@@ -16713,15 +16683,14 @@ entities:
           type: array
         - _key: has_more
           api_fieldname: has_more
-          description: Are there more results available.
+          description: More results are available.
           entity_fieldname: has_more
           example: false
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: How many objects to retrieve in the page. The minimum limit
-            is 2 and the maximum is 1000. Limit values outside of this range are set
-            to the closest limit.
+          description: The number of results to return (2-1000). Values outside of
+            this range are set to the closest limit.
           entity_fieldname: limit
           example: 50
           external_param: true
@@ -16734,14 +16703,13 @@ entities:
           type: integer
         - _key: object
           api_fieldname: object
-          description: The type of this API object is a `list`.
+          description: The type of this API object is `list`.
           entity_fieldname: object
           example: list
           type: string
         - _key: order
           api_fieldname: order
-          description: The order of the records based on creation time, `ASC` or `DESC`;
-            by default `ASC`.
+          description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
           entity_fieldname: order
           example: DESC
           external_param: true
@@ -16861,7 +16829,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: id
-      description: The ID of the certificate issuer.
+      description: Certificate issuer ID.
       entity_fieldname: id
       example: 01234567890ABCDEF01234567890ABCDEF
       in: path
@@ -16909,7 +16877,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: The ID of the certificate issuer.
+          description: Certificate issuer ID.
           entity_fieldname: id
           example: 01234567890ABCDEF01234567890ABCDEF
           type: string
@@ -16919,21 +16887,18 @@ entities:
           api_fieldname: issuer_attributes
           description: 'General attributes for connecting the certificate issuer.
 
-            When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+            When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-            '
+            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
           entity_fieldname: issuer_attributes
           example: []
           type: object
         - _key: issuer_type
           api_fieldname: issuer_type
-          description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-            \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-            \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-            \ authenticated signing service.\n  The users must provide their own CFSSL\
-            \ host_url and credentials.\n"
+          description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are\
+            \ issued by GlobalSign service. You must provide your own GlobalSign account\
+            \ credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated\
+            \ signing service.\n  You must provide your own CFSSL host_url and credentials."
           entity_fieldname: issuer_type
           enum:
           - GLOBAL_SIGN
@@ -16958,9 +16923,7 @@ entities:
         type: object
     - _key: '400'
       description: 'Validation error: The data used to get the certificate issuer
-        failed validation.
-
-        '
+        failed validation.'
       schema:
         properties:
         - _key: code
@@ -17128,11 +17091,12 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
-    description: "Update a certificate issuer.\n<br>\n**Example usage:**\n\n```\n\
-      curl -X PUT \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type:\
-      \ application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000\
-      \ \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\"\
-      ,\n  \"name\": \"GlobalSign Issuer\"\n}'\n```\n"
+    description: "Update a certificate issuer.\n<br>\n**Example:**\n\n```\ncurl -X\
+      \ PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000\
+      \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
+      \ application/json;charset=UTF-8' \\\n-d '{\n  \"description\": \"Sample GlobalSign\
+      \ certificate issuer - updated.\",\n  \"name\": \"GlobalSign Issuer\"\n}'\n\
+      ```"
     drop_fields:
     - object
     - etag
@@ -17155,7 +17119,7 @@ entities:
       x-nullable: true
     - _key: id
       api_fieldname: id
-      description: The ID of the certificate issuer.
+      description: Certificate issuer ID.
       entity_fieldname: id
       example: 01234567890ABCDEF01234567890ABCDEF
       in: path
@@ -17168,11 +17132,9 @@ entities:
       api_fieldname: issuer_attributes
       description: 'General attributes for connecting the certificate issuer.
 
-        When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+        When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-        When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-        '
+        When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
       entity_fieldname: issuer_attributes
       example: []
       in: body
@@ -17183,13 +17145,11 @@ entities:
       additionalProperties:
         type: string
       api_fieldname: issuer_credentials
-      description: 'The credentials required for connecting to the certificate issuer.
+      description: 'The credentials required to connect to the certificate issuer.
 
         When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.
 
-        When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
-
-        '
+        When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.'
       entity_fieldname: issuer_credentials
       example: []
       external_param: true
@@ -17250,7 +17210,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: The ID of the certificate issuer.
+          description: Certificate issuer ID.
           entity_fieldname: id
           example: 01234567890ABCDEF01234567890ABCDEF
           type: string
@@ -17260,21 +17220,18 @@ entities:
           api_fieldname: issuer_attributes
           description: 'General attributes for connecting the certificate issuer.
 
-            When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+            When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-            '
+            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
           entity_fieldname: issuer_attributes
           example: []
           type: object
         - _key: issuer_type
           api_fieldname: issuer_type
-          description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-            \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-            \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-            \ authenticated signing service.\n  The users must provide their own CFSSL\
-            \ host_url and credentials.\n"
+          description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are\
+            \ issued by GlobalSign service. You must provide your own GlobalSign account\
+            \ credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated\
+            \ signing service.\n  You must provide your own CFSSL host_url and credentials."
           entity_fieldname: issuer_type
           enum:
           - GLOBAL_SIGN
@@ -17299,9 +17256,7 @@ entities:
         type: object
     - _key: '400'
       description: 'Validation error: The data used to update the certificate issuer
-        failed validation.
-
-        '
+        failed validation.'
       schema:
         properties:
         - _key: code
@@ -17461,9 +17416,7 @@ entities:
         - type
         type: object
     - _key: '409'
-      description: 'Conflict. A certificate issuer with this name already exists.
-
-        '
+      description: Conflict. A certificate issuer with this name already exists.
       schema:
         properties:
         - _key: code
@@ -17503,9 +17456,7 @@ entities:
         - type
         type: object
     - _key: '424'
-      description: 'The request failed due to customer configured external service.
-
-        '
+      description: The request failed due to customer-configured external service.
       schema:
         properties:
         - _key: code
@@ -17553,11 +17504,8 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: verify
-    description: 'A utility API that can be used to validate the user configuration
-      before activating a certificate issuer.
-
-      Verifies that the certificate issuer is accessible and can be used to generate
-      certificates by Device Management.
+    description: 'Validates the certificate issuer by sending a signing request for
+      a test certificate. This should be done before the configuration is made active.
 
       <br>
 
@@ -17565,26 +17513,22 @@ entities:
 
       The API requests the 3rd party CA to sign a test certificate.
 
-      For some 3rd party CAs, this operation may make use of the account quota.
+      For some 3rd party CAs, this operation may use the account quota.
 
       <br>
 
-      **Example usage:**
-
+      **Example:**
 
       ```
 
-      curl -X POST \
+      curl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify
+      \
 
-      -H ''authorization: <valid access token>'' \
+      -H ''Authorization: Bearer <valid_access_token>'' \
 
       -H ''content-type: application/json;charset=UTF-8'' \
 
-      https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify
-
-      ```
-
-      '
+      ```'
     drop_fields:
     - object
     - etag
@@ -17596,9 +17540,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: certificate-issuer-id
-      description: 'Certificate issuer ID. <br> The ID of the certificate issuer.
-
-        '
+      description: Certificate issuer ID.
       entity_fieldname: id
       external_param: false
       in: path
@@ -17629,17 +17571,13 @@ entities:
         properties:
         - _key: message
           api_fieldname: message
-          description: 'Provides details in case of failure.
-
-            '
+          description: Provides details in case of failure.
           entity_fieldname: message
-          example: message describing the verification failure
+          example: Message describing the verification failure
           type: string
         - _key: successful
           api_fieldname: successful
-          description: 'Indicates whether the certificate issuer was verified successfully.
-
-            '
+          description: Indicates whether the certificate issuer was verified successfully.
           entity_fieldname: successful
           example: false
           type: boolean
@@ -17805,9 +17743,7 @@ entities:
         - type
         type: object
     - _key: '424'
-      description: 'The request failed due to customer configured external service.
-
-        '
+      description: The request failed due to customer configured external service.
       schema:
         properties:
         - _key: code
@@ -17869,11 +17805,9 @@ entities:
   fields:
   - _key: certificate_issuer_id
     api_fieldname: certificate_issuer_id
-    description: 'The ID of the certificate issuer.
+    description: 'Certificate issuer ID.
 
-      Null if Device Management internal HSM is used.
-
-      '
+      Null if Device Management internal HSM is used.'
     example: 01648415a2a30242ac18000500000000
     readOnly: false
     required: true
@@ -17889,9 +17823,7 @@ entities:
     type: string
   - _key: id
     api_fieldname: id
-    description: 'The ID of the certificate issuer configuration.
-
-      '
+    description: Certificate issuer ID. configuration.
     example: 01648415a2a30242ac18000500000000
     readOnly: false
     required: true
@@ -17915,12 +17847,11 @@ entities:
   group_id: Security
   methods:
   - _key: create
-    description: "Configure the certificate issuer to be used when creating the device\
-      \ custom certificates.\n<br>\n**Example usage:**\n\n```\ncurl -X POST \\\n-H\
-      \ 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8'\
-      \ \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations\
-      \ \\\n-d '{\n  \"reference\": \"customer.dlms\",\n  \"certificate_issuer_id\"\
-      : \"01621a36719d507b9d48a91b00000000\"\n}'\n```\n"
+    description: "Configure the certificate issuer to use when creating device custom\
+      \ certificates.\n<br>\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations\
+      \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
+      \ application/json;charset=UTF-8' \\\n-d '{\n  \"reference\": \"customer.dlms\"\
+      ,\n  \"certificate_issuer_id\": \"01621a36719d507b9d48a91b00000000\"\n}'\n```"
     drop_fields:
     - object
     - etag
@@ -17934,11 +17865,9 @@ entities:
     fields:
     - _key: certificate_issuer_id
       api_fieldname: certificate_issuer_id
-      description: 'The ID of the certificate issuer.
+      description: 'Certificate issuer ID.
 
-        Null if Device Management internal HSM is used.
-
-        '
+        Null if Device Management internal HSM is used.'
       entity_fieldname: certificate_issuer_id
       example: 01648415a2a30242ac18000500000000
       in: body
@@ -17976,11 +17905,9 @@ entities:
         properties:
         - _key: certificate_issuer_id
           api_fieldname: certificate_issuer_id
-          description: 'The ID of the certificate issuer.
+          description: 'Certificate issuer ID.
 
-            Null if Device Management internal HSM is used.
-
-            '
+            Null if Device Management internal HSM is used.'
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -18000,9 +17927,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: 'The ID of the certificate issuer configuration.
-
-            '
+          description: Certificate issuer ID. configuration.
           entity_fieldname: id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -18153,10 +18078,8 @@ entities:
         - type
         type: object
     - _key: '409'
-      description: 'A certificate issuer configuration with this reference already
+      description: A certificate issuer configuration with this reference already
         exists.
-
-        '
       schema:
         properties:
         - _key: code
@@ -18204,11 +18127,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: delete
-    description: 'Delete the configured certificate issuer configuration.
+    description: 'Delete certificate issuer configuration.
 
-      You can only delete the configurations of custom certificates.
-
-      '
+      You can only delete custom certificate configurations.'
     drop_fields:
     - object
     - etag
@@ -18219,9 +18140,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: certificate-issuer-configuration-id
-      description: 'The ID of the certificate issuer configuration.
-
-        '
+      description: Certificate issuer ID configuration.
       entity_fieldname: id
       external_param: false
       in: path
@@ -18411,12 +18330,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: get_default
-    description: 'Provides the configured certificate issuer to be used when creating
-      device
+    description: 'Provides the configured certificate issuer used when creating device
 
-      certificates for LwM2M communication.<br>
-
-      '
+      certificates for LwM2M.'
     drop_fields:
     - object
     - etag
@@ -18450,11 +18366,9 @@ entities:
         properties:
         - _key: certificate_issuer_id
           api_fieldname: certificate_issuer_id
-          description: 'The ID of the certificate issuer.
+          description: 'Certificate issuer ID.
 
-            Null if Device Management internal HSM is used.
-
-            '
+            Null if Device Management internal HSM is used.'
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -18474,9 +18388,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: 'The ID of the certificate issuer configuration.
-
-            '
+          description: Certificate issuer ID. configuration.
           entity_fieldname: id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -18639,38 +18551,34 @@ entities:
 
       <br>
 
-      **Example usage:**
-
-
-      ```
-
-      curl \
-
-      -H ''authorization: <valid access token>'' \
-
-      -H ''content-type: application/json;charset=UTF-8'' \
-
-      https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \
+      **Example:**
 
       ```
 
-      ```
-
-      curl \
-
-      -H ''authorization: <valid access token>'' \
-
-      -H ''content-type: application/json;charset=UTF-8'' \
-
-      https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations
       \
 
+      -H ''Authorization: Bearer <valid_access_token>'' \
+
+      -H ''content-type: application/json;charset=UTF-8'' \
+
       ```
 
-      Note: This endpoint does not implement pagination and therefore, list control
-      parameters such as `limit` or `after` will be ignored by the system.
+      <br>
 
-      '
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms
+      \
+
+      -H ''Authorization: Bearer <valid_access_token>'' \
+
+      -H ''content-type: application/json;charset=UTF-8'' \
+
+      ```
+
+      **Note:** This endpoint does not implement pagination, and therefore ignores
+      list control parameters such as `limit` or `after`.'
     drop_fields:
     - object
     - etag
@@ -18685,7 +18593,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The ID of The item after which to retrieve the next page.
+      description: The ID of the item after which to retrieve the next page.
       entity_fieldname: after
       example: '01631667477600000000000100100374'
       external_param: true
@@ -18697,7 +18605,7 @@ entities:
     - _key: include
       api_fieldname: include
       description: 'Comma-separated list of data fields to return. Currently supported:
-        `total_count`'
+        `total_count`.'
       entity_fieldname: include
       external_param: true
       in: query
@@ -18707,9 +18615,8 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: How many objects to retrieve in the page. The minimum limit is
-        2 and the maximum is 1000. Limit values outside of this range are set to the
-        closest limit.
+      description: The number of results to return (2-1000). Values outside of this
+        range are set to the closest limit.
       entity_fieldname: limit
       example: 50
       external_param: true
@@ -18722,8 +18629,7 @@ entities:
       type: integer
     - _key: order
       api_fieldname: order
-      description: The order of the records based on creation time, `ASC` or `DESC`;
-        by default `ASC`.
+      description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
       entity_fieldname: order
       example: DESC
       external_param: true
@@ -18771,11 +18677,9 @@ entities:
               group: Security
             properties:
             - _key: certificate_issuer_id
-              description: 'The ID of the certificate issuer.
+              description: 'Certificate issuer ID.
 
-                Null if Device Management internal HSM is used.
-
-                '
+                Null if Device Management internal HSM is used.'
               example: 01648415a2a30242ac18000500000000
               type: string
               x-nullable: true
@@ -18789,9 +18693,7 @@ entities:
               example: '1'
               type: string
             - _key: id
-              description: 'The ID of the certificate issuer configuration.
-
-                '
+              description: Certificate issuer ID. configuration.
               example: 01648415a2a30242ac18000500000000
               type: string
             - _key: is_custom
@@ -18815,15 +18717,14 @@ entities:
           type: array
         - _key: has_more
           api_fieldname: has_more
-          description: Are there more results available.
+          description: More results are available.
           entity_fieldname: has_more
           example: false
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: How many objects to retrieve in the page. The minimum limit
-            is 2 and the maximum is 1000. Limit values outside of this range are set
-            to the closest limit.
+          description: The number of results to return (2-1000). Values outside of
+            this range are set to the closest limit.
           entity_fieldname: limit
           example: 50
           maximum: 1000
@@ -18831,13 +18732,13 @@ entities:
           type: integer
         - _key: object
           api_fieldname: object
-          description: The type of this API object is a `list`.
+          description: The type of this API object is `list`.
           entity_fieldname: object
           example: list
           type: string
         - _key: order
           api_fieldname: order
-          description: The creation time based order of the entries.
+          description: Record order based on creation time.
           entity_fieldname: order
           example: DESC
           type: string
@@ -18979,9 +18880,7 @@ entities:
       reference:
       - eq
   - _key: read
-    description: 'Provides the configured certificate issuer.
-
-      '
+    description: Provides the configured certificate issuer.
     drop_fields:
     - object
     - etag
@@ -18996,9 +18895,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: id
-      description: 'The ID of the certificate issuer configuration.
-
-        '
+      description: Certificate issuer ID. configuration.
       entity_fieldname: id
       example: 01648415a2a30242ac18000500000000
       in: path
@@ -19025,11 +18922,9 @@ entities:
         properties:
         - _key: certificate_issuer_id
           api_fieldname: certificate_issuer_id
-          description: 'The ID of the certificate issuer.
+          description: 'Certificate issuer ID.
 
-            Null if Device Management internal HSM is used.
-
-            '
+            Null if Device Management internal HSM is used.'
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -19049,9 +18944,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: 'The ID of the certificate issuer configuration.
-
-            '
+          description: Certificate issuer ID. configuration.
           entity_fieldname: id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -19254,9 +19147,7 @@ entities:
     - notes: After retrieving the resource using the `lwm2m` method, it can modified
         using using this SDK method.
       operation_id: updateCertificateIssuerConfig
-    description: 'Update the configured certificate issuer configuration.
-
-      '
+    description: Update certificate issuer configuration.
     drop_fields:
     - object
     - etag
@@ -19270,11 +19161,9 @@ entities:
     fields:
     - _key: certificate_issuer_id
       api_fieldname: certificate_issuer_id
-      description: 'The ID of the certificate issuer.
+      description: 'Certificate issuer ID.
 
-        Null if Device Management internal HSM is used.
-
-        '
+        Null if Device Management internal HSM is used.'
       entity_fieldname: certificate_issuer_id
       example: 01648415a2a30242ac18000500000000
       in: body
@@ -19284,9 +19173,7 @@ entities:
       x-nullable: true
     - _key: id
       api_fieldname: id
-      description: 'The ID of the certificate issuer configuration.
-
-        '
+      description: Certificate issuer ID. configuration.
       entity_fieldname: id
       example: 01648415a2a30242ac18000500000000
       in: path
@@ -19313,11 +19200,9 @@ entities:
         properties:
         - _key: certificate_issuer_id
           api_fieldname: certificate_issuer_id
-          description: 'The ID of the certificate issuer.
+          description: 'Certificate issuer ID.
 
-            Null if Device Management internal HSM is used.
-
-            '
+            Null if Device Management internal HSM is used.'
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -19337,9 +19222,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: 'The ID of the certificate issuer configuration.
-
-            '
+          description: Certificate issuer ID. configuration.
           entity_fieldname: id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -23828,7 +23711,7 @@ entities:
     type: boolean
   - _key: serial_number
     api_fieldname: serial_number
-    description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+    description: The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
       of the device. The serial number is injected by the factory tool during manufacturing.
     example: 00000000-0000-0000-0000-000000000000
     readOnly: false
@@ -24318,7 +24201,7 @@ entities:
       type: string
     - _key: serial_number
       api_fieldname: serial_number
-      description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+      description: The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
         of the device. The serial number is injected by the factory tool during manufacturing.
       entity_fieldname: serial_number
       example: 00000000-0000-0000-0000-000000000000
@@ -24676,7 +24559,7 @@ entities:
           type: boolean
         serial_number:
           api_fieldname: serial_number
-          description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+          description: The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
             of the device. The serial number is injected by the factory tool during
             manufacturing.
           entity_fieldname: serial_number
@@ -25254,7 +25137,7 @@ entities:
               description: Device has been suspended by operator.
               type: boolean
             serial_number:
-              description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+              description: The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
                 of the device. The serial number is injected by the factory tool during
                 manufacturing.
               example: 00000000-0000-0000-0000-000000000000
@@ -25900,7 +25783,7 @@ entities:
           type: boolean
         serial_number:
           api_fieldname: serial_number
-          description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+          description: The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
             of the device. The serial number is injected by the factory tool during
             manufacturing.
           entity_fieldname: serial_number
@@ -27040,7 +26923,7 @@ entities:
           type: boolean
         serial_number:
           api_fieldname: serial_number
-          description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+          description: The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
             of the device. The serial number is injected by the factory tool during
             manufacturing.
           entity_fieldname: serial_number
@@ -28179,7 +28062,7 @@ entities:
   - EnrollmentIdentities
   - EnrollmentIdentity
   tags:
-  - Public API
+  - Device ownership - enrollments
 - _key: device_enrollment_bulk_create
   field_renames: []
   fields:
@@ -28222,6 +28105,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: full_report_file
     api_fieldname: full_report_file
     description: 'Link to full report file.
@@ -28231,6 +28115,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: id
     api_fieldname: id
     description: Bulk ID
@@ -28379,6 +28264,7 @@ entities:
           entity_fieldname: errors_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
           type: string
+          x-nullable: true
         - _key: etag
           api_fieldname: etag
           description: etag
@@ -28394,6 +28280,7 @@ entities:
           entity_fieldname: full_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
           type: string
+          x-nullable: true
         - _key: id
           api_fieldname: id
           description: Bulk ID
@@ -28737,6 +28624,7 @@ entities:
           entity_fieldname: errors_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
           type: string
+          x-nullable: true
         - _key: etag
           api_fieldname: etag
           description: etag
@@ -28752,6 +28640,7 @@ entities:
           entity_fieldname: full_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
           type: string
+          x-nullable: true
         - _key: id
           api_fieldname: id
           description: Bulk ID
@@ -28960,7 +28849,7 @@ entities:
   swagger_models:
   - BulkResponse
   tags:
-  - Public API
+  - Device ownership - enrollments
 - _key: device_enrollment_bulk_delete
   field_renames: []
   fields:
@@ -29003,6 +28892,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: full_report_file
     api_fieldname: full_report_file
     description: 'Link to full report file.
@@ -29012,6 +28902,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: id
     api_fieldname: id
     description: Bulk ID
@@ -29078,7 +28969,7 @@ entities:
       \       , Whitespace around quotation marks is also trimmed.\n\n```\n\n**A file\
       \ containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\"\
       , First line is ignored.\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,\
-      \ Invalid version identifier.\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,\
+      \ Invalid version identifier.\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23,\
       \ Too-short identity.\n\"\", Empty quotation marks are an invalid identity.\n\
       \" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\
       \ \", Whitespace inside quotation marks is not trimmed, causing an error.\n\n\
@@ -29162,6 +29053,7 @@ entities:
           entity_fieldname: errors_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
           type: string
+          x-nullable: true
         - _key: etag
           api_fieldname: etag
           description: etag
@@ -29177,6 +29069,7 @@ entities:
           entity_fieldname: full_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
           type: string
+          x-nullable: true
         - _key: id
           api_fieldname: id
           description: Bulk ID
@@ -29523,6 +29416,7 @@ entities:
           entity_fieldname: errors_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
           type: string
+          x-nullable: true
         - _key: etag
           api_fieldname: etag
           description: etag
@@ -29538,6 +29432,7 @@ entities:
           entity_fieldname: full_report_file
           example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
           type: string
+          x-nullable: true
         - _key: id
           api_fieldname: id
           description: Bulk ID
@@ -29749,7 +29644,7 @@ entities:
   swagger_models:
   - BulkResponse
   tags:
-  - Public API
+  - Device ownership - enrollments
 - _key: device_enrollment_denial
   field_renames: []
   fields:
@@ -31955,7 +31850,7 @@ entities:
               description: Device has been suspended by operator.
               type: boolean
             serial_number:
-              description: The [serial number](../provisioning-process/provisioning-information.html#serial-number)
+              description: The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
                 of the device. The serial number is injected by the factory tool during
                 manufacturing.
               example: 00000000-0000-0000-0000-000000000000
@@ -76290,18 +76185,14 @@ entities:
   fields:
   - _key: message
     api_fieldname: message
-    description: 'Provides details in case of failure.
-
-      '
-    example: message describing the verification failure
+    description: Provides details in case of failure.
+    example: Message describing the verification failure
     readOnly: true
     required: false
     type: string
   - _key: successful
     api_fieldname: successful
-    description: 'Indicates whether the certificate issuer was verified successfully.
-
-      '
+    description: Indicates whether the certificate issuer was verified successfully.
     example: false
     readOnly: true
     required: false

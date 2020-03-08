@@ -21736,7 +21736,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Create a certificate issuer.\nThe maximum number of issuers is limited to 20 per account.\nMultiple certificate issuers of the same issuer type can be created, provided they have a different name. This allows verification of the certificate issuer configuration before activating it.\n<br>\n**Example usage:**\n\n```\ncurl -X POST \\\n-H 'authorization: Bearer <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\",\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\": null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\",\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\",\n      \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END CERTIFICATE-----\",\n        \"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\nProc-Type: 4,ENCRYPTED\\nDEK-Info: DES-EDE3-CBC,CCAC26A4133947CB\\n\\np3KJ4FI3wcz3I0MtiLkrznkjWFvprVmoNywySUGb5IqZViJZqCMEsyU9a9iDsSfP\\nZ07cg9GviV21WYIPSxZOQrpy1g1VWILzFnH+J6z8dSH4mxXh0PwdOzYgAeqkrIVM\\nJ7KRm6t222dZFjjXK3eEcLmBLGo29XwVJxKHx+l4++gU1LZmeHZR5M8fJ4jejUly\\n7sqzPlmRF0N3I4lwKVj+PfQTVz43QoCnpxOjuSEL4liBrc2agY2xH1O0PFyHimz9\\n3XM9HR/iuPHW0N2D+NPjXlWKacerupH9d4i9IYIagzB+HTgej8limdo03GmmxcZ6\\nYNa58n5yQSaqu0TPRU9DsrKeGjadHTlZQGdzfq1SWsROCnHLrXFKE2ozIG3+hxA5\\nujBF/QWpX5+inXUwDJhBxp8isHbPEnBEUUd6ZRzCTjvN0jaUti5B9yFhO2G6mbE8\\nCvhyzQK8oJqsjZXnlcpPf95LP+9XbcCDjLSIaWJstzXO9tPiv6+x1MVWmivtRHcC\\nSTzpx8jAGCiG6ejLqWB87ZXiZm7ujlCBheHSf5RHwNHhUvoP2JEYalDDRxjcDMSx\\n4uV42Np4yJlIQEDlGHcBlXoL7vEukFpuWgkYdpcZy/Ou9qz8mXrpLcu8C8MhLmSC\\nixGoR5iRhV7cxoHLyuCzj87eYEA73Xu238DQorSEEuiVFnLzQ2+PJMs4qoI14q/L\\notlBDz+Ko6DrU/EZROYmiqMkLKXR2sx9zNAJwPYRs6nSH08tZ3dwqzZbgtP3Wazi\\nhLWHt5/En7wQRA5a+/dDEHXSoLvvSQ9jvhclhWf+eCYuq2eH+g54oyJGRSY+8GV7\\nujhLxkzl/3OZdhZPWoz4U13KpbSTcNWu5Y7oGDoabw19UbvqmLf1PJkpDH/tQgzB\\nxYtsLBRUcofpYoeIiIxfAA4do5WilJc8xqrGhkE4WcHfY24HXAiOvsjbxV+BRprX\\n1jtgJpV/9nJESMap+8PxipGUFRGjB83/uwJaa6mLftEKflX8i4MZ+HnqraXERsqA\\nWRUcDHIWmFfpzIB3iNuxawVvPH8NdCSPmQ9qTb8Cozl0AuOK2E9S+ke8oiYQScWR\\nLdu+zhej7GjuQ9R+Ub+wPWqvOA5qLXejqnCexVScDUuN+z9JWM3N2FG1MwxhAzhP\\ndEfoQHoBn6uyOmrVGP6fosV3chqhPoec42KeOAm1xDvx692isaIy1jPgIyPxeqhm\\n2Tw4E+02R7dlP8Ljf7JzfLm4oKpWHWlcHeqg24x6lY/wXU1RBcWaTa0AQUwoGm2m\\nIQCPfIqOEv/QC2HpO7SVCYkl65KwR0oTd1AzYxdxEq3xHQbh69EL0FGZPVxVCPI+\\nhEAyifKy1/tm3l91Rf/kGpHY7nIQKCXH49tmFwix8gke2nZJmRgX7/zAdMOAKeKH\\nAaIl4nQtv14EbaasMgnn9qgaDYnWzaReEob2QlQ/WYlTor61+KFpGtcf9jAkgudT\\n2op+4CF7wT2+aTXdtkVWfmv++iB8GnlqZdxLvyG1cTYjjYHVFbMSWQnxzQqiE2ms\\nQgp+byjWCumpsWTMdTO+d9NkDOo80vDpaRxEgebmhJ0MbX+eFjBgVg==\\n-----END RSA PRIVATE KEY-----\",\n      \"passphrase\": \"helloworld\"\n  }\n}'\n```\n",
+          "description": "Create a certificate issuer.\n<br>\nThe maximum number of issuers is limited to 20 per account.\n<br>\nYou can create multiple certificate issuers of the same type, provided they have different names. This allows verification of the certificate issuer configuration before activation.\n<br>\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\",\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\": null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\",\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\",\n      \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END CERTIFICATE-----\",\n        \"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\nProc-Type: 4,ENCRYPTED\\nDEK-Info: DES-EDE3-CBC,CCAC26A4133947CB\\n\\np3KJ4FI3wcz3I0MtiLkrznkjWFvprVmoNywySUGb5IqZViJZqCMEsyU9a9iDsSfP\\nZ07cg9GviV21WYIPSxZOQrpy1g1VWILzFnH+J6z8dSH4mxXh0PwdOzYgAeqkrIVM\\nJ7KRm6t222dZFjjXK3eEcLmBLGo29XwVJxKHx+l4++gU1LZmeHZR5M8fJ4jejUly\\n7sqzPlmRF0N3I4lwKVj+PfQTVz43QoCnpxOjuSEL4liBrc2agY2xH1O0PFyHimz9\\n3XM9HR/iuPHW0N2D+NPjXlWKacerupH9d4i9IYIagzB+HTgej8limdo03GmmxcZ6\\nYNa58n5yQSaqu0TPRU9DsrKeGjadHTlZQGdzfq1SWsROCnHLrXFKE2ozIG3+hxA5\\nujBF/QWpX5+inXUwDJhBxp8isHbPEnBEUUd6ZRzCTjvN0jaUti5B9yFhO2G6mbE8\\nCvhyzQK8oJqsjZXnlcpPf95LP+9XbcCDjLSIaWJstzXO9tPiv6+x1MVWmivtRHcC\\nSTzpx8jAGCiG6ejLqWB87ZXiZm7ujlCBheHSf5RHwNHhUvoP2JEYalDDRxjcDMSx\\n4uV42Np4yJlIQEDlGHcBlXoL7vEukFpuWgkYdpcZy/Ou9qz8mXrpLcu8C8MhLmSC\\nixGoR5iRhV7cxoHLyuCzj87eYEA73Xu238DQorSEEuiVFnLzQ2+PJMs4qoI14q/L\\notlBDz+Ko6DrU/EZROYmiqMkLKXR2sx9zNAJwPYRs6nSH08tZ3dwqzZbgtP3Wazi\\nhLWHt5/En7wQRA5a+/dDEHXSoLvvSQ9jvhclhWf+eCYuq2eH+g54oyJGRSY+8GV7\\nujhLxkzl/3OZdhZPWoz4U13KpbSTcNWu5Y7oGDoabw19UbvqmLf1PJkpDH/tQgzB\\nxYtsLBRUcofpYoeIiIxfAA4do5WilJc8xqrGhkE4WcHfY24HXAiOvsjbxV+BRprX\\n1jtgJpV/9nJESMap+8PxipGUFRGjB83/uwJaa6mLftEKflX8i4MZ+HnqraXERsqA\\nWRUcDHIWmFfpzIB3iNuxawVvPH8NdCSPmQ9qTb8Cozl0AuOK2E9S+ke8oiYQScWR\\nLdu+zhej7GjuQ9R+Ub+wPWqvOA5qLXejqnCexVScDUuN+z9JWM3N2FG1MwxhAzhP\\ndEfoQHoBn6uyOmrVGP6fosV3chqhPoec42KeOAm1xDvx692isaIy1jPgIyPxeqhm\\n2Tw4E+02R7dlP8Ljf7JzfLm4oKpWHWlcHeqg24x6lY/wXU1RBcWaTa0AQUwoGm2m\\nIQCPfIqOEv/QC2HpO7SVCYkl65KwR0oTd1AzYxdxEq3xHQbh69EL0FGZPVxVCPI+\\nhEAyifKy1/tm3l91Rf/kGpHY7nIQKCXH49tmFwix8gke2nZJmRgX7/zAdMOAKeKH\\nAaIl4nQtv14EbaasMgnn9qgaDYnWzaReEob2QlQ/WYlTor61+KFpGtcf9jAkgudT\\n2op+4CF7wT2+aTXdtkVWfmv++iB8GnlqZdxLvyG1cTYjjYHVFbMSWQnxzQqiE2ms\\nQgp+byjWCumpsWTMdTO+d9NkDOo80vDpaRxEgebmhJ0MbX+eFjBgVg==\\n-----END RSA PRIVATE KEY-----\",\n      \"passphrase\": \"helloworld\"\n  }\n}'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -21757,7 +21757,7 @@
               "additionalProperties": {
                 "type": "string"
               },
-              "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
+              "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value is empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.",
               "example": [],
               "api_fieldname": "issuer_attributes",
               "entity_fieldname": "issuer_attributes",
@@ -21771,7 +21771,7 @@
               "additionalProperties": {
                 "type": "string"
               },
-              "description": "The credentials required for connecting to the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.\n",
+              "description": "The credentials required to connect to the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.",
               "example": [],
               "name": "issuer_credentials",
               "in": "body",
@@ -21789,7 +21789,7 @@
                 "GLOBAL_SIGN",
                 "CFSSL_AUTH"
               ],
-              "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
+              "description": "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. You must provide your own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  You must provide your own CFSSL host_url and credentials.",
               "example": "GLOBAL_SIGN",
               "api_fieldname": "issuer_type",
               "entity_fieldname": "issuer_type",
@@ -21849,7 +21849,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The ID of the certificate issuer.",
+                    "description": "Certificate issuer ID.",
                     "example": "01234567890ABCDEF01234567890ABCDEF",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -21860,7 +21860,7 @@
                     "additionalProperties": {
                       "type": "string"
                     },
-                    "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
+                    "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value is empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.",
                     "example": [],
                     "api_fieldname": "issuer_attributes",
                     "entity_fieldname": "issuer_attributes",
@@ -21872,7 +21872,7 @@
                       "GLOBAL_SIGN",
                       "CFSSL_AUTH"
                     ],
-                    "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
+                    "description": "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. You must provide your own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  You must provide your own CFSSL host_url and credentials.",
                     "example": "GLOBAL_SIGN",
                     "api_fieldname": "issuer_type",
                     "entity_fieldname": "issuer_type",
@@ -21908,7 +21908,7 @@
               "_key": "201"
             },
             {
-              "description": "Validation error: The data used to create the certificate issuer failed validation.\n",
+              "description": "Validation error: The data used to create the certificate issuer failed validation.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -22097,7 +22097,7 @@
               "_key": "403"
             },
             {
-              "description": "Conflict. A certificate issuer with this name already exists.\n",
+              "description": "Conflict. A certificate issuer with this name already exists.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -22160,7 +22160,7 @@
               "_key": "409"
             },
             {
-              "description": "The request failed due to customer configured external service.\n",
+              "description": "The request failed due to customer configured external service.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -22252,13 +22252,13 @@
           "_key": "create"
         },
         {
-          "description": "Delete a certificate issuer by ID.\n<br>\n**Example usage:**\n\n```\ncurl -X DELETE \\\n-H 'authorization: <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000\n```\n",
+          "description": "Delete a certificate issuer by ID.\n<br>\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000 \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n```",
           "field_renames": [],
           "fields": [
             {
               "name": "certificate-issuer-id",
               "in": "path",
-              "description": "Certificate issuer ID. <br> The ID of the certificate issuer.\nAn active certificate issuer may not be deleted.\n",
+              "description": "Certificate issuer ID.\nAn active certificate issuer cannot be deleted.",
               "required": true,
               "type": "string",
               "entity_fieldname": "id",
@@ -22276,7 +22276,7 @@
               "_key": "204"
             },
             {
-              "description": "Validation error: An active certificate issuer cannot be deleted.\n",
+              "description": "Validation error: An active certificate issuer cannot be deleted.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -22555,12 +22555,12 @@
           "_key": "delete"
         },
         {
-          "description": "Note: This endpoint does not implement pagination and therefore, list control parameters such as `limit` or `after` will be ignored by the system.\n",
+          "description": "**Note:** This endpoint does not use pagination, and therefore ignores list control parameters such as `limit` or `after`.",
           "field_renames": [],
           "fields": [
             {
               "type": "string",
-              "description": "The ID of The item after which to retrieve the next page.",
+              "description": "The ID of the item after which to retrieve the next page.",
               "example": "01631667477600000000000100100374",
               "api_fieldname": "after",
               "entity_fieldname": "after",
@@ -22572,7 +22572,7 @@
               "_key": "after"
             },
             {
-              "description": "Comma-separated list of data fields to return. Currently supported: `total_count`",
+              "description": "Comma-separated list of data fields to return. Currently supported: `total_count`.",
               "in": "query",
               "name": "include",
               "type": "string",
@@ -22585,7 +22585,7 @@
             },
             {
               "type": "integer",
-              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "description": "The number of results to return (2-1000). Values outside of this range are set to the closest limit.",
               "example": 50,
               "minimum": 2,
               "maximum": 1000,
@@ -22600,7 +22600,7 @@
             },
             {
               "type": "string",
-              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+              "description": "Record order. Acceptable values: ASC, DESC. Default: ASC.",
               "example": "DESC",
               "api_fieldname": "order",
               "entity_fieldname": "order",
@@ -22622,7 +22622,7 @@
                 "properties": [
                   {
                     "type": "string",
-                    "description": "The ID of The item after which to retrieve the next page.",
+                    "description": "The ID of the item after which to retrieve the next page.",
                     "example": "01631667477600000000000100100374",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
@@ -22661,7 +22661,7 @@
                         },
                         {
                           "type": "string",
-                          "description": "The ID of the certificate issuer.",
+                          "description": "Certificate issuer ID.",
                           "example": "01234567890ABCDEF01234567890ABCDEF",
                           "_key": "id"
                         },
@@ -22670,7 +22670,7 @@
                           "additionalProperties": {
                             "type": "string"
                           },
-                          "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
+                          "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value is empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.",
                           "example": [],
                           "_key": "issuer_attributes"
                         },
@@ -22680,7 +22680,7 @@
                             "GLOBAL_SIGN",
                             "CFSSL_AUTH"
                           ],
-                          "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
+                          "description": "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. You must provide your own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  You must provide your own CFSSL host_url and credentials.",
                           "example": "GLOBAL_SIGN",
                           "_key": "issuer_type"
                         },
@@ -22714,7 +22714,7 @@
                   },
                   {
                     "type": "boolean",
-                    "description": "Are there more results available.",
+                    "description": "More results are available.",
                     "example": false,
                     "api_fieldname": "has_more",
                     "entity_fieldname": "has_more",
@@ -22722,7 +22722,7 @@
                   },
                   {
                     "type": "integer",
-                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+                    "description": "The number of results to return (2-1000). Values outside of this range are set to the closest limit.",
                     "example": 50,
                     "minimum": 2,
                     "maximum": 1000,
@@ -22737,7 +22737,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The type of this API object is a `list`.",
+                    "description": "The type of this API object is `list`.",
                     "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
@@ -22745,7 +22745,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+                    "description": "Record order. Acceptable values: ASC, DESC. Default: ASC.",
                     "example": "DESC",
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
@@ -22940,7 +22940,7 @@
           "fields": [
             {
               "type": "string",
-              "description": "The ID of the certificate issuer.",
+              "description": "Certificate issuer ID.",
               "example": "01234567890ABCDEF01234567890ABCDEF",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -22987,7 +22987,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The ID of the certificate issuer.",
+                    "description": "Certificate issuer ID.",
                     "example": "01234567890ABCDEF01234567890ABCDEF",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -22998,7 +22998,7 @@
                     "additionalProperties": {
                       "type": "string"
                     },
-                    "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
+                    "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value is empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.",
                     "example": [],
                     "api_fieldname": "issuer_attributes",
                     "entity_fieldname": "issuer_attributes",
@@ -23010,7 +23010,7 @@
                       "GLOBAL_SIGN",
                       "CFSSL_AUTH"
                     ],
-                    "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
+                    "description": "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. You must provide your own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  You must provide your own CFSSL host_url and credentials.",
                     "example": "GLOBAL_SIGN",
                     "api_fieldname": "issuer_type",
                     "entity_fieldname": "issuer_type",
@@ -23046,7 +23046,7 @@
               "_key": "200"
             },
             {
-              "description": "Validation error: The data used to get the certificate issuer failed validation.\n",
+              "description": "Validation error: The data used to get the certificate issuer failed validation.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -23330,7 +23330,7 @@
           "_key": "read"
         },
         {
-          "description": "Update a certificate issuer.\n<br>\n**Example usage:**\n\n```\ncurl -X PUT \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000 \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\",\n  \"name\": \"GlobalSign Issuer\"\n}'\n```\n",
+          "description": "Update a certificate issuer.\n<br>\n**Example:**\n\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000 \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\",\n  \"name\": \"GlobalSign Issuer\"\n}'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -23348,7 +23348,7 @@
             },
             {
               "type": "string",
-              "description": "The ID of the certificate issuer.",
+              "description": "Certificate issuer ID.",
               "example": "01234567890ABCDEF01234567890ABCDEF",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -23362,7 +23362,7 @@
               "additionalProperties": {
                 "type": "string"
               },
-              "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
+              "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value is empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.",
               "example": [],
               "api_fieldname": "issuer_attributes",
               "entity_fieldname": "issuer_attributes",
@@ -23376,7 +23376,7 @@
               "additionalProperties": {
                 "type": "string"
               },
-              "description": "The credentials required for connecting to the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.\n",
+              "description": "The credentials required to connect to the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.",
               "example": [],
               "name": "issuer_credentials",
               "in": "body",
@@ -23438,7 +23438,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The ID of the certificate issuer.",
+                    "description": "Certificate issuer ID.",
                     "example": "01234567890ABCDEF01234567890ABCDEF",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -23449,7 +23449,7 @@
                     "additionalProperties": {
                       "type": "string"
                     },
-                    "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
+                    "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value is empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.",
                     "example": [],
                     "api_fieldname": "issuer_attributes",
                     "entity_fieldname": "issuer_attributes",
@@ -23461,7 +23461,7 @@
                       "GLOBAL_SIGN",
                       "CFSSL_AUTH"
                     ],
-                    "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
+                    "description": "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. You must provide your own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  You must provide your own CFSSL host_url and credentials.",
                     "example": "GLOBAL_SIGN",
                     "api_fieldname": "issuer_type",
                     "entity_fieldname": "issuer_type",
@@ -23497,7 +23497,7 @@
               "_key": "200"
             },
             {
-              "description": "Validation error: The data used to update the certificate issuer failed validation.\n",
+              "description": "Validation error: The data used to update the certificate issuer failed validation.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -23749,7 +23749,7 @@
               "_key": "404"
             },
             {
-              "description": "Conflict. A certificate issuer with this name already exists.\n",
+              "description": "Conflict. A certificate issuer with this name already exists.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -23812,7 +23812,7 @@
               "_key": "409"
             },
             {
-              "description": "The request failed due to customer configured external service.\n",
+              "description": "The request failed due to customer-configured external service.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -23904,13 +23904,13 @@
           "_key": "update"
         },
         {
-          "description": "A utility API that can be used to validate the user configuration before activating a certificate issuer.\nVerifies that the certificate issuer is accessible and can be used to generate certificates by Device Management.\n<br>\n**Note:**\nThe API requests the 3rd party CA to sign a test certificate.\nFor some 3rd party CAs, this operation may make use of the account quota.\n<br>\n**Example usage:**\n\n```\ncurl -X POST \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify\n```\n",
+          "description": "Validates the certificate issuer by sending a signing request for a test certificate. This should be done before the configuration is made active.\n<br>\n**Note:**\nThe API requests the 3rd party CA to sign a test certificate.\nFor some 3rd party CAs, this operation may use the account quota.\n<br>\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n```",
           "field_renames": [],
           "fields": [
             {
               "name": "certificate-issuer-id",
               "in": "path",
-              "description": "Certificate issuer ID. <br> The ID of the certificate issuer.\n",
+              "description": "Certificate issuer ID.",
               "required": true,
               "type": "string",
               "entity_fieldname": "id",
@@ -23930,15 +23930,15 @@
                 "properties": [
                   {
                     "type": "string",
-                    "description": "Provides details in case of failure.\n",
-                    "example": "message describing the verification failure",
+                    "description": "Provides details in case of failure.",
+                    "example": "Message describing the verification failure",
                     "api_fieldname": "message",
                     "entity_fieldname": "message",
                     "_key": "message"
                   },
                   {
                     "type": "boolean",
-                    "description": "Indicates whether the certificate issuer was verified successfully.\n",
+                    "description": "Indicates whether the certificate issuer was verified successfully.",
                     "example": false,
                     "api_fieldname": "successful",
                     "entity_fieldname": "successful",
@@ -24205,7 +24205,7 @@
               "_key": "404"
             },
             {
-              "description": "The request failed due to customer configured external service.\n",
+              "description": "The request failed due to customer configured external service.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -24326,7 +24326,7 @@
         },
         {
           "type": "string",
-          "description": "The ID of the certificate issuer.",
+          "description": "Certificate issuer ID.",
           "example": "01234567890ABCDEF01234567890ABCDEF",
           "api_fieldname": "id",
           "readOnly": false,
@@ -24338,7 +24338,7 @@
           "additionalProperties": {
             "type": "string"
           },
-          "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
+          "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value is empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.",
           "example": [],
           "api_fieldname": "issuer_attributes",
           "readOnly": false,
@@ -24351,7 +24351,7 @@
             "GLOBAL_SIGN",
             "CFSSL_AUTH"
           ],
-          "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
+          "description": "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. You must provide your own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  You must provide your own CFSSL host_url and credentials.",
           "example": "GLOBAL_SIGN",
           "api_fieldname": "issuer_type",
           "readOnly": false,
@@ -24387,13 +24387,13 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Configure the certificate issuer to be used when creating the device custom certificates.\n<br>\n**Example usage:**\n\n```\ncurl -X POST \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\\n-d '{\n  \"reference\": \"customer.dlms\",\n  \"certificate_issuer_id\": \"01621a36719d507b9d48a91b00000000\"\n}'\n```\n",
+          "description": "Configure the certificate issuer to use when creating device custom certificates.\n<br>\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"reference\": \"customer.dlms\",\n  \"certificate_issuer_id\": \"01621a36719d507b9d48a91b00000000\"\n}'\n```",
           "field_renames": [],
           "fields": [
             {
               "x-nullable": true,
               "type": "string",
-              "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
+              "description": "Certificate issuer ID.\nNull if Device Management internal HSM is used.",
               "example": "01648415a2a30242ac18000500000000",
               "api_fieldname": "certificate_issuer_id",
               "entity_fieldname": "certificate_issuer_id",
@@ -24425,7 +24425,7 @@
                   {
                     "x-nullable": true,
                     "type": "string",
-                    "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
+                    "description": "Certificate issuer ID.\nNull if Device Management internal HSM is used.",
                     "example": "01648415a2a30242ac18000500000000",
                     "api_fieldname": "certificate_issuer_id",
                     "entity_fieldname": "certificate_issuer_id",
@@ -24450,7 +24450,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The ID of the certificate issuer configuration.\n",
+                    "description": "Certificate issuer ID. configuration.",
                     "example": "01648415a2a30242ac18000500000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -24687,7 +24687,7 @@
               "_key": "403"
             },
             {
-              "description": "A certificate issuer configuration with this reference already exists.\n",
+              "description": "A certificate issuer configuration with this reference already exists.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -24781,13 +24781,13 @@
           "_key": "create"
         },
         {
-          "description": "Delete the configured certificate issuer configuration.\nYou can only delete the configurations of custom certificates.\n",
+          "description": "Delete certificate issuer configuration.\nYou can only delete custom certificate configurations.",
           "field_renames": [],
           "fields": [
             {
               "name": "certificate-issuer-configuration-id",
               "in": "path",
-              "description": "The ID of the certificate issuer configuration.\n",
+              "description": "Certificate issuer ID configuration.",
               "required": true,
               "type": "string",
               "entity_fieldname": "id",
@@ -25085,7 +25085,7 @@
           "_key": "delete"
         },
         {
-          "description": "Provides the configured certificate issuer to be used when creating device\ncertificates for LwM2M communication.<br>\n",
+          "description": "Provides the configured certificate issuer used when creating device\ncertificates for LwM2M.",
           "field_renames": [],
           "fields": [],
           "method": "get",
@@ -25099,7 +25099,7 @@
                   {
                     "x-nullable": true,
                     "type": "string",
-                    "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
+                    "description": "Certificate issuer ID.\nNull if Device Management internal HSM is used.",
                     "example": "01648415a2a30242ac18000500000000",
                     "api_fieldname": "certificate_issuer_id",
                     "entity_fieldname": "certificate_issuer_id",
@@ -25124,7 +25124,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The ID of the certificate issuer configuration.\n",
+                    "description": "Certificate issuer ID. configuration.",
                     "example": "01648415a2a30242ac18000500000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -25394,12 +25394,12 @@
           "_key": "get_default"
         },
         {
-          "description": "Get certificate issuer configurations, optionally filtered by reference.\n<br>\n**Example usage:**\n\n```\ncurl \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\\n```\n```\ncurl \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms \\\n```\nNote: This endpoint does not implement pagination and therefore, list control parameters such as `limit` or `after` will be ignored by the system.\n",
+          "description": "Get certificate issuer configurations, optionally filtered by reference.\n<br>\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n```\n<br>\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n```\n**Note:** This endpoint does not implement pagination, and therefore ignores list control parameters such as `limit` or `after`.",
           "field_renames": [],
           "fields": [
             {
               "type": "string",
-              "description": "The ID of The item after which to retrieve the next page.",
+              "description": "The ID of the item after which to retrieve the next page.",
               "example": "01631667477600000000000100100374",
               "api_fieldname": "after",
               "entity_fieldname": "after",
@@ -25411,7 +25411,7 @@
               "_key": "after"
             },
             {
-              "description": "Comma-separated list of data fields to return. Currently supported: `total_count`",
+              "description": "Comma-separated list of data fields to return. Currently supported: `total_count`.",
               "in": "query",
               "name": "include",
               "type": "string",
@@ -25424,7 +25424,7 @@
             },
             {
               "type": "integer",
-              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+              "description": "The number of results to return (2-1000). Values outside of this range are set to the closest limit.",
               "example": 50,
               "minimum": 2,
               "maximum": 1000,
@@ -25439,7 +25439,7 @@
             },
             {
               "type": "string",
-              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
+              "description": "Record order. Acceptable values: ASC, DESC. Default: ASC.",
               "example": "DESC",
               "api_fieldname": "order",
               "entity_fieldname": "order",
@@ -25475,7 +25475,7 @@
                         {
                           "x-nullable": true,
                           "type": "string",
-                          "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
+                          "description": "Certificate issuer ID.\nNull if Device Management internal HSM is used.",
                           "example": "01648415a2a30242ac18000500000000",
                           "_key": "certificate_issuer_id"
                         },
@@ -25494,7 +25494,7 @@
                         },
                         {
                           "type": "string",
-                          "description": "The ID of the certificate issuer configuration.\n",
+                          "description": "Certificate issuer ID. configuration.",
                           "example": "01648415a2a30242ac18000500000000",
                           "_key": "id"
                         },
@@ -25536,7 +25536,7 @@
                   },
                   {
                     "type": "boolean",
-                    "description": "Are there more results available.",
+                    "description": "More results are available.",
                     "example": false,
                     "api_fieldname": "has_more",
                     "entity_fieldname": "has_more",
@@ -25544,7 +25544,7 @@
                   },
                   {
                     "type": "integer",
-                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
+                    "description": "The number of results to return (2-1000). Values outside of this range are set to the closest limit.",
                     "example": 50,
                     "minimum": 2,
                     "maximum": 1000,
@@ -25554,7 +25554,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The type of this API object is a `list`.",
+                    "description": "The type of this API object is `list`.",
                     "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
@@ -25562,7 +25562,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The creation time based order of the entries.",
+                    "description": "Record order based on creation time.",
                     "example": "DESC",
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
@@ -25816,12 +25816,12 @@
           "_key": "list"
         },
         {
-          "description": "Provides the configured certificate issuer.\n",
+          "description": "Provides the configured certificate issuer.",
           "field_renames": [],
           "fields": [
             {
               "type": "string",
-              "description": "The ID of the certificate issuer configuration.\n",
+              "description": "Certificate issuer ID. configuration.",
               "example": "01648415a2a30242ac18000500000000",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -25842,7 +25842,7 @@
                   {
                     "x-nullable": true,
                     "type": "string",
-                    "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
+                    "description": "Certificate issuer ID.\nNull if Device Management internal HSM is used.",
                     "example": "01648415a2a30242ac18000500000000",
                     "api_fieldname": "certificate_issuer_id",
                     "entity_fieldname": "certificate_issuer_id",
@@ -25867,7 +25867,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The ID of the certificate issuer configuration.\n",
+                    "description": "Certificate issuer ID. configuration.",
                     "example": "01648415a2a30242ac18000500000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -26199,13 +26199,13 @@
           "_key": "read"
         },
         {
-          "description": "Update the configured certificate issuer configuration.\n",
+          "description": "Update certificate issuer configuration.",
           "field_renames": [],
           "fields": [
             {
               "x-nullable": true,
               "type": "string",
-              "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
+              "description": "Certificate issuer ID.\nNull if Device Management internal HSM is used.",
               "example": "01648415a2a30242ac18000500000000",
               "api_fieldname": "certificate_issuer_id",
               "entity_fieldname": "certificate_issuer_id",
@@ -26216,7 +26216,7 @@
             },
             {
               "type": "string",
-              "description": "The ID of the certificate issuer configuration.\n",
+              "description": "Certificate issuer ID. configuration.",
               "example": "01648415a2a30242ac18000500000000",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -26237,7 +26237,7 @@
                   {
                     "x-nullable": true,
                     "type": "string",
-                    "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
+                    "description": "Certificate issuer ID.\nNull if Device Management internal HSM is used.",
                     "example": "01648415a2a30242ac18000500000000",
                     "api_fieldname": "certificate_issuer_id",
                     "entity_fieldname": "certificate_issuer_id",
@@ -26262,7 +26262,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The ID of the certificate issuer configuration.\n",
+                    "description": "Certificate issuer ID. configuration.",
                     "example": "01648415a2a30242ac18000500000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -26603,7 +26603,7 @@
         {
           "x-nullable": true,
           "type": "string",
-          "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
+          "description": "Certificate issuer ID.\nNull if Device Management internal HSM is used.",
           "example": "01648415a2a30242ac18000500000000",
           "api_fieldname": "certificate_issuer_id",
           "readOnly": false,
@@ -26622,7 +26622,7 @@
         },
         {
           "type": "string",
-          "description": "The ID of the certificate issuer configuration.\n",
+          "description": "Certificate issuer ID. configuration.",
           "example": "01648415a2a30242ac18000500000000",
           "api_fieldname": "id",
           "readOnly": false,
@@ -32112,7 +32112,7 @@
             },
             {
               "type": "string",
-              "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
+              "description": "The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
               "example": "00000000-0000-0000-0000-000000000000",
               "api_fieldname": "serial_number",
               "entity_fieldname": "serial_number",
@@ -32469,7 +32469,7 @@
                   },
                   "serial_number": {
                     "type": "string",
-                    "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
+                    "description": "The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "api_fieldname": "serial_number",
                     "entity_fieldname": "serial_number"
@@ -32947,7 +32947,7 @@
                         },
                         "serial_number": {
                           "type": "string",
-                          "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
+                          "description": "The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
                           "example": "00000000-0000-0000-0000-000000000000"
                         },
                         "state": {
@@ -33754,7 +33754,7 @@
                   },
                   "serial_number": {
                     "type": "string",
-                    "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
+                    "description": "The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "api_fieldname": "serial_number",
                     "entity_fieldname": "serial_number"
@@ -35169,7 +35169,7 @@
                   },
                   "serial_number": {
                     "type": "string",
-                    "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
+                    "description": "The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
                     "example": "00000000-0000-0000-0000-000000000000",
                     "api_fieldname": "serial_number",
                     "entity_fieldname": "serial_number"
@@ -35648,7 +35648,7 @@
         },
         {
           "type": "string",
-          "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
+          "description": "The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
           "example": "00000000-0000-0000-0000-000000000000",
           "api_fieldname": "serial_number",
           "readOnly": false,
@@ -37059,7 +37059,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Public API"
+        "Device ownership - enrollments"
       ],
       "group_id": "Devices",
       "_key": "device_enrollment"
@@ -37143,6 +37143,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "description": "Link to error report file.\nNull when creating bulk upload or delete.",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
@@ -37160,6 +37161,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "description": "Link to full report file.\nNull when creating bulk upload or delete.",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
@@ -37542,6 +37544,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "description": "Link to error report file.\nNull when creating bulk upload or delete.",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
@@ -37559,6 +37562,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "description": "Link to full report file.\nNull when creating bulk upload or delete.",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
@@ -37913,6 +37917,7 @@
         },
         {
           "type": "string",
+          "x-nullable": true,
           "description": "Link to error report file.\nNull when creating bulk upload or delete.",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
           "api_fieldname": "errors_report_file",
@@ -37922,6 +37927,7 @@
         },
         {
           "type": "string",
+          "x-nullable": true,
           "description": "Link to full report file.\nNull when creating bulk upload or delete.",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
           "api_fieldname": "full_report_file",
@@ -37975,7 +37981,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Public API"
+        "Device ownership - enrollments"
       ],
       "group_id": "Devices",
       "_key": "device_enrollment_bulk_create"
@@ -37987,7 +37993,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to delete.\n\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <api_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes\n\n```\n**To ensure your CSV file is valid:**\n1. The first line of the file (header) is ignored.\n1. Each line can contain comma-separated values, where the first value is the Enrollment ID. Everything after the first comma is ignored.\n1. Valid enrollments begin with A followed by a - and 95 characters (examples below).\n1. One enrollment ID per line. Empty lines are ignored.\n1. Trailing comma at the end of the line is optional.\n1. Lines are terminated with either a line feed \\n, a carriage return \\r, or both \\r\\n.\n1. Leading and trailing whitespace characters (Unicode U+0000 - U+0020) are removed from the identity before validation.\n1. Empty identities are ignored.\n1. Valid enrollment identities may be enclosed within quotation marks. Whitespace inside quotation marks is not trimmed and will cause validation to fail. Empty quotation marks are also invalid.\n1. Use UTF-8 encoding.\n\n**A valid enrollment file:**\n```\n\"Examples of valid identites, notes\"\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\",\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\"\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is ignored,\n A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12       , Whitespace is trimmed before validation.\n  \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12\"       , Whitespace around quotation marks is also trimmed.\n\n```\n\n**A file containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", First line is ignored.\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Invalid version identifier.\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too-short identity.\n\"\", Empty quotation marks are an invalid identity.\n\" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 \", Whitespace inside quotation marks is not trimmed, causing an error.\n\n```\n\n**An empty file:**\n```\n\"Examples of blank lines that are ignored.\"\n\n,,\n, This is also considered to a blank line.\n```",
+          "description": "With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to delete.\n\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <api_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes\n\n```\n**To ensure your CSV file is valid:**\n1. The first line of the file (header) is ignored.\n1. Each line can contain comma-separated values, where the first value is the Enrollment ID. Everything after the first comma is ignored.\n1. Valid enrollments begin with A followed by a - and 95 characters (examples below).\n1. One enrollment ID per line. Empty lines are ignored.\n1. Trailing comma at the end of the line is optional.\n1. Lines are terminated with either a line feed \\n, a carriage return \\r, or both \\r\\n.\n1. Leading and trailing whitespace characters (Unicode U+0000 - U+0020) are removed from the identity before validation.\n1. Empty identities are ignored.\n1. Valid enrollment identities may be enclosed within quotation marks. Whitespace inside quotation marks is not trimmed and will cause validation to fail. Empty quotation marks are also invalid.\n1. Use UTF-8 encoding.\n\n**A valid enrollment file:**\n```\n\"Examples of valid identites, notes\"\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\",\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\"\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is ignored,\n A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12       , Whitespace is trimmed before validation.\n  \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12\"       , Whitespace around quotation marks is also trimmed.\n\n```\n\n**A file containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", First line is ignored.\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Invalid version identifier.\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23, Too-short identity.\n\"\", Empty quotation marks are an invalid identity.\n\" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 \", Whitespace inside quotation marks is not trimmed, causing an error.\n\n```\n\n**An empty file:**\n```\n\"Examples of blank lines that are ignored.\"\n\n,,\n, This is also considered to a blank line.\n```",
           "field_renames": [],
           "fields": [
             {
@@ -38059,6 +38065,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "description": "Link to error report file.\nNull when creating bulk upload or delete.",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
@@ -38076,6 +38083,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "description": "Link to full report file.\nNull when creating bulk upload or delete.",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
@@ -38461,6 +38469,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "description": "Link to error report file.\nNull when creating bulk upload or delete.",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
@@ -38478,6 +38487,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "description": "Link to full report file.\nNull when creating bulk upload or delete.",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
@@ -38835,6 +38845,7 @@
         },
         {
           "type": "string",
+          "x-nullable": true,
           "description": "Link to error report file.\nNull when creating bulk upload or delete.",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
           "api_fieldname": "errors_report_file",
@@ -38844,6 +38855,7 @@
         },
         {
           "type": "string",
+          "x-nullable": true,
           "description": "Link to full report file.\nNull when creating bulk upload or delete.",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
           "api_fieldname": "full_report_file",
@@ -38899,7 +38911,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Public API"
+        "Device ownership - enrollments"
       ],
       "group_id": "Devices",
       "_key": "device_enrollment_bulk_delete"
@@ -41481,7 +41493,7 @@
                         },
                         "serial_number": {
                           "type": "string",
-                          "description": "The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
+                          "description": "The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.",
                           "example": "00000000-0000-0000-0000-000000000000"
                         },
                         "state": {
@@ -99826,8 +99838,8 @@
       "fields": [
         {
           "type": "string",
-          "description": "Provides details in case of failure.\n",
-          "example": "message describing the verification failure",
+          "description": "Provides details in case of failure.",
+          "example": "Message describing the verification failure",
           "api_fieldname": "message",
           "readOnly": true,
           "required": false,
@@ -99835,7 +99847,7 @@
         },
         {
           "type": "boolean",
-          "description": "Indicates whether the certificate issuer was verified successfully.\n",
+          "description": "Indicates whether the certificate issuer was verified successfully.",
           "example": false,
           "api_fieldname": "successful",
           "readOnly": true,
