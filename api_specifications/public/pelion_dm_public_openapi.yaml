@@ -7734,6 +7734,7 @@ definitions:
         enum:
         - connected
         - disconnected
+        - unknown
         example: disconnected
         type: string
     type: object
