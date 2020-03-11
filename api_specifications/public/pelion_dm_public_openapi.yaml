@@ -1118,7 +1118,9 @@ definitions:
     description: Represents an API key in requests towards Device Management.
     properties:
       groups:
-        description: A list of group IDs this API key belongs to.
+        description: 'A list of group IDs this API key belongs to.
+
+          Adding an API key to the ''Administrators'' group is restricted to administrators.'
         items:
           type: string
         type: array
@@ -1127,10 +1129,12 @@ definitions:
         maxLength: 100
         type: string
       owner:
-        description: The owner of this API key.
+        description: The owner of this API key. Only an administrator can set the
+          owner of an API key.
         type: string
       status:
-        description: The status of the API key.
+        description: The status of the API key. Only an administrator can set the
+          status of an API key.
         enum:
         - ACTIVE
         - INACTIVE
@@ -1262,7 +1266,8 @@ definitions:
     description: Represents an API key in requests towards Device Management.
     properties:
       groups:
-        description: A list of group IDs this API key belongs to.
+        description: A list of group IDs this API key belongs to. Only an administrator
+          can update the group membership of an API key.
         items:
           type: string
         type: array
@@ -1271,10 +1276,12 @@ definitions:
         maxLength: 100
         type: string
       owner:
-        description: The owner of this API key.
+        description: The owner of this API key. Only an administrator can update the
+          owner of an API key.
         type: string
       status:
-        description: The status of the API key.
+        description: The status of the API key. Only the owner of the API key or an
+          administrator can update the status of an API key.
         enum:
         - ACTIVE
         - INACTIVE
@@ -9917,6 +9924,8 @@ paths:
       description: 'Retrieve an array of tenant accounts, optionally filtered by status
         and tier level.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -10041,6 +10050,8 @@ paths:
       - application/json
       description: 'Create a new account.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -10161,6 +10172,8 @@ paths:
       consumes:
       - application/json
       description: 'Update the account.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -10295,6 +10308,8 @@ paths:
     get:
       description: 'Retrieve detailed information about an account.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -10351,6 +10366,8 @@ paths:
       consumes:
       - application/json
       description: 'Update an account.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -10414,6 +10431,8 @@ paths:
   /v3/accounts/{account_id}/api-keys:
     get:
       description: 'Retrieve an array of API keys, optionally filtered by the owner.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -10503,6 +10522,8 @@ paths:
       description: 'Create a new API key. There is no default value for the owner
         ID, and it must be from the same account where the new API key is created.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -10562,6 +10583,8 @@ paths:
     delete:
       description: 'Delete an API key.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -10607,8 +10630,8 @@ paths:
       - Tenant accounts - API keys
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: "Retrieve details of an API key.\n\n**Example:**\n```\ncurl -X\
-        \ GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
+      description: "Retrieve details of an API key.\n<b>Note:</b> This endpoint is\
+        \ restricted to administrators.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
         \ \\\n -H 'Authorization: Bearer <api_key>'\n```"
       operationId: getAccountApiKey
       parameters:
@@ -10647,6 +10670,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     put:
       description: 'Update API key details.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -10714,6 +10739,8 @@ paths:
       - application/json
       deprecated: true
       description: 'Remove API key from groups.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -10784,6 +10811,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve an array of policy groups associated with an API key.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -10862,6 +10891,8 @@ paths:
       deprecated: true
       description: 'Add API key to groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -10939,6 +10970,8 @@ paths:
       - application/json
       description: 'Add an API key to groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -11009,6 +11042,8 @@ paths:
       - application/json
       description: 'Remove an API key from groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -11073,6 +11108,8 @@ paths:
     post:
       description: 'Reset the secret key of the API key.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -11133,6 +11170,8 @@ paths:
     delete:
       description: 'Delete account branding colors for all themes.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example usage:**
 
@@ -11170,6 +11209,8 @@ paths:
     delete:
       description: 'Delete account dark theme branding colors.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example usage:**
 
@@ -11205,6 +11246,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve dark theme branding colors for an account.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -11250,8 +11293,9 @@ paths:
     put:
       consumes:
       - application/json
-      description: "Update an array of dark theme branding colors.\n\n**Example:**\n\
-        ```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark\
+      description: "Update an array of dark theme branding colors.\n<b>Note:</b> This\
+        \ endpoint is restricted to administrators.\n\n**Example:**\n```\ncurl -X\
+        \ PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
         \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"#f3f93e\" }]'\n```"
       operationId: bulkSetAccountDarkColors
@@ -11297,6 +11341,8 @@ paths:
   /v3/accounts/{account_id}/branding-colors/dark/{reference}:
     delete:
       description: 'Resets the branding color to its dark theme default.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -11345,6 +11391,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the requested dark theme branding color.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -11397,6 +11445,8 @@ paths:
       consumes:
       - application/json
       description: 'Update a dark theme branding color.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -11463,6 +11513,8 @@ paths:
     delete:
       description: 'Delete account light theme branding colors.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example usage:**
 
@@ -11498,6 +11550,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve light theme branding colors for an account.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -11543,8 +11597,9 @@ paths:
     put:
       consumes:
       - application/json
-      description: "Update an array of light theme branding colors.\n\n**Example:**\n\
-        ```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light\
+      description: "Update an array of light theme branding colors.\n<b>Note:</b>\
+        \ This endpoint is restricted to administrators.\n\n**Example:**\n```\ncurl\
+        \ -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
         \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"purple\" }]'\n```"
       operationId: bulkSetAccountLightColors
@@ -11590,6 +11645,8 @@ paths:
   /v3/accounts/{account_id}/branding-colors/light/{reference}:
     delete:
       description: 'Resets the branding color to its light theme default.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -11638,6 +11695,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the requested light theme branding color.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -11689,6 +11748,8 @@ paths:
       consumes:
       - application/json
       description: 'Update a light theme branding color.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -11755,6 +11816,8 @@ paths:
     delete:
       description: 'Delete account branding images for all themes.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example usage:**
 
@@ -11792,6 +11855,8 @@ paths:
     delete:
       description: 'Delete account dark theme branding images.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example usage:**
 
@@ -11827,6 +11892,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the metadata of all dark theme branding images.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -11872,6 +11939,8 @@ paths:
   /v3/accounts/{account_id}/branding-images/dark/{reference}:
     get:
       description: 'Retrieve metadata of one account dark theme branding image.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -11923,6 +11992,8 @@ paths:
   /v3/accounts/{account_id}/branding-images/dark/{reference}/clear:
     post:
       description: 'Revert an account branding image to dark theme default.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -11976,6 +12047,8 @@ paths:
       - image/jpeg
       description: 'Upload a new account dark theme branding image in PNG or JPEG
         format.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -12047,8 +12120,10 @@ paths:
     post:
       consumes:
       - multipart/form-data
-      description: Upload a new account dark theme branding image as form data in
+      description: 'Upload a new account dark theme branding image as form data in
         PNG or JPEG format.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: uploadAccountDarkImageMultipart
       parameters:
       - description: The ID of the account.
@@ -12105,6 +12180,8 @@ paths:
     delete:
       description: 'Delete account light theme branding images.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example usage:**
 
@@ -12140,6 +12217,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the metadata of all light theme branding images.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -12185,6 +12264,8 @@ paths:
   /v3/accounts/{account_id}/branding-images/light/{reference}:
     get:
       description: 'Retrieve metadata for one account light theme branding image.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -12237,6 +12318,8 @@ paths:
     post:
       description: 'Revert an account branding image to light theme default.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -12287,6 +12370,8 @@ paths:
       - image/jpeg
       description: 'Upload a new account light theme branding image in PNG or JPEG
         format.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -12358,8 +12443,10 @@ paths:
     post:
       consumes:
       - multipart/form-data
-      description: Upload a new account branding image as form data in PNG or JPEG
+      description: 'Upload a new account branding image as form data in PNG or JPEG
         format.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: uploadAccountLightImageMultipart
       parameters:
       - description: The ID of the account.
@@ -12416,7 +12503,9 @@ paths:
     get:
       consumes:
       - application/json
-      description: Retrieve an array of identity providers.
+      description: 'Retrieve an array of identity providers.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: getAllAccountIdentityProviders
       parameters:
       - description: The ID of the account.
@@ -12475,7 +12564,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Create a new identity provider.
+      description: 'Create a new identity provider.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: createAccountIdentityProvider
       parameters:
       - description: Account ID.
@@ -12533,7 +12624,9 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/identity-providers/{identity_provider_id}:
     delete:
-      description: Delete an identity provider by ID.
+      description: 'Delete an identity provider by ID.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: deleteAccountIdentityProvider
       parameters:
       - description: Account ID.
@@ -12568,7 +12661,9 @@ paths:
       - Tenant accounts - identity providers
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: Retrieve an identity provider.
+      description: 'Retrieve an identity provider.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: getAccountIdentityProvider
       parameters:
       - description: Account ID.
@@ -12607,7 +12702,9 @@ paths:
     put:
       consumes:
       - application/json
-      description: Update an existing identity provider.
+      description: 'Update an existing identity provider.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: updateAccountIdentityProvider
       parameters:
       - description: Account ID.
@@ -12665,7 +12762,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Delete a service provider certificate.
+      description: 'Delete a service provider certificate.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: deleteAccountSpCertificate
       parameters:
       - description: Account ID.
@@ -12709,7 +12808,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Generate a new service provider certificate.
+      description: 'Generate a new service provider certificate.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: generateAccountSpCertificate
       parameters:
       - description: Account ID.
@@ -12764,7 +12865,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Refreshes an OIDC IdP's signing keys.
+      description: 'Refresh an OIDC IdP''s signing keys.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: refreshAccountJwks
       parameters:
       - description: The ID of the account to be managed.
@@ -12805,13 +12908,15 @@ paths:
           description: Account or identity provider not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Refreshes the OIDC signing keys.
+      summary: Refresh the OIDC signing keys.
       tags:
       - Tenant accounts - identity providers
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/limitations:
     get:
-      description: Retrieve an array of entitlement limitations.
+      description: 'Retrieve an array of entitlement limitations.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: aggregatorGetAccountLimitations
       parameters:
       - description: The ID of the account.
@@ -12853,7 +12958,9 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/limitations/{limitation_id}:
     get:
-      description: Retrieve an entitlement limitation.
+      description: 'Retrieve an entitlement limitation.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: aggregatorGetAccountLimitation
       parameters:
       - description: The ID of the account.
@@ -12891,7 +12998,9 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/notifications:
     get:
-      description: Retrieve an array of email notification logs.
+      description: 'Retrieve an array of email notification logs.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: getAccountNofificationEntries
       parameters:
       - description: Account ID.
@@ -12947,7 +13056,9 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/accounts/{account_id}/notifications/{notification_id}:
     get:
-      description: Retrieve an email notifications log entry.
+      description: 'Retrieve an email notifications log entry.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: getAccountNofificationEntry
       parameters:
       - description: The ID of the account for which this notification should be retrieved.
@@ -12990,6 +13101,8 @@ paths:
   /v3/accounts/{account_id}/policy-groups:
     get:
       description: 'Retrieve an array of policy groups.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -13070,6 +13183,8 @@ paths:
       - application/json
       description: 'Create a new group.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -13133,6 +13248,8 @@ paths:
     delete:
       description: 'Delete a group.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -13179,6 +13296,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve policy group details.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -13230,6 +13349,8 @@ paths:
       consumes:
       - application/json
       description: 'Add users and API keys to groups.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -13301,6 +13422,8 @@ paths:
       - application/json
       description: 'Update a group name.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -13367,6 +13490,8 @@ paths:
       - application/json
       deprecated: true
       description: 'Remove API keys from groups.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -13436,6 +13561,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve an array of API keys associated with a policy group.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -13512,6 +13639,8 @@ paths:
       deprecated: true
       description: 'Add API keys to account groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -13581,6 +13710,8 @@ paths:
     post:
       description: 'Add API keys to account groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -13646,6 +13777,8 @@ paths:
       consumes:
       - application/json
       description: 'Remove API keys from groups.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -13713,8 +13846,8 @@ paths:
       consumes:
       - application/json
       deprecated: true
-      description: "Remove users from groups.\n\n**Example:**\n```\ncurl -X DELETE\
-        \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users\
+      description: "Remove users from groups.\n<b>Note:</b> This endpoint is restricted\
+        \ to administrators.\n\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json'\
         \ \\\n-d '{\"users\": [\"0162056a9a1586f30242590700000000\",\"0117056a9a1586f30242590700000000\"\
         ]}'\n```"
@@ -13771,6 +13904,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve an array of users associated with a policy group.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -13868,6 +14003,8 @@ paths:
       deprecated: true
       description: 'Add users to account group.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -13937,6 +14074,8 @@ paths:
     post:
       description: 'Add users to account group.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -14001,7 +14140,8 @@ paths:
     post:
       consumes:
       - application/json
-      description: "Remove users from groups.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users\
+      description: "Remove users from groups.\n<b>Note:</b> This endpoint is restricted\
+        \ to administrators.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users\
         \ \\\n-H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json'\
         \ \\\n-d '{\"users\": [\"0162056a9a1586f30242590700000000\",\"0117056a9a1586f30242590700000000\"\
         ]}'\n```"
@@ -14054,6 +14194,8 @@ paths:
   /v3/accounts/{account_id}/trusted-certificates:
     get:
       description: 'Retrieve an array of trusted certificates.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -14211,6 +14353,8 @@ paths:
       - application/json
       description: 'Upload new trusted certificate.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -14272,6 +14416,8 @@ paths:
     delete:
       description: 'Delete a trusted certificate.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -14318,6 +14464,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve a trusted certificate.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -14368,8 +14516,8 @@ paths:
     put:
       consumes:
       - application/json
-      description: "Update a trusted certificate.\n\n**Example:**\n```\ncurl -X PUT\
-        \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}\
+      description: "Update a trusted certificate.\n<b>Note:</b> This endpoint is restricted\
+        \ to administrators.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}\
         \ \\\n -H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json'\
         \ \\\n -d {\"description\": \"very important cert\"}\n ```"
       operationId: updateAccountCertificate
@@ -14421,6 +14569,8 @@ paths:
   /v3/accounts/{account_id}/user-invitations:
     get:
       description: 'Retrieve an array of active user invitations.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -14495,6 +14645,8 @@ paths:
       - application/json
       description: 'Invite a new or existing user.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -14550,6 +14702,8 @@ paths:
     delete:
       description: 'Delete an active user invitation sent to a new or existing user.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -14597,6 +14751,8 @@ paths:
     get:
       description: 'Retrieve details of an active user invitation sent for a new or
         existing user.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -14647,6 +14803,8 @@ paths:
   /v3/accounts/{account_id}/users:
     get:
       description: 'Retrieve an array of users.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -14755,6 +14913,8 @@ paths:
       description: 'Create or invite a new user to the account. Only email address
         is used; other attributes are set in the second step.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -14824,6 +14984,8 @@ paths:
     delete:
       description: 'Delete a user.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -14875,6 +15037,8 @@ paths:
     get:
       description: 'Retrieve user details.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -14925,6 +15089,8 @@ paths:
       consumes:
       - application/json
       description: 'Update user details.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -14997,6 +15163,8 @@ paths:
       deprecated: true
       description: 'Remove user from groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -15066,6 +15234,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve an array of policy groups associated with a user.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -15144,6 +15314,8 @@ paths:
       deprecated: true
       description: 'Add user to groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -15221,6 +15393,8 @@ paths:
       - application/json
       description: 'Add a user to groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -15291,6 +15465,8 @@ paths:
       - application/json
       description: 'Remove a user from groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -15354,6 +15530,8 @@ paths:
   /v3/accounts/{account_id}/users/{user_id}/validate-email:
     post:
       description: 'Validate user email.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -15446,7 +15624,9 @@ paths:
         name: key__eq
         required: false
         type: string
-      - description: Owner name filter.
+      - description: 'Owner name filter.
+
+          <b>Note:</b> This parameter is restricted to administrators.'
         in: query
         name: owner__eq
         required: false
@@ -15770,7 +15950,8 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         '403':
-          description: Forbidden.
+          description: Forbidden. Adding API key to the 'Administrators' group is
+            restricted to administrators.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '409':
@@ -15831,7 +16012,8 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         '403':
-          description: Forbidden.
+          description: Forbidden. Adding API key to the 'Administrators' group is
+            restricted to administrators.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '409':
@@ -15926,7 +16108,8 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         '403':
-          description: Forbidden.
+          description: Forbidden. Only the owner of the API key or an administrator
+            can delete an API key.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '404':
@@ -16024,7 +16207,8 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         '403':
-          description: Forbidden.
+          description: Forbidden. Only the owner of the API key or an administrator
+            can update an API key.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '404':
@@ -16041,6 +16225,8 @@ paths:
       - application/json
       deprecated: true
       description: 'Remove API key from groups.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -16106,6 +16292,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve an array of policy groups associated with an API key.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -16179,6 +16367,8 @@ paths:
       deprecated: true
       description: 'Add API key to groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -16251,6 +16441,8 @@ paths:
       - application/json
       description: 'Add API key to groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -16315,6 +16507,8 @@ paths:
       consumes:
       - application/json
       description: 'Remove API key from groups.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -16415,7 +16609,8 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         '403':
-          description: Forbidden.
+          description: Forbidden. Only the owner of the API key or an administrator
+            can reset an API key.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '404':
@@ -17037,6 +17232,8 @@ paths:
     delete:
       description: 'Delete account branding colors for all themes.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example usage:**
 
@@ -17068,6 +17265,8 @@ paths:
   /v3/branding-colors/dark:
     delete:
       description: 'Delete account dark theme branding colors.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example usage:**
@@ -17134,10 +17333,11 @@ paths:
     put:
       consumes:
       - application/json
-      description: "Update an array of dark theme branding colors.\n\n**Example:**\n\
-        ```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark\
-        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
-        \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"#f3f93e\" }]'\n```"
+      description: "Update an array of dark theme branding colors.\n<b>Note:</b> This\
+        \ endpoint is restricted to administrators.\n\n**Example:**\n```\ncurl -X\
+        \ PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark \\\n-H 'Authorization:\
+        \ Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n'[{ \"reference\"\
+        : \"primary\",\n   \"color\": \"#f3f93e\" }]'\n```"
       operationId: bulkSetDarkColors
       parameters:
       - description: List of branding colors.
@@ -17172,6 +17372,8 @@ paths:
   /v3/branding-colors/dark/{reference}:
     delete:
       description: 'Resets the branding color to its dark theme default.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -17263,6 +17465,8 @@ paths:
       - application/json
       description: 'Update a dark theme branding color.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -17322,6 +17526,8 @@ paths:
   /v3/branding-colors/light:
     delete:
       description: 'Delete account light theme branding colors.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example usage:**
@@ -17388,9 +17594,10 @@ paths:
     put:
       consumes:
       - application/json
-      description: "Update an array of light theme branding colors.\n\n**Example:**\n\
-        ```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light\
-        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
+      description: "Update an array of light theme branding colors.\n<b>Note:</b>\
+        \ This endpoint is restricted to administrators.\n\n**Example:**\n```\ncurl\
+        \ -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light \\\n\
+        -H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
         \ \\\n'[{ \"reference\": \"primary\",\n   \"color\": \"purple\" }]'\n```"
       operationId: bulkSetLightColors
       parameters:
@@ -17426,6 +17633,8 @@ paths:
   /v3/branding-colors/light/{reference}:
     delete:
       description: 'Resets the branding color to its light theme default.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -17517,6 +17726,8 @@ paths:
       - application/json
       description: 'Update light theme branding color.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -17577,6 +17788,8 @@ paths:
     delete:
       description: 'Delete account branding images for all themes.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example usage:**
 
@@ -17608,6 +17821,8 @@ paths:
   /v3/branding-images/dark:
     delete:
       description: 'Delete account dark theme branding images.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example usage:**
@@ -17719,6 +17934,8 @@ paths:
     post:
       description: 'Revert an account branding image to dark theme default.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -17766,6 +17983,8 @@ paths:
       - image/jpeg
       description: 'Upload a new account branding image in the dark theme in PNG or
         JPEG format.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -17832,8 +18051,10 @@ paths:
     post:
       consumes:
       - multipart/form-data
-      description: Upload a new account branding image as form data in the dark theme
+      description: 'Upload a new account branding image as form data in the dark theme
         in PNG or JPEG format.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: uploadDarkImageMultipart
       parameters:
       - description: Name of the branding images (icon or picture).
@@ -17884,6 +18105,8 @@ paths:
   /v3/branding-images/light:
     delete:
       description: 'Delete account light theme branding images.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example usage:**
@@ -17997,6 +18220,8 @@ paths:
     post:
       description: 'Revert an account branding image to light theme default.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -18044,6 +18269,8 @@ paths:
       - image/jpeg
       description: 'Upload a new account light theme branding image in PNG or JPEG
         format.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -18110,8 +18337,10 @@ paths:
     post:
       consumes:
       - multipart/form-data
-      description: Upload a new account branding image as form data in the light theme
-        in PNG or JPEG format.
+      description: 'Upload a new account branding image as form data in the light
+        theme in PNG or JPEG format.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: uploadLightImageMultipart
       parameters:
       - description: Name of the branding images (icon or picture).
@@ -24825,7 +25054,9 @@ paths:
     get:
       consumes:
       - application/json
-      description: Retrieve an array of identity providers.
+      description: 'Retrieve an array of identity providers.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: getAllIdentityProviders
       parameters:
       - default: 50
@@ -24875,7 +25106,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Create a new identity provider.
+      description: 'Create a new identity provider.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: createIdentityProvider
       parameters:
       - allowEmptyValue: true
@@ -24924,7 +25157,9 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
   /v3/identity-providers/{identity_provider_id}:
     delete:
-      description: Delete an identity provider by ID.
+      description: 'Delete an identity provider by ID.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: deleteIdentityProvider
       parameters:
       - description: The ID of the identity provider to delete.
@@ -24954,7 +25189,9 @@ paths:
       - Account - identity providers
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
-      description: Retrieve an identity provider.
+      description: 'Retrieve an identity provider.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: getIdentityProvider
       parameters:
       - description: The ID of the identity provider to retrieve.
@@ -24988,7 +25225,9 @@ paths:
     put:
       consumes:
       - application/json
-      description: Update an existing identity provider.
+      description: 'Update an existing identity provider.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: updateIdentityProvider
       parameters:
       - description: The ID of the identity provider to update.
@@ -25041,7 +25280,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Delete a service provider certificate.
+      description: 'Delete a service provider certificate.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: deleteSpCertificate
       parameters:
       - description: The ID of the identity provider.
@@ -25080,7 +25321,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Generate a new service provider certificate.
+      description: 'Generate a new service provider certificate.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: generateSpCertificate
       parameters:
       - description: The ID of the identity provider to generate a certificate for.
@@ -25130,7 +25373,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Refreshes an OIDC IdP's signing keys.
+      description: 'Refreshes an OIDC IdP''s signing keys.
+
+        <b>Note:</b> This endpoint is restricted to administrators.'
       operationId: refreshJwks
       parameters:
       - description: The ID of the identity provider for which to refresh the signing
@@ -25453,6 +25698,8 @@ paths:
       - application/json
       description: 'Create a new group.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -25503,6 +25750,8 @@ paths:
   /v3/policy-groups/{group_id}:
     delete:
       description: 'Delete a group.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -25592,6 +25841,8 @@ paths:
       - application/json
       description: 'Add users and API keys to a group.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -25656,6 +25907,8 @@ paths:
       consumes:
       - application/json
       description: 'Update a group name.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -25893,7 +26146,8 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         '403':
-          description: Forbidden.
+          description: Forbidden. Adding an API key to the 'Administrators' group
+            is restricted to administrators.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '404':
@@ -25957,7 +26211,8 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         '403':
-          description: Forbidden.
+          description: Forbidden. Adding an API key to the 'Administrators' group
+            is restricted to administrators.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '404':
@@ -26041,6 +26296,8 @@ paths:
       deprecated: true
       description: 'Manage policy groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -26104,6 +26361,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve an array of users associated with a policy group.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -26196,6 +26455,8 @@ paths:
       deprecated: true
       description: 'Add users to the group.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -26260,6 +26521,8 @@ paths:
     post:
       description: 'Add users to the group.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -26319,7 +26582,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: 'Manage policy groups.
+      description: 'Remove users from a policy group.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -26967,6 +27232,8 @@ paths:
       consumes:
       - application/json
       description: 'Upload new trusted certificates.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -28158,6 +28425,8 @@ paths:
     get:
       description: 'Retrieve an array of active user invitations sent by email.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -28221,6 +28490,8 @@ paths:
       - application/json
       description: 'Invite a new or existing user.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -28270,6 +28541,8 @@ paths:
     delete:
       description: 'Delete an active user invitation sent to a new or existing user.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -28311,6 +28584,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve the details of an active user invitation.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -28356,6 +28631,8 @@ paths:
   /v3/users:
     get:
       description: 'Retrieve an array of users.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -28451,8 +28728,10 @@ paths:
     post:
       consumes:
       - application/json
-      description: 'Create or invite a new user to the account. Only email address
-        is used; other attributes are set in the second step.
+      description: 'Create or invite a new user to the account. The invited user has
+        to accept the invitation by clicking the link in the invitation email.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -28513,6 +28792,8 @@ paths:
     delete:
       description: 'Delete a user.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -28558,6 +28839,8 @@ paths:
     get:
       description: 'Retrieve the details of a user.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -28601,7 +28884,9 @@ paths:
     put:
       consumes:
       - application/json
-      description: 'Update user details
+      description: 'Update user details.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -28668,6 +28953,8 @@ paths:
       deprecated: true
       description: 'Remove user from groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -28732,6 +29019,8 @@ paths:
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
     get:
       description: 'Retrieve an array of policy groups associated with a user.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**
@@ -28805,6 +29094,8 @@ paths:
       deprecated: true
       description: 'Add user to groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -28877,6 +29168,8 @@ paths:
       - application/json
       description: 'Add user to groups.
 
+        <b>Note:</b> This endpoint is restricted to administrators.
+
 
         **Example:**
 
@@ -28941,6 +29234,8 @@ paths:
       consumes:
       - application/json
       description: 'Remove user from groups.
+
+        <b>Note:</b> This endpoint is restricted to administrators.
 
 
         **Example:**

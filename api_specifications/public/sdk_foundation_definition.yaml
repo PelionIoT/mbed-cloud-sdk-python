@@ -632,6 +632,8 @@ entities:
   - _key: api_keys
     description: 'Retrieve an array of API keys, optionally filtered by the owner.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -1050,6 +1052,8 @@ entities:
       - eq
   - _key: create
     description: 'Create a new account.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -2692,6 +2696,8 @@ entities:
   - _key: dark_theme_branding_colors
     description: 'Retrieve dark theme branding colors for an account.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -3003,6 +3009,8 @@ entities:
     x_filter: {}
   - _key: dark_theme_branding_images
     description: 'Retrieve the metadata of all dark theme branding images.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -3338,6 +3346,8 @@ entities:
   - _key: light_theme_branding_colors
     description: 'Retrieve light theme branding colors for an account.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -3649,6 +3659,8 @@ entities:
     x_filter: {}
   - _key: light_theme_branding_images
     description: 'Retrieve the metadata of all light theme branding images.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -3984,6 +3996,8 @@ entities:
   - _key: list
     description: 'Retrieve an array of tenant accounts, optionally filtered by status
       and tier level.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -6650,6 +6664,8 @@ entities:
   - _key: read
     description: 'Retrieve detailed information about an account.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -8041,6 +8057,8 @@ entities:
   - _key: trusted_certificates
     description: 'Retrieve an array of trusted certificates.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -8524,6 +8542,8 @@ entities:
         using using this SDK method.
       operation_id: updateMyAccount
     description: 'Update an account.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -10251,6 +10271,8 @@ entities:
   - _key: user_invitations
     description: 'Retrieve an array of active user invitations.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -10684,6 +10706,8 @@ entities:
       - eq
   - _key: users
     description: 'Retrieve an array of users.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -11933,7 +11957,8 @@ entities:
         - type
         type: object
     - _key: '403'
-      description: Forbidden.
+      description: Forbidden. Only the owner of the API key or an administrator can
+        delete an API key.
       schema:
         properties:
         - _key: code
@@ -12634,6 +12659,8 @@ entities:
     x_filter: {}
   - _key: policy_groups
     description: 'Retrieve an array of policy groups associated with an API key.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -13629,7 +13656,8 @@ entities:
         - type
         type: object
     - _key: '403'
-      description: Forbidden.
+      description: Forbidden. Only the owner of the API key or an administrator can
+        update an API key.
       schema:
         properties:
         - _key: code
@@ -19478,6 +19506,8 @@ entities:
   - _key: delete
     description: 'Resets the branding color to its dark theme default.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -20204,6 +20234,8 @@ entities:
       operation_id: bulkSetDarkColors
     description: 'Update a dark theme branding color.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -20599,6 +20631,8 @@ entities:
   methods:
   - _key: delete
     description: 'Revert an account branding image to dark theme default.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -21385,8 +21419,10 @@ entities:
     - notes: The multipart endpoint is used by the SDKs as it offers the same functionality
         as the standard upload endpoint.
       operation_id: uploadDarkImage
-    description: Upload a new account branding image as form data in the dark theme
+    description: 'Upload a new account branding image as form data in the dark theme
       in PNG or JPEG format.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -35466,7 +35502,9 @@ entities:
   group_id: Accounts
   methods:
   - _key: create
-    description: Create a new identity provider.
+    description: 'Create a new identity provider.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -36172,7 +36210,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: delete
-    description: Delete an identity provider by ID.
+    description: 'Delete an identity provider by ID.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -36358,7 +36398,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: delete_service_provider_certificate
-    description: Delete a service provider certificate.
+    description: 'Delete a service provider certificate.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -36832,7 +36874,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: generate_service_provider_certificate
-    description: Generate a new service provider certificate.
+    description: 'Generate a new service provider certificate.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -37391,7 +37435,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: Retrieve an array of identity providers.
+    description: 'Retrieve an array of identity providers.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -37887,7 +37933,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: read
-    description: Retrieve an identity provider.
+    description: 'Retrieve an identity provider.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -38357,7 +38405,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: refresh_tokens
-    description: Refreshes an OIDC IdP's signing keys.
+    description: 'Refreshes an OIDC IdP''s signing keys.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -38879,7 +38929,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
-    description: Update an existing identity provider.
+    description: 'Update an existing identity provider.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -39712,6 +39764,8 @@ entities:
   - _key: delete
     description: 'Resets the branding color to its light theme default.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -40454,6 +40508,8 @@ entities:
       operation_id: bulkSetLightColors
     description: 'Update light theme branding color.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -40867,6 +40923,8 @@ entities:
   methods:
   - _key: delete
     description: 'Revert an account branding image to light theme default.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -41658,8 +41716,10 @@ entities:
     additional_operations:
     - notes: The multipart request is more generic and better supported by SDKs.
       operation_id: uploadLightImage
-    description: Upload a new account branding image as form data in the light theme
+    description: 'Upload a new account branding image as form data in the light theme
       in PNG or JPEG format.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -42931,6 +42991,8 @@ entities:
   - _key: create
     description: 'Create a new group.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -43280,6 +43342,8 @@ entities:
     x_filter: {}
   - _key: delete
     description: 'Delete a group.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -44093,6 +44157,8 @@ entities:
   - _key: update
     description: 'Update a group name.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -44432,6 +44498,8 @@ entities:
     x_filter: {}
   - _key: users
     description: 'Retrieve an array of users associated with a policy group.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -46154,6 +46222,8 @@ entities:
     description: 'Create a new API key. There is no default value for the owner ID,
       and it must be from the same account where the new API key is created.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -46571,6 +46641,8 @@ entities:
   - _key: delete
     description: 'Delete an API key.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -46776,6 +46848,8 @@ entities:
     x_filter: {}
   - _key: policy_groups
     description: 'Retrieve an array of policy groups associated with an API key.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -47176,8 +47250,8 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: read
-    description: "Retrieve details of an API key.\n\n**Example:**\n```\ncurl -X GET\
-      \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
+    description: "Retrieve details of an API key.\n<b>Note:</b> This endpoint is restricted\
+      \ to administrators.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
       \ \\\n -H 'Authorization: Bearer <api_key>'\n```"
     drop_fields:
     - object
@@ -47502,6 +47576,8 @@ entities:
     x_filter: {}
   - _key: update
     description: 'Update API key details.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -47988,6 +48064,8 @@ entities:
   - _key: delete
     description: 'Resets the branding color to its dark theme default.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -48211,6 +48289,8 @@ entities:
     x_filter: {}
   - _key: read
     description: 'Retrieve the requested dark theme branding color.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -48492,6 +48572,8 @@ entities:
         is covered by the update method.
       operation_id: bulkSetAccountDarkColors
     description: 'Update a dark theme branding color.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -48916,6 +48998,8 @@ entities:
   - _key: delete
     description: 'Revert an account branding image to dark theme default.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -49158,6 +49242,8 @@ entities:
     x_filter: {}
   - _key: read
     description: 'Retrieve metadata of one account dark theme branding image.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -49448,8 +49534,10 @@ entities:
     - notes: The multipart endpoint is used by the SDKs as it offers the same functionality
         as the standard upload endpoint.
       operation_id: uploadAccountDarkImage
-    description: Upload a new account dark theme branding image as form data in PNG
+    description: 'Upload a new account dark theme branding image as form data in PNG
       or JPEG format.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -50054,7 +50142,9 @@ entities:
   group_id: Accounts
   methods:
   - _key: create
-    description: Create a new identity provider.
+    description: 'Create a new identity provider.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -50822,7 +50912,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: delete
-    description: Delete an identity provider by ID.
+    description: 'Delete an identity provider by ID.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -51016,7 +51108,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: delete_service_provider_certificate
-    description: Delete a service provider certificate.
+    description: 'Delete a service provider certificate.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -51517,7 +51611,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: generate_service_provider_certificate
-    description: Generate a new service provider certificate.
+    description: 'Generate a new service provider certificate.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -52103,7 +52199,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: Retrieve an array of identity providers.
+    description: 'Retrieve an array of identity providers.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -52673,7 +52771,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: read
-    description: Retrieve an identity provider.
+    description: 'Retrieve an identity provider.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -53170,7 +53270,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: refresh_tokens
-    description: Refreshes an OIDC IdP's signing keys.
+    description: 'Refresh an OIDC IdP''s signing keys.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -53715,11 +53817,13 @@ entities:
       self: true
       type: subtenant_identity_provider
     return_type: subtenant_identity_provider
-    summary: Refreshes the OIDC signing keys.
+    summary: Refresh the OIDC signing keys.
     x_deprecation: null
     x_filter: {}
   - _key: update
-    description: Update an existing identity provider.
+    description: 'Update an existing identity provider.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -54549,6 +54653,8 @@ entities:
   - _key: delete
     description: 'Resets the branding color to its light theme default.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -54772,6 +54878,8 @@ entities:
     x_filter: {}
   - _key: read
     description: 'Retrieve the requested light theme branding color.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -55052,6 +55160,8 @@ entities:
         is covered by the update method.
       operation_id: bulkSetAccountLightColors
     description: 'Update a light theme branding color.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -55476,6 +55586,8 @@ entities:
   - _key: delete
     description: 'Revert an account branding image to light theme default.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -55716,6 +55828,8 @@ entities:
     x_filter: {}
   - _key: read
     description: 'Retrieve metadata for one account light theme branding image.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -56005,7 +56119,10 @@ entities:
     additional_operations:
     - notes: The multipart request is more generic and better supported by SDKs.
       operation_id: uploadAccountLightImage
-    description: Upload a new account branding image as form data in PNG or JPEG format.
+    description: 'Upload a new account branding image as form data in PNG or JPEG
+      format.
+
+      <b>Note:</b> This endpoint is restricted to administrators.'
     drop_fields:
     - object
     - etag
@@ -56416,6 +56533,8 @@ entities:
   methods:
   - _key: api_keys
     description: 'Retrieve an array of API keys associated with a policy group.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -56838,6 +56957,8 @@ entities:
   - _key: create
     description: 'Create a new group.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -57254,6 +57375,8 @@ entities:
   - _key: delete
     description: 'Delete a group.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -57459,6 +57582,8 @@ entities:
     x_filter: {}
   - _key: list
     description: 'Retrieve an array of policy groups.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -57856,6 +57981,8 @@ entities:
   - _key: read
     description: 'Retrieve policy group details.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -58149,6 +58276,8 @@ entities:
     x_filter: {}
   - _key: update
     description: 'Update a group name.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -58504,6 +58633,8 @@ entities:
     x_filter: {}
   - _key: users
     description: 'Retrieve an array of users associated with a policy group.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -59329,6 +59460,8 @@ entities:
   - _key: create
     description: 'Upload new trusted certificate.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -59836,6 +59969,8 @@ entities:
     x_filter: {}
   - _key: delete
     description: 'Delete a trusted certificate.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -60541,6 +60676,8 @@ entities:
   - _key: read
     description: 'Retrieve a trusted certificate.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -60945,8 +61082,8 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
-    description: "Update a trusted certificate.\n\n**Example:**\n```\ncurl -X PUT\
-      \ https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}\
+    description: "Update a trusted certificate.\n<b>Note:</b> This endpoint is restricted\
+      \ to administrators.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}\
       \ \\\n -H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json'\
       \ \\\n -d {\"description\": \"very important cert\"}\n ```"
     drop_fields:
@@ -61833,6 +61970,8 @@ entities:
     description: 'Create or invite a new user to the account. Only email address is
       used; other attributes are set in the second step.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -62685,6 +62824,8 @@ entities:
   - _key: delete
     description: 'Delete a user.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -62938,6 +63079,8 @@ entities:
     x_filter: {}
   - _key: policy_groups
     description: 'Retrieve an array of policy groups associated with a user.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -63339,6 +63482,8 @@ entities:
     x_filter: {}
   - _key: read
     description: 'Retrieve user details.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -63955,6 +64100,8 @@ entities:
     x_filter: {}
   - _key: update
     description: 'Update user details.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -64792,6 +64939,8 @@ entities:
   - _key: validate_email
     description: 'Validate user email.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -65130,6 +65279,8 @@ entities:
   methods:
   - _key: create
     description: 'Invite a new or existing user.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -65563,6 +65714,8 @@ entities:
   - _key: delete
     description: 'Delete an active user invitation sent to a new or existing user.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -65769,6 +65922,8 @@ entities:
   - _key: read
     description: 'Retrieve details of an active user invitation sent for a new or
       existing user.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -66282,6 +66437,8 @@ entities:
   methods:
   - _key: create
     description: 'Upload new trusted certificates.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -71457,8 +71614,10 @@ entities:
   group_id: Accounts
   methods:
   - _key: create
-    description: 'Create or invite a new user to the account. Only email address is
-      used; other attributes are set in the second step.
+    description: 'Create or invite a new user to the account. The invited user has
+      to accept the invitation by clicking the link in the invitation email.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -72215,6 +72374,8 @@ entities:
   - _key: delete
     description: 'Delete a user.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -72457,6 +72618,8 @@ entities:
     x_filter: {}
   - _key: list
     description: 'Retrieve an array of users.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -73027,6 +73190,8 @@ entities:
   - _key: policy_groups
     description: 'Retrieve an array of policy groups associated with a user.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -73398,6 +73563,8 @@ entities:
     x_filter: {}
   - _key: read
     description: 'Retrieve the details of a user.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -73964,7 +74131,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
-    description: 'Update user details
+    description: 'Update user details.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -74879,6 +75048,8 @@ entities:
   - _key: create
     description: 'Invite a new or existing user.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -75289,6 +75460,8 @@ entities:
   - _key: delete
     description: 'Delete an active user invitation sent to a new or existing user.
 
+      <b>Note:</b> This endpoint is restricted to administrators.
+
 
       **Example:**
 
@@ -75484,6 +75657,8 @@ entities:
     x_filter: {}
   - _key: list
     description: 'Retrieve an array of active user invitations sent by email.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
@@ -75841,6 +76016,8 @@ entities:
       - eq
   - _key: read
     description: 'Retrieve the details of an active user invitation.
+
+      <b>Note:</b> This endpoint is restricted to administrators.
 
 
       **Example:**
