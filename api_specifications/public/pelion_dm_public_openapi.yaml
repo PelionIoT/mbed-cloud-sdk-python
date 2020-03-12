@@ -7673,8 +7673,9 @@ definitions:
         type: boolean
         x-nullable: true
       is_totp_enabled:
-        description: A flag indicating whether mandatory two-factor authentication
-          (TOTP) is enabled.
+        description: A flag indicating whether two-factor authentication (TOTP) is
+          enabled. An account administrator can disable it, but cannot enable it for
+          other users.
         type: boolean
         x-nullable: true
       login_profiles:
