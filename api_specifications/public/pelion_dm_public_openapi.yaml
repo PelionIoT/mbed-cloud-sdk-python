@@ -1286,8 +1286,6 @@ definitions:
         - ACTIVE
         - INACTIVE
         type: string
-    required:
-    - name
     type: object
   AsyncID:
     properties:
@@ -10561,7 +10559,7 @@ paths:
           schema:
             $ref: '#/definitions/ApiKeyInfoResp'
         '400':
-          description: Error in input data, for example, missing display name.
+          description: Error in input data, for example, missing API key name.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '401':
@@ -10715,7 +10713,7 @@ paths:
           schema:
             $ref: '#/definitions/ApiKeyInfoResp'
         '400':
-          description: Error in input data, for example, missing display name.
+          description: Error in input data, for example, invalid API key name.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '401':
@@ -11148,7 +11146,7 @@ paths:
           schema:
             $ref: '#/definitions/ApiKeyInfoResp'
         '400':
-          description: Error in input data format.
+          description: Error in input data, for example, invalid API key name.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '401':
@@ -15690,7 +15688,7 @@ paths:
           schema:
             $ref: '#/definitions/ApiKeyInfoResp'
         '400':
-          description: Error in input data, for example, missing display name.
+          description: Error in input data, for example, missing API key name.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '401':
@@ -15773,7 +15771,7 @@ paths:
           schema:
             $ref: '#/definitions/ApiKeyInfoResp'
         '400':
-          description: Error in input data, for example, missing display name.
+          description: Error in input data, for example, invalid API key name.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '401':
@@ -16200,7 +16198,7 @@ paths:
           schema:
             $ref: '#/definitions/ApiKeyInfoResp'
         '400':
-          description: Error in input data, for example, missing display name.
+          description: Error in input data, for example, invalid API key name.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '401':
@@ -16602,7 +16600,7 @@ paths:
           schema:
             $ref: '#/definitions/ApiKeyInfoResp'
         '400':
-          description: Error in input data format.
+          description: Error in input data, for example, invalid API key name.
           schema:
             $ref: '#/definitions/ErrorResponse'
         '401':

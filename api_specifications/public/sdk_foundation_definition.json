@@ -15861,7 +15861,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -16038,7 +16038,7 @@
               "_key": "201"
             },
             {
-              "description": "Error in input data, for example, missing display name.",
+              "description": "Error in input data, for example, missing API key name.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -18315,7 +18315,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -18492,7 +18492,7 @@
               "_key": "200"
             },
             {
-              "description": "Error in input data, for example, missing display name.",
+              "description": "Error in input data, for example, invalid API key name.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -60609,7 +60609,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -60742,7 +60742,7 @@
                     "entity_fieldname": "name",
                     "parameter_fieldname": "name",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "name"
                   },
                   {
@@ -60802,7 +60802,7 @@
               "_key": "201"
             },
             {
-              "description": "Error in input data, for example, missing display name.",
+              "description": "Error in input data, for example, missing API key name.",
               "schema": {
                 "type": "object",
                 "required": [
@@ -62065,7 +62065,7 @@
                     "entity_fieldname": "name",
                     "parameter_fieldname": "name",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "name"
                   },
                   {
@@ -62429,7 +62429,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -62562,7 +62562,7 @@
                     "entity_fieldname": "name",
                     "parameter_fieldname": "name",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "name"
                   },
                   {
@@ -62622,7 +62622,7 @@
               "_key": "200"
             },
             {
-              "description": "Error in input data, for example, missing display name.",
+              "description": "Error in input data, for example, invalid API key name.",
               "schema": {
                 "type": "object",
                 "required": [

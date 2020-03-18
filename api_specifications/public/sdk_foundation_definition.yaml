@@ -11571,7 +11571,7 @@ entities:
       in: body
       maxLength: 100
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     - _key: owner
       api_fieldname: owner
@@ -11714,7 +11714,7 @@ entities:
         - object
         type: object
     - _key: '400'
-      description: Error in input data, for example, missing display name.
+      description: Error in input data, for example, missing API key name.
       schema:
         properties:
         - _key: code
@@ -13419,7 +13419,7 @@ entities:
       in: body
       maxLength: 100
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     - _key: owner
       api_fieldname: owner
@@ -13560,7 +13560,7 @@ entities:
         - object
         type: object
     - _key: '400'
-      description: Error in input data, for example, missing display name.
+      description: Error in input data, for example, invalid API key name.
       schema:
         properties:
         - _key: code
@@ -46280,7 +46280,7 @@ entities:
       in: body
       maxLength: 100
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     - _key: owner
       api_fieldname: owner
@@ -46392,7 +46392,7 @@ entities:
           in: body
           maxLength: 100
           parameter_fieldname: name
-          required: true
+          required: false
           type: string
         - _key: object
           api_fieldname: object
@@ -46439,7 +46439,7 @@ entities:
         - object
         type: object
     - _key: '400'
-      description: Error in input data, for example, missing display name.
+      description: Error in input data, for example, missing API key name.
       schema:
         properties:
         - _key: code
@@ -47376,7 +47376,7 @@ entities:
           in: body
           maxLength: 100
           parameter_fieldname: name
-          required: true
+          required: false
           type: string
         - _key: object
           api_fieldname: object
@@ -47644,7 +47644,7 @@ entities:
       in: body
       maxLength: 100
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     - _key: owner
       api_fieldname: owner
@@ -47754,7 +47754,7 @@ entities:
           in: body
           maxLength: 100
           parameter_fieldname: name
-          required: true
+          required: false
           type: string
         - _key: object
           api_fieldname: object
@@ -47801,7 +47801,7 @@ entities:
         - object
         type: object
     - _key: '400'
-      description: Error in input data, for example, missing display name.
+      description: Error in input data, for example, invalid API key name.
       schema:
         properties:
         - _key: code
