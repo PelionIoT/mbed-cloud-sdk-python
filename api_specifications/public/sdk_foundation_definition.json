@@ -40590,7 +40590,7 @@
             },
             {
               "type": "string",
-              "maxLength": 2000,
+              "maxLength": 1024,
               "description": "The description of the group.",
               "example": "Devices on the factory floor.",
               "api_fieldname": "description",
@@ -40652,7 +40652,7 @@
                   },
                   {
                     "type": "string",
-                    "maxLength": 2000,
+                    "maxLength": 1024,
                     "description": "The description of the group.",
                     "example": "Devices on the factory floor.",
                     "api_fieldname": "description",
@@ -42286,7 +42286,7 @@
                         },
                         {
                           "type": "string",
-                          "maxLength": 2000,
+                          "maxLength": 1024,
                           "description": "The description of the group.",
                           "example": "Devices on the factory floor.",
                           "_key": "description"
@@ -42678,7 +42678,7 @@
                   },
                   {
                     "type": "string",
-                    "maxLength": 2000,
+                    "maxLength": 1024,
                     "description": "The description of the group.",
                     "example": "Devices on the factory floor.",
                     "api_fieldname": "description",
@@ -43308,7 +43308,7 @@
             },
             {
               "type": "string",
-              "maxLength": 2000,
+              "maxLength": 1024,
               "description": "The description of the group.",
               "example": "Devices on the factory floor.",
               "api_fieldname": "description",
@@ -43381,7 +43381,7 @@
                   },
                   {
                     "type": "string",
-                    "maxLength": 2000,
+                    "maxLength": 1024,
                     "description": "The description of the group.",
                     "example": "Devices on the factory floor.",
                     "api_fieldname": "description",
@@ -43726,7 +43726,7 @@
         },
         {
           "type": "string",
-          "maxLength": 2000,
+          "maxLength": 1024,
           "description": "The description of the group.",
           "example": "Devices on the factory floor.",
           "api_fieldname": "description",

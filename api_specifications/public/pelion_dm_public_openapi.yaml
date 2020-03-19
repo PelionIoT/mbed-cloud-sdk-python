@@ -3210,7 +3210,7 @@ definitions:
       description: &id028
         description: The description of the group.
         example: Devices on the factory floor.
-        maxLength: 2000
+        maxLength: 1024
         type: string
       devices_count:
         description: The number of devices in this group.

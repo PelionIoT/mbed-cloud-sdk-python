@@ -30761,7 +30761,7 @@ entities:
     api_fieldname: description
     description: The description of the group.
     example: Devices on the factory floor.
-    maxLength: 2000
+    maxLength: 1024
     readOnly: false
     required: false
     type: string
@@ -31032,7 +31032,7 @@ entities:
       entity_fieldname: description
       example: Devices on the factory floor.
       in: body
-      maxLength: 2000
+      maxLength: 1024
       name: description
       parameter_fieldname: description
       required: false
@@ -31094,7 +31094,7 @@ entities:
           description: The description of the group.
           entity_fieldname: description
           example: Devices on the factory floor.
-          maxLength: 2000
+          maxLength: 1024
           type: string
         - _key: devices_count
           api_fieldname: devices_count
@@ -32434,7 +32434,7 @@ entities:
             - _key: description
               description: The description of the group.
               example: Devices on the factory floor.
-              maxLength: 2000
+              maxLength: 1024
               type: string
             - _key: devices_count
               description: The number of devices in this group.
@@ -32699,7 +32699,7 @@ entities:
           description: The description of the group.
           entity_fieldname: description
           example: Devices on the factory floor.
-          maxLength: 2000
+          maxLength: 1024
           type: string
         - _key: devices_count
           api_fieldname: devices_count
@@ -33126,7 +33126,7 @@ entities:
       entity_fieldname: description
       example: Devices on the factory floor.
       in: body
-      maxLength: 2000
+      maxLength: 1024
       name: description
       parameter_fieldname: description
       required: false
@@ -33197,7 +33197,7 @@ entities:
           description: The description of the group.
           entity_fieldname: description
           example: Devices on the factory floor.
-          maxLength: 2000
+          maxLength: 1024
           type: string
         - _key: devices_count
           api_fieldname: devices_count
