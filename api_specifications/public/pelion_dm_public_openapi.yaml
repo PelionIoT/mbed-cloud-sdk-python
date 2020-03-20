@@ -127,7 +127,7 @@ definitions:
     required:
     - end_market
     type: object
-  AccountInfo:
+  AccountCreationResp:
     description: Represents an account in requests and responses.
     properties:
       address_line1:
@@ -181,6 +181,263 @@ definitions:
         description: The password of the admin user created for this account. Present
           only in the response for account creation.
         example: PZf9eEUH43DAPE9ULINFeuj
+        type: string
+        x-nullable: true
+      aliases:
+        description: An array of aliases for the tenant account ID. The aliases must
+          be globally unique.
+        items:
+          pattern: '[\w\-._]{8,100}'
+          type: string
+        maxItems: 10
+        type: array
+      business_model:
+        $ref: '#/definitions/BusinessModel'
+      business_model_history:
+        description: Business model history for this account.
+        items:
+          $ref: '#/definitions/BusinessModelHistory'
+        type: array
+      city:
+        description: The city part of the postal address.
+        example: Cambridge
+        maxLength: 100
+        type: string
+        x-nullable: true
+      company:
+        description: The name of the company used in billing.
+        example: ARM Holdings Plc
+        maxLength: 100
+        type: string
+        x-nullable: true
+      contact:
+        description: The name of the contact person for this account.
+        example: J. Doe
+        maxLength: 100
+        type: string
+        x-nullable: true
+      contract_number:
+        description: Contract number of the customer.
+        example: 1NX25_0001
+        type: string
+        x-nullable: true
+      country:
+        description: The country part of the postal address.
+        example: United Kingdom
+        maxLength: 100
+        type: string
+        x-nullable: true
+      created_at:
+        description: Creation UTC time RFC3339.
+        example: '2018-02-13T09:35:20Z'
+        format: date-time
+        type: string
+      custom_fields:
+        additionalProperties:
+          type: string
+        description: Account's custom properties as key-value pairs.
+        type: object
+        x-nullable: true
+      customer_number:
+        description: Customer number of the customer.
+        example: 1NC25_0001
+        type: string
+        x-nullable: true
+      display_name:
+        description: The display name for the tenant account.
+        example: ARM
+        maxLength: 100
+        type: string
+        x-nullable: true
+      email:
+        description: The company email address for this account.
+        example: info@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
+        type: string
+        x-nullable: true
+      end_market:
+        description: Account end market.
+        example: IT
+        type: string
+      etag:
+        description: API resource entity version.
+        example: '1'
+        type: string
+      expiration:
+        description: Expiration time of the account, as UTC time RFC3339.
+        format: date-time
+        type: string
+        x-nullable: true
+      expiration_warning_threshold:
+        description: Indicates how many days (1-180) before account expiration a notification
+          email is sent.
+        example: '180'
+        maximum: 180
+        minimum: 1
+        type: integer
+        x-nullable: true
+      id:
+        description: Account ID.
+        example: 01619571e2e90242ac12000600000000
+        pattern: '[a-f0-9]{32}'
+        type: string
+      idle_timeout:
+        description: The reference token expiration time, in minutes, for this account.
+        example: '30'
+        maximum: 120
+        minimum: 1
+        type: integer
+        x-nullable: true
+      limitations:
+        description: List of account limitation objects.
+        items:
+          $ref: '#/definitions/AccountLimitation'
+        type: array
+      limits:
+        additionalProperties:
+          type: string
+        description: 'DEPRECATED: Replaced by the limitations parameter.'
+        type: object
+        x-deprecation:
+          comment: Replaced by the limitations parameter.
+          end_of_life_at: '2020-08-27T12:03:58+00:00'
+          issued_at: '2019-08-27T12:03:58+00:00'
+        x-nullable: true
+      mfa_status:
+        description: The enforcement status of multi-factor authentication, either
+          `enforced` or `optional`.
+        enum:
+        - enforced
+        - optional
+        type: string
+        x-nullable: true
+      notification_emails:
+        description: A list of notification email addresses.
+        items:
+          pattern: ^(?=.{3,254}$).+\@.+
+          type: string
+        type: array
+        x-nullable: true
+      object:
+        description: 'Entity name: always `account`.'
+        enum:
+        - account
+        type: string
+      parent_account:
+        $ref: '#/definitions/ParentAccountInfo'
+        description: Contact details of the parent account.
+        x-nullable: true
+      parent_id:
+        description: The ID of the parent account, if any.
+        example: 01619571dad80242ac12000600000000
+        pattern: '[a-f0-9]{32}'
+        type: string
+        x-nullable: true
+      password_policy:
+        $ref: '#/definitions/PasswordPolicy'
+        description: The password policy for this account.
+        x-nullable: true
+      password_recovery_expiration:
+        description: Indicates for how many minutes a password recovery email is valid.
+        format: int32
+        maximum: 45
+        minimum: 1
+        type: integer
+      phone_number:
+        description: The phone number of a company representative.
+        example: +44 (1223) 400 400
+        maxLength: 100
+        type: string
+        x-nullable: true
+      policies:
+        description: List of policies if requested.
+        items:
+          $ref: '#/definitions/FeaturePolicy'
+        type: array
+        x-nullable: true
+      postal_code:
+        description: The postal code part of the postal address.
+        example: CB1 9NJ
+        maxLength: 100
+        type: string
+        x-nullable: true
+      reason:
+        description: A note with the reason for account status update.
+        example: Subscription paid.
+        type: string
+        x-nullable: true
+      reference_note:
+        description: A reference note for updating the status of the account.
+        example: ARM-INT-0001
+        type: string
+        x-nullable: true
+      sales_contact:
+        description: Email address of the sales contact.
+        example: sales@arm.com
+        pattern: ^(?=.{3,254}$).+\@.+
+        type: string
+        x-nullable: true
+      state:
+        description: The state part of the postal address.
+        example: ' '
+        maxLength: 100
+        type: string
+        x-nullable: true
+      status:
+        description: The status of the account.
+        enum:
+        - ENROLLING
+        - ACTIVE
+        - RESTRICTED
+        - SUSPENDED
+        example: ACTIVE
+        type: string
+      sub_accounts:
+        description: List of sub accounts. Not available for developer users.
+        items:
+          $ref: '#/definitions/AccountInfo'
+        type: array
+        x-nullable: true
+      template_id:
+        description: Account template ID.
+        example: 01619571e7160242ac12000600000000
+        pattern: '[a-f0-9]{32}'
+        type: string
+        x-nullable: true
+      tier:
+        description: 'The tier level of the account; `0`: free tier, `1`: commercial
+          account, `2`: partner tier. Other values are reserved for the future.'
+        example: '1'
+        type: string
+      tier_history:
+        description: Tier history for this account.
+        items:
+          $ref: '#/definitions/TierHistory'
+        type: array
+      updated_at:
+        description: Last update UTC time RFC3339.
+        example: '2018-02-14T15:24:14Z'
+        format: date-time
+        type: string
+      upgraded_at:
+        description: Time when upgraded to commercial account in UTC format RFC3339.
+        example: '2018-02-14T15:24:14Z'
+        format: date-time
+        type: string
+    type: object
+  AccountInfo:
+    description: Represents an account in requests and responses.
+    properties:
+      address_line1:
+        description: Postal address line 1.
+        example: 110 Fulbourn Rd
+        maxLength: 100
+        type: string
+        x-nullable: true
+      address_line2:
+        description: Postal address line 2.
+        example: ' '
+        maxLength: 100
         type: string
         x-nullable: true
       aliases:
@@ -10099,7 +10356,7 @@ paths:
         '201':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/AccountInfo'
+            $ref: '#/definitions/AccountCreationResp'
         '400':
           description: Error in input data, for example, invalid username.
           schema:

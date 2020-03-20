@@ -1069,6 +1069,7 @@
     {
       "swagger_models": [
         "AccountCreationReq",
+        "AccountCreationResp",
         "AccountInfo",
         "AccountInfoList",
         "AccountUpdateRootReq",
@@ -1872,7 +1873,7 @@
               "entity_fieldname": "end_market",
               "parameter_fieldname": "end_market",
               "in": "body",
-              "required": false,
+              "required": true,
               "_key": "end_market"
             },
             {
@@ -1922,14 +1923,6 @@
               "description": "Successful operation.",
               "schema": {
                 "type": "object",
-                "required": [
-                  "end_market",
-                  "etag",
-                  "id",
-                  "object",
-                  "status",
-                  "tier"
-                ],
                 "properties": [
                   {
                     "type": "string",
@@ -2655,53 +2648,6 @@
                           "_key": "address_line2"
                         },
                         {
-                          "pattern": "^(?=.{3,254}$).+\\@.+",
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "admin@arm.com",
-                          "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_email"
-                        },
-                        {
-                          "type": "string",
-                          "maxLength": 100,
-                          "x-nullable": true,
-                          "example": "Admin Doe",
-                          "description": "The full name of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_full_name"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "01619571e2e89242ac12000600000000",
-                          "description": "The ID of the admin user created for this account. Present only in the response for the account creation.",
-                          "pattern": "[a-f0-9]{32}",
-                          "_key": "admin_id"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                          "description": "The admin API key created for this account. Present only in the response for account creation.",
-                          "readOnly": true,
-                          "_key": "admin_key"
-                        },
-                        {
-                          "type": "string",
-                          "maxLength": 100,
-                          "x-nullable": true,
-                          "example": "admin",
-                          "description": "The username of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_name"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "PZf9eEUH43DAPE9ULINFeuj",
-                          "description": "The password of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_password"
-                        },
-                        {
                           "type": "array",
                           "maxItems": 10,
                           "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
@@ -3246,7 +3192,635 @@
                           "type": "array",
                           "x-nullable": true,
                           "description": "List of sub accounts. Not available for developer users.",
-                          "items": [],
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "end_market",
+                              "etag",
+                              "id",
+                              "object",
+                              "status",
+                              "tier"
+                            ],
+                            "properties": [
+                              {
+                                "type": "string",
+                                "maxLength": 100,
+                                "x-nullable": true,
+                                "example": "110 Fulbourn Rd",
+                                "description": "Postal address line 1.",
+                                "_key": "address_line1"
+                              },
+                              {
+                                "type": "string",
+                                "maxLength": 100,
+                                "x-nullable": true,
+                                "example": " ",
+                                "description": "Postal address line 2.",
+                                "_key": "address_line2"
+                              },
+                              {
+                                "type": "array",
+                                "maxItems": 10,
+                                "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "[\\w\\-._]{8,100}"
+                                },
+                                "_key": "aliases"
+                              },
+                              {
+                                "type": "string",
+                                "default": "active_device_business_model",
+                                "example": "api_calls_1_business_model",
+                                "description": "Business model for this account. Manageable by the root admin only.",
+                                "enum": [
+                                  "active_device_business_model",
+                                  "api_calls_1_business_model"
+                                ],
+                                "_key": "business_model"
+                              },
+                              {
+                                "type": "array",
+                                "description": "Business model history for this account.",
+                                "items": {
+                                  "type": "object",
+                                  "properties": [
+                                    {
+                                      "type": "string",
+                                      "default": "active_device_business_model",
+                                      "example": "api_calls_1_business_model",
+                                      "description": "Business model for this account. Manageable by the root admin only.",
+                                      "enum": [
+                                        "active_device_business_model",
+                                        "api_calls_1_business_model"
+                                      ],
+                                      "_key": "business_model"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "example": "2018-02-14T15:24:14Z",
+                                      "description": "Last update UTC time RFC3339.",
+                                      "_key": "updated_at"
+                                    }
+                                  ]
+                                },
+                                "_key": "business_model_history"
+                              },
+                              {
+                                "type": "string",
+                                "maxLength": 100,
+                                "x-nullable": true,
+                                "example": "Cambridge",
+                                "description": "The city part of the postal address.",
+                                "_key": "city"
+                              },
+                              {
+                                "type": "string",
+                                "maxLength": 100,
+                                "x-nullable": true,
+                                "example": "ARM Holdings Plc",
+                                "description": "The name of the company used in billing.",
+                                "_key": "company"
+                              },
+                              {
+                                "type": "string",
+                                "maxLength": 100,
+                                "x-nullable": true,
+                                "example": "J. Doe",
+                                "description": "The name of the contact person for this account.",
+                                "_key": "contact"
+                              },
+                              {
+                                "type": "string",
+                                "example": "1NX25_0001",
+                                "x-nullable": true,
+                                "description": "Contract number of the customer.",
+                                "_key": "contract_number"
+                              },
+                              {
+                                "type": "string",
+                                "maxLength": 100,
+                                "x-nullable": true,
+                                "example": "United Kingdom",
+                                "description": "The country part of the postal address.",
+                                "_key": "country"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-13T09:35:20Z",
+                                "description": "Creation UTC time RFC3339.",
+                                "_key": "created_at"
+                              },
+                              {
+                                "type": "object",
+                                "x-nullable": true,
+                                "description": "Account's custom properties as key-value pairs.",
+                                "additionalProperties": {
+                                  "type": "string"
+                                },
+                                "_key": "custom_fields"
+                              },
+                              {
+                                "type": "string",
+                                "example": "1NC25_0001",
+                                "x-nullable": true,
+                                "description": "Customer number of the customer.",
+                                "_key": "customer_number"
+                              },
+                              {
+                                "type": "string",
+                                "maxLength": 100,
+                                "x-nullable": true,
+                                "example": "ARM",
+                                "description": "The display name for the tenant account.",
+                                "_key": "display_name"
+                              },
+                              {
+                                "pattern": "^(?=.{3,254}$).+\\@.+",
+                                "type": "string",
+                                "x-nullable": true,
+                                "example": "info@arm.com",
+                                "description": "The company email address for this account.",
+                                "_key": "email"
+                              },
+                              {
+                                "type": "string",
+                                "example": "IT",
+                                "description": "Account end market.",
+                                "_key": "end_market"
+                              },
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "API resource entity version.",
+                                "_key": "etag"
+                              },
+                              {
+                                "type": "string",
+                                "x-nullable": true,
+                                "format": "date-time",
+                                "description": "Expiration time of the account, as UTC time RFC3339.",
+                                "_key": "expiration"
+                              },
+                              {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 180,
+                                "example": "180",
+                                "x-nullable": true,
+                                "description": "Indicates how many days (1-180) before account expiration a notification email is sent.",
+                                "_key": "expiration_warning_threshold"
+                              },
+                              {
+                                "type": "string",
+                                "example": "01619571e2e90242ac12000600000000",
+                                "description": "Account ID.",
+                                "pattern": "[a-f0-9]{32}",
+                                "_key": "id"
+                              },
+                              {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 120,
+                                "x-nullable": true,
+                                "example": "30",
+                                "description": "The reference token expiration time, in minutes, for this account.",
+                                "_key": "idle_timeout"
+                              },
+                              {
+                                "type": "array",
+                                "description": "List of account limitation objects.",
+                                "items": {
+                                  "type": "object",
+                                  "properties": [
+                                    {
+                                      "type": "integer",
+                                      "format": "int32",
+                                      "description": "Billing period of the account limitation.",
+                                      "_key": "billing_period"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "example": "2018-02-13T09:35:20Z",
+                                      "description": "Creation UTC time RFC3339.",
+                                      "_key": "created_at"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "description": "Description of the account limitation.",
+                                      "readOnly": true,
+                                      "_key": "description"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "example": "1",
+                                      "description": "API resource entity version.",
+                                      "_key": "etag"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "example": "01619571d01d0242ac12000600000000",
+                                      "description": "Entity ID.",
+                                      "_key": "id"
+                                    },
+                                    {
+                                      "type": "boolean",
+                                      "description": "Flag indicating whether this limitation is inherited.",
+                                      "readOnly": true,
+                                      "_key": "inherited"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "description": "Indicates where this limit is inherited from.",
+                                      "readOnly": true,
+                                      "_key": "inherited_from"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "description": "Indicates the type of the entity where the limitation is inherited from.",
+                                      "readOnly": true,
+                                      "_key": "inherited_type"
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "format": "int32",
+                                      "description": "The value of the limit.",
+                                      "_key": "limit"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "description": "Name of the account limitation.",
+                                      "_key": "name"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "description": "Entity name: always 'limitation'",
+                                      "enum": [
+                                        "user",
+                                        "api-key",
+                                        "group",
+                                        "account",
+                                        "account_template",
+                                        "trusted_cert",
+                                        "list",
+                                        "error",
+                                        "agreement",
+                                        "signed_agreement",
+                                        "policy",
+                                        "limitation",
+                                        "identity_provider",
+                                        "user_session",
+                                        "user_invitation",
+                                        "notification_entry",
+                                        "branding_color",
+                                        "branding_image"
+                                      ],
+                                      "_key": "object"
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "format": "int32",
+                                      "description": "Quota of the account limitation.",
+                                      "_key": "quota"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "example": "2018-02-14T15:24:14Z",
+                                      "description": "Last update UTC time RFC3339.",
+                                      "_key": "updated_at"
+                                    }
+                                  ],
+                                  "description": "This object represents an account limitation."
+                                },
+                                "_key": "limitations"
+                              },
+                              {
+                                "type": "object",
+                                "x-nullable": true,
+                                "x-deprecation": {
+                                  "issued_at": "2019-08-27T12:03:58+00:00",
+                                  "end_of_life_at": "2020-08-27T12:03:58+00:00",
+                                  "comment": "Replaced by the limitations parameter."
+                                },
+                                "description": "DEPRECATED: Replaced by the limitations parameter.",
+                                "additionalProperties": {
+                                  "type": "string"
+                                },
+                                "_key": "limits"
+                              },
+                              {
+                                "type": "string",
+                                "x-nullable": true,
+                                "description": "The enforcement status of multi-factor authentication, either `enforced` or `optional`.",
+                                "enum": [
+                                  "enforced",
+                                  "optional"
+                                ],
+                                "_key": "mfa_status"
+                              },
+                              {
+                                "type": "array",
+                                "x-nullable": true,
+                                "description": "A list of notification email addresses.",
+                                "items": {
+                                  "pattern": "^(?=.{3,254}$).+\\@.+",
+                                  "type": "string"
+                                },
+                                "_key": "notification_emails"
+                              },
+                              {
+                                "type": "string",
+                                "description": "Entity name: always `account`.",
+                                "enum": [
+                                  "account"
+                                ],
+                                "_key": "object"
+                              },
+                              {
+                                "type": "object",
+                                "properties": [
+                                  {
+                                    "pattern": "^(?=.{3,254}$).+\\@.+",
+                                    "type": "string",
+                                    "example": "info@arm.com",
+                                    "description": "The email address of the admin user who is the contact person of the parent account.",
+                                    "api_fieldname": "admin_email",
+                                    "entity_fieldname": "admin_email",
+                                    "_key": "admin_email"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "example": "J. Doe",
+                                    "description": "The name of the admin user who is the contact person of the parent account.",
+                                    "api_fieldname": "admin_name",
+                                    "entity_fieldname": "admin_name",
+                                    "_key": "admin_name"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "example": "01619571dad80242ac12000600000000",
+                                    "description": "The ID of the parent account.",
+                                    "pattern": "[a-f0-9]{32}",
+                                    "api_fieldname": "id",
+                                    "entity_fieldname": "id",
+                                    "_key": "id"
+                                  }
+                                ],
+                                "description": "Represents parent account contact details in responses.",
+                                "foreign_key": {
+                                  "group": "Accounts",
+                                  "entity": "parent_account"
+                                },
+                                "x-nullable": true,
+                                "_key": "parent_account"
+                              },
+                              {
+                                "type": "string",
+                                "x-nullable": true,
+                                "example": "01619571dad80242ac12000600000000",
+                                "description": "The ID of the parent account, if any.",
+                                "pattern": "[a-f0-9]{32}",
+                                "_key": "parent_id"
+                              },
+                              {
+                                "type": "object",
+                                "required": [
+                                  "minimum_length"
+                                ],
+                                "properties": [
+                                  {
+                                    "type": "integer",
+                                    "minimum": 8,
+                                    "maximum": 512,
+                                    "example": "8",
+                                    "description": "Minimum length for the password.",
+                                    "api_fieldname": "minimum_length",
+                                    "entity_fieldname": "minimum_length",
+                                    "_key": "minimum_length"
+                                  }
+                                ],
+                                "foreign_key": {
+                                  "group": "Accounts",
+                                  "entity": "password_policy"
+                                },
+                                "description": "The password policy for this account.",
+                                "x-nullable": true,
+                                "_key": "password_policy"
+                              },
+                              {
+                                "type": "integer",
+                                "format": "int32",
+                                "minimum": 1,
+                                "maximum": 45,
+                                "description": "Indicates for how many minutes a password recovery email is valid.",
+                                "_key": "password_recovery_expiration"
+                              },
+                              {
+                                "type": "string",
+                                "maxLength": 100,
+                                "x-nullable": true,
+                                "example": "+44 (1223) 400 400",
+                                "description": "The phone number of a company representative.",
+                                "_key": "phone_number"
+                              },
+                              {
+                                "type": "array",
+                                "x-nullable": true,
+                                "description": "List of policies if requested.",
+                                "items": {
+                                  "type": "object",
+                                  "properties": [
+                                    {
+                                      "type": "string",
+                                      "example": "GET",
+                                      "description": "Comma-separated list of actions, empty string represents all actions.",
+                                      "api_fieldname": "action",
+                                      "entity_fieldname": "action",
+                                      "_key": "action"
+                                    },
+                                    {
+                                      "type": "boolean",
+                                      "example": true,
+                                      "description": "True or false controlling whether an action is allowed or not.",
+                                      "api_fieldname": "allow",
+                                      "entity_fieldname": "allow",
+                                      "_key": "allow"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "example": "update-campaigns",
+                                      "description": "Feature name corresponding to this policy.",
+                                      "api_fieldname": "feature",
+                                      "entity_fieldname": "feature",
+                                      "_key": "feature"
+                                    },
+                                    {
+                                      "type": "boolean",
+                                      "example": false,
+                                      "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
+                                      "readOnly": true,
+                                      "api_fieldname": "inherited",
+                                      "entity_fieldname": "inherited",
+                                      "_key": "inherited"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "example": "016ada3ec2d46665bf66e32e00000000",
+                                      "description": "An ID indicating where this policy is inherited from.",
+                                      "pattern": "[a-f0-9]{32}",
+                                      "readOnly": true,
+                                      "api_fieldname": "inherited_from",
+                                      "entity_fieldname": "inherited_from",
+                                      "_key": "inherited_from"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "example": "account",
+                                      "description": "Indicates the type of entity this policy is inherited from.",
+                                      "readOnly": true,
+                                      "enum": [
+                                        "account",
+                                        "template",
+                                        "tier_template"
+                                      ],
+                                      "api_fieldname": "inherited_type",
+                                      "entity_fieldname": "inherited_type",
+                                      "_key": "inherited_type"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "example": "/v3/update-campaign",
+                                      "description": "Resource that is protected by this policy.",
+                                      "api_fieldname": "resource",
+                                      "entity_fieldname": "resource",
+                                      "_key": "resource"
+                                    }
+                                  ],
+                                  "description": "Represents a feature policy. Either the feature or the resource must be specified.",
+                                  "foreign_key": {
+                                    "group": "Accounts",
+                                    "entity": "policy"
+                                  }
+                                },
+                                "_key": "policies"
+                              },
+                              {
+                                "type": "string",
+                                "maxLength": 100,
+                                "x-nullable": true,
+                                "example": "CB1 9NJ",
+                                "description": "The postal code part of the postal address.",
+                                "_key": "postal_code"
+                              },
+                              {
+                                "type": "string",
+                                "x-nullable": true,
+                                "example": "Subscription paid.",
+                                "description": "A note with the reason for account status update.",
+                                "_key": "reason"
+                              },
+                              {
+                                "type": "string",
+                                "x-nullable": true,
+                                "example": "ARM-INT-0001",
+                                "description": "A reference note for updating the status of the account.",
+                                "_key": "reference_note"
+                              },
+                              {
+                                "pattern": "^(?=.{3,254}$).+\\@.+",
+                                "type": "string",
+                                "example": "sales@arm.com",
+                                "x-nullable": true,
+                                "description": "Email address of the sales contact.",
+                                "_key": "sales_contact"
+                              },
+                              {
+                                "type": "string",
+                                "maxLength": 100,
+                                "x-nullable": true,
+                                "example": " ",
+                                "description": "The state part of the postal address.",
+                                "_key": "state"
+                              },
+                              {
+                                "type": "string",
+                                "example": "ACTIVE",
+                                "description": "The status of the account.",
+                                "enum": [
+                                  "ENROLLING",
+                                  "ACTIVE",
+                                  "RESTRICTED",
+                                  "SUSPENDED"
+                                ],
+                                "_key": "status"
+                              },
+                              {
+                                "type": "array",
+                                "x-nullable": true,
+                                "description": "List of sub accounts. Not available for developer users.",
+                                "items": [],
+                                "_key": "sub_accounts"
+                              },
+                              {
+                                "type": "string",
+                                "x-nullable": true,
+                                "example": "01619571e7160242ac12000600000000",
+                                "description": "Account template ID.",
+                                "pattern": "[a-f0-9]{32}",
+                                "_key": "template_id"
+                              },
+                              {
+                                "type": "string",
+                                "example": "1",
+                                "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                                "_key": "tier"
+                              },
+                              {
+                                "type": "array",
+                                "description": "Tier history for this account.",
+                                "items": {
+                                  "type": "object",
+                                  "properties": [
+                                    {
+                                      "type": "string",
+                                      "example": "1",
+                                      "description": "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.",
+                                      "_key": "tier"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "example": "2018-02-14T15:24:14Z",
+                                      "description": "Last update UTC time RFC3339.",
+                                      "_key": "updatedAt"
+                                    }
+                                  ]
+                                },
+                                "_key": "tier_history"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Last update UTC time RFC3339.",
+                                "_key": "updated_at"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2018-02-14T15:24:14Z",
+                                "description": "Time when upgraded to commercial account in UTC format RFC3339.",
+                                "_key": "upgraded_at"
+                              }
+                            ],
+                            "description": "Represents an account in requests and responses."
+                          },
                           "_key": "sub_accounts"
                         },
                         {
@@ -3369,7 +3943,11 @@
                     "_key": "upgraded_at"
                   }
                 ],
-                "description": "Represents an account in requests and responses."
+                "description": "Represents an account in requests and responses.",
+                "foreign_key": {
+                  "group": "Accounts",
+                  "entity": "account"
+                }
               },
               "_key": "201"
             },
@@ -5583,53 +6161,6 @@
                           "_key": "address_line2"
                         },
                         {
-                          "pattern": "^(?=.{3,254}$).+\\@.+",
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "admin@arm.com",
-                          "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_email"
-                        },
-                        {
-                          "type": "string",
-                          "maxLength": 100,
-                          "x-nullable": true,
-                          "example": "Admin Doe",
-                          "description": "The full name of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_full_name"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "01619571e2e89242ac12000600000000",
-                          "description": "The ID of the admin user created for this account. Present only in the response for the account creation.",
-                          "pattern": "[a-f0-9]{32}",
-                          "_key": "admin_id"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                          "description": "The admin API key created for this account. Present only in the response for account creation.",
-                          "readOnly": true,
-                          "_key": "admin_key"
-                        },
-                        {
-                          "type": "string",
-                          "maxLength": 100,
-                          "x-nullable": true,
-                          "example": "admin",
-                          "description": "The username of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_name"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "PZf9eEUH43DAPE9ULINFeuj",
-                          "description": "The password of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_password"
-                        },
-                        {
                           "type": "array",
                           "maxItems": 10,
                           "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
@@ -6200,53 +6731,6 @@
                                 "example": " ",
                                 "description": "Postal address line 2.",
                                 "_key": "address_line2"
-                              },
-                              {
-                                "pattern": "^(?=.{3,254}$).+\\@.+",
-                                "type": "string",
-                                "x-nullable": true,
-                                "example": "admin@arm.com",
-                                "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                                "_key": "admin_email"
-                              },
-                              {
-                                "type": "string",
-                                "maxLength": 100,
-                                "x-nullable": true,
-                                "example": "Admin Doe",
-                                "description": "The full name of the admin user created for this account. Present only in the response for account creation.",
-                                "_key": "admin_full_name"
-                              },
-                              {
-                                "type": "string",
-                                "x-nullable": true,
-                                "example": "01619571e2e89242ac12000600000000",
-                                "description": "The ID of the admin user created for this account. Present only in the response for the account creation.",
-                                "pattern": "[a-f0-9]{32}",
-                                "_key": "admin_id"
-                              },
-                              {
-                                "type": "string",
-                                "x-nullable": true,
-                                "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                                "description": "The admin API key created for this account. Present only in the response for account creation.",
-                                "readOnly": true,
-                                "_key": "admin_key"
-                              },
-                              {
-                                "type": "string",
-                                "maxLength": 100,
-                                "x-nullable": true,
-                                "example": "admin",
-                                "description": "The username of the admin user created for this account. Present only in the response for account creation.",
-                                "_key": "admin_name"
-                              },
-                              {
-                                "type": "string",
-                                "x-nullable": true,
-                                "example": "PZf9eEUH43DAPE9ULINFeuj",
-                                "description": "The password of the admin user created for this account. Present only in the response for account creation.",
-                                "_key": "admin_password"
                               },
                               {
                                 "type": "array",
@@ -7239,65 +7723,6 @@
                     "_key": "address_line2"
                   },
                   {
-                    "pattern": "^(?=.{3,254}$).+\\@.+",
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "admin@arm.com",
-                    "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_email",
-                    "entity_fieldname": "admin_email",
-                    "_key": "admin_email"
-                  },
-                  {
-                    "type": "string",
-                    "maxLength": 100,
-                    "x-nullable": true,
-                    "example": "Admin Doe",
-                    "description": "The full name of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_full_name",
-                    "entity_fieldname": "admin_full_name",
-                    "_key": "admin_full_name"
-                  },
-                  {
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "01619571e2e89242ac12000600000000",
-                    "description": "The ID of the admin user created for this account. Present only in the response for the account creation.",
-                    "pattern": "[a-f0-9]{32}",
-                    "api_fieldname": "admin_id",
-                    "entity_fieldname": "admin_id",
-                    "_key": "admin_id"
-                  },
-                  {
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                    "description": "The admin API key created for this account. Present only in the response for account creation.",
-                    "readOnly": true,
-                    "api_fieldname": "admin_key",
-                    "entity_fieldname": "admin_key",
-                    "_key": "admin_key"
-                  },
-                  {
-                    "type": "string",
-                    "maxLength": 100,
-                    "x-nullable": true,
-                    "example": "admin",
-                    "description": "The username of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_name",
-                    "entity_fieldname": "admin_name",
-                    "_key": "admin_name"
-                  },
-                  {
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "PZf9eEUH43DAPE9ULINFeuj",
-                    "description": "The password of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_password",
-                    "entity_fieldname": "admin_password",
-                    "_key": "admin_password"
-                  },
-                  {
                     "type": "array",
                     "maxItems": 10,
                     "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
@@ -7940,53 +8365,6 @@
                           "example": " ",
                           "description": "Postal address line 2.",
                           "_key": "address_line2"
-                        },
-                        {
-                          "pattern": "^(?=.{3,254}$).+\\@.+",
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "admin@arm.com",
-                          "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_email"
-                        },
-                        {
-                          "type": "string",
-                          "maxLength": 100,
-                          "x-nullable": true,
-                          "example": "Admin Doe",
-                          "description": "The full name of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_full_name"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "01619571e2e89242ac12000600000000",
-                          "description": "The ID of the admin user created for this account. Present only in the response for the account creation.",
-                          "pattern": "[a-f0-9]{32}",
-                          "_key": "admin_id"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                          "description": "The admin API key created for this account. Present only in the response for account creation.",
-                          "readOnly": true,
-                          "_key": "admin_key"
-                        },
-                        {
-                          "type": "string",
-                          "maxLength": 100,
-                          "x-nullable": true,
-                          "example": "admin",
-                          "description": "The username of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_name"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "PZf9eEUH43DAPE9ULINFeuj",
-                          "description": "The password of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_password"
                         },
                         {
                           "type": "array",
@@ -8859,12 +9237,6 @@
             "customer_number",
             "parent_account",
             "expiration",
-            "admin_id",
-            "admin_name",
-            "admin_email",
-            "admin_key",
-            "admin_password",
-            "admin_full_name",
             "limitations",
             "password_recovery_expiration",
             "business_model",
@@ -8958,65 +9330,6 @@
                     "api_fieldname": "address_line2",
                     "entity_fieldname": "address_line2",
                     "_key": "address_line2"
-                  },
-                  {
-                    "pattern": "^(?=.{3,254}$).+\\@.+",
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "admin@arm.com",
-                    "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_email",
-                    "entity_fieldname": "admin_email",
-                    "_key": "admin_email"
-                  },
-                  {
-                    "type": "string",
-                    "maxLength": 100,
-                    "x-nullable": true,
-                    "example": "Admin Doe",
-                    "description": "The full name of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_full_name",
-                    "entity_fieldname": "admin_full_name",
-                    "_key": "admin_full_name"
-                  },
-                  {
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "01619571e2e89242ac12000600000000",
-                    "description": "The ID of the admin user created for this account. Present only in the response for the account creation.",
-                    "pattern": "[a-f0-9]{32}",
-                    "api_fieldname": "admin_id",
-                    "entity_fieldname": "admin_id",
-                    "_key": "admin_id"
-                  },
-                  {
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                    "description": "The admin API key created for this account. Present only in the response for account creation.",
-                    "readOnly": true,
-                    "api_fieldname": "admin_key",
-                    "entity_fieldname": "admin_key",
-                    "_key": "admin_key"
-                  },
-                  {
-                    "type": "string",
-                    "maxLength": 100,
-                    "x-nullable": true,
-                    "example": "admin",
-                    "description": "The username of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_name",
-                    "entity_fieldname": "admin_name",
-                    "_key": "admin_name"
-                  },
-                  {
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "PZf9eEUH43DAPE9ULINFeuj",
-                    "description": "The password of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_password",
-                    "entity_fieldname": "admin_password",
-                    "_key": "admin_password"
                   },
                   {
                     "type": "array",
@@ -9661,53 +9974,6 @@
                           "example": " ",
                           "description": "Postal address line 2.",
                           "_key": "address_line2"
-                        },
-                        {
-                          "pattern": "^(?=.{3,254}$).+\\@.+",
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "admin@arm.com",
-                          "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_email"
-                        },
-                        {
-                          "type": "string",
-                          "maxLength": 100,
-                          "x-nullable": true,
-                          "example": "Admin Doe",
-                          "description": "The full name of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_full_name"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "01619571e2e89242ac12000600000000",
-                          "description": "The ID of the admin user created for this account. Present only in the response for the account creation.",
-                          "pattern": "[a-f0-9]{32}",
-                          "_key": "admin_id"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                          "description": "The admin API key created for this account. Present only in the response for account creation.",
-                          "readOnly": true,
-                          "_key": "admin_key"
-                        },
-                        {
-                          "type": "string",
-                          "maxLength": 100,
-                          "x-nullable": true,
-                          "example": "admin",
-                          "description": "The username of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_name"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "PZf9eEUH43DAPE9ULINFeuj",
-                          "description": "The password of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_password"
                         },
                         {
                           "type": "array",
@@ -10652,12 +10918,6 @@
             "customer_number",
             "parent_account",
             "expiration",
-            "admin_id",
-            "admin_name",
-            "admin_email",
-            "admin_key",
-            "admin_password",
-            "admin_full_name",
             "limitations",
             "password_recovery_expiration",
             "business_model",
@@ -11700,65 +11960,6 @@
                     "_key": "address_line2"
                   },
                   {
-                    "pattern": "^(?=.{3,254}$).+\\@.+",
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "admin@arm.com",
-                    "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_email",
-                    "entity_fieldname": "admin_email",
-                    "_key": "admin_email"
-                  },
-                  {
-                    "type": "string",
-                    "maxLength": 100,
-                    "x-nullable": true,
-                    "example": "Admin Doe",
-                    "description": "The full name of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_full_name",
-                    "entity_fieldname": "admin_full_name",
-                    "_key": "admin_full_name"
-                  },
-                  {
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "01619571e2e89242ac12000600000000",
-                    "description": "The ID of the admin user created for this account. Present only in the response for the account creation.",
-                    "pattern": "[a-f0-9]{32}",
-                    "api_fieldname": "admin_id",
-                    "entity_fieldname": "admin_id",
-                    "_key": "admin_id"
-                  },
-                  {
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                    "description": "The admin API key created for this account. Present only in the response for account creation.",
-                    "readOnly": true,
-                    "api_fieldname": "admin_key",
-                    "entity_fieldname": "admin_key",
-                    "_key": "admin_key"
-                  },
-                  {
-                    "type": "string",
-                    "maxLength": 100,
-                    "x-nullable": true,
-                    "example": "admin",
-                    "description": "The username of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_name",
-                    "entity_fieldname": "admin_name",
-                    "_key": "admin_name"
-                  },
-                  {
-                    "type": "string",
-                    "x-nullable": true,
-                    "example": "PZf9eEUH43DAPE9ULINFeuj",
-                    "description": "The password of the admin user created for this account. Present only in the response for account creation.",
-                    "api_fieldname": "admin_password",
-                    "entity_fieldname": "admin_password",
-                    "_key": "admin_password"
-                  },
-                  {
                     "type": "array",
                     "maxItems": 10,
                     "description": "An array of aliases for the tenant account ID. The aliases must be globally unique.",
@@ -12401,53 +12602,6 @@
                           "example": " ",
                           "description": "Postal address line 2.",
                           "_key": "address_line2"
-                        },
-                        {
-                          "pattern": "^(?=.{3,254}$).+\\@.+",
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "admin@arm.com",
-                          "description": "The email address of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_email"
-                        },
-                        {
-                          "type": "string",
-                          "maxLength": 100,
-                          "x-nullable": true,
-                          "example": "Admin Doe",
-                          "description": "The full name of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_full_name"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "01619571e2e89242ac12000600000000",
-                          "description": "The ID of the admin user created for this account. Present only in the response for the account creation.",
-                          "pattern": "[a-f0-9]{32}",
-                          "_key": "admin_id"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                          "description": "The admin API key created for this account. Present only in the response for account creation.",
-                          "readOnly": true,
-                          "_key": "admin_key"
-                        },
-                        {
-                          "type": "string",
-                          "maxLength": 100,
-                          "x-nullable": true,
-                          "example": "admin",
-                          "description": "The username of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_name"
-                        },
-                        {
-                          "type": "string",
-                          "x-nullable": true,
-                          "example": "PZf9eEUH43DAPE9ULINFeuj",
-                          "description": "The password of the admin user created for this account. Present only in the response for account creation.",
-                          "_key": "admin_password"
                         },
                         {
                           "type": "array",
@@ -13516,12 +13670,6 @@
             "reference_note",
             "parent_account",
             "expiration",
-            "admin_id",
-            "admin_name",
-            "admin_email",
-            "admin_key",
-            "admin_password",
-            "admin_full_name",
             "limitations",
             "business_model_history",
             "tier_history"
