@@ -6946,7 +6946,8 @@ definitions:
         maxLength: 100
         type: string
       service:
-        description: Service name where the certificate must be used.
+        description: Service name where the certificate must be used. Service cannot
+          be updated for developer certificates.
         enum:
         - lwm2m
         - bootstrap
