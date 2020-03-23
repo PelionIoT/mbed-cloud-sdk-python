@@ -6025,7 +6025,7 @@ definitions:
         type: string
       rt:
         description: 'Application-specific resource type that describes this resource.
-          It is created by the [client side application](../connecting/resource-setup-in-device-management-client.html).
+          It is created by the [client side application](../device-management/resource-setup-in-device-management-client.html).
 
           Not meant to be a human-readable name for the resource. Multiple resource
           types may be included, separated by a space.'
