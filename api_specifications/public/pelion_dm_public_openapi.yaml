@@ -9928,8 +9928,13 @@ paths:
         \ sends subscription requests to the device. The pattern may include the endpoint\
         \ ID (optionally having an `*` character at the end), endpoint type, a list\
         \ of resources, or expressions with an `*` character at the end. Subscriptions\
-        \ based on pre-subscriptions are done when device registers or does register\
+        \ based on pre-subscriptions are done when device registers or does a register\
         \ update. To remove the pre-subscription data, put an empty array as a rule.\n\
+        \n**Note:** The subscription is bound to the API key your application is using.\
+        \ To get notifications of the resource value changes, you need to create an\
+        \ [event notification channel](../integrate-web-app/event-notification.html)\
+        \ with the same API Key.\n\nFor more information, see [Subscribing to Resource\
+        \ changes from a web application](../device-management/resource-change-webapp.html).\n\
         \n**Notification rules**\n\nA web application can place dynamic observation\
         \ rules for individual Object Instances and Resources to define when the device\
         \ sends observations. More information in [Notification rules](../device-management/resource-change-webapp.html#notification-rules).\n\
