@@ -9957,9 +9957,10 @@ paths:
         \ their resources prefixed with `/sen/`.\n- Subscribe to all observable resources\
         \ of endpoint names prefixed with `node`.\n- Subscribe to all observable resources\
         \ of `Sensor` type endpoints.\n- Subscribe to `/dev/temp` and `/dev/hum` resources\
-        \ of all endpoints.\n\n**Note**: For efficiency, you should use resource path\
-        \ patterns in the pre-subscription data. This prevents notification flow from\
-        \ unwanted resources."
+        \ of all endpoints.\n\n**Note**:\nTo save bandwidth and avoid unnecessary\
+        \ traffic, use resource path patterns to limit the matching resources in the\
+        \ presubscription data.\nThis prevents the notification flow from unwanted\
+        \ resources to your web application. See [Subscribe only to what you need](../device-management/resource-change-webapp.html#subscribe-only-to-what-you-need)."
       operationId: updatePreSubscriptions
       parameters:
       - description: Array of pre-subscriptions.
