@@ -6448,6 +6448,86 @@ definitions:
     required:
     - object
     - previous
+  StatisticsReportListResponse:
+    properties:
+      after:
+        description: An offset token for the current page.
+        example: '01631667477600000000000100100374'
+        type: string
+      data:
+        description: List of manufacturing statistics.
+        items:
+          $ref: '#/definitions/StatisticsReportResponse'
+        type: array
+      end:
+        example: '2020-03-30T07:30:00.000'
+        format: date-time
+        type: string
+      has_more:
+        description: Indicates if more results are available.
+        example: false
+        type: boolean
+      limit:
+        description: The number of results to return (2-1000). Values outside of this
+          range are set to the closest limit.
+        example: 50
+        maximum: 1000
+        minimum: 2
+        type: integer
+      object:
+        description: The API object type. The object type of this API is "list".
+        example: list
+        type: string
+      order:
+        description: The records order based on the records identifier.
+        example: DESC
+        type: string
+      start:
+        example: '2020-03-29T07:30:00.000'
+        format: date-time
+        type: string
+      total_count:
+        example: 100
+        format: integer
+        type: integer
+    type: object
+  StatisticsReportResponse:
+    properties:
+      avg_provisioning_time_sec:
+        description: Average provisioning time in seconds.
+        example: '2.5'
+        type: number
+      device_count:
+        description: Number of manufactured devices.
+        example: '103'
+        type: integer
+      factory_id:
+        description: Factory ID.
+        example: '164'
+        type: integer
+      factory_name:
+        description: Factory Name.
+        example: factory 1
+        type: string
+      id:
+        description: Unique row identifier.
+        example: 01612df56f3b0a580a010fc700000000
+        format: uuid
+        pattern: '[a-fA-F0-9]{32}'
+        type: string
+      max_provisioning_time_sec:
+        description: Maximum provisioning time in seconds.
+        example: '3.1'
+        type: number
+      min_provisioning_time_sec:
+        description: Minimum provisioning time in seconds.
+        example: '2.2'
+        type: number
+      workstation:
+        description: Workstation.
+        example: ws_1
+        type: string
+    type: object
   StatisticsSeriesRecord:
     description: Statistics view record.
     properties:
@@ -25747,6 +25827,63 @@ paths:
       tags:
       - Account - entitlement limitations
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
+  /v3/manufacturing/statistics/report:
+    get:
+      description: 'Get manufacturing statistics report.
+
+        **Example:**
+
+        ```
+
+        curl \
+
+        -H ''authorization: <valid access token>'' \
+
+        https://api.us-east-1.mbedcloud.com/v3/manufacturing/statistics-report?startDate=2019-10-20&endDate=2019-10-22
+
+        ```
+
+        '
+      operationId: ManufacturingStatisticsReport
+      parameters:
+      - description: The start date of the period on which the report is produced.
+        format: date-time
+        in: query
+        name: start
+        required: true
+        type: string
+      - description: The end date of the period on which the report is produced. Default
+          is the current date-time.
+        format: date-time
+        in: query
+        name: end
+        required: false
+        type: string
+      produces:
+      - application/json
+      responses:
+        200:
+          description: OK.
+          schema:
+            $ref: '#/definitions/StatisticsReportListResponse'
+        204:
+          description: No content.
+        400:
+          description: Validation error.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        401:
+          description: Unauthorized.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        403:
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Fetch statistics for provisioning devices in your factories.
+      tags:
+      - Manufacturing - factory statistics
+      x-origin: /home/circleci/project/manufacturing-statistics/public/swagger.yml
   /v3/metrics:
     get:
       description: This REST API is used to get account-specific statistics.
