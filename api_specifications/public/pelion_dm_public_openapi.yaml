@@ -5999,6 +5999,10 @@ definitions:
     required:
     - uri
     type: object
+  ResourceArray:
+    items:
+      $ref: '#/definitions/Resource'
+    type: array
   ResourcePath:
     description: A resource URI.
     example: /sen/light
@@ -9054,9 +9058,7 @@ paths:
         200:
           description: Successful response with an array of resources.
           schema:
-            items:
-              $ref: '#/definitions/Resource'
-            type: array
+            $ref: '#/definitions/ResourceArray'
         404:
           description: Endpoint not found.
       summary: List the resources on an endpoint.
