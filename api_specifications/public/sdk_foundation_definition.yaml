@@ -10489,6 +10489,7 @@ entities:
                   api_fieldname: foreign_id
                   description: The ID of the user in the identity provider's service.
                   entity_fieldname: foreign_id
+                  example: fed/user_007
                   readOnly: true
                   type: string
                 - _key: id
@@ -10496,6 +10497,7 @@ entities:
                   api_fieldname: id
                   description: ID of the identity provider.
                   entity_fieldname: id
+                  example: 01619571f3c00242ac12000600000000
                   readOnly: false
                   type: string
                 - _key: name
@@ -10503,6 +10505,7 @@ entities:
                   api_fieldname: name
                   description: Name of the identity provider.
                   entity_fieldname: name
+                  example: Pelion
                   readOnly: false
                   type: string
                 - _key: type
@@ -10514,6 +10517,7 @@ entities:
                   - MBED
                   - SAML2
                   - OIDC
+                  example: NATIVE
                   readOnly: true
                   type: string
                 required:
@@ -11091,6 +11095,7 @@ entities:
                   api_fieldname: foreign_id
                   description: The ID of the user in the identity provider's service.
                   entity_fieldname: foreign_id
+                  example: fed/user_007
                   readOnly: true
                   type: string
                 - _key: id
@@ -11098,6 +11103,7 @@ entities:
                   api_fieldname: id
                   description: ID of the identity provider.
                   entity_fieldname: id
+                  example: 01619571f3c00242ac12000600000000
                   readOnly: false
                   type: string
                 - _key: name
@@ -11105,6 +11111,7 @@ entities:
                   api_fieldname: name
                   description: Name of the identity provider.
                   entity_fieldname: name
+                  example: Pelion
                   readOnly: false
                   type: string
                 - _key: type
@@ -11116,6 +11123,7 @@ entities:
                   - MBED
                   - SAML2
                   - OIDC
+                  example: NATIVE
                   readOnly: true
                   type: string
                 required:
@@ -42153,6 +42161,7 @@ entities:
   - _key: foreign_id
     api_fieldname: foreign_id
     description: The ID of the user in the identity provider's service.
+    example: fed/user_007
     readOnly: true
     required: false
     type: string
@@ -42160,6 +42169,7 @@ entities:
     _override: true
     api_fieldname: id
     description: ID of the identity provider.
+    example: 01619571f3c00242ac12000600000000
     readOnly: false
     required: false
     type: string
@@ -42172,6 +42182,7 @@ entities:
     - SAML2
     - OIDC
     enum_reference: login_profile_type_enum
+    example: NATIVE
     readOnly: true
     required: false
     type: string
@@ -42179,6 +42190,7 @@ entities:
     _override: true
     api_fieldname: name
     description: Name of the identity provider.
+    example: Pelion
     readOnly: false
     required: false
     type: string
@@ -44880,6 +44892,7 @@ entities:
                   api_fieldname: foreign_id
                   description: The ID of the user in the identity provider's service.
                   entity_fieldname: foreign_id
+                  example: fed/user_007
                   readOnly: true
                   type: string
                 - _key: id
@@ -44887,6 +44900,7 @@ entities:
                   api_fieldname: id
                   description: ID of the identity provider.
                   entity_fieldname: id
+                  example: 01619571f3c00242ac12000600000000
                   readOnly: false
                   type: string
                 - _key: name
@@ -44894,6 +44908,7 @@ entities:
                   api_fieldname: name
                   description: Name of the identity provider.
                   entity_fieldname: name
+                  example: Pelion
                   readOnly: false
                   type: string
                 - _key: type
@@ -44905,6 +44920,7 @@ entities:
                   - MBED
                   - SAML2
                   - OIDC
+                  example: NATIVE
                   readOnly: true
                   type: string
                 required:
@@ -59025,6 +59041,7 @@ entities:
                   api_fieldname: foreign_id
                   description: The ID of the user in the identity provider's service.
                   entity_fieldname: foreign_id
+                  example: fed/user_007
                   readOnly: true
                   type: string
                 - _key: id
@@ -59032,6 +59049,7 @@ entities:
                   api_fieldname: id
                   description: ID of the identity provider.
                   entity_fieldname: id
+                  example: 01619571f3c00242ac12000600000000
                   readOnly: false
                   type: string
                 - _key: name
@@ -59039,6 +59057,7 @@ entities:
                   api_fieldname: name
                   description: Name of the identity provider.
                   entity_fieldname: name
+                  example: Pelion
                   readOnly: false
                   type: string
                 - _key: type
@@ -59050,6 +59069,7 @@ entities:
                   - MBED
                   - SAML2
                   - OIDC
+                  example: NATIVE
                   readOnly: true
                   type: string
                 required:
@@ -61903,6 +61923,7 @@ entities:
         api_fieldname: foreign_id
         description: The ID of the user in the identity provider's service.
         entity_fieldname: foreign_id
+        example: fed/user_007
         readOnly: true
         type: string
       - _key: id
@@ -61910,6 +61931,7 @@ entities:
         api_fieldname: id
         description: ID of the identity provider.
         entity_fieldname: id
+        example: 01619571f3c00242ac12000600000000
         readOnly: false
         type: string
       - _key: name
@@ -61917,6 +61939,7 @@ entities:
         api_fieldname: name
         description: Name of the identity provider.
         entity_fieldname: name
+        example: Pelion
         readOnly: false
         type: string
       - _key: type
@@ -61928,6 +61951,7 @@ entities:
         - MBED
         - SAML2
         - OIDC
+        example: NATIVE
         readOnly: true
         type: string
       required:
@@ -62157,6 +62181,7 @@ entities:
           api_fieldname: foreign_id
           description: The ID of the user in the identity provider's service.
           entity_fieldname: foreign_id
+          example: fed/user_007
           readOnly: true
           type: string
         - _key: id
@@ -62164,6 +62189,7 @@ entities:
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          example: 01619571f3c00242ac12000600000000
           readOnly: false
           type: string
         - _key: name
@@ -62171,6 +62197,7 @@ entities:
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
+          example: Pelion
           readOnly: false
           type: string
         - _key: type
@@ -62182,6 +62209,7 @@ entities:
           - MBED
           - SAML2
           - OIDC
+          example: NATIVE
           readOnly: true
           type: string
         required: &id019
@@ -62501,6 +62529,7 @@ entities:
               api_fieldname: foreign_id
               description: The ID of the user in the identity provider's service.
               entity_fieldname: foreign_id
+              example: fed/user_007
               readOnly: true
               type: string
             - _key: id
@@ -62508,6 +62537,7 @@ entities:
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              example: 01619571f3c00242ac12000600000000
               readOnly: false
               type: string
             - _key: name
@@ -62515,6 +62545,7 @@ entities:
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
+              example: Pelion
               readOnly: false
               type: string
             - _key: type
@@ -62526,6 +62557,7 @@ entities:
               - MBED
               - SAML2
               - OIDC
+              example: NATIVE
               readOnly: true
               type: string
             required:
@@ -63874,6 +63906,7 @@ entities:
               api_fieldname: foreign_id
               description: The ID of the user in the identity provider's service.
               entity_fieldname: foreign_id
+              example: fed/user_007
               readOnly: true
               type: string
             - _key: id
@@ -63881,6 +63914,7 @@ entities:
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              example: 01619571f3c00242ac12000600000000
               readOnly: false
               type: string
             - _key: name
@@ -63888,6 +63922,7 @@ entities:
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
+              example: Pelion
               readOnly: false
               type: string
             - _key: type
@@ -63899,6 +63934,7 @@ entities:
               - MBED
               - SAML2
               - OIDC
+              example: NATIVE
               readOnly: true
               type: string
             required:
@@ -64288,6 +64324,7 @@ entities:
           api_fieldname: foreign_id
           description: The ID of the user in the identity provider's service.
           entity_fieldname: foreign_id
+          example: fed/user_007
           readOnly: true
           type: string
         - _key: id
@@ -64295,6 +64332,7 @@ entities:
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          example: 01619571f3c00242ac12000600000000
           readOnly: false
           type: string
         - _key: name
@@ -64302,6 +64340,7 @@ entities:
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
+          example: Pelion
           readOnly: false
           type: string
         - _key: type
@@ -64309,6 +64348,7 @@ entities:
           description: Identity provider type.
           entity_fieldname: login_profile_type
           enum: *id018
+          example: NATIVE
           readOnly: true
           type: string
         required: *id019
@@ -64616,6 +64656,7 @@ entities:
               api_fieldname: foreign_id
               description: The ID of the user in the identity provider's service.
               entity_fieldname: foreign_id
+              example: fed/user_007
               readOnly: true
               type: string
             - _key: id
@@ -64623,6 +64664,7 @@ entities:
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              example: 01619571f3c00242ac12000600000000
               readOnly: false
               type: string
             - _key: name
@@ -64630,6 +64672,7 @@ entities:
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
+              example: Pelion
               readOnly: false
               type: string
             - _key: type
@@ -64641,6 +64684,7 @@ entities:
               - MBED
               - SAML2
               - OIDC
+              example: NATIVE
               readOnly: true
               type: string
             required:
@@ -65276,6 +65320,7 @@ entities:
         api_fieldname: foreign_id
         description: The ID of the user in the identity provider's service.
         entity_fieldname: foreign_id
+        example: fed/user_007
         readOnly: true
         type: string
       - _key: id
@@ -65283,6 +65328,7 @@ entities:
         api_fieldname: id
         description: ID of the identity provider.
         entity_fieldname: id
+        example: 01619571f3c00242ac12000600000000
         readOnly: false
         type: string
       - _key: name
@@ -65290,6 +65336,7 @@ entities:
         api_fieldname: name
         description: Name of the identity provider.
         entity_fieldname: name
+        example: Pelion
         readOnly: false
         type: string
       - _key: type
@@ -65301,6 +65348,7 @@ entities:
         - MBED
         - SAML2
         - OIDC
+        example: NATIVE
         readOnly: true
         type: string
       required:
@@ -65407,6 +65455,7 @@ entities:
           api_fieldname: foreign_id
           description: The ID of the user in the identity provider's service.
           entity_fieldname: foreign_id
+          example: fed/user_007
           readOnly: true
           type: string
         - _key: id
@@ -65414,6 +65463,7 @@ entities:
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          example: 01619571f3c00242ac12000600000000
           readOnly: false
           type: string
         - _key: name
@@ -65421,6 +65471,7 @@ entities:
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
+          example: Pelion
           readOnly: false
           type: string
         - _key: type
@@ -65432,6 +65483,7 @@ entities:
           - MBED
           - SAML2
           - OIDC
+          example: NATIVE
           readOnly: true
           type: string
         required:
@@ -65548,6 +65600,7 @@ entities:
               api_fieldname: foreign_id
               description: The ID of the user in the identity provider's service.
               entity_fieldname: foreign_id
+              example: fed/user_007
               readOnly: true
               type: string
             - _key: id
@@ -65555,6 +65608,7 @@ entities:
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              example: 01619571f3c00242ac12000600000000
               readOnly: false
               type: string
             - _key: name
@@ -65562,6 +65616,7 @@ entities:
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
+              example: Pelion
               readOnly: false
               type: string
             - _key: type
@@ -65573,6 +65628,7 @@ entities:
               - MBED
               - SAML2
               - OIDC
+              example: NATIVE
               readOnly: true
               type: string
             required:
@@ -66114,6 +66170,7 @@ entities:
               api_fieldname: foreign_id
               description: The ID of the user in the identity provider's service.
               entity_fieldname: foreign_id
+              example: fed/user_007
               readOnly: true
               type: string
             - _key: id
@@ -66121,6 +66178,7 @@ entities:
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              example: 01619571f3c00242ac12000600000000
               readOnly: false
               type: string
             - _key: name
@@ -66128,6 +66186,7 @@ entities:
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
+              example: Pelion
               readOnly: false
               type: string
             - _key: type
@@ -66139,6 +66198,7 @@ entities:
               - MBED
               - SAML2
               - OIDC
+              example: NATIVE
               readOnly: true
               type: string
             required:
@@ -71559,6 +71619,7 @@ entities:
         api_fieldname: foreign_id
         description: The ID of the user in the identity provider's service.
         entity_fieldname: foreign_id
+        example: fed/user_007
         readOnly: true
         type: string
       - _key: id
@@ -71566,6 +71627,7 @@ entities:
         api_fieldname: id
         description: ID of the identity provider.
         entity_fieldname: id
+        example: 01619571f3c00242ac12000600000000
         readOnly: false
         type: string
       - _key: name
@@ -71573,6 +71635,7 @@ entities:
         api_fieldname: name
         description: Name of the identity provider.
         entity_fieldname: name
+        example: Pelion
         readOnly: false
         type: string
       - _key: type
@@ -71584,6 +71647,7 @@ entities:
         - MBED
         - SAML2
         - OIDC
+        example: NATIVE
         readOnly: true
         type: string
       required:
@@ -71794,6 +71858,7 @@ entities:
           api_fieldname: foreign_id
           description: The ID of the user in the identity provider's service.
           entity_fieldname: foreign_id
+          example: fed/user_007
           readOnly: true
           type: string
         - _key: id
@@ -71801,6 +71866,7 @@ entities:
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          example: 01619571f3c00242ac12000600000000
           readOnly: false
           type: string
         - _key: name
@@ -71808,6 +71874,7 @@ entities:
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
+          example: Pelion
           readOnly: false
           type: string
         - _key: type
@@ -71819,6 +71886,7 @@ entities:
           - MBED
           - SAML2
           - OIDC
+          example: NATIVE
           readOnly: true
           type: string
         required: &id023
@@ -72113,6 +72181,7 @@ entities:
               api_fieldname: foreign_id
               description: The ID of the user in the identity provider's service.
               entity_fieldname: foreign_id
+              example: fed/user_007
               readOnly: true
               type: string
             - _key: id
@@ -72120,6 +72189,7 @@ entities:
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              example: 01619571f3c00242ac12000600000000
               readOnly: false
               type: string
             - _key: name
@@ -72127,6 +72197,7 @@ entities:
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
+              example: Pelion
               readOnly: false
               type: string
             - _key: type
@@ -72138,6 +72209,7 @@ entities:
               - MBED
               - SAML2
               - OIDC
+              example: NATIVE
               readOnly: true
               type: string
             required:
@@ -72988,6 +73060,7 @@ entities:
                   api_fieldname: foreign_id
                   description: The ID of the user in the identity provider's service.
                   entity_fieldname: foreign_id
+                  example: fed/user_007
                   readOnly: true
                   type: string
                 - _key: id
@@ -72995,6 +73068,7 @@ entities:
                   api_fieldname: id
                   description: ID of the identity provider.
                   entity_fieldname: id
+                  example: 01619571f3c00242ac12000600000000
                   readOnly: false
                   type: string
                 - _key: name
@@ -73002,6 +73076,7 @@ entities:
                   api_fieldname: name
                   description: Name of the identity provider.
                   entity_fieldname: name
+                  example: Pelion
                   readOnly: false
                   type: string
                 - _key: type
@@ -73013,6 +73088,7 @@ entities:
                   - MBED
                   - SAML2
                   - OIDC
+                  example: NATIVE
                   readOnly: true
                   type: string
                 required:
@@ -73920,6 +73996,7 @@ entities:
               api_fieldname: foreign_id
               description: The ID of the user in the identity provider's service.
               entity_fieldname: foreign_id
+              example: fed/user_007
               readOnly: true
               type: string
             - _key: id
@@ -73927,6 +74004,7 @@ entities:
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              example: 01619571f3c00242ac12000600000000
               readOnly: false
               type: string
             - _key: name
@@ -73934,6 +74012,7 @@ entities:
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
+              example: Pelion
               readOnly: false
               type: string
             - _key: type
@@ -73945,6 +74024,7 @@ entities:
               - MBED
               - SAML2
               - OIDC
+              example: NATIVE
               readOnly: true
               type: string
             required:
@@ -74310,6 +74390,7 @@ entities:
           api_fieldname: foreign_id
           description: The ID of the user in the identity provider's service.
           entity_fieldname: foreign_id
+          example: fed/user_007
           readOnly: true
           type: string
         - _key: id
@@ -74317,6 +74398,7 @@ entities:
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          example: 01619571f3c00242ac12000600000000
           readOnly: false
           type: string
         - _key: name
@@ -74324,6 +74406,7 @@ entities:
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
+          example: Pelion
           readOnly: false
           type: string
         - _key: type
@@ -74331,6 +74414,7 @@ entities:
           description: Identity provider type.
           entity_fieldname: login_profile_type
           enum: *id022
+          example: NATIVE
           readOnly: true
           type: string
         required: *id023
@@ -74613,6 +74697,7 @@ entities:
               api_fieldname: foreign_id
               description: The ID of the user in the identity provider's service.
               entity_fieldname: foreign_id
+              example: fed/user_007
               readOnly: true
               type: string
             - _key: id
@@ -74620,6 +74705,7 @@ entities:
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              example: 01619571f3c00242ac12000600000000
               readOnly: false
               type: string
             - _key: name
@@ -74627,6 +74713,7 @@ entities:
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
+              example: Pelion
               readOnly: false
               type: string
             - _key: type
@@ -74638,6 +74725,7 @@ entities:
               - MBED
               - SAML2
               - OIDC
+              example: NATIVE
               readOnly: true
               type: string
             required:
@@ -75045,6 +75133,7 @@ entities:
         api_fieldname: foreign_id
         description: The ID of the user in the identity provider's service.
         entity_fieldname: foreign_id
+        example: fed/user_007
         readOnly: true
         type: string
       - _key: id
@@ -75052,6 +75141,7 @@ entities:
         api_fieldname: id
         description: ID of the identity provider.
         entity_fieldname: id
+        example: 01619571f3c00242ac12000600000000
         readOnly: false
         type: string
       - _key: name
@@ -75059,6 +75149,7 @@ entities:
         api_fieldname: name
         description: Name of the identity provider.
         entity_fieldname: name
+        example: Pelion
         readOnly: false
         type: string
       - _key: type
@@ -75070,6 +75161,7 @@ entities:
         - MBED
         - SAML2
         - OIDC
+        example: NATIVE
         readOnly: true
         type: string
       required:
@@ -75165,6 +75257,7 @@ entities:
           api_fieldname: foreign_id
           description: The ID of the user in the identity provider's service.
           entity_fieldname: foreign_id
+          example: fed/user_007
           readOnly: true
           type: string
         - _key: id
@@ -75172,6 +75265,7 @@ entities:
           api_fieldname: id
           description: ID of the identity provider.
           entity_fieldname: id
+          example: 01619571f3c00242ac12000600000000
           readOnly: false
           type: string
         - _key: name
@@ -75179,6 +75273,7 @@ entities:
           api_fieldname: name
           description: Name of the identity provider.
           entity_fieldname: name
+          example: Pelion
           readOnly: false
           type: string
         - _key: type
@@ -75190,6 +75285,7 @@ entities:
           - MBED
           - SAML2
           - OIDC
+          example: NATIVE
           readOnly: true
           type: string
         required:
@@ -75296,6 +75392,7 @@ entities:
               api_fieldname: foreign_id
               description: The ID of the user in the identity provider's service.
               entity_fieldname: foreign_id
+              example: fed/user_007
               readOnly: true
               type: string
             - _key: id
@@ -75303,6 +75400,7 @@ entities:
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              example: 01619571f3c00242ac12000600000000
               readOnly: false
               type: string
             - _key: name
@@ -75310,6 +75408,7 @@ entities:
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
+              example: Pelion
               readOnly: false
               type: string
             - _key: type
@@ -75321,6 +75420,7 @@ entities:
               - MBED
               - SAML2
               - OIDC
+              example: NATIVE
               readOnly: true
               type: string
             required:
@@ -75861,6 +75961,7 @@ entities:
                   api_fieldname: foreign_id
                   description: The ID of the user in the identity provider's service.
                   entity_fieldname: foreign_id
+                  example: fed/user_007
                   readOnly: true
                   type: string
                 - _key: id
@@ -75868,6 +75969,7 @@ entities:
                   api_fieldname: id
                   description: ID of the identity provider.
                   entity_fieldname: id
+                  example: 01619571f3c00242ac12000600000000
                   readOnly: false
                   type: string
                 - _key: name
@@ -75875,6 +75977,7 @@ entities:
                   api_fieldname: name
                   description: Name of the identity provider.
                   entity_fieldname: name
+                  example: Pelion
                   readOnly: false
                   type: string
                 - _key: type
@@ -75886,6 +75989,7 @@ entities:
                   - MBED
                   - SAML2
                   - OIDC
+                  example: NATIVE
                   readOnly: true
                   type: string
                 required:
@@ -76189,6 +76293,7 @@ entities:
               api_fieldname: foreign_id
               description: The ID of the user in the identity provider's service.
               entity_fieldname: foreign_id
+              example: fed/user_007
               readOnly: true
               type: string
             - _key: id
@@ -76196,6 +76301,7 @@ entities:
               api_fieldname: id
               description: ID of the identity provider.
               entity_fieldname: id
+              example: 01619571f3c00242ac12000600000000
               readOnly: false
               type: string
             - _key: name
@@ -76203,6 +76309,7 @@ entities:
               api_fieldname: name
               description: Name of the identity provider.
               entity_fieldname: name
+              example: Pelion
               readOnly: false
               type: string
             - _key: type
@@ -76214,6 +76321,7 @@ entities:
               - MBED
               - SAML2
               - OIDC
+              example: NATIVE
               readOnly: true
               type: string
             required:

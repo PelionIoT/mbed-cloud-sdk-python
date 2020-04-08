@@ -13858,6 +13858,7 @@
                             "properties": [
                               {
                                 "type": "string",
+                                "example": "fed/user_007",
                                 "description": "The ID of the user in the identity provider's service.",
                                 "readOnly": true,
                                 "api_fieldname": "foreign_id",
@@ -13866,6 +13867,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "01619571f3c00242ac12000600000000",
                                 "description": "ID of the identity provider.",
                                 "readOnly": false,
                                 "_override": true,
@@ -13875,6 +13877,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "Pelion",
                                 "readOnly": false,
                                 "description": "Name of the identity provider.",
                                 "_override": true,
@@ -13885,6 +13888,7 @@
                               {
                                 "type": "string",
                                 "description": "Identity provider type.",
+                                "example": "NATIVE",
                                 "readOnly": true,
                                 "enum": [
                                   "NATIVE",
@@ -14640,6 +14644,7 @@
                             "properties": [
                               {
                                 "type": "string",
+                                "example": "fed/user_007",
                                 "description": "The ID of the user in the identity provider's service.",
                                 "readOnly": true,
                                 "api_fieldname": "foreign_id",
@@ -14648,6 +14653,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "01619571f3c00242ac12000600000000",
                                 "description": "ID of the identity provider.",
                                 "readOnly": false,
                                 "_override": true,
@@ -14657,6 +14663,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "Pelion",
                                 "readOnly": false,
                                 "description": "Name of the identity provider.",
                                 "_override": true,
@@ -14667,6 +14674,7 @@
                               {
                                 "type": "string",
                                 "description": "Identity provider type.",
+                                "example": "NATIVE",
                                 "readOnly": true,
                                 "enum": [
                                   "NATIVE",
@@ -55496,6 +55504,7 @@
       "fields": [
         {
           "type": "string",
+          "example": "fed/user_007",
           "description": "The ID of the user in the identity provider's service.",
           "readOnly": true,
           "api_fieldname": "foreign_id",
@@ -55504,6 +55513,7 @@
         },
         {
           "type": "string",
+          "example": "01619571f3c00242ac12000600000000",
           "description": "ID of the identity provider.",
           "readOnly": false,
           "_override": true,
@@ -55514,6 +55524,7 @@
         {
           "type": "string",
           "description": "Identity provider type.",
+          "example": "NATIVE",
           "readOnly": true,
           "enum": [
             "NATIVE",
@@ -55528,6 +55539,7 @@
         },
         {
           "type": "string",
+          "example": "Pelion",
           "readOnly": false,
           "description": "Name of the identity provider.",
           "_override": true,
@@ -58987,6 +58999,7 @@
                             "properties": [
                               {
                                 "type": "string",
+                                "example": "fed/user_007",
                                 "description": "The ID of the user in the identity provider's service.",
                                 "readOnly": true,
                                 "api_fieldname": "foreign_id",
@@ -58995,6 +59008,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "01619571f3c00242ac12000600000000",
                                 "description": "ID of the identity provider.",
                                 "readOnly": false,
                                 "_override": true,
@@ -59004,6 +59018,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "Pelion",
                                 "readOnly": false,
                                 "description": "Name of the identity provider.",
                                 "_override": true,
@@ -59014,6 +59029,7 @@
                               {
                                 "type": "string",
                                 "description": "Identity provider type.",
+                                "example": "NATIVE",
                                 "readOnly": true,
                                 "enum": [
                                   "NATIVE",
@@ -78029,6 +78045,7 @@
                             "properties": [
                               {
                                 "type": "string",
+                                "example": "fed/user_007",
                                 "description": "The ID of the user in the identity provider's service.",
                                 "readOnly": true,
                                 "api_fieldname": "foreign_id",
@@ -78037,6 +78054,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "01619571f3c00242ac12000600000000",
                                 "description": "ID of the identity provider.",
                                 "readOnly": false,
                                 "_override": true,
@@ -78046,6 +78064,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "Pelion",
                                 "readOnly": false,
                                 "description": "Name of the identity provider.",
                                 "_override": true,
@@ -78056,6 +78075,7 @@
                               {
                                 "type": "string",
                                 "description": "Identity provider type.",
+                                "example": "NATIVE",
                                 "readOnly": true,
                                 "enum": [
                                   "NATIVE",
@@ -81472,6 +81492,7 @@
                 "properties": [
                   {
                     "type": "string",
+                    "example": "fed/user_007",
                     "description": "The ID of the user in the identity provider's service.",
                     "readOnly": true,
                     "api_fieldname": "foreign_id",
@@ -81480,6 +81501,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "01619571f3c00242ac12000600000000",
                     "description": "ID of the identity provider.",
                     "readOnly": false,
                     "_override": true,
@@ -81489,6 +81511,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "Pelion",
                     "readOnly": false,
                     "description": "Name of the identity provider.",
                     "_override": true,
@@ -81499,6 +81522,7 @@
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "example": "NATIVE",
                     "readOnly": true,
                     "enum": [
                       "NATIVE",
@@ -81892,6 +81916,7 @@
                       "properties": [
                         {
                           "type": "string",
+                          "example": "fed/user_007",
                           "description": "The ID of the user in the identity provider's service.",
                           "readOnly": true,
                           "api_fieldname": "foreign_id",
@@ -81900,6 +81925,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "01619571f3c00242ac12000600000000",
                           "description": "ID of the identity provider.",
                           "readOnly": false,
                           "_override": true,
@@ -81909,6 +81935,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "Pelion",
                           "readOnly": false,
                           "description": "Name of the identity provider.",
                           "_override": true,
@@ -81919,6 +81946,7 @@
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "example": "NATIVE",
                           "readOnly": true,
                           "enum": [
                             "NATIVE",
@@ -83693,6 +83721,7 @@
                       "properties": [
                         {
                           "type": "string",
+                          "example": "fed/user_007",
                           "description": "The ID of the user in the identity provider's service.",
                           "readOnly": true,
                           "api_fieldname": "foreign_id",
@@ -83701,6 +83730,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "01619571f3c00242ac12000600000000",
                           "description": "ID of the identity provider.",
                           "readOnly": false,
                           "_override": true,
@@ -83710,6 +83740,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "Pelion",
                           "readOnly": false,
                           "description": "Name of the identity provider.",
                           "_override": true,
@@ -83720,6 +83751,7 @@
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "example": "NATIVE",
                           "readOnly": true,
                           "enum": [
                             "NATIVE",
@@ -84228,6 +84260,7 @@
                 "properties": [
                   {
                     "type": "string",
+                    "example": "fed/user_007",
                     "description": "The ID of the user in the identity provider's service.",
                     "readOnly": true,
                     "api_fieldname": "foreign_id",
@@ -84236,6 +84269,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "01619571f3c00242ac12000600000000",
                     "description": "ID of the identity provider.",
                     "readOnly": false,
                     "_override": true,
@@ -84245,6 +84279,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "Pelion",
                     "readOnly": false,
                     "description": "Name of the identity provider.",
                     "_override": true,
@@ -84255,6 +84290,7 @@
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "example": "NATIVE",
                     "readOnly": true,
                     "enum": [
                       "NATIVE",
@@ -84636,6 +84672,7 @@
                       "properties": [
                         {
                           "type": "string",
+                          "example": "fed/user_007",
                           "description": "The ID of the user in the identity provider's service.",
                           "readOnly": true,
                           "api_fieldname": "foreign_id",
@@ -84644,6 +84681,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "01619571f3c00242ac12000600000000",
                           "description": "ID of the identity provider.",
                           "readOnly": false,
                           "_override": true,
@@ -84653,6 +84691,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "Pelion",
                           "readOnly": false,
                           "description": "Name of the identity provider.",
                           "_override": true,
@@ -84663,6 +84702,7 @@
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "example": "NATIVE",
                           "readOnly": true,
                           "enum": [
                             "NATIVE",
@@ -85795,6 +85835,7 @@
             "properties": [
               {
                 "type": "string",
+                "example": "fed/user_007",
                 "description": "The ID of the user in the identity provider's service.",
                 "readOnly": true,
                 "api_fieldname": "foreign_id",
@@ -85803,6 +85844,7 @@
               },
               {
                 "type": "string",
+                "example": "01619571f3c00242ac12000600000000",
                 "description": "ID of the identity provider.",
                 "readOnly": false,
                 "_override": true,
@@ -85812,6 +85854,7 @@
               },
               {
                 "type": "string",
+                "example": "Pelion",
                 "readOnly": false,
                 "description": "Name of the identity provider.",
                 "_override": true,
@@ -85822,6 +85865,7 @@
               {
                 "type": "string",
                 "description": "Identity provider type.",
+                "example": "NATIVE",
                 "readOnly": true,
                 "enum": [
                   "NATIVE",
@@ -86004,6 +86048,7 @@
                 "properties": [
                   {
                     "type": "string",
+                    "example": "fed/user_007",
                     "description": "The ID of the user in the identity provider's service.",
                     "readOnly": true,
                     "api_fieldname": "foreign_id",
@@ -86012,6 +86057,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "01619571f3c00242ac12000600000000",
                     "description": "ID of the identity provider.",
                     "readOnly": false,
                     "_override": true,
@@ -86021,6 +86067,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "Pelion",
                     "readOnly": false,
                     "description": "Name of the identity provider.",
                     "_override": true,
@@ -86031,6 +86078,7 @@
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "example": "NATIVE",
                     "readOnly": true,
                     "enum": [
                       "NATIVE",
@@ -86174,6 +86222,7 @@
                       "properties": [
                         {
                           "type": "string",
+                          "example": "fed/user_007",
                           "description": "The ID of the user in the identity provider's service.",
                           "readOnly": true,
                           "api_fieldname": "foreign_id",
@@ -86182,6 +86231,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "01619571f3c00242ac12000600000000",
                           "description": "ID of the identity provider.",
                           "readOnly": false,
                           "_override": true,
@@ -86191,6 +86241,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "Pelion",
                           "readOnly": false,
                           "description": "Name of the identity provider.",
                           "_override": true,
@@ -86201,6 +86252,7 @@
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "example": "NATIVE",
                           "readOnly": true,
                           "enum": [
                             "NATIVE",
@@ -86925,6 +86977,7 @@
                       "properties": [
                         {
                           "type": "string",
+                          "example": "fed/user_007",
                           "description": "The ID of the user in the identity provider's service.",
                           "readOnly": true,
                           "api_fieldname": "foreign_id",
@@ -86933,6 +86986,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "01619571f3c00242ac12000600000000",
                           "description": "ID of the identity provider.",
                           "readOnly": false,
                           "_override": true,
@@ -86942,6 +86996,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "Pelion",
                           "readOnly": false,
                           "description": "Name of the identity provider.",
                           "_override": true,
@@ -86952,6 +87007,7 @@
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "example": "NATIVE",
                           "readOnly": true,
                           "enum": [
                             "NATIVE",
@@ -87348,6 +87404,7 @@
             "properties": [
               {
                 "type": "string",
+                "example": "fed/user_007",
                 "description": "The ID of the user in the identity provider's service.",
                 "readOnly": true,
                 "api_fieldname": "foreign_id",
@@ -87356,6 +87413,7 @@
               },
               {
                 "type": "string",
+                "example": "01619571f3c00242ac12000600000000",
                 "description": "ID of the identity provider.",
                 "readOnly": false,
                 "_override": true,
@@ -87365,6 +87423,7 @@
               },
               {
                 "type": "string",
+                "example": "Pelion",
                 "readOnly": false,
                 "description": "Name of the identity provider.",
                 "_override": true,
@@ -87375,6 +87434,7 @@
               {
                 "type": "string",
                 "description": "Identity provider type.",
+                "example": "NATIVE",
                 "readOnly": true,
                 "enum": [
                   "NATIVE",
@@ -93438,6 +93498,7 @@
                 "properties": [
                   {
                     "type": "string",
+                    "example": "fed/user_007",
                     "description": "The ID of the user in the identity provider's service.",
                     "readOnly": true,
                     "api_fieldname": "foreign_id",
@@ -93446,6 +93507,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "01619571f3c00242ac12000600000000",
                     "description": "ID of the identity provider.",
                     "readOnly": false,
                     "_override": true,
@@ -93455,6 +93517,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "Pelion",
                     "readOnly": false,
                     "description": "Name of the identity provider.",
                     "_override": true,
@@ -93465,6 +93528,7 @@
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "example": "NATIVE",
                     "readOnly": true,
                     "enum": [
                       "NATIVE",
@@ -93834,6 +93898,7 @@
                       "properties": [
                         {
                           "type": "string",
+                          "example": "fed/user_007",
                           "description": "The ID of the user in the identity provider's service.",
                           "readOnly": true,
                           "api_fieldname": "foreign_id",
@@ -93842,6 +93907,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "01619571f3c00242ac12000600000000",
                           "description": "ID of the identity provider.",
                           "readOnly": false,
                           "_override": true,
@@ -93851,6 +93917,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "Pelion",
                           "readOnly": false,
                           "description": "Name of the identity provider.",
                           "_override": true,
@@ -93861,6 +93928,7 @@
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "example": "NATIVE",
                           "readOnly": true,
                           "enum": [
                             "NATIVE",
@@ -95008,6 +95076,7 @@
                             "properties": [
                               {
                                 "type": "string",
+                                "example": "fed/user_007",
                                 "description": "The ID of the user in the identity provider's service.",
                                 "readOnly": true,
                                 "api_fieldname": "foreign_id",
@@ -95016,6 +95085,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "01619571f3c00242ac12000600000000",
                                 "description": "ID of the identity provider.",
                                 "readOnly": false,
                                 "_override": true,
@@ -95025,6 +95095,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "Pelion",
                                 "readOnly": false,
                                 "description": "Name of the identity provider.",
                                 "_override": true,
@@ -95035,6 +95106,7 @@
                               {
                                 "type": "string",
                                 "description": "Identity provider type.",
+                                "example": "NATIVE",
                                 "readOnly": true,
                                 "enum": [
                                   "NATIVE",
@@ -96206,6 +96278,7 @@
                       "properties": [
                         {
                           "type": "string",
+                          "example": "fed/user_007",
                           "description": "The ID of the user in the identity provider's service.",
                           "readOnly": true,
                           "api_fieldname": "foreign_id",
@@ -96214,6 +96287,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "01619571f3c00242ac12000600000000",
                           "description": "ID of the identity provider.",
                           "readOnly": false,
                           "_override": true,
@@ -96223,6 +96297,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "Pelion",
                           "readOnly": false,
                           "description": "Name of the identity provider.",
                           "_override": true,
@@ -96233,6 +96308,7 @@
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "example": "NATIVE",
                           "readOnly": true,
                           "enum": [
                             "NATIVE",
@@ -96715,6 +96791,7 @@
                 "properties": [
                   {
                     "type": "string",
+                    "example": "fed/user_007",
                     "description": "The ID of the user in the identity provider's service.",
                     "readOnly": true,
                     "api_fieldname": "foreign_id",
@@ -96723,6 +96800,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "01619571f3c00242ac12000600000000",
                     "description": "ID of the identity provider.",
                     "readOnly": false,
                     "_override": true,
@@ -96732,6 +96810,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "Pelion",
                     "readOnly": false,
                     "description": "Name of the identity provider.",
                     "_override": true,
@@ -96742,6 +96821,7 @@
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "example": "NATIVE",
                     "readOnly": true,
                     "enum": [
                       "NATIVE",
@@ -97099,6 +97179,7 @@
                       "properties": [
                         {
                           "type": "string",
+                          "example": "fed/user_007",
                           "description": "The ID of the user in the identity provider's service.",
                           "readOnly": true,
                           "api_fieldname": "foreign_id",
@@ -97107,6 +97188,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "01619571f3c00242ac12000600000000",
                           "description": "ID of the identity provider.",
                           "readOnly": false,
                           "_override": true,
@@ -97116,6 +97198,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "Pelion",
                           "readOnly": false,
                           "description": "Name of the identity provider.",
                           "_override": true,
@@ -97126,6 +97209,7 @@
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "example": "NATIVE",
                           "readOnly": true,
                           "enum": [
                             "NATIVE",
@@ -97946,6 +98030,7 @@
             "properties": [
               {
                 "type": "string",
+                "example": "fed/user_007",
                 "description": "The ID of the user in the identity provider's service.",
                 "readOnly": true,
                 "api_fieldname": "foreign_id",
@@ -97954,6 +98039,7 @@
               },
               {
                 "type": "string",
+                "example": "01619571f3c00242ac12000600000000",
                 "description": "ID of the identity provider.",
                 "readOnly": false,
                 "_override": true,
@@ -97963,6 +98049,7 @@
               },
               {
                 "type": "string",
+                "example": "Pelion",
                 "readOnly": false,
                 "description": "Name of the identity provider.",
                 "_override": true,
@@ -97973,6 +98060,7 @@
               {
                 "type": "string",
                 "description": "Identity provider type.",
+                "example": "NATIVE",
                 "readOnly": true,
                 "enum": [
                   "NATIVE",
@@ -98134,6 +98222,7 @@
                 "properties": [
                   {
                     "type": "string",
+                    "example": "fed/user_007",
                     "description": "The ID of the user in the identity provider's service.",
                     "readOnly": true,
                     "api_fieldname": "foreign_id",
@@ -98142,6 +98231,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "01619571f3c00242ac12000600000000",
                     "description": "ID of the identity provider.",
                     "readOnly": false,
                     "_override": true,
@@ -98151,6 +98241,7 @@
                   },
                   {
                     "type": "string",
+                    "example": "Pelion",
                     "readOnly": false,
                     "description": "Name of the identity provider.",
                     "_override": true,
@@ -98161,6 +98252,7 @@
                   {
                     "type": "string",
                     "description": "Identity provider type.",
+                    "example": "NATIVE",
                     "readOnly": true,
                     "enum": [
                       "NATIVE",
@@ -98295,6 +98387,7 @@
                       "properties": [
                         {
                           "type": "string",
+                          "example": "fed/user_007",
                           "description": "The ID of the user in the identity provider's service.",
                           "readOnly": true,
                           "api_fieldname": "foreign_id",
@@ -98303,6 +98396,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "01619571f3c00242ac12000600000000",
                           "description": "ID of the identity provider.",
                           "readOnly": false,
                           "_override": true,
@@ -98312,6 +98406,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "Pelion",
                           "readOnly": false,
                           "description": "Name of the identity provider.",
                           "_override": true,
@@ -98322,6 +98417,7 @@
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "example": "NATIVE",
                           "readOnly": true,
                           "enum": [
                             "NATIVE",
@@ -99054,6 +99150,7 @@
                             "properties": [
                               {
                                 "type": "string",
+                                "example": "fed/user_007",
                                 "description": "The ID of the user in the identity provider's service.",
                                 "readOnly": true,
                                 "api_fieldname": "foreign_id",
@@ -99062,6 +99159,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "01619571f3c00242ac12000600000000",
                                 "description": "ID of the identity provider.",
                                 "readOnly": false,
                                 "_override": true,
@@ -99071,6 +99169,7 @@
                               },
                               {
                                 "type": "string",
+                                "example": "Pelion",
                                 "readOnly": false,
                                 "description": "Name of the identity provider.",
                                 "_override": true,
@@ -99081,6 +99180,7 @@
                               {
                                 "type": "string",
                                 "description": "Identity provider type.",
+                                "example": "NATIVE",
                                 "readOnly": true,
                                 "enum": [
                                   "NATIVE",
@@ -99484,6 +99584,7 @@
                       "properties": [
                         {
                           "type": "string",
+                          "example": "fed/user_007",
                           "description": "The ID of the user in the identity provider's service.",
                           "readOnly": true,
                           "api_fieldname": "foreign_id",
@@ -99492,6 +99593,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "01619571f3c00242ac12000600000000",
                           "description": "ID of the identity provider.",
                           "readOnly": false,
                           "_override": true,
@@ -99501,6 +99603,7 @@
                         },
                         {
                           "type": "string",
+                          "example": "Pelion",
                           "readOnly": false,
                           "description": "Name of the identity provider.",
                           "_override": true,
@@ -99511,6 +99614,7 @@
                         {
                           "type": "string",
                           "description": "Identity provider type.",
+                          "example": "NATIVE",
                           "readOnly": true,
                           "enum": [
                             "NATIVE",
@@ -99899,6 +100003,7 @@
             "properties": [
               {
                 "type": "string",
+                "example": "fed/user_007",
                 "description": "The ID of the user in the identity provider's service.",
                 "readOnly": true,
                 "api_fieldname": "foreign_id",
@@ -99907,6 +100012,7 @@
               },
               {
                 "type": "string",
+                "example": "01619571f3c00242ac12000600000000",
                 "description": "ID of the identity provider.",
                 "readOnly": false,
                 "_override": true,
@@ -99916,6 +100022,7 @@
               },
               {
                 "type": "string",
+                "example": "Pelion",
                 "readOnly": false,
                 "description": "Name of the identity provider.",
                 "_override": true,
@@ -99926,6 +100033,7 @@
               {
                 "type": "string",
                 "description": "Identity provider type.",
+                "example": "NATIVE",
                 "readOnly": true,
                 "enum": [
                   "NATIVE",

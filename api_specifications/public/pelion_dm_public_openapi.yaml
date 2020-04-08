@@ -874,6 +874,12 @@ definitions:
         example: 01619571e2e90242ac12000600000000
         readOnly: true
         type: string
+      login_profiles:
+        description: A list of login profiles for the user in the account.
+        items:
+          $ref: '#/definitions/LoginProfile'
+        type: array
+        x-nullable: true
       parent_id:
         description: The UUID of the parent account, if it has any.
         example: 01619571f3c00242ac12000600000000
@@ -5226,13 +5232,16 @@ definitions:
     properties:
       foreign_id:
         description: The ID of the user in the identity provider's service.
+        example: fed/user_007
         readOnly: true
         type: string
       id:
         description: ID of the identity provider.
+        example: 01619571f3c00242ac12000600000000
         type: string
       name:
         description: Name of the identity provider.
+        example: Pelion
         readOnly: true
         type: string
       type:
@@ -5242,6 +5251,7 @@ definitions:
         - MBED
         - SAML2
         - OIDC
+        example: NATIVE
         readOnly: true
         type: string
     required:
