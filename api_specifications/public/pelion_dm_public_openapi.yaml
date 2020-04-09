@@ -9633,7 +9633,7 @@ paths:
     get:
       description: "Get channel delivery mechanism.\n\n**Example:**\n\n    curl -X\
         \ GET https://api.us-east-1.mbedcloud.com/v2/notification/channel \\\n   \
-        \ -H 'Authorization: Bearer <api_key>' \\\n"
+        \ -H 'Authorization: Bearer <api_key>'\n"
       operationId: getChannelMetadata
       responses:
         200:
@@ -9847,8 +9847,8 @@ paths:
         \n**Configuration options:**\n\nThe event notification channel provides configurations\
         \ options defined in [Serialization config](#SerializationConfigObjectV2)\n\
         \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
-        \ \\\n-H 'Authorization: Bearer <api_key>'\n-d '{\n  \"serialization\": {\"\
-        type\": \"v2\", \"max_chunk_size\": \"100\",\n    \"cfg\": {\"deregistrations_as_object\"\
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-d '{\n  \"serialization\"\
+        : {\"type\": \"v2\", \"max_chunk_size\": \"100\",\n    \"cfg\": {\"deregistrations_as_object\"\
         : \"true\", \"include_uid\": \"true\", \"include_timestamp\": \"true\", \"\
         include_original_ep\": \"true\"\n    }\n  }\n}\n```"
       operationId: registerWebsocket
@@ -9900,11 +9900,14 @@ paths:
         \ 1006 or 1012, the client should try to reconnect to maintain the notification\
         \ flow. The client might disconnect several times in a relatively short period,\
         \ for example, during service updates. This is normal. The desired client\
-        \ behavior is to reconnect after each disconnect.\n\n**Example:**\n```\ncurl\
-        \ -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\
+        \ behavior is to reconnect after each disconnect.\n\n**Example:**\n\nThe curl\
+        \ examples provided are meant only for testing. For production devices, use\
+        \ a websocket client library.\nAs the curl example doesn't know how to responsd\
+        \ to websocket ping, it will stop working shortly after receiving first ping.\n\
+        ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\
         \ \\\n-H \"Authorization:Bearer {apikey}\" \\\n-H \"Connection:upgrade\" \\\
         \n-H \"Upgrade:websocket\" \\\n-H \"Sec-WebSocket-Version: 13\" \\\n-H \"\
-        Sec-WebSocket-Key: {base64nonce}\" \\\n-N -I\n```"
+        Sec-WebSocket-Key: {base64nonce}\" \\\n--no-buffer \\\n--head\n```"
       operationId: connectWebsocket
       parameters:
       - default: Upgrade
