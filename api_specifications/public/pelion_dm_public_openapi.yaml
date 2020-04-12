@@ -6478,7 +6478,7 @@ definitions:
         format: date-time
         type: string
       has_more:
-        description: Indicates if more results are available.
+        description: Indicates whether additional results are available.
         example: false
         type: boolean
       limit:
@@ -6493,7 +6493,7 @@ definitions:
         example: list
         type: string
       order:
-        description: The records order based on the records identifier.
+        description: Record order based on record identifier.
         example: DESC
         type: string
       start:
@@ -6520,7 +6520,7 @@ definitions:
         example: '164'
         type: integer
       factory_name:
-        description: Factory Name.
+        description: Factory name.
         example: factory 1
         type: string
       id:
@@ -25850,11 +25850,10 @@ paths:
 
         ```
 
-        curl \
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/manufacturing/statistics-report?startDate=2019-10-20&endDate=2019-10-22
+        \
 
         -H ''authorization: <valid access token>'' \
-
-        https://api.us-east-1.mbedcloud.com/v3/manufacturing/statistics-report?startDate=2019-10-20&endDate=2019-10-22
 
         ```
 
@@ -25895,9 +25894,9 @@ paths:
           description: Forbidden.
           schema:
             $ref: '#/definitions/ErrorResponse'
-      summary: Fetch statistics for provisioning devices in your factories.
+      summary: Retrieve provisioning statistics for devices in your factories.
       tags:
-      - Manufacturing - factory statistics
+      - Factory manufacturing statistics
       x-origin: /home/circleci/project/manufacturing-statistics/public/swagger.yml
   /v3/metrics:
     get:
