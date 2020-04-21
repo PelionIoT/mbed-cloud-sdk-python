@@ -1881,7 +1881,7 @@ definitions:
         type: string
       reference:
         description: Name of the image.
-        enum: &id025
+        enum: &id026
         - brand_logo_portrait
         - brand_logo_square
         - brand_logo_landscape
@@ -2689,6 +2689,10 @@ definitions:
         example: 01612df56f3b0a580a010fc700000000
         pattern: '[A-Fa-f0-9]{32}'
         type: string
+      object: &id020
+        description: The API resource entity
+        example: trust-anchor
+        type: string
       public_key:
         description: The generated trust anchor public key in PEM format.
         format: byte
@@ -2697,7 +2701,7 @@ definitions:
         description: The generated trust anchor public key in Base64-encoded DER format.
         format: byte
         type: string
-      updated_at: &id020
+      updated_at: &id021
         description: Update UTC time.
         example: '2017-01-01T00:00:00Z'
         format: date-time
@@ -3493,7 +3497,7 @@ definitions:
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
-      custom_attributes: &id027
+      custom_attributes: &id028
         additionalProperties:
           maxLength: 128
           pattern: ^[A-Za-z].*
@@ -3505,7 +3509,7 @@ definitions:
           key: value
         maxProperties: 10
         type: object
-      description: &id028
+      description: &id029
         description: The description of the group.
         example: Devices on the factory floor.
         maxLength: 1024
@@ -3522,7 +3526,7 @@ definitions:
         description: The group ID.
         example: 015c3029f6f7000000000001001000c3
         type: string
-      name: &id029
+      name: &id030
         description: Name of the group.
         example: My devices
         maxLength: 128
@@ -6847,6 +6851,7 @@ definitions:
         format: byte
         type: string
       id: *id019
+      object: *id020
       public_key:
         description: The trust anchor public key in PEM format.
         format: byte
@@ -6855,7 +6860,7 @@ definitions:
         description: The generated trust anchor public key in Base64-encoded DER format.
         format: byte
         type: string
-      updated_at: *id020
+      updated_at: *id021
     type: object
   TrustedCertificateReq:
     description: Represents a trusted certificate in upload requests.
@@ -7154,7 +7159,7 @@ definitions:
         example: '85.00'
         format: double
         type: number
-      campaign_strategy: &id021
+      campaign_strategy: &id022
         default: one-shot
         description: How the campaign adds devices. A `one-shot` campaign does not
           add new devices after it has started. A `continuous` campaign means that
@@ -7412,7 +7417,7 @@ definitions:
       autostop_success_percent:
         default: 100.0
         type: number
-      campaign_strategy: *id021
+      campaign_strategy: *id022
       description:
         description: An optional description of the campaign.
         example: a description
@@ -7493,6 +7498,7 @@ definitions:
         format: byte
         type: string
       id: *id019
+      object: *id020
       public_key:
         description: The trust anchor public key in PEM format.
         format: byte
@@ -7501,7 +7507,7 @@ definitions:
         description: The generated trust anchor public key in Base64-encoded DER format.
         format: byte
         type: string
-      updated_at: *id020
+      updated_at: *id021
     type: object
   UploadChunkInfo:
     properties:
@@ -7564,7 +7570,7 @@ definitions:
         example: false
         type: boolean
       created_at: *id014
-      description: &id032
+      description: &id033
         description: Human-readable description.
         example: New Linux update for my devices
         maxLength: 2000
@@ -7578,7 +7584,7 @@ definitions:
         description: The upload job ID.
         example: 016e652be671000000000001001001e5
         type: string
-      name: &id033
+      name: &id034
         description: Human-readable name.
         example: New Linux update
         maxLength: 128
@@ -9690,11 +9696,11 @@ paths:
         ```'
       operationId: deregisterWebhook
       responses:
-        204: &id024
+        204: &id025
           description: Successfully deleted.
-        401: &id022
+        401: &id023
           description: Unauthorized.
-        403: &id023
+        403: &id024
           description: Forbidden. The authorization token used is not an API key.
         404:
           description: Callback URL does not exist.
@@ -9723,8 +9729,8 @@ paths:
           description: URL found.
           schema:
             $ref: '#/definitions/Webhook'
-        401: *id022
-        403: *id023
+        401: *id023
+        403: *id024
         404:
           description: The callback URL does not exist.
       summary: Check callback URL.
@@ -9798,8 +9804,8 @@ paths:
         400:
           description: Given URL is not accessible, or other type of channel already
             exists.
-        401: *id022
-        403: *id023
+        401: *id023
+        403: *id024
         415:
           description: Unsupported Media Type.
       summary: Register a callback URL.
@@ -9849,7 +9855,7 @@ paths:
           description: Success. The body can contain "REMOVED" if it was deleted with
             this call or "ALREADY_DELETED" if it was deleted before and not purged
             yet.
-        401: *id022
+        401: *id023
       summary: Delete notification Long Poll channel.
       tags:
       - Device data - notifications
@@ -9912,7 +9918,7 @@ paths:
           description: No new notifications.
         400:
           description: Other type of channel already exists.
-        401: *id022
+        401: *id023
         409:
           description: Conflict. Long poll request exists already.
         410:
@@ -9957,9 +9963,9 @@ paths:
         ```'
       operationId: deleteWebsocket
       responses:
-        204: *id024
-        401: *id022
-        403: *id023
+        204: *id025
+        401: *id023
+        403: *id024
         404:
           description: Websocket channel doesn't exist.
       summary: Delete websocket channel.
@@ -9990,8 +9996,8 @@ paths:
           description: Websocket found.
           schema:
             $ref: '#/definitions/WebsocketChannel'
-        401: *id022
-        403: *id023
+        401: *id023
+        403: *id024
         404:
           description: No channel has been registered.
       summary: Get websocket channel information.
@@ -10042,8 +10048,8 @@ paths:
             $ref: '#/definitions/WebsocketChannel'
         400:
           description: Other type of channel already exists.
-        401: *id022
-        403: *id023
+        401: *id023
+        403: *id024
       summary: Register a websocket channel.
       tags:
       - Device data - notifications
@@ -10128,7 +10134,7 @@ paths:
           description: Switching protocols.
         400:
           description: Required header(s) missing.
-        401: *id022
+        401: *id023
         426:
           description: Upgrade required. Connect and/or Upgrade headers missing.
         429:
@@ -12499,7 +12505,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -12552,7 +12558,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -12609,7 +12615,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -12670,7 +12676,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -12824,7 +12830,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -12875,7 +12881,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -12932,7 +12938,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -12993,7 +12999,7 @@ paths:
         required: true
         type: string
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -18440,7 +18446,7 @@ paths:
       operationId: getDarkImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -18488,7 +18494,7 @@ paths:
       operationId: clearDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -18540,7 +18546,7 @@ paths:
       operationId: uploadDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -18596,7 +18602,7 @@ paths:
       operationId: uploadDarkImageMultipart
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -18726,7 +18732,7 @@ paths:
       operationId: getLightImageData
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -18774,7 +18780,7 @@ paths:
       operationId: clearLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -18826,7 +18832,7 @@ paths:
       operationId: uploadLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -18882,7 +18888,7 @@ paths:
       operationId: uploadLightImageMultipart
       parameters:
       - description: Name of the branding images (icon or picture).
-        enum: *id025
+        enum: *id026
         in: path
         name: reference
         required: true
@@ -19344,7 +19350,7 @@ paths:
         You can only delete custom certificate configurations.'
       operationId: deleteCertificateIssuerConfigByID
       parameters:
-      - &id026
+      - &id027
         description: Certificate issuer ID configuration.
         in: path
         name: certificate-issuer-configuration-id
@@ -19377,7 +19383,7 @@ paths:
       description: Provides the configured certificate issuer.
       operationId: getCertificateIssuerConfigByID
       parameters:
-      - *id026
+      - *id027
       responses:
         '200':
           description: OK.
@@ -19413,7 +19419,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/CertificateIssuerConfigRequest'
-      - *id026
+      - *id027
       responses:
         '200':
           description: OK.
@@ -21534,9 +21540,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id027
-            description: *id028
-            name: *id029
+            custom_attributes: *id028
+            description: *id029
+            name: *id030
           type: object
       responses:
         '201':
@@ -21631,9 +21637,9 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id027
-            description: *id028
-            name: *id029
+            custom_attributes: *id028
+            description: *id029
+            name: *id030
           type: object
       responses:
         '200':
@@ -22259,7 +22265,7 @@ paths:
       summary: Get a page of devices.
       tags:
       - Device directory - groups
-      x-filter: &id030
+      x-filter: &id031
         account_id:
         - eq
         - neq
@@ -23631,7 +23637,7 @@ paths:
       summary: List all devices.
       tags:
       - Device directory - devices
-      x-filter: *id030
+      x-filter: *id031
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     post:
       description: Create a new device in Device Management. Usually you do not need
@@ -23893,7 +23899,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: &id031
+        schema: &id032
           properties:
             category:
               description: The reference of the block category.
@@ -23949,7 +23955,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: *id031
+        schema: *id032
       responses:
         '204':
           description: Ok - Device suspended.
@@ -24555,8 +24561,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id032
-            name: *id033
+            description: *id033
+            name: *id034
           type: object
       responses:
         201:
@@ -24693,8 +24699,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id032
-            name: *id033
+            description: *id033
+            name: *id034
           type: object
       responses:
         200:
