@@ -1550,6 +1550,41 @@ definitions:
         - INACTIVE
         type: string
     type: object
+  ArchiveInfoResponse:
+    description: This object represents the response for the archive info request.
+    properties:
+      download_size_bytes:
+        description: The size of the archive file in bytes.
+        example: 2402668
+        type: integer
+      download_url:
+        description: URL to download the Factory Configurator Utility archive.
+        example: https://api.us-east-1.mbedcloud.com/downloads/fcu/factory_configurator_utility.zip
+        type: string
+      license_type:
+        description: The license agreement type required for downloading Factory Configurator
+          Utility.
+        example: fcu
+        type: string
+      license_version:
+        description: The license agreement version required for downloading Factory
+          Configurator Utility.
+        example: '1.0'
+        type: string
+      release_notes_url:
+        description: URL to the Factory Configurator Utility release notes.
+        example: https://api.us-east-1.mbedcloud.com/downloads/fcu/release_notes
+        type: string
+      version:
+        description: The Factory Configurator Utility version.
+        example: 1.2.9.500
+        type: string
+    required:
+    - download_size_bytes
+    - version
+    - download_url
+    - release_notes_url
+    type: object
   AsyncID:
     properties:
       async-response-id:
@@ -8605,6 +8640,148 @@ paths:
       tags:
       - Security and identity - secure device access
       x-origin: /home/circleci/project/sda-service/public/sda.yaml
+  /downloads/fcu/factory_configurator_utility.zip:
+    get:
+      description: 'Downloads the Factory Configurator Utility (FCU) archive .zip
+        file for the account ID associated with the access token.
+
+        <br>
+
+        **Example:**
+
+        <br>
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/downloads/fcu/factory_configurator_utility.zip
+        \
+
+        -H ''Authorization: Bearer <valid access token>''
+
+        ```
+
+        '
+      operationId: downloadFactoryTool
+      produces:
+      - application/zip
+      responses:
+        '200':
+          description: The archive file was downloaded successfully.
+        '400':
+          description: Validation error or bad request.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Access denied.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: Internal server error.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Download the Factory Configurator Utility archive.
+      tags:
+      - Manufacturing - Factory Configurator Utility (FCU)
+      x-origin: /home/circleci/project/factory-tool-download/public/swagger.yaml
+  /downloads/fcu/info:
+    get:
+      description: 'Returns information about the Factory Configurator Utility (FCU)
+        archive.
+
+        <br>
+
+        **Example:**
+
+        <br>
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/downloads/fcu/inf \
+
+        -H ''Authorization: Bearer <valid access token>'' o
+
+        ```
+
+        '
+      operationId: getFactoryToolInfo
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful response of the archive information.
+          schema:
+            $ref: '#/definitions/ArchiveInfoResponse'
+        '400':
+          description: Validation error or bad request.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Access denied.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: Internal server error.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Download information about the Factory Configurator Utility archive.
+      tags:
+      - Manufacturing - Factory Configurator Utility (FCU)
+      x-origin: /home/circleci/project/factory-tool-download/public/swagger.yaml
+  /downloads/fcu/release_notes:
+    get:
+      description: 'Downloads the Factory Configurator Utility (FCU) release notes.
+
+        <br>
+
+        **Example:**
+
+        <br>
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/downloads/fcu/release_notes
+        \
+
+        -H ''Authorization: Bearer <valid access token>''
+
+        ```
+
+        '
+      operationId: getFactoryToolReleaseNotes
+      produces:
+      - text/markdown ; charset=UTF-8
+      - application/json
+      responses:
+        '200':
+          description: The release notes were downloaded successfully.
+        '400':
+          description: Validation error or bad request.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Access denied.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: Internal server error.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Download Factory Configurator Utility release notes.
+      tags:
+      - Manufacturing - Factory Configurator Utility (FCU)
+      x-origin: /home/circleci/project/factory-tool-download/public/swagger.yaml
   /v2/device-requests/{device-id}:
     post:
       consumes:
