@@ -69243,7 +69243,7 @@ entities:
       within 1 minute when then start time has elapsed.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
-    readOnly: true
+    readOnly: false
     required: false
     type: string
     x-nullable: true
@@ -69354,7 +69354,6 @@ entities:
     - stopping_at
     - stopped_at
     - phase
-    - when
     field_renames: []
     fields:
     - _key: approval_required
@@ -69453,6 +69452,18 @@ entities:
       parameter_fieldname: root_manifest_id
       required: false
       type: string
+    - _key: when
+      api_fieldname: when
+      description: The scheduled start time for the campaign. The campaign will start
+        within 1 minute when then start time has elapsed.
+      entity_fieldname: when
+      example: '2017-05-22T12:37:55.576563Z'
+      format: date-time
+      in: body
+      parameter_fieldname: when
+      required: false
+      type: string
+      x-nullable: true
     group_id: Device_Update
     method: post
     mode: create
@@ -71028,7 +71039,6 @@ entities:
     - stopping_at
     - stopped_at
     - phase
-    - when
     field_renames: []
     fields:
     - _key: approval_required
@@ -71121,6 +71131,18 @@ entities:
       parameter_fieldname: root_manifest_id
       required: false
       type: string
+    - _key: when
+      api_fieldname: when
+      description: The scheduled start time for the campaign. The campaign will start
+        within 1 minute when then start time has elapsed.
+      entity_fieldname: when
+      example: '2017-05-22T12:37:55.576563Z'
+      format: date-time
+      in: body
+      parameter_fieldname: when
+      required: false
+      type: string
+      x-nullable: true
     group_id: Device_Update
     method: put
     mode: update

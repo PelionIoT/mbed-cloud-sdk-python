@@ -90961,6 +90961,19 @@
               "in": "body",
               "required": false,
               "_key": "root_manifest_id"
+            },
+            {
+              "description": "The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.",
+              "type": "string",
+              "format": "date-time",
+              "example": "2017-05-22T12:37:55.576563Z",
+              "x-nullable": true,
+              "api_fieldname": "when",
+              "entity_fieldname": "when",
+              "parameter_fieldname": "when",
+              "in": "body",
+              "required": false,
+              "_key": "when"
             }
           ],
           "method": "post",
@@ -91245,8 +91258,7 @@
             "started_at",
             "stopping_at",
             "stopped_at",
-            "phase",
-            "when"
+            "phase"
           ],
           "group_id": "Device_Update",
           "parameter_map": {
@@ -92831,6 +92843,19 @@
               "in": "body",
               "required": false,
               "_key": "root_manifest_id"
+            },
+            {
+              "description": "The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.",
+              "type": "string",
+              "format": "date-time",
+              "example": "2017-05-22T12:37:55.576563Z",
+              "x-nullable": true,
+              "api_fieldname": "when",
+              "entity_fieldname": "when",
+              "parameter_fieldname": "when",
+              "in": "body",
+              "required": false,
+              "_key": "when"
             }
           ],
           "method": "put",
@@ -93123,8 +93148,7 @@
             "started_at",
             "stopping_at",
             "stopped_at",
-            "phase",
-            "when"
+            "phase"
           ],
           "group_id": "Device_Update",
           "parameter_map": {
@@ -93375,7 +93399,7 @@
           "example": "2017-05-22T12:37:55.576563Z",
           "x-nullable": true,
           "api_fieldname": "when",
-          "readOnly": true,
+          "readOnly": false,
           "required": false,
           "_key": "when"
         }

@@ -7438,6 +7438,23 @@ definitions:
         maxLength: 32
         minLength: 32
         type: string
+      state:
+        description: 'DEPRECATED: The state of the campaign (use phase instead)'
+        enum:
+        - draft
+        - scheduled
+        type: string
+        x-deprecation:
+          comment: Use phase instead
+          end_of_life_at: '2020-03-18T14:55:20+00:00'
+          issued_at: '2019-03-18T14:55:20+00:00'
+          links: []
+      when:
+        description: The scheduled start time for the update campaign. Not in use.
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+        x-nullable: true
     required:
     - device_filter
   UpdateCampaignPutRequest:
@@ -7470,6 +7487,40 @@ definitions:
         example: 016e83dce36a00000000000100100201
         maxLength: 32
         type: string
+      state:
+        description: 'DEPRECATED: The state of the campaign (use phase instead).'
+        enum:
+        - draft
+        - scheduled
+        - allocatingquota
+        - allocatedquota
+        - quotaallocationfailed
+        - checkingmanifest
+        - checkedmanifest
+        - devicefetch
+        - devicecopy
+        - devicecheck
+        - publishing
+        - deploying
+        - deployed
+        - manifestremoved
+        - expired
+        - stopping
+        - autostopped
+        - userstopped
+        - conflict
+        type: string
+        x-deprecation:
+          comment: Use phase instead
+          end_of_life_at: '2020-03-18T14:55:20+00:00'
+          issued_at: '2019-03-18T14:55:20+00:00'
+          links: []
+      when:
+        description: The scheduled start time for the update campaign. Not in use.
+        example: '2017-05-22T12:37:55.576563Z'
+        format: date-time
+        type: string
+        x-nullable: true
   UpdateTrustAnchorRequest:
     properties:
       description:
