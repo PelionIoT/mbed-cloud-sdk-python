@@ -44017,7 +44017,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Create a firmware image.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images \\\n-H 'Authorization: <valid access token>' \\\n-H 'Content-Type: multipart/form-data' \\\n-F 'datafile=@myimage.bin;type=application/octet-stream'\n-F 'description=bla bla' \\\n-F 'name=My Linux Image'\n```\n",
+          "description": "Create a firmware image.        \n<BR/> **Note:** Only use this API for images smaller than 100 MB. For larger images, [upload in chunks](../updating-firmware/uploading-a-large-firmware-image.html). \n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images \\\n-H 'Authorization: <valid access token>' \\\n-H 'Content-Type: multipart/form-data' \\\n-F 'datafile=@myimage.bin;type=application/octet-stream'\n-F 'description=bla bla' \\\n-F 'name=My Linux Image'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
