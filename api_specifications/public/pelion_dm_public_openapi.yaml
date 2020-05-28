@@ -3748,11 +3748,11 @@ definitions:
         type: string
       id:
         description: The ID of the query.
-        example: '00000000000000000000000000000000'
+        example: 015c30671894000000000001001001e9
         type: string
       name:
         description: The name of the query.
-        example: '00000000000000000000000000000000'
+        example: example-stored-device-query
         type: string
       object:
         description: The API resource entity.
@@ -3760,7 +3760,7 @@ definitions:
         type: string
       query:
         description: The device query.
-        example: id=00000000000000000000000000000000
+        example: id=0158d38771f70000000000010010038c
         type: string
       updated_at:
         description: The time the object was updated.
@@ -3880,7 +3880,10 @@ definitions:
         maxLength: 200
         type: string
       query:
-        description: The device query.
+        description: The device query to store. A query is made of key/value pairs
+          separated by ampersands (`&`). The key defines the field name to filter
+          by when applying the query. Refer to the endpoint documentation before applying
+          a filter, as supported fields vary between endpoints.
         maxLength: 1000
         type: string
     required:
