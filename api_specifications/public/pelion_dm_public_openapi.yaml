@@ -1644,10 +1644,10 @@ definitions:
           \      The last retry failed to establish TCP or TLS connection to the device.</td>\n\
           \    </tr>\n    <tr>\n      <td><b>503</b></td>\n      <td>The request to\
           \ the device failed and the retry count was exceeded.\n      The last retry\
-          \ failed, because the device is currently unavailable (NOT_CONNECTED).</td>\n\
+          \ failed because the device is currently unavailable (NOT_CONNECTED).</td>\n\
           \    </tr>\n    <tr>\n      <td><b>504</b></td>\n      <td>The request to\
           \ the device failed and the retry count was exceeded.\n      The last retry\
-          \ failed, because the device did not respond in time according to the protocol-specific\n\
+          \ failed because the device did not respond in time according to the protocol-specific\n\
           \      retransmission logic (TIMEOUT).</td>\n    </tr>\n  </tbody>\n</table>\n"
         example: 200
         type: integer
@@ -3948,6 +3948,121 @@ definitions:
     - proxy_responses
     - bootstrap_requests
     type: object
+  EchoDevice:
+    description: The Device Echo object representing the device.
+    properties:
+      created_at:
+        description: Response creation UTC time.
+        example: 2020-10-20 10:30:55.123000
+        format: date-time
+        type: string
+      device_id:
+        description: The device ID.
+        example: 015f3850a657000000000001001002ab
+        type: string
+      endpoint_name:
+        description: The endpoint name.
+        example: Sensor3222454
+        type: string
+      last_desired_at:
+        description: The last time a write command was initiated on a resource.
+        example: 2019-10-20 10:30:55.123000
+        format: date-time
+        type: string
+      last_reported_at:
+        description: The last time any resource's reported value was updated.
+        example: 2019-10-20 10:30:55.123000
+        format: date-time
+        type: string
+      object:
+        description: API Resource name
+        example: device-echo
+        type: string
+      resources:
+        description: The list of device resources stored in Device Echo.
+        items:
+          $ref: '#/definitions/EchoResource'
+        type: array
+      updated_at:
+        description: The time of last registration event of a Device Echo object.
+        example: 2019-10-20 10:30:55.123000
+        format: date-time
+        type: string
+    required:
+    - id
+    type: object
+  EchoResource:
+    description: The representation of a single resource of the device stored in Device
+      Echo.
+    properties:
+      desired:
+        description: Resource value written, or queued to be written to the device.
+        items:
+          $ref: '#/definitions/EchoResourceDesired'
+        type: object
+      reported:
+        description: Reported resource data from the device.
+        items:
+          $ref: '#/definitions/EchoResourceReported'
+        type: object
+      resource_path:
+        description: The path of the resource.
+        example: /3/0/1
+        type: string
+      subscribed:
+        description: System-level subscription status of the resource. If any of the
+          applications has placed a subscription, the status is true. Overlapping
+          subscriptions from multiple applications do not increase the load on the
+          device as the server handles the multiplexing.
+        type: boolean
+    type: object
+  EchoResourceDesired:
+    description: Resource value written, or queued to be written to the device.
+    properties:
+      desired_at:
+        description: The time of the latest value write was initiated.
+        example: 2019-10-20 10:30:55.123000
+        format: date-time
+        type: string
+      status:
+        description: The status of the desired value. 0 = 'pending write', 1 = 'success',
+          2 = 'failed'.
+        format: integer
+        type: number
+      status_updated_at:
+        description: The time of the last status update.
+        example: 2019-10-20 10:30:55.123000
+        format: date-time
+        type: string
+      value:
+        description: The desired value in base64 encoded format.
+        example: RGVzaXJlZCB2YWx1ZS4=
+        format: byte
+        type: string
+    type: object
+  EchoResourceReported:
+    description: Reported single resource data received from the device.
+    properties:
+      content_type:
+        description: Content type of the reported resource value.
+        example: text/plain
+        type: string
+      expires_at:
+        description: The time after which the reported value is not valid, calculated
+          based on the max-age of the resource value the device reported.
+        example: 2019-10-20 10:30:55.123000
+        format: date-time
+        type: string
+      reported_at:
+        description: The time the last value was reported.
+        format: date-time
+        type: string
+      value:
+        description: The reported value in base64 encoded format.
+        example: UmVwb3J0ZWQgdmFsdWUu
+        format: byte
+        type: string
+    type: object
   EndpointData:
     properties:
       ep:
@@ -5726,7 +5841,7 @@ definitions:
   Presubscription:
     properties:
       endpoint-name:
-        description: The device ID.
+        description: Device Management device ID.
         example: 015f3850a657000000000001001002ab
         type: string
       endpoint-type:
@@ -8895,7 +9010,7 @@ paths:
 
         is limited to 20 requests.
 
-        The queueing behaviour is affected by the `retry` and the `expiry-seconds`
+        The queueing behavior is affected by the `retry` and the `expiry-seconds`
         parameters. If the device
 
         is not reached, or the device fails to respond when the request is made, the
@@ -9047,8 +9162,9 @@ paths:
       - description: The number of attempts to deliver the request to the device after
           the first delivery attempt. For example, two retries sums up to the total
           of three delivery attempts. If retries are exhausted, the request is discarded
-          and an error is delivered in the AsyncIDResponse. The default value of retries
-          for a non-queue mode device is 0 and 2 for for a queue-mode device.
+          and an error is delivered in the AsyncIDResponse. The default number of
+          retries for a non-queue mode device is `0`. The default number of retries
+          for a queue-mode device is `2`.
         in: query
         maximum: 10
         minimum: 0
@@ -9057,9 +9173,9 @@ paths:
         type: integer
       - description: The time period during which the delivery is attempted, in seconds.
           If the device is not reachable within this period, the request is discarded
-          and an error is delivered in the AsyncIDResponse. The default value of expiry
-          seconds for a non-queue mode device is two hours and three days for a queue-mode
-          device.
+          and an error is delivered in the AsyncIDResponse. The default time period
+          during which the delivery is attempted is two hours for a non-queue mode
+          device and three days for a queue-mode device.
         in: query
         maximum: 2592000
         minimum: 60
@@ -9354,7 +9470,7 @@ paths:
           are not guaranteed to arrive at the device, and do not return an async-response-id.
 
 
-          If calls with this parameter enabled succeed, they return with the status
+          When calls with this parameter enabled succeed, they return with the status
           code `204 No Content`. If the underlying protocol does not support non-confirmable
           requests, or if the endpoint is registered in queue mode, the response is
           status code `409 Conflict`.'
@@ -9398,8 +9514,8 @@ paths:
         way to the device. When the response is available, an `AsyncIDResponse` JSON
         object is received in the notification channel.
 
-        The resource values can be also in cache based on `max_age` defined by the
-        device side. The value found from the cache is returned
+        The resource values can also be in cache based on `max_age` defined by the
+        device. The value found from the cache is returned
 
         immediately in the response.
 
@@ -9416,8 +9532,8 @@ paths:
         works.
 
 
-        Please refer to [Lightweight Machine to Machine Technical specification](http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf)
-        for more inforamtion.
+        Please see the [Lightweight Machine to Machine Technical specification](http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf)
+        for more information.
 
 
         **Example:**
@@ -9446,7 +9562,7 @@ paths:
       - description: 'If true, the response comes only from the cache. Default: false.
           Device Management Connect caches the received resource values for the time
           of [max_age](../device-management/working-with-the-resources.html) defined
-          in the client side.'
+          in the client.'
         in: query
         name: cacheOnly
         required: false
@@ -9472,7 +9588,7 @@ paths:
           schema:
             $ref: '#/definitions/AsyncID'
         205:
-          description: No cache available for resource.
+          description: No cache available for the resource.
         400:
           description: Bad request.
         404:
@@ -9558,8 +9674,8 @@ paths:
         required: true
         type: string
       - description: This value is not needed. Most of the time, resources do not
-          accept a function but they have their own functions predefined. You can
-          use this to trigger them. If a function is included, the body of this request
+          accept a function; they have their own functions predefined. You can use
+          this to trigger them. If a function is included, the body of this request
           is passed as a char* to the function in Device Management Client.
         in: body
         name: resourceFunction
@@ -9571,7 +9687,7 @@ paths:
           are not guaranteed to arrive in the device, and you do not get back an async-response-id.
 
 
-          If calls with this parameter enabled succeed, they return with the status
+          When calls with this parameter enabled succeed, they return with the status
           code `204 No Content`. If the underlying protocol does not support non-confirmable
           requests, or if the endpoint is registered in queue mode, the response is
           status code `409 Conflict`.'
@@ -9694,8 +9810,8 @@ paths:
           are not guaranteed to arrive to the device, and do not return an `async_response_id`.
 
 
-          If a call with this parameter enabled succeeds, it return status code `204
-          No Content`. If the underlying protocol does not support non-confirmable
+          When a call with this parameter enabled succeeds, it return status code
+          `204 No Content`. If the underlying protocol does not support non-confirmable
           requests, or if the endpoint is registered in queue mode, the response is
           status code `409 Conflict`.'
         in: query
@@ -10297,7 +10413,7 @@ paths:
       parameters:
       - description: Array of pre-subscriptions.
         in: body
-        name: presubsription
+        name: presubscription
         required: true
         schema:
           $ref: '#/definitions/PresubscriptionArray'
@@ -23796,6 +23912,47 @@ paths:
       tags:
       - Device security - device certificate renewals
       x-origin: /home/circleci/project/certificate-enrollment/public/swagger.yaml
+  /v3/devices/{device-id}/echo:
+    get:
+      description: 'Read the Device Echo object. It represents the last known state
+        of the device. The state contains the resources and their reported values
+        with the desired state of the device.
+
+        Auto-observable and subscribed resources are stored as the reported state
+        of the device. To change the desired state, issue write commands with `/v2/device-requests/{device-id}`.
+
+
+        **Example:**
+
+        ```
+
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/{device-id}/echo
+        -H ''Authorization: Bearer <api_key>''
+
+        ```'
+      operationId: getDeviceEchoObject
+      parameters:
+      - description: The device ID generated by Device Management.
+        format: UUID, 32 hexadecimal characters
+        in: path
+        name: device-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Device found and returned.
+          schema:
+            $ref: '#/definitions/EchoDevice'
+        401:
+          description: Authentication failure.
+        404:
+          description: Device not found from Device Echo.
+      summary: Get the Device Echo object.
+      tags:
+      - Device Echo
+      x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v3/devices/{id}/:
     delete:
       description: Delete device. Only available for devices with a developer certificate.
