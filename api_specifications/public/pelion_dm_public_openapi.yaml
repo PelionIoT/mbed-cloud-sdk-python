@@ -25152,7 +25152,9 @@ paths:
       consumes:
       - application/octet-stream
       description: "Append a chunk to an upload job. To finish a job, upload a zero-length\
-        \ chunk.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012/chunks\
+        \ chunk.\n<BR/> **Note:** Chunk size must be between 5MB and 100MB, the last\
+        \ chunk can be less than 5MB; the maximum number of chunks is limited to 10,000.\n\
+        <br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012/chunks\
         \ \\\n-H 'Authorization: <valid access token>' \\\n-H 'Content-MD5: Q2h1Y2sgSW51ZwDIAXR5IQ=='\
         \ \\\n-H 'Content-Type: binary/octet-stream' \\\n-H 'Content-Length: 999'\
         \ \\\n-d '{\n  \"IGh0dHBzOi8vYXBpLnVzLWVhc3QtMS5tYmVkY2xvdWQuY29tLy92My9maXJtd2FyZS1pbWFnZXMvdXBsb2FkLWpvYnMve3VwbG9hZF9qb2JfaWR9W5rcw==\"\
