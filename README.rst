@@ -13,7 +13,7 @@ Pelion Device Management SDK for Python
 
     It is recommended that for ongoing development, applications which previously used the SDK should be migrated over time to access the Pelion Device Management REST APIs directly. 
 
-    Please see this  `page <https://www.pelion.com/docs/device-management/current/service-api-references/index.html>`_, which provides additional information on using the REST APIs. By following this guide, you will learn how to build a web application using the REST APIs directly. 
+    Please see this  `page <https://www.pelion.com/docs/device-management/current/mbed-cloud-sdk-references/moving-from-the-pelion-device-management-sdks-to-the-apis.html>`_, which provides additional information on using the REST APIs. By following this guide, you will learn how to build a web application using the REST APIs directly. 
 
 ----
 
