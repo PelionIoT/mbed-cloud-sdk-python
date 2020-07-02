@@ -26225,7 +26225,7 @@ paths:
       tags:
       - Account - entitlement limitations
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
-  /v3/manufacturing/statistics/report:
+  /v3/manufacturing/statistics:
     get:
       description: 'Get manufacturing statistics report.
 
@@ -26233,24 +26233,22 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/manufacturing/statistics-report?startDate=2019-10-20&endDate=2019-10-22
-        \
-
-        -H ''authorization: <valid access token>'' \
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/manufacturing/statistics?start=2020-06-23T21:00:00.000Z&end=2020-07-01T20:59:59.999Z
+        --header ''Authorization: Bearer <valid access token>''
 
         ```
 
         '
       operationId: ManufacturingStatisticsReport
       parameters:
-      - description: The start date of the period on which the report is produced.
+      - description: The start date and time for the report.
         format: date-time
         in: query
         name: start
         required: true
         type: string
-      - description: The end date of the period on which the report is produced. Default
-          is the current date-time.
+      - description: The end date and time for the report. The default value is the
+          current date-time.
         format: date-time
         in: query
         name: end
@@ -26263,18 +26261,16 @@ paths:
           description: OK.
           schema:
             $ref: '#/definitions/StatisticsReportListResponse'
-        204:
-          description: No content.
-        400:
-          description: Validation error.
+        '400':
+          description: Validation error or bad request.
           schema:
             $ref: '#/definitions/ErrorResponse'
-        401:
-          description: Unauthorized.
+        '401':
+          description: Authentication failure.
           schema:
             $ref: '#/definitions/ErrorResponse'
-        403:
-          description: Forbidden.
+        '403':
+          description: Access denied.
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Retrieve provisioning statistics for devices in your factories.
