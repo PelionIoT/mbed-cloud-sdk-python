@@ -1626,7 +1626,7 @@ definitions:
           \ from the device.</td>\n    </tr>\n    <tr>\n      <td><b>400</b></td>\n\
           \      <td>The device rejected the request, possibly because it does not\
           \ support the request method.\n      See how the supported methods are\n\
-          \      [configured for the device resources](../connecting/collecting-resources.html#setting-the-operation-mode).</td>\n\
+          \      [configured for the device resources](https://www.pelion.com/docs/device-management/current/resources/index.html).</td>\n\
           \    </tr>\n    <tr>\n      <td><b>404</b></td>\n      <td>The device replied\
           \ that it does not have the requested resource.</td>\n    </tr>\n    <tr>\n\
           \      <td><b>412</b></td>\n      <td>Precondition failed and the operation\
@@ -2761,13 +2761,13 @@ definitions:
     properties:
       description:
         description: Description for the developer certificate. Maximum 500 characters.
-          Please see [TrustedCertificateReq](../service-api-references/account-management.html#trustedcertificatereq).
+          Please see [TrustedCertificateReq](https://www.pelion.com/docs/device-management-api/account-management/).
         maxLength: 500
         type: string
         x-nullable: true
       name:
         description: Name of the developer certificate. Must be unique. Maximum 100
-          characters. Please see [TrustedCertificateReq](../service-api-references/account-management.html#trustedcertificatereq).
+          characters. Please see [TrustedCertificateReq](https://www.pelion.com/docs/device-management-api/account-management/).
         maxLength: 100
         type: string
     required:
@@ -3094,8 +3094,8 @@ definitions:
           to Device Management.
 
           * Registered: The device has registered with Pelion Device Management. [Device
-          commands](../service-api-references/device-management-connect.html#createAsyncRequest)
-          can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+          commands](https://www.pelion.com/docs/device-management-api/connect/) can
+          be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
           resources.
 
           * Deregistered: The device has requested deregistration, or its registration
@@ -6147,7 +6147,7 @@ definitions:
         type: boolean
       rt:
         description: Application-specific resource type that describes this resource.
-          It is created by the [client side application](../device-management/resource-setup-in-device-management-client.html).
+          It is created by the [client side application](https://www.pelion.com/docs/device-management/current/resources/resource-setup-in-device-management-client.html).
           Not meant to be a human-readable name for the resource. Multiple resource
           types may be included, separated by a space.
         example: light_sensor
@@ -6196,7 +6196,7 @@ definitions:
         type: string
       rt:
         description: 'Application-specific resource type that describes this resource.
-          It is created by the [client side application](../device-management/resource-setup-in-device-management-client.html).
+          It is created by the [client side application](https://www.pelion.com/docs/device-management/current/resources/resource-setup-in-device-management-client.html).
 
           Not meant to be a human-readable name for the resource. Multiple resource
           types may be included, separated by a space.'
@@ -6304,7 +6304,7 @@ definitions:
           applications may cause lag in notification delivery, as a new chunk is sent
           only after the previous one has been acknowledged. Using a high value is
           recommended and safe, as chunks are sent quickly after notifications are
-          received from devices. See [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic)
+          received from devices. See [notification sending logic](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html#notification-sending-logic)
           for more details.
         example: '500'
         maximum: 10000
@@ -8382,14 +8382,24 @@ definitions:
           consider the response from the device, it includes only the responses to
           the HTTP requests used to manage the device. This metric includes only messages
           handled by the Connect service, it does not include any HTTP errors returned
-          by firewall as result of malformed messages.
+          by firewall as result of malformed messages. The number of failed [Connect
+          API](https://www.pelion.com/docs/device-management-api/connect/) requests
+          that have been performed using the account. This metric does not consider
+          the response from the device, it includes only the responses to the HTTP
+          requests used to manage the device. This metric includes only messages handled
+          by the Connect service, not any HTTP errors returned by the firewall as
+          a result of incorrect messages.
         format: int64
         type: integer
       connect_rest_api_success:
         description: The number of successful [Connect API](/docs/current/service-api-references/device-management-connect.html)
           requests that have been performed using the account. This metric does not
           consider the response from the device, it includes only the responses to
-          the HTTP requests used to manage the device.
+          the HTTP requests used to manage the device. The number of successful [Connect
+          API](https://www.pelion.com/docs/device-management-api/connect/) requests
+          that have been performed using the account. This metric does not consider
+          the response from the device, only the responses to the HTTP requests used
+          to manage the device.
         format: int64
         type: integer
       deleted_registrations:
@@ -8404,7 +8414,7 @@ definitions:
         description: '**(Beta)** The number of notifications received by the Device
           Management Connect service from the devices linked to the account. The device
           pushes notifications to Device Management Connect when you have successfully
-          subscribed to the device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html)
+          subscribed to the device resources using [Connect API](https://www.pelion.com/docs/device-management-api/connect/)
           endpoints.
 
           '
@@ -8414,7 +8424,7 @@ definitions:
         description: '**(Beta)** The number of failed proxy requests from the Device
           Management Connect service to devices linked to the account. Device Management
           Connect makes proxy requests to devices when you try to read or write values
-          to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html)
+          to device resources using [Connect API](https://www.pelion.com/docs/device-management-api/connect/)
           endpoints.
 
           '
@@ -8424,7 +8434,7 @@ definitions:
         description: '**(Beta)** The number of successful proxy requests from the
           Device Management Connect service to devices linked to the account. Device
           Management Connect makes proxy requests to devices when you try to read
-          or write values to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html)
+          or write values to device resources using [Connect API](https://www.pelion.com/docs/device-management-api/connect/)
           endpoints.
 
           '
@@ -8434,7 +8444,7 @@ definitions:
         description: '**(Beta)** The number of failed subscription requests from the
           Device Management Connect service to devices linked to the account. Device
           Management Connect makes subscription requests to devices when you try to
-          subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html)
+          subscribe to a resource path using [Connect API](https://www.pelion.com/docs/device-management-api/connect/)
           endpoints.
 
           '
@@ -8444,7 +8454,7 @@ definitions:
         description: '**(Beta)** The number of successful subscription requests from
           the Device Management Connect service to devices linked to the account.
           Device Management Connect makes subscription requests to devices when you
-          try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html)
+          try to subscribe to a resource path using [Connect API](https://www.pelion.com/docs/device-management-api/connect/)
           endpoints.
 
           '
@@ -8974,12 +8984,12 @@ paths:
         along with the device ID and the resource. This also prevents any race conditions
         with
 
-        [the notification channel](../integrate-web-app/event-notification.html).
+        [the notification channel](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html).
         All responses are sent through the
 
         currently configured notification channel as an
 
-        [AsyncIDResponse](../service-api-references/device-management-connect.html#AsyncIDResponse).
+        [AsyncIDResponse](https://www.pelion.com/docs/device-management-api/connect/).
 
 
         For `GET` methods, values may be fetched from an internal cache, instead of
@@ -9047,7 +9057,7 @@ paths:
         If retries are exhausted or the expiry time has passed, then the server discards
         the request and sends an error
 
-        in [AsyncIDResponse](../service-api-references/device-management-connect.html#AsyncIDResponse).
+        in [AsyncIDResponse](https://www.pelion.com/docs/device-management-api/connect/).
         The retries
 
         could be exhausted, for example, if the device periodically contacts
@@ -9071,7 +9081,7 @@ paths:
         See also `/v2/device-requests/{device-id}`.
 
 
-        You can write [Notification Rules](../device-management/resource-change-webapp.html#notification-rules)
+        You can write [Notification Rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)
         for a
 
         resource with PUT command. Please see example of the payload below.
@@ -9504,7 +9514,7 @@ paths:
         end_of_life_at: '2020-05-17T00:00:00+00:00'
         issued_at: '2019-05-17T15:23:00+00:00'
         links:
-        - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
+        - https://www.pelion.com/docs/device-management-api/connect/
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
       deprecated: true
@@ -9528,7 +9538,7 @@ paths:
         is on and connected to Device Management.
 
 
-        See also how [resource caching](../connecting/device-guidelines.html#resource-cache)
+        See also how [resource caching](https://www.pelion.com/docs/device-management/current/connecting/device-guidelines.html#resource-cache)
         works.
 
 
@@ -9561,8 +9571,8 @@ paths:
         type: string
       - description: 'If true, the response comes only from the cache. Default: false.
           Device Management Connect caches the received resource values for the time
-          of [max_age](../device-management/working-with-the-resources.html) defined
-          in the client.'
+          of [max_age](https://www.pelion.com/docs/device-management/current/resources/working-with-the-resources.html)
+          defined in the client.'
         in: query
         name: cacheOnly
         required: false
@@ -9613,7 +9623,7 @@ paths:
         end_of_life_at: '2020-05-17T00:00:00+00:00'
         issued_at: '2019-05-17T15:23:00+00:00'
         links:
-        - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
+        - https://www.pelion.com/docs/device-management-api/connect/
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     post:
       consumes:
@@ -9630,7 +9640,7 @@ paths:
       - application/vnd.oma.lwm2m+tlv
       - application/vnd.oma.lwm2m+json
       deprecated: true
-      description: '(DEPRECATED) [Execute a function](../device-management/handle-resource-webapp.html#the-execute-operation)
+      description: '(DEPRECATED) [Execute a function](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html#the-execute-operation)
         on an existing resource and create a new Object instance on the device. The
         resource path does not have to exist; you can set it with the call. The maximum
         length of the resource path is 255 characters.
@@ -9722,7 +9732,7 @@ paths:
         end_of_life_at: '2020-05-17T00:00:00+00:00'
         issued_at: '2019-05-17T15:23:00+00:00'
         links:
-        - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
+        - https://www.pelion.com/docs/device-management-api/connect/
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     put:
       consumes:
@@ -9740,8 +9750,8 @@ paths:
       - application/vnd.oma.lwm2m+json
       deprecated: true
       description: '(DEPRECATED) With this API, you can [write a new value to existing
-        Resources](../device-management/handle-resource-webapp.html) or use the **write**
-        attribute to set [notification rules](../device-management/resource-change-webapp.html)
+        Resources](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
+        or use the **write** attribute to set [notification rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)
         for the Resources. The notification rules only work on the device client side
         and may not be supported by all clients.
 
@@ -9843,7 +9853,7 @@ paths:
         end_of_life_at: '2020-05-17T00:00:00+00:00'
         issued_at: '2019-05-17T15:23:00+00:00'
         links:
-        - https://www.pelion.com/docs/device-management/current/service-api-references/device-management-connect.html#createAsyncRequest
+        - https://www.pelion.com/docs/device-management-api/connect/
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/notification/callback:
     delete:
@@ -9913,11 +9923,11 @@ paths:
       description: "Register a URL to which the server delivers notifications of changes\
         \ to the subscribed resource. To push notifications, you must first place\
         \ subscriptions. The maximum length of the URL, header keys, and values, all\
-        \ combined, is 400 characters. \n\nNotifications are delivered as PUT requests\
+        \ combined, is 400 characters.\n\nNotifications are delivered as PUT requests\
         \ to the HTTP server, which the client defines with a subscription server\
         \ message. The given URL must be accessible, and respond to the PUT request\
-        \ with a response code of 200 or 204. \n\nDevice Management Connect tests\
-        \ the callback URL with an empty JSON payload `{}` when the URL is registered.\
+        \ with a response code of 200 or 204.\n\nDevice Management Connect tests the\
+        \ callback URL with an empty JSON payload `{}` when the URL is registered.\
         \ Callback implementation does not support URL redirection. For more information\
         \ on notification messages, see [NotificationMessage](#NotificationMessage).\n\
         \n**Optional headers in a callback message:**\n\nYou can set optional headers\
@@ -9940,7 +9950,7 @@ paths:
         \ 20 seconds; in the case of timeout, the first retry happens 20 + 1 seconds\
         \ after the first delivery attempt, then 20 + 2 seconds, and so on. The callback\
         \ URL is removed if all retries fail within 24 hours. More about [notification\
-        \ sending logic](../integrate-web-app/event-notification.html#notification-sending-logic)\
+        \ sending logic](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html#notification-sending-logic)\
         \ in the Device Management documentation.\n\n**Supported callback URL protocols:**\n\
         \nCurrently, only HTTP and HTTPS protocols are supported.\n\n**HTTPS callback\
         \ URLs:**\n\nWhen delivering a notification to an HTTPS-based callback URL,\
@@ -10188,15 +10198,15 @@ paths:
         \ be active at a time. If you register a new websocket channel while another\
         \ one is active, it replaces the previously active one. If another type of\
         \ channel is already present, you need to delete it before registering a websocket\
-        \ channel.   \n\n**Expiration of a websocket:**\n\nA websocket channel is\
-        \ expired if the channel does not have an opened websocket connection for\
-        \ a 24-hour period. Channel expiration means the channel is deleted and any\
-        \ undelivered notifications stored in its internal queue is removed. As long\
-        \ as the channel has an opened websocket connection or time between successive\
-        \ websocket connections is less than 24 hours,\nthe channel is considered\
-        \ active, notifications are stored in its internal queue and delivered when\
-        \ a websocket connection is active. A channel can be also deleted explicitly\
-        \ with a DELETE call.\n\nMore about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
+        \ channel.\n\n**Expiration of a websocket:**\n\nA websocket channel is expired\
+        \ if the channel does not have an opened websocket connection for a 24-hour\
+        \ period. Channel expiration means the channel is deleted and any undelivered\
+        \ notifications stored in its internal queue is removed. As long as the channel\
+        \ has an opened websocket connection or time between successive websocket\
+        \ connections is less than 24 hours,\nthe channel is considered active, notifications\
+        \ are stored in its internal queue and delivered when a websocket connection\
+        \ is active. A channel can be also deleted explicitly with a DELETE call.\n\
+        \nMore about [notification sending logic](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html#notification-sending-logic).\n\
         \n**Configuration options:**\n\nThe event notification channel provides configurations\
         \ options defined in [Serialization config](#SerializationConfigObjectV2)\n\
         \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
@@ -10383,12 +10393,12 @@ paths:
         \ update. To remove the pre-subscription data, put an empty array as a rule.\n\
         \n**Note:** The subscription is bound to the API key your application is using.\
         \ To get notifications of the resource value changes, you need to create an\
-        \ [event notification channel](../integrate-web-app/event-notification.html)\
+        \ [event notification channel](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html)\
         \ with the same API Key.\n\nFor more information, see [Subscribing to Resource\
-        \ changes from a web application](../device-management/resource-change-webapp.html).\n\
+        \ changes from a web application](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html).\n\
         \n**Notification rules**\n\nA web application can place dynamic observation\
         \ rules for individual Object Instances and Resources to define when the device\
-        \ sends observations. More information in [Notification rules](../device-management/resource-change-webapp.html#notification-rules).\n\
+        \ sends observations. More information in [Notification rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html).\n\
         \n**Limits**:\n\n- The maximum length of the endpoint name and endpoint type\
         \ is 64 characters.\n- The maximum length of the resource path is 128 characters.\n\
         - You can listen to 256 separate resource paths.\n- The maximum number of\
@@ -10408,7 +10418,7 @@ paths:
         \ of all endpoints.\n\n**Note**:\nTo save bandwidth and avoid unnecessary\
         \ traffic, use resource path patterns to limit the matching resources in the\
         \ presubscription data.\nThis prevents the notification flow from unwanted\
-        \ resources to your web application. See [Subscribe only to what you need](../device-management/resource-change-webapp.html#subscribe-only-to-what-you-need)."
+        \ resources to your web application. See [Subscribe only to what you need](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)."
       operationId: updatePreSubscriptions
       parameters:
       - description: Array of pre-subscriptions.
@@ -10580,7 +10590,7 @@ paths:
 
         A web application can place dynamic observation rules for individual Object
         Instances and Resources to define when the device sends observations. More
-        information in [Notification rules](../device-management/resource-change-webapp.html#notification-rules).
+        information in [Notification rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html).
 
 
         All manual subscriptions are removed during a full device registration, at
@@ -19931,7 +19941,7 @@ paths:
 
 
         **Note:** The number of developer certificates allowed per account is limited.
-        Please see [Setting up a Certificate Authority](../provisioning-process/integrating-with-a-third-party-ca.html#setting-up-a-ca).
+        Please see [Setting up a Certificate Authority](https://www.pelion.com/docs/device-management/current/provisioning-process/integrating-with-a-third-party-ca.html).
 
 
         **Example:**
@@ -21178,7 +21188,7 @@ paths:
       description: 'To free a device from your account, delete the enrollment claim.
         To bypass the device ownership, you need to delete the enrollment and factory
         reset the device. For more information, see [Transferring ownership using
-        First-to-Claim](../connecting/device-ownership-first-to-claim-by-enrollment-list.html).
+        First-to-Claim](https://www.pelion.com/docs/device-management/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html).
 
         <br>
 
@@ -21260,7 +21270,7 @@ paths:
       description: "List all or a filtered list of device events for the account.\
         \ Device events are events significant to operation or lifetime, such as creation,\
         \ firmware update, and suspension.\n\nTo see statistics for device connectivity\
-        \ and usage, use the [Statistics API](../service-api-references/connect-statistics.html).\n\
+        \ and usage, use the [Statistics API](https://www.pelion.com/docs/device-management-api/connect-statistics/).\n\
         \n **Example:**\n Following example gets device-events limiting returned results\
         \ to max 5 events\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5\
         \ \\\n -H 'Authorization: Bearer <API key>'\n ```\n or to get events for certain\
@@ -21766,7 +21776,7 @@ paths:
       - Device directory - groups
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     get:
-      description: Returns [DeviceGroup](../service-api-references/device-directory.html#DeviceGroup)
+      description: Returns [DeviceGroup](https://www.pelion.com/docs/device-management-api/device-directory/)
         info what contains info of the group, for example, name and updated date.
         To list the devices in the group, use '/v3/device-groups/{device-group-id}/devices/'.
       operationId: Group_retrieve
@@ -23960,8 +23970,8 @@ paths:
         response.
       operationId: Device_destroy
       parameters:
-      - description: The [Device ID](../connecting/device-identity.html) created by
-          Device Management.
+      - description: The [Device ID](https://www.pelion.com/docs/device-management/current/connecting/device-identity.html)
+          created by Device Management.
         in: path
         name: id
         required: true
@@ -23981,9 +23991,9 @@ paths:
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     get:
       description: 'Retrieve information about a specific device. This API returns
-        [DeviceData](../service-api-references/device-directory.html#devicedata).
+        [DeviceData](https://www.pelion.com/docs/device-management-api/device-directory/).
         If you want to see the structure of resources in the device or the actual
-        resource values, use the [Connect API](../service-api-references/device-management-connect.html).
+        resource values, use the [Connect API](https://www.pelion.com/docs/device-management-api/connect/).
 
 
         **Example:**
@@ -24000,8 +24010,8 @@ paths:
         ```'
       operationId: Device_retrieve
       parameters:
-      - description: The [Device ID](../connecting/device-identity.html) created by
-          Device Management.
+      - description: The [Device ID](https://www.pelion.com/docs/device-management/current/connecting/device-identity.html)
+          created by Device Management.
         in: path
         name: id
         required: true
@@ -24043,8 +24053,8 @@ paths:
         ```'
       operationId: Device_update
       parameters:
-      - description: The [Device ID](../connecting/device-identity.html) created by
-          Device Management.
+      - description: The [Device ID](https://www.pelion.com/docs/device-management/current/connecting/device-identity.html)
+          created by Device Management.
         in: path
         name: id
         required: true
@@ -24072,11 +24082,11 @@ paths:
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devices/{id}/resume:
     post:
-      description: '[Returning a device to service](../device-management/device-suspension.html#suspending-and-resuming-connection-to-devices-with-the-apis)
+      description: '[Returning a device to service](https://www.pelion.com/docs/device-management/current/device-management/managing-devices-in-your-account.html#using-the-api-suspending-and-resuming-devices)
         allows the device to connect to Device Management again. The connection is
         established according to the device''s reconnection logic. The device reports
-        a [registration event](../service-api-references/device-management-connect.html#notificationmessage)
-        through a [notification channel](../integrate-web-app/event-notification.html).
+        a [registration event](https://www.pelion.com/docs/device-management-api/connect/)
+        through a [notification channel](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html).
 
 
         The default reconnection logic is a progressive back-off for 2, 4, 8, or 16
@@ -24143,11 +24153,11 @@ paths:
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
   /v3/devices/{id}/suspend:
     post:
-      description: "[Suspending a device](../device-management/device-suspension.html)\
+      description: "[Suspending a device](https://www.pelion.com/docs/device-management/current/device-management/managing-devices-in-your-account.html#suspending-and-resuming-devices)\
         \ prevents it from connecting to Device Management. If a device is currently\
         \ connected, it disconnects and shows as deregistered.\n\nYou can also receive\
-        \ [deregistration events](../service-api-references/device-management-connect.html#notificationmessage)\
-        \ in [notification channels](../integrate-web-app/event-notification.html).\n\
+        \ [deregistration events](https://www.pelion.com/docs/device-management-api/connect/)\
+        \ in [notification channels](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html).\n\
         \nAPI operations needing device transactions fail while a device is suspended.\n\
         \nExample use case to use suspending is that device is reported lost or stolen.\
         \ You can block the device to connect and this way prevent  device to cause\
@@ -24160,8 +24170,8 @@ paths:
         \ time of the theft was not know. Device last used in May/2019\"}'\n ```"
       operationId: Device_suspend
       parameters:
-      - description: The [Device ID](../connecting/device-identity.html) created by
-          Device Management.
+      - description: The [Device ID](https://www.pelion.com/docs/device-management/current/connecting/device-identity.html)
+          created by Device Management.
         in: path
         name: id
         required: true
@@ -24460,12 +24470,32 @@ paths:
     post:
       consumes:
       - multipart/form-data
-      description: "Create a firmware image.        \n<BR/> **Note:** Only use this\
-        \ API for images smaller than 100 MB. For larger images, [upload in chunks](../updating-firmware/uploading-a-large-firmware-image.html).\
-        \ \n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images\
-        \ \\\n-H 'Authorization: <valid access token>' \\\n-H 'Content-Type: multipart/form-data'\
-        \ \\\n-F 'datafile=@myimage.bin;type=application/octet-stream'\n-F 'description=bla\
-        \ bla' \\\n-F 'name=My Linux Image'\n```\n"
+      description: 'Create a firmware image.
+
+        <BR/> **Note:** Only use this API for images smaller than 100 MB. For larger
+        images, [upload in chunks](https://www.pelion.com/docs/device-management/current/updating-firmware/uploading-a-large-firmware-image.html).
+
+        <br>
+
+        **Usage example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images \
+
+        -H ''Authorization: <valid access token>'' \
+
+        -H ''Content-Type: multipart/form-data'' \
+
+        -F ''datafile=@myimage.bin;type=application/octet-stream''
+
+        -F ''description=bla bla'' \
+
+        -F ''name=My Linux Image''
+
+        ```
+
+        '
       operationId: Firmware_Image_create
       parameters:
       - description: The firmware image file to upload. File name must not exceed
@@ -26290,12 +26320,12 @@ paths:
           - `bootstraps_pending`\n- `handshakes_successful`\n- `connect_rest_api_success`\n\
           - `connect_rest_api_error`\n- `device_proxy_request_success`\n- `device_proxy_request_error`\n\
           - `device_subscription_request_success`\n- `device_subscription_request_error`\n\
-          - `device_observations`\n- `total_count`\n\n**Note:**\n\nThe metrics device_proxy_request_success,\
-          \ device_proxy_request_error, device_subscription_request_success, device_subscription_request_error\
-          \ and device_observations monitor only the response from the device to Device\
-          \ Management Connect and they do not confirm that the response is delivered\
-          \ to client callback URLs used when you try to access device resources using\
-          \  [Connect API](/docs/current/service-api-references/device-management-connect.html)\
+          - `device_observations`\n- `total_count`\n\n**Note:**\n\nThe metrics `device_proxy_request_success`,\
+          \ `device_proxy_request_error`, `device_subscription_request_success`, `device_subscription_request_error`\
+          \ and `device_observations` monitor only the response from the device to\
+          \ Device Management Connect. They do not confirm that the response is delivered\
+          \ to the client callback URLs used when you try to access device resources\
+          \ using [Connect API](https://www.pelion.com/docs/device-management-api/connect/)\
           \ endpoints. New metrics will be added to monitor the response delivery\
           \ to client callback URLs later.\n\n**Example usage:**\n\n```\ncurl  -X\
           \ GET \\\n      -H \"Authorization : Bearer <valid access Token>\"\n   \
@@ -29035,9 +29065,22 @@ paths:
       x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}:
     get:
-      description: "Get the count of successfully updated, skipped, and failed devices.\
-        \ \n<br>\n**Usage example:**\n```\ncurl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012\
-        \ \\\n-H 'Authorization: <valid access token>'\n```\n"
+      description: 'Get the count of successfully updated, skipped, and failed devices.
+
+        <br>
+
+        **Usage example:**
+
+        ```
+
+        curl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012
+        \
+
+        -H ''Authorization: <valid access token>''
+
+        ```
+
+        '
       operationId: Update_Campaign_statistics_retrieve
       parameters:
       - description: The campaign ID.
@@ -29177,7 +29220,7 @@ paths:
   /v3/update-campaigns/{campaign_id}/stop:
     post:
       description: 'Stop a campaign. Stopping is a process that requires the campaign
-        go through several [phases](../updating-firmware/running-update-campaigns.html#stopping).
+        go through several [phases](https://www.pelion.com/docs/device-management/current/updating-firmware/device-management-update-using-the-apis.html).
 
         <br>
 

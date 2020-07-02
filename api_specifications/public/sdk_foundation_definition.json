@@ -20106,7 +20106,7 @@
           "_key": "list"
         },
         {
-          "description": "Get the count of successfully updated, skipped, and failed devices. \n<br>\n**Usage example:**\n```\ncurl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get the count of successfully updated, skipped, and failed devices.\n<br>\n**Usage example:**\n```\ncurl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -29977,7 +29977,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Create a developer certificate (a certificate that can be flashed to multiple devices to connect to the bootstrap server).\n\n**Note:** The number of developer certificates allowed per account is limited. Please see [Setting up a Certificate Authority](../provisioning-process/integrating-with-a-third-party-ca.html#setting-up-a-ca).\n\n**Example:**\n```\ncurl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates \\\n-H \"Authorization: Bearer <api_key>\" \\\n-H \"content-type: application/json\" \\\n-d { \"name\": \"<certificate_name>\", \"description\": \"<certificate_description>\" }\n```",
+          "description": "Create a developer certificate (a certificate that can be flashed to multiple devices to connect to the bootstrap server).\n\n**Note:** The number of developer certificates allowed per account is limited. Please see [Setting up a Certificate Authority](https://www.pelion.com/docs/device-management/current/provisioning-process/integrating-with-a-third-party-ca.html).\n\n**Example:**\n```\ncurl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates \\\n-H \"Authorization: Bearer <api_key>\" \\\n-H \"content-type: application/json\" \\\n-d { \"name\": \"<certificate_name>\", \"description\": \"<certificate_description>\" }\n```",
           "field_renames": [
             {
               "api_fieldname": "developer_certificate",
@@ -32286,7 +32286,7 @@
                 "deregistered"
               ],
               "type": "string",
-              "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
+              "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](https://www.pelion.com/docs/device-management-api/connect/) can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
               "api_fieldname": "state",
               "entity_fieldname": "state",
               "parameter_fieldname": "state",
@@ -32639,7 +32639,7 @@
                       "deregistered"
                     ],
                     "type": "string",
-                    "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
+                    "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](https://www.pelion.com/docs/device-management-api/connect/) can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
                     "api_fieldname": "state",
                     "entity_fieldname": "state"
                   },
@@ -32735,7 +32735,7 @@
           "field_renames": [],
           "fields": [
             {
-              "description": "The [Device ID](../connecting/device-identity.html) created by Device Management.",
+              "description": "The [Device ID](https://www.pelion.com/docs/device-management/current/connecting/device-identity.html) created by Device Management.",
               "in": "path",
               "name": "id",
               "required": true,
@@ -33115,7 +33115,7 @@
                             "deregistered"
                           ],
                           "type": "string",
-                          "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired."
+                          "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](https://www.pelion.com/docs/device-management-api/connect/) can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired."
                         },
                         "updated_at": {
                           "format": "date-time",
@@ -33577,7 +33577,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve information about a specific device. This API returns [DeviceData](../service-api-references/device-directory.html#devicedata). If you want to see the structure of resources in the device or the actual resource values, use the [Connect API](../service-api-references/device-management-connect.html).\n\n**Example:**\nFollowing example must be updated with the device's ID to the URL. The id is from of \"01667c6e992c00000000000100100370\"\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/<device_ID> \\\n-H 'Authorization: Bearer <API key>'\n```",
+          "description": "Retrieve information about a specific device. This API returns [DeviceData](https://www.pelion.com/docs/device-management-api/device-directory/). If you want to see the structure of resources in the device or the actual resource values, use the [Connect API](https://www.pelion.com/docs/device-management-api/connect/).\n\n**Example:**\nFollowing example must be updated with the device's ID to the URL. The id is from of \"01667c6e992c00000000000100100370\"\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/<device_ID> \\\n-H 'Authorization: Bearer <API key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -33924,7 +33924,7 @@
                       "deregistered"
                     ],
                     "type": "string",
-                    "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
+                    "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](https://www.pelion.com/docs/device-management-api/connect/) can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
                     "api_fieldname": "state",
                     "entity_fieldname": "state"
                   },
@@ -35339,7 +35339,7 @@
                       "deregistered"
                     ],
                     "type": "string",
-                    "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
+                    "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](https://www.pelion.com/docs/device-management-api/connect/) can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
                     "api_fieldname": "state",
                     "entity_fieldname": "state"
                   },
@@ -35820,7 +35820,7 @@
             "deregistered"
           ],
           "type": "string",
-          "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
+          "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](https://www.pelion.com/docs/device-management-api/connect/) can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired.",
           "api_fieldname": "state",
           "readOnly": false,
           "required": false,
@@ -36243,7 +36243,7 @@
           "_key": "create"
         },
         {
-          "description": "To free a device from your account, delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and factory reset the device. For more information, see [Transferring ownership using First-to-Claim](../connecting/device-ownership-first-to-claim-by-enrollment-list.html).\n<br>\n**Example:**\n```\ncurl -X DELETE \\\n-H 'Authorization: Bearer <api_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}\n```",
+          "description": "To free a device from your account, delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and factory reset the device. For more information, see [Transferring ownership using First-to-Claim](https://www.pelion.com/docs/device-management/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html).\n<br>\n**Example:**\n```\ncurl -X DELETE \\\n-H 'Authorization: Bearer <api_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}\n```",
           "field_renames": [],
           "fields": [
             {
@@ -39861,7 +39861,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "List all or a filtered list of device events for the account. Device events are events significant to operation or lifetime, such as creation, firmware update, and suspension.\n\nTo see statistics for device connectivity and usage, use the [Statistics API](../service-api-references/connect-statistics.html).\n\n **Example:**\n Following example gets device-events limiting returned results to max 5 events\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \\\n -H 'Authorization: Bearer <API key>'\n ```\n or to get events for certain device filter based on device_id:\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=<device_id> \\\n -H 'Authorization: Bearer <API key>'\n ```",
+          "description": "List all or a filtered list of device events for the account. Device events are events significant to operation or lifetime, such as creation, firmware update, and suspension.\n\nTo see statistics for device connectivity and usage, use the [Statistics API](https://www.pelion.com/docs/device-management-api/connect-statistics/).\n\n **Example:**\n Following example gets device-events limiting returned results to max 5 events\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \\\n -H 'Authorization: Bearer <API key>'\n ```\n or to get events for certain device filter based on device_id:\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=<device_id> \\\n -H 'Authorization: Bearer <API key>'\n ```",
           "field_renames": [],
           "fields": [
             {
@@ -41734,7 +41734,7 @@
                             "deregistered"
                           ],
                           "type": "string",
-                          "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired."
+                          "description": "The current state of the device.\n* Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.\n* Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.\n* Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.\n* Registered: The device has registered with Pelion Device Management. [Device commands](https://www.pelion.com/docs/device-management-api/connect/) can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html) resources.\n* Deregistered: The device has requested deregistration, or its registration has expired."
                         },
                         "updated_at": {
                           "format": "date-time",
@@ -42857,7 +42857,7 @@
           "_key": "list"
         },
         {
-          "description": "Returns [DeviceGroup](../service-api-references/device-directory.html#DeviceGroup) info what contains info of the group, for example, name and updated date. To list the devices in the group, use '/v3/device-groups/{device-group-id}/devices/'.",
+          "description": "Returns [DeviceGroup](https://www.pelion.com/docs/device-management-api/device-directory/) info what contains info of the group, for example, name and updated date. To list the devices in the group, use '/v3/device-groups/{device-group-id}/devices/'.",
           "field_renames": [],
           "fields": [
             {
@@ -44017,7 +44017,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Create a firmware image.        \n<BR/> **Note:** Only use this API for images smaller than 100 MB. For larger images, [upload in chunks](../updating-firmware/uploading-a-large-firmware-image.html). \n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images \\\n-H 'Authorization: <valid access token>' \\\n-H 'Content-Type: multipart/form-data' \\\n-F 'datafile=@myimage.bin;type=application/octet-stream'\n-F 'description=bla bla' \\\n-F 'name=My Linux Image'\n```\n",
+          "description": "Create a firmware image.\n<BR/> **Note:** Only use this API for images smaller than 100 MB. For larger images, [upload in chunks](https://www.pelion.com/docs/device-management/current/updating-firmware/uploading-a-large-firmware-image.html).\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images \\\n-H 'Authorization: <valid access token>' \\\n-H 'Content-Type: multipart/form-data' \\\n-F 'datafile=@myimage.bin;type=application/octet-stream'\n-F 'description=bla bla' \\\n-F 'name=My Linux Image'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -92729,7 +92729,7 @@
           "_key": "start"
         },
         {
-          "description": "Stop a campaign. Stopping is a process that requires the campaign go through several [phases](../updating-firmware/running-update-campaigns.html#stopping).\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Stop a campaign. Stopping is a process that requires the campaign go through several [phases](https://www.pelion.com/docs/device-management/current/updating-firmware/device-management-update-using-the-apis.html).\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {

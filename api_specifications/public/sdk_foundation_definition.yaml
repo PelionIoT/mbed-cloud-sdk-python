@@ -14650,9 +14650,22 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: read
-    description: "Get the count of successfully updated, skipped, and failed devices.\
-      \ \n<br>\n**Usage example:**\n```\ncurl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012\
-      \ \\\n-H 'Authorization: <valid access token>'\n```\n"
+    description: 'Get the count of successfully updated, skipped, and failed devices.
+
+      <br>
+
+      **Usage example:**
+
+      ```
+
+      curl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012
+      \
+
+      -H ''Authorization: <valid access token>''
+
+      ```
+
+      '
     drop_fields:
     - object
     - etag
@@ -21879,7 +21892,7 @@ entities:
 
 
       **Note:** The number of developer certificates allowed per account is limited.
-      Please see [Setting up a Certificate Authority](../provisioning-process/integrating-with-a-third-party-ca.html#setting-up-a-ca).
+      Please see [Setting up a Certificate Authority](https://www.pelion.com/docs/device-management/current/provisioning-process/integrating-with-a-third-party-ca.html).
 
 
       **Example:**
@@ -23828,8 +23841,8 @@ entities:
       to Device Management.
 
       * Registered: The device has registered with Pelion Device Management. [Device
-      commands](../service-api-references/device-management-connect.html#createAsyncRequest)
-      can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+      commands](https://www.pelion.com/docs/device-management-api/connect/) can be
+      queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
       resources.
 
       * Deregistered: The device has requested deregistration, or its registration
@@ -24320,8 +24333,8 @@ entities:
         to Device Management.
 
         * Registered: The device has registered with Pelion Device Management. [Device
-        commands](../service-api-references/device-management-connect.html#createAsyncRequest)
-        can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+        commands](https://www.pelion.com/docs/device-management-api/connect/) can
+        be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
         resources.
 
         * Deregistered: The device has requested deregistration, or its registration
@@ -24677,8 +24690,8 @@ entities:
             to Device Management.
 
             * Registered: The device has registered with Pelion Device Management.
-            [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest)
-            can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+            [Device commands](https://www.pelion.com/docs/device-management-api/connect/)
+            can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
             resources.
 
             * Deregistered: The device has requested deregistration, or its registration
@@ -24737,8 +24750,8 @@ entities:
     fields:
     - _key: id
       api_fieldname: id
-      description: The [Device ID](../connecting/device-identity.html) created by
-        Device Management.
+      description: The [Device ID](https://www.pelion.com/docs/device-management/current/connecting/device-identity.html)
+        created by Device Management.
       entity_fieldname: id
       external_param: false
       in: path
@@ -25253,8 +25266,8 @@ entities:
                 connect to Device Management.
 
                 * Registered: The device has registered with Pelion Device Management.
-                [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest)
-                can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+                [Device commands](https://www.pelion.com/docs/device-management-api/connect/)
+                can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
                 resources.
 
                 * Deregistered: The device has requested deregistration, or its registration
@@ -25498,9 +25511,9 @@ entities:
       - in
       - nin
   - _key: read
-    description: 'Retrieve information about a specific device. This API returns [DeviceData](../service-api-references/device-directory.html#devicedata).
+    description: 'Retrieve information about a specific device. This API returns [DeviceData](https://www.pelion.com/docs/device-management-api/device-directory/).
       If you want to see the structure of resources in the device or the actual resource
-      values, use the [Connect API](../service-api-references/device-management-connect.html).
+      values, use the [Connect API](https://www.pelion.com/docs/device-management-api/connect/).
 
 
       **Example:**
@@ -25901,8 +25914,8 @@ entities:
             to Device Management.
 
             * Registered: The device has registered with Pelion Device Management.
-            [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest)
-            can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+            [Device commands](https://www.pelion.com/docs/device-management-api/connect/)
+            can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
             resources.
 
             * Deregistered: The device has requested deregistration, or its registration
@@ -27041,8 +27054,8 @@ entities:
             to Device Management.
 
             * Registered: The device has registered with Pelion Device Management.
-            [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest)
-            can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+            [Device commands](https://www.pelion.com/docs/device-management-api/connect/)
+            can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
             resources.
 
             * Deregistered: The device has requested deregistration, or its registration
@@ -27446,7 +27459,7 @@ entities:
   - _key: delete
     description: 'To free a device from your account, delete the enrollment claim.
       To bypass the device ownership, you need to delete the enrollment and factory
-      reset the device. For more information, see [Transferring ownership using First-to-Claim](../connecting/device-ownership-first-to-claim-by-enrollment-list.html).
+      reset the device. For more information, see [Transferring ownership using First-to-Claim](https://www.pelion.com/docs/device-management/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html).
 
       <br>
 
@@ -30424,7 +30437,7 @@ entities:
     description: "List all or a filtered list of device events for the account. Device\
       \ events are events significant to operation or lifetime, such as creation,\
       \ firmware update, and suspension.\n\nTo see statistics for device connectivity\
-      \ and usage, use the [Statistics API](../service-api-references/connect-statistics.html).\n\
+      \ and usage, use the [Statistics API](https://www.pelion.com/docs/device-management-api/connect-statistics/).\n\
       \n **Example:**\n Following example gets device-events limiting returned results\
       \ to max 5 events\n ```\n curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5\
       \ \\\n -H 'Authorization: Bearer <API key>'\n ```\n or to get events for certain\
@@ -32014,8 +32027,8 @@ entities:
                 connect to Device Management.
 
                 * Registered: The device has registered with Pelion Device Management.
-                [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest)
-                can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html)
+                [Device commands](https://www.pelion.com/docs/device-management-api/connect/)
+                can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
                 resources.
 
                 * Deregistered: The device has requested deregistration, or its registration
@@ -32738,7 +32751,7 @@ entities:
       - lte
       - gte
   - _key: read
-    description: Returns [DeviceGroup](../service-api-references/device-directory.html#DeviceGroup)
+    description: Returns [DeviceGroup](https://www.pelion.com/docs/device-management-api/device-directory/)
       info what contains info of the group, for example, name and updated date. To
       list the devices in the group, use '/v3/device-groups/{device-group-id}/devices/'.
     drop_fields:
@@ -33573,12 +33586,32 @@ entities:
   group_id: Device_Update
   methods:
   - _key: create
-    description: "Create a firmware image.        \n<BR/> **Note:** Only use this\
-      \ API for images smaller than 100 MB. For larger images, [upload in chunks](../updating-firmware/uploading-a-large-firmware-image.html).\
-      \ \n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images\
-      \ \\\n-H 'Authorization: <valid access token>' \\\n-H 'Content-Type: multipart/form-data'\
-      \ \\\n-F 'datafile=@myimage.bin;type=application/octet-stream'\n-F 'description=bla\
-      \ bla' \\\n-F 'name=My Linux Image'\n```\n"
+    description: 'Create a firmware image.
+
+      <BR/> **Note:** Only use this API for images smaller than 100 MB. For larger
+      images, [upload in chunks](https://www.pelion.com/docs/device-management/current/updating-firmware/uploading-a-large-firmware-image.html).
+
+      <br>
+
+      **Usage example:**
+
+      ```
+
+      curl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images \
+
+      -H ''Authorization: <valid access token>'' \
+
+      -H ''Content-Type: multipart/form-data'' \
+
+      -F ''datafile=@myimage.bin;type=application/octet-stream''
+
+      -F ''description=bla bla'' \
+
+      -F ''name=My Linux Image''
+
+      ```
+
+      '
     drop_fields:
     - object
     - etag
@@ -70967,7 +71000,7 @@ entities:
     x_filter: {}
   - _key: stop
     description: 'Stop a campaign. Stopping is a process that requires the campaign
-      go through several [phases](../updating-firmware/running-update-campaigns.html#stopping).
+      go through several [phases](https://www.pelion.com/docs/device-management/current/updating-firmware/device-management-update-using-the-apis.html).
 
       <br>
 
