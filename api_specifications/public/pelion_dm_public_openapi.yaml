@@ -29102,7 +29102,7 @@ paths:
 
         ```
 
-        curl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11230007f9012ab56789012000079012/statistics/11234567f012ab567890120000789012
+        curl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/fail
         \
 
         -H ''Authorization: <valid access token>''
@@ -29119,6 +29119,11 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
+        enum: &id035
+        - fail
+        - success
+        - info
+        - skipped
         in: path
         name: summary_status_id
         required: true
@@ -29150,7 +29155,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1120007f9012ab567890120000789012/statistics/1234567f9012ab567890120000789012/event_types
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/skipped/event_types
         \
 
         -H ''Authorization: <valid access token>''
@@ -29167,6 +29172,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
+        enum: *id035
         in: path
         name: summary_status_id
         required: true
@@ -29199,7 +29205,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9000005678012000078901/statistics/11000067f9012ab56789010000789012/event_types/11234567f9012ab567890120000789012
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/success/event_types/sys_112
         \
 
         -H ''Authorization: <valid access token>''
@@ -29216,14 +29222,48 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
+        enum: *id035
         in: path
         name: summary_status_id
         required: true
         type: string
-      - description: The event type parameter. For example, UPD4_FAIL_101.
+      - description: 'The event type parameter. Event types are grouped into the four
+          values of the summary_status, i.e. fail, success, info and skipped.
+
+          success: SYS_112, UPD4_OK_M1, UPD1_OK_1, UPD4_OK_100, UPD2_OK_19, UPD2_OK_1,
+          UPD2_OK_18
+
+          fail: UPD4_FAIL_508, UPD4_FAIL_217, UPD4_FAIL_305, UPD4_FAIL_405, UPD4_FAIL_511,
+          UPD4_FAIL_220, UPD1_FAIL_6, UPD4_FAIL_302, UPD2_FAIL_11, UPD4_FAIL_219,
+          SYS_103, UPD4_FAIL_407, UPD4_FAIL_224, SYS_111, UPD4_FAIL_210, UPD4_FAIL_306,
+          UPD2_FAIL_14, UPD4_FAIL_221, UPD4_FAIL_315, UPD4_FAIL_403, UPD2_FAIL_12,
+          UPD4_FAIL_207, UPD4_FAIL_215, UPD4_FAIL_504, UPD2_FAIL_3, UPD4_FAIL_103,
+          UPD2_FAIL_16, UPD2_FAIL_6, UPD4_FAIL_101, UPD4_FAIL_202, UPD4_FAIL_313,
+          UPD4_FAIL_209, UPD4_FAIL_301, UPD2_FAIL_4, SYS_123, UPD4_FAIL_314, UPD4_FAIL_205,
+          UPD4_FAIL_212, UPD4_FAIL_311, UPD4_FAIL_304, UPD4_FAIL_223, UPD4_FAIL_226,
+          UPD1_FAIL_2, UPD4_FAIL_203, UPD4_FAIL_507, UPD4_FAIL_402, UPD4_FAIL_204,
+          UPD4_FAIL_510, UPD1_FAIL_7, UPD4_FAIL_218, UPD1_FAIL_8, UPD2_FAIL_5, UPD4_FAIL_201,
+          UPD4_FAIL_213, UPD4_FAIL_400, UPD2_FAIL_17, UPD4_FAIL_310, UPD4_FAIL_206,
+          UPD4_FAIL_102, UPD2_FAIL_7, UPD1_FAIL_9, UPD4_FAIL_22, UPD4_FAIL_502, UPD4_FAIL_211,
+          UPD1_FAIL_4, UPD1_FAIL_3, UPD4_FAIL_409, UPD4_FAIL_408, UPD4_FAIL_200, SYS_104,
+          UPD2_FAIL_10, UPD2_FAIL_15, UPD4_FAIL_216, UPD4_FAIL_214, UPD4_FAIL_308,
+          UPD4_FAIL_401, UPD1_FAIL_5, UPD2_FAIL_13, UPD4_FAIL_208, UPD2_FAIL_2, UPD4_FAIL_312,
+          UPD4_FAIL_509, UPD4_FAIL_303, UPD4_FAIL_512, UPD2_FAIL_9, UPD4_FAIL_316,
+          UPD4_FAIL_506, SYS_101, UPD4_FAIL_309, UPD4_FAIL_307, UPD4_FAIL_404, UPD4_FAIL_503,
+          UPD4_FAIL_225, UPD4_FAIL_300, UPD4_FAIL_500, UPD4_FAIL_505, UPD4_FAIL_406,
+          UPD4_FAIL_222, UPD4_FAIL_501, UPD2_FAIL_8, SYS_124
+
+          info: UPD1_STATE_0, UPD2_REPORT_HASH, UPD1_REPORT_HASH, UPD2_STATE_5, UPD2_STATE_0,
+          UPD2_STATE_4, UPD2_STATE_3, SYS_107, SYS_105, SYS_106, UPD1_REPORT_VERSION,
+          UPD1_STATE_2, SYS_116, SYS_108, SYS_100, UPD2_STATE_8, UPD2_STATE_7, SYS_120,
+          UPD2_STATE_1, SYS_113, UPD2_STATE_6, UPD2_REPORT_VERSION, SYS_115, UPD2_STATE_2,
+          SYS_114, UPD1_STATE_3, UPD1_STATE_1, SYS_125
+
+          skipped: SYS_121, SYS_118, SYS_122, SYS_110, SYS_117
+
+          '
         in: path
         name: event_type_id
-        pattern: ^\w{1,16}$
         required: true
         type: string
       responses:

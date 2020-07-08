@@ -14148,7 +14148,7 @@ entities:
 
       ```
 
-      curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1120007f9012ab567890120000789012/statistics/1234567f9012ab567890120000789012/event_types
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/skipped/event_types
       \
 
       -H ''Authorization: <valid access token>''
@@ -14184,6 +14184,12 @@ entities:
       api_fieldname: summary_status_id
       description: The summary status. For example, fail.
       entity_fieldname: id
+      enum:
+      - fail
+      - success
+      - info
+      - skipped
+      enum_reference: campaign_statistics_id_enum
       external_param: false
       in: path
       name: summary_status_id
@@ -14663,7 +14669,7 @@ entities:
 
       ```
 
-      curl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11230007f9012ab56789012000079012/statistics/11234567f012ab567890120000789012
+      curl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/fail
       \
 
       -H ''Authorization: <valid access token>''
@@ -14945,7 +14951,7 @@ entities:
 
       ```
 
-      curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9000005678012000078901/statistics/11000067f9012ab56789010000789012/event_types/11234567f9012ab567890120000789012
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/success/event_types/sys_112
       \
 
       -H ''Authorization: <valid access token>''

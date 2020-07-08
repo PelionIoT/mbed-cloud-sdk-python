@@ -19433,7 +19433,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Get a list of events grouped by summary.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1120007f9012ab567890120000789012/statistics/1234567f9012ab567890120000789012/event_types \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get a list of events grouped by summary.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/skipped/event_types \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -19455,10 +19455,17 @@
               "name": "summary_status_id",
               "required": true,
               "type": "string",
+              "enum": [
+                "fail",
+                "success",
+                "info",
+                "skipped"
+              ],
               "entity_fieldname": "id",
               "api_fieldname": "summary_status_id",
               "external_param": false,
               "parameter_fieldname": "summary_status_id",
+              "enum_reference": "campaign_statistics_id_enum",
               "_key": "id"
             }
           ],
@@ -20111,7 +20118,7 @@
           "_key": "list"
         },
         {
-          "description": "Get the count of successfully updated, skipped, and failed devices.\n<br>\n**Usage example:**\n```\ncurl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11230007f9012ab56789012000079012/statistics/11234567f012ab567890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get the count of successfully updated, skipped, and failed devices.\n<br>\n**Usage example:**\n```\ncurl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/fail \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -20470,7 +20477,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Get the count for a specific event type; for example, succeeded, failed, or skipped.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9000005678012000078901/statistics/11000067f9012ab56789010000789012/event_types/11234567f9012ab567890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get the count for a specific event type; for example, succeeded, failed, or skipped.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/success/event_types/sys_112 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
