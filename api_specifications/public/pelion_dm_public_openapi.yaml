@@ -2129,6 +2129,7 @@ definitions:
         type: string
       object:
         description: 'The entity name: always ''update-campaign-device-metadata''.'
+        example: update-campaign-device-metadata
         type: string
       updated_at: &id016
         description: The time the entity was updated.
@@ -2161,6 +2162,7 @@ definitions:
         type: integer
       object:
         description: 'The entity name: always ''list''.'
+        example: list
         type: string
       order:
         description: 'The order of the records to return. Acceptable values: ASC,
@@ -2190,6 +2192,7 @@ definitions:
         type: integer
       object:
         description: 'Entity name: always ''update-campaign-metrics''.'
+        example: update-campaign-metrics
         type: string
       pending_count:
         description: Running total of devices that have yet to receive an update or
@@ -4311,6 +4314,7 @@ definitions:
         type: string
       object:
         description: 'Entity name: always ''event-type''.'
+        example: event-type
         type: string
       summary_status:
         example: FAIL
@@ -4380,6 +4384,7 @@ definitions:
         type: string
       object:
         description: 'Entity name: always ''summary_status''.'
+        example: summary_status
         type: string
       summary_status:
         description: The event type description.
@@ -4412,6 +4417,7 @@ definitions:
         type: integer
       object:
         description: 'The entity name: always ''list''.'
+        example: list
         type: string
       order:
         description: 'The order of the records to return. Acceptable values: ASC,
@@ -4525,6 +4531,7 @@ definitions:
         type: string
       object:
         description: 'Entity name: always ''firmware-image''.'
+        example: firmware-image
         type: string
       updated_at: *id016
   FirmwareImageEqNeqFilter:
@@ -4546,6 +4553,7 @@ definitions:
         format: date-time
         type: string
       id:
+        example: 015c3029f6f7000000000001001000c3
         pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
@@ -4587,6 +4595,7 @@ definitions:
         format: date-time
         type: string
       id:
+        example: 015c3029f6f7000000000001001000c3
         pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
@@ -4611,6 +4620,7 @@ definitions:
         type: integer
       object:
         description: 'Entity name: always ''list''.'
+        example: list
         type: string
       order:
         description: The order of the records based on creation time, `ASC` or `DESC`;
@@ -4697,6 +4707,7 @@ definitions:
         type: string
       object:
         description: 'Entity name: always ''firmware-manifest''.'
+        example: firmware-manifest
         type: string
       parsed_raw_manifest:
         description: 'Raw manifest in JSON format, parsed from ASN.1 DER encoding.
@@ -4741,6 +4752,7 @@ definitions:
         format: date-time
         type: string
       id:
+        example: 015c3029f6f7000000000001001000c3
         pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
@@ -4792,6 +4804,7 @@ definitions:
         format: date-time
         type: string
       id:
+        example: 015c3029f6f7000000000001001000c3
         pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
@@ -4822,6 +4835,7 @@ definitions:
         type: integer
       object:
         description: 'Entity name: always ''list''.'
+        example: list
         type: string
       order:
         description: 'The order of the records to return. Acceptable values: ASC,
@@ -7331,6 +7345,7 @@ definitions:
         type: string
       object:
         description: 'Entity name: always ''update-campaign''.'
+        example: update-campaign
         type: string
       phase:
         description: The phase of the campaign.
@@ -7497,11 +7512,13 @@ definitions:
         format: date-time
         type: string
       id:
+        example: 015c3029f6f7000000000001001000c3
         pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
         type: string
       root_manifest_id:
+        example: 015c6029f6f9000000000001001000f4
         pattern: '[A-Fa-f0-9]{32}'
         type: string
       started_at:
@@ -7533,6 +7550,7 @@ definitions:
         type: integer
       object:
         description: 'Entity name: always ''list''.'
+        example: list
         type: string
       order:
         description: 'The order of the records to return. Acceptable values: ASC,
@@ -7741,6 +7759,7 @@ definitions:
         type: integer
       object:
         description: 'Entity name: always ''list''.'
+        example: list
         type: string
       order:
         description: 'The order of the records to return. Acceptable values: ASC,
@@ -7807,6 +7826,7 @@ definitions:
         type: integer
       object:
         description: 'Entity name: always ''list''.'
+        example: list
         type: string
       order:
         description: 'The order of the records to return. Acceptable values: ASC,
@@ -25292,9 +25312,8 @@ paths:
         type: string
       - description: Chunk.
         in: path
-        maxLength: 32
-        minLength: 32
         name: chunk_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -25324,7 +25343,7 @@ paths:
 
         ```
 
-        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-images/12345678901234567890123456789012
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-images/11234567f9012ab56790120000789012
         \
 
         -H ''Authorization: <valid access token>''
@@ -25362,7 +25381,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images/12345678901234567890123456789012
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images/1123456f9012ab567890120000789012
         \
 
         -H ''Authorization: <valid access token>''
@@ -25775,7 +25794,7 @@ paths:
 
         ```
 
-        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/12345678901234567890123456789012
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/11234567f9012ab56780120000789012
         \
 
         -H ''Authorization: <valid access token>''
@@ -25813,7 +25832,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/12345678901234567890123456789012
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/1123467f9012ab567890120000789012
         \
 
         -H ''Authorization: <valid access token>''
@@ -28639,8 +28658,8 @@ paths:
         \ \\\n-H 'Authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8'\
         \ \\\n-d '{\n  \"campaign_strategy\": \"one-shot\",\n  \"description\": \"\
         Campaign is for ...\",\n  \"device_filter\": \"<filter_id>\",\n  \"name\"\
-        : \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\"\
-        ,\n}'\n```\n"
+        : \"campaign\",\n  \"root_manifest_id\": \"56780000000000a5b70000000000bd98\"\
+        \n}'\n```\n"
       operationId: Update_Campaign_create
       parameters:
       - description: Update campaign.
@@ -28675,7 +28694,7 @@ paths:
 
         ```
 
-        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012
+        curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123457f9012ab567890120000789012
         \
 
         -H ''Authorization: <valid access token>''
@@ -28721,7 +28740,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56890120000789012
         \
 
         -H ''Authorization: <valid access token>''
@@ -28757,7 +28776,7 @@ paths:
       x-origin: /home/circleci/project/update-service/public/swagger.yml
     put:
       description: "Modify an update campaign.\n<br>\n**Usage example:**\n```\ncurl\
-        \ -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012\
+        \ -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123007f9012ab567890120000789012\
         \ \\\n-H 'Authorization: <valid access token>' \\\nd '{\n  \"description\"\
         : \"Campaign is for ...\",\n  \"device_filter\": \"123400000000000000000000000ae45\"\
         ,\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\"\
@@ -28848,7 +28867,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56790120000789012/campaign-device-metadata
         \
 
         -H ''Authorization: <valid access token>''
@@ -28906,7 +28925,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a89900000655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6
         \
 
         -H ''Authorization: <valid access token>''
@@ -28954,7 +28973,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/metrics
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123467f9012ab567890120000789012/metrics
         \
 
         -H ''Authorization: <valid access token>''
@@ -28983,7 +29002,7 @@ paths:
       tags:
       - Device update - campaigns
       x-deprecation:
-        comment: Use the statistics endpoint instead.
+        comment: Use GET /v3/update-campaigns/{campaign_id}/statistics instead.
         end_of_life_at: '2020-04-10T13:41:00+00:00'
         issued_at: '2019-04-10T13:41:00+00:00'
         links: []
@@ -28998,7 +29017,7 @@ paths:
 
         ```
 
-        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/start
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8900002e655cd94fa8/start
         \
 
         -H ''Authorization: <valid access token>''
@@ -29040,7 +29059,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56780120000789012/statistics
         \
 
         -H ''Authorization: <valid access token>''
@@ -29083,7 +29102,7 @@ paths:
 
         ```
 
-        curl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012
+        curl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11230007f9012ab56789012000079012/statistics/11234567f012ab567890120000789012
         \
 
         -H ''Authorization: <valid access token>''
@@ -29131,7 +29150,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1120007f9012ab567890120000789012/statistics/1234567f9012ab567890120000789012/event_types
         \
 
         -H ''Authorization: <valid access token>''
@@ -29180,7 +29199,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types/12345678901234567890123456789012
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9000005678012000078901/statistics/11000067f9012ab56789010000789012/event_types/11234567f9012ab567890120000789012
         \
 
         -H ''Authorization: <valid access token>''

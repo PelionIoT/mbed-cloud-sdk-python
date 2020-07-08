@@ -19109,7 +19109,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Get update campaign metadata for a specific device.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get update campaign metadata for a specific device.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a89900000655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "campaign",
@@ -19242,6 +19242,7 @@
                   {
                     "type": "string",
                     "description": "The entity name: always 'update-campaign-device-metadata'.",
+                    "example": "update-campaign-device-metadata",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
@@ -19432,7 +19433,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Get a list of events grouped by summary.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get a list of events grouped by summary.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1120007f9012ab567890120000789012/statistics/1234567f9012ab567890120000789012/event_types \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -19517,6 +19518,7 @@
                         {
                           "type": "string",
                           "description": "Entity name: always 'event-type'.",
+                          "example": "event-type",
                           "_key": "object"
                         },
                         {
@@ -19776,7 +19778,7 @@
           "_key": "events"
         },
         {
-          "description": "Get a list of statistics for a campaign, including the number of devices reporting specific event codes.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get a list of statistics for a campaign, including the number of devices reporting specific event codes.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56780120000789012/statistics \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -19846,6 +19848,7 @@
                         {
                           "type": "string",
                           "description": "Entity name: always 'summary_status'.",
+                          "example": "summary_status",
                           "_key": "object"
                         },
                         {
@@ -19889,6 +19892,7 @@
                   {
                     "type": "string",
                     "description": "The entity name: always 'list'.",
+                    "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
@@ -20107,7 +20111,7 @@
           "_key": "list"
         },
         {
-          "description": "Get the count of successfully updated, skipped, and failed devices.\n<br>\n**Usage example:**\n```\ncurl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get the count of successfully updated, skipped, and failed devices.\n<br>\n**Usage example:**\n```\ncurl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11230007f9012ab56789012000079012/statistics/11234567f012ab567890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -20188,6 +20192,7 @@
                   {
                     "type": "string",
                     "description": "Entity name: always 'summary_status'.",
+                    "example": "summary_status",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
@@ -20465,7 +20470,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Get the count for a specific event type; for example, succeeded, failed, or skipped.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get the count for a specific event type; for example, succeeded, failed, or skipped.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9000005678012000078901/statistics/11000067f9012ab56789010000789012/event_types/11234567f9012ab567890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -20555,6 +20560,7 @@
                   {
                     "type": "string",
                     "description": "Entity name: always 'event-type'.",
+                    "example": "event-type",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
@@ -44103,6 +44109,7 @@
                   "object": {
                     "description": "Entity name: always 'firmware-image'.",
                     "type": "string",
+                    "example": "firmware-image",
                     "api_fieldname": "object",
                     "entity_fieldname": "object"
                   },
@@ -44210,7 +44217,7 @@
           "_key": "create"
         },
         {
-          "description": "Delete a firmware image.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-images/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Delete a firmware image.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-images/11234567f9012ab56790120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -44394,7 +44401,8 @@
                         },
                         "object": {
                           "description": "Entity name: always 'firmware-image'.",
-                          "type": "string"
+                          "type": "string",
+                          "example": "firmware-image"
                         },
                         "datafile": {
                           "description": "The firmware image file URL.",
@@ -44453,6 +44461,7 @@
                   {
                     "description": "Entity name: always 'list'.",
                     "type": "string",
+                    "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
@@ -44614,7 +44623,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve a firmware image.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Retrieve a firmware image.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images/1123456f9012ab567890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -44673,6 +44682,7 @@
                   "object": {
                     "description": "Entity name: always 'firmware-image'.",
                     "type": "string",
+                    "example": "firmware-image",
                     "api_fieldname": "object",
                     "entity_fieldname": "object"
                   },
@@ -44975,6 +44985,7 @@
                   "object": {
                     "description": "Entity name: always 'firmware-manifest'.",
                     "type": "string",
+                    "example": "firmware-manifest",
                     "api_fieldname": "object",
                     "entity_fieldname": "object"
                   },
@@ -45180,7 +45191,7 @@
           "_key": "create"
         },
         {
-          "description": "Delete a firmware manifest.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Delete a firmware manifest.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/11234567f9012ab56780120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -45372,7 +45383,8 @@
                         },
                         "object": {
                           "description": "Entity name: always 'firmware-manifest'.",
-                          "type": "string"
+                          "type": "string",
+                          "example": "firmware-manifest"
                         },
                         "manifest_schema_version": {
                           "description": "Version of the manifest schema (1 or 3).",
@@ -45499,6 +45511,7 @@
                   {
                     "description": "Entity name: always 'list'.",
                     "type": "string",
+                    "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
@@ -45670,7 +45683,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve a firmware manifest.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Retrieve a firmware manifest.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/1123467f9012ab567890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -45733,6 +45746,7 @@
                   "object": {
                     "description": "Entity name: always 'firmware-manifest'.",
                     "type": "string",
+                    "example": "firmware-manifest",
                     "api_fieldname": "object",
                     "entity_fieldname": "object"
                   },
@@ -90952,7 +90966,7 @@
           "_key": "archive"
         },
         {
-          "description": "Create an update campaign.\n\nTo include a filter for targeted devices, refer to the filter using `<filter_id>` in the message body.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\\n-H 'Authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"campaign_strategy\": \"one-shot\",\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"<filter_id>\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\",\n}'\n```\n",
+          "description": "Create an update campaign.\n\nTo include a filter for targeted devices, refer to the filter using `<filter_id>` in the message body.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\\n-H 'Authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"campaign_strategy\": \"one-shot\",\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"<filter_id>\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"56780000000000a5b70000000000bd98\"\n}'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -91126,6 +91140,7 @@
                   "object": {
                     "description": "Entity name: always 'update-campaign'.",
                     "type": "string",
+                    "example": "update-campaign",
                     "api_fieldname": "object",
                     "entity_fieldname": "object"
                   },
@@ -91373,7 +91388,7 @@
           "_key": "create"
         },
         {
-          "description": "Delete an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Delete an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123457f9012ab567890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -91523,7 +91538,7 @@
           "_key": "delete"
         },
         {
-          "description": "Get metadata for all devices in a campaign.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get metadata for all devices in a campaign.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56790120000789012/campaign-device-metadata \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -91731,6 +91746,7 @@
                         {
                           "type": "string",
                           "description": "The entity name: always 'update-campaign-device-metadata'.",
+                          "example": "update-campaign-device-metadata",
                           "api_fieldname": "object",
                           "entity_fieldname": "object",
                           "_key": "object"
@@ -91775,6 +91791,7 @@
                   {
                     "type": "string",
                     "description": "The entity name: always 'list'.",
+                    "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
@@ -91978,7 +91995,8 @@
                         },
                         "object": {
                           "description": "Entity name: always 'update-campaign'.",
-                          "type": "string"
+                          "type": "string",
+                          "example": "update-campaign"
                         },
                         "active_at": {
                           "description": "The time the campaign entered the active state.",
@@ -92151,6 +92169,7 @@
                   {
                     "description": "Entity name: always 'list'.",
                     "type": "string",
+                    "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
                     "_key": "object"
@@ -92342,7 +92361,7 @@
           "_key": "list"
         },
         {
-          "description": "Get an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -92419,6 +92438,7 @@
                   "object": {
                     "description": "Entity name: always 'update-campaign'.",
                     "type": "string",
+                    "example": "update-campaign",
                     "api_fieldname": "object",
                     "entity_fieldname": "object"
                   },
@@ -92678,7 +92698,7 @@
           "_key": "read"
         },
         {
-          "description": "Start a campaign.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/start \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Start a campaign.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8900002e655cd94fa8/start \\\n-H 'Authorization: <valid access token>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -92840,7 +92860,7 @@
           "_key": "stop"
         },
         {
-          "description": "Modify an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \\\n-H 'Authorization: <valid access token>' \\\nd '{\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"123400000000000000000000000ae45\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\",\n}'\n```\n",
+          "description": "Modify an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123007f9012ab567890120000789012 \\\n-H 'Authorization: <valid access token>' \\\nd '{\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"123400000000000000000000000ae45\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\",\n}'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -93010,6 +93030,7 @@
                   "object": {
                     "description": "Entity name: always 'update-campaign'.",
                     "type": "string",
+                    "example": "update-campaign",
                     "api_fieldname": "object",
                     "entity_fieldname": "object"
                   },
