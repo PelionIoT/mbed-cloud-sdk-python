@@ -2113,6 +2113,7 @@ definitions:
       id:
         description: The metadata record ID.
         example: 015c3029f6f7000000000001001000c3
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       mechanism:
         description: How the firmware is delivered (connector or direct).
@@ -4508,15 +4509,18 @@ definitions:
       description:
         description: The description of the object.
         example: a description
+        format: free text
         maxLength: 2000
         type: string
       etag: *id015
       id:
         description: The firmware image ID.
         example: 016e652be671000000000001001001e5
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
         description: The firmware image name.
+        format: free text
         maxLength: 128
         type: string
       object:
@@ -4542,6 +4546,7 @@ definitions:
         format: date-time
         type: string
       id:
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
         type: string
@@ -4582,6 +4587,7 @@ definitions:
         format: date-time
         type: string
       id:
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
         type: string
@@ -4653,6 +4659,7 @@ definitions:
       description:
         description: The description of the firmware manifest.
         example: ''
+        format: free text
         maxLength: 2000
         type: string
       device_class:
@@ -4669,6 +4676,7 @@ definitions:
       id:
         description: The firmware manifest ID.
         example: '12345678901234567890123456789012'
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       key_table:
         description: The key table of pre-shared keys for devices.
@@ -4684,6 +4692,7 @@ definitions:
       name:
         description: The name of the manifest.
         example: manifest_name
+        format: free text
         maxLength: 128
         type: string
       object:
@@ -4732,8 +4741,11 @@ definitions:
         format: date-time
         type: string
       id:
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
+        format: free text
+        maxLength: 128
         type: string
       timestamp:
         example: '2017-05-22T12:37:55.576563Z'
@@ -4780,8 +4792,11 @@ definitions:
         format: date-time
         type: string
       id:
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
+        format: free text
+        maxLength: 128
         type: string
       timestamp:
         example: '2017-05-22T12:37:55.576563Z'
@@ -7307,6 +7322,7 @@ definitions:
       id:
         description: The campaign ID.
         example: 016e83ddc648000000000001001000f5
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
         description: The campaign name.
@@ -7414,10 +7430,12 @@ definitions:
         format: date-time
         type: string
       id:
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
         type: string
       root_manifest_id:
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       started_at:
         example: '2017-05-22T12:37:55.576563Z'
@@ -7479,10 +7497,12 @@ definitions:
         format: date-time
         type: string
       id:
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       name:
         type: string
       root_manifest_id:
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       started_at:
         example: '2017-05-22T12:37:55.576563Z'
@@ -7553,8 +7573,7 @@ definitions:
         type: string
       root_manifest_id:
         example: 016e83b46477000000000001001001f3
-        maxLength: 32
-        minLength: 32
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       state:
         description: 'DEPRECATED: The state of the campaign (use phase instead)'
@@ -7588,7 +7607,8 @@ definitions:
         type: number
       description:
         description: An optional description of the campaign.
-        example: ''
+        example: description
+        format: free text
         maxLength: 2000
         type: string
       device_filter:
@@ -7599,11 +7619,12 @@ definitions:
       name:
         description: The campaign's name.
         example: campaign
+        format: free text
         maxLength: 128
         type: string
       root_manifest_id:
         example: 016e83dce36a00000000000100100201
-        maxLength: 32
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       state:
         description: 'DEPRECATED: The state of the campaign (use phase instead).'
@@ -7748,10 +7769,12 @@ definitions:
       firmware_image_id:
         description: ID of the firmware image - empty until the upload job is complete.
         example: 016e652be671000000000001001001a8
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       id:
         description: The upload job ID.
         example: 016e652be671000000000001001001e5
+        pattern: '[A-Fa-f0-9]{32}'
         type: string
       name: &id034
         description: Human-readable name.
@@ -24506,11 +24529,14 @@ paths:
         required: true
         type: file
       - description: The description of the firmware image.
+        format: free text
         in: formData
+        maxLength: 2000
         name: description
         required: false
         type: string
       - description: The name of the firmware image.
+        format: free text
         in: formData
         maxLength: 128
         name: name
@@ -24839,9 +24865,8 @@ paths:
       parameters:
       - description: The upload job ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: upload_job_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -24884,9 +24909,8 @@ paths:
       parameters:
       - description: The upload job ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: upload_job_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -24916,9 +24940,8 @@ paths:
       parameters:
       - description: The upload job ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: upload_job_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       - description: Upload job.
@@ -24973,9 +24996,8 @@ paths:
       parameters:
       - description: The upload job ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: upload_job_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       - description: How many objects to retrieve in the page. The minimum limit is
@@ -25203,9 +25225,8 @@ paths:
         type: integer
       - description: The upload job ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: upload_job_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       - description: Chunk.
@@ -25265,9 +25286,8 @@ paths:
       parameters:
       - description: The upload job ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: upload_job_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       - description: Chunk.
@@ -25316,9 +25336,8 @@ paths:
       parameters:
       - description: The firmware image ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: image_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -25355,9 +25374,8 @@ paths:
       parameters:
       - description: The firmware image ID
         in: path
-        maxLength: 32
-        minLength: 32
         name: image_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -25710,7 +25728,9 @@ paths:
         required: true
         type: file
       - description: The description of the firmware manifest.
+        format: free text
         in: formData
+        maxLength: 2000
         name: description
         required: false
         type: string
@@ -25721,9 +25741,11 @@ paths:
         required: false
         type: file
       - description: The name of the firmware manifest.
+        format: free text
         in: formData
         maxLength: 128
         name: name
+        required: true
         type: string
       responses:
         '201':
@@ -25765,9 +25787,8 @@ paths:
       parameters:
       - description: The firmware manifest ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: manifest_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -25804,9 +25825,8 @@ paths:
       parameters:
       - description: The firmware manifest ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: manifest_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -28667,9 +28687,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -28714,9 +28733,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -28748,9 +28766,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       - description: Update campaign.
@@ -28802,9 +28819,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -28844,9 +28860,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       - description: How many objects to retrieve in the page. The minimum limit is
@@ -28903,16 +28918,14 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       - description: The campaign device metadata ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_device_metadata_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -28953,9 +28966,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -28998,9 +29010,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -29041,9 +29052,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:
@@ -29085,9 +29095,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       - description: The summary status. For example, fail.
@@ -29134,9 +29143,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       - description: The summary status. For example, fail.
@@ -29184,9 +29192,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       - description: The summary status. For example, fail.
@@ -29240,9 +29247,8 @@ paths:
       parameters:
       - description: The campaign ID.
         in: path
-        maxLength: 32
-        minLength: 32
         name: campaign_id
+        pattern: '[A-Fa-f0-9]{32}'
         required: true
         type: string
       responses:

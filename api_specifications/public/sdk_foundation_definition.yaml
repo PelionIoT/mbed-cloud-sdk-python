@@ -13882,6 +13882,7 @@ entities:
     api_fieldname: id
     description: The metadata record ID.
     example: 015c3029f6f7000000000001001000c3
+    pattern: '[A-Fa-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -13966,6 +13967,7 @@ entities:
       example: 015c3029f6f7000000000001001000c3
       in: path
       parameter_fieldname: campaign_device_metadata_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     group_id: Device_Update
@@ -14035,6 +14037,7 @@ entities:
           description: The metadata record ID.
           entity_fieldname: id
           example: 015c3029f6f7000000000001001000c3
+          pattern: '[A-Fa-f0-9]{32}'
           type: string
         - _key: mechanism
           api_fieldname: mechanism
@@ -14171,10 +14174,9 @@ entities:
       entity_fieldname: campaign_id
       external_param: false
       in: path
-      maxLength: 32
-      minLength: 32
       name: campaign_id
       parameter_fieldname: campaign_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     - _key: id
@@ -14432,10 +14434,9 @@ entities:
       entity_fieldname: campaign_id
       external_param: false
       in: path
-      maxLength: 32
-      minLength: 32
       name: campaign_id
       parameter_fieldname: campaign_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     foreign_key:
@@ -33557,6 +33558,7 @@ entities:
     api_fieldname: description
     description: The description of the object.
     example: a description
+    format: free text
     maxLength: 2000
     readOnly: false
     required: false
@@ -33565,12 +33567,14 @@ entities:
     api_fieldname: id
     description: The firmware image ID.
     example: 016e652be671000000000001001001e5
+    pattern: '[A-Fa-f0-9]{32}'
     readOnly: false
     required: true
     type: string
   - _key: name
     api_fieldname: name
     description: The firmware image name.
+    format: free text
     maxLength: 128
     readOnly: false
     required: false
@@ -33632,6 +33636,7 @@ entities:
       description: The description of the object.
       entity_fieldname: description
       example: a description
+      format: free text
       in: stream
       maxLength: 2000
       parameter_fieldname: description
@@ -33653,6 +33658,7 @@ entities:
       api_fieldname: name
       description: The firmware image name.
       entity_fieldname: name
+      format: free text
       in: stream
       maxLength: 128
       parameter_fieldname: name
@@ -33710,6 +33716,7 @@ entities:
           description: The description of the object.
           entity_fieldname: description
           example: a description
+          format: free text
           maxLength: 2000
           type: string
         etag:
@@ -33723,11 +33730,13 @@ entities:
           description: The firmware image ID.
           entity_fieldname: id
           example: 016e652be671000000000001001001e5
+          pattern: '[A-Fa-f0-9]{32}'
           type: string
         name:
           api_fieldname: name
           description: The firmware image name.
           entity_fieldname: name
+          format: free text
           maxLength: 128
           type: string
         object:
@@ -33791,10 +33800,9 @@ entities:
       entity_fieldname: id
       external_param: false
       in: path
-      maxLength: 32
-      minLength: 32
       name: image_id
       parameter_fieldname: image_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     group_id: Device_Update
@@ -33994,6 +34002,7 @@ entities:
             description:
               description: The description of the object.
               example: a description
+              format: free text
               maxLength: 2000
               type: string
             etag:
@@ -34005,9 +34014,11 @@ entities:
             id:
               description: The firmware image ID.
               example: 016e652be671000000000001001001e5
+              pattern: '[A-Fa-f0-9]{32}'
               type: string
             name:
               description: The firmware image name.
+              format: free text
               maxLength: 128
               type: string
             object:
@@ -34144,6 +34155,7 @@ entities:
       example: 016e652be671000000000001001001e5
       in: path
       parameter_fieldname: image_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     group_id: Device_Update
@@ -34194,6 +34206,7 @@ entities:
           description: The description of the object.
           entity_fieldname: description
           example: a description
+          format: free text
           maxLength: 2000
           type: string
         etag:
@@ -34207,11 +34220,13 @@ entities:
           description: The firmware image ID.
           entity_fieldname: id
           example: 016e652be671000000000001001001e5
+          pattern: '[A-Fa-f0-9]{32}'
           type: string
         name:
           api_fieldname: name
           description: The firmware image name.
           entity_fieldname: name
+          format: free text
           maxLength: 128
           type: string
         object:
@@ -34313,6 +34328,7 @@ entities:
     api_fieldname: description
     description: The description of the firmware manifest.
     example: ''
+    format: free text
     maxLength: 2000
     readOnly: false
     required: false
@@ -34337,6 +34353,7 @@ entities:
     api_fieldname: id
     description: The firmware manifest ID.
     example: '12345678901234567890123456789012'
+    pattern: '[A-Fa-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -34362,9 +34379,10 @@ entities:
     api_fieldname: name
     description: The name of the manifest.
     example: manifest_name
+    format: free text
     maxLength: 128
     readOnly: false
-    required: false
+    required: true
     type: string
   - _key: parsed_raw_manifest
     api_fieldname: parsed_raw_manifest
@@ -34471,6 +34489,7 @@ entities:
       description: The description of the firmware manifest.
       entity_fieldname: description
       example: ''
+      format: free text
       in: stream
       maxLength: 2000
       parameter_fieldname: description
@@ -34503,10 +34522,11 @@ entities:
       description: The name of the manifest.
       entity_fieldname: name
       example: manifest_name
+      format: free text
       in: stream
       maxLength: 128
       parameter_fieldname: name
-      required: false
+      required: true
       type: string
     group_id: Device_Update
     method: post
@@ -34585,6 +34605,7 @@ entities:
           description: The description of the firmware manifest.
           entity_fieldname: description
           example: ''
+          format: free text
           maxLength: 2000
           type: string
         device_class:
@@ -34612,6 +34633,7 @@ entities:
           description: The firmware manifest ID.
           entity_fieldname: id
           example: '12345678901234567890123456789012'
+          pattern: '[A-Fa-f0-9]{32}'
           type: string
         key_table:
           api_fieldname: key_table
@@ -34633,6 +34655,7 @@ entities:
           description: The name of the manifest.
           entity_fieldname: name
           example: manifest_name
+          format: free text
           maxLength: 128
           type: string
         object:
@@ -34731,10 +34754,9 @@ entities:
       entity_fieldname: id
       external_param: false
       in: path
-      maxLength: 32
-      minLength: 32
       name: manifest_id
       parameter_fieldname: manifest_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     group_id: Device_Update
@@ -34959,6 +34981,7 @@ entities:
             description:
               description: The description of the firmware manifest.
               example: ''
+              format: free text
               maxLength: 2000
               type: string
             device_class:
@@ -34980,6 +35003,7 @@ entities:
             id:
               description: The firmware manifest ID.
               example: '12345678901234567890123456789012'
+              pattern: '[A-Fa-f0-9]{32}'
               type: string
             key_table:
               description: The key table of pre-shared keys for devices.
@@ -34995,6 +35019,7 @@ entities:
             name:
               description: The name of the manifest.
               example: manifest_name
+              format: free text
               maxLength: 128
               type: string
             object:
@@ -35174,6 +35199,7 @@ entities:
       example: '12345678901234567890123456789012'
       in: path
       parameter_fieldname: manifest_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     group_id: Device_Update
@@ -35249,6 +35275,7 @@ entities:
           description: The description of the firmware manifest.
           entity_fieldname: description
           example: ''
+          format: free text
           maxLength: 2000
           type: string
         device_class:
@@ -35276,6 +35303,7 @@ entities:
           description: The firmware manifest ID.
           entity_fieldname: id
           example: '12345678901234567890123456789012'
+          pattern: '[A-Fa-f0-9]{32}'
           type: string
         key_table:
           api_fieldname: key_table
@@ -35297,6 +35325,7 @@ entities:
           description: The name of the manifest.
           entity_fieldname: name
           example: manifest_name
+          format: free text
           maxLength: 128
           type: string
         object:
@@ -69217,6 +69246,7 @@ entities:
     api_fieldname: id
     description: The campaign ID.
     example: 016e83ddc648000000000001001000f5
+    pattern: '[A-Fa-f0-9]{32}'
     readOnly: false
     required: true
     type: string
@@ -69356,10 +69386,9 @@ entities:
       entity_fieldname: id
       external_param: false
       in: path
-      maxLength: 32
-      minLength: 32
       name: campaign_id
       parameter_fieldname: campaign_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     group_id: Device_Update
@@ -69638,6 +69667,7 @@ entities:
           description: The campaign ID.
           entity_fieldname: id
           example: 016e83ddc648000000000001001000f5
+          pattern: '[A-Fa-f0-9]{32}'
           type: string
         name:
           api_fieldname: name
@@ -69812,10 +69842,9 @@ entities:
       entity_fieldname: id
       external_param: false
       in: path
-      maxLength: 32
-      minLength: 32
       name: campaign_id
       parameter_fieldname: campaign_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     group_id: Device_Update
@@ -69953,10 +69982,9 @@ entities:
       entity_fieldname: id
       external_param: false
       in: path
-      maxLength: 32
-      minLength: 32
       name: campaign_id
       parameter_fieldname: campaign_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     - _key: include
@@ -70091,6 +70119,7 @@ entities:
               example: 015c3029f6f7000000000001001000c3
               in: path
               parameter_fieldname: campaign_device_metadata_id
+              pattern: '[A-Fa-f0-9]{32}'
               required: true
               type: string
             - _key: mechanism
@@ -70416,6 +70445,7 @@ entities:
             id:
               description: The campaign ID.
               example: 016e83ddc648000000000001001000f5
+              pattern: '[A-Fa-f0-9]{32}'
               type: string
             name:
               description: The campaign name.
@@ -70675,6 +70705,7 @@ entities:
       example: 016e83ddc648000000000001001000f5
       in: path
       parameter_fieldname: campaign_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     group_id: Device_Update
@@ -70787,6 +70818,7 @@ entities:
           description: The campaign ID.
           entity_fieldname: id
           example: 016e83ddc648000000000001001000f5
+          pattern: '[A-Fa-f0-9]{32}'
           type: string
         name:
           api_fieldname: name
@@ -70963,10 +70995,9 @@ entities:
       entity_fieldname: id
       external_param: false
       in: path
-      maxLength: 32
-      minLength: 32
       name: campaign_id
       parameter_fieldname: campaign_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     group_id: Device_Update
@@ -71042,10 +71073,9 @@ entities:
       entity_fieldname: id
       external_param: false
       in: path
-      maxLength: 32
-      minLength: 32
       name: campaign_id
       parameter_fieldname: campaign_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     group_id: Device_Update
@@ -71173,6 +71203,7 @@ entities:
       example: 016e83ddc648000000000001001000f5
       in: path
       parameter_fieldname: campaign_id
+      pattern: '[A-Fa-f0-9]{32}'
       required: true
       type: string
     - _key: name
@@ -71317,6 +71348,7 @@ entities:
           description: The campaign ID.
           entity_fieldname: id
           example: 016e83ddc648000000000001001000f5
+          pattern: '[A-Fa-f0-9]{32}'
           type: string
         name:
           api_fieldname: name

@@ -19131,6 +19131,7 @@
             {
               "type": "string",
               "description": "The metadata record ID.",
+              "pattern": "[A-Fa-f0-9]{32}",
               "example": "015c3029f6f7000000000001001000c3",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -19208,6 +19209,7 @@
                   {
                     "type": "string",
                     "description": "The metadata record ID.",
+                    "pattern": "[A-Fa-f0-9]{32}",
                     "example": "015c3029f6f7000000000001001000c3",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
@@ -19364,6 +19366,7 @@
         {
           "type": "string",
           "description": "The metadata record ID.",
+          "pattern": "[A-Fa-f0-9]{32}",
           "example": "015c3029f6f7000000000001001000c3",
           "api_fieldname": "id",
           "readOnly": false,
@@ -19438,8 +19441,7 @@
               "name": "campaign_id",
               "required": true,
               "type": "string",
-              "minLength": 32,
-              "maxLength": 32,
+              "pattern": "[A-Fa-f0-9]{32}",
               "entity_fieldname": "campaign_id",
               "api_fieldname": "campaign_id",
               "external_param": false,
@@ -19783,8 +19785,7 @@
               "name": "campaign_id",
               "required": true,
               "type": "string",
-              "minLength": 32,
-              "maxLength": 32,
+              "pattern": "[A-Fa-f0-9]{32}",
               "entity_fieldname": "campaign_id",
               "api_fieldname": "campaign_id",
               "external_param": false,
@@ -44028,6 +44029,7 @@
             {
               "description": "The description of the object.",
               "type": "string",
+              "format": "free text",
               "maxLength": 2000,
               "example": "a description",
               "api_fieldname": "description",
@@ -44053,6 +44055,7 @@
             {
               "description": "The firmware image name.",
               "type": "string",
+              "format": "free text",
               "maxLength": 128,
               "api_fieldname": "name",
               "entity_fieldname": "name",
@@ -44127,6 +44130,7 @@
                   "description": {
                     "description": "The description of the object.",
                     "type": "string",
+                    "format": "free text",
                     "maxLength": 2000,
                     "example": "a description",
                     "api_fieldname": "description",
@@ -44135,6 +44139,7 @@
                   "id": {
                     "description": "The firmware image ID.",
                     "type": "string",
+                    "pattern": "[A-Fa-f0-9]{32}",
                     "example": "016e652be671000000000001001001e5",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
@@ -44142,6 +44147,7 @@
                   "name": {
                     "description": "The firmware image name.",
                     "type": "string",
+                    "format": "free text",
                     "maxLength": 128,
                     "api_fieldname": "name",
                     "entity_fieldname": "name"
@@ -44218,8 +44224,7 @@
               "name": "image_id",
               "required": true,
               "type": "string",
-              "minLength": 32,
-              "maxLength": 32,
+              "pattern": "[A-Fa-f0-9]{32}",
               "entity_fieldname": "id",
               "api_fieldname": "image_id",
               "external_param": false,
@@ -44409,17 +44414,20 @@
                         "description": {
                           "description": "The description of the object.",
                           "type": "string",
+                          "format": "free text",
                           "maxLength": 2000,
                           "example": "a description"
                         },
                         "id": {
                           "description": "The firmware image ID.",
                           "type": "string",
+                          "pattern": "[A-Fa-f0-9]{32}",
                           "example": "016e652be671000000000001001001e5"
                         },
                         "name": {
                           "description": "The firmware image name.",
                           "type": "string",
+                          "format": "free text",
                           "maxLength": 128
                         },
                         "_key": "properties"
@@ -44617,6 +44625,7 @@
             {
               "description": "The firmware image ID.",
               "type": "string",
+              "pattern": "[A-Fa-f0-9]{32}",
               "example": "016e652be671000000000001001001e5",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -44691,6 +44700,7 @@
                   "description": {
                     "description": "The description of the object.",
                     "type": "string",
+                    "format": "free text",
                     "maxLength": 2000,
                     "example": "a description",
                     "api_fieldname": "description",
@@ -44699,6 +44709,7 @@
                   "id": {
                     "description": "The firmware image ID.",
                     "type": "string",
+                    "pattern": "[A-Fa-f0-9]{32}",
                     "example": "016e652be671000000000001001001e5",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
@@ -44706,6 +44717,7 @@
                   "name": {
                     "description": "The firmware image name.",
                     "type": "string",
+                    "format": "free text",
                     "maxLength": 128,
                     "api_fieldname": "name",
                     "entity_fieldname": "name"
@@ -44803,6 +44815,7 @@
         {
           "description": "The description of the object.",
           "type": "string",
+          "format": "free text",
           "maxLength": 2000,
           "example": "a description",
           "api_fieldname": "description",
@@ -44813,6 +44826,7 @@
         {
           "description": "The firmware image ID.",
           "type": "string",
+          "pattern": "[A-Fa-f0-9]{32}",
           "example": "016e652be671000000000001001001e5",
           "api_fieldname": "id",
           "readOnly": false,
@@ -44822,6 +44836,7 @@
         {
           "description": "The firmware image name.",
           "type": "string",
+          "format": "free text",
           "maxLength": 128,
           "api_fieldname": "name",
           "readOnly": false,
@@ -44874,6 +44889,7 @@
             {
               "description": "The description of the firmware manifest.",
               "type": "string",
+              "format": "free text",
               "maxLength": 2000,
               "example": "",
               "api_fieldname": "description",
@@ -44910,13 +44926,14 @@
             {
               "description": "The name of the manifest.",
               "type": "string",
+              "format": "free text",
               "maxLength": 128,
               "example": "manifest_name",
               "api_fieldname": "name",
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "stream",
-              "required": false,
+              "required": true,
               "_key": "name"
             }
           ],
@@ -45029,6 +45046,7 @@
                   "description": {
                     "description": "The description of the firmware manifest.",
                     "type": "string",
+                    "format": "free text",
                     "maxLength": 2000,
                     "example": "",
                     "api_fieldname": "description",
@@ -45068,6 +45086,7 @@
                   "id": {
                     "description": "The firmware manifest ID.",
                     "type": "string",
+                    "pattern": "[A-Fa-f0-9]{32}",
                     "example": "12345678901234567890123456789012",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
@@ -45075,6 +45094,7 @@
                   "name": {
                     "description": "The name of the manifest.",
                     "type": "string",
+                    "format": "free text",
                     "maxLength": 128,
                     "example": "manifest_name",
                     "api_fieldname": "name",
@@ -45178,8 +45198,7 @@
               "name": "manifest_id",
               "required": true,
               "type": "string",
-              "minLength": 32,
-              "maxLength": 32,
+              "pattern": "[A-Fa-f0-9]{32}",
               "entity_fieldname": "id",
               "api_fieldname": "manifest_id",
               "external_param": false,
@@ -45407,6 +45426,7 @@
                         "description": {
                           "description": "The description of the firmware manifest.",
                           "type": "string",
+                          "format": "free text",
                           "maxLength": 2000,
                           "example": ""
                         },
@@ -45436,11 +45456,13 @@
                         "id": {
                           "description": "The firmware manifest ID.",
                           "type": "string",
+                          "pattern": "[A-Fa-f0-9]{32}",
                           "example": "12345678901234567890123456789012"
                         },
                         "name": {
                           "description": "The name of the manifest.",
                           "type": "string",
+                          "format": "free text",
                           "maxLength": 128,
                           "example": "manifest_name"
                         },
@@ -45663,6 +45685,7 @@
             {
               "description": "The firmware manifest ID.",
               "type": "string",
+              "pattern": "[A-Fa-f0-9]{32}",
               "example": "12345678901234567890123456789012",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -45781,6 +45804,7 @@
                   "description": {
                     "description": "The description of the firmware manifest.",
                     "type": "string",
+                    "format": "free text",
                     "maxLength": 2000,
                     "example": "",
                     "api_fieldname": "description",
@@ -45820,6 +45844,7 @@
                   "id": {
                     "description": "The firmware manifest ID.",
                     "type": "string",
+                    "pattern": "[A-Fa-f0-9]{32}",
                     "example": "12345678901234567890123456789012",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
@@ -45827,6 +45852,7 @@
                   "name": {
                     "description": "The name of the manifest.",
                     "type": "string",
+                    "format": "free text",
                     "maxLength": 128,
                     "example": "manifest_name",
                     "api_fieldname": "name",
@@ -45984,6 +46010,7 @@
         {
           "description": "The description of the firmware manifest.",
           "type": "string",
+          "format": "free text",
           "maxLength": 2000,
           "example": "",
           "api_fieldname": "description",
@@ -46014,6 +46041,7 @@
         {
           "description": "The firmware manifest ID.",
           "type": "string",
+          "pattern": "[A-Fa-f0-9]{32}",
           "example": "12345678901234567890123456789012",
           "api_fieldname": "id",
           "readOnly": false,
@@ -46046,11 +46074,12 @@
         {
           "description": "The name of the manifest.",
           "type": "string",
+          "format": "free text",
           "maxLength": 128,
           "example": "manifest_name",
           "api_fieldname": "name",
           "readOnly": false,
-          "required": false,
+          "required": true,
           "_key": "name"
         },
         {
@@ -90863,8 +90892,7 @@
               "name": "campaign_id",
               "required": true,
               "type": "string",
-              "minLength": 32,
-              "maxLength": 32,
+              "pattern": "[A-Fa-f0-9]{32}",
               "entity_fieldname": "id",
               "api_fieldname": "campaign_id",
               "external_param": false,
@@ -91172,6 +91200,7 @@
                   "id": {
                     "description": "The campaign ID.",
                     "type": "string",
+                    "pattern": "[A-Fa-f0-9]{32}",
                     "example": "016e83ddc648000000000001001000f5",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
@@ -91365,8 +91394,7 @@
               "name": "campaign_id",
               "required": true,
               "type": "string",
-              "minLength": 32,
-              "maxLength": 32,
+              "pattern": "[A-Fa-f0-9]{32}",
               "entity_fieldname": "id",
               "api_fieldname": "campaign_id",
               "external_param": false,
@@ -91529,8 +91557,7 @@
               "name": "campaign_id",
               "required": true,
               "type": "string",
-              "minLength": 32,
-              "maxLength": 32,
+              "pattern": "[A-Fa-f0-9]{32}",
               "entity_fieldname": "id",
               "api_fieldname": "campaign_id",
               "external_param": false,
@@ -91668,6 +91695,7 @@
                         {
                           "type": "string",
                           "description": "The metadata record ID.",
+                          "pattern": "[A-Fa-f0-9]{32}",
                           "example": "015c3029f6f7000000000001001000c3",
                           "api_fieldname": "id",
                           "entity_fieldname": "id",
@@ -92005,6 +92033,7 @@
                         "id": {
                           "description": "The campaign ID.",
                           "type": "string",
+                          "pattern": "[A-Fa-f0-9]{32}",
                           "example": "016e83ddc648000000000001001000f5"
                         },
                         "name": {
@@ -92331,6 +92360,7 @@
             {
               "description": "The campaign ID.",
               "type": "string",
+              "pattern": "[A-Fa-f0-9]{32}",
               "example": "016e83ddc648000000000001001000f5",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -92463,6 +92493,7 @@
                   "id": {
                     "description": "The campaign ID.",
                     "type": "string",
+                    "pattern": "[A-Fa-f0-9]{32}",
                     "example": "016e83ddc648000000000001001000f5",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
@@ -92668,8 +92699,7 @@
               "name": "campaign_id",
               "required": true,
               "type": "string",
-              "minLength": 32,
-              "maxLength": 32,
+              "pattern": "[A-Fa-f0-9]{32}",
               "entity_fieldname": "id",
               "api_fieldname": "campaign_id",
               "external_param": false,
@@ -92750,8 +92780,7 @@
               "name": "campaign_id",
               "required": true,
               "type": "string",
-              "minLength": 32,
-              "maxLength": 32,
+              "pattern": "[A-Fa-f0-9]{32}",
               "entity_fieldname": "id",
               "api_fieldname": "campaign_id",
               "external_param": false,
@@ -92886,6 +92915,7 @@
             {
               "description": "The campaign ID.",
               "type": "string",
+              "pattern": "[A-Fa-f0-9]{32}",
               "example": "016e83ddc648000000000001001000f5",
               "api_fieldname": "id",
               "entity_fieldname": "id",
@@ -93054,6 +93084,7 @@
                   "id": {
                     "description": "The campaign ID.",
                     "type": "string",
+                    "pattern": "[A-Fa-f0-9]{32}",
                     "example": "016e83ddc648000000000001001000f5",
                     "api_fieldname": "id",
                     "entity_fieldname": "id"
@@ -93361,6 +93392,7 @@
         {
           "description": "The campaign ID.",
           "type": "string",
+          "pattern": "[A-Fa-f0-9]{32}",
           "example": "016e83ddc648000000000001001000f5",
           "api_fieldname": "id",
           "readOnly": false,
