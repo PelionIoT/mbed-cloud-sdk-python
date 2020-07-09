@@ -23561,6 +23561,20 @@ entities:
     readOnly: false
     required: false
     type: string
+  - _key: component_attributes
+    additionalProperties:
+      maxLength: 128
+      type: string
+    api_fieldname: component_attributes
+    description: Up to ten custom key-value attributes. Note that keys cannot begin
+      with a number. Both keys and values are limited to 128 characters. Updating
+      this field replaces existing contents.
+    example:
+      key: value
+    maxProperties: 10
+    readOnly: true
+    required: false
+    type: object
   - _key: connector_expiration_date
     api_fieldname: connector_expiration_date
     description: The expiration date of the certificate used to connect to LwM2M server.
@@ -24111,6 +24125,7 @@ entities:
     - lifecycle_status
     - account_id
     - bootstrapped_timestamp
+    - component_attributes
     - created_at
     - deployed_state
     - id
@@ -24422,6 +24437,19 @@ entities:
           example: '00000000000000000000000000000000'
           maxLength: 500
           type: string
+        component_attributes:
+          additionalProperties:
+            maxLength: 128
+            type: string
+          api_fieldname: component_attributes
+          description: Up to ten custom key-value attributes. Note that keys cannot
+            begin with a number. Both keys and values are limited to 128 characters.
+            Updating this field replaces existing contents.
+          entity_fieldname: component_attributes
+          example:
+            key: value
+          maxProperties: 10
+          type: object
         connector_expiration_date:
           api_fieldname: connector_expiration_date
           description: The expiration date of the certificate used to connect to LwM2M
@@ -25063,6 +25091,17 @@ entities:
               example: '00000000000000000000000000000000'
               maxLength: 500
               type: string
+            component_attributes:
+              additionalProperties:
+                maxLength: 128
+                type: string
+              description: Up to ten custom key-value attributes. Note that keys cannot
+                begin with a number. Both keys and values are limited to 128 characters.
+                Updating this field replaces existing contents.
+              example:
+                key: value
+              maxProperties: 10
+              type: object
             connector_expiration_date:
               description: The expiration date of the certificate used to connect
                 to LwM2M server.
@@ -25563,6 +25602,7 @@ entities:
     - bootstrap_expiration_date
     - bootstrapped_timestamp
     - ca_id
+    - component_attributes
     - connector_expiration_date
     - created_at
     - custom_attributes
@@ -25646,6 +25686,19 @@ entities:
           example: '00000000000000000000000000000000'
           maxLength: 500
           type: string
+        component_attributes:
+          additionalProperties:
+            maxLength: 128
+            type: string
+          api_fieldname: component_attributes
+          description: Up to ten custom key-value attributes. Note that keys cannot
+            begin with a number. Both keys and values are limited to 128 characters.
+            Updating this field replaces existing contents.
+          entity_fieldname: component_attributes
+          example:
+            key: value
+          maxProperties: 10
+          type: object
         connector_expiration_date:
           api_fieldname: connector_expiration_date
           description: The expiration date of the certificate used to connect to LwM2M
@@ -26613,6 +26666,7 @@ entities:
     - account_id
     - bootstrap_expiration_date
     - bootstrapped_timestamp
+    - component_attributes
     - connector_expiration_date
     - created_at
     - deployed_state
@@ -26786,6 +26840,19 @@ entities:
           example: '00000000000000000000000000000000'
           maxLength: 500
           type: string
+        component_attributes:
+          additionalProperties:
+            maxLength: 128
+            type: string
+          api_fieldname: component_attributes
+          description: Up to ten custom key-value attributes. Note that keys cannot
+            begin with a number. Both keys and values are limited to 128 characters.
+            Updating this field replaces existing contents.
+          entity_fieldname: component_attributes
+          example:
+            key: value
+          maxProperties: 10
+          type: object
         connector_expiration_date:
           api_fieldname: connector_expiration_date
           description: The expiration date of the certificate used to connect to LwM2M
@@ -30868,6 +30935,27 @@ entities:
 - _key: device_group
   field_renames: []
   fields:
+  - _key: component_attributes
+    additionalProperties:
+      maxLength: 128
+      type: string
+    api_fieldname: component_attributes
+    description: 'Up to ten component key-value attributes. The key represents the
+      component name, while its value represents the corresponding component version.
+
+      Keys cannot begin with a number. Both key and value are limited to 128 characters.
+      Updating this field replaces existing contents.
+
+      Component name must be the same as in device Component Name resource.
+
+      Component version must comply to semantic versioning. Maximum 3 digits per sub
+      number, therefore max version number will be 999.999.999'
+    example:
+      key: value
+    maxProperties: 10
+    readOnly: false
+    required: false
+    type: object
   - _key: created_at
     api_fieldname: created_at
     description: The time the group was created.
@@ -31141,6 +31229,31 @@ entities:
     - updated_at
     field_renames: []
     fields:
+    - _key: component_attributes
+      additionalProperties:
+        maxLength: 128
+        type: string
+      api_fieldname: component_attributes
+      description: 'Up to ten component key-value attributes. The key represents the
+        component name, while its value represents the corresponding component version.
+
+        Keys cannot begin with a number. Both key and value are limited to 128 characters.
+        Updating this field replaces existing contents.
+
+        Component name must be the same as in device Component Name resource.
+
+        Component version must comply to semantic versioning. Maximum 3 digits per
+        sub number, therefore max version number will be 999.999.999'
+      entity_fieldname: component_attributes
+      example:
+        key: value
+      in: body
+      maxProperties: 10
+      name: component_attributes
+      parameter_fieldname: component_attributes
+      required: false
+      schema_param: true
+      type: object
     - _key: custom_attributes
       additionalProperties:
         maxLength: 128
@@ -31202,6 +31315,27 @@ entities:
           entity: device_group
           group: Devices
         properties:
+        - _key: component_attributes
+          additionalProperties:
+            maxLength: 128
+            type: string
+          api_fieldname: component_attributes
+          description: 'Up to ten component key-value attributes. The key represents
+            the component name, while its value represents the corresponding component
+            version.
+
+            Keys cannot begin with a number. Both key and value are limited to 128
+            characters. Updating this field replaces existing contents.
+
+            Component name must be the same as in device Component Name resource.
+
+            Component version must comply to semantic versioning. Maximum 3 digits
+            per sub number, therefore max version number will be 999.999.999'
+          entity_fieldname: component_attributes
+          example:
+            key: value
+          maxProperties: 10
+          type: object
         - _key: created_at
           api_fieldname: created_at
           description: The time the group was created.
@@ -31824,6 +31958,17 @@ entities:
               example: '00000000000000000000000000000000'
               maxLength: 500
               type: string
+            component_attributes:
+              additionalProperties:
+                maxLength: 128
+                type: string
+              description: Up to ten custom key-value attributes. Note that keys cannot
+                begin with a number. Both keys and values are limited to 128 characters.
+                Updating this field replaces existing contents.
+              example:
+                key: value
+              maxProperties: 10
+              type: object
             connector_expiration_date:
               description: The expiration date of the certificate used to connect
                 to LwM2M server.
@@ -32548,6 +32693,25 @@ entities:
               entity: device_group
               group: Devices
             properties:
+            - _key: component_attributes
+              additionalProperties:
+                maxLength: 128
+                type: string
+              description: 'Up to ten component key-value attributes. The key represents
+                the component name, while its value represents the corresponding component
+                version.
+
+                Keys cannot begin with a number. Both key and value are limited to
+                128 characters. Updating this field replaces existing contents.
+
+                Component name must be the same as in device Component Name resource.
+
+                Component version must comply to semantic versioning. Maximum 3 digits
+                per sub number, therefore max version number will be 999.999.999'
+              example:
+                key: value
+              maxProperties: 10
+              type: object
             - _key: created_at
               description: The time the group was created.
               example: '2017-05-22T12:37:55.576563Z'
@@ -32774,6 +32938,7 @@ entities:
     - filter
     - name
     - description
+    - component_attributes
     - custom_attributes
     - devices_count
     - created_at
@@ -32807,6 +32972,27 @@ entities:
           entity: device_group
           group: Devices
         properties:
+        - _key: component_attributes
+          additionalProperties:
+            maxLength: 128
+            type: string
+          api_fieldname: component_attributes
+          description: 'Up to ten component key-value attributes. The key represents
+            the component name, while its value represents the corresponding component
+            version.
+
+            Keys cannot begin with a number. Both key and value are limited to 128
+            characters. Updating this field replaces existing contents.
+
+            Component name must be the same as in device Component Name resource.
+
+            Component version must comply to semantic versioning. Maximum 3 digits
+            per sub number, therefore max version number will be 999.999.999'
+          entity_fieldname: component_attributes
+          example:
+            key: value
+          maxProperties: 10
+          type: object
         - _key: created_at
           api_fieldname: created_at
           description: The time the group was created.
@@ -33235,6 +33421,31 @@ entities:
     - updated_at
     field_renames: []
     fields:
+    - _key: component_attributes
+      additionalProperties:
+        maxLength: 128
+        type: string
+      api_fieldname: component_attributes
+      description: 'Up to ten component key-value attributes. The key represents the
+        component name, while its value represents the corresponding component version.
+
+        Keys cannot begin with a number. Both key and value are limited to 128 characters.
+        Updating this field replaces existing contents.
+
+        Component name must be the same as in device Component Name resource.
+
+        Component version must comply to semantic versioning. Maximum 3 digits per
+        sub number, therefore max version number will be 999.999.999'
+      entity_fieldname: component_attributes
+      example:
+        key: value
+      in: body
+      maxProperties: 10
+      name: component_attributes
+      parameter_fieldname: component_attributes
+      required: false
+      schema_param: true
+      type: object
     - _key: custom_attributes
       additionalProperties:
         maxLength: 128
@@ -33305,6 +33516,27 @@ entities:
           entity: device_group
           group: Devices
         properties:
+        - _key: component_attributes
+          additionalProperties:
+            maxLength: 128
+            type: string
+          api_fieldname: component_attributes
+          description: 'Up to ten component key-value attributes. The key represents
+            the component name, while its value represents the corresponding component
+            version.
+
+            Keys cannot begin with a number. Both key and value are limited to 128
+            characters. Updating this field replaces existing contents.
+
+            Component name must be the same as in device Component Name resource.
+
+            Component version must comply to semantic versioning. Maximum 3 digits
+            per sub number, therefore max version number will be 999.999.999'
+          entity_fieldname: component_attributes
+          example:
+            key: value
+          maxProperties: 10
+          type: object
         - _key: created_at
           api_fieldname: created_at
           description: The time the group was created.

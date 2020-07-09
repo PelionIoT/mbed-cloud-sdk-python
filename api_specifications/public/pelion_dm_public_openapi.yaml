@@ -2887,6 +2887,17 @@ definitions:
         example: '00000000000000000000000000000000'
         maxLength: 500
         type: string
+      component_attributes:
+        additionalProperties:
+          maxLength: 128
+          type: string
+        description: Up to ten custom key-value attributes. Note that keys cannot
+          begin with a number. Both keys and values are limited to 128 characters.
+          Updating this field replaces existing contents.
+        example:
+          key: value
+        maxProperties: 10
+        type: object
       connector_expiration_date:
         description: The expiration date of the certificate used to connect to LwM2M
           server.
@@ -3304,6 +3315,10 @@ definitions:
         type: string
       ca_id:
         type: string
+      component_attributes:
+        additionalProperties:
+          type: string
+        type: object
       connector_expiration_date:
         example: '2017-05-22'
         format: date
@@ -3496,12 +3511,31 @@ definitions:
         type: integer
   DeviceGroup:
     properties:
+      component_attributes: &id028
+        additionalProperties:
+          maxLength: 128
+          type: string
+        description: 'Up to ten component key-value attributes. The key represents
+          the component name, while its value represents the corresponding component
+          version.
+
+          Keys cannot begin with a number. Both key and value are limited to 128 characters.
+          Updating this field replaces existing contents.
+
+          Component name must be the same as in device Component Name resource.
+
+          Component version must comply to semantic versioning. Maximum 3 digits per
+          sub number, therefore max version number will be 999.999.999'
+        example:
+          key: value
+        maxProperties: 10
+        type: object
       created_at:
         description: The time the group was created.
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
-      custom_attributes: &id028
+      custom_attributes: &id029
         additionalProperties:
           maxLength: 128
           pattern: ^[A-Za-z].*
@@ -3513,7 +3547,7 @@ definitions:
           key: value
         maxProperties: 10
         type: object
-      description: &id029
+      description: &id030
         description: The description of the group.
         example: Devices on the factory floor.
         maxLength: 1024
@@ -3530,7 +3564,7 @@ definitions:
         description: The group ID.
         example: 015c3029f6f7000000000001001000c3
         type: string
-      name: &id030
+      name: &id031
         description: Name of the group.
         example: My devices
         maxLength: 128
@@ -3638,6 +3672,10 @@ definitions:
         type: string
       ca_id:
         type: string
+      component_attributes:
+        additionalProperties:
+          type: string
+        type: object
       connector_expiration_date:
         example: '2017-05-22'
         format: date
@@ -7779,7 +7817,7 @@ definitions:
         example: false
         type: boolean
       created_at: *id014
-      description: &id033
+      description: &id034
         description: Human-readable description.
         example: New Linux update for my devices
         maxLength: 2000
@@ -7795,7 +7833,7 @@ definitions:
         example: 016e652be671000000000001001001e5
         pattern: '[A-Fa-f0-9]{32}'
         type: string
-      name: &id034
+      name: &id035
         description: Human-readable name.
         example: New Linux update
         maxLength: 128
@@ -21592,26 +21630,30 @@ paths:
           \      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>name</td>\n     \
           \ <td>\u2713</td>\n      <td>\u2713</td>\n      <td>&nbsp;</td>\n    </tr>\n\
           \    <tr>\n      <td>custom_attributes</td>\n      <td>\u2713</td>\n   \
-          \   <td>&nbsp;</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>created_at</td>\n\
-          \      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n \
-          \   </tr>\n    <tr>\n      <td>updated_at</td>\n      <td>\u2713</td>\n\
+          \   <td>&nbsp;</td>\n      <td>&nbsp;</td>\n    </tr>\n    <tr>\n      <td>component_attributes</td>\n\
+          \      <td>\u2713</td>\n      <td>&nbsp;</td>\n      <td>&nbsp;</td>\n \
+          \   </tr>\n    <tr>\n      <td>created_at</td>\n      <td>\u2713</td>\n\
           \      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n    <tr>\n   \
-          \   <td>etag</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713\
-          </td>\n    </tr>\n  </tbody>\n</table>\n&nbsp;\n\nThe examples below show\
-          \ the queries in *unencoded* form.\n\n###### By device group properties:\n\
-          \n`name__eq=mygroup`\n\n###### On date-time fields:\n\nDate-time fields\
-          \ should be specified in UTC RFC3339 format `YYYY-MM-DDThh:mm:ss.msZ`. There\
-          \ are three permitted\nvariations:\n\n* UTC RFC3339 with milliseconds, for\
-          \ example, 2016-11-30T16:25:12.1234Z.\n* UTC RFC3339 without milliseconds,\
-          \ for example, 2016-11-30T16:25:12Z.\n* UTC RFC3339 shortened - without\
-          \ milliseconds and punctuation, for example, 20161130T162512Z.\n\nDate-time\
-          \ filtering supports three operators:\n\n* Equality.\n* Greater than or\
-          \ equal to &ndash; field name suffixed with `__gte`.\n* Less than or equal\
-          \ to &ndash; field name suffixed with `__lte`.\n\nLower and upper limits\
-          \ to a date-time range may be specified by including both the `__gte` and\
-          \ `__lte` forms in\nthe filter:\n\n`{field name}[|__lte|__gte]={UTC RFC3339\
-          \ date-time}`\n\n###### By device group custom attributes:\n\n`custom_attributes__{param}={value}`\n\
-          \n`custom_attributes__tag=TAG1`\n\n##### Multi-field example\n\n`name__eq=mygroup&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
+          \   <td>updated_at</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n\
+          \      <td>\u2713</td>\n    </tr>\n    <tr>\n      <td>etag</td>\n     \
+          \ <td>\u2713</td>\n      <td>\u2713</td>\n      <td>\u2713</td>\n    </tr>\n\
+          \  </tbody>\n</table>\n&nbsp;\n\nThe examples below show the queries in\
+          \ *unencoded* form.\n\n###### By device group properties:\n\n`name__eq=mygroup`\n\
+          \n###### On date-time fields:\n\nDate-time fields should be specified in\
+          \ UTC RFC3339 format `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted\n\
+          variations:\n\n* UTC RFC3339 with milliseconds, for example, 2016-11-30T16:25:12.1234Z.\n\
+          * UTC RFC3339 without milliseconds, for example, 2016-11-30T16:25:12Z.\n\
+          * UTC RFC3339 shortened - without milliseconds and punctuation, for example,\
+          \ 20161130T162512Z.\n\nDate-time filtering supports three operators:\n\n\
+          * Equality.\n* Greater than or equal to &ndash; field name suffixed with\
+          \ `__gte`.\n* Less than or equal to &ndash; field name suffixed with `__lte`.\n\
+          \nLower and upper limits to a date-time range may be specified by including\
+          \ both the `__gte` and `__lte` forms in\nthe filter:\n\n`{field name}[|__lte|__gte]={UTC\
+          \ RFC3339 date-time}`\n\n###### By device group custom attributes:\n\n`custom_attributes__{param}={value}`\n\
+          \n`custom_attributes__tag=TAG1`\n\n###### By device group component attributes:\n\
+          \n`component_attributes__{name}={version}`\n`component_attributes__{name}__{operator}={version}`\n\
+          \n`component_attributes__ble=1.2.3`\n`component_attributes__main__gt=1.2.3`\n\
+          \n##### Multi-field example\n\n`name__eq=mygroup&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`\n\
           \nEncoded:\n\n`?filter=name__eq%3Dmygroup%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-12-30T00%3A00%3A00Z`\n\
           \n##### Filtering with filter operators\n\nString field filtering supports\
           \ the following operators:\n\n* Equality: `__eq`.\n* Non-equality: `__neq`.\n\
@@ -21767,9 +21809,10 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id028
-            description: *id029
-            name: *id030
+            component_attributes: *id028
+            custom_attributes: *id029
+            description: *id030
+            name: *id031
           type: object
       responses:
         '201':
@@ -21864,9 +21907,10 @@ paths:
         required: true
         schema:
           properties:
-            custom_attributes: *id028
-            description: *id029
-            name: *id030
+            component_attributes: *id028
+            custom_attributes: *id029
+            description: *id030
+            name: *id031
           type: object
       responses:
         '200':
@@ -22492,7 +22536,7 @@ paths:
       summary: Get a page of devices.
       tags:
       - Device directory - groups
-      x-filter: &id031
+      x-filter: &id032
         account_id:
         - eq
         - neq
@@ -23864,7 +23908,7 @@ paths:
       summary: List all devices.
       tags:
       - Device directory - devices
-      x-filter: *id031
+      x-filter: *id032
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     post:
       description: Create a new device in Device Management. Usually you do not need
@@ -24167,7 +24211,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: &id032
+        schema: &id033
           properties:
             category:
               description: The reference of the block category.
@@ -24223,7 +24267,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: *id032
+        schema: *id033
       responses:
         '204':
           description: Ok - Device suspended.
@@ -24835,8 +24879,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id033
-            name: *id034
+            description: *id034
+            name: *id035
           type: object
       responses:
         201:
@@ -24970,8 +25014,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id033
-            name: *id034
+            description: *id034
+            name: *id035
           type: object
       responses:
         200:
@@ -29119,7 +29163,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: &id035
+        enum: &id036
         - fail
         - success
         - info
@@ -29172,7 +29216,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: *id035
+        enum: *id036
         in: path
         name: summary_status_id
         required: true
@@ -29222,7 +29266,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: *id035
+        enum: *id036
         in: path
         name: summary_status_id
         required: true
