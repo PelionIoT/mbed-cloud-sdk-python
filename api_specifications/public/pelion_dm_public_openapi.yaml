@@ -6213,8 +6213,8 @@ definitions:
         example: true
         type: boolean
       rt:
-        description: Application-specific resource type that describes this resource.
-          It is created by the [client side application](https://www.pelion.com/docs/device-management/current/resources/resource-setup-in-device-management-client.html).
+        description: Application-specific resource type that describes this resource,
+          created by the [client application](https://www.pelion.com/docs/device-management/current/resources/resource-setup-in-device-management-client.html).
           Not meant to be a human-readable name for the resource. Multiple resource
           types may be included, separated by a space.
         example: light_sensor
@@ -6223,11 +6223,22 @@ definitions:
         description: 'The content type of the resource.
 
 
-          We recommend you use the **resource types** listed in the [LwM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry).'
+          We recommend you use the content types listed in the [LwM2M specification](http://www.openmobilealliance.org/wp/omna/lwm2m/lwm2mregistry.html).'
         example: text/plain
         type: string
       uri:
-        description: The resource URL.
+        description: 'The resource URL. This can be the path to:
+
+
+          - An object; for example, `3303`.
+
+          - An object instance; for example `3303/0`.
+
+          - A resource; for example `3303/0/5602`.
+
+
+          For more information about the Device Management resource model, please
+          see the [Device Management documentation](https://www.pelion.com/docs/device-management/current/resources/resource-model.html).'
         example: /sen/light
         type: string
     required:
@@ -9052,188 +9063,61 @@ paths:
     post:
       consumes:
       - application/json
-      description: 'This API provides an interface to asynchronously call methods
-        on a device.
-
-
-        The `async-id` is provided by the REST client, enabling the REST client to
-        track the end-to-end flow with an
-
-        identifier relevant to the end application. It can be, for example, a UUID
-        or the web application''s session ID
-
-        along with the device ID and the resource. This also prevents any race conditions
-        with
-
-        [the notification channel](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html).
-        All responses are sent through the
-
-        currently configured notification channel as an
-
-        [AsyncIDResponse](https://www.pelion.com/docs/device-management-api/connect/).
-
-
-        For `GET` methods, values may be fetched from an internal cache, instead of
-        contacting the device.
-
-
-        **Example**: Read the value of Resource "/3200/0/5501". If the value is not
-        in the cache, the read command will
-
-        go all the way to the device.
-
-        ```
-
-        curl -X POST https://api.us-east-1.mbedcloud.com/v2/device-requests/{device_id}?async-id={async-response-id}
-        \
-
-        -H ''Authorization: Bearer {api_key}'' \
-
-        -H ''content-type: application/json'' \
-
-        -d ''{"method": "GET", "uri": "/3200/0/5501"}''
-
-        ```
-
-
-        The server puts the requests in a queue if it cannot reach the device at the
-        time of the request. The queue
-
-        is limited to 20 requests.
-
-        The queueing behavior is affected by the `retry` and the `expiry-seconds`
-        parameters. If the device
-
-        is not reached, or the device fails to respond when the request is made, the
-        server queues the request
-
-        and retries the delivery within the given expiry period the next time the
-        device contacts the server.
-
-        The requests from the queue are delivered in the order of insertion, one at
-        a time, and not concurrently.
-
-
-        A delivery attempt follows the protocol-specific retransmission logic. Depending
-        on the protocol, there
-
-        can be multiple transmissions. For CoAP, the retransmissions have an exponential
-        backoff
-
-        of 2, 4, 8, 16, and up to 64 seconds, taking in total over 2 minutes.
-
-        If the device does not respond within this two-minute period, the delivery
-        fails, one `retry` is used, and
-
-        the request is put back into the queue so long as the retry count is less
-        than its maximum.
-
-
-        For a queue-mode device, the request delivery is not attempted immediately,
-        but only when the device next time
-
-        contacts the server.
-
-
-        If retries are exhausted or the expiry time has passed, then the server discards
-        the request and sends an error
-
-        in [AsyncIDResponse](https://www.pelion.com/docs/device-management-api/connect/).
-        The retries
-
-        could be exhausted, for example, if the device periodically contacts
-
-        the server and receives the request from the queue, but then fails to respond
-        back to the server.
-
-
-        On the other hand, the device may lose its network connectivity, and the requests
-        in the queue may expire
-
-        and get discarded before the device regains connectivity. If the request was
-        delivered to the device,
-
-        the status code in `AsyncIDResponse` is *2xx* or *4xx*, as responded by the
-        device. If the request could not be
-
-        delivered, the status code generated by the server is *429* or *5xx*.
-
-
-        See also `/v2/device-requests/{device-id}`.
-
-
-        You can write [Notification Rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)
-        for a
-
-        resource with PUT command. Please see example of the payload below.
-
-        ```
-
-        { "method": "PUT", "uri": "/5/0/1?lt=10&gt=60&pmax=120" }
-
-        ```
-
-
-        POST `method` can be used to either execute or create resource on a LWM2M
-        supporting device. When creating
-
-        a resource, `uri` must refer to an object, and `payload-b64` must be in LWM2M
-        TLV format, as in
-
-        the following example.
-
-        ```
-
-        { "method": "POST", "uri": "/123", "content-type": "application/vnd.oma.lwm2m+tlv",
-        "payload-b64": "BwHFAnZhbHVl" }
-
-        ```
-
-
-        ```
-
-        Example URIs:
-
-        POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000
-
-        POST /v2/device-requests/015f2fa34d310000000000010030036c?async-id=123e4567-e89b-12d3-a456-426655440000&retry=2&expiry-seconds=7200
-
-
-        Example payload to read value from resource /5/0/1:
-
-        { "method": "GET", "uri": "/5/0/1" }
-
-
-        Example payload to set notification rules for resource /5/0/1:
-
-        { "method": "PUT", "uri": "/5/0/1?lt=10&gt=60&pmax=120" }
-
-
-        Example payload to write value "value1" to resource /5/0/1:
-
-        { "method": "PUT", "uri": "/5/0/1?k1=v1&k2=v2", "accept": "text/plain", "content-type":
-        "text/plain", "payload-b64": "dmFsdWUxCg==" }
-
-
-        Example payload to execute LWM2M resource /123/1/1:
-
-        { "method": "POST", "uri": "/123/1/1" }
-
-
-        Immediate response:
-
-        202 Accepted
-
-
-        Example AsyncIDResponse, delivered through the notification channel:
-
-        { "async-responses": [ { "id": "123e4567-e89b-12d3-a456-426655440000", "status":
-        200, "payload": "dmFsdWUxCg==", "ct": "text/plain", "max-age": 600 } ] }
-
-        { "async-responses": [ { "id": "123e4567-e89b-12d3-a456-426655440000", "status":
-        504, "error": "TIMEOUT" } ] }
-
-        ```'
+      description: "This API provides an interface to call CoAP (Constrained Application\
+        \ Protocol) methods on a device and send commands to device resources.\n\n\
+        As part of the request body, you must specify the CoAP method you want to\
+        \ call on the device:\n\n- Use the GET method to read resource values.\n\n\
+        \    For example, to read the value of resource `/3200/0/5501`, use:\n\n \
+        \   ```\n    curl -X POST https://api.us-east-1.mbedcloud.com/v2/device-requests/{device_id}?async-id={async-response-id}\
+        \ \\\n    -H 'Authorization: Bearer {api_key}' \\\n    -H 'content-type: application/json'\
+        \ \\\n    -d '{\"method\": \"GET\", \"uri\": \"/3200/0/5501\"}'\n    ```\n\
+        \n    For `GET` methods, the API may fetch values from an internal cache,\
+        \ instead of contacting the device.\n\n    If the value is not in the cache,\
+        \ the read command goes all the way to the device.\n\n\n- Use the PUT method\
+        \ to write [notification rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)\
+        \ or resource values for a resource.\n\n    Example payload to write a notification\
+        \ rule:\n\n    ```\n    { \"method\": \"PUT\", \"uri\": \"/5/0/1?lt=10&gt=60&pmax=120\"\
+        \ }\n    ```\n\n    Example payload to write a value to resource `/5/0/1`:\n\
+        \n    ```\n    { \"method\": \"PUT\", \"uri\": \"/5/0/1?k1=v1&k2=v2\", \"\
+        accept\": \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\"\
+        : \"dmFsdWUxCg==\" }\n    ```\n\n- Use the POST method to execute or create\
+        \ a resource on a LWM2M supporting device.\n\n    When you create a resource,\
+        \ `uri` must refer to an object, and `payload-b64` must be in LWM2M TLV format;\
+        \ for example:\n\n    ```\n    { \"method\": \"POST\", \"uri\": \"/123\",\
+        \ \"content-type\": \"application/vnd.oma.lwm2m+tlv\", \"payload-b64\": \"\
+        BwHFAnZhbHVl\" }\n    ```\n\n    Example payload to execute LWM2M resource\
+        \ `/123/1/1`:\n\n    ```\n    { \"method\": \"POST\", \"uri\": \"/123/1/1\"\
+        \ }\n    ```\n\nDevice Management sends responses through the currently configured\
+        \ notification channel as `AsyncIDResponse`.\n\nExample `AsyncIDResponse`\
+        \ delivered through the notification channel:\n- ```\n    { \"async-responses\"\
+        : [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"\
+        payload\": \"dmFsdWUxCg==\", \"ct\": \"text/plain\", \"max-age\": 600 } ]\
+        \ }\n    ```\n\n- ```\n    { \"async-responses\": [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\"\
+        , \"status\": 504, \"error\": \"TIMEOUT\" } ] }\n    ```\n\nIf it cannot reach\
+        \ the device at the time of the request, Device Management puts the requests\
+        \ in a queue.\n\n**Queueing behavior**\n\nIf Device Management does not reach\
+        \ the device, or the device fails to respond, the server queues the request\
+        \ and retries the delivery, for the period of time defined by `expiry-seconds`,\
+        \ the next time the device contacts the server.\n\nThe queue is limited to\
+        \ 20 requests.\n\nDevice Management delivers requests from the queue in the\
+        \ order of insertion, one at a time, and not concurrently.\n\nDelivery attempts\
+        \ follow protocol-specific retransmission logic. There can be multiple transmissions,\
+        \ depending on the protocol. For CoAP, the retransmissions have an exponential\
+        \ backoff of 2, 4, 8, 16, and up to 64 seconds, taking in total over two minutes.\n\
+        If the device does not respond within this two-minute period, the delivery\
+        \ fails, Device Management performs one retry and then puts the request back\
+        \ into the queue until the retry count reaches its limit.\n\nDevice Management\
+        \ attempts to redeliver the request when the device next contacts the server.\n\
+        \nWhen Device Management reaches the `retry` or `expiry-seconds` limit, the\
+        \ server discards the request and sends an error in `AsyncIDResponse`.\n\n\
+        For example:\n\n- Retries could be exhausted if the device periodically contacts\
+        \ the server and receives the request from the queue, but then fails to respond\
+        \ to the server.\n\n- The device may lose its network connectivity, and the\
+        \ requests in the queue may expire and get discarded before the device regains\
+        \ connectivity. When Device Management delivers the request to the device,\
+        \ the status code in `AsyncIDResponse` is *2xx* or *4xx*, based on the device's\
+        \ response. If Device Management could not deliver the request, the server\
+        \ generates a status code of *429* or *5xx*."
       operationId: createAsyncRequest
       parameters:
       - description: The device ID generated by Device Management.
@@ -9242,8 +9126,10 @@ paths:
         name: device-id
         required: true
         type: string
-      - description: The client-generated ID for matching the correct response delivered
-          by notification.
+      - description: A client-generated ID that lets the REST client track the end-to-end
+          flow and prevents race conditions with the notification channel. The `async-id`
+          can be, for example, a UUID or the web application session ID along with
+          the device ID and the resource.
         format: 1-40 alphanumeric characters and dashes.
         in: query
         name: async-id
@@ -9252,10 +9138,10 @@ paths:
         type: string
       - description: The number of attempts to deliver the request to the device after
           the first delivery attempt. For example, two retries sums up to the total
-          of three delivery attempts. If retries are exhausted, the request is discarded
-          and an error is delivered in the AsyncIDResponse. The default number of
-          retries for a non-queue mode device is `0`. The default number of retries
-          for a queue-mode device is `2`.
+          of three delivery attempts. When retries are exhausted, Device Management
+          discards the request and delivers an error in the AsyncIDResponse. The default
+          number of retries for a non-queue mode device is `0`. The default number
+          of retries for a queue-mode device is `2`.
         in: query
         maximum: 10
         minimum: 0
@@ -9263,10 +9149,10 @@ paths:
         required: false
         type: integer
       - description: The time period during which the delivery is attempted, in seconds.
-          If the device is not reachable within this period, the request is discarded
-          and an error is delivered in the AsyncIDResponse. The default time period
-          during which the delivery is attempted is two hours for a non-queue mode
-          device and three days for a queue-mode device.
+          If the device is not reachable within this period, Device Management discards
+          the request and delivers an error in the AsyncIDResponse. The default time
+          period during which the delivery is attempted is two hours for a non-queue
+          mode device and three days for a queue-mode device.
         in: query
         maximum: 2592000
         minimum: 60
@@ -9304,7 +9190,7 @@ paths:
             \ path is correct.</td>\n    </tr>\n  </tbody>\n</table>"
           schema:
             type: string
-      summary: Send an async request to device.
+      summary: Send an asynchronous request to read, write or post to a device resource.
       tags:
       - Device data - requests
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
@@ -9485,8 +9371,8 @@ paths:
       x-origin: /home/circleci/project/connector-bootstrap/public/swagger.yaml
   /v2/endpoints/{device-id}:
     get:
-      description: 'Retrieves resources cached by Device Management Connect. This
-        call does not formulate a message to the device.
+      description: 'Retrieves information about the resource structure for a device
+        from Device Management. This call does not reach the device.
 
 
         **Example:**
@@ -9500,8 +9386,8 @@ paths:
         ```'
       operationId: getEndpointResources
       parameters:
-      - description: A unique device ID for an endpoint. The ID must be an exact match.
-          Do not use wildcards.
+      - description: The device ID generated by Device Management. The ID must be
+          an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
@@ -9515,7 +9401,7 @@ paths:
             $ref: '#/definitions/ResourceArray'
         404:
           description: Endpoint not found.
-      summary: List the resources on an endpoint.
+      summary: List the resources on a device.
       tags:
       - Device data - resources
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
@@ -9545,8 +9431,8 @@ paths:
         ```'
       operationId: deleteResourcePath
       parameters:
-      - description: A unique Device Management device ID for the endpoint. The ID
-          must be an exact match. Do not use wildcards.
+      - description: The device ID generated by Device Management. The ID must be
+          an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
@@ -9753,8 +9639,8 @@ paths:
         ```'
       operationId: executeOrCreateResource
       parameters:
-      - description: A unique Device Management device ID for the endpoint. The ID
-          must be an exact match. Do not use wildcards.
+      - description: The device ID generated by Device Management. The ID must be
+          an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
@@ -9879,8 +9765,8 @@ paths:
         ```'
       operationId: updateResourceValue
       parameters:
-      - description: A unique Device Management device ID for the endpoint. The ID
-          must be an exact match. Do not use wildcards.
+      - description: The device ID generated by Device Management. The ID must be
+          an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
@@ -10407,7 +10293,7 @@ paths:
       x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/subscriptions:
     delete:
-      description: 'Removes pre-subscriptions.
+      description: 'Remove pre-subscriptions.
 
 
         **Example:**
@@ -10433,7 +10319,7 @@ paths:
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
       description: 'Retrieve pre-subscription data. The server returns a JSON structure.
-        If there are no pre-subscribed resources, it returns an empty array.
+        If there are no pre-subscribed resources, the server returns an empty array.
 
 
         **Example:**
@@ -10457,49 +10343,47 @@ paths:
           description: Unauthorized.
         403:
           description: 'Forbidden: the authorization token used is not an API key.'
-      summary: Get pre-subscriptions.
+      summary: View pre-subscriptions.
       tags:
       - Device data - subscriptions
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     put:
       consumes:
       - application/json
-      description: "Pre-subscription is a set of rules and patterns established by\
-        \ the application. When an endpoint registers and its ID, type, and registered\
-        \ resources match the pre-subscription data, Device Management Connect automatically\
-        \ sends subscription requests to the device. The pattern may include the endpoint\
-        \ ID (optionally having an `*` character at the end), endpoint type, a list\
-        \ of resources, or expressions with an `*` character at the end. Subscriptions\
-        \ based on pre-subscriptions are done when device registers or does a register\
-        \ update. To remove the pre-subscription data, put an empty array as a rule.\n\
+      description: "A pre-subscription is a set of rules you define to subscribe to\
+        \ specific resources automatically when certain devices register or does a\
+        \ register update.\nYou can set subscription rules based on the endpoint ID\
+        \ (optionally having an `*` character at the end), endpoint type, a list of\
+        \ resources, or expressions with an `*` character at the end.\nWhen a device\
+        \ that meets the subscription rules registered, Device Management Connect\
+        \ automatically sends subscription requests to the device for the resources\
+        \ you specify.\nTo remove the pre-subscription data, put an empty array as\
+        \ a rule.\nTo place dynamic observation rules for individual object instances\
+        \ and resources and define when the device sends observations, set [notification\
+        \ rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html).\n\
         \n**Note:** The subscription is bound to the API key your application is using.\
         \ To get notifications of the resource value changes, you need to create an\
         \ [event notification channel](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html)\
-        \ with the same API Key.\n\nFor more information, see [Subscribing to Resource\
-        \ changes from a web application](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html).\n\
-        \n**Notification rules**\n\nA web application can place dynamic observation\
-        \ rules for individual Object Instances and Resources to define when the device\
-        \ sends observations. More information in [Notification rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html).\n\
-        \n**Limits**:\n\n- The maximum length of the endpoint name and endpoint type\
-        \ is 64 characters.\n- The maximum length of the resource path is 128 characters.\n\
-        - You can listen to 256 separate resource paths.\n- The maximum number of\
-        \ pre-subscription entries is 1024.\n\n**Example request:**\n```\ncurl -X\
-        \ PUT https://api.us-east-1.mbedcloud.com/v2/subscriptions \\\n-H 'Authorization:\
-        \ Bearer <api_key>' \\\n-H 'content-type: application/json' \\\n-d '[\n  \
-        \     {\n         \"endpoint-name\": \"node-001\",\n         \"resource-path\"\
-        : [\"/dev\"]\n       },\n       {\n         \"endpoint-type\": \"Light\",\n\
-        \         \"resource-path\": [\"/sen/*\"]\n       },\n       {\n         \"\
-        endpoint-name\": \"node*\"\n       },\n       {\n         \"endpoint-type\"\
-        : \"Sensor\"\n       },\n       {\n         \"resource-path\": [\"/dev/temp\"\
-        ,\"/dev/hum\"]\n       }\n    ]'\n```\n\n- Subscribe to `/dev` resource of\
-        \ endpoint named `node-001`.\n- Subscribe to `Light` type of endpoints and\
-        \ their resources prefixed with `/sen/`.\n- Subscribe to all observable resources\
-        \ of endpoint names prefixed with `node`.\n- Subscribe to all observable resources\
-        \ of `Sensor` type endpoints.\n- Subscribe to `/dev/temp` and `/dev/hum` resources\
-        \ of all endpoints.\n\n**Note**:\nTo save bandwidth and avoid unnecessary\
-        \ traffic, use resource path patterns to limit the matching resources in the\
-        \ presubscription data.\nThis prevents the notification flow from unwanted\
-        \ resources to your web application. See [Subscribe only to what you need](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)."
+        \ with the same API key.\n\n**Example request:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/subscriptions\
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
+        \ \\\n-d '[\n       {\n         \"endpoint-name\": \"node-001\",\n       \
+        \  \"resource-path\": [\"/dev\"]\n       },\n       {\n         \"endpoint-type\"\
+        : \"Light\",\n         \"resource-path\": [\"/sen/*\"]\n       },\n      \
+        \ {\n         \"endpoint-name\": \"node*\"\n       },\n       {\n        \
+        \ \"endpoint-type\": \"Sensor\"\n       },\n       {\n         \"resource-path\"\
+        : [\"/dev/temp\",\"/dev/hum\"]\n       }\n    ]'\n```\n\n- Subscribe to `/dev`\
+        \ resource of endpoint named `node-001`.\n- Subscribe to `Light` type of endpoints\
+        \ and their resources prefixed with `/sen/`.\n- Subscribe to all observable\
+        \ resources of endpoint names prefixed with `node`.\n- Subscribe to all observable\
+        \ resources of `Sensor` type endpoints.\n- Subscribe to `/dev/temp` and `/dev/hum`\
+        \ resources of all endpoints.\n\n**Limits**:\n\n- The maximum length of the\
+        \ endpoint name and endpoint type is 64 characters.\n- The maximum length\
+        \ of the resource path is 128 characters.\n- You can subscribe to 256 separate\
+        \ resource paths.\n- The maximum number of pre-subscription entries is 1024.\n\
+        \n**Note**: To save bandwidth and avoid unnecessary traffic, use resource\
+        \ path patterns to limit the matching resources in the pre-subscription data.\
+        \ This prevents your web application from receiving unwanted resource notifications.\
+        \ See [Subscribe only to what you need](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)."
       operationId: updatePreSubscriptions
       parameters:
       - description: Array of pre-subscriptions.
@@ -10519,13 +10403,13 @@ paths:
           description: Unauthorized.
         403:
           description: 'Forbidden: the authorization token used is not an API key.'
-      summary: Set pre-subscriptions
+      summary: Set pre-subscriptions.
       tags:
       - Device data - subscriptions
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/subscriptions/{device-id}:
     delete:
-      description: 'Deletes all resource subscriptions in a single endpoint.
+      description: 'Delete all resource subscriptions in a single device.
 
 
         **Example:**
@@ -10540,8 +10424,8 @@ paths:
         ```'
       operationId: deleteEndpointSubscriptions
       parameters:
-      - description: A unique Device Management device ID for the endpoint. The ID
-          must be an exact match. Do not use wildcards.
+      - description: The device ID generated by Device Management. The ID must be
+          an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
@@ -10549,12 +10433,12 @@ paths:
       responses:
         204:
           description: Successfully removed.
-      summary: Delete subscriptions from an endpoint.
+      summary: Delete all subscriptions on a device.
       tags:
       - Device data - subscriptions
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
-      description: 'Lists all subscribed resources from a single endpoint.
+      description: 'Retrieve a list of all subscribed resources on a single device.
 
 
         **Example:**
@@ -10569,8 +10453,8 @@ paths:
         ```'
       operationId: getEndpointSubscriptions
       parameters:
-      - description: A unique Device Management device ID for the endpoint. The ID
-          must be an exact match. Do not use wildcards.
+      - description: The device ID generated by Device Management. The ID must be
+          an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
@@ -10587,13 +10471,13 @@ paths:
         404:
           description: Endpoint not found, or there are no subscriptions for that
             endpoint.
-      summary: Read endpoints subscriptions
+      summary: View all subscriptions on a device.
       tags:
       - Device data - subscriptions
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
   /v2/subscriptions/{device-id}/{resourcePath}:
     delete:
-      description: 'Remove an existing subscription from a resource path.
+      description: 'Remove an existing subscription to a resource.
 
 
         **Example:**
@@ -10608,13 +10492,24 @@ paths:
         ```'
       operationId: deleteResourceSubscription
       parameters:
-      - description: A unique Device Management device ID for the endpoint. The ID
-          must be an exact match. Do not use wildcards.
+      - description: The device ID generated by Device Management. The ID must be
+          an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
         type: string
-      - description: The resource URL.
+      - description: 'The resource URL. This can be the path to:
+
+
+          - An object; for example, `3303`.
+
+          - An object instance; for example `3303/0`.
+
+          - A resource; for example `3303/0/5602`.
+
+
+          For more information about the Device Management resource model, please
+          see the [Device Management documentation](https://www.pelion.com/docs/device-management/current/resources/resource-model.html).'
         in: path
         name: resourcePath
         required: true
@@ -10627,15 +10522,28 @@ paths:
       - Device data - subscriptions
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
+      description: Check whether you are subscribed to receive resource content updates
+        for a specific resource.
       operationId: checkResourceSubscription
       parameters:
-      - description: A unique Device Management device ID for the endpoint. The ID
-          must be an exact match. Do not use wildcards.
+      - description: The device ID generated by Device Management. The ID must be
+          an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
         type: string
-      - description: The resource URL.
+      - description: 'The resource URL. This can be the path to:
+
+
+          - An object; for example, `3303`.
+
+          - An object instance; for example `3303/0`.
+
+          - A resource; for example `3303/0/5602`.
+
+
+          For more information about the Device Management resource model, please
+          see the [Device Management documentation](https://www.pelion.com/docs/device-management/current/resources/resource-model.html).'
         in: path
         name: resourcePath
         required: true
@@ -10645,38 +10553,27 @@ paths:
           description: Resource is subscribed.
         404:
           description: Resource is not subscribed.
-      summary: Read subscription status
+      summary: Read the subscription status for a specific resource.
       tags:
       - Device data - subscriptions
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     put:
-      description: 'The Device Management Connect eventing model consists of observable
-        Resources.
+      description: '
+
+        Subscribe to a resource to receive updated resource content, periodically
+        or based on a more sophisticated solution-dependent logic.
 
 
-        This means that endpoints can deliver updated resource content, periodically
-        or with a more sophisticated solution-dependent logic. The OMA LwM2M resource
-        model also supports including objects, object instances, resources, and resource
-        instances.
+        To place dynamic observation rules for individual object instances and resources
+        and define when the device sends observations, set [notification rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html).
 
 
-        Applications can subscribe to objects, object instances or individual resources
-        to make the device provide value change notifications to Device Management
-        Connect service. An application needs to call a `/notification/callback` method
-        to get Device Management Connect to push notifications of the resource changes.
+        **Note:** Device Management removes all manual subscriptions during a full
+        device registration, at which point applications must re-subscribe. To avoid
+        this, use `/subscriptions` to set a pre-subscription.
 
 
-        **Notification rules**
-
-
-        A web application can place dynamic observation rules for individual Object
-        Instances and Resources to define when the device sends observations. More
-        information in [Notification rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html).
-
-
-        All manual subscriptions are removed during a full device registration, at
-        which point applications must re-subscribe. To avoid this, you can use `/subscriptions`
-        to set a pre-subscription.
+        You can subscribe to resources, objects and object instances.
 
 
         **Example:**
@@ -10688,16 +10585,31 @@ paths:
 
         -H ''Authorization: Bearer <api_key>''
 
-        ```'
+        ```
+
+
+        **Important:** You must also call a [`/notification/callback`](https://www.pelion.com/docs/device-management-api/notifications/)
+        method for Device Management Connect to push resource change notifications.'
       operationId: addResourceSubscription
       parameters:
-      - description: A unique Device Management device ID for the endpoint. The ID
-          must be an exact match. Do not use wildcards.
+      - description: The device ID generated by Device Management. The ID must be
+          an exact match. Do not use wildcards.
         in: path
         name: device-id
         required: true
         type: string
-      - description: The resource URL.
+      - description: 'The resource URL. This can be the path to:
+
+
+          - An object; for example, `3303`.
+
+          - An object instance; for example `3303/0`.
+
+          - A resource; for example `3303/0/5602`.
+
+
+          For more information about the Device Management resource model, please
+          see the [Device Management documentation](https://www.pelion.com/docs/device-management/current/resources/resource-model.html).'
         in: path
         name: resourcePath
         required: true
@@ -10720,7 +10632,7 @@ paths:
           description: 'Cannot accept the request at the moment: the queue is full.'
         502:
           description: 'Subscription failed: endpoint not connected.'
-      summary: Subscribe to a resource path.
+      summary: Subscribe to a resource to receive updates about resource changes.
       tags:
       - Device data - subscriptions
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
@@ -24011,8 +23923,8 @@ paths:
       x-origin: /home/circleci/project/certificate-enrollment/public/swagger.yaml
   /v3/devices/{device-id}/echo:
     get:
-      description: 'Read the Device Echo object. It represents the last known state
-        of the device. The state contains the resources and their reported values
+      description: 'Retrieve the Device Echo object, which represents the last known
+        state of the device. The state includes the resources and their reported values
         with the desired state of the device.
 
         Auto-observable and subscribed resources are stored as the reported state
