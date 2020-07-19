@@ -26286,18 +26286,6 @@ paths:
           description: OK.
           schema:
             $ref: '#/definitions/StatisticsReportListResponse'
-        '400':
-          description: Validation error or bad request.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '401':
-          description: Authentication failure.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '403':
-          description: Access denied.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
       summary: Retrieve provisioning statistics for devices in your factories.
       tags:
       - Factory manufacturing statistics
