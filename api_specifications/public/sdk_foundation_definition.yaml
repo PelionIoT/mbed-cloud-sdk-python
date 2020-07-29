@@ -642,7 +642,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -660,7 +660,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -707,7 +707,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -744,7 +744,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -867,8 +867,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -1044,7 +1044,11 @@ entities:
       type: subtenant_api_key
     return_type: paginated_response(subtenant_api_key)
     summary: Get all API keys.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/applications/{application_id}/access-keys
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter:
       key:
       - eq
@@ -1062,7 +1066,7 @@ entities:
 
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -3137,7 +3141,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -3188,7 +3192,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -3451,7 +3455,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -3502,7 +3506,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -3787,7 +3791,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -3838,7 +3842,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -4101,7 +4105,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -4152,7 +4156,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -4437,7 +4441,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -4460,7 +4464,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -4554,7 +4558,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -5685,7 +5689,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -6923,7 +6927,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -8216,7 +8220,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -8243,7 +8247,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -8290,7 +8294,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -8327,7 +8331,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -8485,8 +8489,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -8561,7 +8565,7 @@ entities:
         - type
         type: object
     - _key: '403'
-      description: Forbidden, only available for admins of commercial accounts.
+      description: Forbidden, only available for administrators of commercial accounts.
       schema:
         properties:
         - _key: code
@@ -8702,7 +8706,7 @@ entities:
 
       curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -10332,7 +10336,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -10349,7 +10353,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -10385,7 +10389,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -10422,7 +10426,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -10578,8 +10582,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -10772,7 +10776,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -10793,7 +10797,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -10840,7 +10844,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -10877,7 +10881,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -11224,8 +11228,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -11594,7 +11598,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d ''{"name": "MyKey1"}''
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json''
 
@@ -11923,7 +11927,11 @@ entities:
       type: api_key
     return_type: api_key
     summary: Create a new API key.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   - _key: delete
     description: 'Delete the API key.
@@ -11935,7 +11943,7 @@ entities:
 
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -12066,7 +12074,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: The API key with the specified ID does not exist.
+      description: An API key with the specified ID does not exist.
       schema:
         properties:
         - _key: code
@@ -12119,7 +12127,11 @@ entities:
       type: api_key
     return_type: api_key
     summary: Delete API key.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use DELETE https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   - _key: list
     description: 'Retrieve an array of API keys, optionally filtered by the owner.
@@ -12131,7 +12143,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -12148,7 +12160,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -12185,7 +12197,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -12223,7 +12235,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -12457,7 +12469,11 @@ entities:
       type: api_key
     return_type: paginated_response(api_key)
     summary: Get all API keys.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use GET https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter:
       key:
       - eq
@@ -12473,7 +12489,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/me \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -12715,7 +12731,11 @@ entities:
       type: api_key
     return_type: api_key
     summary: Get current API key.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated.
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   - _key: policy_groups
     description: 'Retrieve an array of policy groups associated with an API key.
@@ -12730,7 +12750,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -12745,7 +12765,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -12792,7 +12812,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -12828,7 +12848,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -12855,6 +12875,16 @@ entities:
               type: string
             - _key: apikey_count
               description: The number of API keys in this group.
+              example: 0
+              format: int32
+              type: integer
+              x-deprecation:
+                comment: This property is deprecated. See 'application_count' property.
+                end_of_life_at: '2021-08-01T00:00:00+00:00'
+                issued_at: '2020-08-01T00:00:00+00:00'
+                links: []
+            - _key: application_count
+              description: The number of applications in this group.
               example: 0
               format: int32
               type: integer
@@ -12931,8 +12961,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -13108,7 +13138,11 @@ entities:
       type: policy_group
     return_type: paginated_response(policy_group)
     summary: Get policy groups of an API key.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use GET https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/groups
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   - _key: read
     description: 'Retrieve details of an API key.
@@ -13120,7 +13154,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -13364,7 +13398,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: API key with the specified ID does not exist.
+      description: An API key with the specified ID does not exist.
       schema:
         properties:
         - _key: code
@@ -13417,7 +13451,11 @@ entities:
       type: api_key
     return_type: api_key
     summary: Get API key.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use GET https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   - _key: update
     additional_operations:
@@ -13431,7 +13469,7 @@ entities:
 
       `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -13765,7 +13803,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: The API key with the specified ID does not exist.
+      description: An API key with the specified ID does not exist.
       schema:
         properties:
         - _key: code
@@ -13818,7 +13856,11 @@ entities:
       type: api_key
     return_type: api_key
     summary: Update API key details.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use PUT https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -19602,7 +19644,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -19815,7 +19857,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -19860,7 +19902,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -20073,7 +20115,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/{reference}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -20330,7 +20372,7 @@ entities:
       curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/primary
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -20728,7 +20770,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/clear
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -20958,7 +21000,7 @@ entities:
 
       `curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/dark \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -21003,7 +21045,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -21238,7 +21280,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -22477,7 +22519,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -22610,7 +22652,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Certificate not found.
+      description: A certificate not found.
       schema:
         properties:
         - _key: code
@@ -22676,7 +22718,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -22980,7 +23022,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Certificate not found.
+      description: A certificate not found.
       schema:
         properties:
         - _key: code
@@ -35141,30 +35183,37 @@ entities:
         x-nullable: true
       - _key: email_verified
         description: Custom claim name for 'email_verified'.
+        example: email_verified
         type: string
         x-nullable: true
       - _key: family_name
         description: Custom claim name for 'family_name'.
+        example: family_name
         type: string
         x-nullable: true
       - _key: given_name
         description: Custom claim name for 'given_name'.
+        example: given_name
         type: string
         x-nullable: true
       - _key: name
         description: Custom claim name for 'name'.
+        example: name
         type: string
         x-nullable: true
       - _key: phone_number
         description: Custom claim name for 'phone_number'.
+        example: phone_number
         type: string
         x-nullable: true
       - _key: sub
         description: Custom claim name for 'sub'.
+        example: sub
         type: string
         x-nullable: true
       - _key: updated_at
         description: Custom claim name for 'updated_at'.
+        example: updated_at
         type: string
         x-nullable: true
       - _key: updated_at_pattern
@@ -35409,30 +35458,37 @@ entities:
           x-nullable: true
         - _key: email_verified
           description: Custom claim name for 'email_verified'.
+          example: email_verified
           type: string
           x-nullable: true
         - _key: family_name
           description: Custom claim name for 'family_name'.
+          example: family_name
           type: string
           x-nullable: true
         - _key: given_name
           description: Custom claim name for 'given_name'.
+          example: given_name
           type: string
           x-nullable: true
         - _key: name
           description: Custom claim name for 'name'.
+          example: name
           type: string
           x-nullable: true
         - _key: phone_number
           description: Custom claim name for 'phone_number'.
+          example: phone_number
           type: string
           x-nullable: true
         - _key: sub
           description: Custom claim name for 'sub'.
+          example: sub
           type: string
           x-nullable: true
         - _key: updated_at
           description: Custom claim name for 'updated_at'.
+          example: updated_at
           type: string
           x-nullable: true
         - _key: updated_at_pattern
@@ -35683,30 +35739,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -36155,7 +36218,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Identity provider not found.
+      description: An identity provider not found.
       schema:
         properties:
         - _key: code
@@ -36347,30 +36410,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -36631,7 +36701,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Identity provider not found.
+      description: An identity provider not found.
       schema:
         properties:
         - _key: code
@@ -36859,30 +36929,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -37192,7 +37269,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Identity provider not found.
+      description: An identity provider not found.
       schema:
         properties:
         - _key: code
@@ -37265,7 +37342,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -37302,7 +37379,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -37340,7 +37417,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -37418,30 +37495,37 @@ entities:
                   x-nullable: true
                 - _key: email_verified
                   description: Custom claim name for 'email_verified'.
+                  example: email_verified
                   type: string
                   x-nullable: true
                 - _key: family_name
                   description: Custom claim name for 'family_name'.
+                  example: family_name
                   type: string
                   x-nullable: true
                 - _key: given_name
                   description: Custom claim name for 'given_name'.
+                  example: given_name
                   type: string
                   x-nullable: true
                 - _key: name
                   description: Custom claim name for 'name'.
+                  example: name
                   type: string
                   x-nullable: true
                 - _key: phone_number
                   description: Custom claim name for 'phone_number'.
+                  example: phone_number
                   type: string
                   x-nullable: true
                 - _key: sub
                   description: Custom claim name for 'sub'.
+                  example: sub
                   type: string
                   x-nullable: true
                 - _key: updated_at
                   description: Custom claim name for 'updated_at'.
+                  example: updated_at
                   type: string
                   x-nullable: true
                 - _key: updated_at_pattern
@@ -37878,30 +37962,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -38162,7 +38253,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Identity provider not found.
+      description: An identity provider not found.
       schema:
         properties:
         - _key: code
@@ -38354,30 +38445,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -38686,7 +38784,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Identity provider not found.
+      description: An identity provider not found.
       schema:
         properties:
         - _key: code
@@ -38841,30 +38939,37 @@ entities:
           x-nullable: true
         - _key: email_verified
           description: Custom claim name for 'email_verified'.
+          example: email_verified
           type: string
           x-nullable: true
         - _key: family_name
           description: Custom claim name for 'family_name'.
+          example: family_name
           type: string
           x-nullable: true
         - _key: given_name
           description: Custom claim name for 'given_name'.
+          example: given_name
           type: string
           x-nullable: true
         - _key: name
           description: Custom claim name for 'name'.
+          example: name
           type: string
           x-nullable: true
         - _key: phone_number
           description: Custom claim name for 'phone_number'.
+          example: phone_number
           type: string
           x-nullable: true
         - _key: sub
           description: Custom claim name for 'sub'.
+          example: sub
           type: string
           x-nullable: true
         - _key: updated_at
           description: Custom claim name for 'updated_at'.
+          example: updated_at
           type: string
           x-nullable: true
         - _key: updated_at_pattern
@@ -39104,30 +39209,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -39436,7 +39548,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Identity provider not found.
+      description: An identity provider not found.
       schema:
         properties:
         - _key: code
@@ -39587,7 +39699,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -39800,7 +39912,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/light \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -39845,7 +39957,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -40058,7 +40170,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -40331,7 +40443,7 @@ entities:
       curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/primary
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -40747,7 +40859,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/clear
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -40979,7 +41091,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/light \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -41024,7 +41136,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -41259,7 +41371,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -41984,30 +42096,37 @@ entities:
       x-nullable: true
     - _key: email_verified
       description: Custom claim name for 'email_verified'.
+      example: email_verified
       type: string
       x-nullable: true
     - _key: family_name
       description: Custom claim name for 'family_name'.
+      example: family_name
       type: string
       x-nullable: true
     - _key: given_name
       description: Custom claim name for 'given_name'.
+      example: given_name
       type: string
       x-nullable: true
     - _key: name
       description: Custom claim name for 'name'.
+      example: name
       type: string
       x-nullable: true
     - _key: phone_number
       description: Custom claim name for 'phone_number'.
+      example: phone_number
       type: string
       x-nullable: true
     - _key: sub
       description: Custom claim name for 'sub'.
+      example: sub
       type: string
       x-nullable: true
     - _key: updated_at
       description: Custom claim name for 'updated_at'.
+      example: updated_at
       type: string
       x-nullable: true
     - _key: updated_at_pattern
@@ -42154,6 +42273,7 @@ entities:
   - _key: email_verified
     api_fieldname: email_verified
     description: Custom claim name for 'email_verified'.
+    example: email_verified
     readOnly: true
     required: false
     type: string
@@ -42161,6 +42281,7 @@ entities:
   - _key: family_name
     api_fieldname: family_name
     description: Custom claim name for 'family_name'.
+    example: family_name
     readOnly: true
     required: false
     type: string
@@ -42168,6 +42289,7 @@ entities:
   - _key: given_name
     api_fieldname: given_name
     description: Custom claim name for 'given_name'.
+    example: given_name
     readOnly: true
     required: false
     type: string
@@ -42175,6 +42297,7 @@ entities:
   - _key: name
     api_fieldname: name
     description: Custom claim name for 'name'.
+    example: name
     readOnly: true
     required: false
     type: string
@@ -42182,6 +42305,7 @@ entities:
   - _key: phone_number
     api_fieldname: phone_number
     description: Custom claim name for 'phone_number'.
+    example: phone_number
     readOnly: true
     required: false
     type: string
@@ -42189,6 +42313,7 @@ entities:
   - _key: sub
     api_fieldname: sub
     description: Custom claim name for 'sub'.
+    example: sub
     readOnly: true
     required: false
     type: string
@@ -42196,6 +42321,7 @@ entities:
   - _key: updated_at
     api_fieldname: updated_at
     description: Custom claim name for 'updated_at'.
+    example: updated_at
     readOnly: true
     required: false
     type: string
@@ -42352,6 +42478,19 @@ entities:
     readOnly: true
     required: false
     type: integer
+    x-deprecation:
+      comment: This property is deprecated. See 'application_count' property.
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
+  - _key: application_count
+    api_fieldname: application_count
+    description: The number of applications in this group.
+    example: 0
+    format: int32
+    readOnly: true
+    required: false
+    type: integer
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
@@ -42405,7 +42544,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -42420,7 +42559,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -42467,7 +42606,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -42503,7 +42642,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -42626,8 +42765,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -42803,7 +42942,11 @@ entities:
       type: api_key
     return_type: paginated_response(api_key)
     summary: Get the API keys of a policy group.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated, GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   - _key: create
     description: 'Create a new group.
@@ -42817,7 +42960,7 @@ entities:
 
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' -d ''{"name": "MyGroup1"}''
 
@@ -42832,6 +42975,7 @@ entities:
     - updated_at
     - account_id
     - user_count
+    - application_count
     - apikey_count
     field_renames: []
     fields:
@@ -42846,6 +42990,16 @@ entities:
       properties:
       - _key: apikeys
         description: An array of API key IDs.
+        items:
+          type: string
+        type: array
+        x-deprecation:
+          comment: This field is deprecated, use 'applications'
+          end_of_life_at: '2021-08-01T00:00:00+00:00'
+          issued_at: '2020-08-01T00:00:00+00:00'
+          links: []
+      - _key: applications
+        description: An array of applicationIDs.
         items:
           type: string
         type: array
@@ -42897,6 +43051,18 @@ entities:
           api_fieldname: apikey_count
           description: The number of API keys in this group.
           entity_fieldname: apikey_count
+          example: 0
+          format: int32
+          type: integer
+          x-deprecation:
+            comment: This property is deprecated. See 'application_count' property.
+            end_of_life_at: '2021-08-01T00:00:00+00:00'
+            issued_at: '2020-08-01T00:00:00+00:00'
+            links: []
+        - _key: application_count
+          api_fieldname: application_count
+          description: The number of applications in this group.
+          entity_fieldname: application_count
           example: 0
           format: int32
           type: integer
@@ -43170,7 +43336,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -43365,7 +43531,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -43381,7 +43547,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -43418,7 +43584,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -43456,7 +43622,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -43483,6 +43649,16 @@ entities:
               type: string
             - _key: apikey_count
               description: The number of API keys in this group.
+              example: 0
+              format: int32
+              type: integer
+              x-deprecation:
+                comment: This property is deprecated. See 'application_count' property.
+                end_of_life_at: '2021-08-01T00:00:00+00:00'
+                issued_at: '2020-08-01T00:00:00+00:00'
+                links: []
+            - _key: application_count
+              description: The number of applications in this group.
               example: 0
               format: int32
               type: integer
@@ -43559,8 +43735,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -43703,7 +43879,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -43716,6 +43892,7 @@ entities:
     - account_id
     - name
     - user_count
+    - application_count
     - apikey_count
     field_renames: []
     fields:
@@ -43759,6 +43936,18 @@ entities:
           api_fieldname: apikey_count
           description: The number of API keys in this group.
           entity_fieldname: apikey_count
+          example: 0
+          format: int32
+          type: integer
+          x-deprecation:
+            comment: This property is deprecated. See 'application_count' property.
+            end_of_life_at: '2021-08-01T00:00:00+00:00'
+            issued_at: '2020-08-01T00:00:00+00:00'
+            links: []
+        - _key: application_count
+          api_fieldname: application_count
+          description: The number of applications in this group.
+          entity_fieldname: application_count
           example: 0
           format: int32
           type: integer
@@ -43984,7 +44173,7 @@ entities:
       curl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -44000,6 +44189,7 @@ entities:
     - updated_at
     - account_id
     - user_count
+    - application_count
     - apikey_count
     field_renames: []
     fields:
@@ -44053,6 +44243,18 @@ entities:
           api_fieldname: apikey_count
           description: The number of API keys in this group.
           entity_fieldname: apikey_count
+          example: 0
+          format: int32
+          type: integer
+          x-deprecation:
+            comment: This property is deprecated. See 'application_count' property.
+            end_of_life_at: '2021-08-01T00:00:00+00:00'
+            issued_at: '2020-08-01T00:00:00+00:00'
+            links: []
+        - _key: application_count
+          api_fieldname: application_count
+          description: The number of applications in this group.
+          entity_fieldname: application_count
           example: 0
           format: int32
           type: integer
@@ -44326,7 +44528,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -44344,7 +44546,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -44391,7 +44593,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -44427,7 +44629,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -44774,8 +44976,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -46053,7 +46255,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -46457,7 +46659,11 @@ entities:
       type: subtenant_api_key
     return_type: subtenant_api_key
     summary: Create a new API key.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/applications/{application_id}/access-keys
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   - _key: delete
     description: 'Delete an API key.
@@ -46472,7 +46678,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -46665,7 +46871,11 @@ entities:
       type: subtenant_api_key
     return_type: subtenant_api_key
     summary: Delete the API key.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/applications/{application_id}/access-keys/{access_key_id}
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   - _key: policy_groups
     description: 'Retrieve an array of policy groups associated with an API key.
@@ -46680,7 +46890,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -46705,7 +46915,7 @@ entities:
       type: string
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -46752,7 +46962,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -46788,7 +46998,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -46815,6 +47025,16 @@ entities:
               type: string
             - _key: apikey_count
               description: The number of API keys in this group.
+              example: 0
+              format: int32
+              type: integer
+              x-deprecation:
+                comment: This property is deprecated. See 'application_count' property.
+                end_of_life_at: '2021-08-01T00:00:00+00:00'
+                issued_at: '2020-08-01T00:00:00+00:00'
+                links: []
+            - _key: application_count
+              description: The number of applications in this group.
               example: 0
               format: int32
               type: integer
@@ -46891,8 +47111,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -47068,12 +47288,16 @@ entities:
       type: subtenant_policy_group
     return_type: paginated_response(subtenant_policy_group)
     summary: Get policy groups of an API key.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/applications/{application_id}/groups
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   - _key: read
     description: "Retrieve details of an API key.\n<b>Note:</b> This endpoint is restricted\
       \ to administrators.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}\
-      \ \\\n -H 'Authorization: Bearer <api_key>'\n```"
+      \ \\\n -H 'Authorization: Bearer <access_key>'\n```"
     drop_fields:
     - object
     - etag
@@ -47393,7 +47617,11 @@ entities:
       type: subtenant_api_key
     return_type: subtenant_api_key
     summary: Get API key details.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/applications/{application_id}/access-keys/{access_key_id}
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   - _key: update
     description: 'Update API key details.
@@ -47408,7 +47636,7 @@ entities:
       curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -47819,7 +48047,11 @@ entities:
       type: subtenant_api_key
     return_type: subtenant_api_key
     summary: Update API key details.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/applications/{application_id}/access-keys/{access_key_id}
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   primary_key_field: id
   swagger_models:
@@ -47895,7 +48127,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -48121,7 +48353,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -48404,7 +48636,7 @@ entities:
       curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark/primary
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -48829,7 +49061,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/clear
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -49074,7 +49306,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -49785,30 +50017,37 @@ entities:
         x-nullable: true
       - _key: email_verified
         description: Custom claim name for 'email_verified'.
+        example: email_verified
         type: string
         x-nullable: true
       - _key: family_name
         description: Custom claim name for 'family_name'.
+        example: family_name
         type: string
         x-nullable: true
       - _key: given_name
         description: Custom claim name for 'given_name'.
+        example: given_name
         type: string
         x-nullable: true
       - _key: name
         description: Custom claim name for 'name'.
+        example: name
         type: string
         x-nullable: true
       - _key: phone_number
         description: Custom claim name for 'phone_number'.
+        example: phone_number
         type: string
         x-nullable: true
       - _key: sub
         description: Custom claim name for 'sub'.
+        example: sub
         type: string
         x-nullable: true
       - _key: updated_at
         description: Custom claim name for 'updated_at'.
+        example: updated_at
         type: string
         x-nullable: true
       - _key: updated_at_pattern
@@ -50050,30 +50289,37 @@ entities:
           x-nullable: true
         - _key: email_verified
           description: Custom claim name for 'email_verified'.
+          example: email_verified
           type: string
           x-nullable: true
         - _key: family_name
           description: Custom claim name for 'family_name'.
+          example: family_name
           type: string
           x-nullable: true
         - _key: given_name
           description: Custom claim name for 'given_name'.
+          example: given_name
           type: string
           x-nullable: true
         - _key: name
           description: Custom claim name for 'name'.
+          example: name
           type: string
           x-nullable: true
         - _key: phone_number
           description: Custom claim name for 'phone_number'.
+          example: phone_number
           type: string
           x-nullable: true
         - _key: sub
           description: Custom claim name for 'sub'.
+          example: sub
           type: string
           x-nullable: true
         - _key: updated_at
           description: Custom claim name for 'updated_at'.
+          example: updated_at
           type: string
           x-nullable: true
         - _key: updated_at_pattern
@@ -50335,30 +50581,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -50873,7 +51126,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Account or identity provider not found.
+      description: An account or identity provider not found.
       schema:
         properties:
         - _key: code
@@ -51082,30 +51335,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -51376,7 +51636,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Account or identity provider not found.
+      description: An account or identity provider not found.
       schema:
         properties:
         - _key: code
@@ -51621,30 +51881,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -51964,7 +52231,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Account or identity provider not found.
+      description: An account or identity provider not found.
       schema:
         properties:
         - _key: code
@@ -52045,7 +52312,7 @@ entities:
       type: string
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -52082,7 +52349,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -52120,7 +52387,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -52203,30 +52470,37 @@ entities:
                   x-nullable: true
                 - _key: email_verified
                   description: Custom claim name for 'email_verified'.
+                  example: email_verified
                   type: string
                   x-nullable: true
                 - _key: family_name
                   description: Custom claim name for 'family_name'.
+                  example: family_name
                   type: string
                   x-nullable: true
                 - _key: given_name
                   description: Custom claim name for 'given_name'.
+                  example: given_name
                   type: string
                   x-nullable: true
                 - _key: name
                   description: Custom claim name for 'name'.
+                  example: name
                   type: string
                   x-nullable: true
                 - _key: phone_number
                   description: Custom claim name for 'phone_number'.
+                  example: phone_number
                   type: string
                   x-nullable: true
                 - _key: sub
                   description: Custom claim name for 'sub'.
+                  example: sub
                   type: string
                   x-nullable: true
                 - _key: updated_at
                   description: Custom claim name for 'updated_at'.
+                  example: updated_at
                   type: string
                   x-nullable: true
                 - _key: updated_at_pattern
@@ -52412,8 +52686,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -52741,30 +53015,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -53035,7 +53316,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Account or identity provider not found.
+      description: An account or identity provider not found.
       schema:
         properties:
         - _key: code
@@ -53244,30 +53525,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -53586,7 +53874,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Account or identity provider not found.
+      description: An account or identity provider not found.
       schema:
         properties:
         - _key: code
@@ -53738,30 +54026,37 @@ entities:
           x-nullable: true
         - _key: email_verified
           description: Custom claim name for 'email_verified'.
+          example: email_verified
           type: string
           x-nullable: true
         - _key: family_name
           description: Custom claim name for 'family_name'.
+          example: family_name
           type: string
           x-nullable: true
         - _key: given_name
           description: Custom claim name for 'given_name'.
+          example: given_name
           type: string
           x-nullable: true
         - _key: name
           description: Custom claim name for 'name'.
+          example: name
           type: string
           x-nullable: true
         - _key: phone_number
           description: Custom claim name for 'phone_number'.
+          example: phone_number
           type: string
           x-nullable: true
         - _key: sub
           description: Custom claim name for 'sub'.
+          example: sub
           type: string
           x-nullable: true
         - _key: updated_at
           description: Custom claim name for 'updated_at'.
+          example: updated_at
           type: string
           x-nullable: true
         - _key: updated_at_pattern
@@ -54012,30 +54307,37 @@ entities:
               x-nullable: true
             - _key: email_verified
               description: Custom claim name for 'email_verified'.
+              example: email_verified
               type: string
               x-nullable: true
             - _key: family_name
               description: Custom claim name for 'family_name'.
+              example: family_name
               type: string
               x-nullable: true
             - _key: given_name
               description: Custom claim name for 'given_name'.
+              example: given_name
               type: string
               x-nullable: true
             - _key: name
               description: Custom claim name for 'name'.
+              example: name
               type: string
               x-nullable: true
             - _key: phone_number
               description: Custom claim name for 'phone_number'.
+              example: phone_number
               type: string
               x-nullable: true
             - _key: sub
               description: Custom claim name for 'sub'.
+              example: sub
               type: string
               x-nullable: true
             - _key: updated_at
               description: Custom claim name for 'updated_at'.
+              example: updated_at
               type: string
               x-nullable: true
             - _key: updated_at_pattern
@@ -54354,7 +54656,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Account or identity provider not found.
+      description: An account or identity provider not found.
       schema:
         properties:
         - _key: code
@@ -54484,7 +54786,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -54709,7 +55011,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference}
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -54992,7 +55294,7 @@ entities:
       curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light/primary
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -55415,7 +55717,7 @@ entities:
       ```curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/clear
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -55660,7 +55962,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -56306,6 +56608,19 @@ entities:
     readOnly: true
     required: false
     type: integer
+    x-deprecation:
+      comment: This property is deprecated. See 'application_count' property.
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
+  - _key: application_count
+    api_fieldname: application_count
+    description: The number of applications in this group.
+    example: 0
+    format: int32
+    readOnly: true
+    required: false
+    type: integer
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
@@ -56365,7 +56680,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -56390,7 +56705,7 @@ entities:
       type: string
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -56437,7 +56752,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -56473,7 +56788,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -56596,8 +56911,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -56773,7 +57088,11 @@ entities:
       type: subtenant_api_key
     return_type: paginated_response(subtenant_api_key)
     summary: Get API keys in a group.
-    x_deprecation: null
+    x_deprecation:
+      comment: This endpoint is deprecated. Use GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/applications
+      end_of_life_at: '2021-08-01T00:00:00+00:00'
+      issued_at: '2020-08-01T00:00:00+00:00'
+      links: []
     x_filter: {}
   - _key: create
     description: 'Create a new group.
@@ -56788,7 +57107,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -56804,6 +57123,7 @@ entities:
     - created_at
     - updated_at
     - user_count
+    - application_count
     - apikey_count
     field_renames: []
     fields:
@@ -56828,6 +57148,16 @@ entities:
       properties:
       - _key: apikeys
         description: An array of API key IDs.
+        items:
+          type: string
+        type: array
+        x-deprecation:
+          comment: This field is deprecated, use 'applications'
+          end_of_life_at: '2021-08-01T00:00:00+00:00'
+          issued_at: '2020-08-01T00:00:00+00:00'
+          links: []
+      - _key: applications
+        description: An array of applicationIDs.
         items:
           type: string
         type: array
@@ -56879,6 +57209,18 @@ entities:
           api_fieldname: apikey_count
           description: The number of API keys in this group.
           entity_fieldname: apikey_count
+          example: 0
+          format: int32
+          type: integer
+          x-deprecation:
+            comment: This property is deprecated. See 'application_count' property.
+            end_of_life_at: '2021-08-01T00:00:00+00:00'
+            issued_at: '2020-08-01T00:00:00+00:00'
+            links: []
+        - _key: application_count
+          api_fieldname: application_count
+          description: The number of applications in this group.
+          entity_fieldname: application_count
           example: 0
           format: int32
           type: integer
@@ -57206,7 +57548,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -57414,7 +57756,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -57440,7 +57782,7 @@ entities:
       type: string
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -57477,7 +57819,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -57515,7 +57857,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -57542,6 +57884,16 @@ entities:
               type: string
             - _key: apikey_count
               description: The number of API keys in this group.
+              example: 0
+              format: int32
+              type: integer
+              x-deprecation:
+                comment: This property is deprecated. See 'application_count' property.
+                end_of_life_at: '2021-08-01T00:00:00+00:00'
+                issued_at: '2020-08-01T00:00:00+00:00'
+                links: []
+            - _key: application_count
+              description: The number of applications in this group.
               example: 0
               format: int32
               type: integer
@@ -57618,8 +57970,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -57812,7 +58164,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -57824,6 +58176,7 @@ entities:
     - updated_at
     - name
     - user_count
+    - application_count
     - apikey_count
     field_renames: []
     fields:
@@ -57877,6 +58230,18 @@ entities:
           api_fieldname: apikey_count
           description: The number of API keys in this group.
           entity_fieldname: apikey_count
+          example: 0
+          format: int32
+          type: integer
+          x-deprecation:
+            comment: This property is deprecated. See 'application_count' property.
+            end_of_life_at: '2021-08-01T00:00:00+00:00'
+            issued_at: '2020-08-01T00:00:00+00:00'
+            links: []
+        - _key: application_count
+          api_fieldname: application_count
+          description: The number of applications in this group.
+          entity_fieldname: application_count
           example: 0
           format: int32
           type: integer
@@ -58108,7 +58473,7 @@ entities:
       curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -58123,6 +58488,7 @@ entities:
     - created_at
     - updated_at
     - user_count
+    - application_count
     - apikey_count
     field_renames: []
     fields:
@@ -58186,6 +58552,18 @@ entities:
           api_fieldname: apikey_count
           description: The number of API keys in this group.
           entity_fieldname: apikey_count
+          example: 0
+          format: int32
+          type: integer
+          x-deprecation:
+            comment: This property is deprecated. See 'application_count' property.
+            end_of_life_at: '2021-08-01T00:00:00+00:00'
+            issued_at: '2020-08-01T00:00:00+00:00'
+            links: []
+        - _key: application_count
+          api_fieldname: application_count
+          description: The number of applications in this group.
+          entity_fieldname: application_count
           example: 0
           format: int32
           type: integer
@@ -58465,7 +58843,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -58493,7 +58871,7 @@ entities:
       type: string
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -58540,7 +58918,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -58576,7 +58954,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -58923,8 +59301,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -59295,7 +59673,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -59689,7 +60067,7 @@ entities:
         - type
         type: object
     - _key: '403'
-      description: Forbidden, only available for admins of commercial accounts.
+      description: Forbidden, only available for administrators of commercial accounts.
       schema:
         properties:
         - _key: code
@@ -59805,7 +60183,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -59907,7 +60285,7 @@ entities:
         - type
         type: object
     - _key: '403'
-      description: Forbidden, only available for admins of commercial accounts.
+      description: Forbidden, only available for administrators of commercial accounts.
       schema:
         properties:
         - _key: code
@@ -59955,7 +60333,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Account or certificate with the given ID not found.
+      description: An account or certificate with the given ID not found.
       schema:
         properties:
         - _key: code
@@ -60511,7 +60889,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -60803,7 +61181,7 @@ entities:
         - type
         type: object
     - _key: '403'
-      description: Forbidden, only available for admins of commercial accounts.
+      description: Forbidden, only available for administrators of commercial accounts.
       schema:
         properties:
         - _key: code
@@ -60851,7 +61229,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Account or certificate with the given ID not found.
+      description: An account or certificate with the given ID not found.
       schema:
         properties:
         - _key: code
@@ -60909,7 +61287,7 @@ entities:
   - _key: update
     description: "Update a trusted certificate.\n<b>Note:</b> This endpoint is restricted\
       \ to administrators.\n\n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}\
-      \ \\\n -H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json'\
+      \ \\\n -H 'Authorization: Bearer <access_key>' \\\n -H 'content-type: application/json'\
       \ \\\n -d {\"description\": \"very important cert\"}\n ```"
     drop_fields:
     - object
@@ -61304,7 +61682,7 @@ entities:
         - type
         type: object
     - _key: '403'
-      description: Forbidden, only available for admins of commercial accounts.
+      description: Forbidden, only available for administrators of commercial accounts.
       schema:
         properties:
         - _key: code
@@ -61809,7 +62187,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -62671,7 +63049,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -62927,7 +63305,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -62952,7 +63330,7 @@ entities:
       type: string
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -62999,7 +63377,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -63035,7 +63413,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           external_param: true
@@ -63062,6 +63440,16 @@ entities:
               type: string
             - _key: apikey_count
               description: The number of API keys in this group.
+              example: 0
+              format: int32
+              type: integer
+              x-deprecation:
+                comment: This property is deprecated. See 'application_count' property.
+                end_of_life_at: '2021-08-01T00:00:00+00:00'
+                issued_at: '2020-08-01T00:00:00+00:00'
+                links: []
+            - _key: application_count
+              description: The number of applications in this group.
               example: 0
               format: int32
               type: integer
@@ -63138,8 +63526,8 @@ entities:
         - _key: order
           api_fieldname: order
           default: ASC
-          description: 'Record order based on creation time. Acceptable values: ASC,
-            DESC. Default: ASC.'
+          description: 'Record order based on creation. Acceptable values: ASC, DESC.
+            Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -63330,7 +63718,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -63952,7 +64340,7 @@ entities:
       curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -64798,7 +65186,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/validate-email
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -65143,7 +65531,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/accouns/{account_id}/user-invitations
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -65585,7 +65973,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -65794,7 +66182,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -66312,7 +66700,7 @@ entities:
 
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/trusted-certificates \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -66673,7 +67061,7 @@ entities:
         - type
         type: object
     - _key: '403'
-      description: Forbidden, only available for admins of commercial accounts.
+      description: Forbidden, only available for administrators of commercial accounts.
       schema:
         properties:
         - _key: code
@@ -66787,7 +67175,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -66927,7 +67315,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Certificate not found.
+      description: A certificate not found.
       schema:
         properties:
         - _key: code
@@ -67480,7 +67868,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -67507,7 +67895,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -67553,7 +67941,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -67589,7 +67977,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -67892,7 +68280,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -68200,7 +68588,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Certificate not found.
+      description: A certificate not found.
       schema:
         properties:
         - _key: code
@@ -68266,7 +68654,7 @@ entities:
       curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id}
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -68681,7 +69069,7 @@ entities:
         - type
         type: object
     - _key: '404'
-      description: Certificate not found.
+      description: A certificate not found.
       schema:
         properties:
         - _key: code
@@ -71527,7 +71915,7 @@ entities:
 
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action=invite \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -72292,7 +72680,7 @@ entities:
 
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -72537,7 +72925,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/users \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -72557,7 +72945,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -72594,7 +72982,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -72632,7 +73020,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -73112,7 +73500,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -73127,7 +73515,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -73174,7 +73562,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -73210,7 +73598,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -73232,6 +73620,16 @@ entities:
               type: string
             - _key: apikey_count
               description: The number of API keys in this group.
+              example: 0
+              format: int32
+              type: integer
+              x-deprecation:
+                comment: This property is deprecated. See 'application_count' property.
+                end_of_life_at: '2021-08-01T00:00:00+00:00'
+                issued_at: '2020-08-01T00:00:00+00:00'
+                links: []
+            - _key: application_count
+              description: The number of applications in this group.
               example: 0
               format: int32
               type: integer
@@ -73486,7 +73884,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -74059,7 +74457,7 @@ entities:
 
       curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -74986,7 +75384,7 @@ entities:
 
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -75407,7 +75805,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -75604,7 +76002,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/user-invitations \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -75620,7 +76018,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The entity ID to fetch after the given one.
+      description: The entity ID to retrieve after the given one.
       entity_fieldname: after
       example: 01619571f3c00242ac12000600000000
       external_param: true
@@ -75646,7 +76044,7 @@ entities:
     - _key: order
       api_fieldname: order
       default: ASC
-      description: 'Record order based on creation time. Acceptable values: ASC, DESC.
+      description: 'Record order based on creation. Acceptable values: ASC, DESC.
         Default: ASC.'
       entity_fieldname: order
       enum:
@@ -75684,7 +76082,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The entity ID to fetch after the given one.
+          description: The entity ID to retrieve after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
           pattern: '[a-f0-9]{32}'
@@ -75968,7 +76366,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id}
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
