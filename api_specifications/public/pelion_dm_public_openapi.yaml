@@ -9280,57 +9280,57 @@ paths:
         \ Protocol) methods on a device and send commands to device resources.\n\n\
         As part of the request body, you must specify the CoAP method you want to\
         \ call on the device:\n\n- Use the GET method to read resource values.\n\n\
-        \    For example, to read the value of resource `/3200/0/5501`, use:\n\n \
-        \   ```\n    curl -X POST https://api.us-east-1.mbedcloud.com/v2/device-requests/{device_id}?async-id={async-response-id}\
-        \ \\\n    -H 'Authorization: Bearer {api_key}' \\\n    -H 'content-type: application/json'\
-        \ \\\n    -d '{\"method\": \"GET\", \"uri\": \"/3200/0/5501\"}'\n    ```\n\
-        \n    For `GET` methods, the API may fetch values from an internal cache,\
-        \ instead of contacting the device.\n\n    If the value is not in the cache,\
-        \ the read command goes all the way to the device.\n\n\n- Use the PUT method\
-        \ to write [notification rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)\
+        \    For example, to read the value of resource `/3200/0/5501`, use:\n\n```\n\
+        curl -X POST https://api.us-east-1.mbedcloud.com/v2/device-requests/{device_id}?async-id={async-response-id}\
+        \ \\\n-H 'Authorization: Bearer {api_key}' \\\n-H 'content-type: application/json'\
+        \ \\\n-d '{\"method\": \"GET\", \"uri\": \"/3200/0/5501\"}'\n```\n\n    For\
+        \ `GET` methods, the API may fetch values from an internal cache, instead\
+        \ of contacting the device.\n\n    If the value is not in the cache, the read\
+        \ command goes all the way to the device.\n\n\n- Use the PUT method to write\
+        \ [notification rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)\
         \ or resource values for a resource.\n\n    Example payload to write a notification\
-        \ rule:\n\n    ```\n    { \"method\": \"PUT\", \"uri\": \"/5/0/1?lt=10&gt=60&pmax=120\"\
-        \ }\n    ```\n\n    Example payload to write a value to resource `/5/0/1`:\n\
-        \n    ```\n    { \"method\": \"PUT\", \"uri\": \"/5/0/1?k1=v1&k2=v2\", \"\
-        accept\": \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\"\
-        : \"dmFsdWUxCg==\" }\n    ```\n\n- Use the POST method to execute or create\
-        \ a resource on a LWM2M supporting device.\n\n    When you create a resource,\
-        \ `uri` must refer to an object, and `payload-b64` must be in LWM2M TLV format;\
-        \ for example:\n\n    ```\n    { \"method\": \"POST\", \"uri\": \"/123\",\
-        \ \"content-type\": \"application/vnd.oma.lwm2m+tlv\", \"payload-b64\": \"\
-        BwHFAnZhbHVl\" }\n    ```\n\n    Example payload to execute LWM2M resource\
-        \ `/123/1/1`:\n\n    ```\n    { \"method\": \"POST\", \"uri\": \"/123/1/1\"\
-        \ }\n    ```\n\nDevice Management sends responses through the currently configured\
-        \ notification channel as `AsyncIDResponse`.\n\nExample `AsyncIDResponse`\
-        \ delivered through the notification channel:\n- ```\n    { \"async-responses\"\
-        : [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"\
-        payload\": \"dmFsdWUxCg==\", \"ct\": \"text/plain\", \"max-age\": 600 } ]\
-        \ }\n    ```\n\n- ```\n    { \"async-responses\": [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\"\
-        , \"status\": 504, \"error\": \"TIMEOUT\" } ] }\n    ```\n\nIf it cannot reach\
-        \ the device at the time of the request, Device Management puts the requests\
-        \ in a queue.\n\n**Queueing behavior**\n\nIf Device Management does not reach\
-        \ the device, or the device fails to respond, the server queues the request\
-        \ and retries the delivery, for the period of time defined by `expiry-seconds`,\
-        \ the next time the device contacts the server.\n\nThe queue is limited to\
-        \ 20 requests.\n\nDevice Management delivers requests from the queue in the\
-        \ order of insertion, one at a time, and not concurrently.\n\nDelivery attempts\
-        \ follow protocol-specific retransmission logic. There can be multiple transmissions,\
-        \ depending on the protocol. For CoAP, the retransmissions have an exponential\
-        \ backoff of 2, 4, 8, 16, and up to 64 seconds, taking in total over two minutes.\n\
-        If the device does not respond within this two-minute period, the delivery\
-        \ fails, Device Management performs one retry and then puts the request back\
-        \ into the queue until the retry count reaches its limit.\n\nDevice Management\
-        \ attempts to redeliver the request when the device next contacts the server.\n\
-        \nWhen Device Management reaches the `retry` or `expiry-seconds` limit, the\
-        \ server discards the request and sends an error in `AsyncIDResponse`.\n\n\
-        For example:\n\n- Retries could be exhausted if the device periodically contacts\
-        \ the server and receives the request from the queue, but then fails to respond\
-        \ to the server.\n\n- The device may lose its network connectivity, and the\
-        \ requests in the queue may expire and get discarded before the device regains\
-        \ connectivity. When Device Management delivers the request to the device,\
-        \ the status code in `AsyncIDResponse` is *2xx* or *4xx*, based on the device's\
-        \ response. If Device Management could not deliver the request, the server\
-        \ generates a status code of *429* or *5xx*."
+        \ rule:\n\n```\n{ \"method\": \"PUT\", \"uri\": \"/5/0/1?lt=10&gt=60&pmax=120\"\
+        \ }\n```\n\n    Example payload to write a value to resource `/5/0/1`:\n\n\
+        ```\n    { \"method\": \"PUT\", \"uri\": \"/5/0/1?k1=v1&k2=v2\", \"accept\"\
+        : \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\": \"dmFsdWUxCg==\"\
+        \ }\n```\n\n- Use the POST method to execute or create a resource on a LWM2M\
+        \ supporting device.\n\n    When you create a resource, `uri` must refer to\
+        \ an object, and `payload-b64` must be in LWM2M TLV format; for example:\n\
+        \n    ```\n    { \"method\": \"POST\", \"uri\": \"/123\", \"content-type\"\
+        : \"application/vnd.oma.lwm2m+tlv\", \"payload-b64\": \"BwHFAnZhbHVl\" }\n\
+        \    ```\n\n    Example payload to execute LWM2M resource `/123/1/1`:\n\n\
+        \    ```\n{ \"method\": \"POST\", \"uri\": \"/123/1/1\" }\n    ```\n\nDevice\
+        \ Management sends responses through the currently configured notification\
+        \ channel as `AsyncIDResponse`.\n\nExample `AsyncIDResponse` delivered through\
+        \ the notification channel:\n- ```\n{ \"async-responses\": [ { \"id\": \"\
+        123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"payload\": \"dmFsdWUxCg==\"\
+        , \"ct\": \"text/plain\", \"max-age\": 600 } ] }\n    ```\n\n- ```\n{ \"async-responses\"\
+        : [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 504, \"\
+        error\": \"TIMEOUT\" } ] }\n```\n\nIf it cannot reach the device at the time\
+        \ of the request, Device Management puts the requests in a queue.\n\n**Queueing\
+        \ behavior**\n\nIf Device Management does not reach the device, or the device\
+        \ fails to respond, the server queues the request and retries the delivery,\
+        \ for the period of time defined by `expiry-seconds`, the next time the device\
+        \ contacts the server.\n\nThe queue is limited to 20 requests.\n\nDevice Management\
+        \ delivers requests from the queue in the order of insertion, one at a time,\
+        \ and not concurrently.\n\nDelivery attempts follow protocol-specific retransmission\
+        \ logic. There can be multiple transmissions, depending on the protocol. For\
+        \ CoAP, the retransmissions have an exponential backoff of 2, 4, 8, 16, and\
+        \ up to 64 seconds, taking in total over two minutes.\nIf the device does\
+        \ not respond within this two-minute period, the delivery fails, Device Management\
+        \ performs one retry and then puts the request back into the queue until the\
+        \ retry count reaches its limit.\n\nDevice Management attempts to redeliver\
+        \ the request when the device next contacts the server.\n\nWhen Device Management\
+        \ reaches the `retry` or `expiry-seconds` limit, the server discards the request\
+        \ and sends an error in `AsyncIDResponse`.\n\nFor example:\n\n- Retries could\
+        \ be exhausted if the device periodically contacts the server and receives\
+        \ the request from the queue, but then fails to respond to the server.\n\n\
+        - The device may lose its network connectivity, and the requests in the queue\
+        \ may expire and get discarded before the device regains connectivity. When\
+        \ Device Management delivers the request to the device, the status code in\
+        \ `AsyncIDResponse` is *2xx* or *4xx*, based on the device's response. If\
+        \ Device Management could not deliver the request, the server generates a\
+        \ status code of *429* or *5xx*."
       operationId: createAsyncRequest
       parameters:
       - description: The device ID generated by Device Management.
@@ -10506,7 +10506,7 @@ paths:
       x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/subscriptions:
     delete:
-      description: 'Remove pre-subscriptions.
+      description: 'Remove presubscriptions.
 
 
         **Example:**
@@ -10526,13 +10526,13 @@ paths:
           description: Unauthorized.
         403:
           description: 'Forbidden: the authorization token used is not an API key.'
-      summary: Remove pre-subscriptions.
+      summary: Remove presubscriptions.
       tags:
       - Device data - subscriptions
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     get:
-      description: 'Retrieve pre-subscription data. The server returns a JSON structure.
-        If there are no pre-subscribed resources, the server returns an empty array.
+      description: 'Retrieve presubscription data. The server returns a JSON structure.
+        If there are no presubscribed resources, the server returns an empty array.
 
 
         **Example:**
@@ -10556,21 +10556,21 @@ paths:
           description: Unauthorized.
         403:
           description: 'Forbidden: the authorization token used is not an API key.'
-      summary: View pre-subscriptions.
+      summary: View presubscriptions.
       tags:
       - Device data - subscriptions
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
     put:
       consumes:
       - application/json
-      description: "A pre-subscription is a set of rules you define to subscribe to\
+      description: "A presubscription is a set of rules you define to subscribe to\
         \ specific resources automatically when certain devices register or does a\
         \ register update.\nYou can set subscription rules based on the endpoint ID\
         \ (optionally having an `*` character at the end), endpoint type, a list of\
         \ resources, or expressions with an `*` character at the end.\nWhen a device\
         \ that meets the subscription rules registered, Device Management Connect\
         \ automatically sends subscription requests to the device for the resources\
-        \ you specify.\nTo remove the pre-subscription data, put an empty array as\
+        \ you specify.\nTo remove the presubscription data, put an empty array as\
         \ a rule.\nTo place dynamic observation rules for individual object instances\
         \ and resources and define when the device sends observations, set [notification\
         \ rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html).\n\
@@ -10592,14 +10592,14 @@ paths:
         \ resources of all endpoints.\n\n**Limits**:\n\n- The maximum length of the\
         \ endpoint name and endpoint type is 64 characters.\n- The maximum length\
         \ of the resource path is 128 characters.\n- You can subscribe to 256 separate\
-        \ resource paths.\n- The maximum number of pre-subscription entries is 1024.\n\
+        \ resource paths.\n- The maximum number of presubscription entries is 1024.\n\
         \n**Note**: To save bandwidth and avoid unnecessary traffic, use resource\
-        \ path patterns to limit the matching resources in the pre-subscription data.\
+        \ path patterns to limit the matching resources in the presubscription data.\
         \ This prevents your web application from receiving unwanted resource notifications.\
         \ See [Subscribe only to what you need](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)."
       operationId: updatePreSubscriptions
       parameters:
-      - description: Array of pre-subscriptions.
+      - description: Array of presubscriptions.
         in: body
         name: presubscription
         required: true
@@ -10616,7 +10616,7 @@ paths:
           description: Unauthorized.
         403:
           description: 'Forbidden: the authorization token used is not an API key.'
-      summary: Set pre-subscriptions.
+      summary: Set presubscriptions.
       tags:
       - Device data - subscriptions
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
@@ -10783,7 +10783,7 @@ paths:
 
         **Note:** Device Management removes all manual subscriptions during a full
         device registration, at which point applications must re-subscribe. To avoid
-        this, use `/subscriptions` to set a pre-subscription.
+        this, use `/subscriptions` to set a presubscription.
 
 
         You can subscribe to resources, objects and object instances.
