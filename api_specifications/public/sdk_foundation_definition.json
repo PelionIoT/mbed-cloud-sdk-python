@@ -19149,7 +19149,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Get update campaign metadata for a specific device.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a89900000655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get update campaign metadata for a specific device.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a89900000655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6 \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "campaign",
@@ -19473,7 +19473,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Get a list of events grouped by summary.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/skipped/event_types \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get a list of events grouped by summary.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/skipped/event_types \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -19825,7 +19825,7 @@
           "_key": "events"
         },
         {
-          "description": "Get a list of statistics for a campaign, including the number of devices reporting specific event codes.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56780120000789012/statistics \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get a list of statistics for a campaign, including the number of devices reporting specific event codes.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56780120000789012/statistics \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -20158,7 +20158,7 @@
           "_key": "list"
         },
         {
-          "description": "Get the count of successfully updated, skipped, and failed devices.\n<br>\n**Usage example:**\n```\ncurl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/fail \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get the count of successfully updated, skipped, and failed devices.\n<br>\n**Usage example:**\n```\ncurl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/fail \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -20517,7 +20517,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Get the count for a specific event type; for example, succeeded, failed, or skipped.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/success/event_types/sys_112 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get the count for a specific event type; for example, succeeded, failed, or skipped.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/success/event_types/sys_112 \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -21946,7 +21946,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Create a certificate issuer.\n<br>\nThe maximum number of issuers is limited to 20 per account.\n<br>\nYou can create multiple certificate issuers of the same type, provided they have different names. This allows verification of the certificate issuer configuration before activation.\n<br>\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\",\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\": null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\",\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\",\n      \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END CERTIFICATE-----\",\n        \"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\nProc-Type: 4,ENCRYPTED\\nDEK-Info: DES-EDE3-CBC,CCAC26A4133947CB\\n\\np3KJ4FI3wcz3I0MtiLkrznkjWFvprVmoNywySUGb5IqZViJZqCMEsyU9a9iDsSfP\\nZ07cg9GviV21WYIPSxZOQrpy1g1VWILzFnH+J6z8dSH4mxXh0PwdOzYgAeqkrIVM\\nJ7KRm6t222dZFjjXK3eEcLmBLGo29XwVJxKHx+l4++gU1LZmeHZR5M8fJ4jejUly\\n7sqzPlmRF0N3I4lwKVj+PfQTVz43QoCnpxOjuSEL4liBrc2agY2xH1O0PFyHimz9\\n3XM9HR/iuPHW0N2D+NPjXlWKacerupH9d4i9IYIagzB+HTgej8limdo03GmmxcZ6\\nYNa58n5yQSaqu0TPRU9DsrKeGjadHTlZQGdzfq1SWsROCnHLrXFKE2ozIG3+hxA5\\nujBF/QWpX5+inXUwDJhBxp8isHbPEnBEUUd6ZRzCTjvN0jaUti5B9yFhO2G6mbE8\\nCvhyzQK8oJqsjZXnlcpPf95LP+9XbcCDjLSIaWJstzXO9tPiv6+x1MVWmivtRHcC\\nSTzpx8jAGCiG6ejLqWB87ZXiZm7ujlCBheHSf5RHwNHhUvoP2JEYalDDRxjcDMSx\\n4uV42Np4yJlIQEDlGHcBlXoL7vEukFpuWgkYdpcZy/Ou9qz8mXrpLcu8C8MhLmSC\\nixGoR5iRhV7cxoHLyuCzj87eYEA73Xu238DQorSEEuiVFnLzQ2+PJMs4qoI14q/L\\notlBDz+Ko6DrU/EZROYmiqMkLKXR2sx9zNAJwPYRs6nSH08tZ3dwqzZbgtP3Wazi\\nhLWHt5/En7wQRA5a+/dDEHXSoLvvSQ9jvhclhWf+eCYuq2eH+g54oyJGRSY+8GV7\\nujhLxkzl/3OZdhZPWoz4U13KpbSTcNWu5Y7oGDoabw19UbvqmLf1PJkpDH/tQgzB\\nxYtsLBRUcofpYoeIiIxfAA4do5WilJc8xqrGhkE4WcHfY24HXAiOvsjbxV+BRprX\\n1jtgJpV/9nJESMap+8PxipGUFRGjB83/uwJaa6mLftEKflX8i4MZ+HnqraXERsqA\\nWRUcDHIWmFfpzIB3iNuxawVvPH8NdCSPmQ9qTb8Cozl0AuOK2E9S+ke8oiYQScWR\\nLdu+zhej7GjuQ9R+Ub+wPWqvOA5qLXejqnCexVScDUuN+z9JWM3N2FG1MwxhAzhP\\ndEfoQHoBn6uyOmrVGP6fosV3chqhPoec42KeOAm1xDvx692isaIy1jPgIyPxeqhm\\n2Tw4E+02R7dlP8Ljf7JzfLm4oKpWHWlcHeqg24x6lY/wXU1RBcWaTa0AQUwoGm2m\\nIQCPfIqOEv/QC2HpO7SVCYkl65KwR0oTd1AzYxdxEq3xHQbh69EL0FGZPVxVCPI+\\nhEAyifKy1/tm3l91Rf/kGpHY7nIQKCXH49tmFwix8gke2nZJmRgX7/zAdMOAKeKH\\nAaIl4nQtv14EbaasMgnn9qgaDYnWzaReEob2QlQ/WYlTor61+KFpGtcf9jAkgudT\\n2op+4CF7wT2+aTXdtkVWfmv++iB8GnlqZdxLvyG1cTYjjYHVFbMSWQnxzQqiE2ms\\nQgp+byjWCumpsWTMdTO+d9NkDOo80vDpaRxEgebmhJ0MbX+eFjBgVg==\\n-----END RSA PRIVATE KEY-----\",\n      \"passphrase\": \"helloworld\"\n  }\n}'\n```",
+          "description": "Create a certificate issuer.\n<br>\nThe maximum number of issuers is limited to 20 per account.\n<br>\nYou can create multiple certificate issuers of the same type, provided they have different names. This allows verification of the certificate issuer configuration before activation.\n<br>\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\",\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\": null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\",\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\",\n      \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END CERTIFICATE-----\",\n        \"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\nProc-Type: 4,ENCRYPTED\\nDEK-Info: DES-EDE3-CBC,CCAC26A4133947CB\\n\\np3KJ4FI3wcz3I0MtiLkrznkjWFvprVmoNywySUGb5IqZViJZqCMEsyU9a9iDsSfP\\nZ07cg9GviV21WYIPSxZOQrpy1g1VWILzFnH+J6z8dSH4mxXh0PwdOzYgAeqkrIVM\\nJ7KRm6t222dZFjjXK3eEcLmBLGo29XwVJxKHx+l4++gU1LZmeHZR5M8fJ4jejUly\\n7sqzPlmRF0N3I4lwKVj+PfQTVz43QoCnpxOjuSEL4liBrc2agY2xH1O0PFyHimz9\\n3XM9HR/iuPHW0N2D+NPjXlWKacerupH9d4i9IYIagzB+HTgej8limdo03GmmxcZ6\\nYNa58n5yQSaqu0TPRU9DsrKeGjadHTlZQGdzfq1SWsROCnHLrXFKE2ozIG3+hxA5\\nujBF/QWpX5+inXUwDJhBxp8isHbPEnBEUUd6ZRzCTjvN0jaUti5B9yFhO2G6mbE8\\nCvhyzQK8oJqsjZXnlcpPf95LP+9XbcCDjLSIaWJstzXO9tPiv6+x1MVWmivtRHcC\\nSTzpx8jAGCiG6ejLqWB87ZXiZm7ujlCBheHSf5RHwNHhUvoP2JEYalDDRxjcDMSx\\n4uV42Np4yJlIQEDlGHcBlXoL7vEukFpuWgkYdpcZy/Ou9qz8mXrpLcu8C8MhLmSC\\nixGoR5iRhV7cxoHLyuCzj87eYEA73Xu238DQorSEEuiVFnLzQ2+PJMs4qoI14q/L\\notlBDz+Ko6DrU/EZROYmiqMkLKXR2sx9zNAJwPYRs6nSH08tZ3dwqzZbgtP3Wazi\\nhLWHt5/En7wQRA5a+/dDEHXSoLvvSQ9jvhclhWf+eCYuq2eH+g54oyJGRSY+8GV7\\nujhLxkzl/3OZdhZPWoz4U13KpbSTcNWu5Y7oGDoabw19UbvqmLf1PJkpDH/tQgzB\\nxYtsLBRUcofpYoeIiIxfAA4do5WilJc8xqrGhkE4WcHfY24HXAiOvsjbxV+BRprX\\n1jtgJpV/9nJESMap+8PxipGUFRGjB83/uwJaa6mLftEKflX8i4MZ+HnqraXERsqA\\nWRUcDHIWmFfpzIB3iNuxawVvPH8NdCSPmQ9qTb8Cozl0AuOK2E9S+ke8oiYQScWR\\nLdu+zhej7GjuQ9R+Ub+wPWqvOA5qLXejqnCexVScDUuN+z9JWM3N2FG1MwxhAzhP\\ndEfoQHoBn6uyOmrVGP6fosV3chqhPoec42KeOAm1xDvx692isaIy1jPgIyPxeqhm\\n2Tw4E+02R7dlP8Ljf7JzfLm4oKpWHWlcHeqg24x6lY/wXU1RBcWaTa0AQUwoGm2m\\nIQCPfIqOEv/QC2HpO7SVCYkl65KwR0oTd1AzYxdxEq3xHQbh69EL0FGZPVxVCPI+\\nhEAyifKy1/tm3l91Rf/kGpHY7nIQKCXH49tmFwix8gke2nZJmRgX7/zAdMOAKeKH\\nAaIl4nQtv14EbaasMgnn9qgaDYnWzaReEob2QlQ/WYlTor61+KFpGtcf9jAkgudT\\n2op+4CF7wT2+aTXdtkVWfmv++iB8GnlqZdxLvyG1cTYjjYHVFbMSWQnxzQqiE2ms\\nQgp+byjWCumpsWTMdTO+d9NkDOo80vDpaRxEgebmhJ0MbX+eFjBgVg==\\n-----END RSA PRIVATE KEY-----\",\n      \"passphrase\": \"helloworld\"\n  }\n}'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -22462,7 +22462,7 @@
           "_key": "create"
         },
         {
-          "description": "Delete a certificate issuer by ID.\n<br>\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000 \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n```",
+          "description": "Delete a certificate issuer by ID.\n<br>\n**Example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000 \\\n-H 'Authorization: Bearer <api_key>' \\\n```",
           "field_renames": [],
           "fields": [
             {
@@ -23540,7 +23540,7 @@
           "_key": "read"
         },
         {
-          "description": "Update a certificate issuer.\n<br>\n**Example:**\n\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000 \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\",\n  \"name\": \"GlobalSign Issuer\"\n}'\n```",
+          "description": "Update a certificate issuer.\n<br>\n**Example:**\n\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000 \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\",\n  \"name\": \"GlobalSign Issuer\"\n}'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -24114,7 +24114,7 @@
           "_key": "update"
         },
         {
-          "description": "Validates the certificate issuer by sending a signing request for a test certificate. This should be done before the configuration is made active.\n<br>\n**Note:**\nThe API requests the 3rd party CA to sign a test certificate.\nFor some 3rd party CAs, this operation may use the account quota.\n<br>\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n```",
+          "description": "Validates the certificate issuer by sending a signing request for a test certificate. This should be done before the configuration is made active.\n<br>\n**Note:**\nThe API requests the 3rd party CA to sign a test certificate.\nFor some 3rd party CAs, this operation may use the account quota.\n<br>\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n```",
           "field_renames": [],
           "fields": [
             {
@@ -24597,7 +24597,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Configure the certificate issuer to use when creating device custom certificates.\n<br>\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"reference\": \"customer.dlms\",\n  \"certificate_issuer_id\": \"01621a36719d507b9d48a91b00000000\"\n}'\n```",
+          "description": "Configure the certificate issuer to use when creating device custom certificates.\n<br>\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"reference\": \"customer.dlms\",\n  \"certificate_issuer_id\": \"01621a36719d507b9d48a91b00000000\"\n}'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -25604,7 +25604,7 @@
           "_key": "get_default"
         },
         {
-          "description": "Get certificate issuer configurations, optionally filtered by reference.\n<br>\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n```\n<br>\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n```\n**Note:** This endpoint does not implement pagination, and therefore ignores list control parameters such as `limit` or `after`.",
+          "description": "Get certificate issuer configurations, optionally filtered by reference.\n<br>\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n```\n<br>\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n```\n**Note:** This endpoint does not implement pagination, and therefore ignores list control parameters such as `limit` or `after`.",
           "field_renames": [],
           "fields": [
             {
@@ -43490,7 +43490,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Create a firmware image.\n<BR/> **Note:** Only use this API for images smaller than 100 MB. For larger images, [upload in chunks](https://www.pelion.com/docs/device-management/current/updating-firmware/uploading-a-large-firmware-image.html).\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images \\\n-H 'Authorization: <valid access token>' \\\n-H 'Content-Type: multipart/form-data' \\\n-F 'datafile=@myimage.bin;type=application/octet-stream'\n-F 'description=bla bla' \\\n-F 'name=My Linux Image'\n```\n",
+          "description": "Create a firmware image.\n<BR/> **Note:** Only use this API for images smaller than 100 MB. For larger images, [upload in chunks](https://www.pelion.com/docs/device-management/current/updating-firmware/uploading-a-large-firmware-image.html).\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'Content-Type: multipart/form-data' \\\n-F 'datafile=@myimage.bin;type=application/octet-stream'\n-F 'description=bla bla' \\\n-F 'name=My Linux Image'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -43683,7 +43683,7 @@
           "_key": "create"
         },
         {
-          "description": "Delete a firmware image.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-images/11234567f9012ab56790120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Delete a firmware image.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-images/11234567f9012ab56790120000789012 \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -43752,7 +43752,7 @@
           "_key": "delete"
         },
         {
-          "description": "List all firmware images.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "List all firmware images.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -44089,7 +44089,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve a firmware image.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images/1123456f9012ab567890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Retrieve a firmware image.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images/1123456f9012ab567890120000789012 \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -44350,7 +44350,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Upload a firmware manifest. The API enforces a maximum manifest size of 2KB.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \\\n-H 'Authorization: <valid access token>' \\\n-H 'Content-Type: multipart/form-data' \\\n-F 'datafile=@myimage.bin;type=application/octet-stream' \\\n-F 'description=bla bla' \\\n-F 'key_table=@myKeyTable.proto;type=' \\\n-F 'name=My Manifest'\n```\n",
+          "description": "Upload a firmware manifest. The API enforces a maximum manifest size of 2KB.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'Content-Type: multipart/form-data' \\\n-F 'datafile=@myimage.bin;type=application/octet-stream' \\\n-F 'description=bla bla' \\\n-F 'key_table=@myKeyTable.proto;type=' \\\n-F 'name=My Manifest'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -44657,7 +44657,7 @@
           "_key": "create"
         },
         {
-          "description": "Delete a firmware manifest.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/11234567f9012ab56780120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Delete a firmware manifest.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/11234567f9012ab56780120000789012 \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -44730,7 +44730,7 @@
           "_key": "delete"
         },
         {
-          "description": "List all firmware manifests.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "List all firmware manifests.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -45149,7 +45149,7 @@
           "_key": "list"
         },
         {
-          "description": "Retrieve a firmware manifest.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/1123467f9012ab567890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Retrieve a firmware manifest.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/1123467f9012ab567890120000789012 \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [
             {
               "api_fieldname": "datafile",
@@ -90748,7 +90748,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Archive a campaign.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc649000000000001001000b8/archive \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Archive a campaign.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc649000000000001001000b8/archive \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -90829,7 +90829,7 @@
           "_key": "archive"
         },
         {
-          "description": "Create an update campaign.\n\nTo include a filter for targeted devices, refer to the filter using `<filter_id>` in the message body.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\\n-H 'Authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"campaign_strategy\": \"one-shot\",\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"<filter_id>\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"56780000000000a5b70000000000bd98\"\n}'\n```\n",
+          "description": "Create an update campaign.\n\nTo include a filter for targeted devices, refer to the filter using `<filter_id>` in the message body.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\n-d '{\n  \"campaign_strategy\": \"one-shot\",\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"<filter_id>\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"56780000000000a5b70000000000bd98\"\n}'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -91251,7 +91251,7 @@
           "_key": "create"
         },
         {
-          "description": "Delete an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123457f9012ab567890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Delete an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123457f9012ab567890120000789012 \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -91401,7 +91401,7 @@
           "_key": "delete"
         },
         {
-          "description": "Get metadata for all devices in a campaign.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56790120000789012/campaign-device-metadata \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get metadata for all devices in a campaign.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56790120000789012/campaign-device-metadata \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -91728,7 +91728,7 @@
           "_key": "device_metadata"
         },
         {
-          "description": "Get update campaigns for devices specified by a filter.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get update campaigns for devices specified by a filter.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -92224,7 +92224,7 @@
           "_key": "list"
         },
         {
-          "description": "Get an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56890120000789012 \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Get an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56890120000789012 \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -92561,7 +92561,7 @@
           "_key": "read"
         },
         {
-          "description": "Start a campaign.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8900002e655cd94fa8/start \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Start a campaign.\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8900002e655cd94fa8/start \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -92642,7 +92642,7 @@
           "_key": "start"
         },
         {
-          "description": "Stop a campaign. Stopping is a process that requires the campaign go through several [phases](https://www.pelion.com/docs/device-management/current/updating-firmware/device-management-update-using-the-apis.html).\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop \\\n-H 'Authorization: <valid access token>'\n```\n",
+          "description": "Stop a campaign. Stopping is a process that requires the campaign go through several [phases](https://www.pelion.com/docs/device-management/current/updating-firmware/device-management-update-using-the-apis.html).\n<br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {
@@ -92723,7 +92723,7 @@
           "_key": "stop"
         },
         {
-          "description": "Modify an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123007f9012ab567890120000789012 \\\n-H 'Authorization: <valid access token>' \\\nd '{\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"123400000000000000000000000ae45\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\",\n}'\n```\n",
+          "description": "Modify an update campaign.\n<br>\n**Usage example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123007f9012ab567890120000789012 \\\n-H 'Authorization: Bearer <api_key>' \\\nd '{\n  \"description\": \"Campaign is for ...\",\n  \"device_filter\": \"123400000000000000000000000ae45\",\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\",\n}'\n```\n",
           "field_renames": [],
           "fields": [
             {

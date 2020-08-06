@@ -9146,7 +9146,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/downloads/fcu/factory_configurator_utility.zip
         \
 
-        -H ''Authorization: Bearer <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -9192,7 +9192,7 @@ paths:
 
         curl -X GET https://api.us-east-1.mbedcloud.com/downloads/fcu/inf \
 
-        -H ''Authorization: Bearer <valid access token>'' o
+        -H ''Authorization: Bearer <api_key>'' o
 
         ```
 
@@ -9240,7 +9240,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/downloads/fcu/release_notes
         \
 
-        -H ''Authorization: Bearer <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -21810,7 +21810,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations
         \
 
-        -H ''Authorization: Bearer <valid_access_token>'' \
+        -H ''Authorization: Bearer <api_key>'' \
 
         -H ''content-type: application/json;charset=UTF-8'' \
 
@@ -21823,7 +21823,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms
         \
 
-        -H ''Authorization: Bearer <valid_access_token>'' \
+        -H ''Authorization: Bearer <api_key>'' \
 
         -H ''content-type: application/json;charset=UTF-8'' \
 
@@ -21886,10 +21886,9 @@ paths:
     post:
       description: "Configure the certificate issuer to use when creating device custom\
         \ certificates.\n<br>\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations\
-        \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
-        \ application/json;charset=UTF-8' \\\n-d '{\n  \"reference\": \"customer.dlms\"\
-        ,\n  \"certificate_issuer_id\": \"01621a36719d507b9d48a91b00000000\"\n}'\n\
-        ```"
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-d '{\n  \"reference\": \"customer.dlms\",\n  \"certificate_issuer_id\"\
+        : \"01621a36719d507b9d48a91b00000000\"\n}'\n```"
       operationId: createCertificateIssuerConfig
       parameters:
       - description: Certificate issuer configuration request.
@@ -21955,9 +21954,9 @@ paths:
     put:
       description: "Configure the certificate issuer used when creating device certificates\n\
         for LwM2M.\n<br>\n**Example:**\n\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations/lwm2m\
-        \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
-        \ application/json;charset=UTF-8' \\\n-d '{\n  \"certificate_issuer_id\":\
-        \ \"01621a36719d507b9d48a91b00000000\"\n}'\n```"
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-d '{\n  \"certificate_issuer_id\": \"01621a36719d507b9d48a91b00000000\"\
+        \n}'\n```"
       operationId: updateCertificateIssuerConfig
       parameters:
       - description: Certificate Issuer Configuration Request
@@ -22142,12 +22141,12 @@ paths:
         \ issuers of the same type, provided they have different names. This allows\
         \ verification of the certificate issuer configuration before activation.\n\
         <br>\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers\
-        \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
-        \ application/json;charset=UTF-8' \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\"\
-        ,\n  \"name\": \"GS Issuer\",\n  \"description\": \"Sample GlobalSign certificate\
-        \ issuer\",\n  \"issuer_attributes\": null,\n  \"issuer_credentials\": {\n\
-        \      \"api_key\": \"e510e289e6cd8947\",\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\"\
-        ,\n      \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END\
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\"\
+        ,\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\"\
+        : null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\"\
+        ,\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\",\n \
+        \     \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END\
         \ CERTIFICATE-----\",\n        \"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\\
         nProc-Type: 4,ENCRYPTED\\nDEK-Info: DES-EDE3-CBC,CCAC26A4133947CB\\n\\np3KJ4FI3wcz3I0MtiLkrznkjWFvprVmoNywySUGb5IqZViJZqCMEsyU9a9iDsSfP\\\
         nZ07cg9GviV21WYIPSxZOQrpy1g1VWILzFnH+J6z8dSH4mxXh0PwdOzYgAeqkrIVM\\nJ7KRm6t222dZFjjXK3eEcLmBLGo29XwVJxKHx+l4++gU1LZmeHZR5M8fJ4jejUly\\\
@@ -22215,7 +22214,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000
         \
 
-        -H ''Authorization: Bearer <valid_access_token>'' \
+        -H ''Authorization: Bearer <api_key>'' \
 
         ```'
       operationId: deleteCertificateIssuer
@@ -22287,10 +22286,9 @@ paths:
     put:
       description: "Update a certificate issuer.\n<br>\n**Example:**\n\n```\ncurl\
         \ -X PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000\
-        \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
-        \ application/json;charset=UTF-8' \\\n-d '{\n  \"description\": \"Sample GlobalSign\
-        \ certificate issuer - updated.\",\n  \"name\": \"GlobalSign Issuer\"\n}'\n\
-        ```"
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\"\
+        ,\n  \"name\": \"GlobalSign Issuer\"\n}'\n```"
       operationId: updateCertificateIssuer
       parameters:
       - description: Certificate issuer ID.
@@ -22361,7 +22359,7 @@ paths:
         curl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify
         \
 
-        -H ''Authorization: Bearer <valid_access_token>'' \
+        -H ''Authorization: Bearer <api_key>'' \
 
         -H ''content-type: application/json;charset=UTF-8'' \
 
@@ -26562,7 +26560,7 @@ paths:
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -26839,7 +26837,7 @@ paths:
 
         curl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images \
 
-        -H ''Authorization: <valid access token>'' \
+        -H ''Authorization: Bearer <api_key>'' \
 
         -H ''Content-Type: multipart/form-data'' \
 
@@ -26905,7 +26903,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -27137,7 +27135,7 @@ paths:
     post:
       description: "Create a new upload job\n<br>\n**Usage example:**\n```\ncurl -X\
         \ POST https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs\
-        \ \\\n-H 'Authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
         \ \\\n-d '{\n  \"name\": \"New Linux update\",\n  \"description\": \"New Linux\
         \ update for my devices\"\n}'\n```\n"
       operationId: Upload_Job_Create
@@ -27189,7 +27187,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -27233,7 +27231,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -27266,8 +27264,8 @@ paths:
     put:
       description: "Update an upload job.\n<br>\n**Usage example:**\n```\ncurl -X\
         \ PUT https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012\
-        \ \\\n-H 'Authorization: <valid access token>' \\\n-d '{\n  \"name\": \"New\
-        \ Linux update\",\n  \"description\": \"New Linux update for my class XX devices\"\
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-d '{\n  \"name\": \"New Linux\
+        \ update\",\n  \"description\": \"New Linux update for my class XX devices\"\
         \n}'\n```\n"
       operationId: Upload_Job_Update
       parameters:
@@ -27320,7 +27318,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012/chunks
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -27540,7 +27538,7 @@ paths:
         \ chunk.\n<BR/> **Note:** Chunk size must be between 5MB and 100MB, the last\
         \ chunk can be less than 5MB; the maximum number of chunks is limited to 10,000.\n\
         <br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012/chunks\
-        \ \\\n-H 'Authorization: <valid access token>' \\\n-H 'Content-MD5: Q2h1Y2sgSW51ZwDIAXR5IQ=='\
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'Content-MD5: Q2h1Y2sgSW51ZwDIAXR5IQ=='\
         \ \\\n-H 'Content-Type: binary/octet-stream' \\\n-H 'Content-Length: 999'\
         \ \\\n-d '{\n  \"IGh0dHBzOi8vYXBpLnVzLWVhc3QtMS5tYmVkY2xvdWQuY29tLy92My9maXJtd2FyZS1pbWFnZXMvdXBsb2FkLWpvYnMve3VwbG9hZF9qb2JfaWR9W5rcw==\"\
         \n}'\n```\n"
@@ -27610,7 +27608,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012/chunks/12345678901234567890123456789012
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -27659,7 +27657,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-images/11234567f9012ab56790120000789012
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -27697,7 +27695,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-images/1123456f9012ab567890120000789012
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -27737,7 +27735,7 @@ paths:
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -28036,7 +28034,7 @@ paths:
 
         curl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \
 
-        -H ''Authorization: <valid access token>'' \
+        -H ''Authorization: Bearer <api_key>'' \
 
         -H ''Content-Type: multipart/form-data'' \
 
@@ -28110,7 +28108,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/11234567f9012ab56780120000789012
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -28148,7 +28146,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/1123467f9012ab567890120000789012
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -28616,7 +28614,7 @@ paths:
         ```
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/manufacturing/statistics?start=2020-06-23T21:00:00.000Z&end=2020-07-01T20:59:59.999Z
-        --header ''Authorization: Bearer <valid access token>''
+        --header ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -30854,7 +30852,7 @@ paths:
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31196,7 +31194,7 @@ paths:
       description: "Create an update campaign.\n\nTo include a filter for targeted\
         \ devices, refer to the filter using `<filter_id>` in the message body.\n\
         <br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns\
-        \ \\\n-H 'Authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
         \ \\\n-d '{\n  \"campaign_strategy\": \"one-shot\",\n  \"description\": \"\
         Campaign is for ...\",\n  \"device_filter\": \"<filter_id>\",\n  \"name\"\
         : \"campaign\",\n  \"root_manifest_id\": \"56780000000000a5b70000000000bd98\"\
@@ -31238,7 +31236,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123457f9012ab567890120000789012
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31284,7 +31282,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56890120000789012
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31318,8 +31316,8 @@ paths:
     put:
       description: "Modify an update campaign.\n<br>\n**Usage example:**\n```\ncurl\
         \ -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123007f9012ab567890120000789012\
-        \ \\\n-H 'Authorization: <valid access token>' \\\nd '{\n  \"description\"\
-        : \"Campaign is for ...\",\n  \"device_filter\": \"123400000000000000000000000ae45\"\
+        \ \\\n-H 'Authorization: Bearer <api_key>' \\\nd '{\n  \"description\": \"\
+        Campaign is for ...\",\n  \"device_filter\": \"123400000000000000000000000ae45\"\
         ,\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\"\
         ,\n}'\n```\n"
       operationId: Update_Campaign_update
@@ -31370,7 +31368,7 @@ paths:
         curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc649000000000001001000b8/archive
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31411,7 +31409,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56790120000789012/campaign-device-metadata
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31469,7 +31467,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a89900000655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31517,7 +31515,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123467f9012ab567890120000789012/metrics
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31561,7 +31559,7 @@ paths:
         curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8900002e655cd94fa8/start
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31603,7 +31601,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56780120000789012/statistics
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31646,7 +31644,7 @@ paths:
         curl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/fail
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31699,7 +31697,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/skipped/event_types
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31749,7 +31747,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/success/event_types/sys_112
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
@@ -31838,7 +31836,7 @@ paths:
         curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop
         \
 
-        -H ''Authorization: <valid access token>''
+        -H ''Authorization: Bearer <api_key>''
 
         ```
 
