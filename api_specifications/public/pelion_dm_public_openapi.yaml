@@ -6233,10 +6233,7 @@ definitions:
   RegisterWebsocketChannel:
     properties:
       serialization:
-        description: Serialization configuration for a channel
-        schema:
-          $ref: '#/definitions/SerializationConfigData'
-        type: object
+        $ref: '#/definitions/SerializationConfigData'
     type: object
   RegistrationDeletesCounter:
     description: The number of deregistration requests received from devices.
@@ -6572,13 +6569,10 @@ definitions:
     minimum: 0
     type: integer
   SerializationConfigData:
+    description: Serialization configuration for a channel.
     properties:
       cfg:
-        description: Serialization configuration object according to configuration
-          type.
-        schema:
-          $ref: '#/definitions/SerializationConfigObjectV2'
-        type: object
+        $ref: '#/definitions/SerializationConfigObjectV2'
       max_chunk_size:
         description: Maximum number of messages in NotificationMessage container delivered
           in one request. Default is 10000. Using a very low value for high troughput
@@ -6602,6 +6596,7 @@ definitions:
     - type
     type: object
   SerializationConfigObjectV2:
+    description: Serialization configuration object according to configuration type.
     properties:
       deregistrations_as_object:
         default: false
@@ -8587,10 +8582,7 @@ definitions:
         example: '{"authorization" : "f4b93d6e-4652-4874-82e4-41a3ced0cd56"}'
         type: object
       serialization:
-        description: Serialization configuration for a channel.
-        schema:
-          $ref: '#/definitions/SerializationConfigData'
-        type: object
+        $ref: '#/definitions/SerializationConfigData'
       url:
         description: The URL to which the notifications are sent. We recommend that
           you serve this URL over HTTPS.
@@ -8608,10 +8600,7 @@ definitions:
         example: 0
         type: integer
       serialization:
-        description: Serialization configuration for a channel.
-        schema:
-          $ref: '#/definitions/SerializationConfigData'
-        type: object
+        $ref: '#/definitions/SerializationConfigData'
       status:
         default: disconnected
         description: Channel status is 'connected' when the channel has an active
@@ -10337,6 +10326,11 @@ paths:
         exists.
 
 
+        **Note**: The current version does not yet have the capability to determine
+        the channel status and will always return status ''unknown'' and queue size
+        ''-1''.
+
+
         **Example:**
 
 
@@ -10378,15 +10372,17 @@ paths:
         \ be active at a time. If you register a new websocket channel while another\
         \ one is active, it replaces the previously active one. If another type of\
         \ channel is already present, you need to delete it before registering a websocket\
-        \ channel.\n\n**Expiration of a websocket:**\n\nA websocket channel is expired\
-        \ if the channel does not have an opened websocket connection for a 24-hour\
-        \ period. Channel expiration means the channel is deleted and any undelivered\
-        \ notifications stored in its internal queue is removed. As long as the channel\
-        \ has an opened websocket connection or time between successive websocket\
-        \ connections is less than 24 hours,\nthe channel is considered active, notifications\
-        \ are stored in its internal queue and delivered when a websocket connection\
-        \ is active. A channel can be also deleted explicitly with a DELETE call.\n\
-        \nMore about [notification sending logic](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html#notification-sending-logic).\n\
+        \ channel.\n\n**Note**: The current version does not yet have the capability\
+        \ to determine the channel status and will always return status 'unknown'\
+        \ and queue size '-1'.\n\n**Expiration of a websocket:**\n\nA websocket channel\
+        \ is expired if the channel does not have an opened websocket connection for\
+        \ a 24-hour period. Channel expiration means the channel is deleted and any\
+        \ undelivered notifications stored in its internal queue is removed. As long\
+        \ as the channel has an opened websocket connection or time between successive\
+        \ websocket connections is less than 24 hours,\nthe channel is considered\
+        \ active, notifications are stored in its internal queue and delivered when\
+        \ a websocket connection is active. A channel can be also deleted explicitly\
+        \ with a DELETE call.\n\nMore about [notification sending logic](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html#notification-sending-logic).\n\
         \n**Configuration options:**\n\nThe event notification channel provides configurations\
         \ options defined in [Serialization config](#SerializationConfigObjectV2)\n\
         \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
