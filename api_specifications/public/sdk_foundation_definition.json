@@ -20896,7 +20896,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Get certificate enrollments list, optionally filtered.\n\n**Examples:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments \\\n-H 'Authorization: Bearer <api_key>'\n```\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000 \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Get certificate enrollments list, optionally filtered.\n\n**Examples:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments \\\n-H 'Authorization: Bearer <access_key>'\n```\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000 \\\n-H 'Authorization: Bearer <access_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -21410,7 +21410,7 @@
           "_key": "list"
         },
         {
-          "description": "Get a certificate enrollment by ID.\n\n**Example:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000 \\\n-H 'Authorization: Bearer <api_key>'\n```",
+          "description": "Get a certificate enrollment by ID.\n\n**Example:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000 \\\n-H 'Authorization: Bearer <access_key>'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -30031,7 +30031,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Create a developer certificate (a certificate that can be flashed to multiple devices to connect to the bootstrap server).\n\n**Note:** The number of developer certificates allowed per account is limited. Please see [Setting up a Certificate Authority](https://www.pelion.com/docs/device-management/current/provisioning-process/integrating-with-a-third-party-ca.html).\n\n**Example:**\n```\ncurl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates \\\n-H \"Authorization: Bearer <api_key>\" \\\n-H \"content-type: application/json\" \\\n-d { \"name\": \"<certificate_name>\", \"description\": \"<certificate_description>\" }\n```",
+          "description": "Create a developer certificate (a certificate that can be flashed to multiple devices to connect to the bootstrap server).\n\n**Note:** The number of developer certificates allowed per account is limited. Please see [Setting up a Certificate Authority](https://www.pelion.com/docs/device-management/current/provisioning-process/integrating-with-a-third-party-ca.html).\n\n**Example:**\n```\ncurl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates \\\n-H \"Authorization: Bearer <access_key>\" \\\n-H \"content-type: application/json\" \\\n-d { \"name\": \"<certificate_name>\", \"description\": \"<certificate_description>\" }\n```",
           "field_renames": [
             {
               "api_fieldname": "developer_certificate",
@@ -31314,7 +31314,7 @@
           "_key": "get_trusted_certificate_info"
         },
         {
-          "description": "Return an existing developer certificate (a certificate that can be flashed to multiple devices to connect to bootstrap server).\n\n**Example:**\n```\ncurl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID \\\n-H \"Authorization: Bearer <api_key>\"\n```",
+          "description": "Return an existing developer certificate (a certificate that can be flashed to multiple devices to connect to bootstrap server).\n\n**Example:**\n```\ncurl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID \\\n-H \"Authorization: Bearer <access_key>\"\n```",
           "field_renames": [
             {
               "api_fieldname": "developer_certificate",
@@ -34414,7 +34414,7 @@
           "_key": "remove_from_group"
         },
         {
-          "description": "Request a certificate renewal.\n\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-length: 0'\n```",
+          "description": "Request a certificate renewal.\n\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew \\\n-H 'Authorization: Bearer <access_key>' \\\n-H 'content-length: 0'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -36000,7 +36000,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "When the device connects to the bootstrap server and provides the enrollment ID, it is assigned to your account.\n<br>\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments \\\n-d '{\"enrollment_identity\": \"A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5\"}'\n```",
+          "description": "When the device connects to the bootstrap server and provides the enrollment ID, it is assigned to your account.\n<br>\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <access_key>' \\\n-H 'content-type: application/json' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments \\\n-d '{\"enrollment_identity\": \"A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5\"}'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -36370,7 +36370,7 @@
           "_key": "create"
         },
         {
-          "description": "To free a device from your account, delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and factory reset the device. For more information, see [Transferring ownership using First-to-Claim](https://www.pelion.com/docs/device-management/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html).\n<br>\n**Example:**\n```\ncurl -X DELETE \\\n-H 'Authorization: Bearer <api_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}\n```",
+          "description": "To free a device from your account, delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and factory reset the device. For more information, see [Transferring ownership using First-to-Claim](https://www.pelion.com/docs/device-management/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html).\n<br>\n**Example:**\n```\ncurl -X DELETE \\\n-H 'Authorization: Bearer <access_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}\n```",
           "field_renames": [],
           "fields": [
             {
@@ -36564,7 +36564,7 @@
           "_key": "delete"
         },
         {
-          "description": "Provides a list of pending and claimed enrollments.\n\n**Example:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <api_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments\n```\nWith query parameters:\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <api_key>' \\\n'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10'\n```",
+          "description": "Provides a list of pending and claimed enrollments.\n\n**Example:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <access_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments\n```\nWith query parameters:\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <access_key>' \\\n'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -36975,7 +36975,7 @@
           "_key": "list"
         },
         {
-          "description": "Check detailed enrollment info, for example, date of claim or expiration date.\n\n**Example:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <api_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}\n```",
+          "description": "Check detailed enrollment info, for example, date of claim or expiration date.\n\n**Example:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <access_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}\n```",
           "field_renames": [],
           "fields": [
             {
@@ -37354,7 +37354,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "With bulk upload, you can upload a `CSV` file containing a number of enrollment IDs.\n\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <api_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads\n\n```\n  **To ensure your CSV file is valid:**\n  1. The first line of the file (header) is ignored.\n  1. Each line can contain comma-separated values, where the first value is the Enrollment ID. Everything after the first comma is ignored.\n  1. Valid enrollments begin with A followed by a - and 95 characters (examples below).\n  1. One enrollment ID per line. Empty lines are ignored.\n  1. Trailing comma at the end of the line is optional.\n  1. Lines are terminated with either a line feed \\n, a carriage return \\r, or both \\r\\n.\n  1. Leading and trailing whitespace characters (Unicode U+0000 - U+0020) are removed from the identity before validation.\n  1. Empty identities are ignored.\n  1. Valid enrollment identities may be enclosed within quotation marks. Whitespace inside quotation marks is not trimmed and will cause validation to fail. Empty quotation marks are also invalid.\n  1. Use UTF-8 encoding.\n\n\n**A valid enrollment file:**\n```\n\"Examples of valid identites, notes\"\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\",\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\"\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is ignored.\n A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12       , Whitespace is trimmed before validation.\n  \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12\"       , Whitespace around quotation marks is also trimmed.\n\n```\n\n**A file containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", First line is ignored.\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Invalid version identifier.\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too-short identity.\n\"\", Empty quotation marks are an invalid identity\n\" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 \", Whitespace inside quotation marks is not trimmed, causing an error.\n\n```\n\n**An empty file:**\n```\n\"Examples of blank lines that are ignored\"\n\n,,\n, This is also considered a blank line.\n```",
+          "description": "With bulk upload, you can upload a `CSV` file containing a number of enrollment IDs.\n\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <access_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads\n\n```\n  **To ensure your CSV file is valid:**\n  1. The first line of the file (header) is ignored.\n  1. Each line can contain comma-separated values, where the first value is the Enrollment ID. Everything after the first comma is ignored.\n  1. Valid enrollments begin with A followed by a - and 95 characters (examples below).\n  1. One enrollment ID per line. Empty lines are ignored.\n  1. Trailing comma at the end of the line is optional.\n  1. Lines are terminated with either a line feed \\n, a carriage return \\r, or both \\r\\n.\n  1. Leading and trailing whitespace characters (Unicode U+0000 - U+0020) are removed from the identity before validation.\n  1. Empty identities are ignored.\n  1. Valid enrollment identities may be enclosed within quotation marks. Whitespace inside quotation marks is not trimmed and will cause validation to fail. Empty quotation marks are also invalid.\n  1. Use UTF-8 encoding.\n\n\n**A valid enrollment file:**\n```\n\"Examples of valid identites, notes\"\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\",\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\"\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is ignored.\n A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12       , Whitespace is trimmed before validation.\n  \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12\"       , Whitespace around quotation marks is also trimmed.\n\n```\n\n**A file containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", First line is ignored.\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Invalid version identifier.\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too-short identity.\n\"\", Empty quotation marks are an invalid identity\n\" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 \", Whitespace inside quotation marks is not trimmed, causing an error.\n\n```\n\n**An empty file:**\n```\n\"Examples of blank lines that are ignored\"\n\n,,\n, This is also considered a blank line.\n```",
           "field_renames": [],
           "fields": [
             {
@@ -37756,7 +37756,7 @@
           "_key": "download_full_report_file"
         },
         {
-          "description": "Provides information on bulk upload for the given ID, for example, bulk status and number of processed enrollment identities. Provides links to bulk upload reports as well.\n\n**Report file format:**\nThe report files have a header line, and the values are separated by commas. Delimit lines with a line break (CRLF). Make sure the report file is compliant with IETF Informal CSV common format [RFC 4180](https://tools.ietf.org/html/rfc4180).\n\nAn example of a full report file:\n```\n\"entity__id\",\"entity__created_at\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n```\nAn example of an error report file:\n```\n\"entity__id\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n```\n**Example:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <api_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id}\n```",
+          "description": "Provides information on bulk upload for the given ID, for example, bulk status and number of processed enrollment identities. Provides links to bulk upload reports as well.\n\n**Report file format:**\nThe report files have a header line, and the values are separated by commas. Delimit lines with a line break (CRLF). Make sure the report file is compliant with IETF Informal CSV common format [RFC 4180](https://tools.ietf.org/html/rfc4180).\n\nAn example of a full report file:\n```\n\"entity__id\",\"entity__created_at\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n```\nAn example of an error report file:\n```\n\"entity__id\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n```\n**Example:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <access_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id}\n```",
           "field_renames": [],
           "fields": [
             {
@@ -38276,7 +38276,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to delete.\n\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <api_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes\n\n```\n**To ensure your CSV file is valid:**\n1. The first line of the file (header) is ignored.\n1. Each line can contain comma-separated values, where the first value is the Enrollment ID. Everything after the first comma is ignored.\n1. Valid enrollments begin with A followed by a - and 95 characters (examples below).\n1. One enrollment ID per line. Empty lines are ignored.\n1. Trailing comma at the end of the line is optional.\n1. Lines are terminated with either a line feed \\n, a carriage return \\r, or both \\r\\n.\n1. Leading and trailing whitespace characters (Unicode U+0000 - U+0020) are removed from the identity before validation.\n1. Empty identities are ignored.\n1. Valid enrollment identities may be enclosed within quotation marks. Whitespace inside quotation marks is not trimmed and will cause validation to fail. Empty quotation marks are also invalid.\n1. Use UTF-8 encoding.\n\n**A valid enrollment file:**\n```\n\"Examples of valid identites, notes\"\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\",\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\"\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is ignored,\n A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12       , Whitespace is trimmed before validation.\n  \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12\"       , Whitespace around quotation marks is also trimmed.\n\n```\n\n**A file containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", First line is ignored.\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Invalid version identifier.\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23, Too-short identity.\n\"\", Empty quotation marks are an invalid identity.\n\" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 \", Whitespace inside quotation marks is not trimmed, causing an error.\n\n```\n\n**An empty file:**\n```\n\"Examples of blank lines that are ignored.\"\n\n,,\n, This is also considered to a blank line.\n```",
+          "description": "With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to delete.\n\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <access_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes\n\n```\n**To ensure your CSV file is valid:**\n1. The first line of the file (header) is ignored.\n1. Each line can contain comma-separated values, where the first value is the Enrollment ID. Everything after the first comma is ignored.\n1. Valid enrollments begin with A followed by a - and 95 characters (examples below).\n1. One enrollment ID per line. Empty lines are ignored.\n1. Trailing comma at the end of the line is optional.\n1. Lines are terminated with either a line feed \\n, a carriage return \\r, or both \\r\\n.\n1. Leading and trailing whitespace characters (Unicode U+0000 - U+0020) are removed from the identity before validation.\n1. Empty identities are ignored.\n1. Valid enrollment identities may be enclosed within quotation marks. Whitespace inside quotation marks is not trimmed and will cause validation to fail. Empty quotation marks are also invalid.\n1. Use UTF-8 encoding.\n\n**A valid enrollment file:**\n```\n\"Examples of valid identites, notes\"\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\",\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\"\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is ignored,\n A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12       , Whitespace is trimmed before validation.\n  \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12\"       , Whitespace around quotation marks is also trimmed.\n\n```\n\n**A file containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", First line is ignored.\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Invalid version identifier.\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23, Too-short identity.\n\"\", Empty quotation marks are an invalid identity.\n\" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 \", Whitespace inside quotation marks is not trimmed, causing an error.\n\n```\n\n**An empty file:**\n```\n\"Examples of blank lines that are ignored.\"\n\n,,\n, This is also considered to a blank line.\n```",
           "field_renames": [],
           "fields": [
             {
@@ -38681,7 +38681,7 @@
           "_key": "download_full_report_file"
         },
         {
-          "description": "Provides information on bulk delete for the given ID, for example, bulk status and the number of processed enrollment identities. Provides links to bulk delete reports as well.\n\n**Report file format:**\nThe report files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF). Make sure the report file is compliant with IETF Informal CSV common format [RFC 4180](https://tools.ietf.org/html/rfc4180).\n\nAn example of a full report file:\n```\n\"entity__id\",\"entity__deleted_at\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n```\nAn example of an error report file:\n```\n\"entity__id\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n```\n**Example:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <api_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id}\n```",
+          "description": "Provides information on bulk delete for the given ID, for example, bulk status and the number of processed enrollment identities. Provides links to bulk delete reports as well.\n\n**Report file format:**\nThe report files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF). Make sure the report file is compliant with IETF Informal CSV common format [RFC 4180](https://tools.ietf.org/html/rfc4180).\n\nAn example of a full report file:\n```\n\"entity__id\",\"entity__deleted_at\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n```\nAn example of an error report file:\n```\n\"entity__id\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n```\n**Example:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <access_key>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id}\n```",
           "field_renames": [],
           "fields": [
             {
@@ -59309,7 +59309,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Upload a PSK for an endpoint to allow it to bootstrap. The existing key cannot be overwritten, but needs\nto be deleted first in the case of re-setting a PSK for an endpoint.\n\n**Note**: The PSK APIs are available only to accounts that have this feature enabled.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\\n-H \"Authorization: Bearer <api_key>\" \\\n-H \"content-type: application/json\"  \\\n     -d '{ \"endpoint_name\": \"my-endpoint-0001\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" }'\n```",
+          "description": "Upload a PSK for an endpoint to allow it to bootstrap. The existing key cannot be overwritten, but needs\nto be deleted first in the case of re-setting a PSK for an endpoint.\n\n**Note**: The PSK APIs are available only to accounts that have this feature enabled.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\\n-H \"Authorization: Bearer <access_key>\" \\\n-H \"content-type: application/json\"  \\\n     -d '{ \"endpoint_name\": \"my-endpoint-0001\", \"secret_hex\": \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" }'\n```",
           "field_renames": [],
           "fields": [
             {
@@ -59410,7 +59410,7 @@
           "_key": "create"
         },
         {
-          "description": "Remove a PSK.\n\n**Example:**\n\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 \\\n-H \"Authorization: Bearer <api_key>\"\n```",
+          "description": "Remove a PSK.\n\n**Example:**\n\n```\ncurl -X DELETE https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 \\\n-H \"Authorization: Bearer <access_key>\"\n```",
           "field_renames": [],
           "fields": [
             {
@@ -59483,7 +59483,7 @@
           "_key": "delete"
         },
         {
-          "description": "Retrieve pre-shared keys (PSKs) with pagination. Default page size of 50 entries.\n\n**Example:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\\n-H \"Authorization: Bearer <api_key>\"\n```",
+          "description": "Retrieve pre-shared keys (PSKs) with pagination. Default page size of 50 entries.\n\n**Example:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\\n-H \"Authorization: Bearer <access_key>\"\n```",
           "field_renames": [],
           "fields": [
             {
@@ -59687,7 +59687,7 @@
           "_key": "list"
         },
         {
-          "description": "Check if a PSK for an endpoint exists or not. The response does not contain the secret itself.\n\n**Example:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 \\\n-H \"Authorization: Bearer <api_key>\"\n```",
+          "description": "Check if a PSK for an endpoint exists or not. The response does not contain the secret itself.\n\n**Example:**\n\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 \\\n-H \"Authorization: Bearer <access_key>\"\n```",
           "field_renames": [],
           "fields": [
             {
@@ -59918,7 +59918,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Return bootstrap server credentials for client to connect to bootstrap server.\n\n**Example:**\n```\ncurl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap \\\n-H \"Authorization: Bearer <api_key>\"\n```",
+          "description": "Return bootstrap server credentials for client to connect to bootstrap server.\n\n**Example:**\n```\ncurl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap \\\n-H \"Authorization: Bearer <access_key>\"\n```",
           "field_renames": [],
           "fields": [],
           "method": "get",
@@ -60182,7 +60182,7 @@
           "_key": "get_bootstrap"
         },
         {
-          "description": "Return LwM2M server credentials for client to connect to LwM2M server.\n\n**Example:**\n```\ncurl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m \\\n-H \"Authorization: Bearer <api_key>\"\n```",
+          "description": "Return LwM2M server credentials for client to connect to LwM2M server.\n\n**Example:**\n```\ncurl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m \\\n-H \"Authorization: Bearer <access_key>\"\n```",
           "field_renames": [],
           "fields": [],
           "method": "get",
@@ -79518,7 +79518,7 @@
           "_key": "delete"
         },
         {
-          "description": "Return an existing developer certificate (a certificate that can be flashed to multiple devices to connect to bootstrap server).\n\n**Example:**\n```\ncurl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID \\\n-H \"Authorization: Bearer <api_key>\"\n```",
+          "description": "Return an existing developer certificate (a certificate that can be flashed to multiple devices to connect to bootstrap server).\n\n**Example:**\n```\ncurl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID \\\n-H \"Authorization: Bearer <access_key>\"\n```",
           "field_renames": [],
           "fields": [
             {
@@ -88386,7 +88386,7 @@
           "_key": "delete"
         },
         {
-          "description": "Return an existing developer certificate (a certificate that can be flashed to multiple devices to connect to bootstrap server).\n\n**Example:**\n```\ncurl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID \\\n-H \"Authorization: Bearer <api_key>\"\n```",
+          "description": "Return an existing developer certificate (a certificate that can be flashed to multiple devices to connect to bootstrap server).\n\n**Example:**\n```\ncurl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID \\\n-H \"Authorization: Bearer <access_key>\"\n```",
           "field_renames": [],
           "fields": [
             {

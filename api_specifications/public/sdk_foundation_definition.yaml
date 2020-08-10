@@ -15303,7 +15303,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```
 
@@ -15313,7 +15313,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -15699,7 +15699,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000
       \
 
-      -H ''Authorization: Bearer <api_key>''
+      -H ''Authorization: Bearer <access_key>''
 
       ```'
     drop_fields:
@@ -21955,7 +21955,7 @@ entities:
 
       curl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates \
 
-      -H "Authorization: Bearer <api_key>" \
+      -H "Authorization: Bearer <access_key>" \
 
       -H "content-type: application/json" \
 
@@ -23089,7 +23089,7 @@ entities:
       curl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID
       \
 
-      -H "Authorization: Bearer <api_key>"
+      -H "Authorization: Bearer <access_key>"
 
       ```'
     drop_fields:
@@ -26276,7 +26276,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-length: 0''
 
@@ -27304,7 +27304,7 @@ entities:
 
       curl -X POST \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json'' \
 
@@ -27590,7 +27590,7 @@ entities:
 
       curl -X DELETE \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}
 
@@ -27737,7 +27737,7 @@ entities:
 
       curl -X GET \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       https://api.us-east-1.mbedcloud.com/v3/device-enrollments
 
@@ -27749,7 +27749,7 @@ entities:
 
       curl -X GET \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       ''https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10''
 
@@ -28067,7 +28067,7 @@ entities:
 
       curl -X GET \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}
 
@@ -28387,7 +28387,7 @@ entities:
   - _key: create
     description: "With bulk upload, you can upload a `CSV` file containing a number\
       \ of enrollment IDs.\n\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization:\
-      \ Bearer <api_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv'\
+      \ Bearer <access_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv'\
       \ \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads\n\
       \n```\n  **To ensure your CSV file is valid:**\n  1. The first line of the file\
       \ (header) is ignored.\n  1. Each line can contain comma-separated values, where\
@@ -28774,7 +28774,7 @@ entities:
 
       curl -X GET \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id}
 
@@ -29176,7 +29176,7 @@ entities:
   - _key: delete
     description: "With bulk delete, you can upload a `CSV` file containing a number\
       \ of enrollment IDs to delete.\n\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization:\
-      \ Bearer <api_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv'\
+      \ Bearer <access_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv'\
       \ \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes\n\
       \n```\n**To ensure your CSV file is valid:**\n1. The first line of the file\
       \ (header) is ignored.\n1. Each line can contain comma-separated values, where\
@@ -29566,7 +29566,7 @@ entities:
 
       curl -X GET \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id}
 
@@ -45207,7 +45207,7 @@ entities:
       \ key cannot be overwritten, but needs\nto be deleted first in the case of re-setting\
       \ a PSK for an endpoint.\n\n**Note**: The PSK APIs are available only to accounts\
       \ that have this feature enabled.\n\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys\
-      \ \\\n-H \"Authorization: Bearer <api_key>\" \\\n-H \"content-type: application/json\"\
+      \ \\\n-H \"Authorization: Bearer <access_key>\" \\\n-H \"content-type: application/json\"\
       \  \\\n     -d '{ \"endpoint_name\": \"my-endpoint-0001\", \"secret_hex\": \"\
       4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" }'\n```"
     drop_fields:
@@ -45301,7 +45301,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001
       \
 
-      -H "Authorization: Bearer <api_key>"
+      -H "Authorization: Bearer <access_key>"
 
       ```'
     drop_fields:
@@ -45370,7 +45370,7 @@ entities:
 
       curl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \
 
-      -H "Authorization: Bearer <api_key>"
+      -H "Authorization: Bearer <access_key>"
 
       ```'
     drop_fields:
@@ -45551,7 +45551,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001
       \
 
-      -H "Authorization: Bearer <api_key>"
+      -H "Authorization: Bearer <access_key>"
 
       ```'
     drop_fields:
@@ -45750,7 +45750,7 @@ entities:
       curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap
       \
 
-      -H "Authorization: Bearer <api_key>"
+      -H "Authorization: Bearer <access_key>"
 
       ```'
     drop_fields:
@@ -45947,7 +45947,7 @@ entities:
 
       curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m \
 
-      -H "Authorization: Bearer <api_key>"
+      -H "Authorization: Bearer <access_key>"
 
       ```'
     drop_fields:
@@ -60399,7 +60399,7 @@ entities:
       curl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID
       \
 
-      -H "Authorization: Bearer <api_key>"
+      -H "Authorization: Bearer <access_key>"
 
       ```'
     drop_fields:
@@ -67381,7 +67381,7 @@ entities:
       curl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID
       \
 
-      -H "Authorization: Bearer <api_key>"
+      -H "Authorization: Bearer <access_key>"
 
       ```'
     drop_fields:

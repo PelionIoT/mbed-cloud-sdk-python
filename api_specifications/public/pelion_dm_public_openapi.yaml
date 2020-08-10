@@ -6482,7 +6482,7 @@ definitions:
         type: string
     type: object
   RestApiRequestsWithApiKeyTokenCounter:
-    description: The number of REST API requests from API key sessions in web applications
+    description: The number of REST API requests made with access keys in web applications
       or other service integrations.
     format: int64
     minimum: 0
@@ -9271,7 +9271,7 @@ paths:
         \ call on the device:\n\n- Use the GET method to read resource values.\n\n\
         \    For example, to read the value of resource `/3200/0/5501`, use:\n\n```\n\
         curl -X POST https://api.us-east-1.mbedcloud.com/v2/device-requests/{device_id}?async-id={async-response-id}\
-        \ \\\n-H 'Authorization: Bearer {api_key}' \\\n-H 'content-type: application/json'\
+        \ \\\n-H 'Authorization: Bearer {access_key}' \\\n-H 'content-type: application/json'\
         \ \\\n-d '{\"method\": \"GET\", \"uri\": \"/3200/0/5501\"}'\n```\n\n    For\
         \ `GET` methods, the API may fetch values from an internal cache, instead\
         \ of contacting the device.\n\n    If the value is not in the cache, the read\
@@ -9411,7 +9411,7 @@ paths:
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \
 
-        -H "Authorization: Bearer <api_key>"
+        -H "Authorization: Bearer <access_key>"
 
         ```'
       operationId: listPreSharedKeys
@@ -9453,7 +9453,7 @@ paths:
         \ re-setting a PSK for an endpoint.\n\n**Note**: The PSK APIs are available\
         \ only to accounts that have this feature enabled.\n\n**Example:**\n```\n\
         curl -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\\n\
-        -H \"Authorization: Bearer <api_key>\" \\\n-H \"content-type: application/json\"\
+        -H \"Authorization: Bearer <access_key>\" \\\n-H \"content-type: application/json\"\
         \  \\\n     -d '{ \"endpoint_name\": \"my-endpoint-0001\", \"secret_hex\"\
         : \"4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\" }'\n```"
       operationId: uploadPreSharedKey
@@ -9501,7 +9501,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001
         \
 
-        -H "Authorization: Bearer <api_key>"
+        -H "Authorization: Bearer <access_key>"
 
         ```'
       operationId: deletePreSharedKey
@@ -9541,7 +9541,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001
         \
 
-        -H "Authorization: Bearer <api_key>"
+        -H "Authorization: Bearer <access_key>"
 
         ```'
       operationId: getPreSharedKey
@@ -9583,7 +9583,7 @@ paths:
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getEndpointResources
@@ -9628,7 +9628,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath}
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: deleteResourcePath
@@ -9722,7 +9722,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath}
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getResourceValue
@@ -9836,7 +9836,7 @@ paths:
         curl -X POST https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3303/0/5605
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: executeOrCreateResource
@@ -9960,7 +9960,7 @@ paths:
 
         -H "content-type: text/plain" \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         -d ''1''
 
@@ -10040,7 +10040,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/callback
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: deregisterWebhook
@@ -10050,7 +10050,7 @@ paths:
         401: &id023
           description: Unauthorized.
         403: &id024
-          description: Forbidden. The authorization token used is not an API key.
+          description: Forbidden. The authorization token used is not an access key.
         404:
           description: Callback URL does not exist.
       summary: Delete callback URL.
@@ -10067,7 +10067,7 @@ paths:
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/callback \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getWebhook
@@ -10102,24 +10102,24 @@ paths:
         \n**Optional headers in a callback message:**\n\nYou can set optional headers\
         \ to a callback in a **Webhook** object. Device Management Connect includes\
         \ the header and key pairs in the notification messages send them to callback\
-        \ URL. The callback URLs and headers are API key-specific.\n\nOne possible\
+        \ URL. The callback URLs and headers are application-specific.\n\nOne possible\
         \ use for additional headers is checking the origin of a PUT request, as well\
-        \ as distinguishing the application (API key) to which the notification belongs.\n\
-        \n**Note**: Only one callback URL for each API key can be active. If you register\
-        \ a new URL while another one is active, it replaces the active one. There\
-        \ can be only one notification channel at a time for each API key. If another\
-        \ type of channel is already present, you need to delete it before setting\
-        \ the callback URL.\n\n**Expiration of a callback URL:**\n\nA callback can\
-        \ expire when Device Management cannot deliver a notification due to a connection\
-        \ timeout or error response (4xx or 5xx). After each delivery failure, Device\
-        \ Management sets an exponential back-off time and makes a retry attempt after\
-        \ that. The first retry delay is 1 second, then 2s, 4s, 8s, up to a maximum\
-        \ delay of two minutes. The retry delay is applied when the response is received,\
-        \ or in case of timeout, after the timeout expires. The request timeout is\
-        \ 20 seconds; in the case of timeout, the first retry happens 20 + 1 seconds\
-        \ after the first delivery attempt, then 20 + 2 seconds, and so on. The callback\
-        \ URL is removed if all retries fail within 24 hours. More about [notification\
-        \ sending logic](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html#notification-sending-logic)\
+        \ as distinguishing the application to which the notification belongs.\n\n\
+        **Note**: Only one callback URL for each application can be active. If you\
+        \ register a new URL while another one is active, it replaces the active one.\
+        \ There can be only one notification channel at a time for each application.\
+        \ If another type of channel is already present, you need to delete it before\
+        \ setting the callback URL.\n\n**Expiration of a callback URL:**\n\nA callback\
+        \ can expire when Device Management cannot deliver a notification due to a\
+        \ connection timeout or error response (4xx or 5xx). After each delivery failure,\
+        \ Device Management sets an exponential back-off time and makes a retry attempt\
+        \ after that. The first retry delay is 1 second, then 2s, 4s, 8s, up to a\
+        \ maximum delay of two minutes. The retry delay is applied when the response\
+        \ is received, or in case of timeout, after the timeout expires. The request\
+        \ timeout is 20 seconds; in the case of timeout, the first retry happens 20\
+        \ + 1 seconds after the first delivery attempt, then 20 + 2 seconds, and so\
+        \ on. The callback URL is removed if all retries fail within 24 hours. More\
+        \ about [notification sending logic](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html#notification-sending-logic)\
         \ in the Device Management documentation.\n\n**Supported callback URL protocols:**\n\
         \nCurrently, only HTTP and HTTPS protocols are supported.\n\n**HTTPS callback\
         \ URLs:**\n\nWhen delivering a notification to an HTTPS-based callback URL,\
@@ -10128,11 +10128,11 @@ paths:
         \ with a Common Name (CN) set to `notifications.mbedcloud.com`.\n\n**Configuration\
         \ options:**\n\nThe event notification channel provides configurations options\
         \ defined in [Serialization config](#SerializationConfigObjectV2).\n\n**Example:**\n\
-        \nThis example command shows how to set your callback URL and API key. It\
-        \ also sets an optional header authorization. When Device Management Connect\
-        \ calls your callback URL, the call contains the authorization header with\
-        \ the defined value.\n\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/callback\
-        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
+        \nThis example command shows how to set your callback URL. It also sets an\
+        \ optional header authorization. When Device Management Connect calls your\
+        \ callback URL, the call contains the authorization header with the defined\
+        \ value.\n\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/callback\
+        \ \\\n-H 'Authorization: Bearer <access_key>' \\\n-H 'content-type: application/json'\
         \ \\\n-d '{\n  \"url\": \"{callback-url}\",\n  \"headers\": {\"authorization\"\
         : \"f4b93d6e-4652-4874-82e4-41a3ced0cd56\"},\n  \"serialization\": {\"type\"\
         : \"v2\", \"max_chunk_size\": \"100\",\n    \"cfg\": {\"deregistrations_as_object\"\
@@ -10165,7 +10165,7 @@ paths:
     get:
       description: "Get channel delivery mechanism.\n\n**Example:**\n\n    curl -X\
         \ GET https://api.us-east-1.mbedcloud.com/v2/notification/channel \\\n   \
-        \ -H 'Authorization: Bearer <api_key>'\n"
+        \ -H 'Authorization: Bearer <access_key>'\n"
       operationId: getChannelMetadata
       responses:
         200:
@@ -10195,7 +10195,7 @@ paths:
 
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: deleteLongPollChannel
@@ -10222,7 +10222,7 @@ paths:
         requests. The HTTP request is kept open until one or more event notifications
         are delivered to the client, or the request times out (response code 204).
         In both cases, the client should open a new polling connection after the previous
-        one closes. Only a single long polling connection per API key can be ongoing
+        one closes. Only a single long polling connection per application can be ongoing
         at any given time. We recommend using a persistent connection (Connection
         keep-alive header in the request) to avoid excess TLS handshakes.
 
@@ -10241,9 +10241,9 @@ paths:
         proper method to receive notifications is a **notification callback**.
 
 
-        There can only be one notification channel per API key in Device Management
-        Connect. If a notification channel of other type already exists for the API
-        key, delete it before creating a long poll notification channel.
+        There can only be one notification channel per application in Device Management
+        Connect. If a notification channel of other type already exists for the application,
+        delete it before creating a long poll notification channel.
 
 
         **Example:**
@@ -10252,7 +10252,7 @@ paths:
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: longPollNotifications
@@ -10292,7 +10292,7 @@ paths:
       x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/notification/websocket:
     delete:
-      description: 'Delete a notification websocket channel bound to the API key.
+      description: 'Delete a notification websocket channel bound to the application.
         This is required to change the channel from websocket to another type.
 
 
@@ -10307,7 +10307,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/websocket
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: deleteWebsocket
@@ -10339,7 +10339,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getWebsocket
@@ -10368,8 +10368,8 @@ paths:
         \nA websocket channel can have only one active websocket connection at a time.\
         \ If a websocket connection for a channel exists and a new connection to the\
         \ same channel is made, the connection is accepted and the older connection\
-        \ is closed.\n\n**Note**: Only one websocket channel for each API key can\
-        \ be active at a time. If you register a new websocket channel while another\
+        \ is closed.\n\n**Note**: Only one websocket channel for each application\
+        \ can be active at a time. If you register a new websocket channel while another\
         \ one is active, it replaces the previously active one. If another type of\
         \ channel is already present, you need to delete it before registering a websocket\
         \ channel.\n\n**Note**: The current version does not yet have the capability\
@@ -10386,7 +10386,7 @@ paths:
         \n**Configuration options:**\n\nThe event notification channel provides configurations\
         \ options defined in [Serialization config](#SerializationConfigObjectV2)\n\
         \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
-        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-d '{\n  \"serialization\"\
+        \ \\\n-H 'Authorization: Bearer <access_key>' \\\n-d '{\n  \"serialization\"\
         : {\"type\": \"v2\", \"max_chunk_size\": \"100\",\n    \"cfg\": {\"deregistrations_as_object\"\
         : \"true\", \"include_uid\": \"true\", \"include_timestamp\": \"true\", \"\
         include_original_ep\": \"true\"\n    }\n  }\n}\n```"
@@ -10426,24 +10426,24 @@ paths:
         \    </tr>\n    <tr>\n      <td><b>1006</b></td>\n      <td>Abnormal closure.\
         \ The client should reconnect after receiving this status code. A short reconnect\
         \ delay is recommended.</td>\n    </tr>\n    <tr>\n      <td><b>1008</b></td>\n\
-        \      <td>Policy violation. Set if the API key is lost or invalidated after\
-        \ a successful WebSocket handshake.</td>\n    </tr>\n    <tr>\n      <td><b>1011</b></td>\n\
-        \      <td>Unexpected condition. The socket is closed with this status in\
-        \ an attempt to open a socket to a nonexistent channel (without a prior PUT\
-        \ request). This code is also used to indicate a closing socket for any other\
-        \ unexpected condition in the server.</td>\n    </tr>\n    <tr>\n      <td><b>1012</b></td>\n\
-        \      <td>Service restart. Set when the server restarts for update, maintenance,\
-        \ and so on. The client should reconnect after receiving this status code.\
-        \ A short reconnect delay is recommended.</td>\n    </tr>\n  </tbody>\n</table>\n\
-        \n**Expected client behaviour:**\n\nIf the connection is closed with code\
-        \ 1006 or 1012, the client should try to reconnect to maintain the notification\
-        \ flow. The client might disconnect several times in a relatively short period,\
-        \ for example, during service updates. This is normal. The desired client\
-        \ behavior is to reconnect after each disconnect.\n\n**Example:**\n\nThe curl\
-        \ examples provided are meant only for testing. For production devices, use\
-        \ a websocket client library.\nAs the curl example doesn't know how to responsd\
-        \ to websocket ping, it will stop working shortly after receiving first ping.\n\
-        ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\
+        \      <td>Policy violation. Set if the access key is lost or invalidated\
+        \ after a successful WebSocket handshake.</td>\n    </tr>\n    <tr>\n    \
+        \  <td><b>1011</b></td>\n      <td>Unexpected condition. The socket is closed\
+        \ with this status in an attempt to open a socket to a nonexistent channel\
+        \ (without a prior PUT request). This code is also used to indicate a closing\
+        \ socket for any other unexpected condition in the server.</td>\n    </tr>\n\
+        \    <tr>\n      <td><b>1012</b></td>\n      <td>Service restart. Set when\
+        \ the server restarts for update, maintenance, and so on. The client should\
+        \ reconnect after receiving this status code. A short reconnect delay is recommended.</td>\n\
+        \    </tr>\n  </tbody>\n</table>\n\n**Expected client behaviour:**\n\nIf the\
+        \ connection is closed with code 1006 or 1012, the client should try to reconnect\
+        \ to maintain the notification flow. The client might disconnect several times\
+        \ in a relatively short period, for example, during service updates. This\
+        \ is normal. The desired client behavior is to reconnect after each disconnect.\n\
+        \n**Example:**\n\nThe curl examples provided are meant only for testing. For\
+        \ production devices, use a websocket client library.\nAs the curl example\
+        \ doesn't know how to responsd to websocket ping, it will stop working shortly\
+        \ after receiving first ping.\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\
         \ \\\n-H \"Authorization:Bearer {apikey}\" \\\n-H \"Connection:upgrade\" \\\
         \n-H \"Upgrade:websocket\" \\\n-H \"Sec-WebSocket-Version: 13\" \\\n-H \"\
         Sec-WebSocket-Key: {base64nonce}\" \\\n--no-buffer \\\n--head\n```"
@@ -10459,8 +10459,8 @@ paths:
         name: Upgrade
         required: true
         type: string
-      - description: 'API key or user token must be present in the `Sec-WebSocket-Protocol`
-          header **if Authorization header cannot be provided**: `Sec-WebSocket-Protocol:"wss,pelion_ak_{api_key}"`.
+      - description: 'Access key or user token must be present in the `Sec-WebSocket-Protocol`
+          header **if Authorization header cannot be provided**: `Sec-WebSocket-Protocol:"wss,pelion_ak_{access_key}"`.
 
           Refer to the notification service documentation for examples.'
         in: header
@@ -10511,7 +10511,7 @@ paths:
 
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: deletePreSubscriptions
@@ -10521,7 +10521,7 @@ paths:
         401:
           description: Unauthorized.
         403:
-          description: 'Forbidden: the authorization token used is not an API key.'
+          description: 'Forbidden: the authorization token used is not an access key.'
       summary: Remove presubscriptions.
       tags:
       - Device data - subscriptions
@@ -10537,7 +10537,7 @@ paths:
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v2/subscriptions \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getPreSubscriptions
@@ -10551,7 +10551,7 @@ paths:
         401:
           description: Unauthorized.
         403:
-          description: 'Forbidden: the authorization token used is not an API key.'
+          description: 'Forbidden: the authorization token used is not an access key.'
       summary: View presubscriptions.
       tags:
       - Device data - subscriptions
@@ -10570,29 +10570,30 @@ paths:
         \ a rule.\nTo place dynamic observation rules for individual object instances\
         \ and resources and define when the device sends observations, set [notification\
         \ rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html).\n\
-        \n**Note:** The subscription is bound to the API key your application is using.\
-        \ To get notifications of the resource value changes, you need to create an\
-        \ [event notification channel](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html)\
-        \ with the same API key.\n\n**Example request:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/subscriptions\
-        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json'\
-        \ \\\n-d '[\n       {\n         \"endpoint-name\": \"node-001\",\n       \
-        \  \"resource-path\": [\"/dev\"]\n       },\n       {\n         \"endpoint-type\"\
-        : \"Light\",\n         \"resource-path\": [\"/sen/*\"]\n       },\n      \
-        \ {\n         \"endpoint-name\": \"node*\"\n       },\n       {\n        \
-        \ \"endpoint-type\": \"Sensor\"\n       },\n       {\n         \"resource-path\"\
-        : [\"/dev/temp\",\"/dev/hum\"]\n       }\n    ]'\n```\n\n- Subscribe to `/dev`\
-        \ resource of endpoint named `node-001`.\n- Subscribe to `Light` type of endpoints\
-        \ and their resources prefixed with `/sen/`.\n- Subscribe to all observable\
-        \ resources of endpoint names prefixed with `node`.\n- Subscribe to all observable\
-        \ resources of `Sensor` type endpoints.\n- Subscribe to `/dev/temp` and `/dev/hum`\
-        \ resources of all endpoints.\n\n**Limits**:\n\n- The maximum length of the\
-        \ endpoint name and endpoint type is 64 characters.\n- The maximum length\
-        \ of the resource path is 128 characters.\n- You can subscribe to 256 separate\
-        \ resource paths.\n- The maximum number of presubscription entries is 1024.\n\
-        \n**Note**: To save bandwidth and avoid unnecessary traffic, use resource\
-        \ path patterns to limit the matching resources in the presubscription data.\
-        \ This prevents your web application from receiving unwanted resource notifications.\
-        \ See [Subscribe only to what you need](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)."
+        \n**Note:** The subscription is bound to the application you are using. To\
+        \ get notifications of the resource value changes, you need to create an [event\
+        \ notification channel](https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html)\
+        \ with an access key of the same application.\n\n**Example request:**\n```\n\
+        curl -X PUT https://api.us-east-1.mbedcloud.com/v2/subscriptions \\\n-H 'Authorization:\
+        \ Bearer <access_key>' \\\n-H 'content-type: application/json' \\\n-d '[\n\
+        \       {\n         \"endpoint-name\": \"node-001\",\n         \"resource-path\"\
+        : [\"/dev\"]\n       },\n       {\n         \"endpoint-type\": \"Light\",\n\
+        \         \"resource-path\": [\"/sen/*\"]\n       },\n       {\n         \"\
+        endpoint-name\": \"node*\"\n       },\n       {\n         \"endpoint-type\"\
+        : \"Sensor\"\n       },\n       {\n         \"resource-path\": [\"/dev/temp\"\
+        ,\"/dev/hum\"]\n       }\n    ]'\n```\n\n- Subscribe to `/dev` resource of\
+        \ endpoint named `node-001`.\n- Subscribe to `Light` type of endpoints and\
+        \ their resources prefixed with `/sen/`.\n- Subscribe to all observable resources\
+        \ of endpoint names prefixed with `node`.\n- Subscribe to all observable resources\
+        \ of `Sensor` type endpoints.\n- Subscribe to `/dev/temp` and `/dev/hum` resources\
+        \ of all endpoints.\n\n**Limits**:\n\n- The maximum length of the endpoint\
+        \ name and endpoint type is 64 characters.\n- The maximum length of the resource\
+        \ path is 128 characters.\n- You can subscribe to 256 separate resource paths.\n\
+        - The maximum number of presubscription entries is 1024.\n\n**Note**: To save\
+        \ bandwidth and avoid unnecessary traffic, use resource path patterns to limit\
+        \ the matching resources in the presubscription data. This prevents your web\
+        \ application from receiving unwanted resource notifications. See [Subscribe\
+        \ only to what you need](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)."
       operationId: updatePreSubscriptions
       parameters:
       - description: Array of presubscriptions.
@@ -10611,7 +10612,7 @@ paths:
         401:
           description: Unauthorized.
         403:
-          description: 'Forbidden: the authorization token used is not an API key.'
+          description: 'Forbidden: the authorization token used is not an access key.'
       summary: Set presubscriptions.
       tags:
       - Device data - subscriptions
@@ -10628,7 +10629,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: deleteEndpointSubscriptions
@@ -10657,7 +10658,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getEndpointSubscriptions
@@ -10696,7 +10697,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath}
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: deleteResourceSubscription
@@ -10792,7 +10793,7 @@ paths:
         curl -X PUT https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath}
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```
 
@@ -19819,7 +19820,7 @@ paths:
         \ - rest_api_requests_with_api_key_token\n  - pelion_to_webapp_notifications\n\
         \  - device_to_pelion_messages\n  - pelion_to_device_messages\n\n**Example:**\n\
         ```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report?month=2018-07\
-        \ \\\n-H 'Authorization: Bearer <api_key>'\n```"
+        \ \\\n-H 'Authorization: Bearer <access_key>'\n```"
       operationId: getBillingReport
       parameters:
       - description: Queried year and month of billing report.
@@ -20040,7 +20041,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-active-devices?month=2018-07
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getBillingReportActiveDevices
@@ -20147,7 +20148,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month=2018-07
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getBillingReportFirmwareUpdates
@@ -20245,7 +20246,7 @@ paths:
         Range start is inclusive, while range end is exclusive. The specified range\
         \ must be equal to or greater than the specified interval.\n\nReturned data\
         \ does not include any tenant usage.\n\n**Example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-statistics?start=2019-11-01T00:00:00.000Z&end=2019-12-01T00:00:00.000Z&interval=1d\
-        \ \\\n     -H 'Authorization: Bearer <api_key>'\n```"
+        \ \\\n     -H 'Authorization: Bearer <access_key>'\n```"
       operationId: getStatisticsView
       parameters:
       - description: 'Start time of the statistics view in RFC3339 date-time format,
@@ -21589,7 +21590,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```
 
@@ -21599,7 +21600,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getCertificateEnrollments
@@ -21756,7 +21757,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getCertificateEnrollment
@@ -22413,7 +22414,7 @@ paths:
         curl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates
         \
 
-        -H "Authorization: Bearer <api_key>" \
+        -H "Authorization: Bearer <access_key>" \
 
         -H "content-type: application/json" \
 
@@ -22721,7 +22722,7 @@ paths:
         curl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID
         \
 
-        -H "Authorization: Bearer <api_key>"
+        -H "Authorization: Bearer <access_key>"
 
         ```'
       operationId: getDeveloperCertificate
@@ -23126,7 +23127,7 @@ paths:
 
         curl -X GET \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         https://api.us-east-1.mbedcloud.com/v3/device-enrollments
 
@@ -23138,7 +23139,7 @@ paths:
 
         curl -X GET \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         ''https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10''
 
@@ -23203,7 +23204,7 @@ paths:
 
         curl -X POST \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         -H ''content-type: application/json'' \
 
@@ -23248,7 +23249,7 @@ paths:
       - multipart/form-data
       description: "With bulk delete, you can upload a `CSV` file containing a number\
         \ of enrollment IDs to delete.\n\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization:\
-        \ Bearer <api_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv'\
+        \ Bearer <access_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv'\
         \ \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes\n\
         \n```\n**To ensure your CSV file is valid:**\n1. The first line of the file\
         \ (header) is ignored.\n1. Each line can contain comma-separated values, where\
@@ -23348,7 +23349,7 @@ paths:
 
         curl -X GET \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id}
 
@@ -23390,7 +23391,7 @@ paths:
       - multipart/form-data
       description: "With bulk upload, you can upload a `CSV` file containing a number\
         \ of enrollment IDs.\n\n**Example:**\n```\ncurl -X POST \\\n-H 'Authorization:\
-        \ Bearer <api_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv'\
+        \ Bearer <access_key>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv'\
         \ \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads\n\
         \n```\n  **To ensure your CSV file is valid:**\n  1. The first line of the\
         \ file (header) is ignored.\n  1. Each line can contain comma-separated values,\
@@ -23491,7 +23492,7 @@ paths:
 
         curl -X GET \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id}
 
@@ -23542,7 +23543,7 @@ paths:
 
         curl -X DELETE \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}
 
@@ -23580,7 +23581,7 @@ paths:
 
         curl -X GET \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}
 
@@ -26215,7 +26216,7 @@ paths:
         curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew
         \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         -H ''content-length: 0''
 
@@ -26287,7 +26288,7 @@ paths:
         ```
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/{device-id}/echo
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getDeviceEchoObject
@@ -28662,8 +28663,7 @@ paths:
           \ using [Connect API](https://www.pelion.com/docs/device-management-api/connect/)\
           \ endpoints. New metrics will be added to monitor the response delivery\
           \ to client callback URLs later.\n\n**Example usage:**\n\n```\ncurl  -X\
-          \ GET \\\n      -H \"Authorization : Bearer <valid access Token>\"\n   \
-          \    'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170207&end=20170407&interval=1d'\n\
+          \ GET \\\n      -H \"Authorization : Bearer <access_key>\"\n       'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170207&end=20170407&interval=1d'\n\
           \n{\n    \"object\": \"list\",\n    \"limit\": 20,\n    \"total_count\"\
           : 54,\n    \"after\": \"2017-07-26T00:00:00Z\",\n    \"has_more\": true,\n\
           \    \"data\": [\n        {\n            \"id\": \"015d8157c800015e306fffff005374617473000\"\
@@ -28728,8 +28728,7 @@ paths:
         type: integer
       - description: "The metric ID after which to start fetching. This also can be\
           \ used for pagination as follows:\n\n**Example usage:**\n\n```\ncurl  -X\
-          \ GET \\\n      -H \"Authorization : Bearer <valid access Token>\"\n   \
-          \    'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170707&end=20170829&interval=1d&limit=20'\n\
+          \ GET \\\n      -H \"Authorization : Bearer <access_key>\"\n       'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170707&end=20170829&interval=1d&limit=20'\n\
           {\n   \"object\": \"list\",\n   \"limit\": 20,\n   \"total_count\": 54,\n\
           \   \"has_more\": true,\n   \"data\": [\n       {\n           \"id\": \"\
           015d1a589800015e306fffff005374617473000\",\n           \"timestamp\": \"\
@@ -28741,7 +28740,7 @@ paths:
           \ You can give the last ID of the list as the value of the `after` query\
           \ parameter, and you get the next page of values. You can keep doing this\
           \ until `has more` is false.\n```\ncurl -X GET \\\n     -H \"Authorization\
-          \ : Bearer <valid access Token>\"\n     'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170707&end=20170829&interval=1d&limit=20&after=015d7c316c00015e306fffff005374617473000'\n\
+          \ : Bearer <access_key>\"\n     'https://api.us-east-1.mbedcloud.com/v3/metrics?include=transactions,total_count&start=20170707&end=20170829&interval=1d&limit=20&after=015d7c316c00015e306fffff005374617473000'\n\
           \n{\n   \"object\": \"list\",\n   \"limit\": 20,\n   \"total_count\": 54,\n\
           \   \"after\": \"2017-07-26T00:00:00Z\",\n   \"has_more\": true,\n   \"\
           data\": [\n       {\n           \"id\": \"015d8157c800015e306fffff005374617473000\"\
@@ -30053,7 +30052,7 @@ paths:
 
         curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials \
 
-        -H "Authorization: Bearer <api_key>"
+        -H "Authorization: Bearer <access_key>"
 
         ```'
       operationId: getAllServerCredentials
@@ -30107,7 +30106,7 @@ paths:
         curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap
         \
 
-        -H "Authorization: Bearer <api_key>"
+        -H "Authorization: Bearer <access_key>"
 
         ```'
       operationId: getBootstrapServerCredentials
@@ -30160,7 +30159,7 @@ paths:
         curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m
         \
 
-        -H "Authorization: Bearer <api_key>"
+        -H "Authorization: Bearer <access_key>"
 
         ```'
       operationId: getL2M2MServerCredentials
@@ -30216,7 +30215,7 @@ paths:
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getServicePackages
@@ -30317,7 +30316,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getServicePackageQuota
@@ -30383,7 +30382,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota-history
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```'
       operationId: getServicePackageQuotaHistory
