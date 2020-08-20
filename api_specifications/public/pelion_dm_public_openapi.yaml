@@ -9135,7 +9135,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/downloads/fcu/factory_configurator_utility.zip
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```
 
@@ -9168,24 +9168,9 @@ paths:
       x-origin: /home/circleci/project/factory-tool-download/public/swagger.yaml
   /downloads/fcu/info:
     get:
-      description: 'Returns information about the Factory Configurator Utility (FCU)
-        archive.
-
-        <br>
-
-        **Example:**
-
-        <br>
-
-        ```
-
-        curl -X GET https://api.us-east-1.mbedcloud.com/downloads/fcu/inf \
-
-        -H ''Authorization: Bearer <api_key>'' o
-
-        ```
-
-        '
+      description: "Returns information about the Factory Configurator Utility (FCU)\
+        \ archive.\n<br>\n**Example:**\n<br>\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/downloads/fcu/inf\
+        \ \\\n-H 'Authorization: Bearer <access_key>' \n```\n"
       operationId: getFactoryToolInfo
       produces:
       - application/json
@@ -9229,7 +9214,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/downloads/fcu/release_notes
         \
 
-        -H ''Authorization: Bearer <api_key>''
+        -H ''Authorization: Bearer <access_key>''
 
         ```
 
@@ -21807,7 +21792,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations
         \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         -H ''content-type: application/json;charset=UTF-8'' \
 
@@ -21820,7 +21805,7 @@ paths:
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms
         \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         -H ''content-type: application/json;charset=UTF-8'' \
 
@@ -21883,7 +21868,7 @@ paths:
     post:
       description: "Configure the certificate issuer to use when creating device custom\
         \ certificates.\n<br>\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations\
-        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-H 'Authorization: Bearer <access_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
         \ \\\n-d '{\n  \"reference\": \"customer.dlms\",\n  \"certificate_issuer_id\"\
         : \"01621a36719d507b9d48a91b00000000\"\n}'\n```"
       operationId: createCertificateIssuerConfig
@@ -21951,7 +21936,7 @@ paths:
     put:
       description: "Configure the certificate issuer used when creating device certificates\n\
         for LwM2M.\n<br>\n**Example:**\n\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations/lwm2m\
-        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-H 'Authorization: Bearer <access_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
         \ \\\n-d '{\n  \"certificate_issuer_id\": \"01621a36719d507b9d48a91b00000000\"\
         \n}'\n```"
       operationId: updateCertificateIssuerConfig
@@ -22138,7 +22123,7 @@ paths:
         \ issuers of the same type, provided they have different names. This allows\
         \ verification of the certificate issuer configuration before activation.\n\
         <br>\n**Example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers\
-        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-H 'Authorization: Bearer <access_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
         \ \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\"\
         ,\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\"\
         : null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\"\
@@ -22211,7 +22196,7 @@ paths:
         curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000
         \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         ```'
       operationId: deleteCertificateIssuer
@@ -22283,7 +22268,7 @@ paths:
     put:
       description: "Update a certificate issuer.\n<br>\n**Example:**\n\n```\ncurl\
         \ -X PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000\
-        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+        \ \\\n-H 'Authorization: Bearer <access_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
         \ \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\"\
         ,\n  \"name\": \"GlobalSign Issuer\"\n}'\n```"
       operationId: updateCertificateIssuer
@@ -22356,7 +22341,7 @@ paths:
         curl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify
         \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         -H ''content-type: application/json;charset=UTF-8'' \
 
@@ -26456,7 +26441,7 @@ paths:
         curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/<device_id>/resume
         \
 
-        -H ''Authorization: Bearer <api_key>'' \
+        -H ''Authorization: Bearer <access_key>'' \
 
         -H ''content-type: application/json'' \
 
@@ -26515,7 +26500,7 @@ paths:
         \ unreliable data to your system.\n\n ***Example:*\n\n The following example\
         \ suspends a device with category \"Lost or stolen\". You can see available\
         \ categories with '/v3/device-block-categories/'.\n ```\n curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/<device_id>/suspend\
-        \ \\\n -H 'Authorization: Bearer <api_key>' \\\n -H 'content-type: application/json'\
+        \ \\\n -H 'Authorization: Bearer <access_key>' \\\n -H 'content-type: application/json'\
         \ \\\n -d '{ \"category\": \"lost_or_stolen\", \"description\": \"EXAMPLE:\
         \ Customer contacted via phone and reported device being stolen. Specific\
         \ time of the theft was not know. Device last used in May/2019\"}'\n ```"
@@ -28611,7 +28596,7 @@ paths:
         ```
 
         curl -X GET https://api.us-east-1.mbedcloud.com/v3/manufacturing/statistics?start=2020-06-23T21:00:00.000Z&end=2020-07-01T20:59:59.999Z
-        --header ''Authorization: Bearer <api_key>''
+        --header ''Authorization: Bearer <access_key>''
 
         ```
 

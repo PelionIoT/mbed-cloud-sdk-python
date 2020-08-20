@@ -16071,7 +16071,7 @@ entities:
       \ of the same type, provided they have different names. This allows verification\
       \ of the certificate issuer configuration before activation.\n<br>\n**Example:**\n\
       ```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers\
-      \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+      \ \\\n-H 'Authorization: Bearer <access_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
       \ \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\"\
       ,\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\"\
       : null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\"\
@@ -16478,7 +16478,7 @@ entities:
       curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       ```'
     drop_fields:
@@ -17249,7 +17249,7 @@ entities:
   - _key: update
     description: "Update a certificate issuer.\n<br>\n**Example:**\n\n```\ncurl -X\
       \ PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000\
-      \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+      \ \\\n-H 'Authorization: Bearer <access_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
       \ \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\"\
       ,\n  \"name\": \"GlobalSign Issuer\"\n}'\n```"
     drop_fields:
@@ -17679,7 +17679,7 @@ entities:
       curl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json;charset=UTF-8'' \
 
@@ -18004,7 +18004,7 @@ entities:
   - _key: create
     description: "Configure the certificate issuer to use when creating device custom\
       \ certificates.\n<br>\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations\
-      \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+      \ \\\n-H 'Authorization: Bearer <access_key>' \\\n-H 'content-type: application/json;charset=UTF-8'\
       \ \\\n-d '{\n  \"reference\": \"customer.dlms\",\n  \"certificate_issuer_id\"\
       : \"01621a36719d507b9d48a91b00000000\"\n}'\n```"
     drop_fields:
@@ -18713,7 +18713,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json;charset=UTF-8'' \
 
@@ -18726,7 +18726,7 @@ entities:
       curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms
       \
 
-      -H ''Authorization: Bearer <api_key>'' \
+      -H ''Authorization: Bearer <access_key>'' \
 
       -H ''content-type: application/json;charset=UTF-8'' \
 
