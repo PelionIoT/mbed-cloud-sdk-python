@@ -40147,26 +40147,6 @@
               "maxProperties": 10,
               "additionalProperties": {
                 "type": "string",
-                "maxLength": 128
-              },
-              "description": "Up to ten component key-value attributes. The key represents the component name, while its value represents the corresponding component version.\nKeys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.\nComponent name must be the same as in device Component Name resource.\nComponent version must comply to semantic versioning. Maximum 3 digits per sub number, therefore max version number will be 999.999.999",
-              "example": {
-                "key": "value"
-              },
-              "api_fieldname": "component_attributes",
-              "entity_fieldname": "component_attributes",
-              "name": "component_attributes",
-              "in": "body",
-              "schema_param": true,
-              "parameter_fieldname": "component_attributes",
-              "required": false,
-              "_key": "component_attributes"
-            },
-            {
-              "type": "object",
-              "maxProperties": 10,
-              "additionalProperties": {
-                "type": "string",
                 "maxLength": 128,
                 "pattern": "^[A-Za-z].*"
               },
@@ -40220,21 +40200,6 @@
               "schema": {
                 "type": "object",
                 "properties": [
-                  {
-                    "type": "object",
-                    "maxProperties": 10,
-                    "additionalProperties": {
-                      "type": "string",
-                      "maxLength": 128
-                    },
-                    "description": "Up to ten component key-value attributes. The key represents the component name, while its value represents the corresponding component version.\nKeys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.\nComponent name must be the same as in device Component Name resource.\nComponent version must comply to semantic versioning. Maximum 3 digits per sub number, therefore max version number will be 999.999.999",
-                    "example": {
-                      "key": "value"
-                    },
-                    "api_fieldname": "component_attributes",
-                    "entity_fieldname": "component_attributes",
-                    "_key": "component_attributes"
-                  },
                   {
                     "type": "string",
                     "format": "date-time",
@@ -41886,19 +41851,6 @@
                       "type": "object",
                       "properties": [
                         {
-                          "type": "object",
-                          "maxProperties": 10,
-                          "additionalProperties": {
-                            "type": "string",
-                            "maxLength": 128
-                          },
-                          "description": "Up to ten component key-value attributes. The key represents the component name, while its value represents the corresponding component version.\nKeys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.\nComponent name must be the same as in device Component Name resource.\nComponent version must comply to semantic versioning. Maximum 3 digits per sub number, therefore max version number will be 999.999.999",
-                          "example": {
-                            "key": "value"
-                          },
-                          "_key": "component_attributes"
-                        },
-                        {
                           "type": "string",
                           "format": "date-time",
                           "description": "The time the group was created.",
@@ -42287,21 +42239,6 @@
                 "type": "object",
                 "properties": [
                   {
-                    "type": "object",
-                    "maxProperties": 10,
-                    "additionalProperties": {
-                      "type": "string",
-                      "maxLength": 128
-                    },
-                    "description": "Up to ten component key-value attributes. The key represents the component name, while its value represents the corresponding component version.\nKeys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.\nComponent name must be the same as in device Component Name resource.\nComponent version must comply to semantic versioning. Maximum 3 digits per sub number, therefore max version number will be 999.999.999",
-                    "example": {
-                      "key": "value"
-                    },
-                    "api_fieldname": "component_attributes",
-                    "entity_fieldname": "component_attributes",
-                    "_key": "component_attributes"
-                  },
-                  {
                     "type": "string",
                     "format": "date-time",
                     "description": "The time the group was created.",
@@ -42630,7 +42567,6 @@
             "filter",
             "name",
             "description",
-            "component_attributes",
             "custom_attributes",
             "devices_count",
             "created_at",
@@ -42941,26 +42877,6 @@
               "maxProperties": 10,
               "additionalProperties": {
                 "type": "string",
-                "maxLength": 128
-              },
-              "description": "Up to ten component key-value attributes. The key represents the component name, while its value represents the corresponding component version.\nKeys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.\nComponent name must be the same as in device Component Name resource.\nComponent version must comply to semantic versioning. Maximum 3 digits per sub number, therefore max version number will be 999.999.999",
-              "example": {
-                "key": "value"
-              },
-              "api_fieldname": "component_attributes",
-              "entity_fieldname": "component_attributes",
-              "name": "component_attributes",
-              "in": "body",
-              "schema_param": true,
-              "parameter_fieldname": "component_attributes",
-              "required": false,
-              "_key": "component_attributes"
-            },
-            {
-              "type": "object",
-              "maxProperties": 10,
-              "additionalProperties": {
-                "type": "string",
                 "maxLength": 128,
                 "pattern": "^[A-Za-z].*"
               },
@@ -43025,21 +42941,6 @@
               "schema": {
                 "type": "object",
                 "properties": [
-                  {
-                    "type": "object",
-                    "maxProperties": 10,
-                    "additionalProperties": {
-                      "type": "string",
-                      "maxLength": 128
-                    },
-                    "description": "Up to ten component key-value attributes. The key represents the component name, while its value represents the corresponding component version.\nKeys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.\nComponent name must be the same as in device Component Name resource.\nComponent version must comply to semantic versioning. Maximum 3 digits per sub number, therefore max version number will be 999.999.999",
-                    "example": {
-                      "key": "value"
-                    },
-                    "api_fieldname": "component_attributes",
-                    "entity_fieldname": "component_attributes",
-                    "_key": "component_attributes"
-                  },
                   {
                     "type": "string",
                     "format": "date-time",
@@ -43383,22 +43284,6 @@
         }
       ],
       "fields": [
-        {
-          "type": "object",
-          "maxProperties": 10,
-          "additionalProperties": {
-            "type": "string",
-            "maxLength": 128
-          },
-          "description": "Up to ten component key-value attributes. The key represents the component name, while its value represents the corresponding component version.\nKeys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.\nComponent name must be the same as in device Component Name resource.\nComponent version must comply to semantic versioning. Maximum 3 digits per sub number, therefore max version number will be 999.999.999",
-          "example": {
-            "key": "value"
-          },
-          "api_fieldname": "component_attributes",
-          "readOnly": false,
-          "required": false,
-          "_key": "component_attributes"
-        },
         {
           "type": "string",
           "format": "date-time",

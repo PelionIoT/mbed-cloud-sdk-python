@@ -30384,27 +30384,6 @@ entities:
 - _key: device_group
   field_renames: []
   fields:
-  - _key: component_attributes
-    additionalProperties:
-      maxLength: 128
-      type: string
-    api_fieldname: component_attributes
-    description: 'Up to ten component key-value attributes. The key represents the
-      component name, while its value represents the corresponding component version.
-
-      Keys cannot begin with a number. Both key and value are limited to 128 characters.
-      Updating this field replaces existing contents.
-
-      Component name must be the same as in device Component Name resource.
-
-      Component version must comply to semantic versioning. Maximum 3 digits per sub
-      number, therefore max version number will be 999.999.999'
-    example:
-      key: value
-    maxProperties: 10
-    readOnly: false
-    required: false
-    type: object
   - _key: created_at
     api_fieldname: created_at
     description: The time the group was created.
@@ -30678,31 +30657,6 @@ entities:
     - updated_at
     field_renames: []
     fields:
-    - _key: component_attributes
-      additionalProperties:
-        maxLength: 128
-        type: string
-      api_fieldname: component_attributes
-      description: 'Up to ten component key-value attributes. The key represents the
-        component name, while its value represents the corresponding component version.
-
-        Keys cannot begin with a number. Both key and value are limited to 128 characters.
-        Updating this field replaces existing contents.
-
-        Component name must be the same as in device Component Name resource.
-
-        Component version must comply to semantic versioning. Maximum 3 digits per
-        sub number, therefore max version number will be 999.999.999'
-      entity_fieldname: component_attributes
-      example:
-        key: value
-      in: body
-      maxProperties: 10
-      name: component_attributes
-      parameter_fieldname: component_attributes
-      required: false
-      schema_param: true
-      type: object
     - _key: custom_attributes
       additionalProperties:
         maxLength: 128
@@ -30764,27 +30718,6 @@ entities:
           entity: device_group
           group: Devices
         properties:
-        - _key: component_attributes
-          additionalProperties:
-            maxLength: 128
-            type: string
-          api_fieldname: component_attributes
-          description: 'Up to ten component key-value attributes. The key represents
-            the component name, while its value represents the corresponding component
-            version.
-
-            Keys cannot begin with a number. Both key and value are limited to 128
-            characters. Updating this field replaces existing contents.
-
-            Component name must be the same as in device Component Name resource.
-
-            Component version must comply to semantic versioning. Maximum 3 digits
-            per sub number, therefore max version number will be 999.999.999'
-          entity_fieldname: component_attributes
-          example:
-            key: value
-          maxProperties: 10
-          type: object
         - _key: created_at
           api_fieldname: created_at
           description: The time the group was created.
@@ -32142,25 +32075,6 @@ entities:
               entity: device_group
               group: Devices
             properties:
-            - _key: component_attributes
-              additionalProperties:
-                maxLength: 128
-                type: string
-              description: 'Up to ten component key-value attributes. The key represents
-                the component name, while its value represents the corresponding component
-                version.
-
-                Keys cannot begin with a number. Both key and value are limited to
-                128 characters. Updating this field replaces existing contents.
-
-                Component name must be the same as in device Component Name resource.
-
-                Component version must comply to semantic versioning. Maximum 3 digits
-                per sub number, therefore max version number will be 999.999.999'
-              example:
-                key: value
-              maxProperties: 10
-              type: object
             - _key: created_at
               description: The time the group was created.
               example: '2017-05-22T12:37:55.576563Z'
@@ -32387,7 +32301,6 @@ entities:
     - filter
     - name
     - description
-    - component_attributes
     - custom_attributes
     - devices_count
     - created_at
@@ -32421,27 +32334,6 @@ entities:
           entity: device_group
           group: Devices
         properties:
-        - _key: component_attributes
-          additionalProperties:
-            maxLength: 128
-            type: string
-          api_fieldname: component_attributes
-          description: 'Up to ten component key-value attributes. The key represents
-            the component name, while its value represents the corresponding component
-            version.
-
-            Keys cannot begin with a number. Both key and value are limited to 128
-            characters. Updating this field replaces existing contents.
-
-            Component name must be the same as in device Component Name resource.
-
-            Component version must comply to semantic versioning. Maximum 3 digits
-            per sub number, therefore max version number will be 999.999.999'
-          entity_fieldname: component_attributes
-          example:
-            key: value
-          maxProperties: 10
-          type: object
         - _key: created_at
           api_fieldname: created_at
           description: The time the group was created.
@@ -32870,31 +32762,6 @@ entities:
     - updated_at
     field_renames: []
     fields:
-    - _key: component_attributes
-      additionalProperties:
-        maxLength: 128
-        type: string
-      api_fieldname: component_attributes
-      description: 'Up to ten component key-value attributes. The key represents the
-        component name, while its value represents the corresponding component version.
-
-        Keys cannot begin with a number. Both key and value are limited to 128 characters.
-        Updating this field replaces existing contents.
-
-        Component name must be the same as in device Component Name resource.
-
-        Component version must comply to semantic versioning. Maximum 3 digits per
-        sub number, therefore max version number will be 999.999.999'
-      entity_fieldname: component_attributes
-      example:
-        key: value
-      in: body
-      maxProperties: 10
-      name: component_attributes
-      parameter_fieldname: component_attributes
-      required: false
-      schema_param: true
-      type: object
     - _key: custom_attributes
       additionalProperties:
         maxLength: 128
@@ -32965,27 +32832,6 @@ entities:
           entity: device_group
           group: Devices
         properties:
-        - _key: component_attributes
-          additionalProperties:
-            maxLength: 128
-            type: string
-          api_fieldname: component_attributes
-          description: 'Up to ten component key-value attributes. The key represents
-            the component name, while its value represents the corresponding component
-            version.
-
-            Keys cannot begin with a number. Both key and value are limited to 128
-            characters. Updating this field replaces existing contents.
-
-            Component name must be the same as in device Component Name resource.
-
-            Component version must comply to semantic versioning. Maximum 3 digits
-            per sub number, therefore max version number will be 999.999.999'
-          entity_fieldname: component_attributes
-          example:
-            key: value
-          maxProperties: 10
-          type: object
         - _key: created_at
           api_fieldname: created_at
           description: The time the group was created.

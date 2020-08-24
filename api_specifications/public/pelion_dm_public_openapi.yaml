@@ -3696,31 +3696,12 @@ definitions:
         type: integer
   DeviceGroup:
     properties:
-      component_attributes: &id028
-        additionalProperties:
-          maxLength: 128
-          type: string
-        description: 'Up to ten component key-value attributes. The key represents
-          the component name, while its value represents the corresponding component
-          version.
-
-          Keys cannot begin with a number. Both key and value are limited to 128 characters.
-          Updating this field replaces existing contents.
-
-          Component name must be the same as in device Component Name resource.
-
-          Component version must comply to semantic versioning. Maximum 3 digits per
-          sub number, therefore max version number will be 999.999.999'
-        example:
-          key: value
-        maxProperties: 10
-        type: object
       created_at:
         description: The time the group was created.
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
-      custom_attributes: &id029
+      custom_attributes: &id028
         additionalProperties:
           maxLength: 128
           pattern: ^[A-Za-z].*
@@ -3732,7 +3713,7 @@ definitions:
           key: value
         maxProperties: 10
         type: object
-      description: &id030
+      description: &id029
         description: The description of the group.
         example: Devices on the factory floor.
         maxLength: 1024
@@ -3749,7 +3730,7 @@ definitions:
         description: The group ID.
         example: 015c3029f6f7000000000001001000c3
         type: string
-      name: &id031
+      name: &id030
         description: Name of the group.
         example: My devices
         maxLength: 128
@@ -8036,7 +8017,7 @@ definitions:
         example: false
         type: boolean
       created_at: *id014
-      description: &id034
+      description: &id033
         description: Human-readable description.
         example: New Linux update for my devices
         maxLength: 2000
@@ -8052,7 +8033,7 @@ definitions:
         example: 016e652be671000000000001001001e5
         pattern: '[A-Fa-f0-9]{32}'
         type: string
-      name: &id035
+      name: &id034
         description: Human-readable name.
         example: New Linux update
         maxLength: 128
@@ -24058,10 +24039,9 @@ paths:
         required: true
         schema:
           properties:
-            component_attributes: *id028
-            custom_attributes: *id029
-            description: *id030
-            name: *id031
+            custom_attributes: *id028
+            description: *id029
+            name: *id030
           type: object
       responses:
         '201':
@@ -24156,10 +24136,9 @@ paths:
         required: true
         schema:
           properties:
-            component_attributes: *id028
-            custom_attributes: *id029
-            description: *id030
-            name: *id031
+            custom_attributes: *id028
+            description: *id029
+            name: *id030
           type: object
       responses:
         '200':
@@ -24785,7 +24764,7 @@ paths:
       summary: Get a page of devices.
       tags:
       - Device directory - groups
-      x-filter: &id032
+      x-filter: &id031
         account_id:
         - eq
         - neq
@@ -26157,7 +26136,7 @@ paths:
       summary: List all devices.
       tags:
       - Device directory - devices
-      x-filter: *id032
+      x-filter: *id031
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
     post:
       description: Create a new device in Device Management. Usually you do not need
@@ -26460,7 +26439,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: &id033
+        schema: &id032
           properties:
             category:
               description: The reference of the block category.
@@ -26516,7 +26495,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: *id033
+        schema: *id032
       responses:
         '204':
           description: Ok - Device suspended.
@@ -27128,8 +27107,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id034
-            name: *id035
+            description: *id033
+            name: *id034
           type: object
       responses:
         201:
@@ -27263,8 +27242,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id034
-            name: *id035
+            description: *id033
+            name: *id034
           type: object
       responses:
         200:
@@ -31638,7 +31617,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: &id036
+        enum: &id035
         - fail
         - success
         - info
@@ -31691,7 +31670,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: *id036
+        enum: *id035
         in: path
         name: summary_status_id
         required: true
@@ -31741,7 +31720,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: *id036
+        enum: *id035
         in: path
         name: summary_status_id
         required: true
