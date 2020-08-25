@@ -58,6 +58,11 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-deprecation:
+      comment: This field is deprecated, do not use it anymore.
+      end_of_life_at: '2021-09-01T00:00:00+00:00'
+      issued_at: '2020-09-01T00:00:00+00:00'
+      links: []
     x-nullable: true
   - _key: admin_name
     api_fieldname: admin_name
@@ -1427,6 +1432,11 @@ entities:
           example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
           readOnly: true
           type: string
+          x-deprecation:
+            comment: This field is deprecated, do not use it anymore.
+            end_of_life_at: '2021-09-01T00:00:00+00:00'
+            issued_at: '2020-09-01T00:00:00+00:00'
+            links: []
           x-nullable: true
         - _key: admin_name
           api_fieldname: admin_name

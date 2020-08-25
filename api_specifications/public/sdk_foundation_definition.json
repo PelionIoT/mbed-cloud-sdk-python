@@ -1972,6 +1972,12 @@
                     "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
                     "description": "The admin API key created for this account. Present only in the response for account creation.",
                     "readOnly": true,
+                    "x-deprecation": {
+                      "issued_at": "2020-09-01T00:00:00+00:00",
+                      "end_of_life_at": "2021-09-01T00:00:00+00:00",
+                      "comment": "This field is deprecated, do not use it anymore.",
+                      "links": []
+                    },
                     "api_fieldname": "admin_key",
                     "entity_fieldname": "admin_key",
                     "_key": "admin_key"
@@ -15168,6 +15174,12 @@
           "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
           "description": "The admin API key created for this account. Present only in the response for account creation.",
           "readOnly": true,
+          "x-deprecation": {
+            "issued_at": "2020-09-01T00:00:00+00:00",
+            "end_of_life_at": "2021-09-01T00:00:00+00:00",
+            "comment": "This field is deprecated, do not use it anymore.",
+            "links": []
+          },
           "api_fieldname": "admin_key",
           "required": false,
           "_key": "admin_key"
