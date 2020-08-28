@@ -10411,13 +10411,12 @@ paths:
         \ to maintain the notification flow. The client might disconnect several times\
         \ in a relatively short period, for example, during service updates. This\
         \ is normal. The desired client behavior is to reconnect after each disconnect.\n\
-        \n**Example:**\n\nThe curl examples provided are meant only for testing. For\
-        \ production devices, use a websocket client library.\nAs the curl example\
-        \ doesn't know how to responsd to websocket ping, it will stop working shortly\
-        \ after receiving first ping.\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\
-        \ \\\n-H \"Authorization:Bearer {apikey}\" \\\n-H \"Connection:upgrade\" \\\
-        \n-H \"Upgrade:websocket\" \\\n-H \"Sec-WebSocket-Version: 13\" \\\n-H \"\
-        Sec-WebSocket-Key: {base64nonce}\" \\\n--no-buffer \\\n--head\n```"
+        \n**Example:**\n\nThe example is meant only for testing. For production devices,\
+        \ use a WebSocket client library. Websocat (https://github.com/vi/websocat)\
+        \ is a command-line client for WebSockets, like netcat or cURL. The example\
+        \ command opens a new WebSocket, waits for any data sent to the socket from\
+        \ the server, and prints it to `stdout`.\n\n```\nwebsocat wss://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\
+        \ \\\n-H \"Sec-WebSocket-Protocol:wss,pelion_ak_<access_key>\"\n```"
       operationId: connectWebsocket
       parameters:
       - default: Upgrade
