@@ -3272,6 +3272,13 @@ definitions:
         example: 00000000-0000-0000-0000-000000000000
         maxLength: 128
         type: string
+      net_id:
+        default: ''
+        description: Private network identifier. Used to group nodes connected to
+          a specific border router.
+        example: 0000:0000:0000:0000:0000:0000:0000:0000
+        maxLength: 40
+        type: string
       object:
         description: The API resource entity.
         example: device
@@ -24682,6 +24689,22 @@ paths:
         in: query
         name: name__nin
         type: string
+      - description: eq filter for the "net_id" field
+        in: query
+        name: net_id__eq
+        type: string
+      - description: neq filter for the "net_id" field
+        in: query
+        name: net_id__neq
+        type: string
+      - description: in filter for the "net_id" field
+        in: query
+        name: net_id__in
+        type: string
+      - description: nin filter for the "net_id" field
+        in: query
+        name: net_id__nin
+        type: string
       - description: eq filter for the "serial_number" field
         in: query
         name: serial_number__eq
@@ -24908,6 +24931,11 @@ paths:
         - in
         - nin
         name:
+        - eq
+        - neq
+        - in
+        - nin
+        net_id:
         - eq
         - neq
         - in
@@ -26059,6 +26087,22 @@ paths:
       - description: nin filter for the "name" field
         in: query
         name: name__nin
+        type: string
+      - description: eq filter for the "net_id" field
+        in: query
+        name: net_id__eq
+        type: string
+      - description: neq filter for the "net_id" field
+        in: query
+        name: net_id__neq
+        type: string
+      - description: in filter for the "net_id" field
+        in: query
+        name: net_id__in
+        type: string
+      - description: nin filter for the "net_id" field
+        in: query
+        name: net_id__nin
         type: string
       - description: eq filter for the "serial_number" field
         in: query

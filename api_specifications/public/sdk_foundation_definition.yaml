@@ -23890,6 +23890,16 @@ entities:
     readOnly: false
     required: false
     type: string
+  - _key: net_id
+    api_fieldname: net_id
+    default: ''
+    description: Private network identifier. Used to group nodes connected to a specific
+      border router.
+    example: 0000:0000:0000:0000:0000:0000:0000:0000
+    maxLength: 40
+    readOnly: true
+    required: false
+    type: string
   - _key: operator_suspended
     api_fieldname: operator_suspended
     description: Device has been suspended by operator.
@@ -24182,6 +24192,7 @@ entities:
     - id
     - firmware_checksum
     - manifest_timestamp
+    - net_id
     - updated_at
     - enrolment_list_timestamp
     field_renames: []
@@ -24747,6 +24758,15 @@ entities:
           example: 00000000-0000-0000-0000-000000000000
           maxLength: 128
           type: string
+        net_id:
+          api_fieldname: net_id
+          default: ''
+          description: Private network identifier. Used to group nodes connected to
+            a specific border router.
+          entity_fieldname: net_id
+          example: 0000:0000:0000:0000:0000:0000:0000:0000
+          maxLength: 40
+          type: string
         object:
           api_fieldname: object
           description: The API resource entity.
@@ -25019,6 +25039,10 @@ entities:
     - name__neq
     - name__in
     - name__nin
+    - net_id__eq
+    - net_id__neq
+    - net_id__in
+    - net_id__nin
     - serial_number__eq
     - serial_number__neq
     - serial_number__in
@@ -25341,6 +25365,13 @@ entities:
               example: 00000000-0000-0000-0000-000000000000
               maxLength: 128
               type: string
+            net_id:
+              default: ''
+              description: Private network identifier. Used to group nodes connected
+                to a specific border router.
+              example: 0000:0000:0000:0000:0000:0000:0000:0000
+              maxLength: 40
+              type: string
             object:
               description: The API resource entity.
               example: device
@@ -25587,6 +25618,11 @@ entities:
       - neq
       - in
       - nin
+      net_id:
+      - eq
+      - neq
+      - in
+      - nin
       operator_suspended:
       - eq
       - neq
@@ -25671,6 +25707,7 @@ entities:
     - mechanism
     - mechanism_url
     - name
+    - net_id
     - serial_number
     - state
     - updated_at
@@ -25995,6 +26032,15 @@ entities:
           entity_fieldname: name
           example: 00000000-0000-0000-0000-000000000000
           maxLength: 128
+          type: string
+        net_id:
+          api_fieldname: net_id
+          default: ''
+          description: Private network identifier. Used to group nodes connected to
+            a specific border router.
+          entity_fieldname: net_id
+          example: 0000:0000:0000:0000:0000:0000:0000:0000
+          maxLength: 40
           type: string
         object:
           api_fieldname: object
@@ -26728,6 +26774,7 @@ entities:
     - manifest_timestamp
     - mechanism
     - mechanism_url
+    - net_id
     - serial_number
     - state
     - updated_at
@@ -27149,6 +27196,15 @@ entities:
           entity_fieldname: name
           example: 00000000-0000-0000-0000-000000000000
           maxLength: 128
+          type: string
+        net_id:
+          api_fieldname: net_id
+          default: ''
+          description: Private network identifier. Used to group nodes connected to
+            a specific border router.
+          entity_fieldname: net_id
+          example: 0000:0000:0000:0000:0000:0000:0000:0000
+          maxLength: 40
           type: string
         object:
           api_fieldname: object
@@ -31212,6 +31268,10 @@ entities:
     - name__neq
     - name__in
     - name__nin
+    - net_id__eq
+    - net_id__neq
+    - net_id__in
+    - net_id__nin
     - serial_number__eq
     - serial_number__neq
     - serial_number__in
@@ -31548,6 +31608,13 @@ entities:
                 itself provides only the endpoint_name.
               example: 00000000-0000-0000-0000-000000000000
               maxLength: 128
+              type: string
+            net_id:
+              default: ''
+              description: Private network identifier. Used to group nodes connected
+                to a specific border router.
+              example: 0000:0000:0000:0000:0000:0000:0000:0000
+              maxLength: 40
               type: string
             object:
               description: The API resource entity.
@@ -31937,6 +32004,11 @@ entities:
       - in
       - nin
       name:
+      - eq
+      - neq
+      - in
+      - nin
+      net_id:
       - eq
       - neq
       - in

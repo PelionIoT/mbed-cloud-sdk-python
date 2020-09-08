@@ -32696,6 +32696,15 @@
                     "api_fieldname": "name",
                     "entity_fieldname": "name"
                   },
+                  "net_id": {
+                    "type": "string",
+                    "default": "",
+                    "maxLength": 40,
+                    "description": "Private network identifier. Used to group nodes connected to a specific border router.",
+                    "example": "0000:0000:0000:0000:0000:0000:0000:0000",
+                    "api_fieldname": "net_id",
+                    "entity_fieldname": "net_id"
+                  },
                   "object": {
                     "type": "string",
                     "description": "The API resource entity.",
@@ -32801,6 +32810,7 @@
             "id",
             "firmware_checksum",
             "manifest_timestamp",
+            "net_id",
             "updated_at",
             "enrolment_list_timestamp"
           ],
@@ -33189,6 +33199,13 @@
                           "description": "The name given by the web application for the device. Device itself provides only the endpoint_name.",
                           "example": "00000000-0000-0000-0000-000000000000"
                         },
+                        "net_id": {
+                          "type": "string",
+                          "default": "",
+                          "maxLength": 40,
+                          "description": "Private network identifier. Used to group nodes connected to a specific border router.",
+                          "example": "0000:0000:0000:0000:0000:0000:0000:0000"
+                        },
                         "object": {
                           "type": "string",
                           "description": "The API resource entity.",
@@ -33488,6 +33505,12 @@
               "in",
               "nin"
             ],
+            "net_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
             "serial_number": [
               "eq",
               "neq",
@@ -33640,6 +33663,10 @@
             "name__neq",
             "name__in",
             "name__nin",
+            "net_id__eq",
+            "net_id__neq",
+            "net_id__in",
+            "net_id__nin",
             "serial_number__eq",
             "serial_number__neq",
             "serial_number__in",
@@ -34008,6 +34035,15 @@
                     "api_fieldname": "name",
                     "entity_fieldname": "name"
                   },
+                  "net_id": {
+                    "type": "string",
+                    "default": "",
+                    "maxLength": 40,
+                    "description": "Private network identifier. Used to group nodes connected to a specific border router.",
+                    "example": "0000:0000:0000:0000:0000:0000:0000:0000",
+                    "api_fieldname": "net_id",
+                    "entity_fieldname": "net_id"
+                  },
                   "object": {
                     "type": "string",
                     "description": "The API resource entity.",
@@ -34126,6 +34162,7 @@
             "mechanism",
             "mechanism_url",
             "name",
+            "net_id",
             "serial_number",
             "state",
             "updated_at",
@@ -35438,6 +35475,15 @@
                     "api_fieldname": "name",
                     "entity_fieldname": "name"
                   },
+                  "net_id": {
+                    "type": "string",
+                    "default": "",
+                    "maxLength": 40,
+                    "description": "Private network identifier. Used to group nodes connected to a specific border router.",
+                    "example": "0000:0000:0000:0000:0000:0000:0000:0000",
+                    "api_fieldname": "net_id",
+                    "entity_fieldname": "net_id"
+                  },
                   "object": {
                     "type": "string",
                     "description": "The API resource entity.",
@@ -35547,6 +35593,7 @@
             "manifest_timestamp",
             "mechanism",
             "mechanism_url",
+            "net_id",
             "serial_number",
             "state",
             "updated_at",
@@ -35932,6 +35979,17 @@
           "readOnly": false,
           "required": false,
           "_key": "name"
+        },
+        {
+          "type": "string",
+          "default": "",
+          "maxLength": 40,
+          "description": "Private network identifier. Used to group nodes connected to a specific border router.",
+          "example": "0000:0000:0000:0000:0000:0000:0000:0000",
+          "api_fieldname": "net_id",
+          "readOnly": true,
+          "required": false,
+          "_key": "net_id"
         },
         {
           "type": "boolean",
@@ -41085,6 +41143,13 @@
                           "description": "The name given by the web application for the device. Device itself provides only the endpoint_name.",
                           "example": "00000000-0000-0000-0000-000000000000"
                         },
+                        "net_id": {
+                          "type": "string",
+                          "default": "",
+                          "maxLength": 40,
+                          "description": "Private network identifier. Used to group nodes connected to a specific border router.",
+                          "example": "0000:0000:0000:0000:0000:0000:0000:0000"
+                        },
                         "object": {
                           "type": "string",
                           "description": "The API resource entity.",
@@ -41601,6 +41666,12 @@
               "in",
               "nin"
             ],
+            "net_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
             "serial_number": [
               "eq",
               "neq",
@@ -41753,6 +41824,10 @@
             "name__neq",
             "name__in",
             "name__nin",
+            "net_id__eq",
+            "net_id__neq",
+            "net_id__in",
+            "net_id__nin",
             "serial_number__eq",
             "serial_number__neq",
             "serial_number__in",
