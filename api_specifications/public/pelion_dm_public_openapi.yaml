@@ -26597,7 +26597,7 @@ paths:
         in: query
         name: include
         type: string
-      - description: "URL-encoded query string parameter to filter returned data\n\
+      - description: "URL-encoded query string parameter to filter returned data.\n\
           \n`?filter={URL-encoded query string}`\n\n###### Filterable fields:\n\n\
           The table lists all the fields that can be filtered on with certain filters:\n\
           \n<table>\n  <thead>\n    <tr>\n      <th>Field</th>\n      <th>= / __eq\
