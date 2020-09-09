@@ -26781,10 +26781,16 @@ paths:
             $ref: '#/definitions/FirmwareImagePage'
         '400':
           description: Bad Request.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Unable to find content.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: List all images
       tags:
       - Device update - firmware images
@@ -26889,12 +26895,20 @@ paths:
             $ref: '#/definitions/FirmwareImage'
         '400':
           description: Cannot validate the data used to create the firmware image.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '403':
           description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         413:
           description: Firmware image too large.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Create an image
       tags:
       - Device update - firmware images
@@ -27543,14 +27557,32 @@ paths:
     post:
       consumes:
       - application/octet-stream
-      description: "Append a chunk to an upload job. To finish a job, upload a zero-length\
-        \ chunk.\n<BR/> **Note:** Chunk size must be between 5MB and 100MB, the last\
-        \ chunk can be less than 5MB; the maximum number of chunks is limited to 10,000.\n\
-        <br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012/chunks\
-        \ \\\n-H 'Authorization: Bearer <api_key>' \\\n-H 'Content-MD5: Q2h1Y2sgSW51ZwDIAXR5IQ=='\
-        \ \\\n-H 'Content-Type: binary/octet-stream' \\\n-H 'Content-Length: 999'\
-        \ \\\n-d '{\n  \"IGh0dHBzOi8vYXBpLnVzLWVhc3QtMS5tYmVkY2xvdWQuY29tLy92My9maXJtd2FyZS1pbWFnZXMvdXBsb2FkLWpvYnMve3VwbG9hZF9qb2JfaWR9W5rcw==\"\
-        \n}'\n```\n"
+      description: 'Append a chunk to an upload job. To finish a job, upload a zero-length
+        chunk.
+
+        <BR/> **Note:** Chunk size must be between 5MB and 100MB, the last chunk can
+        be less than 5MB; the maximum number of chunks is limited to 10,000.
+
+        <br>
+
+        **Usage example:**
+
+        ```
+
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012/chunks
+        \
+
+        -H ''Authorization: Bearer <api_key>'' \
+
+        -H ''Content-MD5: Q2h1Y2sgSW51ZwDIAXR5IQ=='' \
+
+        -H ''Content-Type: binary/octet-stream'' \
+
+        --data-binary ''@chunkfile.bin''
+
+        ```
+
+        '
       operationId: Upload_Job_Chunk_Create
       parameters:
       - description: The base64-encoded binary digest of the body (chunk data).
@@ -27684,10 +27716,16 @@ paths:
           description: Firmware image deleted.
         '400':
           description: Bad Request.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Firmware image not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Delete an image
       tags:
       - Device update - firmware images
@@ -27724,10 +27762,16 @@ paths:
             $ref: '#/definitions/FirmwareImage'
         '400':
           description: Bad Request.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Firmware image can't be found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Get an image.
       tags:
       - Device update - firmware images
@@ -27975,10 +28019,16 @@ paths:
             $ref: '#/definitions/FirmwareManifestPage'
         '400':
           description: Bad Request.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Unable to find content.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: List all firmware manifests.
       tags:
       - Device update - firmware manifests
@@ -28096,10 +28146,16 @@ paths:
             did not validate and/or the manifest uploaded exceeded 2 KB in size.
 
             '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '403':
           description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Upload a manifest
       tags:
       - Device update - firmware manifests
@@ -28135,10 +28191,16 @@ paths:
           description: Firmware manifest deleted.
         '400':
           description: Bad Request.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Firmware manifest not found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Delete a manifest
       tags:
       - Device update - firmware manifests
@@ -28175,10 +28237,16 @@ paths:
             $ref: '#/definitions/FirmwareManifest'
         '400':
           description: Bad request.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Firmware manifest can't be found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Get a manifest
       tags:
       - Device update - firmware manifests
@@ -31133,10 +31201,16 @@ paths:
             not validate.
 
             '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Unable to find content.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: List all campaigns
       tags:
       - Device update - campaigns
@@ -31224,8 +31298,16 @@ paths:
             not validate.
 
             '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: Conflict, a campaign with the same name already exists
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Create a campaign
       tags:
       - Device update - campaigns
@@ -31264,10 +31346,16 @@ paths:
             not validate.
 
             '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Update campaign can't be found.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         409:
           description: Conflict - Cannot delete the campaign while in the current
             phase.
@@ -31312,10 +31400,16 @@ paths:
             not validate.
 
             '
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Unable to find campaign.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Get a campaign.
       tags:
       - Device update - campaigns
@@ -31393,12 +31487,20 @@ paths:
           description: The campaign has been archived.
         '400':
           description: Unable to change the phase of the campaign.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Cannot find the campaign.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '409':
           description: Cannot archive the campaign while in the current phase.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Archive a campaign.
       tags:
       - Device update - campaigns
@@ -31542,8 +31644,12 @@ paths:
             $ref: '#/definitions/CampaignMetrics'
         401:
           description: Unauthorized.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         404:
           description: Unable to find campaign or the campaign hasn't started.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Get campaign metrics
       tags:
       - Device update - campaigns
@@ -31584,12 +31690,20 @@ paths:
           description: The campaign is starting.
         '400':
           description: Unable to change the phase of the campaign.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Cannot find the campaign.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '409':
           description: Cannot start the campaign while in the current phase.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Start a campaign.
       tags:
       - Device update - campaigns
@@ -31861,12 +31975,20 @@ paths:
           description: The campaign is stopping.
         '400':
           description: Unable to change the phase of the campaign.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '401':
           description: Not authenticated.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '404':
           description: Cannot find the campaign.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         '409':
           description: Cannot stop the campaign while in the current phase.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
       summary: Stop a campaign.
       tags:
       - Device update - campaigns
