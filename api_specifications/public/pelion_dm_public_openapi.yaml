@@ -5613,6 +5613,67 @@ definitions:
     - has_more
     - data
     type: object
+  Log:
+    properties:
+      account_id:
+        description: The ID of the account associated with the device.
+        example: 0168e7bff4f2263cf4be560700000000
+        type: string
+      app_name:
+        description: A tag indicating which application or software module produced
+          the log message.
+        example: modbus
+        type: string
+      created_at:
+        description: RFC 3339 UTC timestamp indicating when the resource entity was
+          created.
+        example: '2017-07-21T17:32:28Z'
+        format: date-time
+        type: string
+      device_id:
+        description: Device ID.
+        example: 00005a4e027f0a580a01081c00000000
+        type: string
+      etag:
+        description: Entity instance signature, or Unix timestamp of last customer
+          update.
+        example: stdout
+        type: string
+      id:
+        description: mUUID Entity ID. Each device log has a unique ID.
+        example: 2d238a89038b4ddb84699dd36a901063
+        pattern: /^[(0-9)(a-f)]{32}$/
+        type: string
+      level:
+        description: Log entry severity level.
+        enum:
+        - DEBUG
+        - TRACE
+        - INFO
+        - WARNING
+        - ERROR
+        - CRITICAL
+        example: ERROR
+        type: string
+      message:
+        description: Log message body.
+        example: 'ModbusRTU Driver: Failed to start undefined'
+        type: string
+      object:
+        description: Device log resource name.
+        example: device-log
+        type: string
+      timestamp:
+        description: RFC 3339 UTC timestamp indicating indicating the device time
+          the message was printed.
+        example: '2017-07-21T17:40:28Z'
+        format: date-time
+        type: string
+      type:
+        description: Device log type.
+        example: syslog
+        type: string
+    type: object
   LoginHistory:
     description: Represents an entry in login history.
     properties:
@@ -5669,6 +5730,40 @@ definitions:
         type: string
     required:
     - id
+    type: object
+  LogsPage:
+    properties:
+      after:
+        description: An offset token for current page.
+        type: string
+        x-nullable: true
+      data:
+        items:
+          $ref: '#/definitions/Log'
+        type: array
+      has_more:
+        description: Indicates whether more results are available.
+        example: false
+        type: boolean
+      limit:
+        description: Limit applied on number of device log resource objects retrieved
+          in the page (2-1000).
+        example: 100
+        maximum: 1000
+        minimum: 2
+        type: integer
+      object:
+        description: Always `list`.
+        example: list
+        type: string
+      order:
+        description: Entry order based on creation time.
+        example: DESC
+        type: string
+      total_count:
+        example: 1
+        format: integer
+        type: integer
     type: object
   NotificationData:
     properties:
@@ -8029,7 +8124,7 @@ definitions:
         example: false
         type: boolean
       created_at: *id014
-      description: &id033
+      description: &id039
         description: Human-readable description.
         example: New Linux update for my devices
         maxLength: 2000
@@ -8045,7 +8140,7 @@ definitions:
         example: 016e652be671000000000001001001e5
         pattern: '[A-Fa-f0-9]{32}'
         type: string
-      name: &id034
+      name: &id040
         description: Human-readable name.
         example: New Linux update
         maxLength: 128
@@ -25037,6 +25132,157 @@ paths:
       tags:
       - Device directory - groups
       x-origin: /home/circleci/project/device-directory/public/swagger.yml
+  /v3/device-logs:
+    get:
+      description: 'List logs for all devices based on a combination of filters.
+
+
+        **Example usage:**
+
+        ```
+
+        curl -X GET \
+
+        -H ''Authorization: Bearer <valid access token>'' \
+
+        https://api.us-east-1.mbedcloud.com/v3/device-logs
+
+        ```
+
+        '
+      operationId: ListGatewayDeviceLogs
+      parameters:
+      - default: 100
+        description: Limit the number of returned results. The default value is 100.
+        in: query
+        maximum: 1000
+        minimum: 2
+        name: limit
+        required: false
+        type: integer
+      - description: The entity ID to fetch after the given one.
+        in: query
+        name: after
+        required: false
+        type: string
+      - default: DESC
+        description: 'Record order. Acceptable values: ASC, DESC.'
+        enum: &id032
+        - ASC
+        - DESC
+        in: query
+        name: order
+        required: false
+        type: string
+      - description: 'Comma separated additional data to return. Currently supported:
+          total_count'
+        in: query
+        name: include
+        required: false
+        type: string
+      - description: lte filter for the "timestamp" field
+        format: date-time
+        in: query
+        name: timestamp__lte
+        type: string
+      - description: gte filter for the "timestamp" field
+        format: date-time
+        in: query
+        name: timestamp__gte
+        type: string
+      - description: eq filter for the "app_name" field
+        in: query
+        name: app_name__eq
+        type: string
+      - description: eq filter for the "type" field
+        in: query
+        name: type__eq
+        type: string
+      - description: eq filter for the "message" field
+        in: query
+        name: message__eq
+        type: string
+      - description: gte filter for the "level" field
+        in: query
+        name: level__gte
+        type: string
+      - description: in filter for the "device_id" field
+        in: query
+        name: device_id__in
+        type: string
+      responses:
+        '200':
+          description: Retrieved logs successfully
+          schema:
+            $ref: '#/definitions/LogsPage'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: List all device logs based on filters
+      tags:
+      - Gateway Logs Public API
+      x-filter:
+        app_name: &id033
+        - eq
+        device_id:
+        - in
+        level: &id034
+        - gte
+        message: &id035
+        - eq
+        timestamp: &id036
+        - lte
+        - gte
+        type: &id037
+        - eq
+      x-origin: /home/circleci/project/gateway/public/logs.yaml
+  /v3/device-logs/{device_log_id}:
+    get:
+      description: 'Retrieve a device log from a device by log ID.
+
+
+        **Example usage:**
+
+        ```
+
+        curl -X GET \
+
+        -H ''Authorization: Bearer <valid access token>'' \
+
+        https://api.us-east-1.mbedcloud.com/v3/device-logs/(device_log_id)
+
+        ```
+
+        '
+      operationId: GetDeviceLogBasedOnLogID
+      parameters:
+      - description: The ID of the device log.
+        in: path
+        name: device_log_id
+        required: true
+        type: string
+      responses:
+        '200':
+          description: Retrieved result successfully
+          schema:
+            $ref: '#/definitions/Log'
+        '401':
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Retrieve a device log by ID.
+      tags:
+      - Gateway Logs Public API
+      x-origin: /home/circleci/project/gateway/public/logs.yaml
   /v3/device-queries/:
     get:
       description: List all device queries.
@@ -26326,6 +26572,110 @@ paths:
       tags:
       - Device Echo
       x-origin: /home/circleci/project/device-server/public/swagger.yaml
+  /v3/devices/{device_id}/logs:
+    get:
+      description: 'Retrieve logs for a given device based on a combination of filters.
+
+
+        **Example usage:**
+
+        ```
+
+        curl -X GET \
+
+        -H ''Authorization: Bearer <valid access token>'' \
+
+        https://api.us-east-1.mbedcloud.com/v3/devices/{device_id}/logs
+
+        ```
+
+        '
+      operationId: ListSingleGatewayDeviceLogs
+      parameters:
+      - description: The id of the device
+        in: path
+        name: device_id
+        required: true
+        type: string
+      - default: 100
+        description: Limit the number of returned results. The default value is 100.
+        in: query
+        maximum: 1000
+        minimum: 2
+        name: limit
+        required: false
+        type: integer
+      - description: The entity ID to fetch after the given one.
+        in: query
+        name: after
+        required: false
+        type: string
+      - default: DESC
+        description: 'Record order. Acceptable values: ASC, DESC.'
+        enum: *id032
+        in: query
+        name: order
+        required: false
+        type: string
+      - description: 'Comma separated additional data to return. Currently supported:
+          total_count'
+        in: query
+        name: include
+        required: false
+        type: string
+      - description: lte filter for the "timestamp" field
+        format: date-time
+        in: query
+        name: timestamp__lte
+        type: string
+      - description: gte filter for the "timestamp" field
+        format: date-time
+        in: query
+        name: timestamp__gte
+        type: string
+      - description: eq filter for the "app_name" field
+        in: query
+        name: app_name__eq
+        type: string
+      - description: eq filter for the "type" field
+        in: query
+        name: type__eq
+        type: string
+      - description: eq filter for the "message" field
+        in: query
+        name: message__eq
+        type: string
+      - description: gte filter for the "level" field
+        in: query
+        name: level__gte
+        type: string
+      responses:
+        '200':
+          description: Retrieved logs successfully
+          schema:
+            $ref: '#/definitions/LogsPage'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Not authenticated
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Return the logs for a specific device.
+      tags:
+      - Gateway Logs Public API
+      x-filter:
+        app_name: *id033
+        level: *id034
+        message: *id035
+        timestamp: *id036
+        type: *id037
+      x-origin: /home/circleci/project/gateway/public/logs.yaml
   /v3/devices/{id}/:
     delete:
       description: Delete device. Only available for devices with a developer certificate.
@@ -26487,7 +26837,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: &id032
+        schema: &id038
           properties:
             category:
               description: The reference of the block category.
@@ -26543,7 +26893,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: *id032
+        schema: *id038
       responses:
         '204':
           description: Ok - Device suspended.
@@ -27169,8 +27519,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id033
-            name: *id034
+            description: *id039
+            name: *id040
           type: object
       responses:
         201:
@@ -27304,8 +27654,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id033
-            name: *id034
+            description: *id039
+            name: *id040
           type: object
       responses:
         200:
@@ -31779,7 +32129,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: &id035
+        enum: &id041
         - fail
         - success
         - info
@@ -31832,7 +32182,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: *id035
+        enum: *id041
         in: path
         name: summary_status_id
         required: true
@@ -31882,7 +32232,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: *id035
+        enum: *id041
         in: path
         name: summary_status_id
         required: true
