@@ -25841,6 +25841,116 @@ paths:
         in: query
         name: after
         type: string
+      - description: 'URL encoded query string parameter to filter returned data.
+
+
+          ##### Filtering
+
+          ```?filter={URL encoded query string}```
+
+
+          The query string is made up of key/value pairs separated by ampersands.
+          So for a query of
+
+          ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows:
+
+          ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```
+
+          The examples below show the queries in *unencoded* form.
+
+
+          ###### By device properties (all properties are filterable):
+
+          ```state=[unenrolled|cloud_enrolling|bootstrapped|registered]```
+
+
+          ```device_class={value}```
+
+
+          ###### On date-time fields:
+
+          Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```.
+          There are three permitted
+
+          variations:
+
+
+          * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z
+
+          * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z
+
+          * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z
+
+
+          Date-time filtering supports three operators:
+
+
+          * equality
+
+          * greater than or equal to &ndash; field name suffixed with ```__gte```
+
+          * less than or equal to &ndash; field name suffixed with ```__lte```
+
+
+          Lower and upper limits to a date-time range may be specified by including
+          both the ```__gte``` and ```__lte``` forms in
+
+          the filter.
+
+
+          ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```
+
+
+          ###### On device custom attributes:
+
+
+          ```custom_attributes__{param}={value}```
+
+          ```custom_attributes__tag=TAG1```
+
+
+          ###### On device component attributes:
+
+
+          ```component_attributes__{name}={version}```
+
+          ```component_attributes__ble=1.2.3```
+
+
+          ##### Multi-field example
+
+
+          ```state=bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```
+
+
+          Encoded:
+
+
+          ```?filter=state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
+
+
+          ##### Filtering with filter operators
+
+
+          String field filtering supports the following operators:
+
+
+          * equality: `__eq`
+
+          * non-equality: `__neq`
+
+          * in : `__in`
+
+          * not in: `__nin`
+
+
+          For `__in` and `__nin` filters list of parameters must be comma-separated:
+
+
+          `state__nin=unenrolled,dergistered`'
+        in: query
+        name: filter
+        type: string
       - description: 'Comma-separated list of data fields to return. Currently supported:
           `total_count`.'
         in: query
