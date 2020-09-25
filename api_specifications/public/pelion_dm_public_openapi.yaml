@@ -9342,57 +9342,58 @@ paths:
         \ Protocol) methods on a device and send commands to device resources.\n\n\
         As part of the request body, you must specify the CoAP method you want to\
         \ call on the device:\n\n- Use the GET method to read resource values.\n\n\
-        \    For example, to read the value of resource `/3200/0/5501`, use:\n\n```\n\
-        curl -X POST https://api.us-east-1.mbedcloud.com/v2/device-requests/{device_id}?async-id={async-response-id}\
-        \ \\\n-H 'Authorization: Bearer {access_key}' \\\n-H 'content-type: application/json'\
-        \ \\\n-d '{\"method\": \"GET\", \"uri\": \"/3200/0/5501\"}'\n```\n\n    For\
-        \ `GET` methods, the API may fetch values from an internal cache, instead\
-        \ of contacting the device.\n\n    If the value is not in the cache, the read\
-        \ command goes all the way to the device.\n\n\n- Use the PUT method to write\
-        \ [notification rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)\
-        \ or resource values for a resource.\n\n    Example payload to write a notification\
-        \ rule:\n\n```\n{ \"method\": \"PUT\", \"uri\": \"/5/0/1?lt=10&gt=60&pmax=120\"\
-        \ }\n```\n\n    Example payload to write a value to resource `/5/0/1`:\n\n\
-        ```\n    { \"method\": \"PUT\", \"uri\": \"/5/0/1?k1=v1&k2=v2\", \"accept\"\
-        : \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\": \"dmFsdWUxCg==\"\
-        \ }\n```\n\n- Use the POST method to execute or create a resource on a LWM2M\
-        \ supporting device.\n\n    When you create a resource, `uri` must refer to\
-        \ an object, and `payload-b64` must be in LWM2M TLV format; for example:\n\
-        \n    ```\n    { \"method\": \"POST\", \"uri\": \"/123\", \"content-type\"\
-        : \"application/vnd.oma.lwm2m+tlv\", \"payload-b64\": \"BwHFAnZhbHVl\" }\n\
-        \    ```\n\n    Example payload to execute LWM2M resource `/123/1/1`:\n\n\
-        \    ```\n{ \"method\": \"POST\", \"uri\": \"/123/1/1\" }\n    ```\n\nDevice\
-        \ Management sends responses through the currently configured notification\
-        \ channel as `AsyncIDResponse`.\n\nExample `AsyncIDResponse` delivered through\
-        \ the notification channel:\n- ```\n{ \"async-responses\": [ { \"id\": \"\
-        123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"payload\": \"dmFsdWUxCg==\"\
-        , \"ct\": \"text/plain\", \"max-age\": 600 } ] }\n    ```\n\n- ```\n{ \"async-responses\"\
-        : [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 504, \"\
-        error\": \"TIMEOUT\" } ] }\n```\n\nIf it cannot reach the device at the time\
-        \ of the request, Device Management puts the requests in a queue.\n\n**Queueing\
-        \ behavior**\n\nIf Device Management does not reach the device, or the device\
-        \ fails to respond, the server queues the request and retries the delivery,\
-        \ for the period of time defined by `expiry-seconds`, the next time the device\
-        \ contacts the server.\n\nThe queue is limited to 20 requests.\n\nDevice Management\
-        \ delivers requests from the queue in the order of insertion, one at a time,\
-        \ and not concurrently.\n\nDelivery attempts follow protocol-specific retransmission\
-        \ logic. There can be multiple transmissions, depending on the protocol. For\
-        \ CoAP, the retransmissions have an exponential backoff of 2, 4, 8, 16, and\
-        \ up to 64 seconds, taking in total over two minutes.\nIf the device does\
-        \ not respond within this two-minute period, the delivery fails, Device Management\
-        \ performs one retry and then puts the request back into the queue until the\
-        \ retry count reaches its limit.\n\nDevice Management attempts to redeliver\
-        \ the request when the device next contacts the server.\n\nWhen Device Management\
-        \ reaches the `retry` or `expiry-seconds` limit, the server discards the request\
-        \ and sends an error in `AsyncIDResponse`.\n\nFor example:\n\n- Retries could\
-        \ be exhausted if the device periodically contacts the server and receives\
-        \ the request from the queue, but then fails to respond to the server.\n\n\
-        - The device may lose its network connectivity, and the requests in the queue\
-        \ may expire and get discarded before the device regains connectivity. When\
-        \ Device Management delivers the request to the device, the status code in\
-        \ `AsyncIDResponse` is *2xx* or *4xx*, based on the device's response. If\
-        \ Device Management could not deliver the request, the server generates a\
-        \ status code of *429* or *5xx*."
+        \    For example, to read the value of resource `/3200/0/5501`, use:\n\n \
+        \   ```\n    curl -X POST https://api.us-east-1.mbedcloud.com/v2/device-requests/{device_id}?async-id={async-response-id}\
+        \ \\\n    -H 'Authorization: Bearer {access_key}' \\\n    -H 'content-type:\
+        \ application/json' \\\n    -d '{\"method\": \"GET\", \"uri\": \"/3200/0/5501\"\
+        }'\n    ```\n\n> For `GET` methods, the API may fetch values from an internal\
+        \ cache, instead of contacting the device.\n> If the value is not in the cache,\
+        \ the read command goes all the way to the device.\n\n\n- Use the PUT method\
+        \ to write [notification rules](https://www.pelion.com/docs/device-management/current/resources/resource-change-webapp.html)\
+        \ or resource values for a resource.\n\n  Example payload to write a notification\
+        \ rule:\n\n    ```\n    { \"method\": \"PUT\", \"uri\": \"/5/0/1?lt=10&gt=60&pmax=120\"\
+        \ }\n    ```\n\n- Example payload to write a value to resource `/5/0/1`:\n\
+        \n    ```\n    { \"method\": \"PUT\", \"uri\": \"/5/0/1?k1=v1&k2=v2\", \"\
+        accept\": \"text/plain\", \"content-type\": \"text/plain\", \"payload-b64\"\
+        : \"dmFsdWUxCg==\" }\n    ```\n\n- Use the POST method to execute or create\
+        \ a resource on a LWM2M supporting device.\n\n  When you create a resource,\
+        \ `uri` must refer to an object, and `payload-b64` must be in LWM2M TLV format\
+        \ for example:\n\n    ```\n    { \"method\": \"POST\", \"uri\": \"/123\",\
+        \ \"content-type\": \"application/vnd.oma.lwm2m+tlv\", \"payload-b64\": \"\
+        BwHFAnZhbHVl\" }\n    ```\n\n- Use the POST method to execute resource on\
+        \ a LWM2M supporting device.\n\n  Example payload to execute LWM2M resource\
+        \ `/123/1/1`:\n\n    ```\n    { \"method\": \"POST\", \"uri\": \"/123/1/1\"\
+        \ }\n    ```\n\n- Device Management sends responses through the currently\
+        \ configured notification channel as `AsyncIDResponse`.\n\n  Example `AsyncIDResponse`\
+        \ delivered through the notification channel:\n\n    ```\n    { \"async-responses\"\
+        : [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\", \"status\": 200, \"\
+        payload\": \"dmFsdWUxCg==\", \"ct\": \"text/plain\", \"max-age\": 600 } ]\
+        \ }\n    ```\n\n    ```\n    { \"async-responses\": [ { \"id\": \"123e4567-e89b-12d3-a456-426655440000\"\
+        , \"status\": 504, \"error\": \"TIMEOUT\" } ] }\n    ```\n\n> If it cannot\
+        \ reach the device at the time of the request, Device Management puts the\
+        \ requests in a queue.\n\n**Queueing behavior**\n\nIf Device Management does\
+        \ not reach the device, or the device fails to respond, the server queues\
+        \ the request and retries the delivery, for the period of time defined by\
+        \ `expiry-seconds`, the next time the device contacts the server.\n\nThe queue\
+        \ is limited to 20 requests.\n\nDevice Management delivers requests from the\
+        \ queue in the order of insertion, one at a time, and not concurrently.\n\n\
+        Delivery attempts follow protocol-specific retransmission logic. There can\
+        \ be multiple transmissions, depending on the protocol. For CoAP, the retransmissions\
+        \ have an exponential backoff of 2, 4, 8, 16, and up to 64 seconds, taking\
+        \ in total over two minutes.\nIf the device does not respond within this two-minute\
+        \ period, the delivery fails, Device Management performs one retry and then\
+        \ puts the request back into the queue until the retry count reaches its limit.\n\
+        \nDevice Management attempts to redeliver the request when the device next\
+        \ contacts the server.\n\nWhen Device Management reaches the `retry` or `expiry-seconds`\
+        \ limit, the server discards the request and sends an error in `AsyncIDResponse`.\n\
+        \nFor example:\n\n- Retries could be exhausted if the device periodically\
+        \ contacts the server and receives the request from the queue, but then fails\
+        \ to respond to the server.\n\n- The device may lose its network connectivity,\
+        \ and the requests in the queue may expire and get discarded before the device\
+        \ regains connectivity. When Device Management delivers the request to the\
+        \ device, the status code in `AsyncIDResponse` is *2xx* or *4xx*, based on\
+        \ the device's response. If Device Management could not deliver the request,\
+        \ the server generates a status code of *429* or *5xx*."
       operationId: createAsyncRequest
       parameters:
       - description: The device ID generated by Device Management.
@@ -9434,15 +9435,22 @@ paths:
         name: expiry-seconds
         required: false
         type: integer
-      - description: Device request to send. The body element has `method', `uri`,
-          `accept`, `content-type` and `payload-b64` fields. - The `method` is one
-          of `GET`, `PUT`, `POST`, `DELETE`. - The `uri` field is the path to the
-          LwM2M object and can include query parameters. This can include key-value
-          pairs, for example, `/5/0/1?key1=value1;key2=value2`. - The `accept` field
-          defines the content type that the requesting client will accept. - The `content-type`
-          describes the content type of the base-64 encoded `payload-b64` field. -
-          The `payload-b64` is the payload to send to the device in base-64 encoded
-          form.
+      - description: 'Device request to send. The body element has `method`, `uri`,
+          `accept`, `content-type` and `payload-b64` fields.
+
+          - The `method` is one of `GET`, `PUT`, `POST`, `DELETE`.
+
+          - The `uri` field is the path to the LwM2M object and can include query
+          parameters. This can include key-value pairs, for example, `/5/0/1?key1=value1;key2=value2`.
+
+          - The `accept` field defines the content type that the requesting client
+          will accept.
+
+          - The `content-type` describes the content type of the base-64 encoded `payload-b64`
+          field.
+
+          - The `payload-b64` is the payload to send to the device in base-64 encoded
+          form.'
         in: body
         name: body
         required: true
