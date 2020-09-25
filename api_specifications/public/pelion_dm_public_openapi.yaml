@@ -9434,7 +9434,15 @@ paths:
         name: expiry-seconds
         required: false
         type: integer
-      - description: Device request to send.
+      - description: Device request to send. The body element has `method', `uri`,
+          `accept`, `content-type` and `payload-b64` fields. - The `method` is one
+          of `GET`, `PUT`, `POST`, `DELETE`. - The `uri` field is the path to the
+          LwM2M object and can include query parameters. This can include key-value
+          pairs, for example, `/5/0/1?key1=value1;key2=value2`. - The `accept` field
+          defines the content type that the requesting client will accept. - The `content-type`
+          describes the content type of the base-64 encoded `payload-b64` field. -
+          The `payload-b64` is the payload to send to the device in base-64 encoded
+          form.
         in: body
         name: body
         required: true
