@@ -7368,8 +7368,14 @@ definitions:
         type: string
         x-nullable: true
       enrollment_mode:
-        description: Certificate is used in enrollment mode. Default value is false.
+        description: 'DEPRECATED: Certificate is used in enrollment mode. Default
+          value is false.'
         type: boolean
+        x-deprecation:
+          comment: This field is deprecated, do not use it anymore.
+          end_of_life_at: '2021-11-01T00:00:00+00:00'
+          issued_at: '2020-11-01T00:00:00+00:00'
+          links: []
       name:
         description: Certificate name.
         maxLength: 100
@@ -7428,9 +7434,15 @@ definitions:
         format: int32
         type: integer
       enrollment_mode:
-        description: If true, signature is not required. Default value false.
+        description: 'DEPRECATED: Certificate is used in enrollment mode. Default
+          value is false.'
         example: false
         type: boolean
+        x-deprecation:
+          comment: This field is deprecated, do not use it anymore.
+          end_of_life_at: '2021-11-01T00:00:00+00:00'
+          issued_at: '2020-11-01T00:00:00+00:00'
+          links: []
       etag:
         description: API resource entity version.
         example: '1'
@@ -16710,6 +16722,11 @@ paths:
         name: subject__like
         required: false
         type: string
+      - description: Filter for certificate fingerprint.
+        in: query
+        name: certificate_fingerprint__eq
+        required: false
+        type: string
       - description: Filter for finding certificates by validity. True returns certificates
           which are not yet expired. False returns certificates which have expired.
         in: query
@@ -16740,6 +16757,8 @@ paths:
       tags:
       - Tenant security and identity - certificates
       x-filter:
+        certificate_fingerprint:
+        - eq
         device_execution_mode:
         - eq
         - neq
@@ -31135,6 +31154,11 @@ paths:
         name: subject__like
         required: false
         type: string
+      - description: Filter for certificate fingerprint.
+        in: query
+        name: certificate_fingerprint__eq
+        required: false
+        type: string
       - description: Filter for finding certificates by validity. True returns certificates
           which are not yet expired. False returns certificates which have expired.
         in: query
@@ -31160,6 +31184,8 @@ paths:
       tags:
       - Security and identity - certificates
       x-filter:
+        certificate_fingerprint:
+        - eq
         device_execution_mode:
         - eq
         - neq

@@ -11100,7 +11100,13 @@
                         {
                           "type": "boolean",
                           "example": false,
-                          "description": "If true, signature is not required. Default value false.",
+                          "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+                          "x-deprecation": {
+                            "issued_at": "2020-11-01T00:00:00+00:00",
+                            "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                            "comment": "This field is deprecated, do not use it anymore.",
+                            "links": []
+                          },
                           "_key": "enrollment_mode"
                         },
                         {
@@ -11528,6 +11534,9 @@
             "subject": [
               "like"
             ],
+            "certificate_fingerprint": [
+              "eq"
+            ],
             "valid": [
               "eq"
             ]
@@ -11552,6 +11561,7 @@
             "status__eq",
             "issuer__like",
             "subject__like",
+            "certificate_fingerprint__eq",
             "valid__eq"
           ],
           "group_id": "Accounts",
@@ -30931,7 +30941,13 @@
                   {
                     "type": "boolean",
                     "example": false,
-                    "description": "If true, signature is not required. Default value false.",
+                    "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+                    "x-deprecation": {
+                      "issued_at": "2020-11-01T00:00:00+00:00",
+                      "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                      "comment": "This field is deprecated, do not use it anymore.",
+                      "links": []
+                    },
                     "api_fieldname": "enrollment_mode",
                     "entity_fieldname": "enrollment_mode",
                     "_key": "enrollment_mode"
@@ -80303,7 +80319,13 @@
             {
               "type": "boolean",
               "example": false,
-              "description": "If true, signature is not required. Default value false.",
+              "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+              "x-deprecation": {
+                "issued_at": "2020-11-01T00:00:00+00:00",
+                "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                "comment": "This field is deprecated, do not use it anymore.",
+                "links": []
+              },
               "api_fieldname": "enrollment_mode",
               "entity_fieldname": "enrollment_mode",
               "parameter_fieldname": "enrollment_mode",
@@ -80449,7 +80471,13 @@
                   {
                     "type": "boolean",
                     "example": false,
-                    "description": "If true, signature is not required. Default value false.",
+                    "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+                    "x-deprecation": {
+                      "issued_at": "2020-11-01T00:00:00+00:00",
+                      "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                      "comment": "This field is deprecated, do not use it anymore.",
+                      "links": []
+                    },
                     "api_fieldname": "enrollment_mode",
                     "entity_fieldname": "enrollment_mode",
                     "parameter_fieldname": "enrollment_mode",
@@ -81745,7 +81773,13 @@
                   {
                     "type": "boolean",
                     "example": false,
-                    "description": "If true, signature is not required. Default value false.",
+                    "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+                    "x-deprecation": {
+                      "issued_at": "2020-11-01T00:00:00+00:00",
+                      "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                      "comment": "This field is deprecated, do not use it anymore.",
+                      "links": []
+                    },
                     "api_fieldname": "enrollment_mode",
                     "entity_fieldname": "enrollment_mode",
                     "parameter_fieldname": "enrollment_mode",
@@ -82193,7 +82227,13 @@
             {
               "type": "boolean",
               "example": false,
-              "description": "If true, signature is not required. Default value false.",
+              "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+              "x-deprecation": {
+                "issued_at": "2020-11-01T00:00:00+00:00",
+                "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                "comment": "This field is deprecated, do not use it anymore.",
+                "links": []
+              },
               "api_fieldname": "enrollment_mode",
               "entity_fieldname": "enrollment_mode",
               "parameter_fieldname": "enrollment_mode",
@@ -82351,7 +82391,13 @@
                   {
                     "type": "boolean",
                     "example": false,
-                    "description": "If true, signature is not required. Default value false.",
+                    "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+                    "x-deprecation": {
+                      "issued_at": "2020-11-01T00:00:00+00:00",
+                      "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                      "comment": "This field is deprecated, do not use it anymore.",
+                      "links": []
+                    },
                     "api_fieldname": "enrollment_mode",
                     "entity_fieldname": "enrollment_mode",
                     "parameter_fieldname": "enrollment_mode",
@@ -82892,7 +82938,13 @@
         {
           "type": "boolean",
           "example": false,
-          "description": "If true, signature is not required. Default value false.",
+          "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+          "x-deprecation": {
+            "issued_at": "2020-11-01T00:00:00+00:00",
+            "end_of_life_at": "2021-11-01T00:00:00+00:00",
+            "comment": "This field is deprecated, do not use it anymore.",
+            "links": []
+          },
           "api_fieldname": "enrollment_mode",
           "parameter_fieldname": "enrollment_mode",
           "in": "body",
@@ -89205,7 +89257,13 @@
             {
               "type": "boolean",
               "example": false,
-              "description": "If true, signature is not required. Default value false.",
+              "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+              "x-deprecation": {
+                "issued_at": "2020-11-01T00:00:00+00:00",
+                "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                "comment": "This field is deprecated, do not use it anymore.",
+                "links": []
+              },
               "api_fieldname": "enrollment_mode",
               "entity_fieldname": "enrollment_mode",
               "parameter_fieldname": "enrollment_mode",
@@ -89345,7 +89403,13 @@
                   {
                     "type": "boolean",
                     "example": false,
-                    "description": "If true, signature is not required. Default value false.",
+                    "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+                    "x-deprecation": {
+                      "issued_at": "2020-11-01T00:00:00+00:00",
+                      "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                      "comment": "This field is deprecated, do not use it anymore.",
+                      "links": []
+                    },
                     "api_fieldname": "enrollment_mode",
                     "entity_fieldname": "enrollment_mode",
                     "_key": "enrollment_mode"
@@ -90652,7 +90716,13 @@
                         {
                           "type": "boolean",
                           "example": false,
-                          "description": "If true, signature is not required. Default value false.",
+                          "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+                          "x-deprecation": {
+                            "issued_at": "2020-11-01T00:00:00+00:00",
+                            "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                            "comment": "This field is deprecated, do not use it anymore.",
+                            "links": []
+                          },
                           "_key": "enrollment_mode"
                         },
                         {
@@ -90994,6 +91064,9 @@
             "subject": [
               "like"
             ],
+            "certificate_fingerprint": [
+              "eq"
+            ],
             "valid": [
               "eq"
             ]
@@ -91018,6 +91091,7 @@
             "status__eq",
             "issuer__like",
             "subject__like",
+            "certificate_fingerprint__eq",
             "valid__eq"
           ],
           "foreign_key_priority": "self",
@@ -91137,7 +91211,13 @@
                   {
                     "type": "boolean",
                     "example": false,
-                    "description": "If true, signature is not required. Default value false.",
+                    "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+                    "x-deprecation": {
+                      "issued_at": "2020-11-01T00:00:00+00:00",
+                      "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                      "comment": "This field is deprecated, do not use it anymore.",
+                      "links": []
+                    },
                     "api_fieldname": "enrollment_mode",
                     "entity_fieldname": "enrollment_mode",
                     "_key": "enrollment_mode"
@@ -91557,7 +91637,13 @@
             {
               "type": "boolean",
               "example": false,
-              "description": "If true, signature is not required. Default value false.",
+              "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+              "x-deprecation": {
+                "issued_at": "2020-11-01T00:00:00+00:00",
+                "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                "comment": "This field is deprecated, do not use it anymore.",
+                "links": []
+              },
               "api_fieldname": "enrollment_mode",
               "entity_fieldname": "enrollment_mode",
               "parameter_fieldname": "enrollment_mode",
@@ -91709,7 +91795,13 @@
                   {
                     "type": "boolean",
                     "example": false,
-                    "description": "If true, signature is not required. Default value false.",
+                    "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+                    "x-deprecation": {
+                      "issued_at": "2020-11-01T00:00:00+00:00",
+                      "end_of_life_at": "2021-11-01T00:00:00+00:00",
+                      "comment": "This field is deprecated, do not use it anymore.",
+                      "links": []
+                    },
                     "api_fieldname": "enrollment_mode",
                     "entity_fieldname": "enrollment_mode",
                     "_key": "enrollment_mode"
@@ -92303,7 +92395,13 @@
         {
           "type": "boolean",
           "example": false,
-          "description": "If true, signature is not required. Default value false.",
+          "description": "DEPRECATED: Certificate is used in enrollment mode. Default value is false.",
+          "x-deprecation": {
+            "issued_at": "2020-11-01T00:00:00+00:00",
+            "end_of_life_at": "2021-11-01T00:00:00+00:00",
+            "comment": "This field is deprecated, do not use it anymore.",
+            "links": []
+          },
           "api_fieldname": "enrollment_mode",
           "readOnly": false,
           "required": false,

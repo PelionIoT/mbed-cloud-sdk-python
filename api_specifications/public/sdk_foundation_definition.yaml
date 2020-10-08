@@ -8252,6 +8252,7 @@ entities:
     - status__eq
     - issuer__like
     - subject__like
+    - certificate_fingerprint__eq
     - valid__eq
     field_renames: []
     fields:
@@ -8391,9 +8392,15 @@ entities:
               format: int32
               type: integer
             - _key: enrollment_mode
-              description: If true, signature is not required. Default value false.
+              description: 'DEPRECATED: Certificate is used in enrollment mode. Default
+                value is false.'
               example: false
               type: boolean
+              x-deprecation:
+                comment: This field is deprecated, do not use it anymore.
+                end_of_life_at: '2021-11-01T00:00:00+00:00'
+                issued_at: '2020-11-01T00:00:00+00:00'
+                links: []
             - _key: etag
               description: API resource entity version.
               example: '1'
@@ -8678,6 +8685,8 @@ entities:
     summary: Get trusted certificates.
     x_deprecation: null
     x_filter:
+      certificate_fingerprint:
+      - eq
       device_execution_mode:
       - eq
       - neq
@@ -22831,10 +22840,16 @@ entities:
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
-          description: If true, signature is not required. Default value false.
+          description: 'DEPRECATED: Certificate is used in enrollment mode. Default
+            value is false.'
           entity_fieldname: enrollment_mode
           example: false
           type: boolean
+          x-deprecation:
+            comment: This field is deprecated, do not use it anymore.
+            end_of_life_at: '2021-11-01T00:00:00+00:00'
+            issued_at: '2020-11-01T00:00:00+00:00'
+            links: []
         - _key: etag
           api_fieldname: etag
           description: API resource entity version.
@@ -60627,13 +60642,19 @@ entities:
     type: integer
   - _key: enrollment_mode
     api_fieldname: enrollment_mode
-    description: If true, signature is not required. Default value false.
+    description: 'DEPRECATED: Certificate is used in enrollment mode. Default value
+      is false.'
     example: false
     in: body
     parameter_fieldname: enrollment_mode
     readOnly: false
     required: false
     type: boolean
+    x-deprecation:
+      comment: This field is deprecated, do not use it anymore.
+      end_of_life_at: '2021-11-01T00:00:00+00:00'
+      issued_at: '2020-11-01T00:00:00+00:00'
+      links: []
   - _key: id
     api_fieldname: id
     description: Entity ID.
@@ -60808,13 +60829,19 @@ entities:
       x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
-      description: If true, signature is not required. Default value false.
+      description: 'DEPRECATED: Certificate is used in enrollment mode. Default value
+        is false.'
       entity_fieldname: enrollment_mode
       example: false
       in: body
       parameter_fieldname: enrollment_mode
       required: false
       type: boolean
+      x-deprecation:
+        comment: This field is deprecated, do not use it anymore.
+        end_of_life_at: '2021-11-01T00:00:00+00:00'
+        issued_at: '2020-11-01T00:00:00+00:00'
+        links: &id016 []
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -60838,7 +60865,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: &id016
+      enum: &id017
       - lwm2m
       - bootstrap
       enum_reference: subtenant_trusted_certificate_service_enum
@@ -60850,7 +60877,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id017
+      enum: &id018
       - ACTIVE
       - INACTIVE
       enum_reference: subtenant_trusted_certificate_status_enum
@@ -60926,13 +60953,19 @@ entities:
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
-          description: If true, signature is not required. Default value false.
+          description: 'DEPRECATED: Certificate is used in enrollment mode. Default
+            value is false.'
           entity_fieldname: enrollment_mode
           example: false
           in: body
           parameter_fieldname: enrollment_mode
           required: false
           type: boolean
+          x-deprecation:
+            comment: This field is deprecated, do not use it anymore.
+            end_of_life_at: '2021-11-01T00:00:00+00:00'
+            issued_at: '2020-11-01T00:00:00+00:00'
+            links: []
         - _key: etag
           api_fieldname: etag
           description: API resource entity version.
@@ -62089,13 +62122,19 @@ entities:
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
-          description: If true, signature is not required. Default value false.
+          description: 'DEPRECATED: Certificate is used in enrollment mode. Default
+            value is false.'
           entity_fieldname: enrollment_mode
           example: false
           in: body
           parameter_fieldname: enrollment_mode
           required: false
           type: boolean
+          x-deprecation:
+            comment: This field is deprecated, do not use it anymore.
+            end_of_life_at: '2021-11-01T00:00:00+00:00'
+            issued_at: '2020-11-01T00:00:00+00:00'
+            links: []
         - _key: etag
           api_fieldname: etag
           description: API resource entity version.
@@ -62415,13 +62454,19 @@ entities:
       x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
-      description: If true, signature is not required. Default value false.
+      description: 'DEPRECATED: Certificate is used in enrollment mode. Default value
+        is false.'
       entity_fieldname: enrollment_mode
       example: false
       in: body
       parameter_fieldname: enrollment_mode
       required: false
       type: boolean
+      x-deprecation:
+        comment: This field is deprecated, do not use it anymore.
+        end_of_life_at: '2021-11-01T00:00:00+00:00'
+        issued_at: '2020-11-01T00:00:00+00:00'
+        links: *id016
     - _key: id
       api_fieldname: id
       description: Entity ID.
@@ -62455,7 +62500,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: *id016
+      enum: *id017
       enum_reference: subtenant_trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -62465,7 +62510,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id017
+      enum: *id018
       enum_reference: subtenant_trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -62541,13 +62586,19 @@ entities:
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
-          description: If true, signature is not required. Default value false.
+          description: 'DEPRECATED: Certificate is used in enrollment mode. Default
+            value is false.'
           entity_fieldname: enrollment_mode
           example: false
           in: body
           parameter_fieldname: enrollment_mode
           required: false
           type: boolean
+          x-deprecation:
+            comment: This field is deprecated, do not use it anymore.
+            end_of_life_at: '2021-11-01T00:00:00+00:00'
+            issued_at: '2020-11-01T00:00:00+00:00'
+            links: []
         - _key: etag
           api_fieldname: etag
           description: API resource entity version.
@@ -63412,7 +63463,7 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: login_profile_type
-          enum: &id018
+          enum: &id019
           - NATIVE
           - MBED
           - SAML2
@@ -63420,7 +63471,7 @@ entities:
           example: NATIVE
           readOnly: true
           type: string
-        required: &id019
+        required: &id020
         - id
         type: object
       parameter_fieldname: login_profiles
@@ -65565,11 +65616,11 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: login_profile_type
-          enum: *id018
+          enum: *id019
           example: NATIVE
           readOnly: true
           type: string
-        required: *id019
+        required: *id020
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -67665,11 +67716,17 @@ entities:
     type: integer
   - _key: enrollment_mode
     api_fieldname: enrollment_mode
-    description: If true, signature is not required. Default value false.
+    description: 'DEPRECATED: Certificate is used in enrollment mode. Default value
+      is false.'
     example: false
     readOnly: false
     required: false
     type: boolean
+    x-deprecation:
+      comment: This field is deprecated, do not use it anymore.
+      end_of_life_at: '2021-11-01T00:00:00+00:00'
+      issued_at: '2020-11-01T00:00:00+00:00'
+      links: []
   - _key: id
     api_fieldname: id
     description: Entity ID.
@@ -67826,13 +67883,19 @@ entities:
       x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
-      description: If true, signature is not required. Default value false.
+      description: 'DEPRECATED: Certificate is used in enrollment mode. Default value
+        is false.'
       entity_fieldname: enrollment_mode
       example: false
       in: body
       parameter_fieldname: enrollment_mode
       required: false
       type: boolean
+      x-deprecation:
+        comment: This field is deprecated, do not use it anymore.
+        end_of_life_at: '2021-11-01T00:00:00+00:00'
+        issued_at: '2020-11-01T00:00:00+00:00'
+        links: &id021 []
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -67856,7 +67919,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: &id020
+      enum: &id022
       - lwm2m
       - bootstrap
       enum_reference: trusted_certificate_service_enum
@@ -67868,7 +67931,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id021
+      enum: &id023
       - ACTIVE
       - INACTIVE
       enum_reference: trusted_certificate_status_enum
@@ -67938,10 +68001,16 @@ entities:
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
-          description: If true, signature is not required. Default value false.
+          description: 'DEPRECATED: Certificate is used in enrollment mode. Default
+            value is false.'
           entity_fieldname: enrollment_mode
           example: false
           type: boolean
+          x-deprecation:
+            comment: This field is deprecated, do not use it anymore.
+            end_of_life_at: '2021-11-01T00:00:00+00:00'
+            issued_at: '2020-11-01T00:00:00+00:00'
+            links: []
         - _key: etag
           api_fieldname: etag
           description: API resource entity version.
@@ -68967,6 +69036,7 @@ entities:
     - status__eq
     - issuer__like
     - subject__like
+    - certificate_fingerprint__eq
     - valid__eq
     field_renames: []
     fields:
@@ -69099,9 +69169,15 @@ entities:
               format: int32
               type: integer
             - _key: enrollment_mode
-              description: If true, signature is not required. Default value false.
+              description: 'DEPRECATED: Certificate is used in enrollment mode. Default
+                value is false.'
               example: false
               type: boolean
+              x-deprecation:
+                comment: This field is deprecated, do not use it anymore.
+                end_of_life_at: '2021-11-01T00:00:00+00:00'
+                issued_at: '2020-11-01T00:00:00+00:00'
+                links: []
             - _key: etag
               description: API resource entity version.
               example: '1'
@@ -69325,6 +69401,8 @@ entities:
     summary: Get all trusted certificates.
     x_deprecation: null
     x_filter:
+      certificate_fingerprint:
+      - eq
       device_execution_mode:
       - eq
       - neq
@@ -69465,10 +69543,16 @@ entities:
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
-          description: If true, signature is not required. Default value false.
+          description: 'DEPRECATED: Certificate is used in enrollment mode. Default
+            value is false.'
           entity_fieldname: enrollment_mode
           example: false
           type: boolean
+          x-deprecation:
+            comment: This field is deprecated, do not use it anymore.
+            end_of_life_at: '2021-11-01T00:00:00+00:00'
+            issued_at: '2020-11-01T00:00:00+00:00'
+            links: []
         - _key: etag
           api_fieldname: etag
           description: API resource entity version.
@@ -69778,13 +69862,19 @@ entities:
       x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
-      description: If true, signature is not required. Default value false.
+      description: 'DEPRECATED: Certificate is used in enrollment mode. Default value
+        is false.'
       entity_fieldname: enrollment_mode
       example: false
       in: body
       parameter_fieldname: enrollment_mode
       required: false
       type: boolean
+      x-deprecation:
+        comment: This field is deprecated, do not use it anymore.
+        end_of_life_at: '2021-11-01T00:00:00+00:00'
+        issued_at: '2020-11-01T00:00:00+00:00'
+        links: *id021
     - _key: id
       api_fieldname: id
       description: Entity ID.
@@ -69818,7 +69908,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: *id020
+      enum: *id022
       enum_reference: trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -69828,7 +69918,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id021
+      enum: *id023
       enum_reference: trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -69898,10 +69988,16 @@ entities:
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
-          description: If true, signature is not required. Default value false.
+          description: 'DEPRECATED: Certificate is used in enrollment mode. Default
+            value is false.'
           entity_fieldname: enrollment_mode
           example: false
           type: boolean
+          x-deprecation:
+            comment: This field is deprecated, do not use it anymore.
+            end_of_life_at: '2021-11-01T00:00:00+00:00'
+            issued_at: '2020-11-01T00:00:00+00:00'
+            links: []
         - _key: etag
           api_fieldname: etag
           description: API resource entity version.
@@ -74237,7 +74333,7 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: login_profile_type
-          enum: &id022
+          enum: &id024
           - NATIVE
           - MBED
           - SAML2
@@ -74245,7 +74341,7 @@ entities:
           example: NATIVE
           readOnly: true
           type: string
-        required: &id023
+        required: &id025
         - id
         type: object
       parameter_fieldname: login_profiles
@@ -76779,11 +76875,11 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: login_profile_type
-          enum: *id022
+          enum: *id024
           example: NATIVE
           readOnly: true
           type: string
-        required: *id023
+        required: *id025
         type: object
       parameter_fieldname: login_profiles
       required: false
