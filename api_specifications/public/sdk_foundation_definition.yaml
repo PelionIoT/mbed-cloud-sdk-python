@@ -14288,6 +14288,11 @@ entities:
         - _key: data
           api_fieldname: data
           entity_fieldname: data
+          enum:
+          - fail
+          - skipped
+          - info
+          - success
           items:
             foreign_key:
               entity: campaign_statistics_events
@@ -15003,8 +15008,8 @@ entities:
   group_id: Device_Update
   methods:
   - _key: read
-    description: 'Get the count for a specific event type; for example, succeeded,
-      failed, or skipped.
+    description: 'Get the count for a specific event type, for example, succeeded,
+      failed or skipped.
 
       <br>
 

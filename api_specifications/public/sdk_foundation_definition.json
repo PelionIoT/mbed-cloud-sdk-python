@@ -19606,6 +19606,12 @@
                         "entity": "campaign_statistics_events"
                       }
                     },
+                    "enum": [
+                      "fail",
+                      "skipped",
+                      "info",
+                      "success"
+                    ],
                     "api_fieldname": "data",
                     "entity_fieldname": "data",
                     "_key": "data"
@@ -20539,7 +20545,7 @@
       "primary_key_field": "id",
       "methods": [
         {
-          "description": "Get the count for a specific event type; for example, succeeded, failed, or skipped.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/success/event_types/sys_112 \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
+          "description": "Get the count for a specific event type, for example, succeeded, failed or skipped.\n<br>\n**Usage example:**\n```\ncurl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/success/event_types/sys_112 \\\n-H 'Authorization: Bearer <api_key>'\n```\n",
           "field_renames": [],
           "fields": [
             {

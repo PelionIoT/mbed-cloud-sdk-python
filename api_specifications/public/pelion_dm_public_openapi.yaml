@@ -4546,6 +4546,11 @@ definitions:
         example: 'null'
         type: string
       data:
+        enum:
+        - fail
+        - skipped
+        - info
+        - success
         items:
           $ref: '#/definitions/EventType'
         type: array
@@ -32358,8 +32363,8 @@ paths:
       x-origin: /home/circleci/project/update-service/public/swagger.yml
   /v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/{event_type_id}:
     get:
-      description: 'Get the count for a specific event type; for example, succeeded,
-        failed, or skipped.
+      description: 'Get the count for a specific event type, for example, succeeded,
+        failed or skipped.
 
         <br>
 
