@@ -8141,7 +8141,7 @@ definitions:
         example: false
         type: boolean
       created_at: *id014
-      description: &id039
+      description: &id035
         description: Human-readable description.
         example: New Linux update for my devices
         maxLength: 2000
@@ -8157,7 +8157,7 @@ definitions:
         example: 016e652be671000000000001001001e5
         pattern: '[A-Fa-f0-9]{32}'
         type: string
-      name: &id040
+      name: &id036
         description: Human-readable name.
         example: New Linux update
         maxLength: 128
@@ -25192,6 +25192,11 @@ paths:
         '
       operationId: ListGatewayDeviceLogs
       parameters:
+      - description: The device ID for which to retrieve logs.
+        in: query
+        name: device_id__in
+        required: false
+        type: string
       - default: 100
         description: Limit the number of returned results. The default value is 100.
         in: query
@@ -25214,41 +25219,50 @@ paths:
         name: order
         required: false
         type: string
-      - description: 'Comma separated additional data to return. Currently supported:
+      - description: 'Comma-separated additional data to return. Currently supported:
           total_count'
         in: query
         name: include
         required: false
         type: string
-      - description: lte filter for the "timestamp" field
+      - description: RFC 3339 UTC timestamp range upper limit.
         format: date-time
         in: query
         name: timestamp__lte
+        required: false
         type: string
-      - description: gte filter for the "timestamp" field
+      - description: RFC 3339 UTC timestamp range lower limit.
         format: date-time
         in: query
         name: timestamp__gte
+        required: false
         type: string
-      - description: eq filter for the "app_name" field
+      - description: Name of the application on a device that generated logs.
         in: query
         name: app_name__eq
+        required: false
         type: string
-      - description: eq filter for the "type" field
+      - description: Device log type filter.
         in: query
         name: type__eq
+        required: false
         type: string
-      - description: eq filter for the "message" field
+      - description: Device log message filter.
         in: query
         name: message__eq
+        required: false
         type: string
-      - description: gte filter for the "level" field
+      - description: Minimum severity level of logs to retrieve.
+        enum: &id033
+        - DEBUG
+        - TRACE
+        - INFO
+        - WARNING
+        - ERROR
+        - CRITICAL
         in: query
         name: level__gte
-        type: string
-      - description: in filter for the "device_id" field
-        in: query
-        name: device_id__in
+        required: false
         type: string
       responses:
         '200':
@@ -25267,18 +25281,18 @@ paths:
       tags:
       - Gateway Logs Public API
       x-filter:
-        app_name: &id033
+        app_name:
         - eq
         device_id:
         - in
-        level: &id034
+        level:
         - gte
-        message: &id035
+        message:
         - eq
-        timestamp: &id036
+        timestamp:
         - lte
         - gte
-        type: &id037
+        type:
         - eq
       x-origin: /home/circleci/project/gateway/public/logs.yaml
   /v3/device-logs/{device_log_id}:
@@ -26767,37 +26781,44 @@ paths:
         name: order
         required: false
         type: string
-      - description: 'Comma separated additional data to return. Currently supported:
+      - description: 'Comma-separated additional data to return. Currently supported:
           total_count'
         in: query
         name: include
         required: false
         type: string
-      - description: lte filter for the "timestamp" field
+      - description: RFC 3339 UTC timestamp range upper limit.
         format: date-time
         in: query
         name: timestamp__lte
+        required: false
         type: string
-      - description: gte filter for the "timestamp" field
+      - description: RFC 3339 UTC timestamp range lower limit.
         format: date-time
         in: query
         name: timestamp__gte
+        required: false
         type: string
-      - description: eq filter for the "app_name" field
+      - description: Name of the application on a device that generated logs.
         in: query
         name: app_name__eq
+        required: false
         type: string
-      - description: eq filter for the "type" field
+      - description: Device log type filter.
         in: query
         name: type__eq
+        required: false
         type: string
-      - description: eq filter for the "message" field
+      - description: Device log message filter.
         in: query
         name: message__eq
+        required: false
         type: string
-      - description: gte filter for the "level" field
+      - description: Minimum severity level of logs to retrieve.
+        enum: *id033
         in: query
         name: level__gte
+        required: false
         type: string
       responses:
         '200':
@@ -26820,11 +26841,17 @@ paths:
       tags:
       - Gateway Logs Public API
       x-filter:
-        app_name: *id033
-        level: *id034
-        message: *id035
-        timestamp: *id036
-        type: *id037
+        app_name:
+        - eq
+        level:
+        - gte
+        message:
+        - eq
+        timestamp:
+        - lte
+        - gte
+        type:
+        - eq
       x-origin: /home/circleci/project/gateway/public/logs.yaml
   /v3/devices/{id}/:
     delete:
@@ -26987,7 +27014,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: &id038
+        schema: &id034
           properties:
             category:
               description: The reference of the block category.
@@ -27043,7 +27070,7 @@ paths:
         in: body
         name: Block
         required: true
-        schema: *id038
+        schema: *id034
       responses:
         '204':
           description: Ok - Device suspended.
@@ -27669,8 +27696,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id039
-            name: *id040
+            description: *id035
+            name: *id036
           type: object
       responses:
         201:
@@ -27804,8 +27831,8 @@ paths:
         required: true
         schema:
           properties:
-            description: *id039
-            name: *id040
+            description: *id035
+            name: *id036
           type: object
       responses:
         200:
@@ -32286,7 +32313,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: &id041
+        enum: &id037
         - fail
         - success
         - info
@@ -32339,7 +32366,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: *id041
+        enum: *id037
         in: path
         name: summary_status_id
         required: true
@@ -32389,7 +32416,7 @@ paths:
         required: true
         type: string
       - description: The summary status. For example, fail.
-        enum: *id041
+        enum: *id037
         in: path
         name: summary_status_id
         required: true
