@@ -4216,15 +4216,9 @@ definitions:
       Echo.
     properties:
       desired:
-        description: Resource value written, or queued to be written to the device.
-        items:
-          $ref: '#/definitions/EchoResourceDesired'
-        type: object
+        $ref: '#/definitions/EchoResourceDesired'
       reported:
-        description: Reported resource data from the device.
-        items:
-          $ref: '#/definitions/EchoResourceReported'
-        type: object
+        $ref: '#/definitions/EchoResourceReported'
       resource_path:
         description: The path of the resource.
         example: /3/0/1
