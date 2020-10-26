@@ -13,6 +13,7 @@ This module contains all Enums used by Foundation Entities in the Devices catego
 - :class:`DeviceEnrollmentBulkDeleteStatusEnum`
 - :class:`DeviceEnrollmentDenialOrderEnum`
 - :class:`DeviceEnrollmentOrderEnum`
+- :class:`DeviceLifecycleStatusEnum`
 - :class:`DeviceMechanismEnum`
 - :class:`DeviceStateEnum`
 
@@ -27,6 +28,7 @@ How to import Enums:
     from mbed_cloud.foundation.enums import DeviceEnrollmentBulkDeleteStatusEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentDenialOrderEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentOrderEnum
+    from mbed_cloud.foundation.enums import DeviceLifecycleStatusEnum
     from mbed_cloud.foundation.enums import DeviceMechanismEnum
     from mbed_cloud.foundation.enums import DeviceStateEnum
 
@@ -54,7 +56,7 @@ class DeviceDeployedStateEnum(BaseEnum):
     DEVELOPMENT = "development"
     PRODUCTION = "production"
 
-    values = frozenset(("development", "production"))
+    values = frozenset(("development", "production",))
 
 
 class DeviceEnrollmentBulkCreateStatusEnum(BaseEnum):
@@ -71,7 +73,7 @@ class DeviceEnrollmentBulkCreateStatusEnum(BaseEnum):
     NEW = "new"
     PROCESSING = "processing"
 
-    values = frozenset(("completed", "new", "processing"))
+    values = frozenset(("completed", "new", "processing",))
 
 
 class DeviceEnrollmentBulkDeleteStatusEnum(BaseEnum):
@@ -88,7 +90,7 @@ class DeviceEnrollmentBulkDeleteStatusEnum(BaseEnum):
     NEW = "new"
     PROCESSING = "processing"
 
-    values = frozenset(("completed", "new", "processing"))
+    values = frozenset(("completed", "new", "processing",))
 
 
 class DeviceEnrollmentDenialOrderEnum(BaseEnum):
@@ -104,7 +106,7 @@ class DeviceEnrollmentDenialOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class DeviceEnrollmentOrderEnum(BaseEnum):
@@ -120,7 +122,23 @@ class DeviceEnrollmentOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
+
+
+class DeviceLifecycleStatusEnum(BaseEnum):
+    """Represents expected values of `DeviceLifecycleStatusEnum`
+
+    This is used by Entities in the "devices" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    BLOCKED = "blocked"
+    ENABLED = "enabled"
+
+    values = frozenset(("blocked", "enabled",))
 
 
 class DeviceMechanismEnum(BaseEnum):
@@ -136,7 +154,7 @@ class DeviceMechanismEnum(BaseEnum):
     CONNECTOR = "connector"
     DIRECT = "direct"
 
-    values = frozenset(("connector", "direct"))
+    values = frozenset(("connector", "direct",))
 
 
 class DeviceStateEnum(BaseEnum):
@@ -155,4 +173,4 @@ class DeviceStateEnum(BaseEnum):
     REGISTERED = "registered"
     UNENROLLED = "unenrolled"
 
-    values = frozenset(("bootstrapped", "cloud_enrolling", "deregistered", "registered", "unenrolled"))
+    values = frozenset(("bootstrapped", "cloud_enrolling", "deregistered", "registered", "unenrolled",))

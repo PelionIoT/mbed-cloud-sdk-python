@@ -61,7 +61,9 @@ class LightThemeColor(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(self, _client=None, color=None, reference=None, updated_at=None):
+    def __init__(
+        self, _client=None, color=None, reference=None, updated_at=None,
+    ):
         """Creates a local `LightThemeColor` instance
 
         Parameters can be supplied on creation of the instance or given by
@@ -151,7 +153,7 @@ class LightThemeColor(Entity):
             method="delete",
             path="/v3/branding-colors/light/{reference}",
             content_type="application/json",
-            path_params={"reference": self._reference.to_api()},
+            path_params={"reference": self._reference.to_api(),},
             unpack=self,
         )
 
@@ -234,7 +236,7 @@ class LightThemeColor(Entity):
         # Add in other query parameters
 
         return self._client.call_api(
-            method="get", path="/v3/branding-colors/light", content_type="application/json", unpack=False
+            method="get", path="/v3/branding-colors/light", content_type="application/json", unpack=False,
         )
 
     def read(self):
@@ -249,7 +251,7 @@ class LightThemeColor(Entity):
             method="get",
             path="/v3/branding-colors/light/{reference}",
             content_type="application/json",
-            path_params={"reference": self._reference.to_api()},
+            path_params={"reference": self._reference.to_api(),},
             unpack=self,
         )
 
@@ -274,6 +276,6 @@ class LightThemeColor(Entity):
             path="/v3/branding-colors/light/{reference}",
             content_type="application/json",
             body_params=body_params,
-            path_params={"reference": self._reference.to_api()},
+            path_params={"reference": self._reference.to_api(),},
             unpack=self,
         )

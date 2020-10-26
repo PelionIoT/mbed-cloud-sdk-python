@@ -69,6 +69,8 @@ class Account(Entity):
         "admin_name",
         "admin_password",
         "aliases",
+        "business_model",
+        "business_model_history",
         "city",
         "company",
         "contact",
@@ -84,6 +86,7 @@ class Account(Entity):
         "expiration_warning_threshold",
         "id",
         "idle_timeout",
+        "limitations",
         "limits",
         "mfa_status",
         "notification_emails",
@@ -101,6 +104,7 @@ class Account(Entity):
         "status",
         "template_id",
         "tier",
+        "tier_history",
         "updated_at",
         "upgraded_at",
     ]
@@ -126,6 +130,8 @@ class Account(Entity):
         admin_name=None,
         admin_password=None,
         aliases=None,
+        business_model=None,
+        business_model_history=None,
         city=None,
         company=None,
         contact=None,
@@ -141,6 +147,7 @@ class Account(Entity):
         expiration_warning_threshold=None,
         id=None,
         idle_timeout=None,
+        limitations=None,
         limits=None,
         mfa_status=None,
         notification_emails=None,
@@ -158,6 +165,7 @@ class Account(Entity):
         status=None,
         template_id=None,
         tier=None,
+        tier_history=None,
         updated_at=None,
         upgraded_at=None,
     ):
@@ -180,7 +188,8 @@ class Account(Entity):
         :param admin_full_name: The full name of the admin user created for this account. Present
             only in the response for account creation.
         :type admin_full_name: str
-        :param admin_id: The ID of the admin user created for this account.
+        :param admin_id: The ID of the admin user created for this account. Present only in
+            the response for the account creation.
         :type admin_id: str
         :param admin_key: The admin API key created for this account. Present only in the
             response for account creation.
@@ -193,6 +202,11 @@ class Account(Entity):
         :type admin_password: str
         :param aliases: An array of aliases.
         :type aliases: list
+        :param business_model: Business model for this account. Manageable by the root admin
+            only.
+        :type business_model: str
+        :param business_model_history: Business model history for this account.
+        :type business_model_history: list
         :param city: The city part of the postal address.
         :type city: str
         :param company: The name of the company.
@@ -224,6 +238,8 @@ class Account(Entity):
         :type id: str
         :param idle_timeout: The reference token expiration time, in minutes, for this account.
         :type idle_timeout: int
+        :param limitations: List of account limitation objects.
+        :type limitations: list
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
         :param mfa_status: The enforcement status of multi-factor authentication, either
@@ -261,6 +277,8 @@ class Account(Entity):
             account, `2`: partner tier. Other values are reserved for the
             future.
         :type tier: str
+        :param tier_history: Tier history for this account.
+        :type tier_history: list
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
         :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
@@ -285,6 +303,8 @@ class Account(Entity):
         self._admin_name = fields.StringField(value=admin_name)
         self._admin_password = fields.StringField(value=admin_password)
         self._aliases = fields.ListField(value=aliases)
+        self._business_model = fields.StringField(value=business_model, enum=enums.AccountBusinessModelEnum)
+        self._business_model_history = fields.ListField(value=business_model_history)
         self._city = fields.StringField(value=city)
         self._company = fields.StringField(value=company)
         self._contact = fields.StringField(value=contact)
@@ -300,6 +320,7 @@ class Account(Entity):
         self._expiration_warning_threshold = fields.IntegerField(value=expiration_warning_threshold)
         self._id = fields.StringField(value=id)
         self._idle_timeout = fields.IntegerField(value=idle_timeout)
+        self._limitations = fields.ListField(value=limitations)
         self._limits = fields.DictField(value=limits)
         self._mfa_status = fields.StringField(value=mfa_status, enum=enums.AccountMfaStatusEnum)
         self._notification_emails = fields.ListField(value=notification_emails)
@@ -317,6 +338,7 @@ class Account(Entity):
         self._status = fields.StringField(value=status, enum=enums.AccountStatusEnum)
         self._template_id = fields.StringField(value=template_id)
         self._tier = fields.StringField(value=tier)
+        self._tier_history = fields.ListField(value=tier_history)
         self._updated_at = fields.DateTimeField(value=updated_at)
         self._upgraded_at = fields.DateTimeField(value=upgraded_at)
 
@@ -408,7 +430,8 @@ class Account(Entity):
 
     @property
     def admin_id(self):
-        """The ID of the admin user created for this account.
+        """The ID of the admin user created for this account. Present only in the
+        response for the account creation.
         
         api example: '01619571e2e89242ac12000600000000'
         
@@ -492,6 +515,36 @@ class Account(Entity):
         """
 
         self._aliases.set(value)
+
+    @property
+    def business_model(self):
+        """Business model for this account. Manageable by the root admin only.
+        
+        api example: 'api_calls_1_business_model'
+        
+        :rtype: str
+        """
+
+        return self._business_model.value
+
+    @business_model.setter
+    def business_model(self, value):
+        """Set value of `business_model`
+
+        :param value: value to set
+        :type value: str
+        """
+
+        self._business_model.set(value)
+
+    @property
+    def business_model_history(self):
+        """Business model history for this account.
+        
+        :rtype: list
+        """
+
+        return self._business_model_history.value
 
     @property
     def city(self):
@@ -790,6 +843,15 @@ class Account(Entity):
         self._idle_timeout.set(value)
 
     @property
+    def limitations(self):
+        """List of account limitation objects.
+        
+        :rtype: list
+        """
+
+        return self._limitations.value
+
+    @property
     def limits(self):
         """List of limits as key-value pairs if requested.
         
@@ -1045,6 +1107,15 @@ class Account(Entity):
         return self._tier.value
 
     @property
+    def tier_history(self):
+        """Tier history for this account.
+        
+        :rtype: list
+        """
+
+        return self._tier_history.value
+
+    @property
     def updated_at(self):
         """Last update UTC time RFC3339.
         
@@ -1151,10 +1222,10 @@ class Account(Entity):
         
         :param action: Action, either `create` or `enroll`.
             <ul>
-            <li>`create` creates the
-            account where its admin user has ACTIVE status if `admin_password` was
-            defined in the request, or RESET status if no `admin_password` was
-            defined. If the user already exists, its status is not modified. </li>
+            <li>`create` creates the account where its admin user has ACTIVE
+            status if `admin_password` was defined in the request, or RESET status
+            if no `admin_password` was defined. If the user already exists, its
+            status is not modified. </li>
             <li>`enroll` creates the account where its admin user has ENROLLING
             status. If the user already exists, its status is not modified. Email
             to finish enrollment or notify the existing user about the new account
@@ -1181,6 +1252,8 @@ class Account(Entity):
             body_params["admin_password"] = self._admin_password.to_api()
         if self._aliases.value_set:
             body_params["aliases"] = self._aliases.to_api()
+        if self._business_model.value_set:
+            body_params["business_model"] = self._business_model.to_api()
         if self._city.value_set:
             body_params["city"] = self._city.to_api()
         if self._company.value_set:
@@ -1210,7 +1283,7 @@ class Account(Entity):
             method="post",
             path="/v3/accounts",
             content_type="application/json",
-            query_params={"action": fields.StringField(action).to_api()},
+            query_params={"action": fields.StringField(action).to_api(),},
             body_params=body_params,
             unpack=self,
         )
@@ -1478,7 +1551,7 @@ class Account(Entity):
         :type page_size: int
         
         :param include: Comma-separated additional data to return. Currently supported:
-            limits, policies, sub_accounts.
+            limits, policies, sub_accounts, history.
         :type include: str
         
         :param format: Format information for the query response. Supported:
@@ -1522,7 +1595,7 @@ class Account(Entity):
         )
 
     def me(self, include=None, properties=None):
-        """Get account info.
+        """Get account information.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/me>`_.
         
@@ -1583,7 +1656,7 @@ class Account(Entity):
             path="/v3/accounts/{account_id}/api-keys",
             content_type="application/json",
             query_params=query_params,
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1616,7 +1689,7 @@ class Account(Entity):
             method="get",
             path="/v3/accounts/{account_id}/branding-colors/dark",
             content_type="application/json",
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1649,7 +1722,7 @@ class Account(Entity):
             method="get",
             path="/v3/accounts/{account_id}/branding-images/dark",
             content_type="application/json",
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1682,7 +1755,7 @@ class Account(Entity):
             method="get",
             path="/v3/accounts/{account_id}/branding-colors/light",
             content_type="application/json",
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1715,7 +1788,7 @@ class Account(Entity):
             method="get",
             path="/v3/accounts/{account_id}/branding-images/light",
             content_type="application/json",
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
@@ -1737,7 +1810,7 @@ class Account(Entity):
         :type limit: int
         
         :param include: Comma-separated additional data to return. Currently supported:
-            limits, policies, sub_accounts.
+            limits, policies, sub_accounts, history.
         :type include: str
         
         :param format: Format information for the query response. Supported:
@@ -1761,11 +1834,11 @@ class Account(Entity):
         query_params["properties"] = fields.StringField(properties).to_api()
 
         return self._client.call_api(
-            method="get", path="/v3/accounts", content_type="application/json", query_params=query_params, unpack=False
+            method="get", path="/v3/accounts", content_type="application/json", query_params=query_params, unpack=False,
         )
 
     def _paginate_trusted_certificates(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get all trusted certificates.
+        """Get trusted certificates.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1800,12 +1873,12 @@ class Account(Entity):
             path="/v3/accounts/{account_id}/trusted-certificates",
             content_type="application/json",
             query_params=query_params,
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
     def _paginate_user_invitations(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get the details of all user invitations.
+        """Get user invitations.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1839,12 +1912,12 @@ class Account(Entity):
             path="/v3/accounts/{account_id}/user-invitations",
             content_type="application/json",
             query_params=query_params,
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
     def _paginate_users(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get the details of all users.
+        """Get users.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -1879,17 +1952,17 @@ class Account(Entity):
             path="/v3/accounts/{account_id}/users",
             content_type="application/json",
             query_params=query_params,
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=False,
         )
 
     def read(self, include=None, properties=None):
-        """Get account info.
+        """Get account information.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}>`_.
         
         :param include: Comma-separated additional data to return. Currently supported:
-            limits, policies, sub_accounts.
+            limits, policies, sub_accounts, history.
         :type include: str
         
         :param properties: Property name to return from account-specific properties.
@@ -1902,7 +1975,7 @@ class Account(Entity):
             method="get",
             path="/v3/accounts/{account_id}",
             content_type="application/json",
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             query_params={
                 "include": fields.StringField(include).to_api(),
                 "properties": fields.StringField(properties).to_api(),
@@ -1911,7 +1984,7 @@ class Account(Entity):
         )
 
     def trusted_certificates(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get all trusted certificates.
+        """Get trusted certificates.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/trusted-certificates>`_.
 
@@ -2021,6 +2094,8 @@ class Account(Entity):
             body_params["address_line2"] = self._address_line2.to_api()
         if self._aliases.value_set:
             body_params["aliases"] = self._aliases.to_api()
+        if self._business_model.value_set:
+            body_params["business_model"] = self._business_model.to_api()
         if self._city.value_set:
             body_params["city"] = self._city.to_api()
         if self._company.value_set:
@@ -2067,12 +2142,12 @@ class Account(Entity):
             path="/v3/accounts/{account_id}",
             content_type="application/json",
             body_params=body_params,
-            path_params={"account_id": self._id.to_api()},
+            path_params={"account_id": self._id.to_api(),},
             unpack=self,
         )
 
     def user_invitations(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get the details of all user invitations.
+        """Get user invitations.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/user-invitations>`_.
 
@@ -2147,7 +2222,7 @@ class Account(Entity):
         )
 
     def users(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get the details of all users.
+        """Get users.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/users>`_.
 

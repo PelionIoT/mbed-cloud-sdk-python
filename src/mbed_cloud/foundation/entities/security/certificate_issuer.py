@@ -89,21 +89,17 @@ class CertificateIssuer(Entity):
         :param id: (Required) The ID of the certificate issuer.
         :type id: str
         :param issuer_attributes: General attributes for connecting the certificate issuer.
-            When the
-            issuer_type is GLOBAL_SIGN, the value shall be empty.
-            When the
-            issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
+            When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+            When the issuer_type is CFSSL_AUTH, see definition of
+            CfsslAttributes.
         :type issuer_attributes: dict
         :param issuer_type: (Required) The type of the certificate issuer.
             - GLOBAL_SIGN:
-              Certificates
-            are issued by GlobalSign service. The users must provide their own
-            GlobalSign account credentials.
+              Certificates are issued by GlobalSign service. The users must
+            provide their own GlobalSign account credentials.
             - CFSSL_AUTH:
-              Certificates are
-            issued by CFSSL authenticated signing service.
-              The users must
-            provide their own CFSSL host_url and credentials.
+              Certificates are issued by CFSSL authenticated signing service.
+              The users must provide their own CFSSL host_url and credentials.
         :type issuer_type: str
         :param name: (Required) Certificate issuer name, unique per account.
         :type name: str
@@ -179,10 +175,8 @@ class CertificateIssuer(Entity):
     @property
     def issuer_attributes(self):
         """General attributes for connecting the certificate issuer.
-        When the issuer_type
-        is GLOBAL_SIGN, the value shall be empty.
-        When the issuer_type is CFSSL_AUTH,
-        see definition of CfsslAttributes.
+        When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+        When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
         
         :rtype: dict
         """
@@ -203,14 +197,11 @@ class CertificateIssuer(Entity):
     def issuer_type(self):
         """The type of the certificate issuer.
         - GLOBAL_SIGN:
-          Certificates are issued
-        by GlobalSign service. The users must provide their own GlobalSign account
-        credentials.
+          Certificates are issued by GlobalSign service. The users must provide their
+        own GlobalSign account credentials.
         - CFSSL_AUTH:
-          Certificates are issued by CFSSL authenticated
-        signing service.
-          The users must provide their own CFSSL host_url and
-        credentials.
+          Certificates are issued by CFSSL authenticated signing service.
+          The users must provide their own CFSSL host_url and credentials.
 
         This field must be set when creating a new CertificateIssuer Entity.
         
@@ -262,8 +253,8 @@ class CertificateIssuer(Entity):
         :param issuer_credentials: The credentials required for connecting to the certificate issuer.
             When the issuer_type is GLOBAL_SIGN, see definition of
             GlobalSignCredentials.
-            When the issuer_type is CFSSL_AUTH, see
-            definition of CfsslAuthCredentials.
+            When the issuer_type is CFSSL_AUTH, see definition of
+            CfsslAuthCredentials.
         :type issuer_credentials: dict
         
         :rtype: CertificateIssuer
@@ -303,7 +294,7 @@ class CertificateIssuer(Entity):
             method="delete",
             path="/v3/certificate-issuers/{certificate-issuer-id}",
             content_type="application/json",
-            path_params={"certificate-issuer-id": self._id.to_api()},
+            path_params={"certificate-issuer-id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -416,7 +407,7 @@ class CertificateIssuer(Entity):
             method="get",
             path="/v3/certificate-issuers/{certificate-issuer-id}",
             content_type="application/json",
-            path_params={"certificate-issuer-id": self._id.to_api()},
+            path_params={"certificate-issuer-id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -428,8 +419,8 @@ class CertificateIssuer(Entity):
         :param issuer_credentials: The credentials required for connecting to the certificate issuer.
             When the issuer_type is GLOBAL_SIGN, see definition of
             GlobalSignCredentials.
-            When the issuer_type is CFSSL_AUTH, see
-            definition of CfsslAuthCredentials.
+            When the issuer_type is CFSSL_AUTH, see definition of
+            CfsslAuthCredentials.
         :type issuer_credentials: dict
         
         :rtype: CertificateIssuer
@@ -452,7 +443,7 @@ class CertificateIssuer(Entity):
             path="/v3/certificate-issuers/{certificate-issuer-id}",
             content_type="application/json",
             body_params=body_params,
-            path_params={"certificate-issuer-id": self._id.to_api()},
+            path_params={"certificate-issuer-id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -470,6 +461,6 @@ class CertificateIssuer(Entity):
             method="post",
             path="/v3/certificate-issuers/{certificate-issuer-id}/verify",
             content_type="application/json",
-            path_params={"certificate-issuer-id": self._id.to_api()},
+            path_params={"certificate-issuer-id": self._id.to_api(),},
             unpack=VerificationResponse,
         )

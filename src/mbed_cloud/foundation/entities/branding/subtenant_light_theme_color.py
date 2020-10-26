@@ -60,7 +60,9 @@ class SubtenantLightThemeColor(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(self, _client=None, color=None, reference=None, updated_at=None):
+    def __init__(
+        self, _client=None, color=None, reference=None, updated_at=None,
+    ):
         """Creates a local `SubtenantLightThemeColor` instance
 
         Parameters can be supplied on creation of the instance or given by
@@ -143,7 +145,7 @@ class SubtenantLightThemeColor(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-colors/light/{reference}>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :rtype: 
@@ -153,7 +155,7 @@ class SubtenantLightThemeColor(Entity):
             method="delete",
             path="/v3/accounts/{account_id}/branding-colors/light/{reference}",
             content_type="application/json",
-            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api(),},
             unpack=self,
         )
 
@@ -162,7 +164,7 @@ class SubtenantLightThemeColor(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-colors/light/{reference}>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :rtype: SubtenantLightThemeColor
@@ -172,7 +174,7 @@ class SubtenantLightThemeColor(Entity):
             method="get",
             path="/v3/accounts/{account_id}/branding-colors/light/{reference}",
             content_type="application/json",
-            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api(),},
             unpack=self,
         )
 
@@ -181,7 +183,7 @@ class SubtenantLightThemeColor(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-colors/light/{reference}>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :rtype: SubtenantLightThemeColor
@@ -199,7 +201,7 @@ class SubtenantLightThemeColor(Entity):
             method="put",
             path="/v3/accounts/{account_id}/branding-colors/light/{reference}",
             content_type="application/json",
-            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api(),},
             body_params=body_params,
             unpack=self,
         )

@@ -61,7 +61,9 @@ class SubtenantDarkThemeImage(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(self, _client=None, reference=None, static_uri=None, updated_at=None):
+    def __init__(
+        self, _client=None, reference=None, static_uri=None, updated_at=None,
+    ):
         """Creates a local `SubtenantDarkThemeImage` instance
 
         Parameters can be supplied on creation of the instance or given by
@@ -134,7 +136,7 @@ class SubtenantDarkThemeImage(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/dark/{reference}/clear>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :rtype: SubtenantDarkThemeImage
@@ -144,7 +146,7 @@ class SubtenantDarkThemeImage(Entity):
             method="post",
             path="/v3/accounts/{account_id}/branding-images/dark/{reference}/clear",
             content_type="application/json",
-            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api(),},
             unpack=self,
         )
 
@@ -153,7 +155,7 @@ class SubtenantDarkThemeImage(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/dark/{reference}>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :rtype: SubtenantDarkThemeImage
@@ -163,7 +165,7 @@ class SubtenantDarkThemeImage(Entity):
             method="get",
             path="/v3/accounts/{account_id}/branding-images/dark/{reference}",
             content_type="application/json",
-            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api()},
+            path_params={"account_id": fields.StringField(account_id).to_api(), "reference": self._reference.to_api(),},
             unpack=self,
         )
 
@@ -172,7 +174,7 @@ class SubtenantDarkThemeImage(Entity):
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart>`_.
         
-        :param account_id: Account ID.
+        :param account_id: The ID of the account.
         :type account_id: str
         
         :param image: The image in PNG or JPEG format as multipart form data. Files can be
@@ -198,7 +200,7 @@ class SubtenantDarkThemeImage(Entity):
                     "account_id": fields.StringField(account_id).to_api(),
                     "reference": self._reference.to_api(),
                 },
-                stream_params={"image": ("image.png", image, "image/png")},
+                stream_params={"image": ("image.png", image, "image/png"),},
                 unpack=self,
             )
         finally:

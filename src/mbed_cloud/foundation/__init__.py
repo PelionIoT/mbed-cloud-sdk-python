@@ -15,12 +15,20 @@ Accounts
 - :mod:`mbed_cloud.foundation.entities.accounts.account`
 - :mod:`mbed_cloud.foundation.entities.accounts.active_session`
 - :mod:`mbed_cloud.foundation.entities.accounts.api_key`
+- :mod:`mbed_cloud.foundation.entities.accounts.identity_provider`
+- :mod:`mbed_cloud.foundation.entities.accounts.identity_provider_public_key`
 - :mod:`mbed_cloud.foundation.entities.accounts.login_history`
 - :mod:`mbed_cloud.foundation.entities.accounts.login_profile`
+- :mod:`mbed_cloud.foundation.entities.accounts.oidc_request`
+- :mod:`mbed_cloud.foundation.entities.accounts.oidc_request_claim_mapping`
 - :mod:`mbed_cloud.foundation.entities.accounts.parent_account`
 - :mod:`mbed_cloud.foundation.entities.accounts.password_policy`
 - :mod:`mbed_cloud.foundation.entities.accounts.policy`
+- :mod:`mbed_cloud.foundation.entities.accounts.policy_group`
+- :mod:`mbed_cloud.foundation.entities.accounts.saml2_request`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_api_key`
+- :mod:`mbed_cloud.foundation.entities.accounts.subtenant_identity_provider`
+- :mod:`mbed_cloud.foundation.entities.accounts.subtenant_policy_group`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user`
 - :mod:`mbed_cloud.foundation.entities.accounts.subtenant_user_invitation`
 - :mod:`mbed_cloud.foundation.entities.accounts.user`
@@ -93,12 +101,20 @@ will share the same context as other Entities. There is more information in the 
     accounts = pelion_dm_sdk.foundation.account()
     active_sessions = pelion_dm_sdk.foundation.active_session()
     api_keys = pelion_dm_sdk.foundation.api_key()
+    identity_providers = pelion_dm_sdk.foundation.identity_provider()
+    identity_provider_public_keys = pelion_dm_sdk.foundation.identity_provider_public_key()
     login_historys = pelion_dm_sdk.foundation.login_history()
     login_profiles = pelion_dm_sdk.foundation.login_profile()
+    oidc_requests = pelion_dm_sdk.foundation.oidc_request()
+    oidc_request_claim_mappings = pelion_dm_sdk.foundation.oidc_request_claim_mapping()
     parent_accounts = pelion_dm_sdk.foundation.parent_account()
     password_policys = pelion_dm_sdk.foundation.password_policy()
     policys = pelion_dm_sdk.foundation.policy()
+    policy_groups = pelion_dm_sdk.foundation.policy_group()
+    saml2_requests = pelion_dm_sdk.foundation.saml2_request()
     subtenant_api_keys = pelion_dm_sdk.foundation.subtenant_api_key()
+    subtenant_identity_providers = pelion_dm_sdk.foundation.subtenant_identity_provider()
+    subtenant_policy_groups = pelion_dm_sdk.foundation.subtenant_policy_group()
     subtenant_users = pelion_dm_sdk.foundation.subtenant_user()
     subtenant_user_invitations = pelion_dm_sdk.foundation.subtenant_user_invitation()
     users = pelion_dm_sdk.foundation.user()
@@ -141,12 +157,20 @@ How to import Entities directly:
     from mbed_cloud.foundation import Account
     from mbed_cloud.foundation import ActiveSession
     from mbed_cloud.foundation import ApiKey
+    from mbed_cloud.foundation import IdentityProvider
+    from mbed_cloud.foundation import IdentityProviderPublicKey
     from mbed_cloud.foundation import LoginHistory
     from mbed_cloud.foundation import LoginProfile
+    from mbed_cloud.foundation import OidcRequest
+    from mbed_cloud.foundation import OidcRequestClaimMapping
     from mbed_cloud.foundation import ParentAccount
     from mbed_cloud.foundation import PasswordPolicy
     from mbed_cloud.foundation import Policy
+    from mbed_cloud.foundation import PolicyGroup
+    from mbed_cloud.foundation import Saml2Request
     from mbed_cloud.foundation import SubtenantApiKey
+    from mbed_cloud.foundation import SubtenantIdentityProvider
+    from mbed_cloud.foundation import SubtenantPolicyGroup
     from mbed_cloud.foundation import SubtenantUser
     from mbed_cloud.foundation import SubtenantUserInvitation
     from mbed_cloud.foundation import User
@@ -188,12 +212,20 @@ How to import Entities directly:
 from mbed_cloud.foundation.entities.accounts.account import Account
 from mbed_cloud.foundation.entities.accounts.active_session import ActiveSession
 from mbed_cloud.foundation.entities.accounts.api_key import ApiKey
+from mbed_cloud.foundation.entities.accounts.identity_provider import IdentityProvider
+from mbed_cloud.foundation.entities.accounts.identity_provider_public_key import IdentityProviderPublicKey
 from mbed_cloud.foundation.entities.accounts.login_history import LoginHistory
 from mbed_cloud.foundation.entities.accounts.login_profile import LoginProfile
+from mbed_cloud.foundation.entities.accounts.oidc_request import OidcRequest
+from mbed_cloud.foundation.entities.accounts.oidc_request_claim_mapping import OidcRequestClaimMapping
 from mbed_cloud.foundation.entities.accounts.parent_account import ParentAccount
 from mbed_cloud.foundation.entities.accounts.password_policy import PasswordPolicy
 from mbed_cloud.foundation.entities.accounts.policy import Policy
+from mbed_cloud.foundation.entities.accounts.policy_group import PolicyGroup
+from mbed_cloud.foundation.entities.accounts.saml2_request import Saml2Request
 from mbed_cloud.foundation.entities.accounts.subtenant_api_key import SubtenantApiKey
+from mbed_cloud.foundation.entities.accounts.subtenant_identity_provider import SubtenantIdentityProvider
+from mbed_cloud.foundation.entities.accounts.subtenant_policy_group import SubtenantPolicyGroup
 from mbed_cloud.foundation.entities.accounts.subtenant_user import SubtenantUser
 from mbed_cloud.foundation.entities.accounts.subtenant_user_invitation import SubtenantUserInvitation
 from mbed_cloud.foundation.entities.accounts.user import User
@@ -252,20 +284,28 @@ __all__ = [
     "DeviceGroup",
     "FirmwareImage",
     "FirmwareManifest",
+    "IdentityProvider",
+    "IdentityProviderPublicKey",
     "LightThemeColor",
     "LightThemeImage",
     "LoginHistory",
     "LoginProfile",
+    "OidcRequest",
+    "OidcRequestClaimMapping",
     "ParentAccount",
     "PasswordPolicy",
     "Policy",
+    "PolicyGroup",
     "PreSharedKey",
+    "Saml2Request",
     "ServerCredentials",
     "SubtenantApiKey",
     "SubtenantDarkThemeColor",
     "SubtenantDarkThemeImage",
+    "SubtenantIdentityProvider",
     "SubtenantLightThemeColor",
     "SubtenantLightThemeImage",
+    "SubtenantPolicyGroup",
     "SubtenantTrustedCertificate",
     "SubtenantUser",
     "SubtenantUserInvitation",

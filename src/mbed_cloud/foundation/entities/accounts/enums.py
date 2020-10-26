@@ -8,12 +8,27 @@ Accounts Enums
 
 This module contains all Enums used by Foundation Entities in the Accounts category:
 
+- :class:`AccountBusinessModelEnum`
 - :class:`AccountMfaStatusEnum`
 - :class:`AccountOrderEnum`
 - :class:`AccountStatusEnum`
 - :class:`ApiKeyOrderEnum`
 - :class:`ApiKeyStatusEnum`
+- :class:`IdentityProviderAlgorithmEnum`
+- :class:`IdentityProviderOrderEnum`
+- :class:`IdentityProviderStatusEnum`
+- :class:`IdentityProviderTypeEnum`
+- :class:`LoginProfileTypeEnum`
+- :class:`OidcRequestTokenModeEnum`
+- :class:`PolicyGroupOrderEnum`
+- :class:`PolicyInheritedTypeEnum`
+- :class:`SubtenantApiKeyOrderEnum`
 - :class:`SubtenantApiKeyStatusEnum`
+- :class:`SubtenantIdentityProviderAlgorithmEnum`
+- :class:`SubtenantIdentityProviderOrderEnum`
+- :class:`SubtenantIdentityProviderStatusEnum`
+- :class:`SubtenantPolicyGroupOrderEnum`
+- :class:`SubtenantUserOrderEnum`
 - :class:`SubtenantUserStatusEnum`
 - :class:`UserInvitationOrderEnum`
 - :class:`UserOrderEnum`
@@ -25,12 +40,27 @@ How to import Enums:
 
 .. code-block:: python
     
+    from mbed_cloud.foundation.enums import AccountBusinessModelEnum
     from mbed_cloud.foundation.enums import AccountMfaStatusEnum
     from mbed_cloud.foundation.enums import AccountOrderEnum
     from mbed_cloud.foundation.enums import AccountStatusEnum
     from mbed_cloud.foundation.enums import ApiKeyOrderEnum
     from mbed_cloud.foundation.enums import ApiKeyStatusEnum
+    from mbed_cloud.foundation.enums import IdentityProviderAlgorithmEnum
+    from mbed_cloud.foundation.enums import IdentityProviderOrderEnum
+    from mbed_cloud.foundation.enums import IdentityProviderStatusEnum
+    from mbed_cloud.foundation.enums import IdentityProviderTypeEnum
+    from mbed_cloud.foundation.enums import LoginProfileTypeEnum
+    from mbed_cloud.foundation.enums import OidcRequestTokenModeEnum
+    from mbed_cloud.foundation.enums import PolicyGroupOrderEnum
+    from mbed_cloud.foundation.enums import PolicyInheritedTypeEnum
+    from mbed_cloud.foundation.enums import SubtenantApiKeyOrderEnum
     from mbed_cloud.foundation.enums import SubtenantApiKeyStatusEnum
+    from mbed_cloud.foundation.enums import SubtenantIdentityProviderAlgorithmEnum
+    from mbed_cloud.foundation.enums import SubtenantIdentityProviderOrderEnum
+    from mbed_cloud.foundation.enums import SubtenantIdentityProviderStatusEnum
+    from mbed_cloud.foundation.enums import SubtenantPolicyGroupOrderEnum
+    from mbed_cloud.foundation.enums import SubtenantUserOrderEnum
     from mbed_cloud.foundation.enums import SubtenantUserStatusEnum
     from mbed_cloud.foundation.enums import UserInvitationOrderEnum
     from mbed_cloud.foundation.enums import UserOrderEnum
@@ -47,6 +77,22 @@ from builtins import object
 from mbed_cloud.foundation.common.enum_base import BaseEnum
 
 
+class AccountBusinessModelEnum(BaseEnum):
+    """Represents expected values of `AccountBusinessModelEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ACTIVE_DEVICE_BUSINESS_MODEL = "active_device_business_model"
+    API_CALLS_1_BUSINESS_MODEL = "api_calls_1_business_model"
+
+    values = frozenset(("active_device_business_model", "api_calls_1_business_model",))
+
+
 class AccountMfaStatusEnum(BaseEnum):
     """Represents expected values of `AccountMfaStatusEnum`
 
@@ -60,7 +106,7 @@ class AccountMfaStatusEnum(BaseEnum):
     ENFORCED = "enforced"
     OPTIONAL = "optional"
 
-    values = frozenset(("enforced", "optional"))
+    values = frozenset(("enforced", "optional",))
 
 
 class AccountOrderEnum(BaseEnum):
@@ -76,7 +122,7 @@ class AccountOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class AccountStatusEnum(BaseEnum):
@@ -94,7 +140,7 @@ class AccountStatusEnum(BaseEnum):
     RESTRICTED = "RESTRICTED"
     SUSPENDED = "SUSPENDED"
 
-    values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED"))
+    values = frozenset(("ACTIVE", "ENROLLING", "RESTRICTED", "SUSPENDED",))
 
 
 class ApiKeyOrderEnum(BaseEnum):
@@ -110,7 +156,7 @@ class ApiKeyOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class ApiKeyStatusEnum(BaseEnum):
@@ -126,7 +172,166 @@ class ApiKeyStatusEnum(BaseEnum):
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
 
-    values = frozenset(("ACTIVE", "INACTIVE"))
+    values = frozenset(("ACTIVE", "INACTIVE",))
+
+
+class IdentityProviderAlgorithmEnum(BaseEnum):
+    """Represents expected values of `IdentityProviderAlgorithmEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    EC224 = "EC224"
+    EC256 = "EC256"
+    EC384 = "EC384"
+    EC521 = "EC521"
+    ECDSA224 = "ECDSA224"
+    ECDSA256 = "ECDSA256"
+    ECDSA384 = "ECDSA384"
+    ECDSA521 = "ECDSA521"
+    RSA2048 = "RSA2048"
+    RSA3072 = "RSA3072"
+
+    values = frozenset(
+        ("EC224", "EC256", "EC384", "EC521", "ECDSA224", "ECDSA256", "ECDSA384", "ECDSA521", "RSA2048", "RSA3072",)
+    )
+
+
+class IdentityProviderOrderEnum(BaseEnum):
+    """Represents expected values of `IdentityProviderOrderEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC",))
+
+
+class IdentityProviderStatusEnum(BaseEnum):
+    """Represents expected values of `IdentityProviderStatusEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ACTIVE = "ACTIVE"
+    SUSPENDED = "SUSPENDED"
+
+    values = frozenset(("ACTIVE", "SUSPENDED",))
+
+
+class IdentityProviderTypeEnum(BaseEnum):
+    """Represents expected values of `IdentityProviderTypeEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    MBED = "MBED"
+    NATIVE = "NATIVE"
+    OIDC = "OIDC"
+    SAML2 = "SAML2"
+
+    values = frozenset(("MBED", "NATIVE", "OIDC", "SAML2",))
+
+
+class LoginProfileTypeEnum(BaseEnum):
+    """Represents expected values of `LoginProfileTypeEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    MBED = "MBED"
+    NATIVE = "NATIVE"
+    OIDC = "OIDC"
+    SAML2 = "SAML2"
+
+    values = frozenset(("MBED", "NATIVE", "OIDC", "SAML2",))
+
+
+class OidcRequestTokenModeEnum(BaseEnum):
+    """Represents expected values of `OidcRequestTokenModeEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    GET = "GET"
+    POST = "POST"
+
+    values = frozenset(("GET", "POST",))
+
+
+class PolicyGroupOrderEnum(BaseEnum):
+    """Represents expected values of `PolicyGroupOrderEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC",))
+
+
+class PolicyInheritedTypeEnum(BaseEnum):
+    """Represents expected values of `PolicyInheritedTypeEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ACCOUNT = "account"
+    TEMPLATE = "template"
+    TIER_TEMPLATE = "tier_template"
+
+    values = frozenset(("account", "template", "tier_template",))
+
+
+class SubtenantApiKeyOrderEnum(BaseEnum):
+    """Represents expected values of `SubtenantApiKeyOrderEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC",))
 
 
 class SubtenantApiKeyStatusEnum(BaseEnum):
@@ -142,7 +347,97 @@ class SubtenantApiKeyStatusEnum(BaseEnum):
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
 
-    values = frozenset(("ACTIVE", "INACTIVE"))
+    values = frozenset(("ACTIVE", "INACTIVE",))
+
+
+class SubtenantIdentityProviderAlgorithmEnum(BaseEnum):
+    """Represents expected values of `SubtenantIdentityProviderAlgorithmEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    EC224 = "EC224"
+    EC256 = "EC256"
+    EC384 = "EC384"
+    EC521 = "EC521"
+    ECDSA224 = "ECDSA224"
+    ECDSA256 = "ECDSA256"
+    ECDSA384 = "ECDSA384"
+    ECDSA521 = "ECDSA521"
+    RSA2048 = "RSA2048"
+    RSA3072 = "RSA3072"
+
+    values = frozenset(
+        ("EC224", "EC256", "EC384", "EC521", "ECDSA224", "ECDSA256", "ECDSA384", "ECDSA521", "RSA2048", "RSA3072",)
+    )
+
+
+class SubtenantIdentityProviderOrderEnum(BaseEnum):
+    """Represents expected values of `SubtenantIdentityProviderOrderEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC",))
+
+
+class SubtenantIdentityProviderStatusEnum(BaseEnum):
+    """Represents expected values of `SubtenantIdentityProviderStatusEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ACTIVE = "ACTIVE"
+    SUSPENDED = "SUSPENDED"
+
+    values = frozenset(("ACTIVE", "SUSPENDED",))
+
+
+class SubtenantPolicyGroupOrderEnum(BaseEnum):
+    """Represents expected values of `SubtenantPolicyGroupOrderEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC",))
+
+
+class SubtenantUserOrderEnum(BaseEnum):
+    """Represents expected values of `SubtenantUserOrderEnum`
+
+    This is used by Entities in the "accounts" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+    values = frozenset(("ASC", "DESC",))
 
 
 class SubtenantUserStatusEnum(BaseEnum):
@@ -161,7 +456,7 @@ class SubtenantUserStatusEnum(BaseEnum):
     INVITED = "INVITED"
     RESET = "RESET"
 
-    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET"))
+    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET",))
 
 
 class UserInvitationOrderEnum(BaseEnum):
@@ -177,7 +472,7 @@ class UserInvitationOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class UserOrderEnum(BaseEnum):
@@ -193,7 +488,7 @@ class UserOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
 
 
 class UserStatusEnum(BaseEnum):
@@ -212,4 +507,4 @@ class UserStatusEnum(BaseEnum):
     INVITED = "INVITED"
     RESET = "RESET"
 
-    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET"))
+    values = frozenset(("ACTIVE", "ENROLLING", "INACTIVE", "INVITED", "RESET",))

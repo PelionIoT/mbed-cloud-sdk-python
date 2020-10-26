@@ -26,20 +26,28 @@ from :class:`EntityFactory` class using the following methods:
 - :meth:`EntityFactory.device_group`
 - :meth:`EntityFactory.firmware_image`
 - :meth:`EntityFactory.firmware_manifest`
+- :meth:`EntityFactory.identity_provider`
+- :meth:`EntityFactory.identity_provider_public_key`
 - :meth:`EntityFactory.light_theme_color`
 - :meth:`EntityFactory.light_theme_image`
 - :meth:`EntityFactory.login_history`
 - :meth:`EntityFactory.login_profile`
+- :meth:`EntityFactory.oidc_request`
+- :meth:`EntityFactory.oidc_request_claim_mapping`
 - :meth:`EntityFactory.parent_account`
 - :meth:`EntityFactory.password_policy`
 - :meth:`EntityFactory.policy`
+- :meth:`EntityFactory.policy_group`
 - :meth:`EntityFactory.pre_shared_key`
+- :meth:`EntityFactory.saml2_request`
 - :meth:`EntityFactory.server_credentials`
 - :meth:`EntityFactory.subtenant_api_key`
 - :meth:`EntityFactory.subtenant_dark_theme_color`
 - :meth:`EntityFactory.subtenant_dark_theme_image`
+- :meth:`EntityFactory.subtenant_identity_provider`
 - :meth:`EntityFactory.subtenant_light_theme_color`
 - :meth:`EntityFactory.subtenant_light_theme_image`
+- :meth:`EntityFactory.subtenant_policy_group`
 - :meth:`EntityFactory.subtenant_trusted_certificate`
 - :meth:`EntityFactory.subtenant_user`
 - :meth:`EntityFactory.subtenant_user_invitation`
@@ -75,6 +83,8 @@ class EntityFactory:
         admin_name=None,
         admin_password=None,
         aliases=None,
+        business_model=None,
+        business_model_history=None,
         city=None,
         company=None,
         contact=None,
@@ -90,6 +100,7 @@ class EntityFactory:
         expiration_warning_threshold=None,
         id=None,
         idle_timeout=None,
+        limitations=None,
         limits=None,
         mfa_status=None,
         notification_emails=None,
@@ -107,6 +118,7 @@ class EntityFactory:
         status=None,
         template_id=None,
         tier=None,
+        tier_history=None,
         updated_at=None,
         upgraded_at=None,
     ):
@@ -122,7 +134,8 @@ class EntityFactory:
         :param admin_full_name: The full name of the admin user created for this account. Present
             only in the response for account creation.
         :type admin_full_name: str
-        :param admin_id: The ID of the admin user created for this account.
+        :param admin_id: The ID of the admin user created for this account. Present only in
+            the response for the account creation.
         :type admin_id: str
         :param admin_key: The admin API key created for this account. Present only in the
             response for account creation.
@@ -135,6 +148,11 @@ class EntityFactory:
         :type admin_password: str
         :param aliases: An array of aliases.
         :type aliases: list
+        :param business_model: Business model for this account. Manageable by the root admin
+            only.
+        :type business_model: str
+        :param business_model_history: Business model history for this account.
+        :type business_model_history: list
         :param city: The city part of the postal address.
         :type city: str
         :param company: The name of the company.
@@ -166,6 +184,8 @@ class EntityFactory:
         :type id: str
         :param idle_timeout: The reference token expiration time, in minutes, for this account.
         :type idle_timeout: int
+        :param limitations: List of account limitation objects.
+        :type limitations: list
         :param limits: List of limits as key-value pairs if requested.
         :type limits: dict
         :param mfa_status: The enforcement status of multi-factor authentication, either
@@ -203,6 +223,8 @@ class EntityFactory:
             account, `2`: partner tier. Other values are reserved for the
             future.
         :type tier: str
+        :param tier_history: Tier history for this account.
+        :type tier_history: list
         :param updated_at: Last update UTC time RFC3339.
         :type updated_at: datetime
         :param upgraded_at: Time when upgraded to commercial account in UTC format RFC3339.
@@ -224,6 +246,8 @@ class EntityFactory:
             admin_name=admin_name,
             admin_password=admin_password,
             aliases=aliases,
+            business_model=business_model,
+            business_model_history=business_model_history,
             city=city,
             company=company,
             contact=contact,
@@ -239,6 +263,7 @@ class EntityFactory:
             expiration_warning_threshold=expiration_warning_threshold,
             id=id,
             idle_timeout=idle_timeout,
+            limitations=limitations,
             limits=limits,
             mfa_status=mfa_status,
             notification_emails=notification_emails,
@@ -256,15 +281,20 @@ class EntityFactory:
             status=status,
             template_id=template_id,
             tier=tier,
+            tier_history=tier_history,
             updated_at=updated_at,
             upgraded_at=upgraded_at,
         )
 
-    def active_session(self, account_id=None, ip_address=None, login_time=None, reference_token=None, user_agent=None):
+    def active_session(
+        self, account_id=None, created_at=None, ip_address=None, login_time=None, reference_token=None, user_agent=None,
+    ):
         """Creates a local `ActiveSession` instance, using the shared SDK context.
 
         :param account_id: The UUID of the account.
         :type account_id: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
         :param ip_address: IP address of the client.
         :type ip_address: str
         :param login_time: The login time of the user.
@@ -282,6 +312,7 @@ class EntityFactory:
         return ActiveSession(
             _client=self._client,
             account_id=account_id,
+            created_at=created_at,
             ip_address=ip_address,
             login_time=login_time,
             reference_token=reference_token,
@@ -293,6 +324,7 @@ class EntityFactory:
         account_id=None,
         created_at=None,
         creation_time=None,
+        groups=None,
         id=None,
         key=None,
         last_login_time=None,
@@ -310,6 +342,8 @@ class EntityFactory:
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
+        :param groups: A list of group IDs this API key belongs to.
+        :type groups: list
         :param id: The ID of the API key.
         :type id: str
         :param key: The API key.
@@ -335,6 +369,7 @@ class EntityFactory:
             account_id=account_id,
             created_at=created_at,
             creation_time=creation_time,
+            groups=groups,
             id=id,
             key=key,
             last_login_time=last_login_time,
@@ -359,25 +394,25 @@ class EntityFactory:
     ):
         """Creates a local `CampaignDeviceMetadata` instance, using the shared SDK context.
 
-        :param campaign_id: The device's campaign ID
+        :param campaign_id: The device's campaign ID.
         :type campaign_id: str
-        :param created_at: The time the campaign was created
+        :param created_at: The time the entity was created.
         :type created_at: datetime
-        :param deployment_state: The state of the update campaign on the device
+        :param deployment_state: The state of the update campaign on the device.
         :type deployment_state: str
-        :param description: Description
+        :param description: Description.
         :type description: str
-        :param device_id: The device ID
+        :param device_id: The device ID.
         :type device_id: str
-        :param id: The metadata record ID
+        :param id: The metadata record ID.
         :type id: str
-        :param mechanism: How the firmware is delivered (connector or direct)
+        :param mechanism: How the firmware is delivered (connector or direct).
         :type mechanism: str
-        :param mechanism_url: The Device Management Connect URL
+        :param mechanism_url: The Device Management Connect URL.
         :type mechanism_url: str
-        :param name: The record name
+        :param name: The record name.
         :type name: str
-        :param updated_at: The record was modified in the database format: date-time
+        :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         
         :return: A new instance of a CampaignDeviceMetadata Foundation Entity.
@@ -399,7 +434,9 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
-    def campaign_statistics(self, campaign_id=None, count=None, created_at=None, id=None, summary_status=None):
+    def campaign_statistics(
+        self, campaign_id=None, count=None, created_at=None, id=None, summary_status=None,
+    ):
         """Creates a local `CampaignStatistics` instance, using the shared SDK context.
 
         :param campaign_id: ID of the associated campaign.
@@ -408,7 +445,7 @@ class EntityFactory:
         :type count: int
         :param created_at: 
         :type created_at: datetime
-        :param id: ID of the event type description
+        :param id: ID of the event type description.
         :type id: str
         :param summary_status: The event type description.
         :type summary_status: str
@@ -522,7 +559,7 @@ class EntityFactory:
         )
 
     def certificate_issuer(
-        self, created_at=None, description=None, id=None, issuer_attributes=None, issuer_type=None, name=None
+        self, created_at=None, description=None, id=None, issuer_attributes=None, issuer_type=None, name=None,
     ):
         """Creates a local `CertificateIssuer` instance, using the shared SDK context.
 
@@ -533,21 +570,17 @@ class EntityFactory:
         :param id: The ID of the certificate issuer.
         :type id: str
         :param issuer_attributes: General attributes for connecting the certificate issuer.
-            When the
-            issuer_type is GLOBAL_SIGN, the value shall be empty.
-            When the
-            issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
+            When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+            When the issuer_type is CFSSL_AUTH, see definition of
+            CfsslAttributes.
         :type issuer_attributes: dict
         :param issuer_type: The type of the certificate issuer.
             - GLOBAL_SIGN:
-              Certificates
-            are issued by GlobalSign service. The users must provide their own
-            GlobalSign account credentials.
+              Certificates are issued by GlobalSign service. The users must
+            provide their own GlobalSign account credentials.
             - CFSSL_AUTH:
-              Certificates are
-            issued by CFSSL authenticated signing service.
-              The users must
-            provide their own CFSSL host_url and credentials.
+              Certificates are issued by CFSSL authenticated signing service.
+              The users must provide their own CFSSL host_url and credentials.
         :type issuer_type: str
         :param name: Certificate issuer name, unique per account.
         :type name: str
@@ -568,13 +601,12 @@ class EntityFactory:
         )
 
     def certificate_issuer_config(
-        self, certificate_issuer_id=None, created_at=None, id=None, reference=None, updated_at=None
+        self, certificate_issuer_id=None, created_at=None, id=None, reference=None, updated_at=None,
     ):
         """Creates a local `CertificateIssuerConfig` instance, using the shared SDK context.
 
         :param certificate_issuer_id: The ID of the certificate issuer.
-            Null if Device Management
-            internal HSM is used.
+            Null if Device Management internal HSM is used.
         :type certificate_issuer_id: str
         :param created_at: Created UTC time RFC3339.
         :type created_at: datetime
@@ -600,7 +632,9 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
-    def dark_theme_color(self, color=None, reference=None, updated_at=None):
+    def dark_theme_color(
+        self, color=None, reference=None, updated_at=None,
+    ):
         """Creates a local `DarkThemeColor` instance, using the shared SDK context.
 
         :param color: The color given as name (purple) or as a hex code.
@@ -615,9 +649,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import DarkThemeColor
 
-        return DarkThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at)
+        return DarkThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at,)
 
-    def dark_theme_image(self, reference=None, static_uri=None, updated_at=None):
+    def dark_theme_image(
+        self, reference=None, static_uri=None, updated_at=None,
+    ):
         """Creates a local `DarkThemeImage` instance, using the shared SDK context.
 
         :param reference: Name of the image.
@@ -632,7 +668,7 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import DarkThemeImage
 
-        return DarkThemeImage(_client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at)
+        return DarkThemeImage(_client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at,)
 
     def developer_certificate(
         self,
@@ -702,16 +738,26 @@ class EntityFactory:
         endpoint_type=None,
         enrolment_list_timestamp=None,
         firmware_checksum=None,
+        groups=None,
         host_gateway=None,
         id=None,
         issuer_fingerprint=None,
+        last_operator_suspended_category=None,
+        last_operator_suspended_description=None,
+        last_operator_suspended_updated_at=None,
+        last_system_suspended_category=None,
+        last_system_suspended_description=None,
+        last_system_suspended_updated_at=None,
+        lifecycle_status=None,
         manifest=None,
         manifest_timestamp=None,
         mechanism=None,
         mechanism_url=None,
         name=None,
+        operator_suspended=None,
         serial_number=None,
         state=None,
+        system_suspended=None,
         updated_at=None,
         vendor_id=None,
     ):
@@ -749,15 +795,18 @@ class EntityFactory:
         :param device_execution_mode: The execution mode from the certificate of the device. Defaults to
             inheriting from host_gateway device.
             Permitted values:
-              - 0 -
-            unspecified execution mode (default if host_gateway invalid or not
-            set)
-              - 1 - development devices
-              - 5 - production devices
+              - 0 - Unspecified execution mode (default if host_gateway
+            invalid or not set). The device firmware uses a certificate that
+            is not identified as a developer or production certificate.
+              - 1 - Development device. The device firmware uses a developer
+            certificate to communicate with Device Management.
+              - 5 - Production device. The device firmware uses a factory-
+            generated certificate to communicate with Device Management.
         :type device_execution_mode: int
         :param device_key: The fingerprint of the device certificate.
         :type device_key: str
-        :param endpoint_name: The endpoint name given to the device.
+        :param endpoint_name: The endpoint name given to the device. The endpoint_name is from
+            the device certificate and is set by factory tool.
         :type endpoint_name: str
         :param endpoint_type: The endpoint type of the device. For example, the device is a
             gateway.
@@ -766,7 +815,10 @@ class EntityFactory:
         :type enrolment_list_timestamp: datetime
         :param firmware_checksum: The SHA256 checksum of the current firmware image.
         :type firmware_checksum: str
-        :param host_gateway: The ID of the host gateway, if appropriate.
+        :param groups: An array containing an ID of each group this device belongs to.
+        :type groups: list
+        :param host_gateway: The ID of the host gateway, if appropriate. A device behind Edge
+            has this host_gateway set.
         :type host_gateway: str
         :param id: The ID of the device. The device ID is used across all Device
             Management APIs.
@@ -774,21 +826,64 @@ class EntityFactory:
         :param issuer_fingerprint: SHA256 fingerprint of the certificate used to validate the
             signature of the device certificate.
         :type issuer_fingerprint: str
+        :param last_operator_suspended_category: The reference of the block category.
+        :type last_operator_suspended_category: str
+        :param last_operator_suspended_description: The most recent description why the device was suspended or
+            returned to service.
+        :type last_operator_suspended_description: str
+        :param last_operator_suspended_updated_at: The timestamp of the most recent suspension activity.
+        :type last_operator_suspended_updated_at: datetime
+        :param last_system_suspended_category: The reference of the block category.
+        :type last_system_suspended_category: str
+        :param last_system_suspended_description: The most recent description of why the device was blocked or
+            unblocked by the system.
+        :type last_system_suspended_description: str
+        :param last_system_suspended_updated_at: The timestamp of the most recent system block activity.
+        :type last_system_suspended_updated_at: datetime
+        :param lifecycle_status: The lifecycle status of the device.
+            * Enabled: The device is allowed to connect to Pelion Device
+            Management.
+            * Blocked: The device is prevented from connecting to Pelion
+            Device Management. Device can be, for example, 'suspended'.
+        :type lifecycle_status: str
         :param manifest: DEPRECATED: The URL for the current device manifest.
         :type manifest: str
         :param manifest_timestamp: The timestamp of the current manifest version.
         :type manifest_timestamp: datetime
-        :param mechanism: The ID of the channel used to communicate with the device.
+        :param mechanism: NOT USED: The ID of the channel used to communicate with the
+            device.
         :type mechanism: str
-        :param mechanism_url: The address of the connector to use.
+        :param mechanism_url: NOT USED: The address of the connector to use.
         :type mechanism_url: str
-        :param name: The name of the device.
+        :param name: The name given by the web application for the device. Device
+            itself provides only the endpoint_name.
         :type name: str
-        :param serial_number: The serial number of the device.
+        :param operator_suspended: Device has been suspended by operator.
+        :type operator_suspended: bool
+        :param serial_number: The [serial number](../provisioning-process/provisioning-
+            information.html#serial-number) of the device. The serial number
+            is injected by the factory tool during manufacturing.
         :type serial_number: str
         :param state: The current state of the device.
+            * Unenrolled: The device has been created, but has not yet
+            bootstrapped or connected to Device Management.
+            * Cloud_enrolling: The device is bootstrapping for the first time.
+            This state is set only while bootstrapping is in progress. For
+            example, an external CA gives an error, and the device tries to
+            bootstrap again after few seconds.
+            * Bootstrapped: The device has bootstrapped, and has credentials
+            to connect to Device Management.
+            * Registered: The device has registered with Pelion Device
+            Management. [Device commands](../service-api-references/device-
+            management-connect.html#createAsyncRequest) can be queued. The
+            device sends events for [subscribed](../connecting/resource-
+            change-webapp.html) resources.
+            * Deregistered: The device has requested deregistration, or its
+            registration has expired.
         :type state: str
-        :param updated_at: The time the object was updated.
+        :param system_suspended: Is the device suspended by the system?
+        :type system_suspended: bool
+        :param updated_at: The time this data object was updated.
         :type updated_at: datetime
         :param vendor_id: The device vendor ID.
         :type vendor_id: str
@@ -818,16 +913,26 @@ class EntityFactory:
             endpoint_type=endpoint_type,
             enrolment_list_timestamp=enrolment_list_timestamp,
             firmware_checksum=firmware_checksum,
+            groups=groups,
             host_gateway=host_gateway,
             id=id,
             issuer_fingerprint=issuer_fingerprint,
+            last_operator_suspended_category=last_operator_suspended_category,
+            last_operator_suspended_description=last_operator_suspended_description,
+            last_operator_suspended_updated_at=last_operator_suspended_updated_at,
+            last_system_suspended_category=last_system_suspended_category,
+            last_system_suspended_description=last_system_suspended_description,
+            last_system_suspended_updated_at=last_system_suspended_updated_at,
+            lifecycle_status=lifecycle_status,
             manifest=manifest,
             manifest_timestamp=manifest_timestamp,
             mechanism=mechanism,
             mechanism_url=mechanism_url,
             name=name,
+            operator_suspended=operator_suspended,
             serial_number=serial_number,
             state=state,
+            system_suspended=system_suspended,
             updated_at=updated_at,
             vendor_id=vendor_id,
         )
@@ -896,20 +1001,17 @@ class EntityFactory:
         :param account_id: ID
         :type account_id: str
         :param completed_at: The time the bulk creation task was completed.
-            Null when creating
-            bulk upload or delete.
+            Null when creating bulk upload or delete.
         :type completed_at: datetime
         :param created_at: The time of receiving the bulk creation task.
         :type created_at: datetime
         :param errors_count: The number of enrollment identities with failed processing.
         :type errors_count: int
         :param errors_report_file: Link to error report file.
-            Null when creating bulk upload or
-            delete.
+            Null when creating bulk upload or delete.
         :type errors_report_file: str
         :param full_report_file: Link to full report file.
-            Null when creating bulk upload or
-            delete.
+            Null when creating bulk upload or delete.
         :type full_report_file: str
         :param id: Bulk ID
         :type id: str
@@ -960,20 +1062,17 @@ class EntityFactory:
         :param account_id: ID
         :type account_id: str
         :param completed_at: The time the bulk creation task was completed.
-            Null when creating
-            bulk upload or delete.
+            Null when creating bulk upload or delete.
         :type completed_at: datetime
         :param created_at: The time of receiving the bulk creation task.
         :type created_at: datetime
         :param errors_count: The number of enrollment identities with failed processing.
         :type errors_count: int
         :param errors_report_file: Link to error report file.
-            Null when creating bulk upload or
-            delete.
+            Null when creating bulk upload or delete.
         :type errors_report_file: str
         :param full_report_file: Link to full report file.
-            Null when creating bulk upload or
-            delete.
+            Null when creating bulk upload or delete.
         :type full_report_file: str
         :param id: Bulk ID
         :type id: str
@@ -1007,7 +1106,7 @@ class EntityFactory:
         )
 
     def device_enrollment_denial(
-        self, account_id=None, created_at=None, endpoint_name=None, id=None, trusted_certificate_id=None
+        self, account_id=None, created_at=None, endpoint_name=None, id=None, trusted_certificate_id=None,
     ):
         """Creates a local `DeviceEnrollmentDenial` instance, using the shared SDK context.
 
@@ -1066,9 +1165,9 @@ class EntityFactory:
         :type device_id: str
         :param event_type: Event code
         :type event_type: str
-        :param event_type_category: Category code which groups the event type by a summary category.
+        :param event_type_category: Category code that groups the event type by a summary category.
         :type event_type_category: str
-        :param event_type_description: Generic description of the event
+        :param event_type_description: Generic description of the event.
         :type event_type_description: str
         :param id: 
         :type id: str
@@ -1107,11 +1206,11 @@ class EntityFactory:
     ):
         """Creates a local `DeviceGroup` instance, using the shared SDK context.
 
-        :param created_at: The time the campaign was created.
+        :param created_at: The time the group was created.
         :type created_at: datetime
-        :param custom_attributes: Up to ten custom key-value attributes. Note that keys cannot begin
-            with a number. Both keys and values are limited to 128 characters.
-            Updating this field replaces existing contents.
+        :param custom_attributes: Up to ten custom key-value attributes. Keys cannot begin with a
+            number. Both key and value are limited to 128 characters. Updating
+            this field replaces existing contents.
         :type custom_attributes: dict
         :param description: The description of the group.
         :type description: str
@@ -1121,7 +1220,7 @@ class EntityFactory:
         :type id: str
         :param name: Name of the group.
         :type name: str
-        :param updated_at: The time the object was updated.
+        :param updated_at: The time this object was updated.
         :type updated_at: datetime
         
         :return: A new instance of a DeviceGroup Foundation Entity.
@@ -1153,21 +1252,21 @@ class EntityFactory:
     ):
         """Creates a local `FirmwareImage` instance, using the shared SDK context.
 
-        :param created_at: The time the object was created
+        :param created_at: The time the entity was created.
         :type created_at: datetime
-        :param datafile_checksum: The checksum (sha256) generated for the datafile
+        :param datafile_checksum: The checksum (sha256) generated for the datafile.
         :type datafile_checksum: str
-        :param datafile_size: The size of the datafile in bytes
+        :param datafile_size: The size of the datafile in bytes.
         :type datafile_size: int
-        :param datafile_url: The firmware image file URL
+        :param datafile_url: The firmware image file URL.
         :type datafile_url: str
-        :param description: The description of the object
+        :param description: The description of the object.
         :type description: str
-        :param id: The firmware image ID
+        :param id: The firmware image ID.
         :type id: str
-        :param name: The firmware image name
+        :param name: The firmware image name.
         :type name: str
-        :param updated_at: The time the object was updated
+        :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         
         :return: A new instance of a FirmwareImage Foundation Entity.
@@ -1192,35 +1291,68 @@ class EntityFactory:
         created_at=None,
         datafile_size=None,
         datafile_url=None,
+        delivered_payload_digest=None,
+        delivered_payload_size=None,
+        delivered_payload_type=None,
+        delivered_payload_url=None,
         description=None,
         device_class=None,
+        device_vendor=None,
         id=None,
         key_table_url=None,
+        manifest_schema_version=None,
         name=None,
+        parsed_raw_manifest=None,
+        precursor_payload_digest=None,
         timestamp=None,
+        update_priority=None,
         updated_at=None,
     ):
         """Creates a local `FirmwareManifest` instance, using the shared SDK context.
 
-        :param created_at: The time the object was created
+        :param created_at: The time the entity was created.
         :type created_at: datetime
-        :param datafile_size: The size of the datafile in bytes
+        :param datafile_size: The size of the firmware manifest in bytes.
         :type datafile_size: int
-        :param datafile_url: The URL of the firmware manifest binary
+        :param datafile_url: The URL of the ASN.1 DER-encoded firmware manifest binary.
         :type datafile_url: str
-        :param description: The description of the firmware manifest
+        :param delivered_payload_digest: Digest (SHA256, hex-encoded) of the payload to deliver to the
+            device.
+        :type delivered_payload_digest: str
+        :param delivered_payload_size: The size in bytes of the payload to deliver to the device.
+        :type delivered_payload_size: int
+        :param delivered_payload_type: Type of the payload to deliver to the device (full or delta
+            image).
+        :type delivered_payload_type: str
+        :param delivered_payload_url: The URL of the payload to deliver to the device.
+        :type delivered_payload_url: str
+        :param description: The description of the firmware manifest.
         :type description: str
-        :param device_class: The class of the device
+        :param device_class: The device class ID.
         :type device_class: str
-        :param id: The firmware manifest ID
+        :param device_vendor: The device vendor ID.
+        :type device_vendor: str
+        :param id: The firmware manifest ID.
         :type id: str
-        :param key_table_url: The key table of pre-shared keys for devices
+        :param key_table_url: The key table of pre-shared keys for devices.
         :type key_table_url: str
-        :param name: The name of the object
+        :param manifest_schema_version: Version of the manifest schema (1 or 3).
+        :type manifest_schema_version: str
+        :param name: The name of the manifest.
         :type name: str
-        :param timestamp: The firmware manifest version as a timestamp
+        :param parsed_raw_manifest: Raw manifest in JSON format, parsed from ASN.1 DER encoding.
+            Fields may change. Backwards compatibility is not guaranteed.
+            Recommended for debugging only.
+        :type parsed_raw_manifest: dict
+        :param precursor_payload_digest: Digest (SHA256, hex-encoded) of the currently installed payload.
+        :type precursor_payload_digest: str
+        :param timestamp: The firmware manifest version as a timestamp.
         :type timestamp: datetime
-        :param updated_at: The time the object was updated
+        :param update_priority: Update priority, passed to the application callback when an update
+            is performed. Allows the application to make application-specific
+            decisions.
+        :type update_priority: int
+        :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         
         :return: A new instance of a FirmwareManifest Foundation Entity.
@@ -1233,16 +1365,100 @@ class EntityFactory:
             created_at=created_at,
             datafile_size=datafile_size,
             datafile_url=datafile_url,
+            delivered_payload_digest=delivered_payload_digest,
+            delivered_payload_size=delivered_payload_size,
+            delivered_payload_type=delivered_payload_type,
+            delivered_payload_url=delivered_payload_url,
             description=description,
             device_class=device_class,
+            device_vendor=device_vendor,
             id=id,
             key_table_url=key_table_url,
+            manifest_schema_version=manifest_schema_version,
             name=name,
+            parsed_raw_manifest=parsed_raw_manifest,
+            precursor_payload_digest=precursor_payload_digest,
             timestamp=timestamp,
+            update_priority=update_priority,
             updated_at=updated_at,
         )
 
-    def light_theme_color(self, color=None, reference=None, updated_at=None):
+    def identity_provider(
+        self,
+        account_id=None,
+        created_at=None,
+        description=None,
+        id=None,
+        identity_provider_type=None,
+        is_default=None,
+        name=None,
+        saml2_attributes=None,
+        status=None,
+        updated_at=None,
+    ):
+        """Creates a local `IdentityProvider` instance, using the shared SDK context.
+
+        :param account_id: The ID of the account the identity provider belongs to.
+        :type account_id: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param description: Description for the identity provider.
+        :type description: str
+        :param id: Entity ID.
+        :type id: str
+        :param identity_provider_type: Identity provider type.
+        :type identity_provider_type: str
+        :param is_default: Flag indicating whether this is the global default identity
+            provider.
+        :type is_default: bool
+        :param name: Name of the identity provider.
+        :type name: str
+        :param saml2_attributes: Represents SAML2 specific attributes in responses.
+        :type saml2_attributes: dict
+        :param status: Status of the identity provider.
+        :type status: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        
+        :return: A new instance of a IdentityProvider Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.identity_provider.IdentityProvider
+        """
+        from mbed_cloud.foundation import IdentityProvider
+
+        return IdentityProvider(
+            _client=self._client,
+            account_id=account_id,
+            created_at=created_at,
+            description=description,
+            id=id,
+            identity_provider_type=identity_provider_type,
+            is_default=is_default,
+            name=name,
+            saml2_attributes=saml2_attributes,
+            status=status,
+            updated_at=updated_at,
+        )
+
+    def identity_provider_public_key(
+        self, key=None, kid=None,
+    ):
+        """Creates a local `IdentityProviderPublicKey` instance, using the shared SDK context.
+
+        :param key: The public key.
+        :type key: str
+        :param kid: The public key ID.
+        :type kid: str
+        
+        :return: A new instance of a IdentityProviderPublicKey Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.identity_provider_public_key.IdentityProviderPublicKey
+        """
+        from mbed_cloud.foundation import IdentityProviderPublicKey
+
+        return IdentityProviderPublicKey(_client=self._client, key=key, kid=kid,)
+
+    def light_theme_color(
+        self, color=None, reference=None, updated_at=None,
+    ):
         """Creates a local `LightThemeColor` instance, using the shared SDK context.
 
         :param color: The color given as name (purple) or as a hex code.
@@ -1257,9 +1473,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import LightThemeColor
 
-        return LightThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at)
+        return LightThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at,)
 
-    def light_theme_image(self, reference=None, static_uri=None, updated_at=None):
+    def light_theme_image(
+        self, reference=None, static_uri=None, updated_at=None,
+    ):
         """Creates a local `LightThemeImage` instance, using the shared SDK context.
 
         :param reference: Name of the image.
@@ -1274,9 +1492,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import LightThemeImage
 
-        return LightThemeImage(_client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at)
+        return LightThemeImage(_client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at,)
 
-    def login_history(self, date=None, ip_address=None, success=None, user_agent=None):
+    def login_history(
+        self, date=None, ip_address=None, success=None, user_agent=None,
+    ):
         """Creates a local `LoginHistory` instance, using the shared SDK context.
 
         :param date: UTC time RFC3339 for this login attempt.
@@ -1294,14 +1514,20 @@ class EntityFactory:
         from mbed_cloud.foundation import LoginHistory
 
         return LoginHistory(
-            _client=self._client, date=date, ip_address=ip_address, success=success, user_agent=user_agent
+            _client=self._client, date=date, ip_address=ip_address, success=success, user_agent=user_agent,
         )
 
-    def login_profile(self, id=None, name=None):
+    def login_profile(
+        self, foreign_id=None, id=None, login_profile_type=None, name=None,
+    ):
         """Creates a local `LoginProfile` instance, using the shared SDK context.
 
+        :param foreign_id: The ID of the user in the identity provider's service.
+        :type foreign_id: str
         :param id: ID of the identity provider.
         :type id: str
+        :param login_profile_type: Identity provider type.
+        :type login_profile_type: str
         :param name: Name of the identity provider.
         :type name: str
         
@@ -1310,9 +1536,154 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import LoginProfile
 
-        return LoginProfile(_client=self._client, id=id, name=name)
+        return LoginProfile(
+            _client=self._client, foreign_id=foreign_id, id=id, login_profile_type=login_profile_type, name=name,
+        )
 
-    def parent_account(self, admin_email=None, admin_name=None, id=None):
+    def oidc_request(
+        self,
+        authorization_endpoint=None,
+        auto_enrollment=None,
+        claim_mapping=None,
+        client_id=None,
+        client_secret=None,
+        end_session_endpoint=None,
+        issuer=None,
+        jwks_uri=None,
+        keys=None,
+        redirect_uri=None,
+        revocation_endpoint=None,
+        scopes=None,
+        token_endpoint=None,
+        token_request_mode=None,
+        token_response_path=None,
+        userinfo_endpoint=None,
+    ):
+        """Creates a local `OidcRequest` instance, using the shared SDK context.
+
+        :param authorization_endpoint: URL of the OAuth 2.0 authorization endpoint.
+        :type authorization_endpoint: str
+        :param auto_enrollment: For future use.
+        :type auto_enrollment: bool
+        :param claim_mapping: Mapping for non-standard OIDC claim names.
+        :type claim_mapping: dict
+        :param client_id: Client ID needed to authenticate and gain access to identity
+            provider's API.
+        :type client_id: str
+        :param client_secret: Client secret needed to authenticate and gain access to identity
+            provider's API.
+        :type client_secret: str
+        :param end_session_endpoint: URL of the provider's end session endpoint.
+        :type end_session_endpoint: str
+        :param issuer: Issuer of the identity provider.
+        :type issuer: str
+        :param jwks_uri: URL of the provider's JSON web key set document.
+        :type jwks_uri: str
+        :param keys: Provider's public keys and key IDs used to sign ID tokens. PEM-
+            encoded.
+        :type keys: list
+        :param redirect_uri: The URI needed to authenticate and gain access to identity
+            provider's API. Leave this empty to use the default redirect URI.
+        :type redirect_uri: str
+        :param revocation_endpoint: URL of the provider's token revocation endpoint.
+        :type revocation_endpoint: str
+        :param scopes: Space-separated list of scopes sent in the authentication request.
+            When not configured otherwise, the default scopes are ['openid
+            profile email'](https://openid.net/specs/openid-connect-
+            core-1_0.html#ScopeClaims).
+        :type scopes: str
+        :param token_endpoint: URL of the OAuth 2.0 authorization endpoint.
+        :type token_endpoint: str
+        :param token_request_mode: One way to obtain the access token. Since the request results in
+            the transmission of clear-text credentials, the client must use
+            the POST mode.
+        :type token_request_mode: str
+        :param token_response_path: Path to the standard data in the token response. Levels in the
+            JSON structure must be separated by '.' (dot) characters.
+        :type token_response_path: str
+        :param userinfo_endpoint: URL of the OAuth 2.0 UserInfo endpoint.
+        :type userinfo_endpoint: str
+        
+        :return: A new instance of a OidcRequest Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.oidc_request.OidcRequest
+        """
+        from mbed_cloud.foundation import OidcRequest
+
+        return OidcRequest(
+            _client=self._client,
+            authorization_endpoint=authorization_endpoint,
+            auto_enrollment=auto_enrollment,
+            claim_mapping=claim_mapping,
+            client_id=client_id,
+            client_secret=client_secret,
+            end_session_endpoint=end_session_endpoint,
+            issuer=issuer,
+            jwks_uri=jwks_uri,
+            keys=keys,
+            redirect_uri=redirect_uri,
+            revocation_endpoint=revocation_endpoint,
+            scopes=scopes,
+            token_endpoint=token_endpoint,
+            token_request_mode=token_request_mode,
+            token_response_path=token_response_path,
+            userinfo_endpoint=userinfo_endpoint,
+        )
+
+    def oidc_request_claim_mapping(
+        self,
+        email=None,
+        email_verified=None,
+        family_name=None,
+        given_name=None,
+        name=None,
+        phone_number=None,
+        sub=None,
+        updated_at=None,
+        updated_at_pattern=None,
+    ):
+        """Creates a local `OidcRequestClaimMapping` instance, using the shared SDK context.
+
+        :param email: Custom claim name for 'email'.
+        :type email: str
+        :param email_verified: Custom claim name for 'email_verified'.
+        :type email_verified: str
+        :param family_name: Custom claim name for 'family_name'.
+        :type family_name: str
+        :param given_name: Custom claim name for 'given_name'.
+        :type given_name: str
+        :param name: Custom claim name for 'name'.
+        :type name: str
+        :param phone_number: Custom claim name for 'phone_number'.
+        :type phone_number: str
+        :param sub: Custom claim name for 'sub'.
+        :type sub: str
+        :param updated_at: Custom claim name for 'updated_at'.
+        :type updated_at: str
+        :param updated_at_pattern: Custom pattern for claim 'updated_at' as defined by the Java
+            SimpleDateFormat class.
+        :type updated_at_pattern: str
+        
+        :return: A new instance of a OidcRequestClaimMapping Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.oidc_request_claim_mapping.OidcRequestClaimMapping
+        """
+        from mbed_cloud.foundation import OidcRequestClaimMapping
+
+        return OidcRequestClaimMapping(
+            _client=self._client,
+            email=email,
+            email_verified=email_verified,
+            family_name=family_name,
+            given_name=given_name,
+            name=name,
+            phone_number=phone_number,
+            sub=sub,
+            updated_at=updated_at,
+            updated_at_pattern=updated_at_pattern,
+        )
+
+    def parent_account(
+        self, admin_email=None, admin_name=None, id=None,
+    ):
         """Creates a local `ParentAccount` instance, using the shared SDK context.
 
         :param admin_email: The email address of the admin user who is the contact person of
@@ -1329,9 +1700,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import ParentAccount
 
-        return ParentAccount(_client=self._client, admin_email=admin_email, admin_name=admin_name, id=id)
+        return ParentAccount(_client=self._client, admin_email=admin_email, admin_name=admin_name, id=id,)
 
-    def password_policy(self, minimum_length=None):
+    def password_policy(
+        self, minimum_length=None,
+    ):
         """Creates a local `PasswordPolicy` instance, using the shared SDK context.
 
         :param minimum_length: Minimum length for the password.
@@ -1342,9 +1715,18 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import PasswordPolicy
 
-        return PasswordPolicy(_client=self._client, minimum_length=minimum_length)
+        return PasswordPolicy(_client=self._client, minimum_length=minimum_length,)
 
-    def policy(self, action=None, allow=None, feature=None, inherited=None, resource=None):
+    def policy(
+        self,
+        action=None,
+        allow=None,
+        feature=None,
+        inherited=None,
+        inherited_from=None,
+        inherited_type=None,
+        resource=None,
+    ):
         """Creates a local `Policy` instance, using the shared SDK context.
 
         :param action: Comma-separated list of actions, empty string represents all
@@ -1357,6 +1739,10 @@ class EntityFactory:
         :param inherited: Flag indicating whether this feature is inherited or overwritten
             specifically.
         :type inherited: bool
+        :param inherited_from: An ID indicating where this policy is inherited from.
+        :type inherited_from: str
+        :param inherited_type: Indicates the type of entity this policy is inherited from.
+        :type inherited_type: str
         :param resource: Resource that is protected by this policy.
         :type resource: str
         
@@ -1366,10 +1752,55 @@ class EntityFactory:
         from mbed_cloud.foundation import Policy
 
         return Policy(
-            _client=self._client, action=action, allow=allow, feature=feature, inherited=inherited, resource=resource
+            _client=self._client,
+            action=action,
+            allow=allow,
+            feature=feature,
+            inherited=inherited,
+            inherited_from=inherited_from,
+            inherited_type=inherited_type,
+            resource=resource,
         )
 
-    def pre_shared_key(self, created_at=None, endpoint_name=None, id=None):
+    def policy_group(
+        self, account_id=None, apikey_count=None, created_at=None, id=None, name=None, updated_at=None, user_count=None,
+    ):
+        """Creates a local `PolicyGroup` instance, using the shared SDK context.
+
+        :param account_id: The ID of the account this group belongs to.
+        :type account_id: str
+        :param apikey_count: The number of API keys in this group.
+        :type apikey_count: int
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param id: The ID of the group.
+        :type id: str
+        :param name: The name of the group.
+        :type name: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        :param user_count: The number of users in this group.
+        :type user_count: int
+        
+        :return: A new instance of a PolicyGroup Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.policy_group.PolicyGroup
+        """
+        from mbed_cloud.foundation import PolicyGroup
+
+        return PolicyGroup(
+            _client=self._client,
+            account_id=account_id,
+            apikey_count=apikey_count,
+            created_at=created_at,
+            id=id,
+            name=name,
+            updated_at=updated_at,
+            user_count=user_count,
+        )
+
+    def pre_shared_key(
+        self, created_at=None, endpoint_name=None, id=None,
+    ):
         """Creates a local `PreSharedKey` instance, using the shared SDK context.
 
         :param created_at: The date-time (RFC3339) when this PSK was uploaded to Device
@@ -1387,9 +1818,54 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import PreSharedKey
 
-        return PreSharedKey(_client=self._client, created_at=created_at, endpoint_name=endpoint_name, id=id)
+        return PreSharedKey(_client=self._client, created_at=created_at, endpoint_name=endpoint_name, id=id,)
 
-    def server_credentials(self, created_at=None, id=None, server_certificate=None, server_uri=None):
+    def saml2_request(
+        self,
+        entity_descriptor=None,
+        idp_entity_id=None,
+        idp_x509_certs=None,
+        slo_endpoint=None,
+        sp_entity_id=None,
+        sso_endpoint=None,
+    ):
+        """Creates a local `Saml2Request` instance, using the shared SDK context.
+
+        :param entity_descriptor: Contains an entity descriptor document for the identity provider.
+            Can be used as an alternative method to provide the identity
+            provider's attributes.
+        :type entity_descriptor: bytes
+        :param idp_entity_id: Entity ID of the identity provider.
+        :type idp_entity_id: str
+        :param idp_x509_certs: List of public X509 certificates of the identity provider.
+            Certificates must be in PEM format.
+        :type idp_x509_certs: list
+        :param slo_endpoint: URL of the identity provider's SLO endpoint.
+        :type slo_endpoint: str
+        :param sp_entity_id: Entity ID of the service provider. We recommend that you leave it
+            empty and let the system generate it.
+        :type sp_entity_id: str
+        :param sso_endpoint: URL of the identity provider's SSO endpoint.
+        :type sso_endpoint: str
+        
+        :return: A new instance of a Saml2Request Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.saml2_request.Saml2Request
+        """
+        from mbed_cloud.foundation import Saml2Request
+
+        return Saml2Request(
+            _client=self._client,
+            entity_descriptor=entity_descriptor,
+            idp_entity_id=idp_entity_id,
+            idp_x509_certs=idp_x509_certs,
+            slo_endpoint=slo_endpoint,
+            sp_entity_id=sp_entity_id,
+            sso_endpoint=sso_endpoint,
+        )
+
+    def server_credentials(
+        self, created_at=None, id=None, server_certificate=None, server_uri=None,
+    ):
         """Creates a local `ServerCredentials` instance, using the shared SDK context.
 
         :param created_at: Creation UTC time RFC3339.
@@ -1420,6 +1896,7 @@ class EntityFactory:
         account_id=None,
         created_at=None,
         creation_time=None,
+        groups=None,
         id=None,
         key=None,
         last_login_time=None,
@@ -1437,6 +1914,8 @@ class EntityFactory:
         :param creation_time: The timestamp of the API key creation in the storage, in
             milliseconds.
         :type creation_time: int
+        :param groups: A list of group IDs this API key belongs to.
+        :type groups: list
         :param id: The ID of the API key.
         :type id: str
         :param key: The API key.
@@ -1462,6 +1941,7 @@ class EntityFactory:
             account_id=account_id,
             created_at=created_at,
             creation_time=creation_time,
+            groups=groups,
             id=id,
             key=key,
             last_login_time=last_login_time,
@@ -1471,7 +1951,9 @@ class EntityFactory:
             updated_at=updated_at,
         )
 
-    def subtenant_dark_theme_color(self, color=None, reference=None, updated_at=None):
+    def subtenant_dark_theme_color(
+        self, color=None, reference=None, updated_at=None,
+    ):
         """Creates a local `SubtenantDarkThemeColor` instance, using the shared SDK context.
 
         :param color: The color given as name (purple) or as a hex code.
@@ -1486,9 +1968,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import SubtenantDarkThemeColor
 
-        return SubtenantDarkThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at)
+        return SubtenantDarkThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at,)
 
-    def subtenant_dark_theme_image(self, reference=None, static_uri=None, updated_at=None):
+    def subtenant_dark_theme_image(
+        self, reference=None, static_uri=None, updated_at=None,
+    ):
         """Creates a local `SubtenantDarkThemeImage` instance, using the shared SDK context.
 
         :param reference: Name of the image.
@@ -1504,10 +1988,64 @@ class EntityFactory:
         from mbed_cloud.foundation import SubtenantDarkThemeImage
 
         return SubtenantDarkThemeImage(
-            _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at
+            _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at,
         )
 
-    def subtenant_light_theme_color(self, color=None, reference=None, updated_at=None):
+    def subtenant_identity_provider(
+        self,
+        account_id=None,
+        created_at=None,
+        description=None,
+        id=None,
+        is_default=None,
+        name=None,
+        saml2_attributes=None,
+        status=None,
+        updated_at=None,
+    ):
+        """Creates a local `SubtenantIdentityProvider` instance, using the shared SDK context.
+
+        :param account_id: The ID of the account the identity provider belongs to.
+        :type account_id: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param description: Description for the identity provider.
+        :type description: str
+        :param id: Entity ID.
+        :type id: str
+        :param is_default: Flag indicating whether this is the global default identity
+            provider.
+        :type is_default: bool
+        :param name: Name of the identity provider.
+        :type name: str
+        :param saml2_attributes: Represents SAML2 specific attributes in responses.
+        :type saml2_attributes: dict
+        :param status: Status of the identity provider.
+        :type status: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        
+        :return: A new instance of a SubtenantIdentityProvider Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.subtenant_identity_provider.SubtenantIdentityProvider
+        """
+        from mbed_cloud.foundation import SubtenantIdentityProvider
+
+        return SubtenantIdentityProvider(
+            _client=self._client,
+            account_id=account_id,
+            created_at=created_at,
+            description=description,
+            id=id,
+            is_default=is_default,
+            name=name,
+            saml2_attributes=saml2_attributes,
+            status=status,
+            updated_at=updated_at,
+        )
+
+    def subtenant_light_theme_color(
+        self, color=None, reference=None, updated_at=None,
+    ):
         """Creates a local `SubtenantLightThemeColor` instance, using the shared SDK context.
 
         :param color: The color given as name (purple) or as a hex code.
@@ -1522,9 +2060,11 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import SubtenantLightThemeColor
 
-        return SubtenantLightThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at)
+        return SubtenantLightThemeColor(_client=self._client, color=color, reference=reference, updated_at=updated_at,)
 
-    def subtenant_light_theme_image(self, reference=None, static_uri=None, updated_at=None):
+    def subtenant_light_theme_image(
+        self, reference=None, static_uri=None, updated_at=None,
+    ):
         """Creates a local `SubtenantLightThemeImage` instance, using the shared SDK context.
 
         :param reference: Name of the image.
@@ -1540,7 +2080,43 @@ class EntityFactory:
         from mbed_cloud.foundation import SubtenantLightThemeImage
 
         return SubtenantLightThemeImage(
-            _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at
+            _client=self._client, reference=reference, static_uri=static_uri, updated_at=updated_at,
+        )
+
+    def subtenant_policy_group(
+        self, account_id=None, apikey_count=None, created_at=None, id=None, name=None, updated_at=None, user_count=None,
+    ):
+        """Creates a local `SubtenantPolicyGroup` instance, using the shared SDK context.
+
+        :param account_id: The ID of the account this group belongs to.
+        :type account_id: str
+        :param apikey_count: The number of API keys in this group.
+        :type apikey_count: int
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
+        :param id: The ID of the group.
+        :type id: str
+        :param name: The name of the group.
+        :type name: str
+        :param updated_at: Last update UTC time RFC3339.
+        :type updated_at: datetime
+        :param user_count: The number of users in this group.
+        :type user_count: int
+        
+        :return: A new instance of a SubtenantPolicyGroup Foundation Entity.
+        :rtype: mbed_cloud.foundation.entities.accounts.subtenant_policy_group.SubtenantPolicyGroup
+        """
+        from mbed_cloud.foundation import SubtenantPolicyGroup
+
+        return SubtenantPolicyGroup(
+            _client=self._client,
+            account_id=account_id,
+            apikey_count=apikey_count,
+            created_at=created_at,
+            id=id,
+            name=name,
+            updated_at=updated_at,
+            user_count=user_count,
         )
 
     def subtenant_trusted_certificate(
@@ -1642,6 +2218,7 @@ class EntityFactory:
         email=None,
         email_verified=None,
         full_name=None,
+        groups=None,
         id=None,
         is_gtc_accepted=None,
         is_marketing_accepted=None,
@@ -1678,6 +2255,8 @@ class EntityFactory:
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
+        :param groups: A list of IDs of the groups this user belongs to.
+        :type groups: list
         :param id: The ID of the user.
         :type id: str
         :param is_gtc_accepted: A flag indicating that the user has accepted General Terms and
@@ -1736,6 +2315,7 @@ class EntityFactory:
             email=email,
             email_verified=email_verified,
             full_name=full_name,
+            groups=groups,
             id=id,
             is_gtc_accepted=is_gtc_accepted,
             is_marketing_accepted=is_marketing_accepted,
@@ -1758,6 +2338,7 @@ class EntityFactory:
         created_at=None,
         email=None,
         expiration=None,
+        groups=None,
         id=None,
         login_profiles=None,
         updated_at=None,
@@ -1773,6 +2354,8 @@ class EntityFactory:
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
+        :param groups: A list of IDs of the groups the user is invited to.
+        :type groups: list
         :param id: The ID of the invitation.
         :type id: str
         :param login_profiles: A list of login profiles for the user. Specified as the identity
@@ -1794,6 +2377,7 @@ class EntityFactory:
             created_at=created_at,
             email=email,
             expiration=expiration,
+            groups=groups,
             id=id,
             login_profiles=login_profiles,
             updated_at=updated_at,
@@ -1890,7 +2474,13 @@ class EntityFactory:
 
     def update_campaign(
         self,
+        active_at=None,
+        approval_required=None,
+        archived_at=None,
+        autostop=None,
         autostop_reason=None,
+        autostop_success_percent=None,
+        campaign_strategy=None,
         created_at=None,
         description=None,
         device_filter=None,
@@ -1902,37 +2492,65 @@ class EntityFactory:
         root_manifest_id=None,
         root_manifest_url=None,
         started_at=None,
+        starting_at=None,
+        stopped_at=None,
+        stopping_at=None,
         updated_at=None,
         when=None,
     ):
         """Creates a local `UpdateCampaign` instance, using the shared SDK context.
 
+        :param active_at: The time the campaign entered the active state.
+        :type active_at: datetime
+        :param approval_required: Flag indicating whether approval is needed to start the campaign.
+        :type approval_required: bool
+        :param archived_at: The time the campaign was archived.
+        :type archived_at: datetime
+        :param autostop: Flag indicating whether the campaign should be auto-stopped on
+            reaching a threshold.
+        :type autostop: bool
         :param autostop_reason: Text description of why a campaign failed to start or why a
             campaign stopped.
         :type autostop_reason: str
-        :param created_at: The time the update campaign was created
+        :param autostop_success_percent: Percent of successful device updates to auto stop the campaign.
+        :type autostop_success_percent: float
+        :param campaign_strategy: How the campaign adds devices. A `one-shot` campaign does not add
+            new devices after it has started. A `continuous` campaign means
+            that devices may be added to the campaign after it has started.
+            The default is `one-shot`.
+        :type campaign_strategy: str
+        :param created_at: The time the entity was created.
         :type created_at: datetime
-        :param description: An optional description of the campaign
+        :param description: An optional description of the campaign.
         :type description: str
-        :param device_filter: The filter for the devices the campaign is targeting at
+        :param device_filter: The filter for the devices the campaign targets. Refer to this
+            using the filter ID.
         :type device_filter: str
         :param device_filter_helper: Helper for creating the device filter string.
         :type device_filter_helper: mbed_cloud.client.api_filter.ApiFilter
-        :param finished: The campaign finish timestamp
+        :param finished: The time the campaign finished.
         :type finished: datetime
-        :param id: The campaign ID
+        :param id: The campaign ID.
         :type id: str
-        :param name: The campaign name
+        :param name: The campaign name.
         :type name: str
-        :param phase: The current phase of the campaign.
+        :param phase: The phase of the campaign.
         :type phase: str
-        :param root_manifest_id: 
+        :param root_manifest_id: The ID of the manifest that will be sent to the device as part of
+            the campaign.
         :type root_manifest_id: str
-        :param root_manifest_url: 
+        :param root_manifest_url: The URL for the manifest that will be sent to the device as part
+            of the campaign.
         :type root_manifest_url: str
-        :param started_at: 
+        :param started_at: The time the campaign was started.
         :type started_at: datetime
-        :param updated_at: The time the object was updated
+        :param starting_at: The time the campaign will be started.
+        :type starting_at: datetime
+        :param stopped_at: The time the campaign was stopped.
+        :type stopped_at: datetime
+        :param stopping_at: The time the campaign will be stopped.
+        :type stopping_at: datetime
+        :param updated_at: The time the entity was updated.
         :type updated_at: datetime
         :param when: The scheduled start time for the campaign. The campaign will start
             within 1 minute when then start time has elapsed.
@@ -1945,7 +2563,13 @@ class EntityFactory:
 
         return UpdateCampaign(
             _client=self._client,
+            active_at=active_at,
+            approval_required=approval_required,
+            archived_at=archived_at,
+            autostop=autostop,
             autostop_reason=autostop_reason,
+            autostop_success_percent=autostop_success_percent,
+            campaign_strategy=campaign_strategy,
             created_at=created_at,
             description=description,
             device_filter=device_filter,
@@ -1957,6 +2581,9 @@ class EntityFactory:
             root_manifest_id=root_manifest_id,
             root_manifest_url=root_manifest_url,
             started_at=started_at,
+            starting_at=starting_at,
+            stopped_at=stopped_at,
+            stopping_at=stopping_at,
             updated_at=updated_at,
             when=when,
         )
@@ -1972,6 +2599,7 @@ class EntityFactory:
         email=None,
         email_verified=None,
         full_name=None,
+        groups=None,
         id=None,
         is_gtc_accepted=None,
         is_marketing_accepted=None,
@@ -2008,6 +2636,8 @@ class EntityFactory:
         :type email_verified: bool
         :param full_name: The full name of the user.
         :type full_name: str
+        :param groups: A list of IDs of the groups this user belongs to.
+        :type groups: list
         :param id: The ID of the user.
         :type id: str
         :param is_gtc_accepted: A flag indicating that the user has accepted General Terms and
@@ -2066,6 +2696,7 @@ class EntityFactory:
             email=email,
             email_verified=email_verified,
             full_name=full_name,
+            groups=groups,
             id=id,
             is_gtc_accepted=is_gtc_accepted,
             is_marketing_accepted=is_marketing_accepted,
@@ -2088,6 +2719,7 @@ class EntityFactory:
         created_at=None,
         email=None,
         expiration=None,
+        groups=None,
         id=None,
         login_profiles=None,
         updated_at=None,
@@ -2103,6 +2735,8 @@ class EntityFactory:
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
+        :param groups: A list of IDs of the groups the user is invited to.
+        :type groups: list
         :param id: The ID of the invitation.
         :type id: str
         :param login_profiles: A list of login profiles for the user. Specified as the identity
@@ -2124,13 +2758,16 @@ class EntityFactory:
             created_at=created_at,
             email=email,
             expiration=expiration,
+            groups=groups,
             id=id,
             login_profiles=login_profiles,
             updated_at=updated_at,
             user_id=user_id,
         )
 
-    def verification_response(self, message=None, successful=None):
+    def verification_response(
+        self, message=None, successful=None,
+    ):
         """Creates a local `VerificationResponse` instance, using the shared SDK context.
 
         :param message: Provides details in case of failure.
@@ -2144,4 +2781,4 @@ class EntityFactory:
         """
         from mbed_cloud.foundation import VerificationResponse
 
-        return VerificationResponse(_client=self._client, message=message, successful=successful)
+        return VerificationResponse(_client=self._client, message=message, successful=successful,)

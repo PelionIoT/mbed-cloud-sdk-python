@@ -85,11 +85,11 @@ class DeviceGroup(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param created_at: The time the campaign was created.
+        :param created_at: The time the group was created.
         :type created_at: datetime
-        :param custom_attributes: Up to ten custom key-value attributes. Note that keys cannot begin
-            with a number. Both keys and values are limited to 128 characters.
-            Updating this field replaces existing contents.
+        :param custom_attributes: Up to ten custom key-value attributes. Keys cannot begin with a
+            number. Both key and value are limited to 128 characters. Updating
+            this field replaces existing contents.
         :type custom_attributes: dict
         :param description: The description of the group.
         :type description: str
@@ -99,7 +99,7 @@ class DeviceGroup(Entity):
         :type id: str
         :param name: Name of the group.
         :type name: str
-        :param updated_at: The time the object was updated.
+        :param updated_at: The time this object was updated.
         :type updated_at: datetime
         """
 
@@ -118,7 +118,7 @@ class DeviceGroup(Entity):
 
     @property
     def created_at(self):
-        """The time the campaign was created.
+        """The time the group was created.
         
         api example: '2017-05-22T12:37:55.576563Z'
         
@@ -129,9 +129,9 @@ class DeviceGroup(Entity):
 
     @property
     def custom_attributes(self):
-        """Up to ten custom key-value attributes. Note that keys cannot begin with a
-        number. Both keys and values are limited to 128 characters. Updating this
-        field replaces existing contents.
+        """Up to ten custom key-value attributes. Keys cannot begin with a number. Both
+        key and value are limited to 128 characters. Updating this field replaces
+        existing contents.
         
         api example: {'key': 'value'}
         
@@ -228,7 +228,7 @@ class DeviceGroup(Entity):
 
     @property
     def updated_at(self):
-        """The time the object was updated.
+        """The time this object was updated.
         
         api example: '2017-05-22T12:37:55.576563Z'
         
@@ -238,7 +238,7 @@ class DeviceGroup(Entity):
         return self._updated_at.value
 
     def add_device(self, device_id=None):
-        """Add a device to a group
+        """Add a device to a group.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-groups/{device-group-id}/devices/add/>`_.
         
@@ -259,12 +259,12 @@ class DeviceGroup(Entity):
             path="/v3/device-groups/{device-group-id}/devices/add/",
             content_type="application/json",
             body_params=body_params,
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=self,
         )
 
     def create(self):
-        """Create a group
+        """Create a group.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-groups/>`_.
         
@@ -290,7 +290,7 @@ class DeviceGroup(Entity):
         )
 
     def delete(self):
-        """Delete a group
+        """Delete a group.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-groups/{device-group-id}/>`_.
         
@@ -301,12 +301,12 @@ class DeviceGroup(Entity):
             method="delete",
             path="/v3/device-groups/{device-group-id}/",
             content_type="application/json",
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=self,
         )
 
     def devices(self, filter=None, order=None, max_results=None, page_size=None, include=None):
-        """Get a page of devices
+        """Get a page of devices.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-groups/{device-group-id}/devices/>`_.
 
@@ -314,65 +314,79 @@ class DeviceGroup(Entity):
 
         The following filters are supported by the API when listing DeviceGroup entities:
 
-        +---------------------------+------+------+------+------+------+------+------+
-        | Field                     | eq   | neq  | gte  | lte  | in   | nin  | like |
-        +===========================+======+======+======+======+======+======+======+
-        | account_id                | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | auto_update               | Y    | Y    |      |      |      |      |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | bootstrap_expiration_date |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | bootstrapped_timestamp    |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | ca_id                     | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | connector_expiration_date |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | created_at                |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | deployed_state            | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | deployment                | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | description               | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | device_class              | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | device_execution_mode     | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | device_key                | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | endpoint_name             | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | endpoint_type             | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | enrolment_list_timestamp  |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | firmware_checksum         | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | host_gateway              | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | id                        | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | manifest                  | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | manifest_timestamp        |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | mechanism                 | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | mechanism_url             | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | name                      | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | serial_number             | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | state                     | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | updated_at                |      |      | Y    | Y    | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
-        | vendor_id                 | Y    | Y    |      |      | Y    | Y    |      |
-        +---------------------------+------+------+------+------+------+------+------+
+        +------------------------------------+------+------+------+------+------+------+------+
+        | Field                              | eq   | neq  | gte  | lte  | in   | nin  | like |
+        +====================================+======+======+======+======+======+======+======+
+        | account_id                         | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | auto_update                        | Y    | Y    |      |      |      |      |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | bootstrap_expiration_date          |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | bootstrapped_timestamp             |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | ca_id                              | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | connector_expiration_date          |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | created_at                         |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | deployed_state                     | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | deployment                         | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | description                        | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | device_class                       | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | device_execution_mode              | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | device_key                         | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | endpoint_name                      | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | endpoint_type                      | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | enrolment_list_timestamp           |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | firmware_checksum                  | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | host_gateway                       | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | id                                 | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | last_operator_suspended_category   | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | last_operator_suspended_updated_at |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | last_system_suspended_category     | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | last_system_suspended_updated_at   |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | lifecycle_status                   | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | manifest                           | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | manifest_timestamp                 |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | mechanism                          | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | mechanism_url                      | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | name                               | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | operator_suspended                 | Y    | Y    |      |      |      |      |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | serial_number                      | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | state                              | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | system_suspended                   | Y    | Y    |      |      |      |      |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | updated_at                         |      |      | Y    | Y    | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
+        | vendor_id                          | Y    | Y    |      |      | Y    | Y    |      |
+        +------------------------------------+------+------+------+------+------+------+------+
 
         **Example Usage**
 
@@ -390,16 +404,14 @@ class DeviceGroup(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, `ASC` or `DESC`; by
-            default `ASC`.
+        :param order: Record order. Acceptable values: ASC, DESC. Default: ASC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: How many objects to retrieve in the page. The minimum limit is 2 and
-            the maximum is 1000. Limit values outside of this range are set to the
-            closest limit.
+        :param page_size: How many objects to retrieve in the page (2-1000). Limit values
+            outside of this range are set to the closest limit.
         :type page_size: int
         
         :param include: Comma-separated list of data fields to return. Currently supported:
@@ -476,16 +488,14 @@ class DeviceGroup(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, `ASC` or `DESC`; by
-            default `ASC`.
+        :param order: Record order. Acceptable values: ASC, DESC. Default: ASC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: How many objects to retrieve in the page. The minimum limit is 2 and
-            the maximum is 1000. Limit values outside of this range are set to the
-            closest limit.
+        :param page_size: How many objects to retrieve in the page (2-1000). Limit values
+            outside of this range are set to the closest limit.
         :type page_size: int
         
         :param include: Comma-separated list of data fields to return. Currently supported:
@@ -524,21 +534,19 @@ class DeviceGroup(Entity):
         )
 
     def _paginate_devices(self, after=None, filter=None, order=None, limit=None, include=None):
-        """Get a page of devices
+        """Get a page of devices.
         
-        :param after: The ID of The item after which to retrieve the next page.
+        :param after: The ID of the item after which to retrieve the next page.
         :type after: str
         
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, `ASC` or `DESC`; by
-            default `ASC`.
+        :param order: Record order. Acceptable values: ASC, DESC. Default: ASC.
         :type order: str
         
-        :param limit: How many objects to retrieve in the page. The minimum limit is 2 and
-            the maximum is 1000. Limit values outside of this range are set to the
-            closest limit.
+        :param limit: How many objects to retrieve in the page (2-1000). Limit values
+            outside of this range are set to the closest limit.
         :type limit: int
         
         :param include: Comma-separated list of data fields to return. Currently supported:
@@ -561,26 +569,24 @@ class DeviceGroup(Entity):
             path="/v3/device-groups/{device-group-id}/devices/",
             content_type="application/json",
             query_params=query_params,
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=False,
         )
 
     def _paginate_list(self, after=None, filter=None, order=None, limit=None, include=None):
         """List all groups.
         
-        :param after: The ID of The item after which to retrieve the next page.
+        :param after: The ID of the item after which to retrieve the next page.
         :type after: str
         
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, `ASC` or `DESC`; by
-            default `ASC`.
+        :param order: Record order. Acceptable values: ASC, DESC. Default: ASC.
         :type order: str
         
-        :param limit: How many objects to retrieve in the page. The minimum limit is 2 and
-            the maximum is 1000. Limit values outside of this range are set to the
-            closest limit.
+        :param limit: How many objects to retrieve in the page (2-1000). Limit values
+            outside of this range are set to the closest limit.
         :type limit: int
         
         :param include: Comma-separated list of data fields to return. Currently supported:
@@ -618,12 +624,12 @@ class DeviceGroup(Entity):
             method="get",
             path="/v3/device-groups/{device-group-id}/",
             content_type="application/json",
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=self,
         )
 
     def remove_device(self, device_id=None):
-        """Remove a device from a group
+        """Remove a device from a group.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/device-groups/{device-group-id}/devices/remove/>`_.
         
@@ -644,7 +650,7 @@ class DeviceGroup(Entity):
             path="/v3/device-groups/{device-group-id}/devices/remove/",
             content_type="application/json",
             body_params=body_params,
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -671,6 +677,6 @@ class DeviceGroup(Entity):
             path="/v3/device-groups/{device-group-id}/",
             content_type="application/json",
             body_params=body_params,
-            path_params={"device-group-id": self._id.to_api()},
+            path_params={"device-group-id": self._id.to_api(),},
             unpack=self,
         )

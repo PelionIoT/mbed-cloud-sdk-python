@@ -109,9 +109,9 @@ class DeviceEvents(Entity):
         :type device_id: str
         :param event_type: Event code
         :type event_type: str
-        :param event_type_category: Category code which groups the event type by a summary category.
+        :param event_type_category: Category code that groups the event type by a summary category.
         :type event_type_category: str
-        :param event_type_description: Generic description of the event
+        :param event_type_description: Generic description of the event.
         :type event_type_description: str
         :param id: (Required) 
         :type id: str
@@ -213,7 +213,7 @@ class DeviceEvents(Entity):
 
     @property
     def event_type_category(self):
-        """Category code which groups the event type by a summary category.
+        """Category code that groups the event type by a summary category.
         
         api example: 'FAIL_MANIFEST_REJECTED'
         
@@ -224,7 +224,7 @@ class DeviceEvents(Entity):
 
     @property
     def event_type_description(self):
-        """Generic description of the event
+        """Generic description of the event.
         
         api example: 'FAIL'
         
@@ -306,20 +306,18 @@ class DeviceEvents(Entity):
             above **API Filters** table for supported filters.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, `ASC` or `DESC`; by
-            default `ASC`.
+        :param order: Record order. Acceptable values: ASC, DESC. Default: ASC.
         :type order: str
         
         :param max_results: Total maximum number of results to retrieve
         :type max_results: int
         
-        :param page_size: How many objects to retrieve in the page. The minimum limit is 2 and
-            the maximum is 1000. Limit values outside of this range are set to the
-            closest limit.
+        :param page_size: How many objects to retrieve in the page (2-1000). Limit values
+            outside of this range are set to the closest limit.
         :type page_size: int
         
         :param include: Comma-separated list of data fields to return. Currently supported:
-            `total_count`
+            `total_count`.
         :type include: str
         
         :return: An iterator object which yields instances of an entity.
@@ -356,23 +354,21 @@ class DeviceEvents(Entity):
     def _paginate_list(self, after=None, filter=None, order=None, limit=None, include=None):
         """List all device events.
         
-        :param after: The ID of The item after which to retrieve the next page.
+        :param after: The ID of the item after which to retrieve the next page.
         :type after: str
         
         :param filter: Optional API filter for listing resources.
         :type filter: mbed_cloud.client.api_filter.ApiFilter
         
-        :param order: The order of the records based on creation time, `ASC` or `DESC`; by
-            default `ASC`.
+        :param order: Record order. Acceptable values: ASC, DESC. Default: ASC.
         :type order: str
         
-        :param limit: How many objects to retrieve in the page. The minimum limit is 2 and
-            the maximum is 1000. Limit values outside of this range are set to the
-            closest limit.
+        :param limit: How many objects to retrieve in the page (2-1000). Limit values
+            outside of this range are set to the closest limit.
         :type limit: int
         
         :param include: Comma-separated list of data fields to return. Currently supported:
-            `total_count`
+            `total_count`.
         :type include: str
         
         :rtype: mbed_cloud.pagination.PaginatedResponse
@@ -406,6 +402,6 @@ class DeviceEvents(Entity):
             method="get",
             path="/v3/device-events/{device_event_id}/",
             content_type="application/json",
-            path_params={"device_event_id": self._id.to_api()},
+            path_params={"device_event_id": self._id.to_api(),},
             unpack=self,
         )

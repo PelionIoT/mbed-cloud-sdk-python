@@ -9,12 +9,27 @@ following is a list of all enums in the Foundation Interface ordered by the enti
 Accounts
 --------
 
+- :class:`mbed_cloud.foundation.entities.accounts.enums.AccountBusinessModelEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.AccountMfaStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.AccountOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.AccountStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.ApiKeyOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.ApiKeyStatusEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderAlgorithmEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderOrderEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderStatusEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.IdentityProviderTypeEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.LoginProfileTypeEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.OidcRequestTokenModeEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.PolicyGroupOrderEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.PolicyInheritedTypeEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantApiKeyOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantApiKeyStatusEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantIdentityProviderAlgorithmEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantIdentityProviderOrderEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantIdentityProviderStatusEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantPolicyGroupOrderEnum`
+- :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantUserOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.SubtenantUserStatusEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.UserInvitationOrderEnum`
 - :class:`mbed_cloud.foundation.entities.accounts.enums.UserOrderEnum`
@@ -39,8 +54,12 @@ Device_Update
 - :class:`mbed_cloud.foundation.entities.device_update.enums.CampaignStatisticsIdEnum`
 - :class:`mbed_cloud.foundation.entities.device_update.enums.CampaignStatisticsSummaryStatusEnum`
 - :class:`mbed_cloud.foundation.entities.device_update.enums.FirmwareImageOrderEnum`
+- :class:`mbed_cloud.foundation.entities.device_update.enums.FirmwareManifestDeliveredPayloadTypeEnum`
 - :class:`mbed_cloud.foundation.entities.device_update.enums.FirmwareManifestOrderEnum`
+- :class:`mbed_cloud.foundation.entities.device_update.enums.FirmwareManifestSchemaVersionEnum`
 - :class:`mbed_cloud.foundation.entities.device_update.enums.UpdateCampaignOrderEnum`
+- :class:`mbed_cloud.foundation.entities.device_update.enums.UpdateCampaignPhaseEnum`
+- :class:`mbed_cloud.foundation.entities.device_update.enums.UpdateCampaignStrategyEnum`
 
 Devices
 -------
@@ -50,6 +69,7 @@ Devices
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceEnrollmentBulkDeleteStatusEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceEnrollmentDenialOrderEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceEnrollmentOrderEnum`
+- :class:`mbed_cloud.foundation.entities.devices.enums.DeviceLifecycleStatusEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceMechanismEnum`
 - :class:`mbed_cloud.foundation.entities.devices.enums.DeviceStateEnum`
 
@@ -77,12 +97,27 @@ How to import Enums:
 
 .. code-block:: python
     
+    from mbed_cloud.foundation.enums import AccountBusinessModelEnum
     from mbed_cloud.foundation.enums import AccountMfaStatusEnum
     from mbed_cloud.foundation.enums import AccountOrderEnum
     from mbed_cloud.foundation.enums import AccountStatusEnum
     from mbed_cloud.foundation.enums import ApiKeyOrderEnum
     from mbed_cloud.foundation.enums import ApiKeyStatusEnum
+    from mbed_cloud.foundation.enums import IdentityProviderAlgorithmEnum
+    from mbed_cloud.foundation.enums import IdentityProviderOrderEnum
+    from mbed_cloud.foundation.enums import IdentityProviderStatusEnum
+    from mbed_cloud.foundation.enums import IdentityProviderTypeEnum
+    from mbed_cloud.foundation.enums import LoginProfileTypeEnum
+    from mbed_cloud.foundation.enums import OidcRequestTokenModeEnum
+    from mbed_cloud.foundation.enums import PolicyGroupOrderEnum
+    from mbed_cloud.foundation.enums import PolicyInheritedTypeEnum
+    from mbed_cloud.foundation.enums import SubtenantApiKeyOrderEnum
     from mbed_cloud.foundation.enums import SubtenantApiKeyStatusEnum
+    from mbed_cloud.foundation.enums import SubtenantIdentityProviderAlgorithmEnum
+    from mbed_cloud.foundation.enums import SubtenantIdentityProviderOrderEnum
+    from mbed_cloud.foundation.enums import SubtenantIdentityProviderStatusEnum
+    from mbed_cloud.foundation.enums import SubtenantPolicyGroupOrderEnum
+    from mbed_cloud.foundation.enums import SubtenantUserOrderEnum
     from mbed_cloud.foundation.enums import SubtenantUserStatusEnum
     from mbed_cloud.foundation.enums import UserInvitationOrderEnum
     from mbed_cloud.foundation.enums import UserOrderEnum
@@ -99,13 +134,18 @@ How to import Enums:
     from mbed_cloud.foundation.enums import CampaignStatisticsIdEnum
     from mbed_cloud.foundation.enums import CampaignStatisticsSummaryStatusEnum
     from mbed_cloud.foundation.enums import FirmwareImageOrderEnum
+    from mbed_cloud.foundation.enums import FirmwareManifestDeliveredPayloadTypeEnum
     from mbed_cloud.foundation.enums import FirmwareManifestOrderEnum
+    from mbed_cloud.foundation.enums import FirmwareManifestSchemaVersionEnum
     from mbed_cloud.foundation.enums import UpdateCampaignOrderEnum
+    from mbed_cloud.foundation.enums import UpdateCampaignPhaseEnum
+    from mbed_cloud.foundation.enums import UpdateCampaignStrategyEnum
     from mbed_cloud.foundation.enums import DeviceDeployedStateEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentBulkCreateStatusEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentBulkDeleteStatusEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentDenialOrderEnum
     from mbed_cloud.foundation.enums import DeviceEnrollmentOrderEnum
+    from mbed_cloud.foundation.enums import DeviceLifecycleStatusEnum
     from mbed_cloud.foundation.enums import DeviceMechanismEnum
     from mbed_cloud.foundation.enums import DeviceStateEnum
     from mbed_cloud.foundation.enums import CertificateEnrollmentEnrollResultEnum
@@ -122,12 +162,27 @@ How to import Enums:
 ------------
 """
 
+from mbed_cloud.foundation.entities.accounts.enums import AccountBusinessModelEnum
 from mbed_cloud.foundation.entities.accounts.enums import AccountMfaStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import AccountOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import AccountStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import ApiKeyOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import ApiKeyStatusEnum
+from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderAlgorithmEnum
+from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderOrderEnum
+from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderStatusEnum
+from mbed_cloud.foundation.entities.accounts.enums import IdentityProviderTypeEnum
+from mbed_cloud.foundation.entities.accounts.enums import LoginProfileTypeEnum
+from mbed_cloud.foundation.entities.accounts.enums import OidcRequestTokenModeEnum
+from mbed_cloud.foundation.entities.accounts.enums import PolicyGroupOrderEnum
+from mbed_cloud.foundation.entities.accounts.enums import PolicyInheritedTypeEnum
+from mbed_cloud.foundation.entities.accounts.enums import SubtenantApiKeyOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import SubtenantApiKeyStatusEnum
+from mbed_cloud.foundation.entities.accounts.enums import SubtenantIdentityProviderAlgorithmEnum
+from mbed_cloud.foundation.entities.accounts.enums import SubtenantIdentityProviderOrderEnum
+from mbed_cloud.foundation.entities.accounts.enums import SubtenantIdentityProviderStatusEnum
+from mbed_cloud.foundation.entities.accounts.enums import SubtenantPolicyGroupOrderEnum
+from mbed_cloud.foundation.entities.accounts.enums import SubtenantUserOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import SubtenantUserStatusEnum
 from mbed_cloud.foundation.entities.accounts.enums import UserInvitationOrderEnum
 from mbed_cloud.foundation.entities.accounts.enums import UserOrderEnum
@@ -144,13 +199,18 @@ from mbed_cloud.foundation.entities.device_update.enums import CampaignDeviceMet
 from mbed_cloud.foundation.entities.device_update.enums import CampaignStatisticsIdEnum
 from mbed_cloud.foundation.entities.device_update.enums import CampaignStatisticsSummaryStatusEnum
 from mbed_cloud.foundation.entities.device_update.enums import FirmwareImageOrderEnum
+from mbed_cloud.foundation.entities.device_update.enums import FirmwareManifestDeliveredPayloadTypeEnum
 from mbed_cloud.foundation.entities.device_update.enums import FirmwareManifestOrderEnum
+from mbed_cloud.foundation.entities.device_update.enums import FirmwareManifestSchemaVersionEnum
 from mbed_cloud.foundation.entities.device_update.enums import UpdateCampaignOrderEnum
+from mbed_cloud.foundation.entities.device_update.enums import UpdateCampaignPhaseEnum
+from mbed_cloud.foundation.entities.device_update.enums import UpdateCampaignStrategyEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceDeployedStateEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentBulkCreateStatusEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentBulkDeleteStatusEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentDenialOrderEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceEnrollmentOrderEnum
+from mbed_cloud.foundation.entities.devices.enums import DeviceLifecycleStatusEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceMechanismEnum
 from mbed_cloud.foundation.entities.devices.enums import DeviceStateEnum
 from mbed_cloud.foundation.entities.security.enums import CertificateEnrollmentEnrollResultEnum
@@ -166,12 +226,27 @@ from mbed_cloud.foundation.entities.security.enums import TrustedCertificateStat
 
 
 __all__ = [
+    "AccountBusinessModelEnum",
     "AccountMfaStatusEnum",
     "AccountOrderEnum",
     "AccountStatusEnum",
     "ApiKeyOrderEnum",
     "ApiKeyStatusEnum",
+    "IdentityProviderAlgorithmEnum",
+    "IdentityProviderOrderEnum",
+    "IdentityProviderStatusEnum",
+    "IdentityProviderTypeEnum",
+    "LoginProfileTypeEnum",
+    "OidcRequestTokenModeEnum",
+    "PolicyGroupOrderEnum",
+    "PolicyInheritedTypeEnum",
+    "SubtenantApiKeyOrderEnum",
     "SubtenantApiKeyStatusEnum",
+    "SubtenantIdentityProviderAlgorithmEnum",
+    "SubtenantIdentityProviderOrderEnum",
+    "SubtenantIdentityProviderStatusEnum",
+    "SubtenantPolicyGroupOrderEnum",
+    "SubtenantUserOrderEnum",
     "SubtenantUserStatusEnum",
     "UserInvitationOrderEnum",
     "UserOrderEnum",
@@ -188,13 +263,18 @@ __all__ = [
     "CampaignStatisticsIdEnum",
     "CampaignStatisticsSummaryStatusEnum",
     "FirmwareImageOrderEnum",
+    "FirmwareManifestDeliveredPayloadTypeEnum",
     "FirmwareManifestOrderEnum",
+    "FirmwareManifestSchemaVersionEnum",
     "UpdateCampaignOrderEnum",
+    "UpdateCampaignPhaseEnum",
+    "UpdateCampaignStrategyEnum",
     "DeviceDeployedStateEnum",
     "DeviceEnrollmentBulkCreateStatusEnum",
     "DeviceEnrollmentBulkDeleteStatusEnum",
     "DeviceEnrollmentDenialOrderEnum",
     "DeviceEnrollmentOrderEnum",
+    "DeviceLifecycleStatusEnum",
     "DeviceMechanismEnum",
     "DeviceStateEnum",
     "CertificateEnrollmentEnrollResultEnum",

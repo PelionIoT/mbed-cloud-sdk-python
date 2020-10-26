@@ -44,7 +44,7 @@ class Policy(Entity):
     """Represents the `Policy` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
-    _api_fieldnames = ["action", "allow", "feature", "inherited", "resource"]
+    _api_fieldnames = ["action", "allow", "feature", "inherited", "inherited_from", "inherited_type", "resource"]
 
     # List of fields that are available for the user of the SDK
     _sdk_fieldnames = _api_fieldnames
@@ -55,7 +55,17 @@ class Policy(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(self, _client=None, action=None, allow=None, feature=None, inherited=None, resource=None):
+    def __init__(
+        self,
+        _client=None,
+        action=None,
+        allow=None,
+        feature=None,
+        inherited=None,
+        inherited_from=None,
+        inherited_type=None,
+        resource=None,
+    ):
         """Creates a local `Policy` instance
 
         Parameters can be supplied on creation of the instance or given by
@@ -75,6 +85,10 @@ class Policy(Entity):
         :param inherited: Flag indicating whether this feature is inherited or overwritten
             specifically.
         :type inherited: bool
+        :param inherited_from: An ID indicating where this policy is inherited from.
+        :type inherited_from: str
+        :param inherited_type: Indicates the type of entity this policy is inherited from.
+        :type inherited_type: str
         :param resource: Resource that is protected by this policy.
         :type resource: str
         """
@@ -88,6 +102,8 @@ class Policy(Entity):
         self._allow = fields.BooleanField(value=allow)
         self._feature = fields.StringField(value=feature)
         self._inherited = fields.BooleanField(value=inherited)
+        self._inherited_from = fields.StringField(value=inherited_from)
+        self._inherited_type = fields.StringField(value=inherited_type, enum=enums.PolicyInheritedTypeEnum)
         self._resource = fields.StringField(value=resource)
 
     @property
@@ -131,6 +147,28 @@ class Policy(Entity):
         """
 
         return self._inherited.value
+
+    @property
+    def inherited_from(self):
+        """An ID indicating where this policy is inherited from.
+        
+        api example: '016ada3ec2d46665bf66e32e00000000'
+        
+        :rtype: str
+        """
+
+        return self._inherited_from.value
+
+    @property
+    def inherited_type(self):
+        """Indicates the type of entity this policy is inherited from.
+        
+        api example: 'account'
+        
+        :rtype: str
+        """
+
+        return self._inherited_type.value
 
     @property
     def resource(self):

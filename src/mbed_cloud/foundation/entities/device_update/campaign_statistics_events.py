@@ -126,7 +126,7 @@ class CampaignStatisticsEvents(Entity):
 
         This field must be set when creating a new CampaignStatisticsEvents Entity.
         
-        api example: '00000000000000000000000000000000'
+        api example: '016e652be671000000000001001001e5'
         
         :rtype: str
         """

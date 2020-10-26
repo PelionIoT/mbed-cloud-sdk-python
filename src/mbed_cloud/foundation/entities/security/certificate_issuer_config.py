@@ -64,7 +64,7 @@ class CertificateIssuerConfig(Entity):
     _renames_to_api = {}
 
     def __init__(
-        self, _client=None, certificate_issuer_id=None, created_at=None, id=None, reference=None, updated_at=None
+        self, _client=None, certificate_issuer_id=None, created_at=None, id=None, reference=None, updated_at=None,
     ):
         """Creates a local `CertificateIssuerConfig` instance
 
@@ -76,8 +76,7 @@ class CertificateIssuerConfig(Entity):
         documentation for the setter method.
 
         :param certificate_issuer_id: (Required) The ID of the certificate issuer.
-            Null if Device Management
-            internal HSM is used.
+            Null if Device Management internal HSM is used.
         :type certificate_issuer_id: str
         :param created_at: Created UTC time RFC3339.
         :type created_at: datetime
@@ -104,8 +103,7 @@ class CertificateIssuerConfig(Entity):
     @property
     def certificate_issuer_id(self):
         """The ID of the certificate issuer.
-        Null if Device Management internal HSM is
-        used.
+        Null if Device Management internal HSM is used.
 
         This field must be set when creating a new CertificateIssuerConfig Entity.
         
@@ -230,7 +228,7 @@ class CertificateIssuerConfig(Entity):
             method="delete",
             path="/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
             content_type="application/json",
-            path_params={"certificate-issuer-configuration-id": self._id.to_api()},
+            path_params={"certificate-issuer-configuration-id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -380,7 +378,7 @@ class CertificateIssuerConfig(Entity):
             method="get",
             path="/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
             content_type="application/json",
-            path_params={"certificate-issuer-configuration-id": self._id.to_api()},
+            path_params={"certificate-issuer-configuration-id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -403,6 +401,6 @@ class CertificateIssuerConfig(Entity):
             path="/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
             content_type="application/json",
             body_params=body_params,
-            path_params={"certificate-issuer-configuration-id": self._id.to_api()},
+            path_params={"certificate-issuer-configuration-id": self._id.to_api(),},
             unpack=self,
         )

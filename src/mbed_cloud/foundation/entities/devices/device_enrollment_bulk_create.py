@@ -99,20 +99,17 @@ class DeviceEnrollmentBulkCreate(Entity):
         :param account_id: ID
         :type account_id: str
         :param completed_at: The time the bulk creation task was completed.
-            Null when creating
-            bulk upload or delete.
+            Null when creating bulk upload or delete.
         :type completed_at: datetime
         :param created_at: The time of receiving the bulk creation task.
         :type created_at: datetime
         :param errors_count: The number of enrollment identities with failed processing.
         :type errors_count: int
         :param errors_report_file: Link to error report file.
-            Null when creating bulk upload or
-            delete.
+            Null when creating bulk upload or delete.
         :type errors_report_file: str
         :param full_report_file: Link to full report file.
-            Null when creating bulk upload or
-            delete.
+            Null when creating bulk upload or delete.
         :type full_report_file: str
         :param id: (Required) Bulk ID
         :type id: str
@@ -157,8 +154,7 @@ class DeviceEnrollmentBulkCreate(Entity):
     @property
     def completed_at(self):
         """The time the bulk creation task was completed.
-        Null when creating bulk upload
-        or delete.
+        Null when creating bulk upload or delete.
         
         :rtype: datetime
         """
@@ -289,7 +285,7 @@ class DeviceEnrollmentBulkCreate(Entity):
                 method="post",
                 path="/v3/device-enrollments-bulk-uploads",
                 stream_params={
-                    "enrollment_identities": ("enrollment_identities.csv", enrollment_identities, "text/csv")
+                    "enrollment_identities": ("enrollment_identities.csv", enrollment_identities, "text/csv"),
                 },
                 unpack=self,
             )
@@ -331,6 +327,6 @@ class DeviceEnrollmentBulkCreate(Entity):
             method="get",
             path="/v3/device-enrollments-bulk-uploads/{id}",
             content_type="application/json",
-            path_params={"id": self._id.to_api()},
+            path_params={"id": self._id.to_api(),},
             unpack=self,
         )

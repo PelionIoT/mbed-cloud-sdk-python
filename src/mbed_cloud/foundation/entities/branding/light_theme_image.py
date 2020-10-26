@@ -62,7 +62,9 @@ class LightThemeImage(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(self, _client=None, reference=None, static_uri=None, updated_at=None):
+    def __init__(
+        self, _client=None, reference=None, static_uri=None, updated_at=None,
+    ):
         """Creates a local `LightThemeImage` instance
 
         Parameters can be supplied on creation of the instance or given by
@@ -142,7 +144,7 @@ class LightThemeImage(Entity):
             method="post",
             path="/v3/branding-images/light/{reference}/clear",
             content_type="application/json",
-            path_params={"reference": self._reference.to_api()},
+            path_params={"reference": self._reference.to_api(),},
             unpack=self,
         )
 
@@ -225,7 +227,7 @@ class LightThemeImage(Entity):
         # Add in other query parameters
 
         return self._client.call_api(
-            method="get", path="/v3/branding-images/light", content_type="application/json", unpack=False
+            method="get", path="/v3/branding-images/light", content_type="application/json", unpack=False,
         )
 
     def read(self):
@@ -240,7 +242,7 @@ class LightThemeImage(Entity):
             method="get",
             path="/v3/branding-images/light/{reference}",
             content_type="application/json",
-            path_params={"reference": self._reference.to_api()},
+            path_params={"reference": self._reference.to_api(),},
             unpack=self,
         )
 
@@ -268,8 +270,8 @@ class LightThemeImage(Entity):
             return self._client.call_api(
                 method="post",
                 path="/v3/branding-images/light/{reference}/upload-multipart",
-                stream_params={"image": ("image.png", image, "image/png")},
-                path_params={"reference": self._reference.to_api()},
+                stream_params={"image": ("image.png", image, "image/png"),},
+                path_params={"reference": self._reference.to_api(),},
                 unpack=self,
             )
         finally:

@@ -1,12 +1,12 @@
 """
 .. warning::
-    VerificationResponse should not be imported directly from this module as the
+    IdentityProviderPublicKey should not be imported directly from this module as the
     organisation may change in the future, please use the :mod:`mbed_cloud.foundation` module to import entities.
 
-Foundation Entity: VerificationResponse
-=======================================
+Foundation Entity: IdentityProviderPublicKey
+============================================
 
-The VerificationResponse entity does not have any methods, all actions must be performed via
+The IdentityProviderPublicKey entity does not have any methods, all actions must be performed via
 the encapsulating entity.
 
 Entity Usage and Importing
@@ -19,13 +19,13 @@ will share the same context as other Entities. There is more information in the 
 
     from mbed_cloud import SDK
     pelion_dm_sdk = SDK()
-    verification_responses = pelion_dm_sdk.foundation.verification_response()
+    identity_provider_public_keys = pelion_dm_sdk.foundation.identity_provider_public_key()
 
-How to import VerificationResponse directly:
+How to import IdentityProviderPublicKey directly:
 
 .. code-block:: python
     
-    from mbed_cloud.foundation import VerificationResponse
+    from mbed_cloud.foundation import IdentityProviderPublicKey
 
 ------------
 """
@@ -40,11 +40,11 @@ from mbed_cloud.foundation.common import fields
 from mbed_cloud.foundation import enums
 
 
-class VerificationResponse(Entity):
-    """Represents the `VerificationResponse` entity in Pelion Device Management"""
+class IdentityProviderPublicKey(Entity):
+    """Represents the `IdentityProviderPublicKey` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
-    _api_fieldnames = ["message", "successful"]
+    _api_fieldnames = ["key", "kid"]
 
     # List of fields that are available for the user of the SDK
     _sdk_fieldnames = _api_fieldnames
@@ -56,9 +56,9 @@ class VerificationResponse(Entity):
     _renames_to_api = {}
 
     def __init__(
-        self, _client=None, message=None, successful=None,
+        self, _client=None, key=None, kid=None,
     ):
-        """Creates a local `VerificationResponse` instance
+        """Creates a local `IdentityProviderPublicKey` instance
 
         Parameters can be supplied on creation of the instance or given by
         setting the properties on the instance after creation.
@@ -67,11 +67,10 @@ class VerificationResponse(Entity):
         on the entity. For details on when they are required please see the
         documentation for the setter method.
 
-        :param message: Provides details in case of failure.
-        :type message: str
-        :param successful: Indicates whether the certificate issuer was verified
-            successfully.
-        :type successful: bool
+        :param key: The public key.
+        :type key: str
+        :param kid: The public key ID.
+        :type kid: str
         """
 
         super().__init__(_client=_client)
@@ -79,25 +78,23 @@ class VerificationResponse(Entity):
         # inline imports for avoiding circular references and bulk imports
 
         # fields
-        self._message = fields.StringField(value=message)
-        self._successful = fields.BooleanField(value=successful)
+        self._key = fields.StringField(value=key)
+        self._kid = fields.StringField(value=kid)
 
     @property
-    def message(self):
-        """Provides details in case of failure.
-        
-        api example: 'message describing the verification failure'
+    def key(self):
+        """The public key.
         
         :rtype: str
         """
 
-        return self._message.value
+        return self._key.value
 
     @property
-    def successful(self):
-        """Indicates whether the certificate issuer was verified successfully.
+    def kid(self):
+        """The public key ID.
         
-        :rtype: bool
+        :rtype: str
         """
 
-        return self._successful.value
+        return self._kid.value

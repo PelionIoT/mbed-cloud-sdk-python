@@ -252,7 +252,7 @@ class DeviceEnrollment(Entity):
             method="delete",
             path="/v3/device-enrollments/{id}",
             content_type="application/json",
-            path_params={"id": self._id.to_api()},
+            path_params={"id": self._id.to_api(),},
             unpack=self,
         )
 
@@ -359,6 +359,6 @@ class DeviceEnrollment(Entity):
             method="get",
             path="/v3/device-enrollments/{id}",
             content_type="application/json",
-            path_params={"id": self._id.to_api()},
+            path_params={"id": self._id.to_api(),},
             unpack=self,
         )

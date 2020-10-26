@@ -55,6 +55,7 @@ class UserInvitation(Entity):
         "created_at",
         "email",
         "expiration",
+        "groups",
         "id",
         "login_profiles",
         "updated_at",
@@ -77,6 +78,7 @@ class UserInvitation(Entity):
         created_at=None,
         email=None,
         expiration=None,
+        groups=None,
         id=None,
         login_profiles=None,
         updated_at=None,
@@ -99,6 +101,8 @@ class UserInvitation(Entity):
         :type email: str
         :param expiration: Invitation expiration as UTC time RFC3339.
         :type expiration: datetime
+        :param groups: A list of IDs of the groups the user is invited to.
+        :type groups: list
         :param id: (Required) The ID of the invitation.
         :type id: str
         :param login_profiles: A list of login profiles for the user. Specified as the identity
@@ -121,6 +125,7 @@ class UserInvitation(Entity):
         self._created_at = fields.DateTimeField(value=created_at)
         self._email = fields.StringField(value=email)
         self._expiration = fields.DateTimeField(value=expiration)
+        self._groups = fields.ListField(value=groups)
         self._id = fields.StringField(value=id)
         self._login_profiles = fields.ListField(value=login_profiles, entity=LoginProfile)
         self._updated_at = fields.DateTimeField(value=updated_at)
@@ -181,6 +186,25 @@ class UserInvitation(Entity):
         """
 
         return self._expiration.value
+
+    @property
+    def groups(self):
+        """A list of IDs of the groups the user is invited to.
+        
+        :rtype: list
+        """
+
+        return self._groups.value
+
+    @groups.setter
+    def groups(self, value):
+        """Set value of `groups`
+
+        :param value: value to set
+        :type value: list
+        """
+
+        self._groups.set(value)
 
     @property
     def id(self):
@@ -263,6 +287,8 @@ class UserInvitation(Entity):
         body_params = {}
         if self._email.value_set:
             body_params["email"] = self._email.to_api()
+        if self._groups.value_set:
+            body_params["groups"] = self._groups.to_api()
         if self._login_profiles.value_set:
             body_params["login_profiles"] = self._login_profiles.to_api()
         # Method parameters are unconditionally sent even if set to None
@@ -288,12 +314,12 @@ class UserInvitation(Entity):
             method="delete",
             path="/v3/user-invitations/{invitation_id}",
             content_type="application/json",
-            path_params={"invitation_id": self._id.to_api()},
+            path_params={"invitation_id": self._id.to_api(),},
             unpack=self,
         )
 
     def list(self, filter=None, order="ASC", max_results=None, page_size=50, include=None):
-        """Get the details of all user invitations.
+        """Get user invitations.
 
         `REST API Documentation <https://os.mbed.com/search/?q=Service+API+References+/v3/user-invitations>`_.
 
@@ -368,7 +394,7 @@ class UserInvitation(Entity):
         )
 
     def _paginate_list(self, after=None, filter=None, order="ASC", limit=50, include=None):
-        """Get the details of all user invitations.
+        """Get user invitations.
         
         :param after: The entity ID to fetch after the given one.
         :type after: str
@@ -417,6 +443,6 @@ class UserInvitation(Entity):
             method="get",
             path="/v3/user-invitations/{invitation_id}",
             content_type="application/json",
-            path_params={"invitation_id": self._id.to_api()},
+            path_params={"invitation_id": self._id.to_api(),},
             unpack=self,
         )

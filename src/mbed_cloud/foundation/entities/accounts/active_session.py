@@ -44,7 +44,7 @@ class ActiveSession(Entity):
     """Represents the `ActiveSession` entity in Pelion Device Management"""
 
     # List of fields that are serialised between the API and SDK
-    _api_fieldnames = ["account_id", "ip_address", "login_time", "reference_token", "user_agent"]
+    _api_fieldnames = ["account_id", "created_at", "ip_address", "login_time", "reference_token", "user_agent"]
 
     # List of fields that are available for the user of the SDK
     _sdk_fieldnames = _api_fieldnames
@@ -56,7 +56,14 @@ class ActiveSession(Entity):
     _renames_to_api = {}
 
     def __init__(
-        self, _client=None, account_id=None, ip_address=None, login_time=None, reference_token=None, user_agent=None
+        self,
+        _client=None,
+        account_id=None,
+        created_at=None,
+        ip_address=None,
+        login_time=None,
+        reference_token=None,
+        user_agent=None,
     ):
         """Creates a local `ActiveSession` instance
 
@@ -69,6 +76,8 @@ class ActiveSession(Entity):
 
         :param account_id: The UUID of the account.
         :type account_id: str
+        :param created_at: Creation UTC time RFC3339.
+        :type created_at: datetime
         :param ip_address: IP address of the client.
         :type ip_address: str
         :param login_time: The login time of the user.
@@ -85,6 +94,7 @@ class ActiveSession(Entity):
 
         # fields
         self._account_id = fields.StringField(value=account_id)
+        self._created_at = fields.DateTimeField(value=created_at)
         self._ip_address = fields.StringField(value=ip_address)
         self._login_time = fields.DateTimeField(value=login_time)
         self._reference_token = fields.StringField(value=reference_token)
@@ -100,6 +110,17 @@ class ActiveSession(Entity):
         """
 
         return self._account_id.value
+
+    @property
+    def created_at(self):
+        """Creation UTC time RFC3339.
+        
+        api example: '2018-02-13T09:35:20Z'
+        
+        :rtype: datetime
+        """
+
+        return self._created_at.value
 
     @property
     def ip_address(self):

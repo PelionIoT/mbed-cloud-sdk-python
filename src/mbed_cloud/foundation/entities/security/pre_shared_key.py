@@ -61,7 +61,9 @@ class PreSharedKey(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(self, _client=None, created_at=None, endpoint_name=None, id=None):
+    def __init__(
+        self, _client=None, created_at=None, endpoint_name=None, id=None,
+    ):
         """Creates a local `PreSharedKey` instance
 
         Parameters can be supplied on creation of the instance or given by
@@ -193,7 +195,7 @@ class PreSharedKey(Entity):
             method="delete",
             path="/v2/device-shared-keys/{endpoint_name}",
             content_type="application/json",
-            path_params={"endpoint_name": self._id.to_api()},
+            path_params={"endpoint_name": self._id.to_api(),},
             unpack=self,
         )
 
@@ -299,6 +301,6 @@ class PreSharedKey(Entity):
             method="get",
             path="/v2/device-shared-keys/{endpoint_name}",
             content_type="application/json",
-            path_params={"endpoint_name": self._id.to_api()},
+            path_params={"endpoint_name": self._id.to_api(),},
             unpack=self,
         )

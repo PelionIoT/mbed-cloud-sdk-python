@@ -59,7 +59,9 @@ class ServerCredentials(Entity):
     # Renames to be performed by the SDK when sending data {<SDK Field Name>: <API Field Name>}
     _renames_to_api = {}
 
-    def __init__(self, _client=None, created_at=None, id=None, server_certificate=None, server_uri=None):
+    def __init__(
+        self, _client=None, created_at=None, id=None, server_certificate=None, server_uri=None,
+    ):
         """Creates a local `ServerCredentials` instance
 
         Parameters can be supplied on creation of the instance or given by
@@ -136,7 +138,7 @@ class ServerCredentials(Entity):
         """
 
         return self._client.call_api(
-            method="get", path="/v3/server-credentials/bootstrap", content_type="application/json", unpack=self
+            method="get", path="/v3/server-credentials/bootstrap", content_type="application/json", unpack=self,
         )
 
     def get_lwm2m(self):
@@ -148,5 +150,5 @@ class ServerCredentials(Entity):
         """
 
         return self._client.call_api(
-            method="get", path="/v3/server-credentials/lwm2m", content_type="application/json", unpack=self
+            method="get", path="/v3/server-credentials/lwm2m", content_type="application/json", unpack=self,
         )

@@ -12,8 +12,12 @@ This module contains all Enums used by Foundation Entities in the DeviceUpdate c
 - :class:`CampaignStatisticsIdEnum`
 - :class:`CampaignStatisticsSummaryStatusEnum`
 - :class:`FirmwareImageOrderEnum`
+- :class:`FirmwareManifestDeliveredPayloadTypeEnum`
 - :class:`FirmwareManifestOrderEnum`
+- :class:`FirmwareManifestSchemaVersionEnum`
 - :class:`UpdateCampaignOrderEnum`
+- :class:`UpdateCampaignPhaseEnum`
+- :class:`UpdateCampaignStrategyEnum`
 
 ------------
 
@@ -25,8 +29,12 @@ How to import Enums:
     from mbed_cloud.foundation.enums import CampaignStatisticsIdEnum
     from mbed_cloud.foundation.enums import CampaignStatisticsSummaryStatusEnum
     from mbed_cloud.foundation.enums import FirmwareImageOrderEnum
+    from mbed_cloud.foundation.enums import FirmwareManifestDeliveredPayloadTypeEnum
     from mbed_cloud.foundation.enums import FirmwareManifestOrderEnum
+    from mbed_cloud.foundation.enums import FirmwareManifestSchemaVersionEnum
     from mbed_cloud.foundation.enums import UpdateCampaignOrderEnum
+    from mbed_cloud.foundation.enums import UpdateCampaignPhaseEnum
+    from mbed_cloud.foundation.enums import UpdateCampaignStrategyEnum
 
 ------------
 """
@@ -83,7 +91,7 @@ class CampaignStatisticsIdEnum(BaseEnum):
     SKIPPED = "skipped"
     SUCCESS = "success"
 
-    values = frozenset(("fail", "info", "skipped", "success"))
+    values = frozenset(("fail", "info", "skipped", "success",))
 
 
 class CampaignStatisticsSummaryStatusEnum(BaseEnum):
@@ -101,7 +109,7 @@ class CampaignStatisticsSummaryStatusEnum(BaseEnum):
     SKIPPED = "SKIPPED"
     SUCCESS = "SUCCESS"
 
-    values = frozenset(("FAIL", "INFO", "SKIPPED", "SUCCESS"))
+    values = frozenset(("FAIL", "INFO", "SKIPPED", "SUCCESS",))
 
 
 class FirmwareImageOrderEnum(BaseEnum):
@@ -117,7 +125,23 @@ class FirmwareImageOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
+
+
+class FirmwareManifestDeliveredPayloadTypeEnum(BaseEnum):
+    """Represents expected values of `FirmwareManifestDeliveredPayloadTypeEnum`
+
+    This is used by Entities in the "device_update" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    DELTA = "delta"
+    FULL = "full"
+
+    values = frozenset(("delta", "full",))
 
 
 class FirmwareManifestOrderEnum(BaseEnum):
@@ -133,7 +157,23 @@ class FirmwareManifestOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
+
+
+class FirmwareManifestSchemaVersionEnum(BaseEnum):
+    """Represents expected values of `FirmwareManifestSchemaVersionEnum`
+
+    This is used by Entities in the "device_update" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    1 = "1"
+    3 = "3"
+
+    values = frozenset(("1", "3",))
 
 
 class UpdateCampaignOrderEnum(BaseEnum):
@@ -149,4 +189,45 @@ class UpdateCampaignOrderEnum(BaseEnum):
     ASC = "ASC"
     DESC = "DESC"
 
-    values = frozenset(("ASC", "DESC"))
+    values = frozenset(("ASC", "DESC",))
+
+
+class UpdateCampaignPhaseEnum(BaseEnum):
+    """Represents expected values of `UpdateCampaignPhaseEnum`
+
+    This is used by Entities in the "device_update" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    ACTIVE = "active"
+    ARCHIVED = "archived"
+    AWAITING_APPROVAL = "awaiting_approval"
+    DELETED = "deleted"
+    DRAFT = "draft"
+    STARTING = "starting"
+    STOPPED = "stopped"
+    STOPPING = "stopping"
+    TIMED = "timed"
+
+    values = frozenset(
+        ("active", "archived", "awaiting_approval", "deleted", "draft", "starting", "stopped", "stopping", "timed",)
+    )
+
+
+class UpdateCampaignStrategyEnum(BaseEnum):
+    """Represents expected values of `UpdateCampaignStrategyEnum`
+
+    This is used by Entities in the "device_update" category.
+
+    .. note::
+        If new values are added to the enum in the API they will be passed through unchanged by the SDK,
+        but will not be on this list. If this occurs please update the SDK to the most recent version.
+    """
+
+    CONTINUOUS = "continuous"
+    ONE - SHOT = "one-shot"
+
+    values = frozenset(("continuous", "one-shot",))
