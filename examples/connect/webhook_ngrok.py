@@ -115,7 +115,7 @@ def webhook_handler(request):
 
     Passes the raw http body directly to mbed sdk, to notify that a webhook was received
     """
-    body = request.stream.read().decode('utf8')
+    body = request.stream.read(request.content_length or 0).decode('utf8')
     print('webhook handler saw:', body)
     api.notify_webhook_received(payload=body)
 
