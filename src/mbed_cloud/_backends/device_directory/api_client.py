@@ -85,8 +85,9 @@ class ApiClient(object):
         ########### End Change
 
     def __del__(self):
-        self.pool.close()
-        self.pool.join()
+        #self.pool.join()
+        self.pool.terminate()
+
 
     @property
     def user_agent(self):
